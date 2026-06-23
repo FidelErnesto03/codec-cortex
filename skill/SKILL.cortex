@@ -1,0 +1,234 @@
+<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
+<!-- SPDX-License-Identifier: MIT -->
+
+# -- $0: UNIVERSAL GLOSSARY --
+# Sigil   | Name         | Expansion   | Risk | Description
+# --------+--------------+-------------+------+----------------------------------------------
+# IDN     | identity     | attrs       | B    | Skill identity
+# DOM     | domain       | attrs       | B    | Application scope
+# KNW     | knowledge    | attrs       | B    | Tools and capabilities
+# AXM     | axiom        | cuerpo      | H    | Core principle (immutable)
+# CNST    | constraint   | attrs       | M    | Operational limit
+# OBJ     | objective    | attrs       | B    | Active goal
+# WRK     | work         | attrs       | B    | Current execution state
+# FCS     | focus        | attrs       | H    | Attention anchor (critical)
+# REF     | reference    | attrs       | B    | Link to documentation
+# SES     | session      | attrs       | B    | Compressed episode (I→O→R)
+# LNG     | lesson       | contenido   | M    | Learned heuristic
+# HDL     | handler      | attrs-pos   | M    | ORDER: command|description
+# !       | rule         | cuerpo      | H    | Mandatory operational rule
+# ERR     | error        | attrs       | M    | Known error + solution
+# DIAG    | diagram      | bloque      | M    | PUML structural diagram (verbatim, never modified)
+# →       | transition   | relación    | -    | Causal relation
+# PFL     | pitfall      | contenido   | M    | Domain-known error
+# TAG     | tag          | attrs       | B    | Classification metadata
+# DESC    | description  | contenido   | B    | Semantic description
+# DEP     | dependency   | attrs       | M    | Module dependency
+#
+# -- $0: MICRO-GLOSSARY (structural tags in ENGLISH) --
+# Token | Expansion (English)    | Prefix | Semantic family
+# d1    | decode                 | d_     | actions
+# d2    | detect                 | d_     | actions
+# d3    | decay                  | d_     | actions  
+# e1    | encode                 | e_     | encode/export
+# v1    | validate               | v_     | validation
+# a1    | file                   | a_     | files
+# a2    | files                  | a_     | files
+# s1    | sigil                  | s_     | structure
+# s2    | section                | s_     | structure
+# h1    | handler                | h_     | handlers
+# x1    | extract                | x_     | extract/export
+# x2    | list                   | x_     | extract/export
+# m1    | modify                 | m_     | mutation
+# m2    | add                    | m_     | mutation
+# r1    | remove                 | r_     | removal
+# p1    | promote                | p_     | promotion
+# f1    | format                 | f_     | format
+# t1    | structure              | t_     | terms
+# c1    | .cortex                | c_     | format
+#
+# DELIMITER RULES: tokens expand ONLY when delimited by space, |, ,, {, }, \n, ^start, $end.
+# NEVER expand inside words (param_d1 stays param_d1) or after _ or -.
+
+# -- $1: IDENTITY --
+IDN:skill{name:"universal-codec-cortex", version:"1.1.0", author:"Fidel + alfred", license:"MIT"}
+DOM:application{area:"LLM agent cognitive memory management", format:c1, ecosystems:[hermes,claude,codex,qwen], language_structural:"EN", language_semantic:"ES"}
+
+AXM:principle{Structure over Semantics. Glossary $0 dictates syntax, not meaning. PUML diagrams are native compression}
+CNST:limits{no_llm_in_codec:true, no_external_dependencies:true, determinism:strict, portability:mandatory}
+
+# -- ADOPTION DIRECTIVE (first action when skill is loaded) --
+!adopt_cortex_now{Desde este momento, TODA la memoria persistente del agente usa formato c1. Migrar memoria existente con e1(). Entry point: AGENT.c1. Cerebro local: brain.c1 — estado operativo consolidado con balance aureo. Comunicacion: HCORTEX. Verificar con v1()}
+CNST:cortex_native{memory_format:c1, migration:true, entry:"AGENT.c1", local_brain:"brain.c1", output:"HCORTEX", verify:"v1"}
+
+KNW:capabilities{operations:[d1,e1,v1,m2,m1,r1,x1,x2,p1,d2,d3], compression:[collapse_pos,micro_glossary], output:HCORTEX}
+
+# -- $2: CONTEXT --
+REF:spec{PATH:skill/SKILL.md}
+REF:foundations{PATH:docs/es/specs/fundamentos.md}
+REF:algorithm{PATH:docs/es/specs/algoritmo.md}
+REF:adoption{PATH:docs/es/specs/adopcion.md}
+TAG:docs{foundations:"Ontology, axioms, maturation, HCORTEX, advanced compression", algorithm:"Equations, FSM, parsing, PUML verbatim, maturity engine", adoption:"Agent integration, CAG vs RAG, benchmarks", mcp:"MCP server design reference"}
+
+# -- $3: HANDLERS (attrs-pos: command|description) --
+HDL:d1{c1 d1 <a1> | d1 c1 to YAML-Edit for developers}
+HDL:hcortex{c1 d1 --f1 hcortex <a1> | d1 c1 to HCORTEX markdown for humans (tables, lists, K/V, PUML)}
+HDL:e1{c1 e1 <a1> | e1 context to c1 compressed format}
+HDL:v1{c1 v1 <a1> | v1 structural integrity and glossary of c1}
+HDL:patch_m2{c1 patch_m2 <a1> --s2 N --s1 S --name n --value v | m2 cognitive entry to s2 (auto-creates s2 if missing)}
+HDL:patch_r1{c1 patch_r1 <a1> --s1 S --name n | r1 entry by s1+name from ALL s2}
+HDL:patch_m1{c1 patch_m1 <a1> --s1 S --name n --value v | m1 value of existing entry}
+HDL:glossary_m2{c1 glossary_m2 <a1> --s1 S --name n --expansion exp | m2 s1 to $0 (fails if duplicate)}
+HDL:glossary_r1{c1 glossary_r1 <a1> --s1 S | r1 s1 from $0}
+HDL:glossary_m1{c1 glossary_m1 <a1> --s1 S --expansion exp | m1 s1 definition in $0}
+HDL:diagram_x1{c1 diagram_x1 <a1> --name N | x1 PUML diagram from c1 to .puml a1}
+HDL:diagram_x2{c1 diagram_x2 <a1> | x2 available diagrams in c1}
+HDL:diagram_v1{c1 diagram_v1 <a1> --name N | v1 PUML syntax of a diagram}
+HDL:p1{c1 p1 <a1> --s1 S --name N | p1 SES or LNG → KNW (requires human confirmation)}
+HDL:d2{c1 d2 <a1> | d2 recurrent patterns in SES and LNG}
+HDL:d3{c1 d3 <a1> | d3 KNW entries unused >30 days}
+HDL:api{import codec_cortex | Python API (zero external dependencies)}
+HDL:gate_exit{c1 d1 --f1 hcortex <a1> | GATE: decode all active c1 to HCORTEX markdown. Remove brain.c1 and SKILL.c1. AGENT.md remains as final record}
+
+# -- $4: RULES --
+!frontmatter{name:"universal-codec-cortex", description_starts:"Use when", version_required:true}
+!trigger{Section When to Use with activation triggers and contraindications}
+!tables{Tables as dominant format >70%. If 3+ items share t1 → table}
+!self_contained{Skill requires NO external a2 to operate. Fully independent}
+!determinism{Every instruction = exact executable command. No "configure", "verify", "run" without parameters}
+!checklist{Verification Checklist at end of skill with verifiable items}
+!portability{No agent-specific functions. Works with read_file() + direct instructions. Hermes, Claude, Codex, Qwen}
+!procedural{Skill is procedural. Contains zero generative prompts. Never asks LLM to infer, deduce, or complete}
+!diagrams_over_text{If it can be PUML, it IS PUML. Every flow of 3+ steps requires a diagram}
+!blocks{Each block = ## header. Each block declares its tools. One block = one skill unit}
+!hcortex_build{Skill self-built following HCORTEX rules: tables > lists > K/V > diagrams > prose. Prose ONLY in Overview (max 5 lines)}
+!guard{FCS and OBJ must be explicitly present before any agent action}
+!diag_preserve{DIAG blocks are verbatim. Never modified by codec operations. Companion sigils (KNW,TAG,DESC) provide interpretive context}
+!maturity{Knowledge matures by USER decision, not counters. p1 requires human confirmation. detect_recurrence only asks, never decides}
+!collapse{HDL uses attrs-pos: command|description. Order defined in $0 glossary}
+!micro{$0 defines micro-glossary with semantic naming patterns (d_, v_, a_, s_, h_, x_, m_, r_, p_, c_, f_, t_). Expand ONLY delimited tokens}
+!english{Structural tags, h1, tokens in ENGLISH. Semantic content (rules, axioms, lessons) in domain language. HCORTEX translates to user language}
+!delete_rule{Memory deletion = demotion by one cognitive level: KNW → SES → archive → gone. Never skip levels. Never complete wipe from KNW}
+!gate_exit{Al desadoptar CODEC-CORTEX: d1 --f1 hcortex sobre todos los c1 activos. Guardar como .md HCORTEX. Eliminar brain.c1 y SKILL.c1. AGENT.md permanece como registro final. El agente recupera su memoria en formato legible sin dependencia del protocolo}
+
+# -- $5: PITFALLS --
+PFL:braces{error:"Unescaped { or } inside values", solution:"_extract_braces() respects \{ and \}. Raise BraceError with line context"}
+PFL:compare{error:"verify compares strings instead of (s1, name, json) tuples", solution:"Deep compare: (s1, name, json.dumps(value, sort_keys=True))"}
+PFL:sections{error:"Parser rejects 2, $2, 2_NAME as equivalent s2 IDs", solution:"Normalize s2 ID: extract number only. Accept all variants"}
+PFL:diag_syntax{error:"@startuml block has invalid PUML syntax", solution:"Run diagram_v1 before embedding DIAG in c1"}
+PFL:diag_modify{error:"Codec reformats or reorders DIAG content during e1/d1", solution:"DIAG is verbatim block type. Raw content preserved bit-for-bit"}
+PFL:ref_directory{error:"REF with PATH pointing to directory instead of c1 a1", solution:"REF:name{PATH:path/to/a1.c1} — always point to a specific c1 a1"}
+PFL:vague{error:"Instruction says 'configure' without exact command", solution:"Every step must be an executable command with all parameters"}
+PFL:promote_auto{error:"p1 executed without asking user", solution:"Require explicit human confirmation. Document --force only for approved headless mode"}
+PFL:token_inside{error:"Micro-token d1 expanded inside word 'param_d1'", solution:"Expand ONLY delimited tokens. Inside words = no expansion. After _ or - = no expansion"}
+PFL:attrs_count{error:"HDL entry has 3 pipe-separated fields but $0 declares 2", solution:"Degrade to explicit attrs format or raise BraceError"}
+PFL:mixed_language{error:"Structural s1 in non-English inside c1", solution:"Tags, h1, tokens in English. Semantic content (AXM, !) in domain language. HCORTEX for user output"}
+
+# -- $6: STRUCTURAL DIAGRAMS --
+DIAG:pipeline{
+@startuml
+title CODEC-CORTEX Pipeline
+
+rectangle ".cortex" as c1r
+rectangle "AST" as ast
+rectangle "YAML-Edit\ndev" as yaml
+rectangle "PUML" as puml
+rectangle "HCORTEX\n(human)" as hc
+rectangle "User" as user
+
+c1r --> ast : d1()
+ast --> yaml : ast_a_yaml_edit()
+ast --> puml : ast_a_puml()
+ast --> hc : d1(f1=hcortex)
+yaml --> ast : e1()
+ast --> c1r : ast_a_cortex()
+c1r --> ast : v1() deep-compare
+hc --> user : tables | lists\n| K/V | diagrams
+note right of hc : Output format.\nNo prose.
+@enduml
+}
+KNW:pipeline{stages:[d1,e1,v1,hcortex], output:"HCORTEX markdown", guarantee:"100% reversible"}
+
+DIAG:fsm_memory{
+@startuml
+title Memory Lifecycle FSM
+
+state IDLE : Inactive
+state INGEST : Ingesting
+state COMPACT : Compressing
+state STORED : Valid c1
+state ACTIVE : AST loaded
+state WRK : Working memory
+
+[*] --> IDLE
+IDLE --> INGEST : ingest()
+INGEST --> COMPACT : compress()
+COMPACT --> STORED : v1() OK
+STORED --> ACTIVE : d1()
+ACTIVE --> WRK : extract FCS+OBJ
+WRK --> COMPACT : overflow >70%
+note right : Guard: FCS+OBJ required
+@enduml
+}
+KNW:fsm_memory{states:6, transitions:6, guard:"FCS and OBJ must be present"}
+
+DIAG:context_management{
+@startuml
+title Context Management Cycle
+
+start
+:CORTEX context active\n(c1 loaded);
+
+repeat
+  :**Operate**\nUse context as\nworking memory;
+
+  if (WRK >70% window?) then (yes)
+    :**Consolidate**\ncompress()\nWRK → SES + LNG;
+  endif
+
+  :**Verify**\nc1 v1;
+
+  if (v1 OK?) then (yes)
+    :Structurally healthy;
+  else (no)
+    :Repair; Re-v1;
+  endif
+
+  :**Detect**\nc1 d2;
+
+  if (Recurrent patterns?) then (yes)
+    :**Consult**\nask_user()\nPromote to KNW?;
+    if (User confirms?) then (yes)
+      :**Mature**\np1\nSES/LNG → KNW;
+    endif
+  endif
+
+  :**Decay**\nc1 d3;
+
+  if (KNW >30 days unused?) then (yes)
+    :KNW → SES;
+  endif
+
+  :**Audit**\nc1 diagram_x2;
+  note right: Verify PUML integrity
+
+  if (User requests delete?) then (yes)
+    :**Delete** (demote 1 level)\nKNW → SES → archive → gone;
+    note right: Never skip levels.\nRespect hierarchy.
+  endif
+
+  if (User requests\nde-adopt CODEC-CORTEX?) then (yes)
+    :**GATE Exit**\nd1 --f1 hcortex on\nall active c1;\nSave as .md HCORTEX;\nRemove brain.c1, SKILL.c1;\nAGENT.md remains as\nfinal record;
+    note right: Agent recovers\nnative memory\nin readable format.
+    stop
+  endif
+
+repeat while (context active)
+stop
+@enduml
+}
+KNW:context_management{phases:9, scope:"any CORTEX context", cycle:continuous, delete:"demote by level, never complete wipe from KNW"}
+
+# -- $7: COMPRESSION METRICS --
+SES:compression_v1{input:"SKILL.md 27K bytes", output:"SKILL.c1 9K bytes", ratio_bytes:71, ratio_lines:68}
+LNG:techniques{collapse_pos:"15-20% token reduction in handler sections by removing redundant keys", micro_glossary:"30-40% additional reduction by tokenizing frequent terms", combined:"40-52% total reduction when both techniques applied", delimiter_rule:"tokens expand only on delimiters, not inside words"}

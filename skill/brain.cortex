@@ -1,0 +1,107 @@
+<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
+<!-- SPDX-License-Identifier: MIT -->
+
+# -- $0: GLOSSARY --
+# Sigil   | Name         | Expansion   | Risk | Description
+# --------+--------------+-------------+------+----------------------------------------------
+# IDN     | identity     | attrs       | B    | Agent identity snapshot
+# FCS     | focus        | attrs       | H    | Current attention anchor
+# OBJ     | objective    | attrs       | B    | Active mission
+# WRK     | work         | attrs       | B    | Real-time working state
+# STP     | step         | contenido   | M    | Next immediate action
+# SES     | session      | attrs       | B    | Recent compressed episodes
+# LNG     | lesson       | contenido   | M    | Active learned heuristics
+# KNW     | knowledge    | attrs       | B    | Frequently-used knowledge
+# CNST    | constraint   | attrs       | M    | Active operational limits
+# DIAG    | diagram      | bloque      | M    | Active structural diagrams
+# REF     | reference    | attrs       | B    | Active context references
+# AUD     | audit        | contenido   | M    | Last phi-balance check
+
+# -- $0: MICRO-GLOSSARY --
+# Token | Expansion
+# lc    | local context
+# ss    | session state
+# op    | operation
+# st    | state
+# pr    | progress
+# nx    | next action
+# ts    | timestamp
+
+# -- $1: IDENTITY (volatile snapshot) --
+IDN:agent{name:local, role:active, session_start:now}
+FCS:focus{what:"current_task", priority:high}
+OBJ:mission{goal:"active_goal", status:in_progress}
+
+# -- $2: OPERATIONAL STATE (real-time working memory) --
+WRK:state{context:"current_context", tokens_used:0, tokens_max:4096, phi_balance:0.98}
+STP:next{action:"pending_action", tool:"active_tool", params:"..."}
+CNST:limits{tokens:4096, session_timeout:3600, max_sessions:10}
+
+# -- $3: ACTIVE SESSIONS (compact episodic memory) --
+SES:last{N:{input:"last_request", output:"last_response", outcome:"ok", ts:"now"}}
+SES:recent{N:{summary:"compressed context from last 3 interactions", tokens_saved:1800}}
+SES:phi_check{balance:"golden ratio audit: $0=77t(1.9%) $1=155t(3.8%) $2=232t(5.7%) $3=386t(9.4%) $4=618t(15.1%) $5=1005t(24.5%) $6=1623t(39.6%)", deviation:2.1}
+
+# -- $4: ACTIVE LESSONS & KNOWLEDGE (what the agent is using NOW) --
+LNG:recent{lesson:"What worked/failed in last operations", applied_count:3}
+LNG:pattern{detected:"Recurrent workflow identified", status:"pending_user_confirm"}
+KNW:active{tools:["current_tool_1","current_tool_2"], domains:["active_domain"], confidence:high}
+KNW:context{references:["file_1","file_2","config_1"], state:"loaded"}
+
+# -- $5: CONTEXTUAL REFERENCES (what the agent is pointing to) --
+REF:skill{PATH:SKILL.cortex, purpose:"operational_capabilities"}
+REF:agent{PATH:AGENT.cortex, purpose:"persistent_identity"}
+REF:current{context:"active_project_or_task", scope:"current_session"}
+DIAG:current_state{
+@startuml
+title Current Operational State
+
+rectangle "Working Memory" as wm
+rectangle "Active Sessions" as as
+rectangle "Knowledge in Use" as ku
+rectangle "References" as ref
+
+wm -> as : compress when full
+as -> ku : promote patterns
+ku -> ref : link context
+
+note right of wm
+  Local brain state.
+  Updated every interaction.
+  Golden ratio balanced.
+end note
+@enduml
+}
+TAG:brain{type:"local", persistence:"file", update_frequency:"per_interaction", purpose:"operational_context_preservation"}
+
+# -- $6: NETWORK (biomimetic branching) --
+DIAG:neural_branching{
+@startuml
+title Local Brain Growth Pattern (Fib)
+
+rectangle "Root\nFn=1" as r1
+rectangle "Fn=2" as r2
+rectangle "Fn=3" as r3
+rectangle "Fn=5" as r5
+rectangle "Fn=8" as r8
+
+r1 --> r2
+r1 --> r3
+r2 --> r5
+r3 --> r5
+r3 --> r8
+
+note bottom
+  Neural branching follows
+  Fibonacci. Each branch = 
+  active memory allocation.
+  Growth respects phi.
+end note
+@enduml
+}
+KNW:neural_growth{principle:"Local brain branches follow Fibonacci growth", distribution:"1,2,3,5,8 per session depth", max_depth:5}
+
+# -- AUDIT TRAIL --
+AUD:last_balance{check_time:"now", phi_deviation:2.1, action:"within_tolerance", next_check:"+5_minutes"}
+AUD:compression{last_run:"now", tokens_before:12000, tokens_after:1800, ratio:85, sessions_compressed:3}
+AUD:gate_exit{status:"not_requested", protocol:"decode --format hcortex all active .c1 → .md HCORTEX, remove brain.c1 and SKILL.c1, AGENT.md remains as final record"}

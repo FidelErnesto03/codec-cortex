@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: CODEC-CORTEX — Cognitive Operational Retrieval & Execution Template
+message: "If you use this protocol, please cite it as described below."
+type: software
+authors:
+  - given-names: Fidel Ernesto
+    family-names: Lozada A.
+    email: fidelernesto@gmail.com
+    affiliation: Independent Researcher
+    orcid: ''
+  - given-names: alfred
+    family-names: ''
+    email: ''
+    affiliation: Tactical Implementation Lead — DIALECT Governance & Protocol Engineering
+repository-code: 'https://github.com/FidelErnesto03/codec-cortex'
+url: 'https://github.com/FidelErnesto03/codec-cortex'
+abstract: >-
+  Deterministic structural compression protocol for LLM agent cognitive memory.
+  85% fewer tokens. Zero LLM in the compilation cycle. 100% reversible.
+  Includes universal skill specification, local brain with golden ratio distribution,
+  and HCORTEX human-readable output protocol.
+keywords:
+  - cortex
+  - codec
+  - llm
+  - agent
+  - memory
+  - compression
+  - cognitive
+  - protocol
+  - deterministic
+  - slm
+license: MIT
+version: 0.1.0
+date-released: '2026-06-23'

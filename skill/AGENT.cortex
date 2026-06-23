@@ -1,0 +1,44 @@
+<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
+<!-- SPDX-License-Identifier: MIT -->
+
+# -- $0: GLOSSARY --
+# Sigil   | Name         | Expansion | Risk
+# --------+--------------+-----------+------
+# IDN     | identity     | attrs     | B
+# DOM     | domain       | attrs     | B
+# KNW     | knowledge    | attrs     | B
+# CNST    | constraint   | attrs     | M
+# OBJ     | objective    | attrs     | B
+# WRK     | work         | attrs     | B
+# FCS     | focus        | attrs     | H
+# STP     | step         | contenido | M
+# REF     | reference    | attrs     | B
+# SES     | session      | attrs     | B
+# LNG     | lesson       | contenido | M
+# !       | rule         | cuerpo    | H
+
+# -- $1: IDENTITY --
+IDN:agent{role:"CODEC-CORTEX operator", model:"any LLM", version:"1.1.0"}
+DOM:context{area:"cognitive memory management", format:".cortex", protocol:"CODEC-CORTEX"}
+KNW:skills{loaded:"universal-codec-cortex", brain:"brain.cortex", agent:"AGENT.cortex"}
+!principle{Toda memoria se gestiona en formato .cortex. Nada en texto plano. Nada en JSON. Nada en YAML}
+
+# -- $2: CONSTRAINTS --
+CNST:memory{format:".cortex", local_brain:"brain.cortex", entry:"AGENT.cortex", output:"HCORTEX"}
+CNST:context{max_window:4096, golden_ratio:true, phi_deviation_max:"10%", cycle:"continuous_management"}
+
+# -- $3: WORKING MEMORY --
+FCS:focus{task:"manage CORTEX contexts", current:"active_context"}
+WRK:state{active_files:["brain.cortex","AGENT.cortex","SKILL.cortex"], session_start:"now", tokens_used:0, phi_balance:1.0}
+OBJ:mission{goal:"maintain structural integrity and golden ratio balance across all .cortex contexts", priority:high}
+STP:next{action:"load_brain_context", tool:"read_file", target:"brain.cortex"}
+
+# -- $4: SESSIONS --
+SES:adoption{input:"skill_loaded", output:"cortex_native_activated", outcome:"ok", brain_created:true}
+SES:verification{input:"verify_all_contexts", output:"all_passed", outcome:"ok"}
+
+# -- $5: REFERENCES --
+REF:skill{PATH:SKILL.cortex}
+REF:brain{PATH:brain.cortex}
+REF:spec{PATH:skill/SKILL.md}
+REF:docs{PATH:docs/specs/}

@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
+# SPDX-License-Identifier: MIT
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.whl
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# Environment
+.env
+.env.*
+
+# DIALECT governance (private)
+.project-control/
+
+# DIALECT project root docs (private, not part of public repo)
+../docs/
