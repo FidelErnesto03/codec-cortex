@@ -437,7 +437,7 @@ When context is reduced, the agent must:
 
 ---
 
-## Minimum Field Contracts (RE-004)
+## Minimum Field Contracts
 
 Each critical sigil declares mandatory fields. Additional fields are always permitted.
 
@@ -451,7 +451,7 @@ Each critical sigil declares mandatory fields. Additional fields are always perm
 
 ---
 
-## Survive Attribute (RE-004)
+## Survive Attribute
 
 Four levels determining which `.cortex` entries persist under context reduction.
 
@@ -464,7 +464,7 @@ Four levels determining which `.cortex` entries persist under context reduction.
 
 ---
 
-## Priority Pack P0-P5 (RE-005)
+## Priority Pack P0-P5
 
 Load: P0→P5. Degradation: P5→P1. P0 never eliminated.
 
@@ -481,7 +481,7 @@ Rules: anti-positional truncation, P0 immutable, CNST:blocking protected, CLAIM/
 
 ---
 
-## Conceptual Profiles (RE-005 + RE-008)
+## Conceptual Profiles
 
 | Profile | Priority | Budget | Selection |
 |---------|:-------:|:------:|-----------|
@@ -501,9 +501,11 @@ Selection precedence: `explicit_profile > available_budget > operational_mode > 
 
 Audit with insufficient budget: declare `Profile: CORTEX-FULL (segmented) Segment: <n>/<total>`. Do not silently degrade.
 
+**Source traceability:** HCORTEX tables derived from P0, P1, and survive:min entries include a `source` column using `<SIGIL>:<name>` format. PUML diagrams include `' source: DIAG:<name>`. If source is missing for P0/P1, render `WARNING: missing source`.
+
 ---
 
-## Degradation Policy (RE-005)
+## Degradation Policy
 
 Conceptual chain: `FULL -> WORK -> RECOVERY -> MIN`. Direct selection by budget.
 

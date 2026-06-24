@@ -80,6 +80,7 @@ HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_c
 !cnst_blocking_protected{CNST with severity:blocking and survive:min must never be omitted from MIN or RECOVERY profiles}
 !direct_profile_selection{Jump directly to required profile budget: MIN (~300t), RECOVERY (~1000t), WORK (~3000t), FULL (unlimited). No sequential chain required}
 !hcortex_profile_selection{Before rendering HCORTEX, resolve the active profile using this precedence: explicit_profile > available_context_budget > operational_mode > CORTEX-WORK. Budget thresholds: MIN<=512t, RECOVERY<=1000t, WORK<=3000t, FULL>3000t. MIN render target is ~300t. Include only entries whose explicit P-level, derived P-level from !priority_pack, or survive level qualifies for the active profile. Filtering is entry-level, never section-level. Entries without P-level and without survive are treated as P5. Declare the active profile as the first HCORTEX line: Perfil: CORTEX-<LEVEL>. Defaults by mode: audit->FULL, recovery->RECOVERY, active->WORK, emergency->MIN. If audit requires FULL and budget is insufficient, do not silently degrade; declare Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total or unknown> and render only the declared segment. Never label segmented audit as WORK or RECOVERY}
+!hcortex_source_traceability{Every HCORTEX table derived from P0, P1, or survive:min entries must include a source column using the canonical format <SIGIL>:<name> (e.g. FCS:primary, CNST:honesty). For P2+ entries, the source column is recommended but not mandatory. The source column must be the last column in the table. PUML diagrams must include a source comment using the canonical format: ' source: DIAG:<name>. Rule bodies rendered outside tables must include inline source annotation when derived from P0/P1. If a required source is missing for P0/P1, render WARNING: missing source instead of omitting traceability}
 
 # -- $5: PITFALLS --
 PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
@@ -112,7 +113,7 @@ runtime --> mcp
 @enduml
 }
 
-# -- $7: MINIMUM FIELD CONTRACTS (RE-004: Survival Core) --
+# -- $7: MINIMUM FIELD CONTRACTS --
 # Each critical sigil declares mandatory fields + optional extensions.
 # Additional fields are always permitted as long as they do not contradict the minimum contract.
 
@@ -160,7 +161,7 @@ runtime --> mcp
 # NXT — Next in queue (recommended fields, not mandatory)
 # NXT:name{action:str, priority:high|medium|low, trigger:now|after_X|on_Y, survive:work|recovery|full}
 
-# -- $8: SURVIVE ATTRIBUTE (RE-004: Survival Core) --
+# -- $8: SURVIVE ATTRIBUTE --
 # survive governs which .cortex entries persist under context reduction.
 # 4 levels defined:
 
@@ -180,7 +181,7 @@ runtime --> mcp
 #   Documentary, historical      → survive:full
 #   Entries without survive      → valid (progressive compatibility)
 
-# -- $9: PRIORITY PACK P0-P5 (RE-005: Survival Core) --
+# -- $9: PRIORITY PACK P0-P5 --
 # Context is reduced by cognitive priority, never by position.
 # Load order: P0→P5. Degradation order: P5→P1 (P0 never eliminated).
 
@@ -198,7 +199,7 @@ runtime --> mcp
 #   CLAIM/LIM that block public claims → survive at least RECOVERY
 #   "When they exist": P1-P5 sigils not found → level has fewer entries (not an error)
 
-# -- $10: CONTEXT PROFILES (RE-005: Survival Core) --
+# -- $10: CONTEXT PROFILES --
 # Four conceptual profiles by minimum priority, not by closed sigil lists.
 
 # CORTEX-MIN      : Emergency. P0 only. ~300 tokens.
@@ -223,7 +224,7 @@ runtime --> mcp
 #     WRK→"Estado operativo", STP/NXT→"Próximo paso", AUD/RSK→"Evidencia/Riesgos",
 #     CLAIM/LIM→"Límites de afirmación"
 
-# HCORTEX render procedure (RE-008):
+# HCORTEX render procedure:
 #   Step 1: resolve active profile by precedence:
 #            explicit_profile > context_budget > mode > CORTEX-WORK
 #   Step 2: declare profile as first HCORTEX line:
@@ -235,8 +236,11 @@ runtime --> mcp
 #   Audit with insufficient budget: do not silently degrade.
 #            Declare "Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>"
 #            and render only the declared segment.
+#   Step 5: add source column to P0/P1 tables using <SIGIL>:<name> format.
+#            PUML diagrams include ' source: DIAG:<name>.
+#            If source missing for P0/P1, render WARNING: missing source.
 
-# -- $11: DEGRADATION POLICY (RE-005: Survival Core) --
+# -- $11: DEGRADATION POLICY --
 # Conceptual chain: FULL → WORK → RECOVERY → MIN
 # Operational selection: direct jump to required profile by budget.
 

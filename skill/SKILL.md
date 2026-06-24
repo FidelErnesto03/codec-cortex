@@ -133,13 +133,13 @@ pro --> dey
 | `PFL` | pitfall | `contenido` | M | Error conocido del dominio |
 | `TAG` | tag | `attrs` | B | Metadato de clasificación |
 | `DESC` | description | `contenido` | B | Descripción semántica |
-|| `DEP` | dependency | `attrs` | M | Dependencia entre módulos |
-|| `STP` | step | `attrs` | M | Próxima acción inmediata |
-|| `AUD` | audit | `attrs` | M | Registro de auditoría o verificación |
-|| `RSK` | risk | `attrs` | M | Riesgo identificado con mitigación |
-|| `NXT` | next | `attrs` | M | Próxima acción en cola con trigger |
-|| `CLAIM` | claim | `attrs` | M | Afirmación verificable |
-|| `LIM` | limit | `attrs` | M | Límite operativo explícito |
+| `DEP` | dependency | `attrs` | M | Dependencia entre módulos |
+| `STP` | step | `attrs` | M | Próxima acción inmediata |
+| `AUD` | audit | `attrs` | M | Registro de auditoría o verificación |
+| `RSK` | risk | `attrs` | M | Riesgo identificado con mitigación |
+| `NXT` | next | `attrs` | M | Próxima acción en cola con trigger |
+| `CLAIM` | claim | `attrs` | M | Afirmación verificable |
+| `LIM` | limit | `attrs` | M | Límite operativo explícito |
 
 ### Tipos de Expansión
 
@@ -437,7 +437,7 @@ Cuando el contexto se reduce, el agente debe:
 
 ---
 
-## Contratos de campos mínimos (RE-004)
+## Contratos de campos mínimos
 
 Cada sigilo crítico declara campos obligatorios. Se permiten campos adicionales.
 
@@ -453,7 +453,7 @@ Campos adicionales siempre permitidos si no contradicen el contrato mínimo.
 
 ---
 
-## Atributo `survive` (RE-004)
+## Atributo `survive`
 
 Cuatro niveles que determinan qué entradas `.cortex` sobreviven a la reducción de contexto.
 
@@ -468,7 +468,7 @@ Regla: CNST con `severity:blocking` → `survive:min`. OBJ activo → `survive:r
 
 ---
 
-## Priority Pack P0-P5 (RE-005)
+## Priority Pack P0-P5
 
 Carga: P0→P5. Degradación: P5→P1. P0 nunca se elimina.
 
@@ -485,7 +485,7 @@ Reglas: anti-truncado posicional, P0 inmutable, CNST:blocking protegido, CLAIM/L
 
 ---
 
-## Perfiles conceptuales (RE-005 + RE-008)
+## Perfiles conceptuales
 
 | Perfil | Prioridad | Presupuesto | Selección |
 |--------|:---:|:---:|-----------|
@@ -507,9 +507,11 @@ Default por modo: auditoría→FULL, recovery→RECOVERY, trabajo→WORK, emerge
 
 Auditoría con presupuesto insuficiente: declarar `Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>`. No degradar silenciosamente.
 
+**Trazabilidad de origen (source):** Las tablas HCORTEX derivadas de entradas P0, P1 y survive:min incluyen una columna `source` con el formato `<SIGIL>:<nombre>`. Diagramas PUML incluyen `' source: DIAG:<nombre>`. Si falta source en P0/P1, el render incluye `WARNING: missing source`.
+
 ---
 
-## Política de degradación (RE-005)
+## Política de degradación
 
 Cadena conceptual: `FULL → WORK → RECOVERY → MIN`. Selección directa por presupuesto.
 
