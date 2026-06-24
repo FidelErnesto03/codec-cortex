@@ -134,6 +134,12 @@ pro --> dey
 | `TAG` | tag | `attrs` | B | Classification metadata |
 | `DESC` | description | `content` | B | Semantic description |
 | `DEP` | dependency | `attrs` | M | Dependency between modules |
+| `STP` | step | `attrs` | M | Next immediate action |
+| `AUD` | audit | `attrs` | M | Audit or verification record |
+| `RSK` | risk | `attrs` | M | Identified risk with mitigation |
+| `NXT` | next | `attrs` | M | Queued next action with trigger |
+| `CLAIM` | claim | `attrs` | M | Verifiable claim |
+| `LIM` | limit | `attrs` | M | Explicit operational limit |
 
 ### Expansion Types
 
@@ -428,3 +434,83 @@ When context is reduced, the agent must:
 3. **Select profile by budget.** CORTEX-MIN (~300 tokens), RECOVERY (~1000), WORK (~3000), FULL (unlimited). Direct jump allowed.
 4. **Render HCORTEX with traceability.** P0/P1 entries in HCORTEX must indicate their source `.cortex` sigil.
 5. **Evaluate by decision survival.** Efficiency is measured by how many decisions, constraints, and steps survive per token — not just by byte compression.
+
+---
+
+## Minimum Field Contracts (RE-004)
+
+Each critical sigil declares mandatory fields. Additional fields are always permitted.
+
+| Sigil | Required fields |
+|-------|-----------------|
+| **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (active\|blocked\|done), `survive` |
+| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked), `success` (verifiable criterion), `survive` |
+| **CNST** | `rule` (str), `severity` (blocking\|warning\|info), `survive` |
+| **STP** | `action` (verb), `reason` (str), `owner` (agent\|human), `survive` |
+| **WRK** | `phase` (str), `current` (str), `blocked` (bool), `survive` |
+
+---
+
+## Survive Attribute (RE-004)
+
+Four levels determining which `.cortex` entries persist under context reduction.
+
+| Level | Budget | When preserved |
+|-------|:-----:|----------------|
+| `min` | ~300t | Maximum reduction. CNST:blocking, IDN |
+| `recovery` | ~1000t | Moderate reduction. Active OBJ, RSK |
+| `work` | ~3000t | Standard reduction. FCS, STP, WRK |
+| `full` | Unlimited | No reduction. SES, REF, historical |
+
+---
+
+## Priority Pack P0-P5 (RE-005)
+
+Load: P0→P5. Degradation: P5→P1. P0 never eliminated.
+
+| Level | Budget | Preserves |
+|:-----:|:-----:|-----------|
+| **P0** | ~300t | `FCS`, `OBJ`, `CNST`, `STP` |
+| **P1** | ~600t | `WRK`, `AUD`, `RSK`, `NXT` |
+| **P2** | ~1Kt | `CLAIM`, `LIM`, `KNW:active`, `LNG:critical` |
+| **P3** | ~2Kt | `SES:last`, `STAT`, `VAL`, `RES`, `FIND` |
+| **P4** | ~3Kt | `REF:critical`, `DOC`, `ART` |
+| **P5** | Unlimited | `DIAG`, `TBL`, history, comments |
+
+Rules: anti-positional truncation, P0 immutable, CNST:blocking protected, CLAIM/LIM conditional.
+
+---
+
+## Conceptual Profiles (RE-005 + RE-008)
+
+| Profile | Priority | Budget | Selection |
+|---------|:-------:|:------:|-----------|
+| **CORTEX-MIN** | P0 | ≤512t (~300t render) | Emergency |
+| **CORTEX-RECOVERY** | P0+P1 | ≤1000t | After interruption |
+| **CORTEX-WORK** | P0+P1+P2 | ≤3000t | Work continuity |
+| **CORTEX-FULL** | P0-P5 | >3000t | Complete memory |
+
+Selection precedence: `explicit_profile > available_budget > operational_mode > CORTEX-WORK`.
+
+**HCORTEX render procedure:**
+
+1. Resolve active profile by precedence.
+2. Declare `Profile: CORTEX-<LEVEL>` as first HCORTEX line.
+3. Filter entries by P-level or survive. Entries without P-level or survive → P5 (FULL only).
+4. Render only filtered entries.
+
+Audit with insufficient budget: declare `Profile: CORTEX-FULL (segmented) Segment: <n>/<total>`. Do not silently degrade.
+
+---
+
+## Degradation Policy (RE-005)
+
+Conceptual chain: `FULL -> WORK -> RECOVERY -> MIN`. Direct selection by budget.
+
+| Degradation | Reduces |
+|-------------|---------|
+| FULL -> WORK | DIAG, long TBL, long REF, historical SES |
+| WORK -> RECOVERY | KNW->KNW:active, LNG->LNG:critical, REF->REF:critical |
+| RECOVERY -> MIN | SES:last, AUD, RSK, NXT, STAT. Only P0 |
+
+**Never disappears:** CNST:blocking with survive:min, FCS, OBJ, STP (P0 immutable), CLAIM/LIM up to RECOVERY.

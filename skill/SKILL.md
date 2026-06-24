@@ -133,7 +133,13 @@ pro --> dey
 | `PFL` | pitfall | `contenido` | M | Error conocido del dominio |
 | `TAG` | tag | `attrs` | B | Metadato de clasificación |
 | `DESC` | description | `contenido` | B | Descripción semántica |
-| `DEP` | dependency | `attrs` | M | Dependencia entre módulos |
+|| `DEP` | dependency | `attrs` | M | Dependencia entre módulos |
+|| `STP` | step | `attrs` | M | Próxima acción inmediata |
+|| `AUD` | audit | `attrs` | M | Registro de auditoría o verificación |
+|| `RSK` | risk | `attrs` | M | Riesgo identificado con mitigación |
+|| `NXT` | next | `attrs` | M | Próxima acción en cola con trigger |
+|| `CLAIM` | claim | `attrs` | M | Afirmación verificable |
+|| `LIM` | limit | `attrs` | M | Límite operativo explícito |
 
 ### Tipos de Expansión
 
@@ -428,3 +434,89 @@ Cuando el contexto se reduce, el agente debe:
 3. **Seleccionar perfil según presupuesto.** CORTEX-MIN (~300 tokens), RECOVERY (~1000), WORK (~3000), FULL (sin límite). Salto directo permitido.
 4. **Renderizar HCORTEX con trazabilidad.** Las entradas P0/P1 en HCORTEX deben indicar su sigilo `.cortex` de origen.
 5. **Evaluar por supervivencia de decisión.** La eficiencia se mide por cuántas decisiones, restricciones y pasos sobreviven por token — no solo por compresión de bytes.
+
+---
+
+## Contratos de campos mínimos (RE-004)
+
+Cada sigilo crítico declara campos obligatorios. Se permiten campos adicionales.
+
+| Sigilo | Campos requeridos |
+|--------|-------------------|
+| **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (active\|blocked\|done), `survive` |
+| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked), `success` (criterio verificable), `survive` |
+| **CNST** | `rule` (str), `severity` (blocking\|warning\|info), `survive` |
+| **STP** | `action` (verbo), `reason` (str), `owner` (agent\|human), `survive` |
+| **WRK** | `phase` (str), `current` (str), `blocked` (bool), `survive` |
+
+Campos adicionales siempre permitidos si no contradicen el contrato mínimo.
+
+---
+
+## Atributo `survive` (RE-004)
+
+Cuatro niveles que determinan qué entradas `.cortex` sobreviven a la reducción de contexto.
+
+| Nivel | Presupuesto | Se preserva cuando |
+|-------|:---:|--------------------|
+| `min` | ~300t | Reducción máxima. CNST:blocking, IDN |
+| `recovery` | ~1000t | Reducción moderada. OBJ activos, RSK |
+| `work` | ~3000t | Reducción estándar. FCS, STP, WRK |
+| `full` | Sin límite | Sin reducción. SES, REF, histórico |
+
+Regla: CNST con `severity:blocking` → `survive:min`. OBJ activo → `survive:recovery`. Entradas sin `survive` son válidas (compatibilidad progresiva).
+
+---
+
+## Priority Pack P0-P5 (RE-005)
+
+Carga: P0→P5. Degradación: P5→P1. P0 nunca se elimina.
+
+| Nivel | Presupuesto | Preserva |
+|:---:|:---:|----------|
+| **P0** | ~300t | `FCS`, `OBJ`, `CNST`, `STP` |
+| **P1** | ~600t | `WRK`, `AUD`, `RSK`, `NXT` |
+| **P2** | ~1Kt | `CLAIM`, `LIM`, `KNW:active`, `LNG:critical` |
+| **P3** | ~2Kt | `SES:last`, `STAT`, `VAL`, `RES`, `FIND` |
+| **P4** | ~3Kt | `REF:critical`, `DOC`, `ART` |
+| **P5** | Sin límite | `DIAG`, `TBL`, histórico, comentarios |
+
+Reglas: anti-truncado posicional, P0 inmutable, CNST:blocking protegido, CLAIM/LIM condicional.
+
+---
+
+## Perfiles conceptuales (RE-005 + RE-008)
+
+| Perfil | Prioridad | Presupuesto | Selección |
+|--------|:---:|:---:|-----------|
+| **CORTEX-MIN** | P0 | ≤512t (~300t render) | Emergencia |
+| **CORTEX-RECOVERY** | P0+P1 | ≤1000t | Recuperación tras interrupción |
+| **CORTEX-WORK** | P0+P1+P2 | ≤3000t | Continuidad de trabajo |
+| **CORTEX-FULL** | P0-P5 | >3000t | Memoria completa |
+
+Precedencia de selección: `perfil explícito > presupuesto disponible > modo operativo > CORTEX-WORK`.
+
+Default por modo: auditoría→FULL, recovery→RECOVERY, trabajo→WORK, emergencia→MIN.
+
+**Procedimiento de render HCORTEX:**
+
+1. Resolver perfil activo según precedencia.
+2. Declarar `Perfil: CORTEX-<NIVEL>` como primera línea.
+3. Filtrar entradas por P-level o survive. Entradas sin P-level ni survive → P5 (solo en FULL).
+4. Renderizar solo las entradas filtradas.
+
+Auditoría con presupuesto insuficiente: declarar `Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>`. No degradar silenciosamente.
+
+---
+
+## Política de degradación (RE-005)
+
+Cadena conceptual: `FULL → WORK → RECOVERY → MIN`. Selección directa por presupuesto.
+
+| Degradación | Se reduce |
+|-------------|-----------|
+| FULL → WORK | DIAG, TBL largos, REF largos, SES históricos |
+| WORK → RECOVERY | KNW→KNW:active, LNG→LNG:critical, REF→REF:critical |
+| RECOVERY → MIN | SES:last, AUD, RSK, NXT, STAT. Solo P0 |
+
+**Nunca desaparece:** CNST:blocking con survive:min, FCS, OBJ, STP (P0 inmutable), CLAIM/LIM hasta RECOVERY.
