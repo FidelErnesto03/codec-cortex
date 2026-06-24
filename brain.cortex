@@ -61,6 +61,13 @@ LNG:skill_first{CODEC-CORTEX public narrative must open with Universal Skill and
 LNG:status_honesty{Every capability must be current/specification/planned/future when maturity matters}
 LNG:benchmark_integrity{Numeric density or performance claims require reproducible benchmarks before public measured language}
 LNG:hcortex_deviations{La conversión .cortex→HCORTEX tiene 6 desviaciones sistemáticas: sin perfil, sin trazabilidad, multi-instancia aplanada, sin estrategia por tipo, DIAG sin caption, sin orden P0→P5. Todas corregibles hoy sin parser}
+LNG:default_profile_by_mode{Sin perfil declarado, el default depende del modo: auditoria→FULL, recovery→RECOVERY, trabajo→WORK, emergencia→MIN. Si auditoria requiere FULL y el presupuesto no alcanza, no degradar silenciosamente — declarar segmentado}
+LNG:precedence_over_budget{La seleccion de perfil tiene precedencia fija: explicito > presupuesto > modo > WORK. Sin regla de precedencia, el agente improvisa cuando hay conflicto entre modo y presupuesto}
+LNG:entries_without_priority{Entradas .cortex sin P-level ni survive deben tratarse como P5 (incluidas solo en CORTEX-FULL). No asumir que toda entrada es P0 por defecto — eso las sobreprotege}
+LNG:source_column_cost_justified{La columna source en HCORTEX agrega ~10-15% de tokens, pero en MIN el overhead es minimo porque solo hay P0. El costo se justifica por auditabilidad}
+LNG:expansion_type_defines_render{El tipo de expansion no es metadata decorativa — define la estrategia de render. Una regla (!, tipo cuerpo) no debe renderizarse como tabla K/V de datos. HCORTEX debe reflejar la estructura semantica del sigilo de origen}
+LNG:render_order_by_priority{Las secciones HCORTEX deben ordenarse por prioridad cognitiva (P0→P5), no por numero de seccion del .cortex fuente. Lo que mas importa se ve primero}
+LNG:gov_isolation_mandatory{Ningun documento publico del proyecto debe contener referencias de gobierno (RE-00X, nombres de ciclo, terminos DIALECT). Violacion: strip antes de push. Regla !gov_isolation en workbook}
 
 # -- $5: ACTIVE KNOWLEDGE --
 KNW:survival_core{RE-004:"núcleo mínimo — survive + 6 sigilos + 5 contratos flexibles", RE-005:"priority pack P0-P5 + perfiles conceptuales + degradación directa", RE-006:"2 specs + 5 reglas Skill + CHANGELOG Unreleased", RE-007:"6 desviaciones HCORTEX — todas corregibles sin parser"}
