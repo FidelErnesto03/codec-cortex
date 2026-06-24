@@ -38,7 +38,7 @@
 > 1. **Current memory:** Migrate to `.cortex` using `encode()`.
 > 2. **Future memory:** All new entries are stored in `.cortex`.
 > 3. **Identity:** `AGENT.cortex` as entry point.
-> 4. **Architecture:** `brain.cortex` as local brain with golden ratio distribution.
+> 4. **Architecture:** `brain.cortex` as local brain with golden ratio distribution. **By convention, `brain.cortex` lives at the project root** — it is the agent's local operational state, not a skill artifact. The generic template is at `skill/brain.cortex`.
 > 5. **Communication:** HCORTEX (tables, lists, K/V, PUML diagrams).
 > 6. **De-adoption:** Exit GATE — `decode --format hcortex` over all `.cortex`.
 
@@ -234,6 +234,8 @@ pro --> dey
 15. **Collapse of redundant attributes.** When $0 defines `attrs-pos`, explicit keys are removed. Savings: 15-20% of tokens.
 16. **Atomicity via micro-glossary.** Frequent terms are tokenized as 1-3 character sigils. Additional savings: 30-40%.
 17. **English as the base language of `.cortex`.** Structural in English. Semantic in domain language. HCORTEX in user language.
+18. **Multi-actor identity.** `brain.cortex` supports multiple actors: `IDN:human{...}`, `IDN:agent{...}`, or custom roles. Each actor has its own entry. As many as needed.
+19. **Multiple operational states.** `FCS`, `OBJ`, and `WRK` support multiple named entries (`:primary`, `:secondary`, custom). Each represents an independent focus, goal, or work stream.
 
 ---
 

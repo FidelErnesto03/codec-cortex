@@ -16,7 +16,7 @@
 | Skill | Archivo | Propósito |
 |-------|---------|-----------|
 | universal-codec-cortex | SKILL.cortex | Capacidad operativa: handlers, reglas, pitfalls |
-| Neural architecture | brain.cortex | Cerebro local: estado operativo consolidado |
+| Neural architecture | brain.cortex (raíz del proyecto) | Cerebro local: estado operativo consolidado |
 | Agent identity | AGENT.cortex | Identidad persistente del agente |
 
 ## Principio Rector

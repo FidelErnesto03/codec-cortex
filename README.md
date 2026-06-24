@@ -56,7 +56,7 @@ end note
 
 1. Read `skill/SKILL.md` for the complete protocol specification
 2. Load `skill/SKILL.cortex` as the universal skill
-3. Use `skill/brain.cortex` as your local brain
+3. Use `brain.cortex` as your local brain
 4. Adopt `skill/AGENT.cortex` as your entry point
 
 ---

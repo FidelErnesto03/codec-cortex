@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial public release of the CODEC-CORTEX protocol
 - Universal skill specification (`skill/SKILL.md`) with 25 sigils, 17 principles, 14 pitfalls
 - Skill in native `.cortex` format (`skill/SKILL.cortex`) — dogfooding with 80% compression
-- Local brain with golden ratio distribution (`skill/brain.cortex`)
+- Local brain with golden ratio distribution (`brain.cortex`)
 - Agent entry point (`skill/AGENT.cortex`) + HCORTEX human-readable version (`skill/AGENT.md`)
 - Technical documentation: fundamentos, algoritmo, adopción, MCP bridge
 - HCORTEX output protocol for human-readable decompression

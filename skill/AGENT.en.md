@@ -16,7 +16,7 @@
 | Skill | File | Purpose |
 |-------|------|---------|
 | universal-codec-cortex | SKILL.cortex | Operational capability: handlers, rules, pitfalls |
-| Neural architecture | brain.cortex | Local brain: consolidated operational state |
+| Neural architecture | brain.cortex (project root) | Local brain: consolidated operational state |
 | Agent identity | AGENT.cortex | Agent's persistent identity |
 
 ## Guiding Principle
