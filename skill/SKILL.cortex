@@ -83,6 +83,7 @@ HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_c
 !hcortex_source_traceability{Every HCORTEX table derived from P0, P1, or survive:min entries must include a source column using the canonical format <SIGIL>:<name> (e.g. FCS:primary, CNST:honesty). For P2+ entries, the source column is recommended but not mandatory. The source column must be the last column in the table. PUML diagrams must include a source comment using the canonical format: ' source: DIAG:<name>. Rule bodies rendered outside tables must include inline source annotation when derived from P0/P1. If a required source is missing for P0/P1, render WARNING: missing source instead of omitting traceability}
 !hcortex_multi_instance{When a sigil has multiple named instances (e.g. FCS:primary, FCS:secondary), HCORTEX must render them as distinct sub-sections using the instance name as context. The preferred format is a sub-section header per instance: ### <SIGIL>:<name>. If a unified table is more readable, include an instance column. Instances must appear in the same order as in the .cortex source file. Single-instance sigils are unaffected.}
 !hcortex_expansion_render{Render each .cortex entry according to its expansion type as defined in $0. attrs: table with source+instance columns. cuerpo: indented quote with sigil prefix. contenido: contextual table (SES: I/O/R, LNG: list, PFL: Error/Cause/Solution). bloque: PUML verbatim with ' source: DIAG:<name>. attrs-pos: Command|Description table. Never render cuerpo or contenido entries as attrs-style K/V tables.}
+!hcortex_render_order{Render HCORTEX sections ordered by P-level priority: P0 first, P5 last. Order: P0 (FCS/OBJ/CNST/STP) > P1 (WRK/AUD/RSK/NXT) > P2 (CLAIM/LIM/KNW/LNG) > P3 (SES/STAT/VAL/RES/FIND) > P4 (REF/DOC/ART) > P5 (DIAG/TBL/history). Sigils without P-level assignment render last, after P5. Within the same P-level, preserve the source .cortex order. This overrides .cortex section number ordering.}
 
 # -- $5: PITFALLS --
 PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
@@ -249,6 +250,9 @@ runtime --> mcp
 #            contenido: contextual table (SES: I/O/R, LNG: list, PFL: Error/Cause/Solution).
 #            bloque: PUML verbatim with ' source: DIAG:<name>.
 #            attrs-pos: Command|Description table.
+#   Step 8: order sections by P-level priority: P0 first, P5 last.
+#            Sigils without P-level assignment render last, after P5.
+#            Within the same P-level, preserve the source .cortex order.
 
 # -- $11: DEGRADATION POLICY --
 # Conceptual chain: FULL → WORK → RECOVERY → MIN
