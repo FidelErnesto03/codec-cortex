@@ -36,7 +36,7 @@ FCS:primary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado — 13/13 REs approv
 FCS:secondary{what:"v0.2.1 liberado. Core skill + 5 reglas HCORTEX + 8 pasos de render", priority:"medium", status:"done", survive:"work"}
 OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", status:"done", success:"13/13 REs approved. 5 reglas en $4, 8 pasos en $10, 0 archivos .cortex modificados", survive:"recovery"}
 OBJ:secondary{goal:"Mantener brain.cortex actualizado con estado operativo real", status:"in_progress", success:"brain.cortex refleja ciclo completo post-RE-013", survive:"work"}
-WRK:state{phase:"cierre de ciclo", current:"brain.cortex actualizado — HCORTEX render protocol completo", blocked:false, survive:"work", active_files:["brain.cortex"]}
+WRK:state{phase:"cierre de ciclo", current:"documentacion alineada: README v0.2.1 + Survival Core, STATUS actualizado, summary en .project-control/", blocked:false, survive:"work", active_files:["brain.cortex"]}
 WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", branch:"main", tag:"v0.2.1", remote:"origin/main"}
 STP:next{action:"decidir próximos pasos: parser, benchmarks automatizados, RE-014, o nuevo ciclo", reason:"ciclo CORTEX-CONSOLIDATION-001 completado con 13/13 REs", owner:"human", survive:"work"}
 
