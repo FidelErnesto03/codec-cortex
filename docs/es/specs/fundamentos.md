@@ -666,19 +666,21 @@ HCORTEX no es `.hcodex`, `.hcortex` ni ninguna extensión de archivo. Es un **co
 Humano escribe/edita .md con reglas HCORTEX
         │
         ▼ encode()
-    .cortex (comprimido para LLM)
+    .cortex (comprimido para LLM, incluye $0 glosario)
         │
         ▼ decode()
-    LLM procesa
+    LLM procesa (lee $0 para interpretar sigilos)
         │
         ▼ decode(format=hcortex)
-    .md con reglas HCORTEX (descomprimido para humano)
+    .md con reglas HCORTEX ($0 omitido — solo secciones semánticas $1+)
         │
         ▼
     Humano lee tablas, listas, diagramas
         │
         └── edita .md → ciclo se repite
 ```
+
+**Regla fundamental:** `$0` (glosario) es metadata estructural exclusiva para modelos de IA. La salida HCORTEX nunca incluye el glosario — solo las secciones semánticas ($1 en adelante) transformadas a representaciones legibles por humanos.
 
 ### 9.5. Ejemplo de Respuesta del LLM en HCORTEX
 

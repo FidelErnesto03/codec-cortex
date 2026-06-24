@@ -21,7 +21,7 @@
 
 ---
 
-## When to Use
+## Cuando Usar
 
 - **Necesitas memoria persistente** para agentes LLM sin acumular contexto lineal
 - **Usas SLMs** con ventanas limitadas (4k-8k tokens)
@@ -210,8 +210,8 @@ pro --> dey
 1. Todo `.cortex` DEBE tener glosario en `$0` como primera sección.
 2. El glosario en `$0` prevalece — es la única fuente de verdad estructural.
 3. Sigilos sin entrada en `$0` se interpretan como `attrs`.
-4. El contenido de `$0` NO se interpreta como memoria cognitiva.
-5. Etiquetas, keywords, handlers y micro-tokens en **inglés**. Contenido semántico en idioma del dominio.
+4. El contenido de `$0` NO se interpreta como memoria cognitiva. La tabla es metadato estructural exclusivo para IA
+5. Etiquetas, keywords, handlers y micro-tokens en **inglés**. Contenido semántico en idioma del dominio. **HCORTEX omite $0** — solo incluye secciones $1+
 
 ---
 
@@ -230,7 +230,7 @@ pro --> dey
 11. **La maduración es por decisión del usuario.** El motor detecta patrones recurrentes y pregunta. El usuario decide si promover a KNW.
 12. **El sistema puede hacer consciente al usuario.** Si el motor detecta un patrón que el usuario no había identificado, la pregunta del sistema le revela algo sobre sí mismo.
 13. **El LLM responde en formato estructurado.** Tablas, pares clave/valor, listas y diagramas PUML son el lenguaje de salida hacia el humano.
-14. **HCORTEX es el protocolo de descompresión para humanos.** `decode(format=hcortex)` produce markdown con tablas, listas, K/V y diagramas.
+14. **HCORTEX es el protocolo de descompresión para humanos — $0 no se incluye.** `decode(format=hcortex)` produce markdown con tablas, listas, K/V y diagramas. El glosario $0 es metadata exclusiva para IA; la salida HCORTEX omite $0 y solo incluye las secciones semánticas ($1 en adelante).
 15. **Colapso de atributos redundantes.** Cuando $0 define `attrs-pos`, las claves explícitas se eliminan. Ahorro: 15-20% de tokens.
 16. **Atomicidad por micro-glosario.** Términos frecuentes se tokenizan como sigilos de 1-3 caracteres. Ahorro: 30-40% adicional.
 17. **Inglés como lenguaje base del `.cortex`.** Estructural en inglés. Semántico en idioma del dominio. HCORTEX en idioma del usuario.

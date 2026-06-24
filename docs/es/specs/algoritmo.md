@@ -886,7 +886,8 @@ FUNCIÓN decode(format=hcortex, ast_data: dict) → str (markdown):
 3. **Listas para colecciones.** Arrays de sigilos (KNW con APIs, SES múltiples) van como listas con viñetas.
 4. **Sin prosa generada.** `decode(format=hcortex)` es pura transformación determinista de AST a markdown estructurado. Cero LLM, cero inferencia.
 5. **Sin sigilos visibles.** La salida HCORTEX no muestra `IDN:`, `FCS:`, etc. Muestra etiquetas semánticas en lenguaje natural: "Identidad", "Foco", "Progreso".
-6. **La salida es `.md` estándar.** No hay extensión propietaria. Cualquier editor de markdown renderiza el resultado.
+6. **$0 no se incluye.** El glosario $0 es metadata exclusiva para IA. La salida HCORTEX comienza en $1 (Identidad) y omite completamente la sección $0.
+7. **La salida es `.md` estándar.** No hay extensión propietaria. Cualquier editor de markdown renderiza el resultado.
 
 ---
 

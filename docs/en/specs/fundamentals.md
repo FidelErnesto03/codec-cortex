@@ -667,19 +667,21 @@ HCORTEX is not `.hcodex`, `.hcortex`, or any file extension. It is a **set of de
 Human writes/edits .md with HCORTEX rules
         │
         ▼ encode()
-    .cortex (compressed for LLM)
+    .cortex (compressed for LLM, includes $0 glossary)
         │
         ▼ decode()
-    LLM processes
+    LLM processes (reads $0 to interpret sigils)
         │
         ▼ decode(format=hcortex)
-    .md with HCORTEX rules (decompressed for human)
+    .md with HCORTEX rules ($0 omitted — semantic sections $1+ only)
         │
         ▼
     Human reads tables, lists, diagrams
         │
         └── edits .md → cycle repeats
 ```
+
+**Fundamental rule:** `$0` (glossary) is AI-only structural metadata. HCORTEX output never includes the glossary — only semantic sections ($1+) transformed into human-readable representations.
 
 ### 9.5. Example of LLM Response in HCORTEX
 

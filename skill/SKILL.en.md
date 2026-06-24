@@ -230,7 +230,7 @@ pro --> dey
 11. **Maturation is by user decision.** The engine detects recurring patterns and asks. The user decides whether to promote to KNW.
 12. **The system can make the user aware.** If the engine detects a pattern the user had not identified, the system's question reveals something about themselves.
 13. **The LLM responds in structured format.** Tables, key/value pairs, lists, and PUML diagrams are the output language to the human.
-14. **HCORTEX is the decompression protocol for humans.** `decode(format=hcortex)` produces markdown with tables, lists, K/V, and diagrams.
+14. **HCORTEX is the decompression protocol for humans — $0 not included.** `decode(format=hcortex)` produces markdown with tables, lists, K/V, and diagrams. The $0 glossary is AI-only structural metadata; HCORTEX output omits $0 and only includes semantic sections ($1+).
 15. **Collapse of redundant attributes.** When $0 defines `attrs-pos`, explicit keys are removed. Savings: 15-20% of tokens.
 16. **Atomicity via micro-glossary.** Frequent terms are tokenized as 1-3 character sigils. Additional savings: 30-40%.
 17. **English as the base language of `.cortex`.** Structural in English. Semantic in domain language. HCORTEX in user language.

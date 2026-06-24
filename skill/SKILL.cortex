@@ -107,7 +107,7 @@ HDL:gate_exit{c1 d1 --f1 hcortex <a1> | GATE: decode all active c1 to HCORTEX ma
 !maturity{Knowledge matures by USER decision, not counters. p1 requires human confirmation. detect_recurrence only asks, never decides}
 !collapse{HDL uses attrs-pos: command|description. Order defined in $0 glossary}
 !micro{$0 defines micro-glossary with semantic naming patterns (d_, v_, a_, s_, h_, x_, m_, r_, p_, c_, f_, t_). Expand ONLY delimited tokens}
-!english{Structural tags, h1, tokens in ENGLISH. Semantic content (rules, axioms, lessons) in domain language. HCORTEX translates to user language}
+| Structural tags, h1, tokens in ENGLISH. Semantic content (rules, axioms, lessons) in domain language. HCORTEX translates to user language. $0 (glossary) is AI-only metadata — not included in HCORTEX output
 !delete_rule{Memory deletion = demotion by one cognitive level: KNW → SES → archive → gone. Never skip levels. Never complete wipe from KNW}
 !gate_exit{Al desadoptar CODEC-CORTEX: d1 --f1 hcortex sobre todos los c1 activos. Guardar como .md HCORTEX. Eliminar brain.c1 y SKILL.c1. AGENT.md permanece como registro final. El agente recupera su memoria en formato legible sin dependencia del protocolo}
 
