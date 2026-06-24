@@ -30,7 +30,7 @@ CODEC-CORTEX follows [Semantic Versioning](https://semver.org):
 
 | Phase | Action | Trigger |
 |-------|--------|---------|
-| Development | Commits to `main` | Continuous DIALECT cycle work |
+| Development | Commits to `main` | Continuous project cycle work |
 | Release Candidate | `vX.Y.Z-rc1` tag | All cycle ACs met |
 | Release | `vX.Y.Z` tag + GitHub Release + CHANGELOG | Cycle RE approved |
 | Diffusion | PRs to awesome-lists | Same day as release |
@@ -48,7 +48,7 @@ spec:   Specification change (MAJOR/MINOR)
 chore:  Maintenance, structure (PATCH)
 ```
 
-Current version: **v0.1.0**
+Current version: **v0.2.0**
 
 ## Contact
 

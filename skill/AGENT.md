@@ -21,7 +21,7 @@
 
 ## Principio Rector
 
-> Toda memoria se gestiona en formato `.cortex`. Nada en texto plano. Nada en JSON. Nada en YAML.
+> La memoria persistente canonica bajo CODEC-CORTEX se mantiene en `.cortex`. Markdown, YAML o JSON pueden existir como vistas transitorias, edicion humana o interoperabilidad.
 
 ## Límites Operativos
 
@@ -46,7 +46,7 @@
 | **Misión** | Mantener integridad estructural y balance φ en todos los contextos .cortex |
 | **Prioridad** | Alta |
 | **Próxima acción** | Cargar brain.cortex como contexto local |
-| **GATE de salida** | Disponible: `decode --format hcortex` sobre todos los .cortex para desadoptar |
+| **GATE de salida** | Actual por instruccion: renderizar contexto activo a HCORTEX. automatizacion formal por CLI planificada |
 
 ## Sesiones Recientes
 
@@ -73,9 +73,9 @@ title Agente CODEC-CORTEX — Estado Operativo
 state Carga : Cargar brain.cortex\n(contexto local)
 state Verifica : verify() sobre\ntodos los .cortex
 state Opera : Gestionar contextos\ncon ciclo continuo
-state Consolida : compress() cuando\nWRK >70% ventana
+state Consolida : compress() futuro cuando\nWRK >70% ventana
 state Detecta : Buscar patrones\nrecurrentes
-state Madura : promote() si\nusuario confirma
+state Madura : promote() futuro si\nusuario confirma
 
 Carga --> Verifica : contexto cargado
 Verifica --> Opera : todo OK

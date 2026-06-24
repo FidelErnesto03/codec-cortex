@@ -2,95 +2,160 @@
 <!-- SPDX-License-Identifier: MIT -->
 
 <p align="center">
-  <strong>CODEC-CORTEX</strong> — Cognitive Operational Retrieval & Execution Template
+  <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.1.0 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
+  <sub>v0.2.0 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
 </p>
 
 ---
 
-**Deterministic structural compression protocol for LLM agent cognitive memory.**
+CODEC-CORTEX is a universal memory Skill and contextual memory protocol for LLM/SLM agents. It helps agents organize persistent memory as structured operational context: identity, focus, objective, working state, rules, sessions, lessons, knowledge and references.
 
-> **85% less tokens. Zero LLM in the compilation cycle. 100% reversible.**
+Its native `.cortex` format is designed for dense model consumption. HCORTEX provides a human-readable view for inspection, audit, correction and continuity. A deterministic codec, CLI, memory runtime and enterprise MCP bridge are planned phases, not requirements for initial adoption.
 
 | | |
 |---|---|
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](LICENSE) |
-| **Version** | 0.1.0 |
+| **Version** | 0.2.0 |
+| **Stage** | Specification / alpha |
 
 ---
 
-## The Cognitive Trinity
+## Problem
+
+Agent memory usually grows as linear text. As conversations, files and decisions accumulate, important intent gets diluted, working state is mixed with history, and the next agent or session must recover context from noisy prose.
+
+CODEC-CORTEX separates operational memory into explicit structures so an agent can recover what matters now without rereading the entire history.
+
+## Current Stage
+
+This repository is in specification/alpha stage.
+
+Current:
+
+- Universal Skill documents and `.cortex` examples.
+- `.cortex` contextual memory format specification.
+- HCORTEX human-readable context view specification.
+- Spanish and English reference documents.
+
+Planned or future:
+
+- Deterministic Python codec.
+- CLI.
+- Formal parser, encoder, decoder, verifier and HCORTEX renderer.
+- Memory runtime for WRK, SES, LNG and KNW lifecycle management.
+- Enterprise MCP bridge with governance and auditability.
+
+See [STATUS.md](STATUS.md) for the maturity registry.
+
+## Canonical Stack
 
 ```puml
 @startuml
-title CODEC-CORTEX — Cognitive Trinity
+title CODEC-CORTEX Canonical Stack
 
-rectangle "brain.cortex\n(local brain)" as brain
-rectangle "AGENT.cortex\n(identity)" as agent
-rectangle "SKILL.cortex\n(capability)" as skill
+rectangle "Universal Skill
+current adoption layer" as skill
+rectangle ".cortex
+structured contextual memory" as cortex
+rectangle "HCORTEX
+human-readable context view" as hcortex
+rectangle "Deterministic Codec
+parse encode decode verify" as codec
+rectangle "Memory Runtime
+WRK SES LNG lifecycle" as runtime
+rectangle "Enterprise MCP
+agent tools governance audit" as mcp
 
-note top of brain : Working state
-note top of brain : Golden ratio
-note top of agent : Persistent identity
-note top of agent : Focus & objectives
-note top of skill : Handlers & rules
-note top of skill : Pitfalls & diagrams
+skill --> cortex : defines memory discipline
+cortex --> hcortex : renders for humans
+cortex --> codec : automated maintenance
+codec --> runtime : managed lifecycle
+runtime --> mcp : enterprise exposure
 
-agent -> brain : loads
-skill -> agent : governs
+note right of skill
+  Current center of gravity.
+  No server or Python package is required
+  for initial adoption.
+end note
 
-note right of brain
-  One pattern.
-  Three files.
-  Any agent.
+note right of codec
+  Planned automation.
+  Do not treat as complete.
+end note
+
+note right of mcp
+  Future enterprise phase.
+  Not a current feature.
 end note
 @enduml
 ```
 
----
-
 ## Quick Start
 
-1. Read `skill/SKILL.md` for the complete protocol specification
-2. Load `skill/SKILL.cortex` as the universal skill
-3. Use `brain.cortex` as your local brain
-4. Adopt `skill/AGENT.cortex` as your entry point
+1. Read `skill/SKILL.md` for the Skill specification.
+2. Load `skill/SKILL.cortex` as the dense native Skill expression.
+3. Use `skill/AGENT.cortex` as the identity entry point.
+4. Copy or adapt `skill/brain.cortex` as a local memory template.
+5. Render or summarize active context as HCORTEX for human review.
 
----
+Initial adoption does not require a server, MCP bridge or Python package. An agent can use CODEC-CORTEX by reading the Skill and following the `.cortex` memory discipline.
+
+## Current Context
+
+Agents and reviewers that need the project state behind this release can read `brain.cortex` at the repository root. It is the local operational memory snapshot for CODEC-CORTEX: active focus, release state, recent sessions, lessons, validation evidence and audit references.
+
+For a human-readable HCORTEX view of that same context, read `brain.md`. Use `skill/brain.cortex` as the reusable template for a new local memory file. Use root `brain.cortex` and `brain.md` only as this repository's current context snapshot.
 
 ## Structure
 
-| Directory | Content |
-|-----------|---------|
-| `skill/` | SKILL.md (spec), SKILL.cortex (native format), brain.cortex, AGENT.cortex, AGENT.md |
-| `docs/en/specs/` | English: fundamentals, algorithm, adoption, MCP bridge |
-| `docs/es/specs/` | Spanish: fundamentos, algoritmo, adopción, MCP bridge |
-| `src/` | Codec implementation (coming soon) |
-
----
+| Path | Content | Status |
+|------|---------|--------|
+| `brain.cortex` | Current CODEC-CORTEX operational context snapshot for agents/reviewers | Current/local memory |
+| `brain.md` | HCORTEX human-readable view of root `brain.cortex` | Current/local memory view |
+| `skill/` | Skill specification, dense Skill file, AGENT example and local brain template | Current/specification |
+| `docs/en/specs/` | English fundamentals, algorithm, adoption and MCP design docs | Specification |
+| `docs/es/specs/` | Spanish fundamentals, algorithm, adoption and MCP design docs | Specification |
+| `src/` | Python package placeholder for the planned deterministic codec | Planned implementation |
+| `ROADMAP.md` | Phase plan from Skill adoption to enterprise MCP | Current |
+| `STATUS.md` | Truth registry for implemented, specified, planned and future capabilities | Current |
 
 ## Documentation
 
 | Document | Content | Language |
 |----------|---------|----------|
-| `skill/SKILL.md` | Complete protocol specification | ES |
-| `skill/SKILL.en.md` | Complete protocol specification | EN |
-| `docs/es/specs/fundamentos.md` | Ontology, axioms, principles, maturation, HCORTEX, φ | ES |
-| `docs/en/specs/fundamentals.md` | Ontology, axioms, principles, maturation, HCORTEX, φ | EN |
-| `docs/es/specs/algoritmo.md` | Equations, FSM, parsing, deep compare | ES |
-| `docs/en/specs/algorithm.md` | Equations, FSM, parsing, deep compare | EN |
-| `docs/es/specs/adopcion.md` | Agent integration guides | ES |
-| `docs/en/specs/adoption.md` | Agent integration guides | EN |
-| `docs/es/specs/mcp-bridge.md` | MCP server design | ES |
-| `docs/en/specs/mcp-bridge.md` | MCP server design | EN |
-| `skill/AGENT.md` | CODEC-CORTEX agent example (HCORTEX) | ES |
-| `skill/AGENT.en.md` | CODEC-CORTEX agent example (HCORTEX) | EN |
+| `skill/SKILL.md` | Main Skill specification | ES |
+| `skill/SKILL.en.md` | Main Skill specification | EN |
+| `docs/es/specs/fundamentos.md` | Ontology, axioms, principles, maturation and HCORTEX | ES |
+| `docs/en/specs/fundamentals.md` | Ontology, axioms, principles, maturation and HCORTEX | EN |
+| `docs/es/specs/algoritmo.md` | Parser, verification and planned codec algorithms | ES |
+| `docs/en/specs/algorithm.md` | Parser, verification and planned codec algorithms | EN |
+| `docs/es/specs/adopcion.md` | Layered agent adoption guide | ES |
+| `docs/en/specs/adoption.md` | Layered agent adoption guide | EN |
+| `docs/es/specs/mcp-bridge.md` | Future MCP bridge architecture | ES |
+| `docs/en/specs/mcp-bridge.md` | Future MCP bridge architecture | EN |
 
----
+## Claim Policy
+
+- Token reduction targets are design goals or illustrative examples until reproducible benchmarks exist.
+- The planned codec is deterministic and does not require LLM calls for parse, encode, decode or verify.
+- Reversibility means structural roundtrip for codec operations and contextual reversibility through HCORTEX for humans.
+- Literal reconstruction of every original message or raw source text is not promised.
+- Enterprise MCP is a future phase.
+
+## Roadmap
+
+1. Universal Skill.
+2. `.cortex` format.
+3. HCORTEX human view.
+4. Deterministic codec and CLI.
+5. Memory runtime.
+6. Enterprise MCP.
+
+See [ROADMAP.md](ROADMAP.md) for phase details.
 
 ## License
 
-MIT — See `LICENSE` for details.
+MIT — See [LICENSE](LICENSE) for details.

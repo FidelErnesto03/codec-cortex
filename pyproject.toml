@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "codec-cortex"
-version = "0.1.0"
-description = "CODEC-CORTEX — Deterministic structural compression protocol for LLM agent cognitive memory"
+version = "0.2.0"
+description = "CODEC-CORTEX — Universal memory Skill and contextual memory protocol for LLM/SLM agents; deterministic codec planned"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [

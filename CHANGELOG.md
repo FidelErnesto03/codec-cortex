@@ -8,6 +8,19 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] — 2026-06-24
+
+### Changed
+- Reoriented the public narrative from codec-first to universal memory Skill-first.
+- Added explicit maturity separation for current Skill adoption, `.cortex`, HCORTEX, planned codec/CLI, future runtime, and future MCP.
+- Rewrote Skill and dense `.cortex` guidance to distinguish direct adoption from planned automation.
+- Softened unsupported benchmark and reversibility claims into targets or scoped structural/contextual language.
+
+### Added
+- Added `STATUS.md` as the repository maturity registry.
+- Added `ROADMAP.md` with the six-phase CODEC-CORTEX plan.
+- Added `docs/review/project-reorientation-report.md` with the reorientation diagnosis and risk register.
+
 ## [0.1.0] — 2026-06-23
 
 ### Added

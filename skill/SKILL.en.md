@@ -9,7 +9,7 @@
 
 ---
 
-**Abstract:** Universal skill specification for deterministic structural compression of LLM agent cognitive memory. Defines the `.cortex` format with 20 cognitive sigils, HCORTEX human-readable output protocol, golden ratio (φ=1.618) memory distribution, continuous context management cycle, and user-driven maturation engine.
+**Abstract:** Universal Skill and contextual memory protocol for LLM/SLM agents. Defines `.cortex` as structured operational memory, HCORTEX as a human-auditable view, and separates direct Skill adoption from later deterministic codec, CLI, runtime and enterprise MCP automation.
 
 | | |
 |---|---|
@@ -28,71 +28,31 @@
 - **You suffer "Lost in the Middle"** in long contexts
 - **You want to reduce API costs** by eliminating redundant tokens
 - **You implement CAG** (Cognitive Augmented Generation)
-- **You need cross-framework integration** (Hermes, Claude, Codex, Qwen)
+- **You need cross-framework integration** (agent host, agent client, coding agent, agent client)
 
-### Immediate Adoption Directive
+### Progressive Adoption Directive
 
-> ⚠️ **First directive — non-negotiable.**
-> From the moment you assume this skill, your persistent memory system restructures to the `.cortex` format.
->
-> 1. **Current memory:** Migrate to `.cortex` using `encode()`.
-> 2. **Future memory:** All new entries are stored in `.cortex`.
-> 3. **Identity:** `AGENT.cortex` as entry point.
-> 4. **Architecture:** `brain.cortex` as local brain with golden ratio distribution. **By convention, `brain.cortex` lives at the project root** — it is the agent's local operational state, not a skill artifact. The generic template is at `skill/brain.cortex`.
-> 5. **Communication:** HCORTEX (tables, lists, K/V, PUML diagrams).
-> 6. **De-adoption:** Exit GATE — `decode --format hcortex` over all `.cortex`.
+> CODEC-CORTEX is adopted first as a universal contextual memory Skill. Canonical persistent memory under this protocol lives in `.cortex`; Markdown, YAML or JSON may exist as transitional views, human editing surfaces or interoperability formats.
 
-```puml
-@startuml
-title Ciclo de Gestión de Contextos CORTEX
+1. **Current memory:** identify identity, focus, objective, working state, rules, sessions, lessons, knowledge and references before migration.
+2. **Future memory:** store persistent context in `.cortex` when the agent can read and maintain the file.
+3. **Identity:** use `skill/AGENT.cortex` as an entry point example.
+4. **Architecture:** adapt `skill/brain.cortex` as a local brain template.
+5. **Communication:** render or summarize as HCORTEX for human review.
+6. **Automation:** formal `encode`, `decode`, `verify`, `compress`, `promote`, `decay` and CLI commands require the planned codec/runtime.
+7. **Exit gate:** produce an HCORTEX view of active context; do not promise literal reconstruction of every original message.
 
-start
-:Contexto CORTEX activo\n(.cortex cargado);
+### Operation Status
 
-repeat
-  :**Operar** — Agente usa el contexto\ncomo memoria de trabajo;
-
-  if (¿WRK >70% ventana?) then (sí)
-    :**Consolidar** — compress()\nWRK → SES + LNG;
-  endif
-
-  :**Verificar** — cortex verify;
-
-  if (¿verify OK?) then (sí)
-    :Estructuralmente sano ✅;
-  else (no)
-    :Reparar; Re-verificar;
-  endif
-
-  :**Detectar** — cortex detect;
-
-  if (¿Patrones recurrentes?) then (sí)
-    :**Consultar** — ask_user()\n¿Promover a KNW?;
-    if (sí) then
-      :**Madurar** — promote()\nSES/LNG → KNW;
-    endif
-  endif
-
-  :**Degradar** — cortex decay;
-  if (¿KNW >30 días sin uso?) then (sí)
-    :KNW → SES;
-  endif
-
-  :**Auditar** — cortex diagram list;
-  
-  if (¿Usuario solicita eliminar?) then (sí)
-    :**Eliminar** — degradar 1 nivel\nKNW → SES → archive;
-  endif
-
-  if (¿Usuario solicita desadoptar?) then (sí)
-    :**GATE de Salida** — decode hcortex\ntodos los .cortex → .md;
-    stop
-  endif
-
-repeat while (contexto activo)
-stop
-@enduml
-```
+| Operation | Available by Skill now | Requires codec/runtime | Status | Notes |
+|-----------|------------------------|------------------------|--------|-------|
+| Read `.cortex` | Yes | No | Current | Direct agent reading |
+| Use FCS/OBJ/WRK | Yes | No | Current | Core Skill discipline |
+| Produce basic HCORTEX | Yes | No | Current/specification | By instruction and human review |
+| Formal verification | Partial | Yes | Planned | Requires parser |
+| Automatic encode/decode | No | Yes | Planned | Codec phase |
+| Automatic consolidation | No | Yes | Future | Runtime phase |
+| MCP handlers | No | Yes | Future | Enterprise phase |
 
 ### Do Not Use For
 
@@ -105,7 +65,7 @@ stop
 
 ## Overview
 
-CODEC-CORTEX is a deterministic structural compression protocol. Unlike JSON, YAML, or ML, the `.cortex` format is not a markup language — it is a **cognitive codec**: an ultra-dense representation of agent memory that preserves 100% of operational semantics with 70-85% fewer tokens.
+CODEC-CORTEX is first a universal Skill and contextual memory protocol. Instead of treating memory as linear text, `.cortex` organizes operational context into dense structures for model consumption and session continuity. Token reduction is a design target that requires reproducible benchmarks.
 
 **Guiding principle:** *"Structure over Semantics. The Glossary ($0) dictates syntax, not meaning. PUML diagrams are native compression. Knowledge matures by user decision, not by counters."*
 
@@ -215,14 +175,14 @@ pro --> dey
 
 ---
 
-## Cognitive Compiler Principles
+## Skill and Planned Codec Principles
 
-1. **Compression, not summarization.** `.cortex` preserves 100% of operational semantics. `encode()` transforms — it does not summarize or lose.
-2. **Pure determinism.** `decode(encode(content)) == content` always. Zero hallucinations, zero fabrications.
+1. **Contextual memory, not linear history.** `.cortex` preserves structured operational context; `encode()` and `decode()` belong to the planned codec.
+2. **Determinism in the planned codec.** The structural roundtrip target is `decode(encode(content)) == content` for supported structures, without LLM calls during parse/encode/decode/verify.
 3. **The glossary is the contract.** New sigil = new entry in `$0`. If not in `$0`, it is treated as `attrs` by default.
 4. **Structure over semantics.** The parser is a 6-state character automaton. Zero ML, zero complex regex, zero ambiguity.
 5. **Expansion types governed by the glossary.** A parser must not infer whether a value is `attrs` or `content`. `$0` rules.
-6. **LLM independence.** The codec does not use, invoke, or depend on any LLM. It is a standard Python library.
+6. **LLM independence in the codec phase.** The planned codec does not use, invoke, or depend on any LLM for parse, encode, decode or verify.
 7. **Ecosystem portability.** The `.cortex` format is plain text, line-oriented, parseable with stdlib. Framework-independent.
 8. **Self-creation of sections.** If `patch_add` references a section that does not exist, it creates it automatically.
 9. **PUML diagrams are native compression.** A 20-line `DIAG` communicates flows, relationships, and processes that would occupy 200+ lines of prose.
@@ -230,7 +190,7 @@ pro --> dey
 11. **Maturation is by user decision.** The engine detects recurring patterns and asks. The user decides whether to promote to KNW.
 12. **The system can make the user aware.** If the engine detects a pattern the user had not identified, the system's question reveals something about themselves.
 13. **The LLM responds in structured format.** Tables, key/value pairs, lists, and PUML diagrams are the output language to the human.
-14. **HCORTEX is the decompression protocol for humans — $0 not included.** `decode(format=hcortex)` produces markdown with tables, lists, K/V, and diagrams. The $0 glossary is AI-only structural metadata; HCORTEX output omits $0 and only includes semantic sections ($1+).
+14. **HCORTEX is the contextual view for humans — $0 not included.** `decode(format=hcortex)` produces markdown with tables, lists, K/V, and diagrams. The $0 glossary is AI-only structural metadata; HCORTEX output omits $0 and only includes semantic sections ($1+).
 15. **Collapse of redundant attributes.** When $0 defines `attrs-pos`, explicit keys are removed. Savings: 15-20% of tokens.
 16. **Atomicity via micro-glossary.** Frequent terms are tokenized as 1-3 character sigils. Additional savings: 30-40%.
 17. **English as the base language of `.cortex`.** Structural in English. Semantic in domain language. HCORTEX in user language.
@@ -266,7 +226,7 @@ note right of hc : Human-readable output.\nNo proprietary format.
 @enduml
 ```
 
-The validation cycle guarantees **100% reversibility**: `verify(input, encode(decode(input)))` must return `True`. If not, there is a bug in the parser or compiler.
+The planned validation cycle targets structural reversibility: `verify(input, encode(decode(input)))` should return `True` for supported structures. Until implemented and tested, this is a codec requirement, not a measured repository capability.
 
 ### Key Functions
 
@@ -287,7 +247,7 @@ The validation cycle guarantees **100% reversibility**: `verify(input, encode(de
 | `cortex decode <file>` | Decode .cortex to YAML-Edit |
 | `cortex decode <file> --format hcortex` | Decode to HCORTEX markdown |
 | `cortex encode <file>` | Encode context to .cortex |
-| `cortex verify <file>` | Validate structure and glossary |
+| `cortex verify <file>` | Planned CLI: validate structure and glossary |
 | `cortex patch_add <file> --section N --sigil S --name n --value v` | Add entry |
 | `cortex patch_remove <file> --sigil S --name n` | Remove entry |
 | `cortex patch_update <file> --sigil S --name n --value v` | Modify entry |
@@ -298,8 +258,8 @@ The validation cycle guarantees **100% reversibility**: `verify(input, encode(de
 | `cortex diagram list <file>` | List diagrams |
 | `cortex diagram validate <file> --name N` | Validate PUML syntax |
 | `cortex promote <file> --sigil S --name N` | Promote SES/LNG to KNW |
-| `cortex detect <file>` | Detect recurring patterns |
-| `cortex decay <file>` | Degrade KNW by disuse |
+| `cortex detect <file>` | Future runtime: detect recurring patterns |
+| `cortex decay <file>` | Future runtime: degrade KNW by disuse |
 
 ### Python API
 
@@ -314,7 +274,7 @@ yaml_edit = ast_a_yaml_edit(result["ast"])
 new_ast = yaml_edit_a_ast(yaml_edit)
 new_content = ast_a_cortex(new_ast)
 
-# Verify (100% reversible)
+# Verify (planned structural roundtrip)
 r = verify(result["ast"], new_ast)
 assert r["ok"]
 
@@ -338,9 +298,9 @@ human = ast_a_hcortex(result["ast"])  # Markdown: tables, lists, K/V, diagrams
 
 | Metric | Target | Method |
 |---------|:-------:|--------|
-| Compression vs prose | ≥85% | .cortex tokens / prose tokens |
+| Compression vs prose | High-density target | .cortex tokens / prose tokens; requires benchmark |
 | Compression vs dense prose (specs) | ≥70% | Measured with SKILL.md → SKILL.cortex |
-| Reversibility | 100% | `verify(input, encode(decode(input)))` |
+| Reversibility | Structural target | `verify(input, encode(decode(input)))`; requires codec tests |
 | Parse time | <50ms for 10KB | `timeit cortex_a_ast(content)` |
 | Glossary lookup | O(log n) | Dict lookups with `$0` as index |
 | Positional collapse | 15-20% | Reduction in handler sections |

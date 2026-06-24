@@ -1,59 +1,77 @@
-# alf-brain.cortex — alfred personal operational brain
-# Follows CODEC-CORTEX skill rules. Updated per interaction.
+<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
+<!-- SPDX-License-Identifier: MIT -->
+
+# alf-brain.cortex — local operational brain for CODEC-CORTEX
+# Canonical persistent memory under CODEC-CORTEX lives in .cortex.
+# Markdown/YAML/JSON may exist as transitional views, human editing surfaces or interoperability formats.
 
 # -- $0: GLOSSARY --
-# Sigil   | Name         | Expansion | Risk
-# --------+--------------+-----------+------
-# IDN     | identity     | attrs     | B
-# FCS     | focus        | attrs     | H
-# OBJ     | objective    | attrs     | B
-# WRK     | work         | attrs     | B
-# STP     | step         | contenido | M
-# SES     | session      | attrs     | B
-# LNG     | lesson       | contenido | M
-# KNW     | knowledge    | attrs     | B
-# REF     | reference    | attrs     | B
-# CNST    | constraint   | attrs     | M
-# AUD     | audit        | contenido | M
+# Sigil   | Name         | Expansion | Risk | Description
+# --------+--------------+-----------+------+----------------------------------------------
+# IDN     | identity     | attrs     | B    | Actor identity
+# FCS     | focus        | attrs     | H    | Current attention anchor
+# OBJ     | objective    | attrs     | B    | Active mission
+# WRK     | work         | attrs     | B    | Current operational state
+# STP     | step         | contenido | M    | Next immediate action
+# SES     | session      | attrs     | B    | Recent compressed episode
+# LNG     | lesson       | contenido | M    | Learned operational rule
+# KNW     | knowledge    | attrs     | B    | Stable project knowledge
+# REF     | reference    | attrs     | B    | Audit reference
+# CNST    | constraint   | attrs     | M    | Active operational limit
+# AUD     | audit        | contenido | M    | Validation or release audit record
+# TAG     | tag          | attrs     | B    | Classification metadata
 
-# -- $1: IDENTITY (multiple actors supported) --
+# -- $1: IDENTITY --
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com"}
-IDN:agent{name:"alfred", role:"Tactical Implementation Lead", type:"autonomous AI coding agent"}
-CNST:limits{output:"HCORTEX", user_language:"ES", structural_language:"EN"}
+IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent"}
+CNST:limits{output:"HCORTEX", user_language:"ES", structural_language:"EN", canonical_memory:".cortex"}
+CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims"}
 
-# -- $2: OPERATIONAL STATE (multiple states supported) --
-# Convention: multiple FCS, OBJ, WRK entries per actor or workstream.
-# Each entry represents an active context or goal.
-FCS:primary{project:"CODEC-CORTEX", cycle:"CORTEX-CONSOLIDATION-001", phase:"consolidation complete"}
-FCS:secondary{task:"documentation maintenance", status:"active"}
-OBJ:primary{goal:"3/3 REs approved. v0.1.0 published. Ready for next cycle.", status:done}
-OBJ:secondary{goal:"Maintain brain.cortex conventions across all docs", status:"in_progress"}
-WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", commits:3, tag:"v0.1.0", branch:"main"}
-WRK:local{path:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", files:27, modified:true}
-STP:next{action:"await user direction for next task"}
+# -- $2: OPERATIONAL STATE --
+FCS:primary{project:"CODEC-CORTEX", focus:"skill-first reorientation completed", version:"v0.2.0", status:"published"}
+FCS:secondary{task:"maintain local brain and external audit artifacts", status:"active"}
+OBJ:primary{goal:"Keep CODEC-CORTEX aligned as Universal Skill first, .cortex contextual memory, HCORTEX human view, codec planned automation, runtime/MCP future phases", status:"done"}
+OBJ:secondary{goal:"Keep brain.cortex current after release and result artifact generation", status:"in_progress"}
+WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", branch:"main", head:"see git log --decorate", tag:"v0.2.0", remote:"origin/main", worktree:"clean_after_release_amend"}
+WRK:local{repo_path:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", docs_path:"~/Projects/workspace/CODEC-CORTEX/docs/", result_cortex:"../docs/result.cortex", result_md:"../docs/result.md"}
+STP:next{action:"no pending brain publication action", reason:"brain.cortex integrated into v0.2.0 release amend"}
 
 # -- $3: RECENT SESSIONS --
-SES:re_003{input:"publication", output:"repo + release + PR Awesome-LLM #681", outcome:approved}
-SES:re_002{input:"skill construction", output:"SKILL.md/cortex, brain, AGENT, 4 specs bilingüe", outcome:approved}
-SES:re_001{input:"foundation + docs", output:"governance, specs, 62 PUML", outcome:approved}
-SES:hcortex_fix{input:"$0 = AI-only metadata", output:"7 archivos corregidos + push", outcome:done}
-SES:versioning{input:"versioning protocol", output:"GOVERNANCE.md + workbook", outcome:done}
+SES:reorientation{input:"docs/ajustes.cortex", output:"README, Skill docs, specs, metadata, STATUS, ROADMAP aligned", outcome:"done", commit:"included_in_v0.2.0"}
+SES:release_v020{input:"commit + push + tag according to project conventions", output:"origin/main + annotated tag v0.2.0", outcome:"published"}
+SES:result_artifacts{input:"external-agent result report", output:"../docs/result.cortex + ../docs/result.md", outcome:"outside_remote_repo"}
+SES:brain_update{input:"asegurate de que el brain.cortex este actualizado", output:"root brain.cortex refreshed to v0.2.0 state", outcome:"integrated_in_release"}
 
 # -- $4: LESSONS LEARNED --
-LNG:write_file_risk{Nunca usar write_file sobre SKILL.md — solo patch. Reconstrucción forzosa desde SKILL.cortex tomó tiempo}
-LNG:ssh_clone{SSH keys rechazadas al clonar forks. Usar HTTPS con gh auth token para clone+push}
-LNG:enterprise_headers{Documentos requieren header unificado: centered title + abstract + metadata table + SPDX}
-LNG:puML_syntax{rectangle : label no válido en PlantUML. Usar note top of rectangle para anotaciones}
-LNG:puML_dual_lang{Diagram labels in Spanish (canonical). English only for structural tags in .cortex}
+LNG:skill_first{CODEC-CORTEX public narrative must open with Universal Skill and contextual memory protocol, not codec-first compression}
+LNG:status_honesty{Every capability must be current/specification/planned/future when maturity matters}
+LNG:reversibility_scope{Structural reversibility belongs to codec roundtrip targets; HCORTEX provides contextual reversibility for humans; literal full-history reconstruction is not promised}
+LNG:benchmark_integrity{Numeric density or performance claims require reproducible benchmarks before public measured language}
+LNG:result_location{External audit artifacts requested after release belong in ../docs, not inside the published codec-cortex repository}
+LNG:git_scope{Stage only scoped files; preserve parent workspace changes and artifacts outside the repo unless explicitly requested}
 
 # -- $5: ACTIVE KNOWLEDGE --
-KNW:protocol{sigilos:20, micro_tokens:20, compression:"70-80%", phi:"1.618", hcortex:"$0 excluded from output"}
-KNW:trinity{brain:"local operational state", agent:"persistent identity", skill:"operational capability"}
-KNW:maturation{flow:"detect→ask_user→promote→decay", rule:"user is judge, not counter"}
-KNW:paths{repo:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", public:"github.com/FidelErnesto03/codec-cortex"}
+KNW:canonical_stack{order:["Universal Skill",".cortex contextual memory","HCORTEX human view","deterministic codec planned","memory runtime future","enterprise MCP future"]}
+KNW:release{version:"0.2.0", commit:"see tag v0.2.0", tag:"v0.2.0", message:"spec: reorient project as universal memory skill"}
+KNW:status_registry{implemented:["documentation structure","Skill specs",".cortex examples","HCORTEX specification"], planned:["parser","AST","encode/decode","verify","HCORTEX renderer","CLI"], future:["runtime","enterprise MCP"]}
+KNW:validation{risk_scan:"passed", diff_check:"passed", compileall_src:"passed", remote_tag:"verified"}
+KNW:paths{repo:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", parent_docs:"~/Projects/workspace/CODEC-CORTEX/docs/", public:"github.com/FidelErnesto03/codec-cortex"}
 
 # -- $6: REFERENCES --
-REF:skill{PATH:skill/SKILL.md}
-REF:skill_en{PATH:skill/SKILL.en.md}
-REF:brain_template{PATH:brain.cortex}
-REF:workbook{PATH:.project-control/workbook.md}
+REF:adjustments{PATH:"../docs/ajustes.cortex", purpose:"source directive"}
+REF:result_cortex{PATH:"../docs/result.cortex", purpose:"external-agent audit artifact"}
+REF:result_hcortex{PATH:"../docs/result.md", purpose:"human HCORTEX rendering"}
+REF:status{PATH:"STATUS.md", purpose:"truth registry"}
+REF:roadmap{PATH:"ROADMAP.md", purpose:"phase model"}
+REF:readme{PATH:"README.md", purpose:"public entry point"}
+REF:skill{PATH:"skill/SKILL.md", purpose:"Spanish Skill specification"}
+REF:skill_en{PATH:"skill/SKILL.en.md", purpose:"English Skill specification"}
+REF:skill_cortex{PATH:"skill/SKILL.cortex", purpose:"dense Skill expression"}
+REF:brain_template{PATH:"skill/brain.cortex", purpose:"safe local brain template"}
+REF:review_report{PATH:"docs/review/project-reorientation-report.md", purpose:"release reorientation report"}
+
+# -- $7: AUDIT --
+AUD:last_release{version:"v0.2.0", branch:"main", pushed:true, tag_pushed:true, github_release_object:"not_created"}
+AUD:brain_currentness{checked:"2026-06-24", root_brain:"updated", skill_template:"already_updated", result_artifacts:"outside_repo"}
+AUD:pending_git{state:"brain.cortex integrated into v0.2.0 release amend", recommendation:"none after push"}
+TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"post-release state synchronization"}

@@ -46,7 +46,7 @@
 | **Mission** | Maintain structural integrity and φ balance across all .cortex contexts |
 | **Priority** | High |
 | **Next action** | Load brain.cortex as local context |
-| **GATE Exit** | Available: `decode --format hcortex` on all .cortex to de-adopt |
+| **GATE Exit** | Available by instruction: render active context to HCORTEX. formal CLI automation is planned |
 
 ## Recent Sessions
 
@@ -73,9 +73,9 @@ title CODEC-CORTEX Agent — Operational State
 state Load : Load brain.cortex\n(local context)
 state Verify : verify() on\nall .cortex
 state Operate : Manage contexts\nwith continuous cycle
-state Consolidate : compress() when\nWRK >70% window
+state Consolidate : future compress() when\nWRK >70% window
 state Detect : Find recurrent\npatterns
-state Mature : promote() if\nuser confirms
+state Mature : future promote() if\nuser confirms
 
 Load --> Verify : context loaded
 Verify --> Operate : all OK

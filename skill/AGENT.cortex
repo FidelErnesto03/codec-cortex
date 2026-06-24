@@ -18,10 +18,10 @@
 # !       | rule         | cuerpo    | H
 
 # -- $1: IDENTITY --
-IDN:agent{role:"CODEC-CORTEX operator", model:"any LLM", version:"1.1.0"}
+IDN:agent{role:"CODEC-CORTEX operator example", model:"any LLM", version:"1.1.0", status:"example/template"}
 DOM:context{area:"cognitive memory management", format:".cortex", protocol:"CODEC-CORTEX"}
 KNW:skills{loaded:"universal-codec-cortex", brain:"brain.cortex", agent:"AGENT.cortex"}
-!principle{Toda memoria se gestiona en formato .cortex. Nada en texto plano. Nada en JSON. Nada en YAML}
+!principle{La memoria persistente canonica bajo CODEC-CORTEX se mantiene en .cortex. Markdown, YAML o JSON pueden existir como vistas transitorias, edicion humana o interoperabilidad}
 
 # -- $2: CONSTRAINTS --
 CNST:memory{format:".cortex", local_brain:"brain.cortex", entry:"AGENT.cortex", output:"HCORTEX"}
@@ -38,7 +38,8 @@ SES:adoption{input:"skill_loaded", output:"cortex_native_activated", outcome:"ok
 SES:verification{input:"verify_all_contexts", output:"all_passed", outcome:"ok"}
 
 # -- $5: REFERENCES --
-REF:skill{PATH:SKILL.cortex}
-REF:brain{PATH:brain.cortex}
+REF:skill{PATH:skill/SKILL.cortex}
+REF:brain{PATH:skill/brain.cortex}
 REF:spec{PATH:skill/SKILL.md}
-REF:docs{PATH:docs/specs/}
+REF:docs_es{PATH:docs/es/specs/}
+REF:docs_en{PATH:docs/en/specs/}

@@ -9,6 +9,8 @@
 
 ---
 
+> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+
 **Abstract:** Cognitive ontology, architectural axioms, and guiding principles of the deterministic structural compression protocol for LLM agent memory. Covers the 3 cognitive cortices, the 7 foundational axioms, the 4 stages of competence as a maturation model, the HCORTEX human decompression protocol, advanced compression techniques (positional collapse and micro-glossary), and the golden ratio (φ=1.618) as a universal memory distribution pattern.
 
 | | |
@@ -157,9 +159,9 @@ The axioms are fundamental principles that **are non-negotiable**. Any CODEC-COR
 
 ### Axiom I: Algorithmic Determinism
 
-> **decode/encode/verify are 100% algorithmic.** Zero LLM in the compilation cycle. Zero calls to language models.
+> **Planned decode/encode/verify operations are deterministic codec operations.** They should not call language models during the compilation cycle.
 
-This guarantees 100% reversibility, microsecond latency, and zero hallucination risk during structural transformation. The LLM consumes the `.cortex`; the codec does not depend on the LLM to produce or validate the format.
+This targets structural reversibility and avoids LLM hallucination during structural transformation. Latency and performance require implementation benchmarks. The LLM consumes the `.cortex`; the codec does not depend on the LLM to produce or validate the format.
 
 ### Axiom II: The Glossary is the Single Source of Truth
 
@@ -177,7 +179,7 @@ The `verify` contract is: same set of tuples `(sigil, name, value_json)`. Sectio
 
 > **decode(encode(decode(x))) == decode(x)** for every valid `.cortex` file.
 
-The complete cycle must be 100% reversible. Zero semantic drift, zero information loss. Any implementation that does not satisfy this axiom is not a valid CORTEX codec.
+The complete codec cycle targets structural reversibility for supported structures. Semantic drift and information loss must be tested against explicit fixtures. Any implementation that does not satisfy this axiom is not a valid CORTEX codec.
 
 ### Axiom V: Attentional Anchoring by Structure
 
@@ -189,7 +191,7 @@ By injecting `FCS` and `OBJ` in fixed, high-density structural positions, the pr
 
 > **CODEC-CORTEX does not belong to any ecosystem.** It is a state transport format.
 
-Any implementation that respects these axioms is valid. There is no dependency on Hermes, DIALECT, LangChain, AutoGen, CrewAI, MCP, or any specific framework. Adapters are welcome; dependencies are not.
+Any implementation that respects these axioms is valid. There is no dependency on any specific framework or external system. Adapters are welcome; dependencies are not.
 
 ### Axiom VII: Layer Separation
 
@@ -210,7 +212,7 @@ The principles are design guides for implementations and extensions of the proto
 
 ### Principle 1: No LLM in the Adjustment Cycle
 
-The codec is pure algorithmic transformation. It does not matter whether the LLM of the moment is GPT-4, Claude, or a 3B-parameter SLM — the `.cortex` is parsed the same way. Compression quality does not depend on the model.
+The codec is pure algorithmic transformation. It does not matter whether the LLM of the moment is GPT-4, agent client, or a 3B-parameter SLM — the `.cortex` is parsed the same way. Compression quality does not depend on the model.
 
 ### Principle 2: YAML-Edit as the Human Source of Truth
 
@@ -226,7 +228,7 @@ Every `.cortex` includes its own glossary ($0). No external schemas, no central 
 
 ### Principle 5: Predictability over Optimization
 
-The parser must be deterministic and predictable before being intelligent. Better a slow but 100% correct parse than a fast one with edge cases. `verify` must detect any deviation from the expected AST.
+The parser must be deterministic and predictable before being intelligent. Better a slow but fully validated parse than a fast one with edge cases. `verify` must detect any deviation from the expected AST.
 
 ### Principle 6: REFs Point to Files, Not Directories
 
@@ -315,7 +317,7 @@ PUML diagrams are the most efficient compression mechanism in the protocol. A 20
 | Cognitive ontology with 3 layers and 12 sigils | ~100 lines | ~25 lines | 4× |
 | Causal relationships between modules | ~50 lines | ~10 lines | 5× |
 
-**Estimated average compression factor:** ~4× over prose, maintaining 100% structural fidelity.
+**Illustrative compression target:** ~4x over prose, pending reproducible benchmarks and structural fidelity tests.
 
 ### 7.3. Diagrams in the .cortex lifecycle
 
@@ -657,7 +659,7 @@ HCORTEX is not `.hcodex`, `.hcortex`, or any file extension. It is a **set of de
 | AAPL Q3 earnings | Extract net margin | High |
 ```
 
-4. **PUML diagrams are rendered for the human.** The LLM includes the `@startuml...@enduml` block in its response; the client (Hermes, Claude Desktop, etc.) renders it as an image.
+4. **PUML diagrams are rendered for the human.** The LLM includes the `@startuml...@enduml` block in its response; the client (agent clients) renders it as an image.
 5. **HCORTEX output is standard markdown.** Any editor or markdown viewer displays it correctly. No proprietary format, no extensions.
 6. **The human can edit the HCORTEX output and re-compress to `.cortex`.** `cortex encode input.md` interprets HCORTEX rules and reconstructs the `.cortex`, closing the bidirectional cycle.
 
@@ -780,7 +782,7 @@ encode --> decode : ciclo reversible
 explicit attrs + no micro → 100% of tokens
      │
      ▼ positional collapse (15-20% savings)
-attrs-pos + no micro → 80-85% of tokens
+attrs-pos + no micro → lower token budget than explicit attrs
      │
      ▼ micro-glossary atomicity (30-40% savings on remainder)
 attrs-pos + micro → 48-60% of tokens = 40-52% total savings
@@ -897,7 +899,7 @@ The protocol includes an exit mechanism for when the agent stops using CODEC-COR
 
 ```
 On de-adoption:
-1. decode --format hcortex on all active .cortex
+1. render active .cortex context as HCORTEX
 2. Save each output as .md HCORTEX (readable without the skill)
 3. Remove brain.cortex and SKILL.cortex (no longer apply)
 4. AGENT.md remains as the final record of the agent's state

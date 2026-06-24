@@ -9,7 +9,9 @@
 
 ---
 
-**Abstract:** Architectural design of the bridge between the CODEC-CORTEX SKILL and an MCP (Model Context Protocol) server. Includes a complete handler map with JSON-RPC schemas for the 18 codec operations, a sync→async wrapper with closure capture, execution flow diagrams, and a registration guide for Hermes Agent and Claude Desktop.
+> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+
+**Abstract:** Architectural design of the bridge between the CODEC-CORTEX SKILL and an MCP (Model Context Protocol) server. Includes a complete handler map with JSON-RPC schemas for the 18 codec operations, a sync→async wrapper with closure capture, execution flow diagrams, and a registration guide for agent clients.
 
 || | |
 |---|---|---|
@@ -39,7 +41,7 @@
 @startuml
 title Arquitectura del Bridge CODEC-CORTEX → MCP
 
-actor "Cliente MCP\n(Hermes Agent, Claude\nDesktop, Cursor)" as client
+actor "Cliente MCP\n(generic agent host, agent client\nDesktop, agent client)" as client
 rectangle "JSON-RPC\n(stdin/stdout\n o HTTP)" as jsonrpc
 rectangle "MCP Router\n(despacha\nJSON-RPC)" as router
 rectangle "Sync→Async\nWrapper\n(thread pool)" as wrapper
@@ -111,7 +113,7 @@ handlers:
     output_schema: cortex_encode_output
 
   cortex.verify:
-    description: "Validate the structural integrity of a .cortex file. CALL after any modification to ensure 100% reversibility."
+    description: "Validate structural integrity of a .cortex file. Planned handler; use after modifications to check structural roundtrip."
     input_schema: cortex_verify_input
     output_schema: cortex_verify_output
 
@@ -470,7 +472,7 @@ for h in handlers:
 server:
   name: cortex-bridge
   version: 1.0.0
-  description: "MCP server for the CODEC-CORTEX protocol — structural compression of cognitive memory for LLM agents"
+  description: "Future MCP server for CODEC-CORTEX contextual memory operations"
   transport: stdio  # or http for remote deployment
 
 handlers:
@@ -504,9 +506,9 @@ handlers:
     enabled: true
 ```
 
-### 5.2. Integration with Hermes Agent
+### 5.2. Integration with generic agent host
 
-For Hermes Agent to automatically discover the handlers, register the server in the configuration:
+For generic agent host to automatically discover the handlers, register the server in the configuration:
 
 ```yaml
 # ~/.hermes/config.yaml (fragment)
@@ -517,7 +519,7 @@ mcp_servers:
     transport: stdio
 ```
 
-### 5.3. Integration with Claude Desktop
+### 5.3. Integration with desktop MCP client
 
 ```json
 {
@@ -539,7 +541,7 @@ mcp_servers:
 @startuml
 title Ejecución de un handler MCP
 
-actor "Cliente\n(Hermes, Claude\nDesktop)" as client
+actor "Cliente\n(agent host, agent client\nDesktop)" as client
 participant "MCP Router" as router
 participant "Sync→Async\nWrapper" as wrapper
 participant "Codec\n(cortex_a_ast,\n verify, etc.)" as codec
@@ -593,7 +595,7 @@ router --> client : response\n{result:{ok:true,\n mensaje:"..."}}
 
 1. **Phase 1:** Create the `cortex_bridge` package with the 11 wrapped handlers
 2. **Phase 2:** Implement the MCP server (stdio + HTTP)
-3. **Phase 3:** Register in Hermes Agent and Claude Desktop
+3. **Phase 3:** Register in agent clients
 4. **Phase 4:** Integration tests: MCP client ↔ server ↔ codec
 5. **Phase 5:** Usage documentation for developers
 

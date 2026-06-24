@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 """
-CODEC-CORTEX — Deterministic structural compression for LLM agent cognitive memory.
+CODEC-CORTEX — specification-stage universal memory Skill and contextual memory protocol.
 
-Coming soon. See skill/SKILL.md for the protocol specification.
+This package is currently a placeholder. The deterministic codec implementation is planned. See README.md, STATUS.md and skill/SKILL.md.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

@@ -9,6 +9,8 @@
 
 ---
 
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. Las operaciones de codec, CLI, runtime y MCP son planificadas o futuras salvo que STATUS.md indique implementacion actual.
+
 **Abstract:** Ontología cognitiva, axiomas arquitectónicos y principios rectores del protocolo de compresión estructural determinista para memoria de agentes LLM. Cubre las 3 cortezas cognitivas, los 7 axiomas fundacionales, las 4 etapas de competencia como modelo de maduración, el protocolo HCORTEX de descompresión humana, las técnicas de compresión avanzada (colapso posicional y micro-glosario), y la proporción áurea (φ=1.618) como patrón universal de distribución de memoria.
 
 | | |
@@ -156,9 +158,9 @@ Los axiomas son principios fundamentales que **no se negocian**. Cualquier imple
 
 ### Axioma I: Determinismo Algorítmico
 
-> **decode/encode/verify son 100% algorítmicos.** Cero LLM en el ciclo de compilación. Cero llamadas a modelos de lenguaje.
+> **Las operaciones planificadas decode/encode/verify son operaciones deterministas del codec.** No deben llamar modelos de lenguaje durante el ciclo de compilacion.
 
-Esto garantiza reversibilidad 100%, latencia de microsegundos, y cero riesgo de alucinación durante la transformación estructural. El LLM consume el `.cortex`; el codec no depende del LLM para producir o validar el formato.
+Esto apunta a reversibilidad estructural y evita alucinacion LLM durante la transformacion estructural. Latencia y rendimiento requieren benchmarks de implementacion. El LLM consume el `.cortex`; el codec no depende del LLM para producir o validar el formato.
 
 ### Axioma II: El Glosario es la Única Fuente de Verdad
 
@@ -176,7 +178,7 @@ El contrato de `verify` es: mismo conjunto de tuplas `(sigilo, nombre, valor_jso
 
 > **decode(encode(decode(x))) == decode(x)** para todo archivo `.cortex` válido.
 
-El ciclo completo debe ser 100% reversible. Cero drift semántico, cero pérdida de información. Cualquier implementación que no cumpla este axioma no es un codec CORTEX válido.
+El ciclo completo del codec apunta a reversibilidad estructural para estructuras soportadas. Drift semantico y perdida de informacion deben probarse con fixtures explicitos. Cualquier implementación que no cumpla este axioma no es un codec CORTEX válido.
 
 ### Axioma V: Anclaje Atencional por Estructura
 
@@ -188,7 +190,7 @@ Al inyectar `FCS` y `OBJ` en posiciones estructurales fijas y de alta densidad, 
 
 > **CODEC-CORTEX no pertenece a ningún ecosistema.** Es un formato de transporte de estado.
 
-Cualquier implementación que respete estos axiomas es válida. No hay dependencia de Hermes, DIALECT, LangChain, AutoGen, CrewAI, MCP, o ningún framework específico. Los adaptadores son bienvenidos; las dependencias no.
+Cualquier implementación que respete estos axiomas es válida. No hay dependencia de ningun framework o sistema externo especifico. Los adaptadores son bienvenidos; las dependencias no.
 
 ### Axioma VII: Separación de Capas
 
@@ -209,7 +211,7 @@ Los principios son guías de diseño para implementaciones y extensiones del pro
 
 ### Principio 1: Sin LLM en el Ciclo de Ajuste
 
-El codec es pura transformación algorítmica. No importa si el LLM de turno es GPT-4, Claude, o un SLM de 3B parámetros — el `.cortex` se parsea igual. La calidad de la compresión no depende del modelo.
+El codec es pura transformación algorítmica. No importa si el LLM de turno es GPT-4, agent client, o un SLM de 3B parámetros — el `.cortex` se parsea igual. La calidad de la compresión no depende del modelo.
 
 ### Principio 2: YAML-Edit como Fuente de Verdad Humana
 
@@ -225,7 +227,7 @@ Todo `.cortex` incluye su propio glosario ($0). No hay schemas externos, no hay 
 
 ### Principio 5: Predecibilidad sobre Optimización
 
-El parser debe ser determinista y predecible antes que inteligente. Mejor un parseo lento pero 100% correcto que uno rápido con casos borde. `verify` debe detectar cualquier desviación del AST esperado.
+El parser debe ser determinista y predecible antes que inteligente. Mejor un parseo lento pero completamente validado que uno rápido con casos borde. `verify` debe detectar cualquier desviación del AST esperado.
 
 ### Principio 6: Las REFs Apuntan a Archivos, No a Directorios
 
@@ -314,7 +316,7 @@ Los diagramas PUML son el mecanismo de compresión más eficiente del protocolo.
 | Ontología cognitiva con 3 capas y 12 sigilos | ~100 líneas | ~25 líneas | 4× |
 | Relaciones causales entre módulos | ~50 líneas | ~10 líneas | 5× |
 
-**Factor de compresión promedio estimado:** ~4× sobre prosa, manteniendo 100% de fidelidad estructural.
+**Objetivo ilustrativo de compresion:** ~4x sobre prosa, pendiente de benchmarks reproducibles y tests de fidelidad estructural.
 
 ### 7.3. Los diagramas en el ciclo de vida del .cortex
 
@@ -656,7 +658,7 @@ HCORTEX no es `.hcodex`, `.hcortex` ni ninguna extensión de archivo. Es un **co
 | AAPL Q3 earnings | Extraer margen neto | Alta |
 ```
 
-4. **Los diagramas PUML se renderizan para el humano.** El LLM incluye el bloque `@startuml...@enduml` en su respuesta; el cliente (Hermes, Claude Desktop, etc.) lo renderiza como imagen.
+4. **Los diagramas PUML se renderizan para el humano.** El LLM incluye el bloque `@startuml...@enduml` en su respuesta; el cliente (agent clients) lo renderiza como imagen.
 5. **La salida HCORTEX es markdown estándar.** Cualquier editor o visor de markdown la muestra correctamente. No hay formato propietario, no hay extensiones.
 6. **El humano puede editar la salida HCORTEX y re-comprimir a `.cortex`.** `cortex encode entrada.md` interpreta las reglas HCORTEX y reconstruye el `.cortex`, cerrando el ciclo bidireccional.
 
@@ -779,7 +781,7 @@ encode --> decode : ciclo reversible
 attrs explícito + sin micro → 100% de tokens
      │
      ▼ colapso posicional (15-20% ahorro)
-attrs-pos + sin micro → 80-85% de tokens
+attrs-pos + sin micro → menor presupuesto de tokens que attrs explicito
      │
      ▼ atomicidad micro-glosario (30-40% ahorro sobre el remanente)
 attrs-pos + micro → 48-60% de tokens = 40-52% de ahorro total
@@ -896,7 +898,7 @@ El protocolo incluye un mecanismo de salida para cuando el agente deja de usar C
 
 ```
 Al desadoptar:
-1. decode --format hcortex sobre todos los .cortex activos
+1. renderizar contexto .cortex activo como HCORTEX
 2. Guardar cada salida como .md HCORTEX (legible sin el skill)
 3. Eliminar brain.cortex y SKILL.cortex (ya no aplican)
 4. AGENT.md permanece como registro final del estado del agente

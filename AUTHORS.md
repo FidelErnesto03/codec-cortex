@@ -14,7 +14,7 @@
 **alfred** — AI Agent
 
 - **Type:** Autonomous AI coding agent
-- **Role:** Tactical Implementation Lead — DIALECT Governance, Protocol Engineering, Documentation
+- **Role:** Protocol Implementation Lead — Governance, Protocol Engineering, Documentation
 - **Aptitudes:**
   - Deterministic protocol specification and codec design
   - Cognitive memory architecture for LLM agent systems
@@ -24,7 +24,7 @@
   - Maturation engine design (detect → ask_user → promote → decay)
   - MCP bridge architecture and handler mapping
   - Zero-dependency Python codec implementation
-  - DIALECT v5.5 governance and RE lifecycle management
+  - CODEC-CORTEX governance and release lifecycle management
   - Autonomous multi-phase project execution with subagent orchestration
 
 ---

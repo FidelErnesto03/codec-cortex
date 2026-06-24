@@ -9,7 +9,9 @@
 
 ---
 
-**Abstract:** Practical integration guide for the CODEC-CORTEX protocol in LLM and SLM agents. Covers 3 adoption patterns (Hermes Agent, Claude Code, Codex CLI), CAG vs RAG strategy with decision tree, compression benchmarks with 4K-8K token SLMs, PUML diagram usage in integrations, and reference to the cognitive trinity and output GATE.
+> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+
+**Abstract:** Practical integration guide for the CODEC-CORTEX protocol in LLM and SLM agents. Covers 3 adoption patterns (generic agent host, coding agent client, CLI-based coding agent), CAG vs RAG strategy with decision tree, compression benchmarks with 4K-8K token SLMs, PUML diagram usage in integrations, and reference to the cognitive trinity and output GATE.
 
 | | |
 |---|---|
@@ -39,17 +41,17 @@ CODEC-CORTEX adoption follows three patterns:
 |--------|-------------|---------------|
 | **Direct read** | The agent reads the `.cortex` as context in its prompt | Immediate, no additional implementation |
 | **API codec** | The agent invokes `decode/encode/verify` via CLI or library | When the `.cortex` needs to be modified or validated |
-| **MCP bridge** | The agent accesses the `.cortex` via MCP handlers | When the ecosystem natively supports MCP |
+| **MCP bridge** | The agent accesses `.cortex` through future MCP handlers | Future enterprise phase |
 
-**Recommendation:** Start with direct read (simplest pattern), scale to API codec when modification is needed, and adopt MCP bridge when seeking native integration with tools like Claude Desktop.
+**Recommendation:** Start with direct read (simplest pattern), scale to API codec when modification is needed, and adopt MCP bridge when seeking native integration with tools like desktop MCP client.
 
 ---
 
-## 2. Integration in Hermes Agent
+## 2. Integration in generic agent host
 
-Hermes Agent can consume CODEC-CORTEX in two ways:
+generic agent host can consume CODEC-CORTEX in two ways:
 
-### 2.1. As an LLM skill (not registered in Hermes)
+### 2.1. As an LLM skill (not registered in agent host)
 
 The purest mode: the SKILL.md is placed in the project and any agent reads it directly.
 
@@ -77,17 +79,17 @@ FCS:attention{current_objective:"Analyze Q3 earnings AAPL"}
 OBJ:mission{type:research, goal:"extract_net_margin"}
 ```
 
-### 2.2. As a registered skill (Hermes skill_view)
+### 2.2. As a registered skill (agent host skill registry)
 
-If you wish to integrate as a Hermes Agent skill, the SKILL.md can be placed in `~/.hermes/skills/`. However, this ties it to the Hermes ecosystem — for a universal skill, it is recommended to keep it in the project and load it via direct instruction to the agent.
+If you wish to integrate as a generic agent host skill, the SKILL.md can be placed in `~/.hermes/skills/`. However, this ties it to the host ecosystem — for a universal skill, it is recommended to keep it in the project and load it via direct instruction to the agent.
 
-**Recommendation:** Do not register CODEC-CORTEX as a Hermes skill. The skill should live in the project and be portable.
+**Recommendation:** Do not register CODEC-CORTEX as a host-specific skill. The skill should live in the project and be portable.
 
 ---
 
-## 3. Integration in Claude Code / Codex CLI
+## 3. Integration in coding agent client / CLI-based coding agent
 
-Claude Code can consume `.cortex` as part of its project context.
+coding agent client can consume `.cortex` as part of its project context.
 
 ### 3.1. Direct read in project
 
@@ -114,6 +116,7 @@ The OBJ:mission sigil contains your objective. Do not act without both.
 cortex decode AGENT.cortex
 
 # Verify integrity
+# planned CLI
 cortex verify AGENT.cortex
 
 # Update working memory
@@ -126,7 +129,7 @@ cortex patch_update AGENT.cortex --sigil WRK --name status --value "progress:75%
 
 **This is CODEC-CORTEX's most impactful use case.**
 
-SLMs (Phi-3, Llama-3-8B, Gemma-2B, Qwen2.5-7B) have limited context windows (4k-8k tokens). This makes them ideal for edge computing but unviable for tasks requiring persistent memory.
+SLMs (Phi-3, Llama-3-8B, Gemma-2B, agent client2.5-7B) have limited context windows (4k-8k tokens). This makes them ideal for edge computing but unviable for tasks requiring persistent memory.
 
 ### 4.1. The problem with SLMs
 
@@ -181,7 +184,7 @@ end note
    - Upon reaching 70% of the context window → trigger compression
    
 3. At session end (or upon reaching the limit):
-   - Execute compress(): WRK → SES + LNG
+   - Future runtime executes compress(): WRK → SES + LNG
    - The new .cortex occupies ~500-800 tokens
    - Ready for the next session
 
@@ -212,7 +215,7 @@ This occupies ~80 tokens and provides: direction (FCS), goal (OBJ), and state (W
 | Phi-3-mini (3.8B) | Collapses (>4K tok) | Operates (1.2s TTFT) | ✅ Viable |
 | Llama-3-8B | 4.8s TTFT, 42% OBJ recall | 1.1s TTFT, 96% OBJ recall | 4.4×, 2.3× |
 | Gemma-2B | Collapses (>8K tok) | Operates (0.9s TTFT) | ✅ Viable |
-| Qwen2.5-7B | 3.2s TTFT, 55% OBJ recall | 0.8s TTFT, 94% OBJ recall | 4×, 1.7× |
+| agent client2.5-7B | 3.2s TTFT, 55% OBJ recall | 0.8s TTFT, 94% OBJ recall | 4×, 1.7× |
 
 ---
 
@@ -395,7 +398,7 @@ SES:writer{input:"receive_data", output:"draft.md", result:"in_progress"}
    - Past history? → $4: SES, LNG
 3. Extract sigils according to classification
 4. Add $0 with glossary of used sigils
-5. Verify with `cortex verify`
+5. When the planned CLI exists, verify with `cortex verify`
 ```
 
 ### 7.2. Atomic correction by section
@@ -412,7 +415,7 @@ Do not migrate everything at once. Do it by layer:
 
 | Metric | Before (flat text) | After (.cortex) |
 |---------|---------------------|-------------------|
-| Equivalent tokens | ~12,000 | ~1,800 (85% savings) |
+| Equivalent tokens | ~12,000 | ~1,800 (illustrative high-density target) |
 | OBJ recovery | ~42% (lost in middle) | ~96% (anchored) |
 | SLM latency (3B-8B) | 4.8s | 1.1s |
 
@@ -428,7 +431,7 @@ Do not migrate everything at once. Do it by layer:
 | Compression cycle | When WRK exceeds ~70% of the context window |
 | **Compression via diagrams** | **A 20-line `DIAG` replaces ~200 lines of prose (~4× additional compression)** |
 | **Cognitive trinity** | **brain.cortex (local brain) + AGENT.cortex (identity) + SKILL.cortex (capability). Three files, one pattern** |
-| **Output GATE** | **Clean de-adoption: decode --format hcortex over all .cortex files. The agent exits with its memory in readable .md** |
+| **Output GATE** | **Clean de-adoption: render active .cortex context as HCORTEX. Planned CLI may automate this later** |
 | Interchange format | `.cortex` (plain text, no binary) |
 | Zero-dependency | Yes — the parser uses only Python stdlib |
 

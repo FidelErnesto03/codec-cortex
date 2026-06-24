@@ -9,6 +9,8 @@
 
 ---
 
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. Las operaciones de codec, CLI, runtime y MCP son planificadas o futuras salvo que STATUS.md indique implementacion actual.
+
 **Abstract:** Ecuaciones de densidad cognitiva, máquina de estados del ciclo de vida de memoria, algoritmo de parseo determinista (autómata de caracteres de 6 estados), deep compare estructural, parseo de bloques PUML verbatim, y algoritmos del motor de maduración (detect_recurrence, promote, decay). Incluye la distribución áurea de tokens (φ=1.618) entre capas cognitivas y el ciclo de gestión de contextos con GATE de salida.
 
 | | |
@@ -43,7 +45,7 @@ Donde:
 - `S_raw` = Tamaño del contexto en tokens en formato texto plano / YAML / JSON
 - `S_cortex` = Tamaño del mismo contexto en formato `.cortex` compilado
 
-**Objetivo:** `C ≥ 0.85` (85% de reducción o más)
+**Objetivo:** alta densidad contextual. Cualquier reduccion numerica requiere benchmark reproducible.
 
 **Ejemplo:** Un historial de agente de 12,000 tokens en texto plano → 1,800 tokens en `.cortex`:
 ```
@@ -89,7 +91,7 @@ Donde:
 ### 1.4. Punto de Equilibrio (P)
 
 ```
-P_equilibrio: C ≥ 0.85 → a partir de la 2da iteración se recupera la inversión
+P_equilibrio: C target: high density → a partir de la 2da iteración se recupera la inversión
 ```
 
 **Demostración:**
@@ -618,7 +620,7 @@ FUNCIÓN pipeline_cortex(archivo: str) → bool:
     
     // 5. Reportar
     SI resultado.ok:
-        print(f"✅ CICLO COMPLETO: 100% reversible")
+        print(f"CICLO COMPLETO: reversible estructuralmente para este fixture")
         ratio = len(contenido) / len(reconstruido)
         print(f"   Compresión estructural: {ratio:.2f}x")
         print(f"   Secciones: {len(ast['ast'])}")
@@ -884,7 +886,7 @@ FUNCIÓN decode(format=hcortex, ast_data: dict) → str (markdown):
 1. **Preservar DIAG sin modificar.** Los bloques PUML se incluyen tal cual en la salida HCORTEX. El cliente los renderiza.
 2. **Tablas primero.** Si el sigilo tiene 2+ campos, es tabla. Si tiene 1 campo, es par K/V.
 3. **Listas para colecciones.** Arrays de sigilos (KNW con APIs, SES múltiples) van como listas con viñetas.
-4. **Sin prosa generada.** `decode(format=hcortex)` es pura transformación determinista de AST a markdown estructurado. Cero LLM, cero inferencia.
+4. **Sin prosa generada.** `decode(format=hcortex)` es pura transformación determinista de AST a markdown estructurado. Sin llamadas LLM dentro del renderer planificado.
 5. **Sin sigilos visibles.** La salida HCORTEX no muestra `IDN:`, `FCS:`, etc. Muestra etiquetas semánticas en lenguaje natural: "Identidad", "Foco", "Progreso".
 6. **$0 no se incluye.** El glosario $0 es metadata exclusiva para IA. La salida HCORTEX comienza en $1 (Identidad) y omite completamente la sección $0.
 7. **La salida es `.md` estándar.** No hay extensión propietaria. Cualquier editor de markdown renderiza el resultado.

@@ -9,6 +9,8 @@
 
 ---
 
+> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+
 **Abstract:** Cognitive density equations, lifecycle state machine, deterministic parsing algorithm (6-state character automaton), structural deep compare, verbatim PUML block parsing, and maturation engine algorithms (detect_recurrence, promote, decay). Includes the golden token distribution (φ=1.618) across cognitive layers and the context management cycle with exit GATE.
 
 || | |
@@ -44,7 +46,7 @@ Where:
 - `S_raw` = Context size in tokens in plain text / YAML / JSON format
 - `S_cortex` = Size of the same context in compiled `.cortex` format
 
-**Target:** `C ≥ 0.85` (85% reduction or more)
+**Target:** high contextual density. Any numeric reduction claim requires a reproducible benchmark.
 
 **Example:** An agent history of 12,000 tokens in plain text → 1,800 tokens in `.cortex`:
 ```
@@ -90,7 +92,7 @@ Where:
 ### 1.4. Equilibrium Point (P)
 
 ```
-P_equilibrium: C ≥ 0.85 → from the 2nd iteration onward the investment is recovered
+P_equilibrium: C target: high density → from the 2nd iteration onward the investment is recovered
 ```
 
 **Demonstration:**
@@ -619,7 +621,7 @@ FUNCTION pipeline_cortex(file: str) → bool:
     
     // 5. Report
     IF result.ok:
-        print(f"✅ COMPLETE CYCLE: 100% reversible")
+        print(f"COMPLETE CYCLE: structurally reversible for this fixture")
         ratio = len(content) / len(reconstructed)
         print(f"   Structural compression: {ratio:.2f}x")
         print(f"   Sections: {len(ast['ast'])}")
@@ -885,7 +887,7 @@ FUNCTION decode(format=hcortex, ast_data: dict) → str (markdown):
 1. **Preserve DIAG unmodified.** PUML blocks are included as-is in the HCORTEX output. The client renders them.
 2. **Tables first.** If the sigil has 2+ fields, it's a table. If it has 1 field, it's a K/V pair.
 3. **Lists for collections.** Arrays of sigils (KNW with APIs, multiple SES) go as bulleted lists.
-4. **No generated prose.** `decode(format=hcortex)` is pure deterministic transformation from AST to structured markdown. Zero LLM, zero inference.
+4. **No generated prose.** `decode(format=hcortex)` is pure deterministic transformation from AST to structured markdown. No LLM calls inside the planned renderer.
 5. **No visible sigils.** HCORTEX output does not show `IDN:`, `FCS:`, etc. It shows semantic labels in natural language: "Identity", "Focus", "Progress".
 6. **$0 not included.** The $0 glossary is AI-only metadata. HCORTEX output starts at $1 (Identity) and completely omits section $0.
 7. **Output is standard `.md`.** No proprietary extension. Any markdown editor renders the result.
