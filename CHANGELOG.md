@@ -8,6 +8,28 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] — 2026-06-24
+
+### Added
+- HCORTEX render protocol: 5 rules (`!hcortex_profile_selection`, `!hcortex_source_traceability`, `!hcortex_multi_instance`, `!hcortex_expansion_render`, `!hcortex_render_order`) in `SKILL.cortex $4`.
+- HCORTEX render procedure: 8 steps in `SKILL.cortex $10` (profile, source, instance, expansion type, P0-P5 order).
+- Source traceability column (`<SIGIL>:<name>`) in HCORTEX tables for P0/P1 entries.
+- Multi-instance sub-sections for sigils with multiple named instances (FCS:primary, FCS:secondary).
+- 5 render strategies by expansion type (attrs, cuerpo, contenido, bloque, attrs-pos).
+- P0-P5 priority ordering for HCORTEX sections.
+- `!gov_isolation` rule: no DIALECT governance references in public project files.
+- Audit segmentation support: explicit `CORTEX-FULL (segmentado)` for insufficient budget.
+- `DIAG caption check` metric in `benchmark-methodology.md`.
+- README and STATUS.md updated to reflect v0.2.1 Survival Core.
+
+### Fixed
+- D-01: HCORTEX render now selects profile by context budget before rendering (MIN/RECOVERY/WORK/FULL).
+- D-02: Source column added to all P0/P1 tables. `WARNING: missing source` on missing traceability.
+- D-03: Multi-instance entries render as distinct sub-sections or with instance column.
+- D-04: Expansion type-specific render strategies (no more uniform K/V tables for all types).
+- D-05: PUML diagrams include `' source: DIAG:<name>` caption.
+- D-06: HCORTEX sections ordered by P-level priority (P0 first, P5 last).
+
 ## [0.2.1] — 2026-06-24
 
 ### Added
