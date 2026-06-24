@@ -81,6 +81,7 @@ HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_c
 !direct_profile_selection{Jump directly to required profile budget: MIN (~300t), RECOVERY (~1000t), WORK (~3000t), FULL (unlimited). No sequential chain required}
 !hcortex_profile_selection{Before rendering HCORTEX, resolve the active profile using this precedence: explicit_profile > available_context_budget > operational_mode > CORTEX-WORK. Budget thresholds: MIN<=512t, RECOVERY<=1000t, WORK<=3000t, FULL>3000t. MIN render target is ~300t. Include only entries whose explicit P-level, derived P-level from !priority_pack, or survive level qualifies for the active profile. Filtering is entry-level, never section-level. Entries without P-level and without survive are treated as P5. Declare the active profile as the first HCORTEX line: Perfil: CORTEX-<LEVEL>. Defaults by mode: audit->FULL, recovery->RECOVERY, active->WORK, emergency->MIN. If audit requires FULL and budget is insufficient, do not silently degrade; declare Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total or unknown> and render only the declared segment. Never label segmented audit as WORK or RECOVERY}
 !hcortex_source_traceability{Every HCORTEX table derived from P0, P1, or survive:min entries must include a source column using the canonical format <SIGIL>:<name> (e.g. FCS:primary, CNST:honesty). For P2+ entries, the source column is recommended but not mandatory. The source column must be the last column in the table. PUML diagrams must include a source comment using the canonical format: ' source: DIAG:<name>. Rule bodies rendered outside tables must include inline source annotation when derived from P0/P1. If a required source is missing for P0/P1, render WARNING: missing source instead of omitting traceability}
+!hcortex_multi_instance{When a sigil has multiple named instances (e.g. FCS:primary, FCS:secondary), HCORTEX must render them as distinct sub-sections using the instance name as context. The preferred format is a sub-section header per instance: ### <SIGIL>:<name>. If a unified table is more readable, include an instance column. Instances must appear in the same order as in the .cortex source file. Single-instance sigils are unaffected.}
 
 # -- $5: PITFALLS --
 PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
@@ -239,6 +240,8 @@ runtime --> mcp
 #   Step 5: add source column to P0/P1 tables using <SIGIL>:<name> format.
 #            PUML diagrams include ' source: DIAG:<name>.
 #            If source missing for P0/P1, render WARNING: missing source.
+#   Step 6: if a sigil has multiple named instances (FCS:primary, FCS:secondary),
+#            render as distinct sub-sections: ### <SIGIL>:<name>. Preserve source order.
 
 # -- $11: DEGRADATION POLICY --
 # Conceptual chain: FULL → WORK → RECOVERY → MIN
