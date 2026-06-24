@@ -72,6 +72,7 @@ CODEC-CORTEX no mide eficiencia por compresión de bytes. La mide por cuántas d
 | **E contextual** | (FCS+OBJ+CNST+STP+WRK preservados) / tokens usados | Conceptual |
 | **Falsos positivos** | Claims no verificables que sobrevivieron | 0 |
 | **Falsos negativos** | CNST:blocking que no sobrevivió | 0 |
+| **DIAG caption check** | Diagramas PUML en HCORTEX incluyen `' source: DIAG:<nombre>` | 100% |
 
 ---
 
