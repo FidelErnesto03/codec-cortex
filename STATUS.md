@@ -10,7 +10,7 @@ This file is the maturity registry for public claims in the repository. README, 
 - Repository documentation structure.
 - README public entry point.
 - `skill/SKILL.md` and `skill/SKILL.en.md` Skill specification drafts.
-- `skill/SKILL.cortex` dense Skill draft (26 sigils, 13 rules).
+- `skill/SKILL.cortex` dense Skill draft (19 canonical sigils — 25 total documented in SKILL.md).
 - `skill/AGENT.cortex` example identity file.
 - `skill/brain.cortex` local brain template.
 - Spanish and English reference documents.
