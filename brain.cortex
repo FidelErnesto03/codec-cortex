@@ -32,13 +32,13 @@ CNST:limits{output:"HCORTEX", user_language:"ES", structural_language:"EN", cano
 CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims", severity:"blocking", survive:"min"}
 
 # -- $2: OPERATIONAL STATE --
-FCS:primary{what:"RE-007 aprobada — 6 desviaciones HCORTEX documentadas. Pendiente: decisión sobre RE-008 (corrección de render)", priority:"high", status:"active", survive:"work"}
-FCS:secondary{what:"v0.2.1 liberado — Survival Core completo en repo + skill Hermes + DIALECT", priority:"medium", status:"done", survive:"work"}
-OBJ:primary{goal:"Documentar 6 desviaciones en conversión .cortex→HCORTEX y proponer correcciones sin parser", status:"done", success:"RE-007 approved con 6 desviaciones + 5 ajustes del governor. 0 archivos modificados (MR-02)", survive:"recovery"}
-OBJ:secondary{goal:"Mantener brain.cortex actualizado con estado operativo real post-sesión", status:"in_progress", success:"brain.cortex refleja RE-007 approved + commit pendiente", survive:"work"}
-WRK:state{phase:"diagnóstico HCORTEX completado", current:"brain.cortex actualizado post RE-007 approved", blocked:false, survive:"work", active_files:["brain.cortex"]}
+FCS:primary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado — 13/13 REs approved. HCORTEX render protocol implementado", priority:"high", status:"active", survive:"work"}
+FCS:secondary{what:"v0.2.1 liberado. Core skill + 5 reglas HCORTEX + 8 pasos de render", priority:"medium", status:"done", survive:"work"}
+OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", status:"done", success:"13/13 REs approved. 5 reglas en $4, 8 pasos en $10, 0 archivos .cortex modificados", survive:"recovery"}
+OBJ:secondary{goal:"Mantener brain.cortex actualizado con estado operativo real", status:"in_progress", success:"brain.cortex refleja ciclo completo post-RE-013", survive:"work"}
+WRK:state{phase:"cierre de ciclo", current:"brain.cortex actualizado — HCORTEX render protocol completo", blocked:false, survive:"work", active_files:["brain.cortex"]}
 WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", branch:"main", tag:"v0.2.1", remote:"origin/main"}
-STP:next{action:"Fidel decide si avanzar con RE-008 (corrección de render HCORTEX)", reason:"RE-007 aprobada — 6 desviaciones diagnosticadas, todas corregibles sin parser", owner:"human", survive:"work"}
+STP:next{action:"decidir próximos pasos: parser, benchmarks automatizados, RE-014, o nuevo ciclo", reason:"ciclo CORTEX-CONSOLIDATION-001 completado con 13/13 REs", owner:"human", survive:"work"}
 
 # -- $3: RECENT SESSIONS --
 SES:survival_core_refinement{input:"12 premisas del arquitecto para evolución CODEC-CORTEX: perfiles, priority pack, survive, HCORTEX, degradación", output:"RE-004 refinada (15 recomendaciones) + RE-005 refinada (17 recomendaciones) + RE-006 redefinida (2 tracks)", outcome:"3 REs en open, quality_contract 10/10, zero DRAFT, PUML validados", date:"2026-06-24"}
@@ -50,6 +50,7 @@ SES:release_v021{input:"Fidel autorizó release v0.2.1", output:"CHANGELOG [Unre
 SES:skill_migration{input:"SKILL.cortex copiado a ~/.hermes/skills/codec-cortex/, importado a DIALECT .dialect/SKILLS/, registrado en REGISTRY.yaml, cacheado en .project-control/SKILL_CACHE/", output:"skill v1.3.0 disponible en Hermes + DIALECT", outcome:"migrated", date:"2026-06-24"}
 SES:re007_diagnosis{input:"análisis de conversión .cortex→HCORTEX", output:"RE-007 con 6 desviaciones documentadas: D-01 sin perfil, D-02 sin trazabilidad, D-03 multi-instancia aplanada, D-04 sin estrategia por tipo, D-05 DIAG sin caption, D-06 sin orden P0→P5", outcome:"RE-007 open, QC 10/10", date:"2026-06-24"}
 SES:re007_approved{input:"5 ajustes del governor: referencias $7 corregidas, D-01 filtro por entrada, PUML endurecido, default_profile por modo, evidencia estructurada", output:"RE-007 approved. 0 archivos modificados (MR-02)", outcome:"approved", date:"2026-06-24"}
+SES:hcortex_corrections{input:"RE-008 a RE-013 — D-01 perfil activo, D-02 trazabilidad, D-03 multi-instancia, D-04 tipo expansion, D-05 DIAG caption, D-06 orden P0-P5", output:"5 reglas !hcortex_* en $4. 8 pasos en $10. Ciclo completado: 13/13 REs approved", outcome:"12 commits, v0.2.1, brain.cortex actualizado", date:"2026-06-24"}
 
 # -- $4: LESSONS LEARNED --
 LNG:survival_core_emerged{Fidel definió 12 premisas que reorientan CODEC-CORTEX de formato denso a sistema de supervivencia contextual. El concepto clave: "cuando todo lo demás se pierde, todavía sobreviven FCS, OBJ, CNST, STP"}
@@ -103,6 +104,6 @@ REF:changelog{PATH:"CHANGELOG.md", purpose:"release history"}
 
 # -- $10: AUDIT --
 AUD:last_release{version:"v0.2.1", branch:"main", pushed:true, tag_pushed:true, github_release:true}
-AUD:session_outcome{date:"2026-06-24", re_status:{RE004:"approved",RE005:"approved",RE006:"approved",RE007:"approved"}, quality_contract:"10/10 all", draft_free:true, puml_validated:true, release:"v0.2.1", skill_migrated:"Hermes+DIALECT"}
+AUD:session_outcome{date:"2026-06-24", re_status:{RE004:"approved",RE005:"approved",RE006:"approved",RE007:"approved",RE008:"approved",RE009:"approved",RE010:"approved",RE011:"approved",RE012:"approved",RE013:"approved"}, quality_contract:"10/10 all", draft_free:true, puml_validated:true, release:"v0.2.1", skill_migrated:"Hermes+DIALECT", hcortex_rules:5, hcortex_steps:8}
 AUD:brain_currentness{checked:"2026-06-24", updated:true, new_sigils:["RSK","NXT","CLAIM","LIM"], contracts_applied:["FCS","OBJ","CNST","STP","WRK"], survive_in_use:true}
 TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"Survival Core session — CODEC-CORTEX adoption + RE refinement"}
