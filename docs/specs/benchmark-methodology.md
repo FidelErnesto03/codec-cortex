@@ -18,7 +18,6 @@
 | **License** | MIT |
 | **Version** | specification draft |
 | **Language** | Español |
-| **Cycle** | CORTEX-CONSOLIDATION-001 |
 
 ---
 

@@ -9,7 +9,7 @@
 
 ---
 
-**Abstract:** Documento único que consolida los fundamentos del Survival Core de CODEC-CORTEX: atributo `survive`, priority pack P0-P5, perfiles conceptuales de carga, política de degradación, HCORTEX como render target, y métrica de eficiencia contextual. Este documento es la superficie unificada de lectura para humanos — deriva de RE-004 y RE-005 del ciclo CORTEX-CONSOLIDATION-001.
+**Abstract:** Documento único que consolida los fundamentos del Survival Core de CODEC-CORTEX: atributo `survive`, priority pack P0-P5, perfiles conceptuales de carga, política de degradación, HCORTEX como render target, y métrica de eficiencia contextual.
 
 | | |
 |---|---|
@@ -18,8 +18,6 @@
 | **License** | MIT |
 | **Version** | specification draft |
 | **Language** | Español |
-| **Cycle** | CORTEX-CONSOLIDATION-001 |
-| **Derived from** | RE-004, RE-005 |
 
 ---
 
