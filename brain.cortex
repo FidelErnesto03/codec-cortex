@@ -69,6 +69,7 @@ LNG:expansion_type_defines_render{El tipo de expansion no es metadata decorativa
 LNG:render_order_by_priority{Las secciones HCORTEX deben ordenarse por prioridad cognitiva (P0→P5), no por numero de seccion del .cortex fuente. Lo que mas importa se ve primero}
 LNG:gov_isolation_mandatory{Ningun documento publico del proyecto debe contener referencias de gobierno (RE-00X, nombres de ciclo, terminos DIALECT). Violacion: strip antes de push. Regla !gov_isolation en workbook}
 LNG:cortex_md_sync{Todo archivo .cortex con estado operativo debe tener su correspondiente .md HCORTEX sincronizado: brain.cortex→brain.md, alfred-memory→alfred-memory.md, summary.cortex→summary.md. El .md es la vista legible humana del .cortex. Si solo existe el .cortex, el agente pierde auditabilidad humana}
+LNG:version_centralization{En cada bump de version, todas las superficies que declaran version deben actualizarse atomicamente antes de crear el tag. El tag debe apuntar al commit que ya tiene todas las versiones alineadas. No crear tag primero y corregir despues — eso genera doble verdad documental}
 
 # -- $5: ACTIVE KNOWLEDGE --
 KNW:survival_core{RE-004:"núcleo mínimo — survive + 6 sigilos + 5 contratos flexibles", RE-005:"priority pack P0-P5 + perfiles conceptuales + degradación directa", RE-006:"2 specs + 5 reglas Skill + CHANGELOG Unreleased", RE-007:"6 desviaciones HCORTEX — todas corregibles sin parser"}
