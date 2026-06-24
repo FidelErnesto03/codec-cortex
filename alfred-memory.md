@@ -45,7 +45,7 @@
 | source | Área | Contenido |
 |--------|------|-----------|
 | KNW:dialect_workspace | Workspace | CODEC-CORTEX bajo DIALECT v5.5. Ciclo CORTEX-CONSOLIDATION-001 |
-| KNW:dialect_permanent | Proyecto | github.com/FidelErnesto03/codec-cortex. v0.2.2 |
+| KNW:dialect_permanent | Proyecto | github.com/FidelErnesto03/codec-cortex. v0.2.3 |
 | KNW:codec | Repo | Skill en ~/.hermes/skills/codec-cortex/ + DIALECT .dialect/SKILLS/ |
 | KNW:alfred | Workbook | CODEC-CORTEX/.project-control/workbook.md. Machine-first |
 | KNW:alfred | Brain | brain.cortex y alfred-memory.cortex en repo root |
@@ -68,7 +68,7 @@
 | LNG:survival | Survival direction came from user premises, not from RE structural analysis |
 | LNG:section7 | §7 shows functional use of deliverable, not RE execution steps |
 | LNG:load_vs_degrade | Load P0→P5, degrade P5→P1 |
-| LNG:no_release | Release v0.3.0-spec requires parser. v0.2.2 is PATCH |
+| LNG:no_release | Release v0.3.0-spec requires parser. v0.2.3 is PATCH |
 
 ## Próximos pasos
 
@@ -82,7 +82,7 @@
 | source | Afirmación / Límite | Evidencia |
 |--------|---------------------|-----------|
 | CLAIM:survival_core | 3 REs open + QC 10/10 + 0 DRAFT | DIALECT MCP |
-| CLAIM:release | v0.2.2 is PATCH under semver. Survival Core = spec draft | CHANGELOG, tag, release |
+| CLAIM:release | v0.2.3 is PATCH under semver. Survival Core = spec draft | CHANGELOG, tag, release |
 | LIM:parser | No parser yet. Rules applied manually | Fase pre-codec |
 | LIM:benchmark | Benchmarks 0.1/0.1b/0.2 = offline/proxy | Automatización require parser |
 

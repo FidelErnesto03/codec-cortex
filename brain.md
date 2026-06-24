@@ -4,7 +4,7 @@
 
 # brain.md — HCORTEX de alfred (cerebro local)
 
-> **Perfil: CORTEX-FULL** · v0.2.2 · 2026-06-24 · source: brain.cortex
+> **Perfil: CORTEX-FULL** · v0.2.3 · 2026-06-24 · source: brain.cortex
 
 ---
 
@@ -15,7 +15,7 @@
 | FCS:primary | Qué | Ciclo CORTEX-CONSOLIDATION-001 completado — 13/13 REs approved. HCORTEX render protocol implementado |
 | FCS:primary | Prioridad | high |
 | FCS:primary | Estado | active |
-| FCS:secondary | Qué | v0.2.2 liberado. Core skill + 5 reglas HCORTEX + 8 pasos de render |
+| FCS:secondary | Qué | v0.2.3 liberado. Core skill + 5 reglas HCORTEX + 8 pasos de render |
 | FCS:secondary | Estado | done |
 
 ## Objetivo
@@ -30,11 +30,11 @@
 | source | Campo | Valor |
 |--------|-------|-------|
 | WRK:state | Fase | cierre de ciclo |
-| WRK:state | Actual | documentación alineada: README v0.2.2, STATUS, summary en .project-control/ |
+| WRK:state | Actual | documentación alineada: README v0.2.3, STATUS, summary en .project-control/ |
 | WRK:state | Bloqueado | false |
 | WRK:repo | URL | github.com/FidelErnesto03/codec-cortex |
 | WRK:repo | Branch | main |
-| WRK:repo | Tag | v0.2.2 |
+| WRK:repo | Tag | v0.2.3 |
 
 ## Restricciones
 
@@ -96,7 +96,7 @@
 
 | source | Riesgo | Impacto | Mitigación |
 |--------|--------|:-------:|------------|
-| RSK:premature_release | Release v0.3.0-spec antes de parser | medio | v0.2.2 es PATCH legítimo. Survival Core = spec draft |
+| RSK:premature_release | Release v0.3.0-spec antes de parser | medio | v0.2.3 es PATCH legítimo. Survival Core = spec draft |
 | RSK:profile_ambiguity | Perfiles conceptuales ambiguos | bajo | Son criterios de prioridad, no inventarios |
 | RSK:glossary_divergence | brain.cortex vs SKILL.cortex $0 divergen | medio | SKILL.cortex $0 = fuente canónica única |
 
@@ -104,8 +104,8 @@
 
 | source | Afirmación / Límite | Evidencia |
 |--------|---------------------|-----------|
-| CLAIM:survival_core | Survival Core especificado, ejecutado y liberado como v0.2.2 (PATCH) | 13/13 REs approved. ROADMAP Phase 2.1 spec draft |
-| CLAIM:release_v022 | v0.2.2 es PATCH legítimo bajo semver. HCORTEX render protocol completo | CHANGELOG [0.2.2]. 5 reglas, 8 pasos, 6 correcciones |
+| CLAIM:survival_core | Survival Core especificado, ejecutado y liberado como v0.2.3 (PATCH) | 13/13 REs approved. ROADMAP Phase 2.1 spec draft |
+| CLAIM:release_v022 | v0.2.3 es PATCH legítimo bajo semver. HCORTEX render protocol completo | CHANGELOG [0.2.2]. 5 reglas, 8 pasos, 6 correcciones |
 | LIM:parser_gap | Reglas P0-P5 y survive se aplican manualmente | Fase actual pre-codec |
 | LIM:benchmark_gap | Benchmarks 0.1/0.1b/0.2 son offline/proxy | Automatización requiere parser |
 
@@ -113,7 +113,7 @@
 
 | source | Métrica | Valor |
 |--------|---------|-------|
-| AUD:last_release | Versión | v0.2.2 |
+| AUD:last_release | Versión | v0.2.3 |
 | AUD:last_release | Branch | main |
 | AUD:last_release | GitHub release | creado |
 | AUD:session_outcome | REs aprobadas | 13/13 |

@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.2.2 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
+  <sub>v0.2.3 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
 </p>
 
 ---

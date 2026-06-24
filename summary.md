@@ -4,7 +4,7 @@
 
 # summary.md — HCORTEX de sesión alfred (verificación cruzada)
 
-> **Perfil: CORTEX-FULL** · v0.2.2 · 2026-06-24 · source: .project-control/summary.cortex
+> **Perfil: CORTEX-FULL** · v0.2.3 · 2026-06-24 · source: .project-control/summary.cortex
 
 ---
 
@@ -16,7 +16,7 @@
 | TAG:summary | Proyecto | CODEC-CORTEX |
 | TAG:summary | Ciclo | CORTEX-CONSOLIDATION-001 |
 | TAG:summary | REs | 13/13 approved |
-| TAG:summary | Release | v0.2.2 |
+| TAG:summary | Release | v0.2.3 |
 
 ## Flujo de sesión
 
