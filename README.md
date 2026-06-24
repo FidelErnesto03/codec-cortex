@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.2.0 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
+  <sub>v0.2.1 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
 </p>
 
 ---
@@ -18,7 +18,7 @@ Its native `.cortex` format is designed for dense model consumption. HCORTEX pro
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](LICENSE) |
-| **Version** | 0.2.0 |
+| **Version** | 0.2.1 |
 | **Stage** | Specification / alpha |
 
 ---
@@ -107,6 +107,8 @@ Initial adoption does not require a server, MCP bridge or Python package. An age
 
 Agents and reviewers that need the project state behind this release can read `brain.cortex` at the repository root. It is the local operational memory snapshot for CODEC-CORTEX: active focus, release state, recent sessions, lessons, validation evidence and audit references.
 
+The **Survival Core** (v0.2.1) adds: `survive` attribute with 4 levels, priority pack P0-P5, conceptual context profiles (MIN/RECOVERY/WORK/FULL), degradation policy, HCORTEX render protocol (5 rules, 8 steps), and source traceability. See `docs/specs/context-survival.md` for the consolidated specification.
+
 For a human-readable HCORTEX view of that same context, read `brain.md`. Use `skill/brain.cortex` as the reusable template for a new local memory file. Use root `brain.cortex` and `brain.md` only as this repository's current context snapshot.
 
 ## Structure
@@ -136,6 +138,8 @@ For a human-readable HCORTEX view of that same context, read `brain.md`. Use `sk
 | `docs/en/specs/adoption.md` | Layered agent adoption guide | EN |
 | `docs/es/specs/mcp-bridge.md` | Future MCP bridge architecture | ES |
 | `docs/en/specs/mcp-bridge.md` | Future MCP bridge architecture | EN |
+| `docs/specs/context-survival.md` | Survival Core: survive, P0-P5, profiles, HCORTEX | ES |
+| `docs/specs/benchmark-methodology.md` | Survival benchmark methodology (5 questions) | ES |
 
 ## Claim Policy
 
@@ -149,6 +153,7 @@ For a human-readable HCORTEX view of that same context, read `brain.md`. Use `sk
 
 1. Universal Skill.
 2. `.cortex` format.
+2.1. **Survival Core** — survive, P0-P5, profiles, degradation, HCORTEX render target.
 3. HCORTEX human view.
 4. Deterministic codec and CLI.
 5. Memory runtime.
