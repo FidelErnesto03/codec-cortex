@@ -8,6 +8,22 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] — 2026-06-24
+
+### Added
+- HCORTEX views: `brain.md`, `alfred-memory.md`, `summary.md` — human-readable `.md` equivalents for every operational `.cortex` file.
+- Lesson learned `cortex_md_sync`: all `.cortex` files must have a corresponding `.md` HCORTEX view.
+
+### Changed
+- `README.md`: v0.2.2 header, Survival Core context, roadmap 2.1, new docs in documentation table.
+- `STATUS.md`: sigil count clarified (19 dense + 25 documented), Survival Core entries added.
+- `pyproject.toml` and `__init__.py`: version aligned to v0.2.2.
+- `CHANGELOG.md`: [0.2.2] section for HCORTEX corrections.
+
+### Fixed
+- Version inconsistency: all surfaces now declare v0.2.2 (README, pyproject, __init__, summary).
+- Sigil count: STATUS.md explains 19 active / 25 documented distinction.
+
 ## [0.2.2] — 2026-06-24
 
 ### Added
