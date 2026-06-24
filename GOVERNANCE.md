@@ -22,9 +22,31 @@ CODEC-CORTEX is governed by **Fidel Ernesto Lozada A.** as BDFL (Benevolent Dict
 
 CODEC-CORTEX follows [Semantic Versioning](https://semver.org):
 
-- **PATCH** (0.1.x): Fixes, clarifications, typo corrections
-- **MINOR** (0.x.0): New sigils, new rules, backward-compatible additions
-- **MAJOR** (x.0.0): Breaking changes to the .cortex format
+- **MAJOR** (x.0.0): Breaking changes to the `.cortex` format. New mandatory sigil, parse rule change.
+- **MINOR** (0.x.0): New backward-compatible features. New handlers, principles, sections.
+- **PATCH** (0.0.x): Fixes, clarifications, typos, doc adjustments.
+
+### Release Cycle
+
+| Phase | Action | Trigger |
+|-------|--------|---------|
+| Development | Commits to `main` | Continuous DIALECT cycle work |
+| Release Candidate | `vX.Y.Z-rc1` tag | All cycle ACs met |
+| Release | `vX.Y.Z` tag + GitHub Release + CHANGELOG | Cycle RE approved |
+| Diffusion | PRs to awesome-lists | Same day as release |
+| Monitoring | Review incoming issues/PRs | Continuous |
+
+### Commit Convention
+
+```
+<type>: <short description>
+
+feat:   New feature (MINOR)
+fix:    Bugfix (PATCH)
+docs:   Documentation only (PATCH)
+spec:   Specification change (MAJOR/MINOR)
+chore:  Maintenance, structure (PATCH)
+```
 
 Current version: **v0.1.0**
 
