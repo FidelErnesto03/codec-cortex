@@ -416,3 +416,15 @@ end note
 - [ ] promote only with human confirmation
 - [ ] decay applied to KNW >30 days without use
 - [ ] Exit GATE available for de-adoption
+
+---
+
+## Context Survival Rules
+
+When context is reduced, the agent must:
+
+1. **Do not truncate by position.** Reduce by P5→P0 priority, never by tail or head.
+2. **Always preserve P0.** FCS, OBJ, CNST, and STP survive all context reductions.
+3. **Select profile by budget.** CORTEX-MIN (~300 tokens), RECOVERY (~1000), WORK (~3000), FULL (unlimited). Direct jump allowed.
+4. **Render HCORTEX with traceability.** P0/P1 entries in HCORTEX must indicate their source `.cortex` sigil.
+5. **Evaluate by decision survival.** Efficiency is measured by how many decisions, constraints, and steps survive per token — not just by byte compression.

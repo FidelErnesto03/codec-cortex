@@ -17,6 +17,12 @@
 # DIAG  | diagram     | bloque    | M    | PUML diagram verbatim
 # TAG   | tag         | attrs     | B    | Classification metadata
 # STAT  | status      | attrs     | B    | Maturity declaration
+# STP   | step        | attrs     | M    | Next immediate action
+# AUD   | audit       | attrs     | M    | Audit or verification record
+# RSK   | risk        | attrs     | M    | Identified risk with mitigation
+# NXT   | next        | attrs     | M    | Queued next action with trigger
+# CLAIM | claim       | attrs     | M    | Verifiable claim
+# LIM   | limit       | attrs     | M    | Explicit operational limit
 
 # -- $0: MICRO-GLOSSARY --
 # sk=Skill cx=.cortex hc=HCORTEX cd=deterministic codec rt=runtime mcp=enterprise MCP
@@ -68,6 +74,11 @@ HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_c
 !codec_language{encode/decode/verify/compress/promote/decay are planned or future automation unless an implementation exists}
 !mcp_language{MCP is future enterprise exposure, not first adoption mechanism}
 !template_safety{Example files must not look like real operational state; placeholders and template notices are required}
+!progressive_compatibility{No existing .cortex entry is invalidated by this specification. Entries without survive or minimum field contracts remain parseable and valid. Migration is voluntary and progressive}
+!priority_pack{Reduce context by P5→P0 priority, never by position. Load from P0→P5. P0 (FCS,OBJ,CNST,STP) never eliminated}
+!p0_immutable{FCS, OBJ, CNST, STP survive all context reductions. They have P0 survival priority}
+!cnst_blocking_protected{CNST with severity:blocking and survive:min must never be omitted from MIN or RECOVERY profiles}
+!direct_profile_selection{Jump directly to required profile budget: MIN (~300t), RECOVERY (~1000t), WORK (~3000t), FULL (unlimited). No sequential chain required}
 
 # -- $5: PITFALLS --
 PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
@@ -99,3 +110,128 @@ codec --> runtime
 runtime --> mcp
 @enduml
 }
+
+# -- $7: MINIMUM FIELD CONTRACTS (RE-004: Survival Core) --
+# Each critical sigil declares mandatory fields + optional extensions.
+# Additional fields are always permitted as long as they do not contradict the minimum contract.
+
+# FCS — Focus (attention anchor)
+# FCS:primary{what:str, priority:high|medium|low, status:active|blocked|done, survive:min|recovery|work|full}
+#   what       : required — what the agent is attending to
+#   priority   : required — high | medium | low
+#   status     : required — active | blocked | done
+#   survive    : required — suggested: work
+#   + any additional fields allowed (since, owner, source, ...)
+
+# OBJ — Objective (active mission)
+# OBJ:main{goal:str, status:in_progress|done|blocked, success:str, survive:min|recovery|work|full}
+#   goal       : required — objective to achieve
+#   status     : required — in_progress | done | blocked
+#   success    : required — verifiable success criterion
+#   survive    : required — suggested: recovery
+#   + any additional fields allowed (deadline, owner, depends_on, ...)
+
+# CNST — Constraint (hard boundary)
+# CNST:name{rule:str, severity:blocking|warning|info, survive:min|recovery|work|full}
+#   rule       : required — the non-negotiable rule
+#   severity   : required — blocking | warning | info
+#   survive    : required — suggested: min if severity=blocking
+#   + any additional fields allowed (scope, source, ...)
+
+# STP — Step (next immediate action)
+# STP:next{action:str, reason:str, owner:agent|human, survive:min|recovery|work|full}
+#   action     : required — action to execute (infinitive verb)
+#   reason     : required — why this action is next
+#   owner      : required — agent | human
+#   survive    : required — suggested: work
+#   + any additional fields allowed (deadline, depends_on, ...)
+
+# WRK — Work (operational state)
+# WRK:state{phase:str, current:str, blocked:bool, survive:min|recovery|work|full}
+#   phase      : required — current work phase
+#   current    : required — what is being done now
+#   blocked    : required — true | false
+#   survive    : required — suggested: work
+#   + any additional fields allowed (active_files, session_start, ...)
+
+# RSK — Risk (recommended fields, not mandatory)
+# RSK:name{risk:str, impact:high|medium|low, mitigation:str, survive:recovery|work|full}
+# NXT — Next in queue (recommended fields, not mandatory)
+# NXT:name{action:str, priority:high|medium|low, trigger:now|after_X|on_Y, survive:work|recovery|full}
+
+# -- $8: SURVIVE ATTRIBUTE (RE-004: Survival Core) --
+# survive governs which .cortex entries persist under context reduction.
+# 4 levels defined:
+
+# min      : Minimal survival (~300 tokens). Preserved even under maximum reduction.
+#            Typical: CNST with severity:blocking, IDN entries.
+# recovery : State recovery (~1000 tokens). Allows agent to recover objective,
+#            identity and focus on reconnection. Typical: OBJ entries, RSK.
+# work     : Work continuity (~3000 tokens). Preserves operational state for
+#            uninterrupted work. Typical: FCS, STP, WRK, NXT.
+# full     : Full context. Preserved with no or superficial reduction.
+#            Typical: SES, REF, historical entries.
+
+# Assignment rules:
+#   CNST with severity:blocking  → survive:min
+#   OBJ active (in_progress)     → survive:recovery
+#   FCS, WRK, STP                → survive:work
+#   Documentary, historical      → survive:full
+#   Entries without survive      → valid (progressive compatibility)
+
+# -- $9: PRIORITY PACK P0-P5 (RE-005: Survival Core) --
+# Context is reduced by cognitive priority, never by position.
+# Load order: P0→P5. Degradation order: P5→P1 (P0 never eliminated).
+
+# P0 — Critical survival (~300t)  : FCS, OBJ, CNST, STP
+# P1 — Operational state (~600t)  : WRK, AUD, RSK, NXT (when they exist)
+# P2 — Honesty and limits (~1Kt)  : CLAIM, LIM, KNW:active, LNG:critical (when they exist)
+# P3 — Recent evidence (~2Kt)     : SES:last, STAT, VAL, RES, FIND (when they exist)
+# P4 — Critical references (~3Kt) : REF:critical, DOC, ART (when they exist)
+# P5 — Extended context (unlim.)  : DIAG, TBL, long REF, history, comments
+
+# Rules:
+#   Anti-positional truncation: never reduce by tail/head position
+#   P0 immutable: FCS,OBJ,CNST,STP survive all reductions
+#   CNST:blocking with survive:min → never omitted
+#   CLAIM/LIM that block public claims → survive at least RECOVERY
+#   "When they exist": P1-P5 sigils not found → level has fewer entries (not an error)
+
+# -- $10: CONTEXT PROFILES (RE-005: Survival Core) --
+# Four conceptual profiles by minimum priority, not by closed sigil lists.
+
+# CORTEX-MIN      : Emergency. P0 only. ~300 tokens.
+#                   Survives: FCS, OBJ, CNST, STP. CNST:blocking always.
+# CORTEX-RECOVERY : After interruption. P0+P1. ~1000 tokens.
+#                   Survives: P0 + WRK, AUD, RSK, NXT (when they exist).
+# CORTEX-WORK     : Work continuity. P0+P1+P2. ~3000 tokens.
+#                   Survives: RECOVERY + CLAIM, LIM, KNW:active, LNG:critical.
+# CORTEX-FULL     : Complete memory. P0–P5. Unlimited.
+#                   Survives: everything.
+
+# Profile selection: jump directly to required budget. No sequential chain.
+#   ≤512 tokens       → CORTEX-MIN
+#   ≤1000 tokens      → CORTEX-RECOVERY
+#   ≤3000 tokens      → CORTEX-WORK
+#   >3000 tokens      → CORTEX-FULL
+
+# HCORTEX is NOT a profile. HCORTEX is a render target:
+#   - Generated from the active profile, not persisted as .cortex
+#   - P0/P1 entries must be traceable to their source .cortex sigil
+#   - Minimum equivalences: FCS→"Foco actual", OBJ→"Objetivo", CNST→"Restricciones",
+#     WRK→"Estado operativo", STP/NXT→"Próximo paso", AUD/RSK→"Evidencia/Riesgos",
+#     CLAIM/LIM→"Límites de afirmación"
+
+# -- $11: DEGRADATION POLICY (RE-005: Survival Core) --
+# Conceptual chain: FULL → WORK → RECOVERY → MIN
+# Operational selection: direct jump to required profile by budget.
+
+# What disappears first (when degrading):
+#   FULL → WORK       : DIAG, TBL long, REF long, SES historical, comments
+#   WORK → RECOVERY   : KNW complete→KNW:active, LNG complete→LNG:critical, REF→REF:critical
+#   RECOVERY → MIN    : SES:last, AUD, RSK, NXT, STAT. Only P0 survives.
+
+# What NEVER disappears:
+#   In any profile    : CNST with severity:blocking and survive:min
+#   In any profile    : FCS, OBJ, STP (P0 immutable)
+#   At least RECOVERY : CLAIM, LIM that block public claims

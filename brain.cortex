@@ -3,7 +3,7 @@
 
 # alf-brain.cortex — local operational brain for CODEC-CORTEX
 # Canonical persistent memory under CODEC-CORTEX lives in .cortex.
-# Markdown/YAML/JSON may exist as transitional views, human editing surfaces or interoperability formats.
+# Updated: 2026-06-24 — Survival Core session (RE-004/005/006 refinement)
 
 # -- $0: GLOSSARY --
 # Sigil   | Name         | Expansion | Risk | Description
@@ -12,66 +12,88 @@
 # FCS     | focus        | attrs     | H    | Current attention anchor
 # OBJ     | objective    | attrs     | B    | Active mission
 # WRK     | work         | attrs     | B    | Current operational state
-# STP     | step         | contenido | M    | Next immediate action
+# STP     | step         | attrs     | M    | Next immediate action
+# CNST    | constraint   | attrs     | M    | Active operational limit
 # SES     | session      | attrs     | B    | Recent compressed episode
 # LNG     | lesson       | contenido | M    | Learned operational rule
 # KNW     | knowledge    | attrs     | B    | Stable project knowledge
 # REF     | reference    | attrs     | B    | Audit reference
-# CNST    | constraint   | attrs     | M    | Active operational limit
-# AUD     | audit        | contenido | M    | Validation or release audit record
+# AUD     | audit        | attrs     | M    | Validation or release audit record
+# RSK     | risk         | attrs     | M    | Identified risk with mitigation (RE-004)
+# NXT     | next         | attrs     | M    | Queued next action with trigger (RE-004)
+# CLAIM   | claim        | attrs     | M    | Verifiable claim (RE-004)
+# LIM     | limit        | attrs     | M    | Explicit operational limit (RE-004)
 # TAG     | tag          | attrs     | B    | Classification metadata
 
 # -- $1: IDENTITY --
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com"}
 IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent"}
-CNST:limits{output:"HCORTEX", user_language:"ES", structural_language:"EN", canonical_memory:".cortex"}
-CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims"}
+CNST:limits{output:"HCORTEX", user_language:"ES", structural_language:"EN", canonical_memory:".cortex", survive:"work"}
+CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims", severity:"blocking", survive:"min"}
 
 # -- $2: OPERATIONAL STATE --
-FCS:primary{project:"CODEC-CORTEX", focus:"skill-first reorientation completed", version:"v0.2.0", status:"published"}
-FCS:secondary{task:"maintain local brain and external audit artifacts", status:"active"}
-OBJ:primary{goal:"Keep CODEC-CORTEX aligned as Universal Skill first, .cortex contextual memory, HCORTEX human view, codec planned automation, runtime/MCP future phases", status:"done"}
-OBJ:secondary{goal:"Keep brain.cortex current after release and result artifact generation", status:"in_progress"}
-WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", branch:"main", head:"see git log --decorate", tag:"v0.2.0", remote:"origin/main", worktree:"clean_after_release_amend"}
-WRK:local{repo_path:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", docs_path:"~/Projects/workspace/CODEC-CORTEX/docs/", result_cortex:"../docs/result.cortex", result_md:"../docs/result.md"}
-STP:next{action:"no pending brain publication action", reason:"brain.cortex integrated into v0.2.0 release amend"}
+FCS:primary{what:"Survival Core — refinamiento de RE-004, RE-005, RE-006", priority:"high", status:"active", survive:"work"}
+FCS:secondary{what:"CODEC-CORTEX adoptado como formato de memoria activa en esta sesión", priority:"medium", status:"active", survive:"work"}
+OBJ:primary{goal:"Refinar las 3 REs del Survival Core bajo las premisas del arquitecto y transitar a estado open para revisión", status:"in_progress", success:"RE-004, RE-005 y RE-006 en estado open con quality_contract 10/10 y zero DRAFT", survive:"recovery"}
+OBJ:secondary{goal:"Mantener brain.cortex actualizado con estado operativo real post-sesión", status:"in_progress", success:"brain.cortex refleja la sesión Survival Core con nuevos sigilos y contratos RE-004", survive:"work"}
+WRK:state{phase:"refinamiento de REs", current:"brain.cortex actualizado con estado de sesión Survival Core", blocked:false, survive:"work", active_files:["RE-004.md","RE-005.md","RE-006.md","brain.cortex"]}
+WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", branch:"main", tag:"v0.2.0", remote:"origin/main"}
+STP:next{action:"presentar estado final de las 3 REs a Fidel para decisión de aprobación", reason:"ciclo de refinamiento completado", owner:"agent", survive:"work"}
 
 # -- $3: RECENT SESSIONS --
-SES:reorientation{input:"docs/ajustes.cortex", output:"README, Skill docs, specs, metadata, STATUS, ROADMAP aligned", outcome:"done", commit:"included_in_v0.2.0"}
+SES:survival_core_refinement{input:"12 premisas del arquitecto para evolución CODEC-CORTEX: perfiles, priority pack, survive, HCORTEX, degradación", output:"RE-004 refinada (15 recomendaciones) + RE-005 refinada (17 recomendaciones) + RE-006 redefinida (2 tracks)", outcome:"3 REs en open, quality_contract 10/10, zero DRAFT, PUML validados", date:"2026-06-24"}
+SES:codec_cortex_adoption{input:"activación de CODEC-CORTEX como formato de memoria operativa en sesión", output:"AGENT.cortex cargado, brain.cortex actualizado, HCORTEX como formato de salida", outcome:"adoptado", date:"2026-06-24"}
+SES:reorientation{input:"docs/ajustes.cortex", output:"README, Skill docs, specs, metadata, STATUS, ROADMAP aligned", outcome:"done", commit:"v0.2.0"}
 SES:release_v020{input:"commit + push + tag according to project conventions", output:"origin/main + annotated tag v0.2.0", outcome:"published"}
-SES:result_artifacts{input:"external-agent result report", output:"../docs/result.cortex + ../docs/result.md", outcome:"outside_remote_repo"}
-SES:brain_update{input:"asegurate de que el brain.cortex este actualizado", output:"root brain.cortex refreshed to v0.2.0 state", outcome:"integrated_in_release"}
 
 # -- $4: LESSONS LEARNED --
+LNG:survival_core_emerged{Fidel definió 12 premisas que reorientan CODEC-CORTEX de formato denso a sistema de supervivencia contextual. El concepto clave: "cuando todo lo demás se pierde, todavía sobreviven FCS, OBJ, CNST, STP"}
+LNG:re_before_code{No escribir código ni parser antes de tener las REs refinadas y aprobadas. La especificación gobierna la implementación}
+LNG:section7_means_use{Diseño operativo (§7) debe mostrar uso funcional del entregable en el proyecto, no pasos de ejecución de la RE. Ejecución va en §10}
+LNG:load_vs_degrade{Carga de contexto: P0→P5 (prioridad primero). Degradación: P5→P1 (lo menos crítico primero). P0 nunca se toca en degradación}
 LNG:skill_first{CODEC-CORTEX public narrative must open with Universal Skill and contextual memory protocol, not codec-first compression}
 LNG:status_honesty{Every capability must be current/specification/planned/future when maturity matters}
-LNG:reversibility_scope{Structural reversibility belongs to codec roundtrip targets; HCORTEX provides contextual reversibility for humans; literal full-history reconstruction is not promised}
 LNG:benchmark_integrity{Numeric density or performance claims require reproducible benchmarks before public measured language}
-LNG:result_location{External audit artifacts requested after release belong in ../docs, not inside the published codec-cortex repository}
-LNG:git_scope{Stage only scoped files; preserve parent workspace changes and artifacts outside the repo unless explicitly requested}
 
 # -- $5: ACTIVE KNOWLEDGE --
+KNW:survival_core{RE-004:"núcleo mínimo — survive + 6 sigilos + 5 contratos flexibles", RE-005:"priority pack P0-P5 + perfiles conceptuales + degradación directa", RE-006:"2 specs + 5 reglas Skill + CHANGELOG Unreleased"}
+KNW:survival_sigils{new_in_004:["STP","AUD","RSK","NXT","CLAIM","LIM"], postponed:["FIND","IMP","VAL","RES","DOC","ART","TBL"], contracts:["FCS","OBJ","CNST","STP","WRK"], survive_levels:["min","recovery","work","full"]}
+KNW:priority_pack{P0:["FCS","OBJ","CNST","STP"], P1:["WRK","AUD","RSK","NXT"], P2:["CLAIM","LIM","KNW:active","LNG:critical"], load_order:"P0→P5", degrade_order:"P5→P1"}
 KNW:canonical_stack{order:["Universal Skill",".cortex contextual memory","HCORTEX human view","deterministic codec planned","memory runtime future","enterprise MCP future"]}
-KNW:release{version:"0.2.0", commit:"see tag v0.2.0", tag:"v0.2.0", message:"spec: reorient project as universal memory skill"}
-KNW:status_registry{implemented:["documentation structure","Skill specs",".cortex examples","HCORTEX specification"], planned:["parser","AST","encode/decode","verify","HCORTEX renderer","CLI"], future:["runtime","enterprise MCP"]}
-KNW:validation{risk_scan:"passed", diff_check:"passed", compileall_src:"passed", remote_tag:"verified"}
-KNW:paths{repo:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", parent_docs:"~/Projects/workspace/CODEC-CORTEX/docs/", public:"github.com/FidelErnesto03/codec-cortex"}
+KNW:release{version:"0.2.0", tag:"v0.2.0", next:"Survival Core como specification draft — sin release v0.3.0-spec"}
+KNW:paths{repo:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", dialect:".project-control/cycles/CORTEX-CONSOLIDATION-001/", public:"github.com/FidelErnesto03/codec-cortex"}
 
-# -- $6: REFERENCES --
-REF:adjustments{PATH:"../docs/ajustes.cortex", purpose:"source directive"}
-REF:result_cortex{PATH:"../docs/result.cortex", purpose:"external-agent audit artifact"}
-REF:result_hcortex{PATH:"../docs/result.md", purpose:"human HCORTEX rendering"}
+# -- $6: RISKS --
+RSK:premature_release{risk:"crear release v0.3.0-spec antes de tener parser o benchmark automatizado", impact:"medium", mitigation:"RE-006 explícitamente prohíbe release. CHANGELOG usa [Unreleased]", survive:"recovery"}
+RSK:profile_ambiguity{risk:"perfiles conceptuales sin listas cerradas pueden ser ambiguos para agentes", impact:"low", mitigation:"los perfiles son criterios de prioridad, no inventarios. Se refinan con benchmarks", survive:"work"}
+RSK:glossary_divergence{risk:"brain.cortex y SKILL.cortex $0 pueden divergir nuevamente con nuevos sigilos", impact:"medium", mitigation:"RE-004 establece SKILL.cortex $0 como fuente canónica única", survive:"recovery"}
+
+# -- $7: NEXT ACTIONS --
+NXT:approve_res{action:"Fidel revisa y aprueba RE-004, RE-005, RE-006", priority:"high", trigger:"now", survive:"work"}
+NXT:execute_res{action:"ejecutar RE-004 (modificar SKILL.cortex)", priority:"high", trigger:"after_approval", survive:"work", depends_on:"NXT:approve_res"}
+NXT:execute_re5{action:"ejecutar RE-005 (agregar P0-P5 y perfiles a SKILL.cortex)", priority:"high", trigger:"after_RE004_done", survive:"work", depends_on:"NXT:execute_res"}
+NXT:execute_re6{action:"ejecutar RE-006 (crear specs + reglas Skill)", priority:"high", trigger:"after_RE005_done", survive:"work", depends_on:"NXT:execute_re5"}
+
+# -- $8: CLAIMS AND LIMITS --
+CLAIM:survival_core{statement:"CODEC-CORTEX Survival Core está especificado y documentado como specification draft, no como sistema completo", evidence:"RE-004, RE-005, RE-006 en open con quality_contract 10/10", status:"current"}
+CLAIM:no_release{statement:"No existe release v0.3.0-spec ni tag git para Survival Core", evidence:"CHANGELOG usa [Unreleased]. RE-006 prohíbe release", status:"current"}
+LIM:parser_gap{limit:"sin parser, las reglas P0-P5 y survive se aplican manualmente por instrucción, no por automatización", scope:"fase actual pre-codec"}
+LIM:benchmark_gap{limit:"los benchmarks 0.1/0.1b/0.2 son offline/proxy. La automatización requiere parser", scope:"fase actual"}
+
+# -- $9: REFERENCES --
+REF:re004{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-004.md", purpose:"Núcleo mínimo de supervivencia contextual"}
+REF:re005{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-005.md", purpose:"Priority Pack y degradación contextual mínima"}
+REF:re006{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-006.md", purpose:"Documentación e implementación Skill del Survival Core"}
+REF:skill_cortex{PATH:"skill/SKILL.cortex", purpose:"dense Skill expression — glosario canónico $0"}
+REF:skill_md{PATH:"skill/SKILL.md", purpose:"Spanish Skill specification"}
+REF:skill_en{PATH:"skill/SKILL.en.md", purpose:"English Skill specification"}
+REF:readme{PATH:"README.md", purpose:"public entry point"}
 REF:status{PATH:"STATUS.md", purpose:"truth registry"}
 REF:roadmap{PATH:"ROADMAP.md", purpose:"phase model"}
-REF:readme{PATH:"README.md", purpose:"public entry point"}
-REF:skill{PATH:"skill/SKILL.md", purpose:"Spanish Skill specification"}
-REF:skill_en{PATH:"skill/SKILL.en.md", purpose:"English Skill specification"}
-REF:skill_cortex{PATH:"skill/SKILL.cortex", purpose:"dense Skill expression"}
-REF:brain_template{PATH:"skill/brain.cortex", purpose:"safe local brain template"}
-REF:review_report{PATH:"docs/review/project-reorientation-report.md", purpose:"release reorientation report"}
+REF:changelog{PATH:"CHANGELOG.md", purpose:"release history"}
 
-# -- $7: AUDIT --
-AUD:last_release{version:"v0.2.0", branch:"main", pushed:true, tag_pushed:true, github_release_object:"not_created"}
-AUD:brain_currentness{checked:"2026-06-24", root_brain:"updated", skill_template:"already_updated", result_artifacts:"outside_repo"}
-AUD:pending_git{state:"brain.cortex integrated into v0.2.0 release amend", recommendation:"none after push"}
-TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"post-release state synchronization"}
+# -- $10: AUDIT --
+AUD:last_release{version:"v0.2.0", branch:"main", pushed:true, tag_pushed:true}
+AUD:session_outcome{date:"2026-06-24", re_status:{RE004:"open",RE005:"open",RE006:"open"}, quality_contract:"10/10 all", draft_free:true, puml_validated:true}
+AUD:brain_currentness{checked:"2026-06-24", updated:true, new_sigils:["RSK","NXT","CLAIM","LIM"], contracts_applied:["FCS","OBJ","CNST","STP","WRK"], survive_in_use:true}
+TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"Survival Core session — CODEC-CORTEX adoption + RE refinement"}

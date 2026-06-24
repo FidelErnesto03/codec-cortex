@@ -27,6 +27,18 @@
 
 **Acceptance criteria:** examples are coherent, placeholders are explicit and sigil rules are consistent.
 
+### Phase 2.1: Survival Core
+
+**Status:** specification draft.
+
+**Goal:** define minimum survival context: `survive` attribute, priority pack P0-P5, conceptual profiles, and degradation policy.
+
+**Deliverables:** `survive` specification, P0-P5 priority pack, context profiles (MIN/RECOVERY/WORK/FULL), HCORTEX as render target, degradation policy with direct selection. Documents: `docs/specs/context-survival.md`, `docs/specs/benchmark-methodology.md`.
+
+**Non-goals:** no parser, no runtime, no automated benchmarks, no v0.3.0 release.
+
+**Acceptance criteria:** SKILL.cortex instructs agents to survive context reduction by cognitive priority.
+
 ## Phase 3: HCORTEX
 
 **Status:** current/specification.

@@ -416,3 +416,15 @@ end note
 - [ ] promote solo con confirmación humana
 - [ ] decay aplicado a KNW >30 días sin uso
 - [ ] GATE de salida disponible para desadopción
+
+---
+
+## Context Survival Rules
+
+Cuando el contexto se reduce, el agente debe:
+
+1. **No truncar por posición.** Reducir por prioridad P5→P0, nunca por cola o cabecera.
+2. **Preservar P0 siempre.** FCS, OBJ, CNST y STP sobreviven cualquier reducción.
+3. **Seleccionar perfil según presupuesto.** CORTEX-MIN (~300 tokens), RECOVERY (~1000), WORK (~3000), FULL (sin límite). Salto directo permitido.
+4. **Renderizar HCORTEX con trazabilidad.** Las entradas P0/P1 en HCORTEX deben indicar su sigilo `.cortex` de origen.
+5. **Evaluar por supervivencia de decisión.** La eficiencia se mide por cuántas decisiones, restricciones y pasos sobreviven por token — no solo por compresión de bytes.

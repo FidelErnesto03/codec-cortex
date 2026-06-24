@@ -1,0 +1,101 @@
+<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
+<!-- SPDX-License-Identifier: MIT -->
+
+# alfred-memory.cortex — native agent memory in .cortex format
+# Encoded from Hermes persistent memory store
+# Updated: 2026-06-24
+
+# -- $0: GLOSSARY --
+# Sigilo | Nombre     | Expansión | Riesgo | Descripción
+# -------+------------+-----------+--------+------------------------------------
+# IDN    | identity   | attrs     | B      | Actor identity
+# DOM    | domain     | attrs     | B      | Scope and context
+# FCS    | focus      | attrs     | H      | Attention anchor
+# OBJ    | objective  | attrs     | B      | Active goal
+# WRK    | work       | attrs     | B      | Operational state
+# CNST   | constraint | attrs     | H      | Hard boundary
+# KNW    | knowledge  | attrs     | B      | Stable knowledge
+# SES    | session    | attrs     | B      | Compressed episode
+# LNG    | lesson     | contenido | M      | Learned heuristic
+# REF    | reference  | attrs     | B      | External reference
+# STP    | step       | attrs     | M      | Next immediate action
+# AUD    | audit      | attrs     | M      | Audit record
+# RSK    | risk       | attrs     | M      | Risk with mitigation
+# CLAIM  | claim      | attrs     | M      | Verifiable claim
+# LIM    | limit      | attrs     | M      | Operational limit
+# TAG    | tag        | attrs     | B      | Classification metadata
+# !      | rule       | cuerpo    | H      | Mandatory rule
+
+# -- $1: IDENTITY --
+IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com", git_user:"Fidel Lozada", git_email:"fidel.lozada@vatrox.com", gh_auth:"SSH"}
+IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent", home:"~/.hermes/skills/", runtime:"Hermes Agent"}
+DOM:project{area:"CODEC-CORTEX — Cognitive Operational Retrieval & Execution Template", license:"MIT", repo:"github.com/FidelErnesto03/codec-cortex", version:"v0.2.0", dialect_cycle:"CORTEX-CONSOLIDATION-001"}
+TAG:memory{source:"hermes_persistent_store", format:"c1", encoding_date:"2026-06-24"}
+
+# -- $2: CONSTRAINTS --
+CNST:output{format:"HCORTEX", tables_over_prose:true, puml_over_ascii:true, prose_as_last_resort:true, severity:"blocking", survive:"min"}
+CNST:language{structural:"EN", semantic:"ES", output:"ES", severity:"blocking", survive:"min"}
+CNST:re_completeness{rule:"RE must be 100% complete (quality_contract, ACs, tasks, risks, procedure) before transitioning to open", severity:"blocking", survive:"min"}
+CNST:learning{rule:"knowledge matures by USER decision, not counters. promote requires human confirmation. detect_recurrence(threshold=3) → ask_user → promote/decay", severity:"blocking", survive:"min"}
+CNST:cortex_rules{rule:"skills self-contained (no MCP, no external tools), structural EN + semantic ES, delete=degrade level (never wipe), GATE exit mandatory, brain.cortex=local brain, AGENTS.md=HCORTEX in user language", severity:"blocking", survive:"min"}
+CNST:publication{rule:"publication with authorship: AUTHORS, CITATION.cff, CODEOWNERS, SPDX, semver", severity:"warning", survive:"recovery"}
+
+# -- $3: WORKING MEMORY --
+FCS:primary{what:"CODEC-CORTEX Survival Core — RE-004/005/006 refinement with Fidel", priority:"high", status:"active", survive:"work"}
+OBJ:primary{goal:"3 REs refined, quality_contract 10/10, zero DRAFT, transit to open for Fidel's review", status:"in_progress", success:"all 3 REs in open status", survive:"recovery"}
+WRK:session{phase:"brain.cortex updated, native memory encoded", current:"presenting alfred-memory.cortex to Fidel", blocked:false, survive:"work", started:"2026-06-24"}
+STP:next{action:"await Fidel's decision on RE approval", reason:"refinement cycle complete", owner:"human", survive:"work"}
+
+# -- $4: DIALECT KNOWLEDGE --
+KNW:dialect_workspace{workspace_id:"WORKSPACE", root:"~/Projects/workspace", dialect_version:"5.5", projects_governed:12, projects_ungoverned:24}
+KNW:project_cortex{project_id:"CODEC-CORTEX", project_root:"~/Projects/workspace/CODEC-CORTEX", repo_path:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", workbook:"~/Projects/workspace/CODEC-CORTEX/.project-control/workbook.md"}
+KNW:prjf_convention{rule:"origin must include CYCLE/RE-ID for traceability", r5:"closed cycle → verify PRJ_F of all REs → archive in workbook → clear $7+", method:"LLM executes 4 reflexes naturally with patch/write_file/verify, no external scripts"}
+KNW:workbook_format{location:"CODEC-CORTEX/.project-control/workbook.md", format:"compact machine-first (no prose)", purpose:"cross-session operational reference: versioning, active PRs, metrics, next cycle"}
+
+# -- $5: CODEC-CORTEX STATE --
+KNW:skill_hermes{name:"codec-cortex", version:"1.1.0", location:"~/.hermes/skills/codec-cortex/", status:"loaded and active"}
+KNW:skill_development{name:"codec-cortex-development", version:"1.0.0", location:"~/.hermes/skills/coding/", status:"loaded"}
+KNW:dialect_support{protocol:"2-phase: diagnostico→meta_diagnostics, reparacion→meta_repair", mcp_server:"kill duplicate zombie PID", handlers:"96 handlers post-dlf_tool cleanup"}
+KNW:repo_state{commits:5, tag:"v0.2.0", files:32, outstanding:["PR Awesome-LLM #681 pending"], awesome_prs_remaining:["awesome-langchain","awesome-chatgpt"]}
+
+# -- $6: USER PREFERENCES (Fidel) --
+!output_format{Tables > lists > K/V > PUML diagrams > prose. If information fits in a table, it IS a table. Prose is last resort}
+!communication{LLM→human is structured, not prose. No ASCII art — PUML exclusively. Documentation without ASCII diagrams}
+!learning_model{4-stage cognitive model (unconscious incompetence → unconscious competence) mapped to SES→LNG→KNW. Maturation: detect_recurrence(3) → ask_user → promote/decay}
+!hcortex_rules{HCORTEX = decompression rules to standard .md, not an extension. brain.cortex = local brain. AGENTS.md = HCORTEX in user language}
+!no_model_mention{Never mention the LLM model name. No "running on DeepSeek", "as a Claude model", etc}
+
+# -- $7: SESSIONS --
+SES:dialect_bootstrap{input:"DIALECT v5.5 setup", output:"workspace initialized, project CODEC-CORTEX created", outcome:"done"}
+SES:cortex_foundation{input:"RE-001, RE-002, RE-003", output:"3 REs approved — docs, skill, publication", outcome:"done", cycle:"CORTEX-CONSOLIDATION-001"}
+SES:survival_core{input:"12 premises from Fidel for CODEC-CORTEX evolution", output:"RE-004 (15 recs) + RE-005 (17 recs) + RE-006 (redefined, 2 tracks)", outcome:"3 REs open, QC 10/10, 0 DRAFT", date:"2026-06-24"}
+SES:brain_update{input:"Fidel requested brain.cortex update + native memory encoding", output:"brain.cortex updated with new sigils + alfred-memory.cortex created", outcome:"done", date:"2026-06-24"}
+
+# -- $8: LESSONS --
+LNG:survival_core_direction{CODEC-CORTEX must evolve from dense format to contextual survival system. The key: "when everything else is lost, FCS/OBJ/CNST/STP still survive"}
+LNG:section7_means_use{Design operativo (§7) must show functional use of the deliverable in the project, NOT RE execution steps. Execution goes in §10}
+LNG:load_vs_degrade{Context loading: P0→P5 (priority first). Degradation: P5→P1 (least critical first). P0 never touched during degradation}
+LNG:no_release_without_parser{Do not tag v0.3.0-spec before parser or automated benchmark exists. CHANGELOG uses [Unreleased]}
+
+# -- $9: RISKS --
+RSK:awesome_pr_stale{risk:"PR Awesome-LLM #681 may go stale without follow-up", impact:"medium", mitigation:"monitor and update PR if needed", survive:"work"}
+RSK:repo_divergence{risk:"workspace repo (vatrox/Projects/workspace) and codec-cortex repo may diverge", impact:"low", mitigation:"codec-cortex has its own git remote; push from there", survive:"recovery"}
+
+# -- $10: CLAIMS AND LIMITS --
+CLAIM:survival_core_status{statement:"RE-004, RE-005, RE-006 are in open status with quality_contract 10/10 and zero DRAFT items", evidence:"DIALECT MCP confirms all 3 REs in open with valid state transitions", status:"current"}
+CLAIM:cortex_adopted{statement:"CODEC-CORTEX is the active memory format for this session", evidence:"brain.cortex updated, alfred-memory.cortex created, HCORTEX output active", status:"current"}
+LIM:parser_gap{limit:"survive and P0-P5 rules are applied manually by instruction, not by automation. Parser is planned, not implemented", scope:"current pre-codec phase"}
+LIM:benchmark_gap{limit:"survival benchmarks 0.1/0.1b/0.2 are offline/proxy artifacts. Automated benchmark methodology requires parser", scope:"current pre-codec phase"}
+
+# -- $11: REFERENCES --
+REF:workbook{PATH:"~/Projects/workspace/CODEC-CORTEX/.project-control/workbook.md", purpose:"alfred's operational reference"}
+REF:brain{PATH:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/brain.cortex", purpose:"local operational brain"}
+REF:skill{PATH:"~/.hermes/skills/codec-cortex/SKILL.md", purpose:"universal skill loaded in Hermes"}
+REF:repo{PATH:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", purpose:"project repository"}
+REF:re004{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-004.md"}
+REF:re005{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-005.md"}
+REF:re006{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-006.md"}
+
+# -- $12: AUDIT --
+AUD:encoding{source:"hermes_persistent_memory", sections:12, sigils_used:14, contracts_applied:["FCS","OBJ","CNST","STP","WRK"], survive_levels:true, encoding_date:"2026-06-24"}
+AUD:session_state{res_open:3, res_approved:3, cycle:"CORTEX-CONSOLIDATION-001", cortex_adopted:true, brain_updated:true}

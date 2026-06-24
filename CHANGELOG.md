@@ -8,6 +8,20 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Survival Core: `survive` attribute with 4 levels (min, recovery, work, full).
+- Survival Core: priority pack P0-P5 for cognitive context reduction.
+- Survival Core: conceptual context profiles (CORTEX-MIN, RECOVERY, WORK, FULL).
+- Survival Core: HCORTEX as render target with minimum P0/P1 traceability.
+- Survival Core: degradation policy with direct profile selection by budget.
+- New sigils in `$0` glossary: STP, AUD, RSK, NXT, CLAIM, LIM (19 total).
+- Minimum field contracts for FCS, OBJ, CNST, STP, WRK.
+- Context Survival Rules section in SKILL.md and SKILL.en.md.
+- Documentation: `docs/specs/context-survival.md`, `docs/specs/benchmark-methodology.md`.
+- Benchmarks registry: `benchmarks/README.md`.
+
 ## [0.2.0] — 2026-06-24
 
 ### Changed
