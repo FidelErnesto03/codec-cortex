@@ -89,7 +89,7 @@ HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_c
 !survive_priority{map:P0→min,P1→recovery,P2→work,P3→reduced,P4→basic,P5→full}
 !survive_degrade{cond:budget<actual, acc:descartar_P5→P4→P3→P2→P1, P0_nunca, recover:subir_presupuesto→recuperar_orden_inverso}
 !survive_status{status_values:current|planned|future|blocked, legacy:active|done, contratos:FCS_OBJ_CNST_STP_WRK}
-!p5_filter{cond:budget>=8000, acc:incluir_solo_con_survive_o_KNW_companion_o_valor_operacional, umbral:no_degradar_P0_P4, excluir:P5_sin_survive_y_sin_KNW_y_sin_valor}
+!p5_filter{cond:budget>3000_OR_profile_FULL_BASIC, acc:incluir_solo_con_survive_o_KNW_companion_o_valor_operacional, umbral:no_degradar_P0_P4, excluir:P5_sin_survive_y_sin_KNW_y_sin_valor}
 
 # -- $5: PITFALLS --
 PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
@@ -135,9 +135,9 @@ runtime --> mcp
 #   + any additional fields allowed (since, owner, source, ...)
 
 # OBJ — Objective (active mission)
-# OBJ:main{goal:str, status:in_progress|done|blocked|current|planned|future, success:str, survive:min|recovery|work|full}
+# OBJ:main{goal:str, status:done|blocked|current|planned|future, success:str, survive:min|recovery|work|full}
 #   goal       : required — objective to achieve
-#   status     : required — in_progress | done | blocked | current | planned | future
+#   status     : required — done | blocked | current | planned | future (legacy: in_progress=current, active=current)
 #   success    : required — verifiable success criterion
 #   survive    : required — must be one of: min | recovery | work | full (suggested: recovery)
 #   + any additional fields allowed (deadline, owner, depends_on, ...)

@@ -447,7 +447,7 @@ Each critical sigil declares mandatory fields. Additional fields are always perm
 | Sigil | Required fields |
 |-------|-----------------|
 | **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (current\|planned\|future\|blocked\|active\|done), `survive` |
-| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked\|current\|planned\|future), `success` (verifiable criterion), `survive` |
+| **OBJ** | `goal` (str), `status` (done\|blocked\|current\|planned\|future), `success` (verifiable criterion), `survive` |
 | **CNST** | `rule` (str), `severity` (blocking\|warning\|info), `survive` |
 | **STP** | `action` (verb), `reason` (str), `owner` (agent\|human), `status` (current\|planned\|future\|blocked), `survive` |
 | **WRK** | `phase` (str), `current` (str), `blocked` (bool), `survive` |

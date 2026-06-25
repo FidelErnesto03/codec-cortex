@@ -125,6 +125,7 @@ WORK --> FULL : budget↑↑↑
 
 # -- $5c: KNW COMPANIONS (survive in WORK without loading full DIAG) --
 KNW:skill_architecture_knowledge{domain:"compression+survival", diagram:"DIAG:skill_architecture", summary:"6-layer stack: Skill→.cortex→HCORTEX→Codec→Runtime→MCP. .cortex tiene survive P0-P5 + attrs-pos + 10-step HCORTEX", key_components:"Universal Skill, .cortex memory, HCORTEX view, Codec, Runtime, MCP", relationships:"Skill→.cortex→HCORTEX (current), .cortex→Codec (planned), Codec→Runtime→MCP (future)", survive:"work"}
+KNW:degradation_flow_knowledge{domain:"survival+degradation", diagram:"DIAG:survival_degradation", summary:"Degradación FULL→MIN: drop P5→P4→P3 en WORK, keep KNW:LNG activos, solo P0 en MIN. CNST:blocking nunca desaparece", key_components:"FULL, WORK, RECOVERY, MIN, P0-P5 levels, CNST:blocking", relationships:"FULL→WORK(drop P5-P3), WORK→RECOVERY(keep active KNW/LNG), RECOVERY→MIN(P0 only), bidireccional en recuperación", survive:"work"}
 
 # -- $6: RISKS --
 RSK:premature_release{risk:"crear release v0.3.0-spec antes de tener parser o benchmark automatizado", impact:"medium", mitigation:"v0.2.3 es PATCH legítimo bajo semver. Survival Core es specification draft documentado como tal", survive:"recovery", status:"mitigated"}
