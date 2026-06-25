@@ -18,7 +18,7 @@ Its native `.cortex` format is designed for dense model consumption. HCORTEX pro
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](LICENSE) |
-| **Version** | 0.2.2 |
+| **Version** | 0.2.3 |
 | **Stage** | Specification / alpha |
 
 ---
