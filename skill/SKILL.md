@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Cognitive Operational Retrieval & Execution Template
   <br>
-  <sub>SPECIFICATION · v1.1.0 · MIT · <a href="../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · v1.2.0 · MIT · <a href="../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
@@ -16,7 +16,7 @@
 | **Author** | Fidel Ernesto Lozada A. — Ing. Sistemas / MSc. Ciencias Gerenciales |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](../LICENSE) |
-| **Version** | 1.1.0 |
+| **Version** | 1.2.0 |
 | **Language** | Structural: EN · Semantic: ES · Output: HCORTEX (user language) |
 
 ---
@@ -432,8 +432,11 @@ Cuando el contexto se reduce, el agente debe:
 1. **No truncar por posición.** Reducir por prioridad P5→P0, nunca por cola o cabecera.
 2. **Preservar P0 siempre.** FCS, OBJ, CNST y STP sobreviven cualquier reducción.
 3. **Seleccionar perfil según presupuesto.** CORTEX-MIN (~300 tokens), RECOVERY (~1000), WORK (~3000), FULL (sin límite). Salto directo permitido.
-4. **Renderizar HCORTEX con trazabilidad.** Las entradas P0/P1 en HCORTEX deben indicar su sigilo `.cortex` de origen.
+4. **Renderizar HCORTEX con trazabilidad.** Las entradas P0/P1 en HCORTEX deben indicar su sigilo `.cortex` de origen como columna `source`.
 5. **Evaluar por supervivencia de decisión.** La eficiencia se mide por cuántas decisiones, restricciones y pasos sobreviven por token — no solo por compresión de bytes.
+6. **Compresión operacional activa.** El micro-glosario $0 declara tipo de expansión (`attrs`/`cuerpo`/`bloque`) que gobierna el render. Handlers son reglas `!nombre{cond, acc}` compactas.
+7. **Supervivencia explícita.** `survive` es obligatorio en FCS/OBJ/CNST/STP/WRK. `status` extendido: `current|planned|future|blocked`. Degradación regida por `!survive_degrade`.
+8. **Filtro P5 gobernado.** `!p5_filter` excluye entradas P5 sin `survive`, sin `KNW` companion o sin valor operacional. FULL no significa "todo entra".
 
 ---
 
@@ -443,10 +446,10 @@ Cada sigilo crítico declara campos obligatorios. Se permiten campos adicionales
 
 | Sigilo | Campos requeridos |
 |--------|-------------------|
-| **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (active\|blocked\|done), `survive` |
-| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked), `success` (criterio verificable), `survive` |
+| **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (current\|planned\|future\|blocked\|active\|done), `survive` |
+| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked\|current\|planned\|future), `success` (criterio verificable), `survive` |
 | **CNST** | `rule` (str), `severity` (blocking\|warning\|info), `survive` |
-| **STP** | `action` (verbo), `reason` (str), `owner` (agent\|human), `survive` |
+| **STP** | `action` (verbo), `reason` (str), `owner` (agent\|human), `status` (current\|planned\|future\|blocked), `survive` |
 | **WRK** | `phase` (str), `current` (str), `blocked` (bool), `survive` |
 
 Campos adicionales siempre permitidos si no contradicen el contrato mínimo.
@@ -463,6 +466,17 @@ Cuatro niveles que determinan qué entradas `.cortex` sobreviven a la reducción
 | `recovery` | ~1000t | Reducción moderada. OBJ activos, RSK |
 | `work` | ~3000t | Reducción estándar. FCS, STP, WRK |
 | `full` | Sin límite | Sin reducción. SES, REF, histórico |
+
+Regla (con mapeo P0-P5 de `!survive_priority`):
+
+| Nivel | Presupuesto | P-level | Entradas típicas |
+|-------|:---:|:---:|------------------|
+| `min` | ~300t | P0 | CNST:blocking, FCS, OBJ, STP |
+| `recovery` | ~1000t | P1 | WRK, AUD, RSK, NXT |
+| `work` | ~3000t | P2 | CLAIM, LIM, KNW:active, LNG:critical |
+| `reduced` | ~5000t | P3 | SES:last, STAT, VAL, RES, FIND |
+| `basic` | ~8000t | P4 | REF:critical, DOC, ART |
+| `full` | Sin límite | P5 | DIAG, TBL, histórico, comentarios |
 
 Regla: CNST con `severity:blocking` → `survive:min`. OBJ activo → `survive:recovery`. Entradas sin `survive` son válidas (compatibilidad progresiva).
 
@@ -498,16 +512,18 @@ Precedencia de selección: `perfil explícito > presupuesto disponible > modo op
 
 Default por modo: auditoría→FULL, recovery→RECOVERY, trabajo→WORK, emergencia→MIN.
 
-**Procedimiento de render HCORTEX:**
+**Procedimiento de render HCORTEX (10 pasos):**
 
-1. Resolver perfil activo según precedencia.
+1. Resolver perfil activo según precedencia: `explícito > presupuesto > modo > CORTEX-WORK`.
 2. Declarar `Perfil: CORTEX-<NIVEL>` como primera línea.
-3. Filtrar entradas por P-level o survive. Entradas sin P-level ni survive → P5 (solo en FULL).
-4. Renderizar solo las entradas filtradas.
-
-Auditoría con presupuesto insuficiente: declarar `Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>`. No degradar silenciosamente.
-
-**Trazabilidad de origen (source):** Las tablas HCORTEX derivadas de entradas P0, P1 y survive:min incluyen una columna `source` con el formato `<SIGIL>:<nombre>`. Diagramas PUML incluyen `' source: DIAG:<nombre>`. Si falta source en P0/P1, el render incluye `WARNING: missing source`.
+3. Filtrar entradas por P-level o survive. Entradas sin P-level ni survive → P5 (solo en FULL). Filtrado por entrada, no por sección.
+4. Resolver tipo de expansión del sigilo desde $0: `attrs → tabla`, `cuerpo → bloque indentado`, `bloque → PUML verbatim`.
+5. Renderizar solo entradas filtradas, aplicando estrategia según tipo desde $0.
+6. Auditoría con presupuesto insuficiente: declarar `Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>`. No degradar silenciosamente.
+7. Agregar columna `source` a tablas P0/P1 con formato `<SIGIL>:<nombre>`. PUML: `' source: DIAG:<nombre>`. Si falta source en P0/P1 → `WARNING: missing source`.
+8. Instancias múltiples del mismo sigilo: renderizar como sub-secciones `### <SIGIL>:<nombre>`. Preservar orden fuente.
+9. Aplicar estrategia de render por tipo: `attrs`→tabla source+instance, `cuerpo`→quote indentado, `bloque`→PUML verbatim con `' source: DIAG:<nombre>`.
+10. Ordenar secciones por P-level: P0 primero, P5 último. Sin P-level → después de P5. Mismo P-level → orden fuente.
 
 ---
 

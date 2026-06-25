@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Cognitive Operational Retrieval & Execution Template
   <br>
-  <sub>SPECIFICATION · v1.1.0 · MIT · <a href="../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · v1.2.0 · MIT · <a href="../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
@@ -16,7 +16,7 @@
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Managerial Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](../LICENSE) |
-| **Version** | 1.1.0 |
+| **Version** | 1.2.0 |
 | **Language** | Structural: EN · Semantic: ES · Output: HCORTEX (user language) · Source: [SKILL.md](SKILL.md) (Spanish) |
 
 ---
@@ -432,8 +432,11 @@ When context is reduced, the agent must:
 1. **Do not truncate by position.** Reduce by P5→P0 priority, never by tail or head.
 2. **Always preserve P0.** FCS, OBJ, CNST, and STP survive all context reductions.
 3. **Select profile by budget.** CORTEX-MIN (~300 tokens), RECOVERY (~1000), WORK (~3000), FULL (unlimited). Direct jump allowed.
-4. **Render HCORTEX with traceability.** P0/P1 entries in HCORTEX must indicate their source `.cortex` sigil.
+4. **Render HCORTEX with traceability.** P0/P1 entries in HCORTEX must indicate their source `.cortex` sigil as a `source` column.
 5. **Evaluate by decision survival.** Efficiency is measured by how many decisions, constraints, and steps survive per token — not just by byte compression.
+6. **Active operational compression.** The $0 micro-glossary declares expansion type (`attrs`/`cuerpo`/`bloque`) that governs rendering. Handlers use compact `!name{cond, action}` format.
+7. **Explicit survival.** `survive` is mandatory in FCS/OBJ/CNST/STP/WRK. `status` extended: `current|planned|future|blocked`. Degradation governed by `!survive_degrade`.
+8. **Governed P5 filter.** `!p5_filter` excludes P5 entries without `survive`, without `KNW` companion, or without operational value. FULL does not mean "everything enters".
 
 ---
 
@@ -443,10 +446,10 @@ Each critical sigil declares mandatory fields. Additional fields are always perm
 
 | Sigil | Required fields |
 |-------|-----------------|
-| **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (active\|blocked\|done), `survive` |
-| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked), `success` (verifiable criterion), `survive` |
+| **FCS** | `what` (str), `priority` (high\|medium\|low), `status` (current\|planned\|future\|blocked\|active\|done), `survive` |
+| **OBJ** | `goal` (str), `status` (in_progress\|done\|blocked\|current\|planned\|future), `success` (verifiable criterion), `survive` |
 | **CNST** | `rule` (str), `severity` (blocking\|warning\|info), `survive` |
-| **STP** | `action` (verb), `reason` (str), `owner` (agent\|human), `survive` |
+| **STP** | `action` (verb), `reason` (str), `owner` (agent\|human), `status` (current\|planned\|future\|blocked), `survive` |
 | **WRK** | `phase` (str), `current` (str), `blocked` (bool), `survive` |
 
 ---
@@ -492,16 +495,29 @@ Rules: anti-positional truncation, P0 immutable, CNST:blocking protected, CLAIM/
 
 Selection precedence: `explicit_profile > available_budget > operational_mode > CORTEX-WORK`.
 
-**HCORTEX render procedure:**
+Rule (with P0-P5 mapping from `!survive_priority`):
 
-1. Resolve active profile by precedence.
+| Level | Budget | P-level | Typical entries |
+|-------|:---:|:---:|------------------|
+| `min` | ~300t | P0 | CNST:blocking, FCS, OBJ, STP |
+| `recovery` | ~1000t | P1 | WRK, AUD, RSK, NXT |
+| `work` | ~3000t | P2 | CLAIM, LIM, KNW:active, LNG:critical |
+| `reduced` | ~5000t | P3 | SES:last, STAT, VAL, RES, FIND |
+| `basic` | ~8000t | P4 | REF:critical, DOC, ART |
+| `full` | Unlimited | P5 | DIAG, TBL, history, comments |
+
+**HCORTEX render procedure (10 steps):**
+
+1. Resolve active profile by precedence: `explicit > budget > mode > CORTEX-WORK`.
 2. Declare `Profile: CORTEX-<LEVEL>` as first HCORTEX line.
-3. Filter entries by P-level or survive. Entries without P-level or survive → P5 (FULL only).
-4. Render only filtered entries.
-
-Audit with insufficient budget: declare `Profile: CORTEX-FULL (segmented) Segment: <n>/<total>`. Do not silently degrade.
-
-**Source traceability:** HCORTEX tables derived from P0, P1, and survive:min entries include a `source` column using `<SIGIL>:<name>` format. PUML diagrams include `' source: DIAG:<name>`. If source is missing for P0/P1, render `WARNING: missing source`.
+3. Filter entries by P-level or survive. Entries without P-level or survive → P5 (FULL only). Entry-level filtering, never section-level.
+4. Resolve expansion type from $0: `attrs → table`, `cuerpo → indented block`, `bloque → PUML verbatim`.
+5. Render only filtered entries, applying strategy by type from $0.
+6. Audit with insufficient budget: declare `Profile: CORTEX-FULL (segmented) Segment: <n>/<total>`. Do not silently degrade.
+7. Add `source` column to P0/P1 tables using `<SIGIL>:<name>` format. PUML: `' source: DIAG:<name>`. Missing source → `WARNING: missing source`.
+8. Multi-instance sigils: render as `### <SIGIL>:<name>` sub-sections. Preserve source order.
+9. Apply render strategy by type: `attrs`→source+instance table, `cuerpo`→indented quote, `bloque`→PUML verbatim.
+10. Order by P-level: P0 first, P5 last. No P-level → after P5. Same P-level → source order.
 
 ---
 

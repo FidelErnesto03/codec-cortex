@@ -1,28 +1,30 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
 
-# -- $0: UNIVERSAL GLOSSARY --
-# Sigil | Name        | Expansion | Risk | Description
-# ------+-------------+-----------+------+---------------------------------------------
-# IDN   | identity    | attrs     | B    | Skill identity
-# DOM   | domain      | attrs     | B    | Scope and adoption context
-# AXM   | axiom       | cuerpo    | H    | Non-negotiable principle
-# CNST  | constraint  | attrs     | H    | Hard boundary
-# OBJ   | objective   | attrs     | B    | Active goal
-# FCS   | focus       | attrs     | H    | Attention anchor
-# WRK   | work        | attrs     | B    | Current operational state
-# REF   | reference   | attrs     | B    | Repository reference
-# HDL   | handler     | attrs     | M    | Operation descriptor with status
-# PFL   | pitfall     | contenido | M    | Known risk and prevention
-# DIAG  | diagram     | bloque    | M    | PUML diagram verbatim
-# TAG   | tag         | attrs     | B    | Classification metadata
-# STAT  | status      | attrs     | B    | Maturity declaration
-# STP   | step        | attrs     | M    | Next immediate action
-# AUD   | audit       | attrs     | M    | Audit or verification record
-# RSK   | risk        | attrs     | M    | Identified risk with mitigation
-# NXT   | next        | attrs     | M    | Queued next action with trigger
-# CLAIM | claim       | attrs     | M    | Verifiable claim
-# LIM   | limit       | attrs     | M    | Explicit operational limit
+# -- $0: UNIVERSAL GLOSSARY (canonical — única fuente de verdad; brains no definen sigilos sin registro aquí) --
+# Sigil | Name        | Type  | Risk | Description
+# ------+-------------+-------+------+---------------------------------------------
+# IDN   | identity    | attrs | B    | Skill identity
+# DOM   | domain      | attrs | B    | Scope and adoption context
+# AXM   | axiom       | cuerpo| H    | Non-negotiable principle
+# CNST  | constraint  | attrs | H    | Hard boundary
+# OBJ   | objective   | attrs | B    | Active goal
+# FCS   | focus       | attrs | H    | Attention anchor
+# WRK   | work        | attrs | B    | Current operational state
+# REF   | reference   | attrs | B    | Repository reference
+# HDL   | handler     | attrs | M    | Operation descriptor with status
+# PFL   | pitfall     | cuerpo| M    | Known risk and prevention
+# DIAG  | diagram     | bloque| M    | PUML diagram verbatim
+# TAG   | tag         | attrs | B    | Classification metadata
+# STAT  | status      | attrs | B    | Maturity declaration
+# STP   | step        | attrs | M    | Next immediate action
+# AUD   | audit       | attrs | M    | Audit or verification record
+# RSK   | risk        | attrs | M    | Identified risk with mitigation (pos: riesgo,impacto,mitigación,survive)
+# NXT   | next        | attrs | M    | Queued next action (pos: acción,prioridad,trigger,survive)
+# CLAIM | claim       | attrs | M    | Verifiable claim
+# LIM   | limit       | attrs | M    | Explicit operational limit
+#
+# Tipos: attrs → tabla K/V | cuerpo → bloque textual con prefijo | bloque → PUML verbatim
 
 # -- $0: MICRO-GLOSSARY --
 # sk=Skill cx=.cortex hc=HCORTEX cd=deterministic codec rt=runtime mcp=enterprise MCP
@@ -79,11 +81,15 @@ HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_c
 !p0_immutable{FCS, OBJ, CNST, STP survive all context reductions. They have P0 survival priority}
 !cnst_blocking_protected{CNST with severity:blocking and survive:min must never be omitted from MIN or RECOVERY profiles}
 !direct_profile_selection{Jump directly to required profile budget: MIN (~300t), RECOVERY (~1000t), WORK (~3000t), FULL (unlimited). No sequential chain required}
-!hcortex_profile_selection{Before rendering HCORTEX, resolve the active profile using this precedence: explicit_profile > available_context_budget > operational_mode > CORTEX-WORK. Budget thresholds: MIN<=512t, RECOVERY<=1000t, WORK<=3000t, FULL>3000t. MIN render target is ~300t. Include only entries whose explicit P-level, derived P-level from !priority_pack, or survive level qualifies for the active profile. Filtering is entry-level, never section-level. Entries without P-level and without survive are treated as P5. Declare the active profile as the first HCORTEX line: Perfil: CORTEX-<LEVEL>. Defaults by mode: audit->FULL, recovery->RECOVERY, active->WORK, emergency->MIN. If audit requires FULL and budget is insufficient, do not silently degrade; declare Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total or unknown> and render only the declared segment. Never label segmented audit as WORK or RECOVERY}
-!hcortex_source_traceability{Every HCORTEX table derived from P0, P1, or survive:min entries must include a source column using the canonical format <SIGIL>:<name> (e.g. FCS:primary, CNST:honesty). For P2+ entries, the source column is recommended but not mandatory. The source column must be the last column in the table. PUML diagrams must include a source comment using the canonical format: ' source: DIAG:<name>. Rule bodies rendered outside tables must include inline source annotation when derived from P0/P1. If a required source is missing for P0/P1, render WARNING: missing source instead of omitting traceability}
-!hcortex_multi_instance{When a sigil has multiple named instances (e.g. FCS:primary, FCS:secondary), HCORTEX must render them as distinct sub-sections using the instance name as context. The preferred format is a sub-section header per instance: ### <SIGIL>:<name>. If a unified table is more readable, include an instance column. Instances must appear in the same order as in the .cortex source file. Single-instance sigils are unaffected.}
-!hcortex_expansion_render{Render each .cortex entry according to its expansion type as defined in $0. attrs: table with source+instance columns. cuerpo: indented quote with sigil prefix. contenido: contextual table (SES: I/O/R, LNG: list, PFL: Error/Cause/Solution). bloque: PUML verbatim with ' source: DIAG:<name>. attrs-pos: Command|Description table. Never render cuerpo or contenido entries as attrs-style K/V tables.}
-!hcortex_render_order{Render HCORTEX sections ordered by P-level priority: P0 first, P5 last. Order: P0 (FCS/OBJ/CNST/STP) > P1 (WRK/AUD/RSK/NXT) > P2 (CLAIM/LIM/KNW/LNG) > P3 (SES/STAT/VAL/RES/FIND) > P4 (REF/DOC/ART) > P5 (DIAG/TBL/history). Sigils without P-level assignment render last, after P5. Within the same P-level, preserve the source .cortex order. This overrides .cortex section number ordering.}
+!hcortex_profile{cond:antes_de_render, acc:resolver_perfil_por_precedencia(explicit>budget>mode>WORK), budget:MIN≤512,RECOVERY≤1000,WORK≤3000,FULL>3000, declare:Perfil_CORTEX-LEVEL_linea1, default:audit→FULL,recovery→RECOVERY,active→WORK,emergency→MIN, audit_sin_budget:segmentado_no_degradar}
+!hcortex_source{cond:P0_P1, acc:agregar_columna_source_con_formato_<SIGIL>:<name>_al_final, missing:WARNING, PUML:source_comment, P2+:recomendado}
+!hcortex_multi{cond:multi_instancia, acc:subsecciones_por_nombre_###_<SIGIL>:<name>, orden:fuente_.cortex, unificada:columna_instance}
+!hcortex_expand{cond:siempre, acc:render_según_tipo_en_$0(attrs→tabla_source+instance, cuerpo→quote_indentado, contenido→tabla_contextual, bloque→PUML_verbatim_source, attrs-pos→Command|Description)}
+!hcortex_order{cond:siempre, acc:ordenar_P0→P5(P0=FCS/OBJ/CNST/STP>P1=WRK/AUD/RSK/NXT>P2=CLAIM/LIM/KNW/LNG>P3=SES/STAT/VAL/RES/FIND>P4=REF/DOC/ART>P5=DIAG/TBL/hist), sin_P→después_de_P5, dentro_del_mismo_P→orden_fuente}
+!survive_priority{map:P0→min,P1→recovery,P2→work,P3→reduced,P4→basic,P5→full}
+!survive_degrade{cond:budget<actual, acc:descartar_P5→P4→P3→P2→P1, P0_nunca, recover:subir_presupuesto→recuperar_orden_inverso}
+!survive_status{status_values:current|planned|future|blocked, legacy:active|done, contratos:FCS_OBJ_CNST_STP_WRK}
+!p5_filter{cond:budget>=8000, acc:incluir_solo_con_survive_o_KNW_companion_o_valor_operacional, umbral:no_degradar_P0_P4, excluir:P5_sin_survive_y_sin_KNW_y_sin_valor}
 
 # -- $5: PITFALLS --
 PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
@@ -121,34 +127,35 @@ runtime --> mcp
 # Additional fields are always permitted as long as they do not contradict the minimum contract.
 
 # FCS — Focus (attention anchor)
-# FCS:primary{what:str, priority:high|medium|low, status:active|blocked|done, survive:min|recovery|work|full}
+# FCS:primary{what:str, priority:high|medium|low, status:current|planned|future|blocked|active|done, survive:min|recovery|work|full}
 #   what       : required — what the agent is attending to
 #   priority   : required — high | medium | low
-#   status     : required — active | blocked | done
-#   survive    : required — suggested: work
+#   status     : required — current | planned | future | blocked (legacy: active=current, done)
+#   survive    : required — must be one of: min | recovery | work | full (suggested: work)
 #   + any additional fields allowed (since, owner, source, ...)
 
 # OBJ — Objective (active mission)
-# OBJ:main{goal:str, status:in_progress|done|blocked, success:str, survive:min|recovery|work|full}
+# OBJ:main{goal:str, status:in_progress|done|blocked|current|planned|future, success:str, survive:min|recovery|work|full}
 #   goal       : required — objective to achieve
-#   status     : required — in_progress | done | blocked
+#   status     : required — in_progress | done | blocked | current | planned | future
 #   success    : required — verifiable success criterion
-#   survive    : required — suggested: recovery
+#   survive    : required — must be one of: min | recovery | work | full (suggested: recovery)
 #   + any additional fields allowed (deadline, owner, depends_on, ...)
 
 # CNST — Constraint (hard boundary)
 # CNST:name{rule:str, severity:blocking|warning|info, survive:min|recovery|work|full}
 #   rule       : required — the non-negotiable rule
 #   severity   : required — blocking | warning | info
-#   survive    : required — suggested: min if severity=blocking
+#   survive    : required — must be one of: min | recovery | work | full (suggested: min if blocking)
 #   + any additional fields allowed (scope, source, ...)
 
 # STP — Step (next immediate action)
-# STP:next{action:str, reason:str, owner:agent|human, survive:min|recovery|work|full}
+# STP:next{action:str, reason:str, owner:agent|human, status:current|planned|future|blocked|active|done, survive:min|recovery|work|full}
 #   action     : required — action to execute (infinitive verb)
 #   reason     : required — why this action is next
 #   owner      : required — agent | human
-#   survive    : required — suggested: work
+#   status     : required — current | planned | future | blocked (legacy: active=current, done)
+#   survive    : required — must be one of: min | recovery | work | full (suggested: work)
 #   + any additional fields allowed (deadline, depends_on, ...)
 
 # WRK — Work (operational state)
@@ -156,13 +163,18 @@ runtime --> mcp
 #   phase      : required — current work phase
 #   current    : required — what is being done now
 #   blocked    : required — true | false
-#   survive    : required — suggested: work
+#   survive    : required — must be one of: min | recovery | work | full (suggested: work)
 #   + any additional fields allowed (active_files, session_start, ...)
 
 # RSK — Risk (recommended fields, not mandatory)
 # RSK:name{risk:str, impact:high|medium|low, mitigation:str, survive:recovery|work|full}
+#   Posicional: RSK:name{"riesgo", impacto, "mitigación", survive} — pos 1=riesgo, 2=impacto, 3=mitigación, 4=survive
 # NXT — Next in queue (recommended fields, not mandatory)
 # NXT:name{action:str, priority:high|medium|low, trigger:now|after_X|on_Y, survive:work|recovery|full}
+#   Posicional: NXT:name{"acción", prioridad, trigger, survive} — pos 1=acción, 2=prioridad, 3=trigger, 4=survive
+# AUD — Audit (recommended fields, not mandatory)
+# AUD:name{metric:str, value:str, timestamp:str, survive:work|full}
+#   Posicional: AUD:name{"métrica", "valor", "timestamp"} — pos 1=métrica, 2=valor, 3=timestamp
 
 # -- $8: SURVIVE ATTRIBUTE --
 # survive governs which .cortex entries persist under context reduction.
@@ -177,11 +189,13 @@ runtime --> mcp
 # full     : Full context. Preserved with no or superficial reduction.
 #            Typical: SES, REF, historical entries.
 
-# Assignment rules:
-#   CNST with severity:blocking  → survive:min
-#   OBJ active (in_progress)     → survive:recovery
-#   FCS, WRK, STP                → survive:work
-#   Documentary, historical      → survive:full
+# Assignment rules (with P0-P5 mapping from !survive_priority):
+#   P0 → survive:min    : CNST:blocking, FCS, OBJ, STP — survive all reductions
+#   P1 → survive:recovery: WRK, AUD, RSK, NXT
+#   P2 → survive:work    : CLAIM, LIM, KNW:active, LNG:critical
+#   P3 → survive:reduced : SES:last, STAT, VAL, RES, FIND
+#   P4 → survive:basic   : REF:critical, DOC, ART
+#   P5 → survive:full    : DIAG, TBL, long REF, history, comments
 #   Entries without survive      → valid (progressive compatibility)
 
 # -- $9: PRIORITY PACK P0-P5 --
@@ -227,30 +241,30 @@ runtime --> mcp
 #     WRK→"Estado operativo", STP/NXT→"Próximo paso", AUD/RSK→"Evidencia/Riesgos",
 #     CLAIM/LIM→"Límites de afirmación"
 
-# HCORTEX render procedure:
+# HCORTEX render procedure (10 steps):
 #   Step 1: resolve active profile by precedence:
 #            explicit_profile > context_budget > mode > CORTEX-WORK
-#   Step 2: declare profile as first HCORTEX line:
-#            "Perfil: CORTEX-<LEVEL>"
+#   Step 2: declare profile as first HCORTEX line: "Perfil: CORTEX-<LEVEL>"
 #   Step 3: filter entries by P-level or survive matching the profile.
 #            Entries without P-level or survive → P5 (excluded unless FULL).
 #            Filtering is entry-level, never section-level.
-#   Step 4: render only filtered entries.
-#   Audit with insufficient budget: do not silently degrade.
+#   Step 4: resolve expansion type for each sigil from $0:
+#            attrs → table, cuerpo → indented block, bloque → PUML verbatim.
+#   Step 5: render only filtered entries, applying strategy by type from $0.
+#   Step 6: audit with insufficient budget: do not silently degrade.
 #            Declare "Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>"
 #            and render only the declared segment.
-#   Step 5: add source column to P0/P1 tables using <SIGIL>:<name> format.
+#   Step 7: add source column to P0/P1 tables using <SIGIL>:<name> format.
 #            PUML diagrams include ' source: DIAG:<name>.
 #            If source missing for P0/P1, render WARNING: missing source.
-#   Step 6: if a sigil has multiple named instances (FCS:primary, FCS:secondary),
-#            render as distinct sub-sections: ### <SIGIL>:<name>. Preserve source order.
-#   Step 7: apply render strategy by expansion type from $0:
+#   Step 8: if a sigil has multiple named instances, render as distinct
+#            sub-sections: ### <SIGIL>:<name>. Preserve source order.
+#   Step 9: apply render strategy by expansion type from $0:
 #            attrs: table with source+instance columns.
 #            cuerpo: indented quote with sigil prefix.
-#            contenido: contextual table (SES: I/O/R, LNG: list, PFL: Error/Cause/Solution).
+#            contenido: contextual table (SES: I/O/R, LNG: list, PFL: Err/Cause/Sol).
 #            bloque: PUML verbatim with ' source: DIAG:<name>.
-#            attrs-pos: Command|Description table.
-#   Step 8: order sections by P-level priority: P0 first, P5 last.
+#   Step 10: order sections by P-level priority: P0 first, P5 last.
 #            Sigils without P-level assignment render last, after P5.
 #            Within the same P-level, preserve the source .cortex order.
 
