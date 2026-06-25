@@ -31,7 +31,7 @@
 # cur=current spec=specification pln=planned fut=future ctx=contextual str=structural
 
 # -- $1: IDENTITY --
-IDN:skill{name:"universal-codec-cortex", version:"1.2.0", license:"MIT", status:"specification/alpha"}
+IDN:skill{name:"universal-codec-cortex", version:"0.2.3", license:"MIT", status:"specification/alpha"}
 DOM:application{area:"LLM/SLM contextual memory", format:".cortex", adoption:"direct agent reading", language_structural:"EN", language_semantic:"user/domain"}
 
 AXM:skill_first{CODEC-CORTEX starts as a universal Skill for contextual memory. The codec automates later; it is not required for adoption}

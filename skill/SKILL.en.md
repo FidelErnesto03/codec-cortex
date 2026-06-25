@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Cognitive Operational Retrieval & Execution Template
   <br>
-  <sub>SPECIFICATION · v1.2.0 · MIT · <a href="../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · v0.2.3 · MIT · <a href="../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
@@ -16,7 +16,7 @@
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Managerial Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](../LICENSE) |
-| **Version** | 1.2.0 |
+| **Version** | 0.2.3 |
 | **Language** | Structural: EN · Semantic: ES · Output: HCORTEX (user language) · Source: [SKILL.md](SKILL.md) (Spanish) |
 
 ---
