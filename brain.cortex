@@ -5,25 +5,25 @@
 # Canonical persistent memory under CODEC-CORTEX lives in .cortex.
 # Updated: 2026-06-24 — Survival Core session (RE-004/005/006 refinement)
 
-# -- $0: GLOSSARY --
-# Sigil   | Name         | Expansion | Risk | Description
-# --------+--------------+-----------+------+----------------------------------------------
-# IDN     | identity     | attrs     | B    | Actor identity
-# FCS     | focus        | attrs     | H    | Current attention anchor
-# OBJ     | objective    | attrs     | B    | Active mission
-# WRK     | work         | attrs     | B    | Current operational state
-# STP     | step         | attrs     | M    | Next immediate action
-# CNST    | constraint   | attrs     | M    | Active operational limit
-# SES     | session      | attrs     | B    | Recent compressed episode
-# LNG     | lesson       | contenido | M    | Learned operational rule
-# KNW     | knowledge    | attrs     | B    | Stable project knowledge
-# REF     | reference    | attrs     | B    | Audit reference
-# AUD     | audit        | attrs     | M    | Validation or release audit record
-# RSK     | risk         | attrs     | M    | Identified risk with mitigation (RE-004)
-# NXT     | next         | attrs     | M    | Queued next action with trigger (RE-004)
-# CLAIM   | claim        | attrs     | M    | Verifiable claim (RE-004)
-# LIM     | limit        | attrs     | M    | Explicit operational limit (RE-004)
-# TAG     | tag          | attrs     | B    | Classification metadata
+# -- $0: GLOSSARY (canonical — sigils must be registered here) --
+# Sigil   | Name         | Type  | Risk | Description
+# --------+--------------+-------+------+----------------------------------------------
+# IDN     | identity     | attrs | B    | Actor identity
+# FCS     | focus        | attrs | H    | Current attention anchor
+# OBJ     | objective    | attrs | B    | Active mission
+# WRK     | work         | attrs | B    | Current operational state
+# STP     | step         | attrs | M    | Next immediate action
+# CNST    | constraint   | attrs | M    | Active operational limit
+# SES     | session      | attrs | B    | Recent compressed episode
+# LNG     | lesson       | cuerpo| M    | Learned operational rule
+# KNW     | knowledge    | attrs | B    | Stable project knowledge
+# REF     | reference    | attrs | B    | Audit reference
+# AUD     | audit        | attrs | M    | Validation or release audit record
+# RSK     | risk         | attrs | M    | Identified risk with mitigation
+# NXT     | next         | attrs | M    | Queued next action with trigger
+# CLAIM   | claim        | attrs | M    | Verifiable claim
+# LIM     | limit        | attrs | M    | Explicit operational limit
+# TAG     | tag          | attrs | B    | Classification metadata
 
 # -- $1: IDENTITY --
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com"}

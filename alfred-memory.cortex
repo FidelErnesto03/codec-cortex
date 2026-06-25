@@ -5,31 +5,30 @@
 # Encoded from Hermes persistent memory store
 # Updated: 2026-06-24
 
-# -- $0: GLOSSARY --
-# Sigilo | Nombre     | Expansión | Riesgo | Descripción
-# -------+------------+-----------+--------+------------------------------------
-# IDN    | identity   | attrs     | B      | Actor identity
-# DOM    | domain     | attrs     | B      | Scope and context
-# FCS    | focus      | attrs     | H      | Attention anchor
-# OBJ    | objective  | attrs     | B      | Active goal
-# WRK    | work       | attrs     | B      | Operational state
-# CNST   | constraint | attrs     | H      | Hard boundary
-# KNW    | knowledge  | attrs     | B      | Stable knowledge
-# SES    | session    | attrs     | B      | Compressed episode
-# LNG    | lesson     | contenido | M      | Learned heuristic
-# REF    | reference  | attrs     | B      | External reference
-# STP    | step       | attrs     | M      | Next immediate action
-# AUD    | audit      | attrs     | M      | Audit record
-# RSK    | risk       | attrs     | M      | Risk with mitigation
-# CLAIM  | claim      | attrs     | M      | Verifiable claim
-# LIM    | limit      | attrs     | M      | Operational limit
-# TAG    | tag        | attrs     | B      | Classification metadata
+# -- $0: GLOSSARY (canonical) --
+# Sigilo | Nombre     | Tipo | Riesgo | Descripción
+# -------+------------+------+--------+------------------------------------
+# IDN    | identity   | attrs| B      | Actor identity
+# DOM    | domain     | attrs| B      | Scope and context
+# FCS    | focus      | attrs| H      | Attention anchor
+# OBJ    | objective  | attrs| B      | Active goal
+# WRK    | work       | attrs| B      | Operational state
+# CNST   | constraint | attrs| H      | Hard boundary
+# KNW    | knowledge  | attrs| B      | Stable knowledge
+# SES    | session    | attrs| B      | Compressed episode
+# LNG    | lesson     | cuerpo| M     | Learned heuristic
+# REF    | reference  | attrs| B      | External reference
+# STP    | step       | attrs| M      | Next immediate action
+# AUD    | audit      | attrs| M      | Audit record
+# RSK    | risk       | attrs| M      | Risk with mitigation
+# CLAIM  | claim      | attrs| M      | Verifiable claim
+# LIM    | limit      | attrs| M      | Operational limit
 # !      | rule       | cuerpo    | H      | Mandatory rule
 
 # -- $1: IDENTITY --
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com", git_user:"Fidel Lozada", git_email:"fidel.lozada@vatrox.com", gh_auth:"SSH"}
 IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent", home:"~/.hermes/skills/", runtime:"Hermes Agent"}
-DOM:project{area:"CODEC-CORTEX — Cognitive Operational Retrieval & Execution Template", license:"MIT", repo:"github.com/FidelErnesto03/codec-cortex", version:"v0.2.0", dialect_cycle:"CORTEX-CONSOLIDATION-001"}
+DOM:project{area:"CODEC-CORTEX — Cognitive Operational Retrieval & Execution Template", license:"MIT", repo:"github.com/FidelErnesto03/codec-cortex", version:"v0.2.3", dialect_cycle:"CORTEX-CONSOLIDATION-001"}
 TAG:memory{source:"hermes_persistent_store", format:"c1", encoding_date:"2026-06-24"}
 
 # -- $2: CONSTRAINTS --
@@ -41,10 +40,10 @@ CNST:cortex_rules{rule:"skills self-contained (no MCP, no external tools), struc
 CNST:publication{rule:"publication with authorship: AUTHORS, CITATION.cff, CODEOWNERS, SPDX, semver", severity:"warning", survive:"recovery"}
 
 # -- $3: WORKING MEMORY --
-FCS:primary{what:"CODEC-CORTEX Survival Core — RE-004/005/006 refinement with Fidel", priority:"high", status:"active", survive:"work"}
-OBJ:primary{goal:"3 REs refined, quality_contract 10/10, zero DRAFT, transit to open for Fidel's review", status:"in_progress", success:"all 3 REs in open status", survive:"recovery"}
-WRK:session{phase:"brain.cortex updated, native memory encoded", current:"presenting alfred-memory.cortex to Fidel", blocked:false, survive:"work", started:"2026-06-24"}
-STP:next{action:"await Fidel's decision on RE approval", reason:"refinement cycle complete", owner:"human", survive:"work"}
+FCS:primary{what:"CODEC-CORTEX Survival Core — RE-014/015/016 executed and approved", priority:"high", status:"current", survive:"work"}
+OBJ:primary{goal:"3 REs approved (compression, survival, P5-filter) — SKILL v0.2.3 homologated", status:"current", success:"16/16 REs approved in CORTEX-CONSOLIDATION-001", survive:"recovery"}
+WRK:session{phase:"ciclo CORTEX-CONSOLIDATION-001 completado — 16/16 REs approved", current:"optimizando brain.cortex y alfred-memory.cortex con v0.2.3", blocked:false, survive:"work", started:"2026-06-25"}
+STP:next{action:"completar optimización v0.2.3 y esperar dirección de Fidel", reason:"ciclo cerrado, SKILL homologado", owner:"human", survive:"work", status:"current"}
 
 # -- $4: DIALECT KNOWLEDGE --
 KNW:dialect_workspace{workspace_id:"WORKSPACE", root:"~/Projects/workspace", dialect_version:"5.5", projects_governed:12, projects_ungoverned:24}
@@ -53,7 +52,7 @@ KNW:prjf_convention{rule:"origin must include CYCLE/RE-ID for traceability", r5:
 KNW:workbook_format{location:"CODEC-CORTEX/.project-control/workbook.md", format:"compact machine-first (no prose)", purpose:"cross-session operational reference: versioning, active PRs, metrics, next cycle"}
 
 # -- $5: CODEC-CORTEX STATE --
-KNW:skill_hermes{name:"codec-cortex", version:"1.1.0", location:"~/.hermes/skills/codec-cortex/", status:"loaded and active"}
+KNW:skill_hermes{name:"codec-cortex", version:"0.2.3", location:"~/.hermes/skills/codec-cortex/", status:"loaded and active — compression native + survive explícito + P5 filter"}
 KNW:skill_development{name:"codec-cortex-development", version:"1.0.0", location:"~/.hermes/skills/coding/", status:"loaded"}
 KNW:dialect_support{protocol:"2-phase: diagnostico→meta_diagnostics, reparacion→meta_repair", mcp_server:"kill duplicate zombie PID", handlers:"96 handlers post-dlf_tool cleanup"}
 KNW:repo_state{commits:5, tag:"v0.2.0", files:32, outstanding:["PR Awesome-LLM #681 pending"], awesome_prs_remaining:["awesome-langchain","awesome-chatgpt"]}
@@ -70,6 +69,8 @@ SES:dialect_bootstrap{input:"DIALECT v5.5 setup", output:"workspace initialized,
 SES:cortex_foundation{input:"RE-001, RE-002, RE-003", output:"3 REs approved — docs, skill, publication", outcome:"done", cycle:"CORTEX-CONSOLIDATION-001"}
 SES:survival_core{input:"12 premises from Fidel for CODEC-CORTEX evolution", output:"RE-004 (15 recs) + RE-005 (17 recs) + RE-006 (redefined, 2 tracks)", outcome:"3 REs open, QC 10/10, 0 DRAFT", date:"2026-06-24"}
 SES:brain_update{input:"Fidel requested brain.cortex update + native memory encoding", output:"brain.cortex updated with new sigils + alfred-memory.cortex created", outcome:"done", date:"2026-06-24"}
+SES:hcortex_corrections{input:"RE-007 diagnostic + RE-008 to RE-013", output:"13/13 REs approved. 5 HCORTEX rules, 8 steps. D-01 to D-06 fixed", outcome:"v0.2.2 released", date:"2026-06-24"}
+SES:recovery_res{input:"Fidel: 3 recomendaciones — compresión, supervivencia, filtro P5", output:"RE-014/015/016 ejecutadas en SKILL.cortex/.md/.en.md. 5 correcciones de Fidel aplicadas", outcome:"16/16 REs approved. SKILL v0.2.3 homologado", date:"2026-06-25"}
 
 # -- $8: LESSONS --
 LNG:survival_core_direction{CODEC-CORTEX must evolve from dense format to contextual survival system. The key: "when everything else is lost, FCS/OBJ/CNST/STP still survive"}
@@ -97,5 +98,5 @@ REF:re005{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements
 REF:re006{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-006.md"}
 
 # -- $12: AUDIT --
-AUD:encoding{source:"hermes_persistent_memory", sections:12, sigils_used:14, contracts_applied:["FCS","OBJ","CNST","STP","WRK"], survive_levels:true, encoding_date:"2026-06-24"}
-AUD:session_state{res_open:3, res_approved:3, cycle:"CORTEX-CONSOLIDATION-001", cortex_adopted:true, brain_updated:true}
+AUD:encoding{source:"hermes_persistent_memory", sections:14, sigils_used:16, contracts_applied:["FCS","OBJ","CNST","STP","WRK"], survive_levels:true, encoding_date:"2026-06-25", compression_type:"attrs-pos", p5_filter:true}
+AUD:session_state{res_approved:16, cycle:"CORTEX-CONSOLIDATION-001", cortex_adopted:true, skill_version:"0.2.3", version_homologated:true, brain_updated:true}
