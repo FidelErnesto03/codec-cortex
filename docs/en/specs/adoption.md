@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+> **STATE NOTE:** This document is a specification or design document. The CLI and deterministic codec (parse, verify, render, CRUD) are implemented at `cli/` with 17 commands and 222 tests. Runtime and MCP are planned or future.
 
 **Abstract:** Practical integration guide for the CODEC-CORTEX protocol in LLM and SLM agents. Covers 3 adoption patterns (generic agent host, coding agent client, CLI-based coding agent), CAG vs RAG strategy with decision tree, compression benchmarks with 4K-8K token SLMs, PUML diagram usage in integrations, and reference to the cognitive trinity and output GATE.
 

@@ -24,6 +24,14 @@ This file is the maturity registry for public claims in the repository. README, 
 - **Context Survival Rules** in `SKILL.md` and `SKILL.en.md`.
 - Documentation: `docs/specs/context-survival.md`, `docs/specs/benchmark-methodology.md`.
 - Benchmarks registry: `benchmarks/README.md` (0.1, 0.1b, 0.2).
+- **CLI v1.1.9 at `cli/`:** 17 commands (`new`, `render`, `compile`, `verify`, `get`, `list`, `add`, `update`, `delete`, `move`, `glossary`, `micro`, `doctor`, `diff`, `format`, `recover`, `diagram`), 222 tests passing.
+- **Deterministic parser, verifier and HCORTEX renderer** integrated in CLI: `cortex verify --strict`, `cortex render`, `cortex doctor`.
+- **CRUD operations:** `cortex add`, `cortex update`, `cortex delete`, `cortex list`, `cortex get`.
+- **Structural diff:** `cortex diff` with governance-aware mode.
+- **Recovery:** `cortex recover` repairs legacy/non-conforming `.cortex` files.
+- **Diagram operations:** `cortex diagram extract` and `cortex diagram validate`.
+- **All `.cortex` files validated:** `brain.cortex`, `SKILL.cortex`, `alfred-memory.cortex` pass `cortex verify --strict` (0 errors, 0 warnings).
+- **SKILL.md v1.2.0-enterprise-candidate:** `$0` self-containment emphasis added.
 
 ## Specification Exists
 
@@ -36,24 +44,15 @@ This file is the maturity registry for public claims in the repository. README, 
 
 ## Designed But Not Implemented
 
-- Deterministic parser.
-- AST representation.
-- Encoder and decoder.
-- Structural verifier.
-- HCORTEX renderer (manual/procedural exists, automated planned).
-- Minimal CLI.
 - Runtime lifecycle operations.
 - MCP server.
 - Automated survival benchmarks.
 
 ## Planned Next
 
-- Implement a deterministic parser.
-- Define a stable AST representation.
-- Add encode/decode and structural verify tests.
-- Add a basic HCORTEX renderer.
-- Add minimal CLI commands only after the codec exists.
 - Automate survival benchmark methodology.
+- Expand CLI command coverage.
+- Stabilize AST representation for codec roundtrip.
 
 ## Future Phase
 

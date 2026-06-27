@@ -35,7 +35,7 @@
 
 **Deliverables:** `survive` specification, P0-P5 priority pack, context profiles (MIN/RECOVERY/WORK/FULL), HCORTEX as render target, degradation policy with direct selection. Documents: `docs/specs/context-survival.md`, `docs/specs/benchmark-methodology.md`.
 
-**Non-goals:** no parser, no runtime, no automated benchmarks, no v0.3.0 release.
+**Non-goals:** no parser, no runtime, no automated benchmarks.
 
 **Acceptance criteria:** SKILL.cortex instructs agents to survive context reduction by cognitive priority.
 
@@ -53,15 +53,15 @@
 
 ## Phase 4: Deterministic Codec
 
-**Status:** planned.
+**Status:** current/specification.
 
-**Goal:** implement parser, encoder, decoder, verifier, renderer and CLI.
+**Goal:** maintain parser, encoder, decoder, verifier, renderer and CLI.
 
-**Deliverables:** `parser.py`, `encoder.py`, `decoder.py`, `verify.py`, `hcortex.py`, `cli.py` and tests.
+**Deliverables:** `cortex` CLI at `cli/` — 17 commands, 222 tests, `cortex verify --strict`, `cortex render`, `cortex doctor`, CRUD operations, structural diff, diagram extraction/validation, recovery, format, glossary management.
 
 **Non-goals:** no LLM calls inside parse, encode, decode or verify operations.
 
-**Acceptance criteria:** roundtrip tests pass, invalid structures fail clearly and DIAG raw mode is preserved.
+**Acceptance criteria:** all `.cortex` files pass `cortex verify --strict` with 0 errors. HCORTEX renders correctly in readable and audit modes. Roundtrip decode→edit→encode preserves content.
 
 ## Phase 5: Memory Runtime
 

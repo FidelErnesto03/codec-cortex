@@ -1,0 +1,5 @@
+# This file has NO $0 section — must be rejected in normal mode.
+
+$1: IDENTITY
+
+IDN:agent{name:"phantom"}

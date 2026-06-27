@@ -8,6 +8,27 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-06-27
+
+### Added
+
+- CLI v1.1.9 integrated at `cli/` — 17 commands (`new`, `render`, `compile`, `verify`, `get`, `list`, `add`, `update`, `delete`, `move`, `glossary`, `micro`, `doctor`, `diff`, `format`, `recover`, `diagram`), 222 tests passing in 4.92s.
+- `cortex verify --strict` validates structure, glossary, contracts, governance and level policy on all `.cortex` files.
+- `cortex render` produces HCORTEX markdown views (readable and audit modes).
+- `cortex doctor` deep diagnostics with governance checks and secret scanning.
+- `cortex recover` repairs legacy or non-conforming `.cortex` files.
+- SKILL.md upgraded to v1.2.0-enterprise-candidate: `$0` self-containment emphasis, new risk row, reordered checklist.
+- 5 new check items for `brain.cortex` conformance: `$0` first, no external glossary dependency, all sigils/micros registered, no positional contract without declaration.
+
+### Changed
+
+- `brain.cortex`, `SKILL.cortex`, `alfred-memory.cortex` migrated to canonical `.cortex` format with `$N:` section headers, 6-column glossary with Cognitive Layer, and proper field contracts.
+- All three `.cortex` files pass `cortex verify --strict` with 0 errors, 0 warnings.
+- `README.md`: version 0.2.3 → 0.3.0, stage alpha → beta, CLI and codec moved from planned to current.
+- `STATUS.md`: CLI and deterministic codec moved from "Designed but Not Implemented" to "Implemented Now".
+- `ROADMAP.md`: Phase 4 status updated to current/specification with CLI deliverables.
+- `brain.md` and `alfred-memory.md` regenerated from canonical `.cortex` via `cortex render --mode audit`.
+
 ## [0.2.3] — 2026-06-24
 
 ### Added

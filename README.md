@@ -4,22 +4,22 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.2.3 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
+  <sub>v0.3.0 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
 </p>
 
 ---
 
 CODEC-CORTEX is a universal memory Skill and contextual memory protocol for LLM/SLM agents. It helps agents organize persistent memory as structured operational context: identity, focus, objective, working state, rules, sessions, lessons, knowledge and references.
 
-Its native `.cortex` format is designed for dense model consumption. HCORTEX provides a human-readable view for inspection, audit, correction and continuity. A deterministic codec, CLI, memory runtime and enterprise MCP bridge are planned phases, not requirements for initial adoption.
+Its native `.cortex` format is designed for dense model consumption. HCORTEX provides a human-readable view for inspection, audit, correction and continuity. A CLI with 17 commands (verify, render, CRUD, doctor, diff, format, diagram) is now available at `cli/`. Memory runtime and enterprise MCP bridge remain planned phases.
 
 | | |
 |---|---|
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](LICENSE) |
-| **Version** | 0.2.3 |
-| **Stage** | Specification / alpha |
+| **Version** | 0.3.0 |
+| **Stage** | Specification / beta |
 
 ---
 
@@ -31,7 +31,7 @@ CODEC-CORTEX separates operational memory into explicit structures so an agent c
 
 ## Current Stage
 
-This repository is in specification/alpha stage.
+This repository is in specification/beta stage.
 
 Current:
 
@@ -39,12 +39,11 @@ Current:
 - `.cortex` contextual memory format specification.
 - HCORTEX human-readable context view specification.
 - Spanish and English reference documents.
+- **CLI v1.1.9** at `cli/` — 17 commands, 222 tests, `cortex verify --strict` passes on all `.cortex` files.
+- **Deterministic Python codec** — parser, encoder, decoder, verifier and HCORTEX renderer integrated in CLI.
 
 Planned or future:
 
-- Deterministic Python codec.
-- CLI.
-- Formal parser, encoder, decoder, verifier and HCORTEX renderer.
 - Memory runtime for WRK, SES, LNG and KNW lifecycle management.
 - Enterprise MCP bridge with governance and auditability.
 
@@ -82,8 +81,8 @@ note right of skill
 end note
 
 note right of codec
-  Planned automation.
-  Do not treat as complete.
+  CLI v1.1.9 implements this.
+  See cli/ for details.
 end note
 
 note right of mcp
@@ -100,8 +99,9 @@ end note
 3. Use `skill/AGENT.cortex` as the identity entry point.
 4. Copy or adapt `skill/brain.cortex` as a local memory template.
 5. Render or summarize active context as HCORTEX for human review.
+6. Try `cortex` commands from `cli/`: `cortex --help`, `cortex verify brain.cortex`.
 
-Initial adoption does not require a server, MCP bridge or Python package. An agent can use CODEC-CORTEX by reading the Skill and following the `.cortex` memory discipline.
+A `cortex` CLI binary is available at `cli/`. Initial adoption does not require a server, MCP bridge or Python package. An agent can use CODEC-CORTEX by reading the Skill and following the `.cortex` memory discipline.
 
 ## Current Context
 
@@ -120,7 +120,8 @@ For a human-readable HCORTEX view of that same context, read `brain.md`. Use `sk
 | `skill/` | Skill specification, dense Skill file, AGENT example and local brain template | Current/specification |
 | `docs/en/specs/` | English fundamentals, algorithm, adoption and MCP design docs | Specification |
 | `docs/es/specs/` | Spanish fundamentals, algorithm, adoption and MCP design docs | Specification |
-| `src/` | Python package placeholder for the planned deterministic codec | Planned implementation |
+| `cli/` | CLI v1.1.9: cortex verify, render, CRUD, doctor, diff, format, diagram | Current/implementation |
+| `src/` | Python package placeholder | Legacy placeholder |
 | `ROADMAP.md` | Phase plan from Skill adoption to enterprise MCP | Current |
 | `STATUS.md` | Truth registry for implemented, specified, planned and future capabilities | Current |
 

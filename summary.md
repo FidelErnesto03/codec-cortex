@@ -1,10 +1,10 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
-<!-- source: summary.cortex — HCORTEX human-readable view -->
+<!-- source: brain.cortex + alfred-memory.cortex — HCORTEX cross-reference view -->
 
 # summary.md — HCORTEX de sesión alfred (verificación cruzada)
 
-> **Perfil: CORTEX-FULL** · v0.2.3 · 2026-06-24 · source: .project-control/summary.cortex
+> **Perfil: CORTEX-FULL** · v0.3.0 · 2026-06-27 · source: brain.cortex + alfred-memory.cortex
 
 ---
 
@@ -12,11 +12,11 @@
 
 | source | Campo | Valor |
 |--------|-------|-------|
-| TAG:summary | Agente | alfred |
-| TAG:summary | Proyecto | CODEC-CORTEX |
-| TAG:summary | Ciclo | CORTEX-CONSOLIDATION-001 |
-| TAG:summary | REs | 13/13 approved |
-| TAG:summary | Release | v0.2.3 |
+| TAG:brain | Agente | alfred |
+| TAG:brain | Proyecto | CODEC-CORTEX |
+| TAG:brain | Ciclo | CORTEX-CONSOLIDATION-001 |
+| TAG:brain | REs completadas | 13/13 + 3 recovery = 16/16 |
+| TAG:brain | Release | v0.3.0 — CLI integrado |
 
 ## Flujo de sesión
 
@@ -28,6 +28,7 @@
 | 4 | Ejecución + release v0.2.1 + migración DIALECT | SKILL.cortex actualizado, skill en Hermes |
 | 5 | Diagnóstico HCORTEX (RE-007) | 6 desviaciones documentadas |
 | 6 | 6 correcciones (RE-008 a RE-013) | 5 reglas, 8 pasos, 0 archivos .cortex |
+| 7 | Recovery + integración CLI v1.1.9 | 222 tests, 17 comandos, .cortex migrados |
 
 ## Correcciones HCORTEX
 
@@ -40,22 +41,15 @@
 | RE-012 | D-05: DIAG caption check | (verificado) | baja |
 | RE-013 | D-06: Orden P0→P5 | `!hcortex_render_order` | baja |
 
-## Procedimiento HCORTEX (8 pasos)
+## Migración CLI
 
-| Paso | Acción |
-|:---:|--------|
-| 1 | Resolver perfil por precedencia |
-| 2 | Declarar `Perfil: CORTEX-<LEVEL>` |
-| 3 | Filtrar entradas por P-level/survive |
-| 4 | Renderizar solo entradas filtradas |
-| 5 | Agregar columna source `<SIGIL>:<name>` |
-| 6 | Sub-secciones por instancia |
-| 7 | Render por tipo de expansión |
-| 8 | Ordenar P0→P5 |
-
-## Archivos
-
-| Tipo | Archivos |
-|------|----------|
-| Creados | docs/specs/context-survival.md, docs/specs/benchmark-methodology.md, benchmarks/README.md, alfred-memory.cortex, summary.cortex |
-| Modificados | skill/SKILL.cortex, skill/SKILL.md, skill/SKILL.en.md, brain.cortex, CHANGELOG.md, ROADMAP.md, README.md, STATUS.md, pyproject.toml, src/codec_cortex/__init__.py, .project-control/workbook.md |
+| Paso | Acción | Resultado |
+|:---:|--------|-----------|
+| 1 | Extraer codec-cortex-1.1.9.tar.gz en cli/ | 7 submódulos, 17 comandos, ~30 archivos .py |
+| 2 | Instalar con uv pip install -e .[dev] | Dependencias: pytest, pygments |
+| 3 | Ejecutar test suite | 222/222 pasan en 4.92s |
+| 4 | Migrar brain.cortex a formato canónico | 0 errores, 0 warnings con --strict |
+| 5 | Merge SKILL.md v1.1.0 + v1.2.0 | v1.2.0-enterprise-candidate |
+| 6 | Derivar SKILL.cortex canónico | 0 errores, 0 warnings con --strict |
+| 7 | Migrar alfred-memory.cortex | 0 errores, 0 warnings con --strict |
+| 8 | Sincronizar HCORTEX .md | brain.md (602 líneas), alfred-memory.md (397 líneas) |

@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. Las operaciones de codec, CLI, runtime y MCP son planificadas o futuras salvo que STATUS.md indique implementacion actual.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. El CLI y codec determinista (parse, verify, render, CRUD) estan implementados en `cli/` con 17 comandos y 222 tests. Runtime y MCP son planificadas o futuras.
 
 **Abstract:** Ontología cognitiva, axiomas arquitectónicos y principios rectores del protocolo de compresión estructural determinista para memoria de agentes LLM. Cubre las 3 cortezas cognitivas, los 7 axiomas fundacionales, las 4 etapas de competencia como modelo de maduración, el protocolo HCORTEX de descompresión humana, las técnicas de compresión avanzada (colapso posicional y micro-glosario), y la proporción áurea (φ=1.618) como patrón universal de distribución de memoria.
 

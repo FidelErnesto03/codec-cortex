@@ -7,4 +7,4 @@ CODEC-CORTEX — specification-stage universal memory Skill and contextual memor
 This package is currently a placeholder. The deterministic codec implementation is planned. See README.md, STATUS.md and skill/SKILL.md.
 """
 
-__version__ = "0.2.3"
+__version__ = "0.3.0"

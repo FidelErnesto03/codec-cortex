@@ -1,0 +1,60 @@
+$0: MINIMAL LOCAL GLOSSARY
+
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Required: every .cortex artifact must be locally self-contained.
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs      | B | Semantic       | Actor or memory identity
+# DOM   | domain     | attrs      | B | Semantic       | Operating domain or scope
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard operational boundary
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | M | Working        | Current operational state
+# STP   | step       | attrs      | M | Working        | Immediate next action
+# NXT   | next       | attrs      | M | Working        | Queued next action
+# RSK   | risk       | attrs      | M | Prefrontal     | Risk and mitigation
+# AUD   | audit      | attrs      | M | Prefrontal     | Audit or verification record
+# STAT  | status     | attrs      | B | Semantic       | Status or maturity declaration
+# REF   | reference  | attrs      | B | Semantic       | File, object or source reference
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# SES   | session    | attrs      | M | Episodic        | Compressed episode I/O/R
+# LNG   | lesson     | attrs      | M | Episodic        | Lesson or pattern
+# DIAG  | diagram    | bloque     | M | Episodic/Visual | Verbatim diagram block
+# !     | rule       | attrs      | H | Prefrontal      | Mandatory compact rule
+#
+# Types:
+# attrs = key:value pairs
+# attrs-pos = positional with explicit contract
+# cuerpo = free text body
+# bloque = verbatim multiline block
+# relación = causal A -> B form
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+$1: IDENTITY
+
+IDN:agent{name:"agent", role:"operator"}
+IDN:human{name:"human", role:"architect"}
+DOM:workspace{area:"active work", protocol:"CODEC-CORTEX", artifact:"brain.cortex"}
+
+$2: ACTIVE WORK
+
+FCS:primary{what:"current focus", priority:"high", status:"current", survive:"min"}
+OBJ:main{goal:"current objective", status:"current", success:"verifiable criterion", survive:"min"}
+WRK:state{phase:"active", current:"work state", blocked:false, survive:"work"}
+STP:next{action:"next action", reason:"why", owner:"agent", status:"current", survive:"min"}
+
+$3: GOVERNANCE
+
+CNST:self_contained{rule:"This brain.cortex carries its own minimal $0 and does not require external glossary to begin safe interpretation.", severity:"blocking", survive:"min"}
+
+$6: DIAGRAMS
+
+DIAG:architecture{
+@startuml
+A --> B
+B --> C
+@enduml
+}

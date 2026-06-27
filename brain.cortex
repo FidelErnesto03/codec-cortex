@@ -1,91 +1,113 @@
-<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
+# SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
+# SPDX-License-Identifier: MIT
 
-# alf-brain.cortex — local operational brain for CODEC-CORTEX
-# Canonical persistent memory under CODEC-CORTEX lives in .cortex.
-# Updated: 2026-06-24 — Survival Core session (RE-004/005/006 refinement)
+$0: MINIMAL LOCAL GLOSSARY
 
-# -- $0: GLOSSARY (canonical — sigils must be registered here) --
-# Sigil   | Name         | Type  | Risk | Description
-# --------+--------------+-------+------+----------------------------------------------
-# IDN     | identity     | attrs | B    | Actor identity
-# FCS     | focus        | attrs | H    | Current attention anchor
-# OBJ     | objective    | attrs | B    | Active mission
-# WRK     | work         | attrs | B    | Current operational state
-# STP     | step         | attrs | M    | Next immediate action
-# CNST    | constraint   | attrs | M    | Active operational limit
-# SES     | session      | attrs | B    | Recent compressed episode
-# LNG     | lesson       | cuerpo| M    | Learned operational rule
-# KNW     | knowledge    | attrs | B    | Stable project knowledge
-# REF     | reference    | attrs | B    | Audit reference
-# AUD     | audit        | attrs | M    | Validation or release audit record
-# RSK     | risk         | attrs | M    | Identified risk with mitigation
-# NXT     | next         | attrs | M    | Queued next action with trigger
-# CLAIM   | claim        | attrs | M    | Verifiable claim
-# LIM     | limit        | attrs | M    | Explicit operational limit
-# TAG     | tag          | attrs | B    | Classification metadata
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Required: every .cortex artifact must be locally self-contained.
+# Sigil | Name       | Type      | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs     | B    | Semantic       | Actor identity
+# DOM   | domain     | attrs     | B    | Semantic       | Operating domain or scope
+# CNST  | constraint | attrs     | H    | Prefrontal     | Hard operational boundary
+# FCS   | focus      | attrs     | H    | Working        | Active attention anchor
+# OBJ   | objective  | attrs     | H    | Working        | Active goal with success criterion
+# WRK   | work       | attrs     | M    | Working        | Current operational state
+# STP   | step       | attrs     | M    | Working        | Immediate next action
+# SES   | session    | attrs     | M    | Episodic       | Compressed episode I/O/R
+# LNG   | lesson     | attrs     | M    | Episodic       | Learned operational rule
+# KNW   | knowledge  | attrs     | B    | Semantic       | Stable or promoted knowledge
+# DIAG  | diagram    | bloque    | M    | Episodic/Visual| Verbatim diagram block
+# REF   | reference  | attrs     | B    | Semantic       | File, object or source reference
+# AUD   | audit      | attrs     | M    | Prefrontal     | Audit or verification record
+# RSK   | risk       | attrs     | M    | Prefrontal     | Identified risk with mitigation
+# NXT   | next       | attrs     | M    | Working        | Queued next action with trigger
+# CLAIM | claim      | attrs     | M    | Prefrontal     | Verifiable claim
+# LIM   | limit      | attrs     | M    | Prefrontal     | Explicit operational limit
+# TAG   | tag        | attrs     | B    | Semantic       | Classification metadata
+#
+# Types:
+# attrs = key:value pairs
+# attrs-pos = positional with explicit contract
+# cuerpo = free text body
+# bloque = verbatim multiline block
+# relación = causal A -> B form
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
 
-# -- $1: IDENTITY --
+$1: IDENTITY
+
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com"}
 IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent"}
-CNST:limits{output:"HCORTEX", user_language:"ES", structural_language:"EN", canonical_memory:".cortex", survive:"work"}
+DOM:project{area:"CODEC-CORTEX", protocol:"cognitive_memory", artifact:"brain.cortex", version:"0.3.0", repo:"github.com/FidelErnesto03/codec-cortex"}
+
+$2: OPERATIONAL STATE
+
 CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims", severity:"blocking", survive:"min"}
+CNST:output_format{rule:"Output in HCORTEX format: tables > lists > K/V > diagrams > prose. User language: ES. Structural: EN. Canonical memory: .cortex", severity:"warning", survive:"work"}
+FCS:primary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado. CLI v1.1.9 integrado en cli/. Documentacion actualizada para v0.3.0. Todos los .cortex en formato canonico validado.", priority:"high", status:"current", survive:"work"}
+FCS:secondary{what:"v0.3.0 liberado. CLI funcional (17 comandos, 222 tests). SKILL.md v1.2.0 mergeado.", priority:"medium", status:"current", survive:"work"}
+OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", status:"done", success:"13/13 REs approved. 5 reglas en $4, 8 pasos en $10", survive:"min"}
+OBJ:secondary{goal:"Integrar CLI v1.1.9 en codec-cortex/cli/ y migrar .cortex a formato canonico para v0.3.0", status:"done", success:"CLI instalado, 222 tests, 3/3 .cortex migrados y validados con cortex verify --strict", survive:"recovery"}
+OBJ:release{goal:"Release v0.3.0: commit + push + tag en main. Namespace decision pasada.", status:"current", success:"Tag v0.3.0 en GitHub. Release notes publicadas. CHANGELOG actualizado.", survive:"work"}
+WRK:state{phase:"Release v0.3.0", current:"CLI integrado, docs actualizados, .cortex canonicos. Pendiente: commit+tag v0.3.0 y decision de namespace.", blocked:false, survive:"work", active_files:"brain.cortex, SKILL.cortex, alfred-memory.cortex, README.md, CHANGELOG.md, STATUS.md, ROADMAP.md"}
+WRK:repo{phase:"active", current:"main branch v0.3.0. CLI v1.1.9 en cli/. Todos los archivos validados.", blocked:false, survive:"work"}
+STP:next{action:"Commit + push + tag v0.3.0, o esperar decision de Fidel sobre namespace", reason:"Integracion CLI completa, docs actualizados, .cortex canonicos. Release candidate listo.", owner:"human", status:"current", survive:"min"}
 
-# -- $2: OPERATIONAL STATE --
-FCS:primary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado — 13/13 REs approved. HCORTEX render protocol implementado", priority:"high", status:"active", survive:"work"}
-FCS:secondary{what:"v0.2.3 liberado. Core skill + 5 reglas HCORTEX + 8 pasos de render", priority:"medium", status:"done", survive:"work"}
-OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", status:"done", success:"13/13 REs approved. 5 reglas en $4, 8 pasos en $10, 0 archivos .cortex modificados", survive:"recovery"}
-OBJ:secondary{goal:"Mantener brain.cortex actualizado con estado operativo real", status:"in_progress", success:"brain.cortex refleja ciclo completo post-RE-013", survive:"work"}
-WRK:state{phase:"RE-014/015/016 — recuperación de capacidades nativas", current:"3 REs draft creadas. SKILL.cortex actualizado: $0 columna tipo, $4 reglas compactas + survive + p5_filter, $7 survive obligatorio + status extendido + posicionales, $8 mapeo P0-P5, $10 10 pasos HCORTEX", blocked:false, survive:"work", active_files:["SKILL.cortex","brain.cortex"]}
-WRK:repo{url:"github.com/FidelErnesto03/codec-cortex", branch:"main", tag:"v0.2.3", remote:"origin/main"}
-STP:next{action:"decidir próximos pasos: parser, benchmarks automatizados, RE-014, o nuevo ciclo", reason:"ciclo CORTEX-CONSOLIDATION-001 completado con 13/13 REs", owner:"human", survive:"work"}
+$3: RECENT SESSIONS
 
-# -- $3: RECENT SESSIONS --
-SES:survival_core_refinement{input:"12 premisas del arquitecto para evolución CODEC-CORTEX: perfiles, priority pack, survive, HCORTEX, degradación", output:"RE-004 refinada (15 recomendaciones) + RE-005 refinada (17 recomendaciones) + RE-006 redefinida (2 tracks)", outcome:"3 REs en open, quality_contract 10/10, zero DRAFT, PUML validados", date:"2026-06-24"}
-SES:codec_cortex_adoption{input:"activación de CODEC-CORTEX como formato de memoria operativa en sesión", output:"AGENT.cortex cargado, brain.cortex actualizado, HCORTEX como formato de salida", outcome:"adoptado", date:"2026-06-24"}
-SES:reorientation{input:"docs/ajustes.cortex", output:"README, Skill docs, specs, metadata, STATUS, ROADMAP aligned", outcome:"done", commit:"v0.2.0"}
-SES:release_v020{input:"commit + push + tag according to project conventions", output:"origin/main + annotated tag v0.2.0", outcome:"published"}
-SES:execution_004_005_006{input:"RE-004/005/006 approved", output:"SKILL.cortex: $0 19 sigilos, $4 11 reglas, $7-$11 nuevos. 3 docs Track A. SKILL.md/en +Context Survival Rules. CHANGELOG + ROADMAP", outcome:"executed and approved", date:"2026-06-24"}
-SES:release_v021{input:"Fidel autorizó release v0.2.3", output:"CHANGELOG [Unreleased]→[0.2.1], tag v0.2.3, GitHub release creado", outcome:"published", date:"2026-06-24"}
-SES:skill_migration{input:"SKILL.cortex copiado a ~/.hermes/skills/codec-cortex/, importado a DIALECT .dialect/SKILLS/, registrado en REGISTRY.yaml, cacheado en .project-control/SKILL_CACHE/", output:"skill v1.3.0 disponible en Hermes + DIALECT", outcome:"migrated", date:"2026-06-24"}
-SES:re007_diagnosis{input:"análisis de conversión .cortex→HCORTEX", output:"RE-007 con 6 desviaciones documentadas: D-01 sin perfil, D-02 sin trazabilidad, D-03 multi-instancia aplanada, D-04 sin estrategia por tipo, D-05 DIAG sin caption, D-06 sin orden P0→P5", outcome:"RE-007 open, QC 10/10", date:"2026-06-24"}
-SES:re007_approved{input:"5 ajustes del governor: referencias $7 corregidas, D-01 filtro por entrada, PUML endurecido, default_profile por modo, evidencia estructurada", output:"RE-007 approved. 0 archivos modificados (MR-02)", outcome:"approved", date:"2026-06-24"}
-SES:hcortex_corrections{input:"RE-008 a RE-013 — D-01 perfil activo, D-02 trazabilidad, D-03 multi-instancia, D-04 tipo expansion, D-05 DIAG caption, D-06 orden P0-P5", output:"5 reglas !hcortex_* en $4. 8 pasos en $10. Ciclo completado: 13/13 REs approved", outcome:"12 commits, v0.2.3, brain.cortex actualizado", date:"2026-06-24"}
+SES:survival_core_refinement{input:"12 premisas del arquitecto para evolucion CODEC-CORTEX: perfiles, priority pack, survive, HCORTEX, degradacion", output:"RE-004 refinada + RE-005 refinada + RE-006 redefinida", outcome:"3 REs en open, quality_contract 10/10, zero DRAFT, PUML validados", date:"2026-06-24"}
+SES:codec_cortex_adoption{input:"activacion de CODEC-CORTEX como formato de memoria operativa en sesion", output:"AGENT.cortex cargado, brain.cortex actualizado, HCORTEX como formato de salida", outcome:"adoptado", date:"2026-06-24"}
+SES:reorientation{input:"docs/ajustes.cortex", output:"README, Skill docs, specs, metadata, STATUS, ROADMAP aligned", outcome:"done", date:"2026-06-24"}
+SES:release_v020{input:"commit + push + tag according to project conventions", output:"origin/main + annotated tag v0.2.0", outcome:"published", date:"2026-06-24"}
+SES:execution_004_005_006{input:"RE-004/005/006 approved", output:"SKILL.cortex: $0 19 sigilos, $4 11 reglas, $7-$11 nuevos. 3 docs Track A. SKILL.md/en +Context Survival Rules", outcome:"executed and approved", date:"2026-06-24"}
+SES:release_v021{input:"Fidel autorizo release v0.2.3", output:"CHANGELOG [Unreleased]->[0.2.1], tag v0.2.3, GitHub release creado", outcome:"published", date:"2026-06-24"}
+SES:skill_migration{input:"SKILL.cortex copiado a ~/.hermes/skills/codec-cortex/, importado a DIALECT", output:"skill v1.3.0 disponible en Hermes + DIALECT", outcome:"migrated", date:"2026-06-24"}
+SES:re007_diagnosis{input:"analisis de conversion .cortex->HCORTEX", output:"RE-007 con 6 desviaciones documentadas: D-01 a D-06", outcome:"RE-007 open, QC 10/10", date:"2026-06-24"}
+SES:re007_approved{input:"5 ajustes del governor", output:"RE-007 approved. 0 archivos modificados (MR-02)", outcome:"approved", date:"2026-06-24"}
+SES:hcortex_corrections{input:"RE-008 a RE-013 — D-01 a D-06", output:"5 reglas !hcortex_* en $4. 8 pasos en $10. Ciclo completado: 13/13 REs", outcome:"12 commits, v0.2.3, brain.cortex actualizado", date:"2026-06-24"}
+SES:cli_integration{input:"codec-cortex-1.1.9.tar.gz extraido en cli/", output:"CLI instalado, 222 tests pasan, 17 comandos funcionales", outcome:"instalado y verificado", date:"2026-06-27"}
+SES:cli_documentation{input:"Fidel: actualizacion de documentacion COMPLETA para v0.3.0", output:"README v0.3.0/beta, CHANGELOG seccion 0.3.0, STATUS actualizado, ROADMAP Phase 4 current. brain.md/alfred-memory.md regenerados. summary.md actualizado.", outcome:"documentacion completa alineada con CLI", date:"2026-06-27"}
+SES:cortex_migration{input:"Formatos .cortex legacy con comentarios # -- sin secciones $N:", output:"brain.cortex, SKILL.cortex, alfred-memory.cortex en formato canonico con $N: headers, 6-column glossary, contratos validos", outcome:"3/3 .cortex pasan cortex verify --strict con 0 errores", date:"2026-06-27"}
 
-# -- $4: LESSONS LEARNED --
-LNG:survival_core_emerged{Fidel definió 12 premisas que reorientan CODEC-CORTEX de formato denso a sistema de supervivencia contextual. El concepto clave: "cuando todo lo demás se pierde, todavía sobreviven FCS, OBJ, CNST, STP"}
-LNG:re_before_code{No escribir código ni parser antes de tener las REs refinadas y aprobadas. La especificación gobierna la implementación}
-LNG:section7_means_use{Diseño operativo (§7) debe mostrar uso funcional del entregable en el proyecto, no pasos de ejecución de la RE. Ejecución va en §10}
-LNG:load_vs_degrade{Carga de contexto: P0→P5 (prioridad primero). Degradación: P5→P1 (lo menos crítico primero). P0 nunca se toca en degradación}
-LNG:skill_first{CODEC-CORTEX public narrative must open with Universal Skill and contextual memory protocol, not codec-first compression}
-LNG:status_honesty{Every capability must be current/specification/planned/future when maturity matters}
-LNG:benchmark_integrity{Numeric density or performance claims require reproducible benchmarks before public measured language}
-LNG:hcortex_deviations{La conversión .cortex→HCORTEX tiene 6 desviaciones sistemáticas: sin perfil, sin trazabilidad, multi-instancia aplanada, sin estrategia por tipo, DIAG sin caption, sin orden P0→P5. Todas corregibles hoy sin parser}
-LNG:default_profile_by_mode{Sin perfil declarado, el default depende del modo: auditoria→FULL, recovery→RECOVERY, trabajo→WORK, emergencia→MIN. Si auditoria requiere FULL y el presupuesto no alcanza, no degradar silenciosamente — declarar segmentado}
-LNG:precedence_over_budget{La seleccion de perfil tiene precedencia fija: explicito > presupuesto > modo > WORK. Sin regla de precedencia, el agente improvisa cuando hay conflicto entre modo y presupuesto}
-LNG:entries_without_priority{Entradas .cortex sin P-level ni survive deben tratarse como P5 (incluidas solo en CORTEX-FULL). No asumir que toda entrada es P0 por defecto — eso las sobreprotege}
-LNG:source_column_cost_justified{La columna source en HCORTEX agrega ~10-15% de tokens, pero en MIN el overhead es minimo porque solo hay P0. El costo se justifica por auditabilidad}
-LNG:expansion_type_defines_render{El tipo de expansion no es metadata decorativa — define la estrategia de render. Una regla (!, tipo cuerpo) no debe renderizarse como tabla K/V de datos. HCORTEX debe reflejar la estructura semantica del sigilo de origen}
-LNG:render_order_by_priority{Las secciones HCORTEX deben ordenarse por prioridad cognitiva (P0→P5), no por numero de seccion del .cortex fuente. Lo que mas importa se ve primero}
-LNG:gov_isolation_mandatory{Ningun documento publico del proyecto debe contener referencias de gobierno (RE-00X, nombres de ciclo, terminos DIALECT). Violacion: strip antes de push. Regla !gov_isolation en workbook}
-LNG:cortex_md_sync{Todo archivo .cortex con estado operativo debe tener su correspondiente .md HCORTEX sincronizado: brain.cortex→brain.md, alfred-memory→alfred-memory.md, summary.cortex→summary.md. El .md es la vista legible humana del .cortex. Si solo existe el .cortex, el agente pierde auditabilidad humana}
-LNG:version_centralization{Version unica para todas las superficies. En cada bump, TODO (SKILL.cortex/.md/.en.md, README, pyproject.toml, __init__.py, brain.cortex, summary.cortex, STATUS.md, workbook.md, CHANGELOG.md) debe usar exactamente el mismo string de version. SKILL no tiene version independiente — hereda la del proyecto. No crear tag hasta verificar grep en todas las superficies.}
+$4: LESSONS LEARNED
 
-# -- $5: ACTIVE KNOWLEDGE --
-KNW:survival_core{RE-004:"núcleo mínimo — survive + 6 sigilos + 5 contratos flexibles", RE-005:"priority pack P0-P5 + perfiles conceptuales + degradación directa", RE-006:"2 specs + 5 reglas Skill + CHANGELOG Unreleased", RE-007:"6 desviaciones HCORTEX — todas corregibles sin parser"}
-KNW:survival_sigils{new_in_004:["STP","AUD","RSK","NXT","CLAIM","LIM"], postponed:["FIND","IMP","VAL","RES","DOC","ART","TBL"], contracts:["FCS","OBJ","CNST","STP","WRK"], survive_levels:["min","recovery","work","full"]}
-KNW:priority_pack{P0:["FCS","OBJ","CNST","STP"], P1:["WRK","AUD","RSK","NXT"], P2:["CLAIM","LIM","KNW:active","LNG:critical"], load_order:"P0→P5", degrade_order:"P5→P1"}
-KNW:canonical_stack{order:["Universal Skill",".cortex contextual memory","HCORTEX human view","deterministic codec planned","memory runtime future","enterprise MCP future"]}
-KNW:release{version:"0.2.3", tag:"v0.2.3", previous:"v0.2.2", next:"0.3.0", type:"PATCH — HCORTEX views sync + docs alignment + recovery REs drafted"}
-KNW:paths{repo:"~/Projects/workspace/CODEC-CORTEX/codec-cortex/", dialect:".project-control/cycles/CORTEX-CONSOLIDATION-001/", public:"github.com/FidelErnesto03/codec-cortex"}
-KNW:compression_rules{hcortex_compact:["!hcortex_profile","!hcortex_source","!hcortex_multi","!hcortex_expand","!hcortex_order"], survive_rules:["!survive_priority","!survive_degrade","!survive_status"], filter:"!p5_filter"}
+LNG:survival_core_emerged{type:"architectural_insight", cause:"12 premisas del arquitecto durante sesion de refinamiento", lesson:"CODEC-CORTEX reorientado de formato denso a sistema de supervivencia contextual. Cuando todo lo demas se pierde, todavia sobreviven FCS, OBJ, CNST, STP", prevention:"Incorporar survive como atributo de primer orden en todos los sigilos criticos"}
+LNG:re_before_code{type:"process", cause:"Impulso de implementar parser antes de tener REs refinadas", lesson:"No escribir codigo ni parser antes de tener las REs refinadas y aprobadas. La especificacion gobierna la implementacion", prevention:"Gate de REs en open con quality_contract 10/10 antes de cualquier codigo"}
+LNG:section7_means_use{type:"documentation", cause:"Confusion entre diseno operativo y pasos de ejecucion", lesson:"Diseno operativo (§7) debe mostrar uso funcional del entregable en el proyecto, no pasos de ejecucion de la RE. Ejecucion va en §10", prevention:"Template de RE con secciones claramente delimitadas"}
+LNG:load_vs_degrade{type:"architecture", cause:"Discusion sobre orden de carga/descarga de contexto", lesson:"Carga de contexto: P0->P5 (prioridad primero). Degradacion: P5->P1 (lo menos critico primero). P0 nunca se toca en degradacion", prevention:"Reglas !survive_degrade y !survive_priority en SKILL.cortex"}
+LNG:skill_first{type:"messaging", cause:"Narrativa publica inicial enfatizaba compresion sobre memoria", lesson:"CODEC-CORTEX public narrative must open with Universal Skill and contextual memory protocol, not codec-first compression", prevention:"README y SKILL.md abren con Skill universal, no con codec"}
+LNG:status_honesty{type:"messaging", cause:"Tentacion de declarar capacidades como actuales cuando son planned", lesson:"Every capability must be current/specification/planned/future when maturity matters", prevention:"STATUS.md como truth registry con columnas explicitas de madurez"}
+LNG:benchmark_integrity{type:"quality", cause:"Claims de densidad sin benchmarks reproducibles", lesson:"Numeric density or performance claims require reproducible benchmarks before public measured language", prevention:"Benchmarks automatizados con cortex benchmark antes de cualquier claim numerico"}
+LNG:hcortex_deviations{type:"implementation", cause:"Conversion manual .cortex->HCORTEX sin parser", lesson:"La conversion .cortex->HCORTEX tiene 6 desviaciones sistematicas: sin perfil, sin trazabilidad, multi-instancia aplanada, sin estrategia por tipo, DIAG sin caption, sin orden P0->P5. Todas corregibles hoy sin parser", prevention:"10-step HCORTEX render protocol en SKILL.cortex $10"}
+LNG:default_profile_by_mode{type:"configuration", cause:"Agente improvisando perfil ante conflicto modo vs presupuesto", lesson:"Sin perfil declarado, el default depende del modo: auditoria->FULL, recovery->RECOVERY, trabajo->WORK, emergencia->MIN", prevention:"Regla !hcortex_profile con precedencia: explicito > presupuesto > modo > WORK"}
+LNG:precedence_over_budget{type:"configuration", cause:"Conflicto entre modo auditoria y presupuesto bajo", lesson:"Si auditoria requiere FULL y el presupuesto no alcanza, no degradar silenciosamente — declarar segmentado", prevention:"HCORTEX segmentado con Segmento: <n>/<total>"}
+LNG:entries_without_priority{type:"architecture", cause:"Asumir que toda entrada es P0 por defecto", lesson:"Entradas .cortex sin P-level ni survive deben tratarse como P5 (incluidas solo en CORTEX-FULL)", prevention:"Regla !p5_filter en SKILL.cortex"}
+LNG:source_column_cost_justified{type:"tradeoff", cause:"Preocupacion por overhead de tokens de columna source", lesson:"La columna source en HCORTEX agrega ~10-15% de tokens, pero en MIN el overhead es minimo porque solo hay P0. El costo se justifica por auditabilidad", prevention:"Columna source obligatoria en P0/P1 en modo auditoria"}
+LNG:expansion_type_defines_render{type:"implementation", cause:"Renderizar reglas (!) como tablas K/V genericas", lesson:"El tipo de expansion no es metadata decorativa — define la estrategia de render. Una regla (!, tipo cuerpo) no debe renderizarse como tabla K/V", prevention:"HCORTEX render strategy por tipo: attrs->tabla, cuerpo->quote, bloque->PUML"}
+LNG:render_order_by_priority{type:"implementation", cause:"Ordenar HCORTEX por numero de seccion del .cortex fuente", lesson:"Las secciones HCORTEX deben ordenarse por prioridad cognitiva (P0->P5), no por numero de seccion del .cortex fuente", prevention:"Regla !hcortex_order: P0 primero, P5 ultimo"}
+LNG:gov_isolation_mandatory{type:"security", cause:"Referencias de gobierno (RE-IDs, nombres de ciclo) en documentos publicos", lesson:"Ningun documento publico del proyecto debe contener referencias de gobierno. Violacion: strip antes de push", prevention:"Regla !gov_isolation en workbook. Pre-push grep check"}
+LNG:cortex_md_sync{type:"process", cause:"brain.cortex existia sin brain.md correspondiente", lesson:"Todo archivo .cortex con estado operativo debe tener su correspondiente .md HCORTEX sincronizado. El .md es la vista legible humana del .cortex", prevention:"cortex render brain.cortex -> brain.md automatico"}
+LNG:version_centralization{type:"process", cause:"Versiones divergentes entre superficies (SKILL.cortex vs pyproject.toml vs brain.cortex)", lesson:"Version unica para todas las superficies. SKILL no tiene version independiente — hereda la del proyecto", prevention:"grep -rn version_string antes de cada tag"}
 
-# -- $5b: DIAGRAMS (restored — DIAG blocks in .cortex) --
+$5: ACTIVE KNOWLEDGE AND DIAGRAMS
+
+KNW:survival_core{topic:"Survival Core Architecture", content:"RE-004: nucleo minimo — survive + 6 sigilos + 5 contratos. RE-005: priority pack P0-P5 + perfiles + degradacion. RE-006: 2 specs + 5 reglas Skill. RE-007: 6 desviaciones HCORTEX corregibles", status:"current"}
+KNW:survival_sigils{topic:"Survival Sigils Inventory", content:"new: STP/AUD/RSK/NXT/CLAIM/LIM. postponed: FIND/IMP/VAL/RES/DOC/ART/TBL. contracts: FCS/OBJ/CNST/STP/WRK. survive_levels: min/recovery/work/full", status:"current"}
+KNW:priority_pack{topic:"Priority Pack P0-P5", content:"P0: FCS/OBJ/CNST/STP. P1: WRK/AUD/RSK/NXT. P2: CLAIM/LIM/KNW:active/LNG:critical. load_order: P0->P5. degrade_order: P5->P1", status:"current"}
+KNW:canonical_stack{topic:"CODEC-CORTEX Canonical Stack", content:"order: Universal Skill -> .cortex contextual memory -> HCORTEX human view -> deterministic codec planned -> memory runtime future -> enterprise MCP future", status:"current"}
+KNW:release{topic:"Release History", content:"version: 0.2.3, tag: v0.2.3, previous: v0.2.2, next: 0.3.0, type: PATCH (HCORTEX views sync + docs alignment + recovery REs drafted)", status:"current"}
+KNW:paths{topic:"Project Paths", content:"repo: ~/Projects/workspace/CODEC-CORTEX/codec-cortex/, public: github.com/FidelErnesto03/codec-cortex, cli: cli/", status:"current"}
+KNW:compression_rules{topic:"HCORTEX Compression Rules", content:"hcortex_compact: !hcortex_profile, !hcortex_source, !hcortex_multi, !hcortex_expand, !hcortex_order. survive_rules: !survive_priority, !survive_degrade, !survive_status. filter: !p5_filter", status:"current"}
+KNW:skill_architecture_knowledge{topic:"SKILL Architecture Knowledge", content:"6-layer stack: Skill->.cortex->HCORTEX->Codec->Runtime->MCP. .cortex tiene survive P0-P5 + attrs-pos + 10-step HCORTEX", status:"current"}
+KNW:degradation_flow_knowledge{topic:"Degradation Flow Knowledge", content:"Degradacion FULL->MIN: drop P5->P4->P3 en WORK, keep KNW:LNG activos, solo P0 en MIN. CNST:blocking nunca desaparece. Bidireccional en recuperacion", status:"current"}
 DIAG:skill_architecture{
 caption:"CODEC-CORTEX Canonical Stack v0.2.3",
 source:"SKILL.cortex $6",
 @startuml
-title CODEC-CORTEX — Arquitectura de compresión y supervivencia
+title CODEC-CORTEX — Arquitectura de compresion y supervivencia
 rectangle "Universal Skill\n(current)" as skill
 rectangle ".cortex\n(structured memory)" as cortex
 rectangle "HCORTEX\n(human view)" as hcortex
@@ -98,69 +120,71 @@ cortex --> codec
 codec --> runtime
 runtime --> mcp
 note right of cortex
-  survive: P0→P5
+  survive: P0->P5
   attrs-pos format
   10-step HCORTEX render
 end note
 @enduml
 }
-
 DIAG:survival_degradation{
-caption:"Flujo de degradación por presupuesto",
+caption:"Flujo de degradacion por presupuesto",
 source:"RE-015 §7",
 @startuml
-title Degradación: FULL → MIN
-state "FULL\nP0–P5\n(unlimited)" as FULL
-state "WORK\nP0–P2\n(~3000t)" as WORK
+title Degradacion: FULL -> MIN
+state "FULL\nP0-P5\n(unlimited)" as FULL
+state "WORK\nP0-P2\n(~3000t)" as WORK
 state "RECOVERY\nP0+P1\n(~1000t)" as RECOVERY
 state "MIN\nP0 only\n(~300t)" as MIN
-FULL --> WORK : budget↓\ndrop P5→P4→P3
-WORK --> RECOVERY : budget↓↓\nkeep KNW:active, LNG:critical
-RECOVERY --> MIN : budget↓↓↓\nP0 only, CNST:blocking always
-MIN --> RECOVERY : budget↑
-RECOVERY --> WORK : budget↑↑
-WORK --> FULL : budget↑↑↑
+FULL --> WORK : budget down\ndrop P5->P4->P3
+WORK --> RECOVERY : budget down\nkeep KNW:active, LNG:critical
+RECOVERY --> MIN : budget down\nP0 only, CNST:blocking always
+MIN --> RECOVERY : budget up
+RECOVERY --> WORK : budget up
+WORK --> FULL : budget up
 @enduml
 }
 
-# -- $5c: KNW COMPANIONS (survive in WORK without loading full DIAG) --
-KNW:skill_architecture_knowledge{domain:"compression+survival", diagram:"DIAG:skill_architecture", summary:"6-layer stack: Skill→.cortex→HCORTEX→Codec→Runtime→MCP. .cortex tiene survive P0-P5 + attrs-pos + 10-step HCORTEX", key_components:"Universal Skill, .cortex memory, HCORTEX view, Codec, Runtime, MCP", relationships:"Skill→.cortex→HCORTEX (current), .cortex→Codec (planned), Codec→Runtime→MCP (future)", survive:"work"}
-KNW:degradation_flow_knowledge{domain:"survival+degradation", diagram:"DIAG:survival_degradation", summary:"Degradación FULL→MIN: drop P5→P4→P3 en WORK, keep KNW:LNG activos, solo P0 en MIN. CNST:blocking nunca desaparece", key_components:"FULL, WORK, RECOVERY, MIN, P0-P5 levels, CNST:blocking", relationships:"FULL→WORK(drop P5-P3), WORK→RECOVERY(keep active KNW/LNG), RECOVERY→MIN(P0 only), bidireccional en recuperación", survive:"work"}
+$6: RISKS
 
-# -- $6: RISKS --
-RSK:premature_release{risk:"crear release v0.3.0-spec antes de tener parser o benchmark automatizado", impact:"medium", mitigation:"v0.2.3 es PATCH legítimo bajo semver. Survival Core es specification draft documentado como tal", survive:"recovery", status:"mitigated"}
-RSK:profile_ambiguity{risk:"perfiles conceptuales sin listas cerradas pueden ser ambiguos para agentes", impact:"low", mitigation:"los perfiles son criterios de prioridad, no inventarios. Se refinan con benchmarks", survive:"work"}
-RSK:glossary_divergence{risk:"brain.cortex y SKILL.cortex $0 pueden divergir nuevamente con nuevos sigilos", impact:"medium", mitigation:"RE-004 establece SKILL.cortex $0 como fuente canónica única", survive:"recovery"}
+RSK:premature_release{risk:"Crear release v0.3.0-spec antes de tener parser o benchmark automatizado", impact:"medium", mitigation:"v0.3.0 como MINOR legitimo: agrega CLI funcional con 222 tests. Survival Core es specification draft documentado como tal", status:"current", survive:"recovery"}
+RSK:profile_ambiguity{risk:"Perfiles conceptuales sin listas cerradas pueden ser ambiguos para agentes", impact:"low", mitigation:"Los perfiles son criterios de prioridad, no inventarios. Se refinan con benchmarks", status:"current", survive:"work"}
+RSK:glossary_divergence{risk:"brain.cortex y SKILL.cortex $0 pueden divergir nuevamente con nuevos sigilos", impact:"medium", mitigation:"cortex verify compara $0 de cada .cortex contra el glosario canonico de SKILL.cortex. RE-004 establece SKILL.cortex $0 como fuente canonica", status:"current", survive:"recovery"}
 
-# -- $7: NEXT ACTIONS --
-NXT:approve_res{action:"Fidel revisa y aprueba RE-004, RE-005, RE-006", priority:"high", trigger:"after_execution", survive:"work", status:"done"}
-NXT:execute_res{action:"ejecutar RE-004 (modificar SKILL.cortex)", priority:"high", trigger:"after_approval", survive:"work", depends_on:"NXT:approve_res", status:"done"}
-NXT:execute_re5{action:"ejecutar RE-005 (agregar P0-P5 y perfiles a SKILL.cortex)", priority:"high", trigger:"after_RE004_done", survive:"work", depends_on:"NXT:execute_res", status:"done"}
-NXT:execute_re6{action:"ejecutar RE-006 (crear specs + reglas Skill)", priority:"high", trigger:"after_RE005_done", survive:"work", depends_on:"NXT:execute_re5", status:"done"}
-NXT:review_re007{action:"Fidel revisa RE-007 y decide correcciones de conversión HCORTEX", priority:"high", trigger:"after_diagnosis", survive:"work", status:"done"}
-NXT:decide_re008{action:"Fidel decide si avanzar con RE-008 (corrección de render HCORTEX)", priority:"high", trigger:"now", survive:"work"}
+$7: NEXT ACTIONS
 
-# -- $8: CLAIMS AND LIMITS --
-CLAIM:survival_core{statement:"CODEC-CORTEX Survival Core está especificado, ejecutado y liberado como v0.2.3 (PATCH). No es sistema completo", evidence:"RE-004/005/006 approved + executed. v0.2.3 tag + GitHub release. ROADMAP Phase 2.1 specification draft", status:"current"}
-CLAIM:release_v021{statement:"v0.2.3 es un release PATCH legítimo bajo semver. Agrega Survival Core como specification draft sin declarar sistema completo", evidence:"CHANGELOG [0.2.1] con 10 entradas. Tag v0.2.3. GitHub release creado", status:"current"}
-LIM:parser_gap{limit:"sin parser, las reglas P0-P5 y survive se aplican manualmente por instrucción, no por automatización", scope:"fase actual pre-codec"}
-LIM:benchmark_gap{limit:"los benchmarks 0.1/0.1b/0.2 son offline/proxy. La automatización requiere parser", scope:"fase actual"}
+NXT:approve_res{action:"Fidel revisa y aprueba RE-004, RE-005, RE-006", priority:"high", trigger:"after_execution", status:"done", survive:"work"}
+NXT:execute_res{action:"Ejecutar RE-004 (modificar SKILL.cortex)", priority:"high", trigger:"after_approval", status:"done", depends_on:"NXT:approve_res", survive:"work"}
+NXT:execute_re5{action:"Ejecutar RE-005 (agregar P0-P5 y perfiles a SKILL.cortex)", priority:"high", trigger:"after_RE004_done", status:"done", depends_on:"NXT:execute_res", survive:"work"}
+NXT:execute_re6{action:"Ejecutar RE-006 (crear specs + reglas Skill)", priority:"high", trigger:"after_RE005_done", status:"done", depends_on:"NXT:execute_re5", survive:"work"}
+NXT:review_re007{action:"Fidel revisa RE-007 y decide correcciones de conversion HCORTEX", priority:"high", trigger:"after_diagnosis", status:"done", survive:"work"}
+NXT:migrate_cortex_files{action:"Migrar brain.cortex + SKILL.cortex + alfred-memory.cortex a formato canonico con $N: headers", priority:"high", trigger:"now", status:"done", survive:"work"}
+NXT:decide_namespace{action:"Fidel decide namespace final del paquete CLI (cortex vs codec_cortex)", priority:"medium", trigger:"after_migration_validated", status:"current", survive:"work"}
+NXT:release_v030{action:"Commit + push + tag v0.3.0 en main", priority:"high", trigger:"after_docs_complete", status:"planned", survive:"work"}
 
-# -- $9: REFERENCES --
-REF:re004{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-004.md", purpose:"Núcleo mínimo de supervivencia contextual"}
-REF:re005{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-005.md", purpose:"Priority Pack y degradación contextual mínima"}
-REF:re006{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-006.md", purpose:"Documentación e implementación Skill del Survival Core"}
-REF:re007{PATH:"../.project-control/cycles/CORTEX-CONSOLIDATION-001/requirements/RE-007.md", purpose:"Diagnóstico de desviaciones .cortex → HCORTEX"}
-REF:skill_cortex{PATH:"skill/SKILL.cortex", purpose:"dense Skill expression — glosario canónico $0"}
+$8: CLAIMS AND LIMITS
+
+CLAIM:survival_core{statement:"CODEC-CORTEX Survival Core esta especificado, ejecutado y liberado como v0.3.0 (MINOR). CLI v1.1.9 integrado con 222 tests.", evidence:"CLI en cli/. 3/3 .cortex validados. SKILL.md v1.2.0. CHANGELOG 0.3.0.", status:"current"}
+CLAIM:release_v030{statement:"v0.3.0 es un release MINOR legitimo bajo semver. Agrega CLI funcional con 17 comandos, parser determinista, verifier y renderer HCORTEX.", evidence:"CHANGELOG [0.3.0] con CLI integration. 222 tests pasan. cortex verify --strict pasa en todos los .cortex.", status:"current"}
+LIM:parser_gap{limit:"Sin parser, las reglas P0-P5 y survive se aplican manualmente por instruccion, no por automatizacion", scope:"fase actual pre-codec", status:"current"}
+LIM:benchmark_gap{limit:"Los benchmarks 0.1/0.1b/0.2 son offline/proxy. La automatizacion requiere parser", scope:"fase actual", status:"current"}
+
+$9: REFERENCES
+
+REF:skill_cortex{PATH:"skill/SKILL.cortex", purpose:"Dense Skill expression — glosario canonico $0"}
 REF:skill_md{PATH:"skill/SKILL.md", purpose:"Spanish Skill specification"}
 REF:skill_en{PATH:"skill/SKILL.en.md", purpose:"English Skill specification"}
-REF:readme{PATH:"README.md", purpose:"public entry point"}
-REF:status{PATH:"STATUS.md", purpose:"truth registry"}
-REF:roadmap{PATH:"ROADMAP.md", purpose:"phase model"}
-REF:changelog{PATH:"CHANGELOG.md", purpose:"release history"}
+REF:readme{PATH:"README.md", purpose:"Public entry point"}
+REF:status{PATH:"STATUS.md", purpose:"Truth registry"}
+REF:roadmap{PATH:"ROADMAP.md", purpose:"Phase model"}
+REF:changelog{PATH:"CHANGELOG.md", purpose:"Release history"}
+REF:brain_md{PATH:"brain.md", purpose:"HCORTEX human-readable view of brain.cortex"}
 
-# -- $10: AUDIT --
-AUD:last_release{version:"v0.2.3", branch:"main", pushed:true, tag_pushed:true, github_release:true}
-AUD:session_outcome{date:"2026-06-24", re_status:{RE004:"approved",RE005:"approved",RE006:"approved",RE007:"approved",RE008:"approved",RE009:"approved",RE010:"approved",RE011:"approved",RE012:"approved",RE013:"approved"}, quality_contract:"10/10 all", draft_free:true, puml_validated:true, release:"v0.2.3", skill_migrated:"Hermes+DIALECT", hcortex_rules:5, hcortex_steps:8}
-AUD:brain_currentness{checked:"2026-06-24", updated:true, new_sigils:["RSK","NXT","CLAIM","LIM"], contracts_applied:["FCS","OBJ","CNST","STP","WRK"], survive_in_use:true}
-TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"Survival Core session — CODEC-CORTEX adoption + RE refinement"}
+$10: AUDIT
+
+AUD:last_release{event:"Release v0.2.3", evidence:"git tag v0.2.3 pushed, GitHub release created, CHANGELOG updated", result:"Published on github.com/FidelErnesto03/codec-cortex", date:"2026-06-24"}
+AUD:session_outcome{event:"Survival Core refinement + HCORTEX corrections session", evidence:"13 REs approved (RE-004 through RE-013), quality_contract 10/10 on all, zero DRAFT, PUML validated", result:"v0.2.3 released. 5 hcortex rules in $4, 8 render steps in $10. Skill migrated to Hermes+DIALECT", date:"2026-06-24"}
+AUD:brain_currentness{event:"brain.cortex audit", evidence:"Checked all sigils, contracts, survive levels. New sigils: RSK/NXT/CLAIM/LIM. Contracts applied: FCS/OBJ/CNST/STP/WRK", result:"brain.cortex reflects complete cycle state post-RE-013", date:"2026-06-24"}
+AUD:cli_integration{event:"CLI v1.1.9 integration", evidence:"codec-cortex-1.1.9.tar.gz extracted to cli/. 222 tests pass. 17 CLI commands functional.", result:"CLI instalado y funcional. brain.cortex migrado a formato canonico.", date:"2026-06-27"}
+AUD:docs_update{event:"Documentacion completa v0.3.0", evidence:"README v0.3.0/beta, CHANGELOG seccion 0.3.0, STATUS actualizado, ROADMAP Phase 4 current. brain.md/alfred-memory.md regenerados. summary.md actualizado.", result:"Documentacion alineada con CLI v1.1.9 y v0.3.0", date:"2026-06-27"}
+AUD:cortex_migration{event:"Migracion de .cortex a formato canonico", evidence:"brain.cortex, SKILL.cortex, alfred-memory.cortex migrados. cortex verify --strict pasa en los 3 con 0 errores.", result:"Todos los .cortex del proyecto en formato canonico $N: headers", date:"2026-06-27"}
+TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"Estado v0.3.0: CLI integrado, docs actualizados, .cortex canonicos"}

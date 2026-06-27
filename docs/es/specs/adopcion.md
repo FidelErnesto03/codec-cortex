@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. Las operaciones de codec, CLI, runtime y MCP son planificadas o futuras salvo que STATUS.md indique implementacion actual.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. El CLI y codec determinista (parse, verify, render, CRUD) estan implementados en `cli/` con 17 comandos y 222 tests. Runtime y MCP son planificadas o futuras.
 
 **Abstract:** Guía práctica de integración del protocolo CODEC-CORTEX en agentes LLM y SLM. Cubre 3 patrones de adopción (generic agent host, coding agent client, CLI-based coding agent), estrategia CAG vs RAG con árbol de decisión, benchmarks de compresión con SLMs de 4K-8K tokens, uso de diagramas PUML en integraciones, y referencia de la trinidad cognitiva y GATE de salida.
 

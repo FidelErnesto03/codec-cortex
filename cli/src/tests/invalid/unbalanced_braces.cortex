@@ -1,0 +1,9 @@
+# Unclosed entry — must produce E005 (or diagnostic).
+
+$0: GLOSSARY
+
+# IDN | identity | attrs | B | Semantic | Identity
+
+$1: X
+
+IDN:agent{name:"x"

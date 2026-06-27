@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "codec-cortex"
-version = "0.2.3"
-description = "CODEC-CORTEX — Universal memory Skill and contextual memory protocol for LLM/SLM agents; deterministic codec planned"
+version = "0.3.0"
+description = "CODEC-CORTEX — Universal memory Skill and contextual memory protocol for LLM/SLM agents; CLI at cli/"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
@@ -18,7 +18,7 @@ keywords = [
     "cag", "rag", "puml", "hcortex"
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",

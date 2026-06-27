@@ -1,283 +1,336 @@
-<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
+# SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
+# SPDX-License-Identifier: MIT
 
-# -- $0: UNIVERSAL GLOSSARY (canonical — única fuente de verdad; brains no definen sigilos sin registro aquí) --
-# Sigil | Name        | Type  | Risk | Description
-# ------+-------------+-------+------+---------------------------------------------
-# IDN   | identity    | attrs | B    | Skill identity
-# DOM   | domain      | attrs | B    | Scope and adoption context
-# AXM   | axiom       | cuerpo| H    | Non-negotiable principle
-# CNST  | constraint  | attrs | H    | Hard boundary
-# OBJ   | objective   | attrs | B    | Active goal
-# FCS   | focus       | attrs | H    | Attention anchor
-# WRK   | work        | attrs | B    | Current operational state
-# REF   | reference   | attrs | B    | Repository reference
-# HDL   | handler     | attrs | M    | Operation descriptor with status
-# PFL   | pitfall     | cuerpo| M    | Known risk and prevention
-# DIAG  | diagram     | bloque| M    | PUML diagram verbatim
-# TAG   | tag         | attrs | B    | Classification metadata
-# STAT  | status      | attrs | B    | Maturity declaration
-# STP   | step        | attrs | M    | Next immediate action
-# AUD   | audit       | attrs | M    | Audit or verification record
-# RSK   | risk        | attrs | M    | Identified risk with mitigation (pos: riesgo,impacto,mitigación,survive)
-# NXT   | next        | attrs | M    | Queued next action (pos: acción,prioridad,trigger,survive)
-# CLAIM | claim       | attrs | M    | Verifiable claim
-# LIM   | limit       | attrs | M    | Explicit operational limit
+$0: UNIVERSAL GLOSSARY
+
+# -- $0: UNIVERSAL GLOSSARY --
+# Required: every .cortex artifact must be locally self-contained.
+# Sigil | Name        | Type      | Risk | Cognitive Layer | Description
+# IDN   | identity    | attrs     | B    | Semantic       | Identity of skill, protocol, actor, system or artifact
+# DOM   | domain      | attrs     | B    | Semantic       | Scope, domain and adoption context
+# KNW   | knowledge   | attrs     | B    | Semantic       | Protocol knowledge, contracts and promoted knowledge
+# REF   | reference   | attrs     | B    | Semantic       | Reference to canonical documents, files or sources
+# TAG   | tag         | attrs     | B    | Semantic       | Classification metadata
+# AXM   | axiom       | cuerpo    | H    | Prefrontal     | Non-negotiable principle
+# CNST  | constraint  | attrs     | H    | Prefrontal     | Hard boundary or mandatory limit
+# !     | rule        | attrs     | H    | Prefrontal     | Compact operational rule: cond, acc, status
+# CLAIM | claim       | attrs     | M    | Prefrontal     | Verifiable claim with evidence and maturity
+# LIM   | limit       | attrs     | M    | Prefrontal     | Explicit operational, maturity or usage limit
+# AUD   | audit       | attrs     | M    | Prefrontal     | Audit, verification or traceability record
+# RSK   | risk        | attrs     | M    | Prefrontal     | Identified risk with mitigation
+# FCS   | focus       | attrs     | H    | Working        | Active attention anchor. Level 2 only as live state
+# OBJ   | objective   | attrs     | H    | Working        | Active objective. Level 2 only as live state
+# WRK   | work        | attrs     | B    | Working        | Current operational state. Level 2 only
+# STP   | step        | attrs     | M    | Working        | Immediate next action. Level 2 only as live state
+# NXT   | next        | attrs     | M    | Working        | Queued next action. Level 2 only
+# SES   | session     | attrs     | M    | Episodic       | Compressed episode: input/output/outcome
+# LNG   | lesson      | attrs     | M    | Episodic       | Learned lesson or operational heuristic
+# DIAG  | diagram     | bloque    | M    | Episodic/Visual| PlantUML or visual block verbatim
+# HDL   | handler     | attrs-pos | M    | Semantic       | Interface descriptor. Positional order: operation|status|requires|notes
+# PFL   | pitfall     | attrs     | M    | Prefrontal     | Known antipattern and prevention
+# DEP   | dependency  | attrs     | M    | Semantic       | Dependency between artifacts or modules
+# DESC  | description | cuerpo    | B    | Semantic       | Structured textual description
+# ERR   | error       | attrs     | M    | Prefrontal     | Known error with cause and solution
+# STAT  | status      | attrs     | B    | Semantic       | Status, maturity or capability declaration
 #
-# Tipos: attrs → tabla K/V | cuerpo → bloque textual con prefijo | bloque → PUML verbatim
+# Types:
+# attrs = key:value pairs
+# attrs-pos = positional with explicit contract
+# cuerpo = free text body
+# bloque = verbatim multiline block
+# relación = causal A -> B form
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+# sk=Skill cx=.cortex hc=HCORTEX cd=codec rt=runtime mcp=enterprise MCP
+# l1=Level1/Mind l2=Level2/OperationalBrain l3=Level3/ContextPackage
+# p0=critical_survival p1=operational_state p2=honesty_limits p3=recent_evidence p4=critical_refs p5=extended_context
+# spec=specification exp=experimental dep=deprecated
+#
+# Positional contracts:
+# contract: HDL | operation | status | requires | notes
 
-# -- $0: MICRO-GLOSSARY --
-# sk=Skill cx=.cortex hc=HCORTEX cd=deterministic codec rt=runtime mcp=enterprise MCP
-# cur=current spec=specification pln=planned fut=future ctx=contextual str=structural
+$1: IDENTITY AND CONTROL
 
-# -- $1: IDENTITY --
-IDN:skill{name:"universal-codec-cortex", version:"0.2.3", license:"MIT", status:"specification/alpha"}
-DOM:application{area:"LLM/SLM contextual memory", format:".cortex", adoption:"direct agent reading", language_structural:"EN", language_semantic:"user/domain"}
+IDN:skill{name:"codec-cortex-skill", artifact:"SKILL.cortex", version:"1.2.0-enterprise-candidate", license:"MIT", status:"specification", nature:"level_1_mind", operational_state:false}
+DOM:protocol{area:"LLM/SLM contextual memory governance", canonical_format:".cortex", human_view:"HCORTEX", structural_language:"EN", semantic_language:"domain_or_user", adoption:"direct_agent_reading"}
+TAG:classification{class:"enterprise_candidate", role:"canonical_mind", source:"SKILL.md", audience:"autonomous_agents, architects, implementers"}
+REF:canonical_skill_md{path:"SKILL.md", role:"human_canonical_spec", status:"current"}
+REF:status{path:"STATUS.md", role:"implementation_truth_register", status:"specification"}
+REF:benchmark{path:"BENCHMARK.md", role:"empirical_evidence_register", status:"specification"}
 
-AXM:skill_first{CODEC-CORTEX starts as a universal Skill for contextual memory. The codec automates later; it is not required for adoption}
-AXM:cortex_canonical{.cortex is the canonical persistent memory format under this protocol. Markdown, YAML and JSON may be transitional views}
-AXM:hcortex_human{HCORTEX is a human-readable contextual view for audit, correction and continuity; it is not literal reconstruction of every source message}
-AXM:codec_planned{The deterministic codec is planned automation for parse, encode, decode, verify and render operations}
-AXM:mcp_future{Enterprise MCP is a future operating layer that exposes implemented codec/runtime operations with governance and audit}
-CNST:honesty{no unsupported metrics, no current CLI/MCP claims, no inflated maturity language, no literal full-history reconstruction}
-CNST:claims{metrics must be measured, target, expected or illustrative. Unmeasured token reduction remains target/illustrative}
+$2: CANONICAL STACK
 
-# -- $2: CONTEXT --
-FCS:primary{what:"structured contextual memory", priority:high}
-OBJ:main{goal:"help agents preserve identity, focus, objective, work state, rules, sessions, lessons, knowledge and references", status:current}
-WRK:adoption{mode:"read Skill + load .cortex files", requires_codec:false, requires_mcp:false}
-STAT:current{items:["skill docs",".cortex examples","HCORTEX specification","direct adoption discipline"]}
-STAT:planned{items:["parser","AST","encode/decode","structural verify","HCORTEX renderer","CLI"]}
-STAT:future{items:["memory runtime","automatic consolidation","enterprise MCP"]}
+AXM:canon{
+SKILL governs. brain operates. package injects. HCORTEX explains. codec automates when implemented. runtime matures when implemented. MCP exposes enterprise operations when implemented.
+}
+AXM:three_level_architecture{
+CODEC-CORTEX operates through three non-collapsible levels: Level 1 Mind (SKILL.cortex) defines how; Level 2 Operational Brain (brain.cortex + native context) stores live work and applies triage; Level 3 Context Packages (*.cortex) transport what may be injected. HCORTEX is a human render, not canonical memory.
+}
+AXM:structured_memory{
+Use structured contextual memory before linear history. The glossary $0 is the structural contract. Cognitive value governs survival under compression, never textual position.
+}
+AXM:honest_maturity{
+Capabilities must be declared as current, specification, planned, future, experimental or deprecated. Planned codec/runtime/MCP behavior must not be presented as implemented.
+}
+AXM:no_false_lossless{
+CODEC-CORTEX may claim structural reversibility for supported codec roundtrips when implemented and verified; it must not claim literal reconstruction of every original source message from HCORTEX or consolidated memory.
+}
 
-REF:readme{PATH:README.md}
-REF:status{PATH:STATUS.md}
-REF:roadmap{PATH:ROADMAP.md}
-REF:spec_es{PATH:skill/SKILL.md}
-REF:spec_en{PATH:skill/SKILL.en.md}
-REF:agent{PATH:skill/AGENT.cortex}
-REF:brain_template{PATH:skill/brain.cortex}
+$3: LEVEL SEPARATION CONSTRAINTS
 
-# -- $3: OPERATIONS --
-HDL:read_cortex{operation:"read .cortex", available_by_skill_now:true, requires_codec:false, status:current, notes:"direct agent reading"}
-HDL:use_core_memory{operation:"use FCS/OBJ/WRK", available_by_skill_now:true, requires_codec:false, status:current, notes:"separate active intent from history"}
-HDL:hcortex_basic{operation:"produce HCORTEX", available_by_skill_now:true, requires_codec:false, status:"current/specification", notes:"manual or instruction-based rendering"}
-HDL:verify_formal{operation:"structural verify", available_by_skill_now:"partial", requires_codec:true, status:planned, notes:"parser required"}
-HDL:encode_decode{operation:"automatic encode/decode", available_by_skill_now:false, requires_codec:true, status:planned, notes:"codec phase"}
-HDL:runtime_lifecycle{operation:"compress/promote/decay lifecycle", available_by_skill_now:false, requires_codec:true, status:future, notes:"runtime phase with user-confirmed policy"}
-HDL:mcp_handlers{operation:"MCP handlers", available_by_skill_now:false, requires_codec:true, status:future, notes:"enterprise layer"}
-HDL:gate_exit{operation:"exit protocol", available_by_skill_now:true, requires_codec:false, status:current, notes:"render active context to HCORTEX; no literal full-history reconstruction"}
+CNST:level1_no_live_state{rule:"Level 1 SKILL.cortex must not store live session state", severity:"blocking", survive:"min", scope:"SKILL.cortex"}
+CNST:level2_required_for_work{rule:"Live FCS, OBJ, WRK, STP and NXT belong in Level 2", severity:"blocking", survive:"min", scope:"brain.cortex/native_context"}
+CNST:level3_transient{rule:"Level 3 packages do not mature, mutate or learn by themselves", severity:"blocking", survive:"min", scope:"context_packages"}
+CNST:hcortex_not_memory{rule:"HCORTEX is a Markdown human view and must not replace .cortex as canonical persistence", severity:"blocking", survive:"min", scope:"rendering"}
+CNST:no_secret_plaintext{rule:".cortex files must not store secrets, credentials, tokens or private keys in clear text", severity:"blocking", survive:"min", scope:"security"}
+CNST:status_truth{rule:"Runtime, CLI, codec and MCP capabilities must be checked against implementation truth before being claimed as current", severity:"blocking", survive:"min", scope:"documentation_and_agent_output"}
 
-# -- $4: RULES --
-!guard{FCS and OBJ must be explicit before agent action}
-!canonical_memory{Persistent memory under CODEC-CORTEX is .cortex; other formats are views or interoperability surfaces}
-!status_words{Every capability claim must say current, specification, planned, future or not implemented when maturity matters}
-!reversibility_scope{Use structural reversibility for codec roundtrip and contextual reversibility for HCORTEX. Never claim textual reconstruction}
-!codec_language{encode/decode/verify/compress/promote/decay are planned or future automation unless an implementation exists}
-!mcp_language{MCP is future enterprise exposure, not first adoption mechanism}
-!template_safety{Example files must not look like real operational state; placeholders and template notices are required}
-!progressive_compatibility{No existing .cortex entry is invalidated by this specification. Entries without survive or minimum field contracts remain parseable and valid. Migration is voluntary and progressive}
-!priority_pack{Reduce context by P5→P0 priority, never by position. Load from P0→P5. P0 (FCS,OBJ,CNST,STP) never eliminated}
-!p0_immutable{FCS, OBJ, CNST, STP survive all context reductions. They have P0 survival priority}
-!cnst_blocking_protected{CNST with severity:blocking and survive:min must never be omitted from MIN or RECOVERY profiles}
-!direct_profile_selection{Jump directly to required profile budget: MIN (~300t), RECOVERY (~1000t), WORK (~3000t), FULL (unlimited). No sequential chain required}
-!hcortex_profile{cond:antes_de_render, acc:resolver_perfil_por_precedencia(explicit>budget>mode>WORK), budget:MIN≤512,RECOVERY≤1000,WORK≤3000,FULL>3000, declare:Perfil_CORTEX-LEVEL_linea1, default:audit→FULL,recovery→RECOVERY,active→WORK,emergency→MIN, audit_sin_budget:segmentado_no_degradar}
-!hcortex_source{cond:P0_P1, acc:agregar_columna_source_con_formato_<SIGIL>:<name>_al_final, missing:WARNING, PUML:source_comment, P2+:recomendado}
-!hcortex_multi{cond:multi_instancia, acc:subsecciones_por_nombre_###_<SIGIL>:<name>, orden:fuente_.cortex, unificada:columna_instance}
-!hcortex_expand{cond:siempre, acc:render_según_tipo_en_$0(attrs→tabla_source+instance, cuerpo→quote_indentado, contenido→tabla_contextual, bloque→PUML_verbatim_source, attrs-pos→Command|Description)}
-!hcortex_order{cond:siempre, acc:ordenar_P0→P5(P0=FCS/OBJ/CNST/STP>P1=WRK/AUD/RSK/NXT>P2=CLAIM/LIM/KNW/LNG>P3=SES/STAT/VAL/RES/FIND>P4=REF/DOC/ART>P5=DIAG/TBL/hist), sin_P→después_de_P5, dentro_del_mismo_P→orden_fuente}
-!survive_priority{map:P0→min,P1→recovery,P2→work,P3→reduced,P4→basic,P5→full}
-!survive_degrade{cond:budget<actual, acc:descartar_P5→P4→P3→P2→P1, P0_nunca, recover:subir_presupuesto→recuperar_orden_inverso}
-!survive_status{status_values:current|planned|future|blocked, legacy:active|done, contratos:FCS_OBJ_CNST_STP_WRK}
-!p5_filter{cond:budget>3000_OR_profile_FULL_BASIC, acc:incluir_solo_con_survive_o_KNW_companion_o_valor_operacional, umbral:no_degradar_P0_P4, excluir:P5_sin_survive_y_sin_KNW_y_sin_valor}
+$4: COGNITIVE ONTOLOGY
 
-# -- $5: PITFALLS --
-PFL:overclaim{error:"README or docs promise completed codec behavior", solution:"mark codec/CLI as planned and point to STATUS.md"}
-PFL:layer_collapse{error:"Skill, .cortex, HCORTEX, codec, runtime and MCP described as one thing", solution:"preserve canonical stack order"}
-PFL:lossless_confusion{error:"contextual consolidation treated as full lossless compression", solution:"limit lossless claim to structural codec roundtrip"}
-PFL:phantom_cli{error:"cortex CLI examples shown as current", solution:"mark planned or implement minimal CLI first"}
-PFL:mcp_premature{error:"MCP design sounds implemented", solution:"future design banner and handler statuses"}
+KNW:cortex_semantic{topic:"Semantic Cortex", content:"sigils: IDN,DOM,KNW,REF,TAG,DEP,DESC. Purpose: identity, domain, knowledge and references. Persistence: long", status:"current"}
+KNW:cortex_prefrontal{topic:"Prefrontal Cortex", content:"sigils: AXM,CNST,!,CLAIM,LIM,AUD,RSK,PFL,ERR. Purpose: governante, constraints, risks, rules and evidence. Persistence: high", status:"current"}
+KNW:cortex_working{topic:"Working Memory", content:"sigils: FCS,OBJ,WRK,STP,NXT. Purpose: focus, goal, progress and immediate action. Persistence: live. Allowed location: Level 2", status:"current"}
+KNW:cortex_episodic{topic:"Episodic Memory", content:"sigils: SES,LNG,DIAG. Purpose: experience, lessons and visual/historical memory. Persistence: variable", status:"current"}
 
-# -- $6: DIAGRAMS --
-DIAG:canonical_stack{
+$5: LOCATION MATRIX
+
+KNW:loc_IDN{topic:"Location IDN", content:"sigil: IDN. Level1: allowed. Level2: allowed. Level3: allowed", status:"current"}
+KNW:loc_DOM{topic:"Location DOM", content:"sigil: DOM. Level1: allowed. Level2: allowed. Level3: allowed", status:"current"}
+KNW:loc_CNST{topic:"Location CNST", content:"sigil: CNST. Level1: allowed. Level2: allowed. Level3: allowed", status:"current"}
+KNW:loc_FCS{topic:"Location FCS", content:"sigil: FCS. Level1: contract_or_example_only. Level2: allowed_live. Level3: not_recommended", status:"current"}
+KNW:loc_OBJ{topic:"Location OBJ", content:"sigil: OBJ. Level1: contract_or_example_only. Level2: allowed_live. Level3: not_recommended", status:"current"}
+KNW:loc_WRK{topic:"Location WRK", content:"sigil: WRK. Level1: forbidden_live. Level2: allowed_live. Level3: forbidden_live", status:"current"}
+KNW:loc_STP{topic:"Location STP", content:"sigil: STP. Level1: contract_or_example_only. Level2: allowed_live. Level3: not_recommended", status:"current"}
+
+$6: MINIMUM FIELD CONTRACTS
+
+KNW:contract_FCS{topic:"Contract FCS", content:"required: what,priority,status,survive. allowed_live_location: Level 2. level1_use: contract_or_non_operational_example. p_level: P0", status:"current"}
+KNW:contract_OBJ{topic:"Contract OBJ", content:"required: goal,status,success,survive. allowed_live_location: Level 2. level1_use: contract_or_non_operational_example. p_level: P0", status:"current"}
+KNW:contract_WRK{topic:"Contract WRK", content:"required: phase,current,blocked,survive. allowed_live_location: Level 2. level1_use: forbidden_as_live_state. p_level: P1", status:"current"}
+KNW:contract_STP{topic:"Contract STP", content:"required: action,reason,owner,status,survive. allowed_live_location: Level 2. level1_use: contract_or_non_operational_example. p_level: P0", status:"current"}
+KNW:contract_CNST{topic:"Contract CNST", content:"required: rule,severity,survive. rule: severity_blocking_implies_survive_min. p_level: P0", status:"current"}
+KNW:contract_CLAIM{topic:"Contract CLAIM", content:"required: statement,evidence,status. rule: unmeasured_metrics_must_not_be_current. p_level: P2", status:"current"}
+KNW:contract_LIM{topic:"Contract LIM", content:"required: limit,scope,status. rule: maturity_limits_must_be_explicit. p_level: P2", status:"current"}
+KNW:contract_RSK{topic:"Contract RSK", content:"required: risk,impact,mitigation,status,survive. rule: risk_without_mitigation_is_incomplete. p_level: P1", status:"current"}
+KNW:contract_AUD{topic:"Contract AUD", content:"required: event,evidence,result,date. rule: audit_is_not_benchmark. p_level: P1", status:"current"}
+KNW:contract_SES{topic:"Contract SES", content:"required: input,output,outcome,date. rule: do_not_promote_to_KNW_without_criteria. p_level: P3", status:"current"}
+KNW:contract_LNG{topic:"Contract LNG", content:"required: type,cause,lesson,prevention. rule: single_episode_must_not_become_axiom_without_validation. p_level: P2_or_P3", status:"current"}
+KNW:contract_KNW{topic:"Contract KNW", content:"required: topic,content,status. rule: must_not_mix_with_transient_state. p_level: P2", status:"current"}
+KNW:contract_DIAG{topic:"Contract DIAG", content:"required: verbatim_block. rule: preserve_bit_by_bit. p_level: P5", status:"current"}
+KNW:values_status{topic:"Allowed Status Values", content:"current,specification,planned,future,experimental,deprecated,blocked,done", status:"current"}
+KNW:values_severity{topic:"Allowed Severity Values", content:"blocking,warning,info", status:"current"}
+KNW:values_priority{topic:"Allowed Priority Values", content:"high,medium,low", status:"current"}
+KNW:values_survive{topic:"Allowed Survive Values", content:"min,recovery,work,full", status:"current"}
+
+$7: AGENT OPERATION RULES
+
+!:agent_start{cond:"session_start", acc:"read Level 1 rules; read Level 2 if available; derive provisional focus/objective only when absent; apply CNST; select profile", status:"current"}
+!:before_action{cond:"before_any_agent_action", acc:"verify Level 2 focus and objective, CNST:blocking, LIM, CLAIM maturity, RSK and next step", status:"current"}
+!:missing_work_anchor{cond:"Level 2 lacks focus or objective", acc:"halt autonomous operation or derive provisional anchors from current user request and mark provisional", status:"current"}
+!:package_absorb{cond:"receiving Level 3 package", acc:"validate glossary or inheritance; reject live state absorption without confirmation; classify by cortex; integrate useful KNW/REF/DIAG/CLAIM/LIM; record AUD", status:"current"}
+!:session_close{cond:"closing work session", acc:"produce or update Level 2 SES/LNG/AUD/STP/NXT as applicable; never write live state into Level 1", status:"current"}
+!:anti_positional_truncation{cond:"context_reduction", acc:"reduce by P5_to_P1 cognitive priority; never by head_or_tail position; preserve P0", status:"current"}
+!:profile_selection{cond:"render_or_context_budget", acc:"choose explicit_profile over budget over mode over WORK; direct jump allowed", status:"current"}
+!:maturity_words{cond:"capability_claim", acc:"declare current/specification/planned/future/experimental/deprecated when maturity matters", status:"current"}
+!:secret_reference{cond:"credential_needed", acc:"use secure external REF; do not place secret value in .cortex", status:"current"}
+
+$8: HCORTEX RENDERING
+
+KNW:hcortex_definition{topic:"HCORTEX Definition", content:"Markdown human view generated from active .cortex/profile; not canonical memory; not literal reconstruction", status:"specification"}
+KNW:hcortex_readable{topic:"HCORTEX Readable Mode", content:"purpose: human comprehension. source_column: optional. sigils_visible: minimized", status:"specification"}
+KNW:hcortex_audit{topic:"HCORTEX Audit Mode", content:"purpose: traceability. source_column: required_for_P0_P1. sigils_visible: as_source", status:"specification"}
+!:hcortex_line1{cond:"render_HCORTEX", acc:"first line declares Perfil:CORTEX-MIN|RECOVERY|WORK|FULL and mode readable|audit", status:"current"}
+!:hcortex_filter{cond:"render_HCORTEX", acc:"filter entries by profile P-level; filter by entry not by section; undeclared entries default to P5", status:"current"}
+!:hcortex_order{cond:"render_HCORTEX", acc:"order P0_to_P5; within same P-level preserve source order", status:"current"}
+!:hcortex_source{cond:"HCORTEX audit mode", acc:"add source as SIGIL:name for P0/P1; declare warning if missing", status:"current"}
+!:hcortex_omit_glossary{cond:"HCORTEX normal render", acc:"omit $0 unless structural audit explicitly requested", status:"current"}
+!:exit_gate{cond:"protocol_de_adoption_exit", acc:"render active Level 2 memory to HCORTEX Markdown; do not promise literal reconstruction", status:"current"}
+
+$9: CONTEXT SURVIVAL P0-P5
+
+KNW:p0{topic:"P0 Critical Survival", content:"level: P0. name: critical_survival. budget: ~300t. typical: FCS,OBJ,CNST,STP. rule: never eliminated", status:"current"}
+KNW:p1{topic:"P1 Operational State", content:"level: P1. name: operational_state. budget: ~600t. typical: WRK,AUD,RSK,NXT. rule: degrade only after P2-P5 removed", status:"current"}
+KNW:p2{topic:"P2 Honesty and Limits", content:"level: P2. name: honesty_and_limits. budget: ~1000t. typical: CLAIM,LIM,KNW:active,LNG:critical. rule: protect claims and explicit limits", status:"current"}
+KNW:p3{topic:"P3 Recent Evidence", content:"level: P3. name: recent_evidence. budget: ~2000t. typical: SES:last,STAT,VAL,RES,FIND. rule: recent evidence before long history", status:"current"}
+KNW:p4{topic:"P4 Critical References", content:"level: P4. name: critical_references. budget: ~3000t. typical: REF:critical,DOC,ART. rule: references after operational state", status:"current"}
+KNW:p5{topic:"P5 Extended Context", content:"level: P5. name: extended_context. budget: unlimited. typical: DIAG,TBL,long_REF,history,comments. rule: first removed under pressure", status:"current"}
+KNW:profile_MIN{topic:"Profile CORTEX-MIN", content:"includes: P0. budget: <=512t. use: emergency", status:"current"}
+KNW:profile_RECOVERY{topic:"Profile CORTEX-RECOVERY", content:"includes: P0,P1. budget: <=1000t. use: interruption_recovery", status:"current"}
+KNW:profile_WORK{topic:"Profile CORTEX-WORK", content:"includes: P0,P1,P2. budget: <=3000t. use: standard_work_continuity", status:"current"}
+KNW:profile_FULL{topic:"Profile CORTEX-FULL", content:"includes: P0-P5. budget: >3000t. use: audit_or_complete_memory", status:"current"}
+!:load_order{cond:"context_load", acc:"load P0_to_P5", status:"current"}
+!:degrade_order{cond:"context_overflow", acc:"remove P5_then_P4_then_P3_then_P2_then_P1; never remove P0", status:"current"}
+!:blocking_constraints{cond:"CNST severity blocking", acc:"assign survive:min and P0 protection", status:"current"}
+!:direct_profile_jump{cond:"budget_known", acc:"select target profile directly; no sequential degradation chain required", status:"current"}
+
+$10: DUAL MEMORY MANAGEMENT
+
+AXM:golden_distribution{
+When Level 2 has sufficient context, attention SHOULD be distributed by Fibonacci-inspired weights: Working 5, Prefrontal 8, Episodic 13, Semantic 21. This is a design policy, not a measured metric by itself.
+}
+AXM:survival_triage{
+When Level 2 context is saturated, abandon healthy distribution and activate P0-P5 triage. Preserve the minimum needed to act with focus, objective, constraint and next step.
+}
+LIM:fibonacci_policy{limit:"Golden/Fibonacci distribution is conceptual guidance until benchmarked", scope:"memory_management", status:"specification"}
+
+$11: OPERATIONS AND MATURITY
+
+HDL:read_cortex{operation:"read_cortex", status:"current", requires:"skill_only", notes:"Direct agent reading of .cortex files under $0 contract"}
+HDL:use_level2_state{operation:"use_level2_state", status:"current", requires:"skill_only", notes:"Use live focus/objective/work only from Level 2"}
+HDL:hcortex_basic{operation:"hcortex_basic", status:"current/specification", requires:"skill_only", notes:"Manual or agent-assisted Markdown render"}
+HDL:p0_p5_manual{operation:"p0_p5_manual", status:"current/specification", requires:"skill_only", notes:"Apply priority policy without parser"}
+HDL:formal_verify{operation:"formal_verify", status:"planned", requires:"codec", notes:"Requires AST/parser and reproducible tests"}
+HDL:encode_decode{operation:"encode_decode", status:"planned", requires:"codec", notes:"Automatic codec phase; not assumed current"}
+HDL:patch_structural{operation:"patch_structural", status:"planned", requires:"codec_cli", notes:"Planned structural mutation interface"}
+HDL:automatic_consolidation{operation:"automatic_consolidation", status:"future", requires:"runtime", notes:"Future lifecycle automation"}
+HDL:promote_decay{operation:"promote_decay", status:"future", requires:"runtime", notes:"Future maturation with user confirmation"}
+HDL:mcp_handlers{operation:"mcp_handlers", status:"future", requires:"enterprise_mcp", notes:"Future governed exposure of implemented operations"}
+LIM:no_phantom_cli{limit:"CLI/API examples are planned interface contracts unless repository/runtime confirms implementation", scope:"documentation,agents", status:"current"}
+LIM:no_current_mcp{limit:"MCP is future enterprise exposure, not first adoption mechanism", scope:"product_claims", status:"current"}
+
+$12: MATURATION ENGINE
+
+KNW:maturation_status{topic:"Cognitive Maturation", content:"status: future/runtime. current_use: conceptual_governance_only", status:"specification"}
+KNW:maturation_cycle{topic:"Maturation Lifecycle", content:"flow: RAW->WRK->SES/LNG->CANDIDATE->KNW->ARCHIVE. approval: user_confirms_promotion", status:"specification"}
+!:promote_rule{cond:"promoting SES_or_LNG_to_KNW", acc:"require recurrence, validation or explicit user approval; record audit", status:"future"}
+!:decay_rule{cond:"KNW unused_or_superseded", acc:"degrade to SES/LNG or archive according to runtime policy", status:"future"}
+LIM:no_autonomous_learning_claim{limit:"No automatic promote/decay may be claimed current without implemented runtime", scope:"maturation", status:"current"}
+
+$13: METRICS AND BENCHMARK CLAIMS
+
+KNW:metric_classes{topic:"Metric Classification", content:"classes: measured,target,hypothesis,illustrative. rule: unmeasured numbers must not be presented as achieved", status:"current"}
+CLAIM:token_reduction{statement:".cortex aims to reduce contextual token load versus linear prose", evidence:"requires reproducible benchmark", status:"planned"}
+CLAIM:structural_reversibility{statement:"codec should support structural roundtrip for supported syntax", evidence:"requires implementation and tests", status:"planned"}
+CLAIM:human_auditability{statement:"HCORTEX enables human review of selected memory profiles", evidence:"can be produced by specification-guided rendering", status:"specification"}
+LIM:no_metric_overclaim{limit:"Percent reductions must be labeled measured,target,hypothesis or illustrative", scope:"README,SKILL,agent_output,marketing", status:"current"}
+KNW:recommended_benchmarks{topic:"Benchmarks", content:"metrics: compression_ratio,decision_survival,profile_recovery,roundtrip_integrity,render_traceability,latency,overclaim_detection", status:"current"}
+
+$14: SECURITY PRIVACY AND COMPLIANCE
+
+RSK:secret_leakage{risk:"secrets stored in plaintext .cortex", impact:"high", mitigation:"use REF to vault/secrets manager", status:"current", survive:"min"}
+RSK:sensitive_context_sprawl{risk:"Level 3 packages over-share personal or sensitive data", impact:"medium", mitigation:"declare purpose, scope, retention, source and restrictions", status:"current", survive:"recovery"}
+RSK:audit_gap{risk:"important changes lack traceability", impact:"medium", mitigation:"record AUD for objectives, constraints, risks, decisions, claims and promoted knowledge", status:"current", survive:"work"}
+!:audit_relevant_change{cond:"change affects objective,constraint,risk,decision,claim,knowledge", acc:"record AUD in Level 2 or package as appropriate", status:"current"}
+
+$15: GOVERNANCE AND COMPATIBILITY
+
+KNW:versioning{topic:"Semantic Versioning", content:"pattern: MAJOR.MINOR.PATCH[-label]. major: breaking syntax/contracts. minor: compatible sigils/contracts/profiles. patch: clarification/nonbreaking_fix", status:"current"}
+KNW:progressive_compatibility{topic:"Legacy Compatibility", content:"rule: previous valid .cortex entries should remain parseable unless explicit MAJOR decision. migration: warn, suggest, do not invent critical fields", status:"current"}
+!:change_flow{cond:"normative_change", acc:"classify impact; update SKILL.md; derive SKILL.cortex; update STATUS; update BENCHMARK if metrics affected; validate examples/diagrams; record AUD", status:"current"}
+AUD:derivation{event:"SKILL.cortex derived from enriched SKILL.md v1.2.0-enterprise-candidate", evidence:"manual structured derivation with cortex verify validation", result:"candidate", date:"2026-06-27"}
+
+$16: PITFALLS
+
+PFL:layer_collapse{error:"Mixing Level 1 skill, Level 2 brain, Level 3 package, HCORTEX, codec, runtime and MCP as one thing", impact:"architecture ambiguity", prevention:"preserve canonical stack and location matrix"}
+PFL:live_state_in_skill{error:"Writing active FCS/OBJ/WRK/STP/NXT entries into SKILL.cortex", impact:"breaks level separation", prevention:"keep only contracts or non-operational examples in Level 1"}
+PFL:phantom_cli{error:"Showing planned CLI/API as implemented", impact:"overclaim", prevention:"mark as planned and verify STATUS/runtime"}
+PFL:false_lossless{error:"Claiming literal lossless reconstruction", impact:"trust failure", prevention:"claim only structural or contextual reversibility within limits"}
+PFL:position_truncation{error:"Reducing context by tail/head position", impact:"critical decision loss", prevention:"apply P5_to_P1, preserve P0"}
+PFL:hcortex_without_profile{error:"Rendering HCORTEX without profile and mode", impact:"audit ambiguity", prevention:"line 1 declares profile and readable/audit mode"}
+PFL:package_as_brain{error:"Using Level 3 package as live operational memory", impact:"state ambiguity", prevention:"absorb formally into Level 2"}
+PFL:unbenchmarked_metrics{error:"Publishing compression percentages without benchmark", impact:"credibility loss", prevention:"classify as target/hypothesis/illustrative or measured"}
+
+$17: CONFORMANCE CHECKS
+
+KNW:conformance_agent{topic:"Agent Conformance", content:"checks: respect_levels,apply_$0,require_level2_work_anchors,no_position_truncation,declare_maturity,render_HCORTEX_profile,avoid_metric_overclaim,preserve_DIAG,no_plaintext_secrets,maintain_exit_gate", status:"current"}
+KNW:conformance_skill_cortex{topic:"SKILL.cortex Conformance", content:"checks: $0_first,no_live_working_state,all_used_sigils_registered,type_matches_usage,planned_handlers_statused,claims_limited,DIAG_normative", status:"current"}
+KNW:conformance_brain{topic:"brain.cortex Conformance", content:"checks: has_live_focus,has_live_objective,has_work_when_active,has_step_or_next_for_continuity,AUD_relevant_changes,no_plaintext_secrets,critical_entries_have_survive", status:"current"}
+KNW:conformance_hcortex{topic:"HCORTEX Conformance", content:"checks: declares_profile,omits_$0_by_default,orders_P0_to_P5,uses_source_in_audit,declares_budget_omissions,no_literal_reconstruction_claim", status:"current"}
+
+$18: DIAGRAMS
+
+DIAG:three_level_architecture{
 @startuml
-title CODEC-CORTEX Canonical Stack
-rectangle "Universal Skill
-current adoption layer" as skill
-rectangle ".cortex
-structured contextual memory" as cortex
-rectangle "HCORTEX
-human-readable context view" as hcortex
-rectangle "Deterministic Codec
-planned automation" as codec
-rectangle "Memory Runtime
-future lifecycle" as runtime
-rectangle "Enterprise MCP
-future tools/governance" as mcp
-skill --> cortex
-cortex --> hcortex
-cortex --> codec
-codec --> runtime
-runtime --> mcp
+title CODEC-CORTEX — Three-Level Architecture
+skinparam componentStyle rectangle
+skinparam shadowing false
+package "Level 1 — MIND\nSKILL.cortex" as L1 {
+  rectangle "Ontology" as L1A
+  rectangle "Sigils & Contracts" as L1B
+  rectangle "Rules & Axioms" as L1C
+  rectangle "Triage Policies" as L1D
+}
+package "Level 2 — OPERATIONAL BRAIN\nbrain.cortex + native memory" as L2 {
+  rectangle "FCS / OBJ / WRK" as L2A
+  rectangle "STP / NXT / AUD / RSK" as L2B
+  rectangle "SES / LNG / active KNW" as L2C
+  rectangle "P0-P5 Triage" as L2D
+}
+package "Level 3 — CONTEXT PACKAGES\n*.cortex" as L3 {
+  rectangle "Transportable Context" as L3A
+  rectangle "References" as L3B
+  rectangle "Diagrams" as L3C
+}
+rectangle "HCORTEX\nHuman Markdown view" as HC
+rectangle "Codec / Runtime / MCP\nplanned/future" as RT
+L1 --> L2 : governs
+L3 --> L2 : injects when absorbed
+L2 --> HC : renders
+RT ..> L1 : implements rules
+RT ..> L2 : automates management
+RT ..> L3 : validates packages
 @enduml
 }
 
-# -- $7: MINIMUM FIELD CONTRACTS --
-# Each critical sigil declares mandatory fields + optional extensions.
-# Additional fields are always permitted as long as they do not contradict the minimum contract.
+DIAG:cognitive_ontology{
+@startuml
+title CODEC-CORTEX — Cognitive Ontology
+rectangle "Semantic Cortex\nIDN DOM KNW REF TAG" as SEM
+rectangle "Prefrontal Cortex\nAXM CNST ! CLAIM LIM AUD RSK" as PRE
+rectangle "Working Memory\nFCS OBJ WRK STP NXT" as WORK
+rectangle "Episodic Memory\nSES LNG DIAG historical" as EPI
+PRE -down-> WORK : governs action
+SEM -right-> WORK : provides knowledge
+WORK -down-> EPI : distills experience
+EPI -up-> SEM : promotes validated learning
+PRE -right-> SEM : imposes limits
+@enduml
+}
 
-# FCS — Focus (attention anchor)
-# FCS:primary{what:str, priority:high|medium|low, status:current|planned|future|blocked|active|done, survive:min|recovery|work|full}
-#   what       : required — what the agent is attending to
-#   priority   : required — high | medium | low
-#   status     : required — current | planned | future | blocked (legacy: active=current, done)
-#   survive    : required — must be one of: min | recovery | work | full (suggested: work)
-#   + any additional fields allowed (since, owner, source, ...)
+DIAG:agent_start{
+@startuml
+title CODEC-CORTEX — Agent Startup
+start
+:Read SKILL.md or SKILL.cortex;
+:Identify Level 1 rules;
+:Read brain.cortex if available;
+if (Level 2 has focus and objective?) then (yes)
+  :Use active state;
+else (no)
+  :Derive provisional anchors from current request;
+  :Mark provisional if unconfirmed;
+endif
+:Apply CNST;
+:Select CORTEX profile;
+:Act or respond;
+stop
+@enduml
+}
 
-# OBJ — Objective (active mission)
-# OBJ:main{goal:str, status:done|blocked|current|planned|future, success:str, survive:min|recovery|work|full}
-#   goal       : required — objective to achieve
-#   status     : required — done | blocked | current | planned | future (legacy: in_progress=current, active=current)
-#   success    : required — verifiable success criterion
-#   survive    : required — must be one of: min | recovery | work | full (suggested: recovery)
-#   + any additional fields allowed (deadline, owner, depends_on, ...)
+DIAG:context_degradation{
+@startuml
+title CODEC-CORTEX — Degradation by Cognitive Value
+rectangle "FULL\nP0-P5" as FULL
+rectangle "WORK\nP0-P2" as WORK
+rectangle "RECOVERY\nP0-P1" as REC
+rectangle "MIN\nP0" as MIN
+FULL --> WORK : remove P5/P4/P3
+WORK --> REC : remove non-critical P2
+REC --> MIN : remove P1 only in emergency
+MIN --> MIN : P0 immutable
+note bottom of MIN
+Never truncate by position.
+Never remove focus, objective,
+blocking constraints or immediate step.
+end note
+@enduml
+}
 
-# CNST — Constraint (hard boundary)
-# CNST:name{rule:str, severity:blocking|warning|info, survive:min|recovery|work|full}
-#   rule       : required — the non-negotiable rule
-#   severity   : required — blocking | warning | info
-#   survive    : required — must be one of: min | recovery | work | full (suggested: min if blocking)
-#   + any additional fields allowed (scope, source, ...)
+$19: CLOSURE
 
-# STP — Step (next immediate action)
-# STP:next{action:str, reason:str, owner:agent|human, status:current|planned|future|blocked|active|done, survive:min|recovery|work|full}
-#   action     : required — action to execute (infinitive verb)
-#   reason     : required — why this action is next
-#   owner      : required — agent | human
-#   status     : required — current | planned | future | blocked (legacy: active=current, done)
-#   survive    : required — must be one of: min | recovery | work | full (suggested: work)
-#   + any additional fields allowed (deadline, depends_on, ...)
-
-# WRK — Work (operational state)
-# WRK:state{phase:str, current:str, blocked:bool, survive:min|recovery|work|full}
-#   phase      : required — current work phase
-#   current    : required — what is being done now
-#   blocked    : required — true | false
-#   survive    : required — must be one of: min | recovery | work | full (suggested: work)
-#   + any additional fields allowed (active_files, session_start, ...)
-
-# RSK — Risk (recommended fields, not mandatory)
-# RSK:name{risk:str, impact:high|medium|low, mitigation:str, survive:recovery|work|full}
-#   Posicional: RSK:name{"riesgo", impacto, "mitigación", survive} — pos 1=riesgo, 2=impacto, 3=mitigación, 4=survive
-# NXT — Next in queue (recommended fields, not mandatory)
-# NXT:name{action:str, priority:high|medium|low, trigger:now|after_X|on_Y, survive:work|recovery|full}
-#   Posicional: NXT:name{"acción", prioridad, trigger, survive} — pos 1=acción, 2=prioridad, 3=trigger, 4=survive
-# AUD — Audit (recommended fields, not mandatory)
-# AUD:name{metric:str, value:str, timestamp:str, survive:work|full}
-#   Posicional: AUD:name{"métrica", "valor", "timestamp"} — pos 1=métrica, 2=valor, 3=timestamp
-
-# -- $8: SURVIVE ATTRIBUTE --
-# survive governs which .cortex entries persist under context reduction.
-# 4 levels defined:
-
-# min      : Minimal survival (~300 tokens). Preserved even under maximum reduction.
-#            Typical: CNST with severity:blocking, IDN entries.
-# recovery : State recovery (~1000 tokens). Allows agent to recover objective,
-#            identity and focus on reconnection. Typical: OBJ entries, RSK.
-# work     : Work continuity (~3000 tokens). Preserves operational state for
-#            uninterrupted work. Typical: FCS, STP, WRK, NXT.
-# full     : Full context. Preserved with no or superficial reduction.
-#            Typical: SES, REF, historical entries.
-
-# Assignment rules (with P0-P5 mapping from !survive_priority):
-#   P0 → survive:min    : CNST:blocking, FCS, OBJ, STP — survive all reductions
-#   P1 → survive:recovery: WRK, AUD, RSK, NXT
-#   P2 → survive:work    : CLAIM, LIM, KNW:active, LNG:critical
-#   P3 → survive:reduced : SES:last, STAT, VAL, RES, FIND
-#   P4 → survive:basic   : REF:critical, DOC, ART
-#   P5 → survive:full    : DIAG, TBL, long REF, history, comments
-#   Entries without survive      → valid (progressive compatibility)
-
-# -- $9: PRIORITY PACK P0-P5 --
-# Context is reduced by cognitive priority, never by position.
-# Load order: P0→P5. Degradation order: P5→P1 (P0 never eliminated).
-
-# P0 — Critical survival (~300t)  : FCS, OBJ, CNST, STP
-# P1 — Operational state (~600t)  : WRK, AUD, RSK, NXT (when they exist)
-# P2 — Honesty and limits (~1Kt)  : CLAIM, LIM, KNW:active, LNG:critical (when they exist)
-# P3 — Recent evidence (~2Kt)     : SES:last, STAT, VAL, RES, FIND (when they exist)
-# P4 — Critical references (~3Kt) : REF:critical, DOC, ART (when they exist)
-# P5 — Extended context (unlim.)  : DIAG, TBL, long REF, history, comments
-
-# Rules:
-#   Anti-positional truncation: never reduce by tail/head position
-#   P0 immutable: FCS,OBJ,CNST,STP survive all reductions
-#   CNST:blocking with survive:min → never omitted
-#   CLAIM/LIM that block public claims → survive at least RECOVERY
-#   "When they exist": P1-P5 sigils not found → level has fewer entries (not an error)
-
-# -- $10: CONTEXT PROFILES --
-# Four conceptual profiles by minimum priority, not by closed sigil lists.
-
-# CORTEX-MIN      : Emergency. P0 only. ~300 tokens.
-#                   Survives: FCS, OBJ, CNST, STP. CNST:blocking always.
-# CORTEX-RECOVERY : After interruption. P0+P1. ~1000 tokens.
-#                   Survives: P0 + WRK, AUD, RSK, NXT (when they exist).
-# CORTEX-WORK     : Work continuity. P0+P1+P2. ~3000 tokens.
-#                   Survives: RECOVERY + CLAIM, LIM, KNW:active, LNG:critical.
-# CORTEX-FULL     : Complete memory. P0–P5. Unlimited.
-#                   Survives: everything.
-
-# Profile selection: jump directly to required budget. No sequential chain.
-#   ≤512 tokens       → CORTEX-MIN
-#   ≤1000 tokens      → CORTEX-RECOVERY
-#   ≤3000 tokens      → CORTEX-WORK
-#   >3000 tokens      → CORTEX-FULL
-
-# HCORTEX is NOT a profile. HCORTEX is a render target:
-#   - Generated from the active profile, not persisted as .cortex
-#   - P0/P1 entries must be traceable to their source .cortex sigil
-#   - Minimum equivalences: FCS→"Foco actual", OBJ→"Objetivo", CNST→"Restricciones",
-#     WRK→"Estado operativo", STP/NXT→"Próximo paso", AUD/RSK→"Evidencia/Riesgos",
-#     CLAIM/LIM→"Límites de afirmación"
-
-# HCORTEX render procedure (10 steps):
-#   Step 1: resolve active profile by precedence:
-#            explicit_profile > context_budget > mode > CORTEX-WORK
-#   Step 2: declare profile as first HCORTEX line: "Perfil: CORTEX-<LEVEL>"
-#   Step 3: filter entries by P-level or survive matching the profile.
-#            Entries without P-level or survive → P5 (excluded unless FULL).
-#            Filtering is entry-level, never section-level.
-#   Step 4: resolve expansion type for each sigil from $0:
-#            attrs → table, cuerpo → indented block, bloque → PUML verbatim.
-#   Step 5: render only filtered entries, applying strategy by type from $0.
-#   Step 6: audit with insufficient budget: do not silently degrade.
-#            Declare "Perfil: CORTEX-FULL (segmentado) Segmento: <n>/<total>"
-#            and render only the declared segment.
-#   Step 7: add source column to P0/P1 tables using <SIGIL>:<name> format.
-#            PUML diagrams include ' source: DIAG:<name>.
-#            If source missing for P0/P1, render WARNING: missing source.
-#   Step 8: if a sigil has multiple named instances, render as distinct
-#            sub-sections: ### <SIGIL>:<name>. Preserve source order.
-#   Step 9: apply render strategy by expansion type from $0:
-#            attrs: table with source+instance columns.
-#            cuerpo: indented quote with sigil prefix.
-#            contenido: contextual table (SES: I/O/R, LNG: list, PFL: Err/Cause/Sol).
-#            bloque: PUML verbatim with ' source: DIAG:<name>.
-#   Step 10: order sections by P-level priority: P0 first, P5 last.
-#            Sigils without P-level assignment render last, after P5.
-#            Within the same P-level, preserve the source .cortex order.
-
-# -- $11: DEGRADATION POLICY --
-# Conceptual chain: FULL → WORK → RECOVERY → MIN
-# Operational selection: direct jump to required profile by budget.
-
-# What disappears first (when degrading):
-#   FULL → WORK       : DIAG, TBL long, REF long, SES historical, comments
-#   WORK → RECOVERY   : KNW complete→KNW:active, LNG complete→LNG:critical, REF→REF:critical
-#   RECOVERY → MIN    : SES:last, AUD, RSK, NXT, STAT. Only P0 survives.
-
-# What NEVER disappears:
-#   In any profile    : CNST with severity:blocking and survive:min
-#   In any profile    : FCS, OBJ, STP (P0 immutable)
-#   At least RECOVERY : CLAIM, LIM that block public claims
+DESC:canonical_closure{
+CODEC-CORTEX is governed as an enterprise memory protocol. Its Skill defines behavior; its brain contains live work; its packages carry context; its HCORTEX output explains state to humans; its codec, runtime and MCP automate only when implemented and verified. Every .cortex artifact MUST carry its own minimal $0 glossary for safe self-contained interpretation across agents.
+}

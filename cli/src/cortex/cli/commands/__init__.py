@@ -1,0 +1,150 @@
+"""Shared helpers for CLI command modules."""
+
+from __future__ import annotations
+
+import json
+import os
+from typing import Any, Dict, List, Optional
+
+from ...core.ast import CortexDocument
+from ...core.parser import parse_cortex
+from ...core.errors import CortexError
+from ...core.validator import validate
+
+
+def load_doc(path: str) -> CortexDocument:
+    """Read a .cortex file and parse it into a :class:`CortexDocument`."""
+
+    if not os.path.exists(path):
+        raise CortexError("E013_NOT_FOUND", f"file not found: {path}")
+    with open(path, "r", encoding="utf-8") as f:
+        text = f.read()
+    return parse_cortex(text, path=path)
+
+
+def emit(payload: Dict[str, Any], *, json_mode: bool = False) -> None:
+    """Print a payload as JSON or as plain text.
+
+    ``payload`` must contain ``text`` (str) for plain mode and any
+    JSON-serialisable fields for JSON mode.
+    """
+
+    if json_mode:
+        print(json.dumps(payload, indent=2, ensure_ascii=False, default=str))
+    else:
+        text = payload.get("text", "")
+        if text:
+            print(text)
+
+
+def emit_json(payload: Any) -> None:
+    print(json.dumps(payload, indent=2, ensure_ascii=False, default=str))
+
+
+def post_mutation_gate(
+    doc: CortexDocument,
+    args,
+) -> Optional[Dict[str, Any]]:
+    """Validate ``doc`` after a mutation and return an error payload if blocked.
+
+    v1.1.2: centralised post-mutation validation used by ``add``,
+    ``update``, ``delete`` and ``move``.
+
+    v1.1.3 P0-2/P0-3: errors tagged ``bypassable=False`` (secrets in clear
+    text, critical sigils incomplete) CANNOT be overridden by ``--force``.
+    Only an explicit ``--unsafe-allow-secret-forensics`` flag (for secrets)
+    can bypass the secret check, and there is NO bypass for critical-sigil
+    incompleteness.
+
+    Behaviour:
+      - If ``--no-validate-write`` is set, return None (skip gate) — but
+        only if there are no ``bypassable=False`` errors.
+      - Run ``validate(doc, strict=args.strict_write)``.
+      - If there are error-severity diagnostics:
+          * ``bypassable=False`` errors ALWAYS block (unless the dedicated
+            ``--unsafe-allow-secret-forensics`` flag is set, and only for
+            secret-related codes).
+          * Other errors block unless ``--force`` is set.
+      - Otherwise return None (mutation can proceed to atomic_write).
+    """
+
+    if getattr(args, "no_validate_write", False):
+        # Even with --no-validate-write, bypassable=False errors block
+        strict_write = getattr(args, "strict_write", False)
+        diagnostics = validate(doc, strict=strict_write)
+        non_bypassable = [
+            d for d in diagnostics
+            if d.get("severity") == "error" and d.get("bypassable") is False
+        ]
+        if non_bypassable:
+            # Filter: allow --unsafe-allow-secret-forensics for secret codes
+            unsafe = getattr(args, "unsafe_allow_secret_forensics", False)
+            if unsafe:
+                non_bypassable = [
+                    d for d in non_bypassable
+                    if d.get("code") != "E031_SECRET_NOT_BYPASSABLE"
+                ]
+            if non_bypassable:
+                return {
+                    "ok": False,
+                    "error": {
+                        "code": "E015_ATOMIC_WRITE_FAILED",
+                        "message": (
+                            f"mutation would produce {len(non_bypassable)} "
+                            "non-bypassable error(s); --no-validate-write cannot "
+                            "override security/governance rules"
+                        ),
+                    },
+                    "diagnostics": non_bypassable,
+                }
+        return None
+
+    strict_write = getattr(args, "strict_write", False)
+    diagnostics = validate(doc, strict=strict_write)
+    errors = [d for d in diagnostics if d.get("severity") == "error"]
+    if not errors:
+        return None
+
+    # Split bypassable vs non-bypassable
+    non_bypassable = [d for d in errors if d.get("bypassable") is False]
+    bypassable = [d for d in errors if d.get("bypassable") is not False]
+
+    # Non-bypassable errors always block (except secrets with --unsafe flag)
+    if non_bypassable:
+        unsafe = getattr(args, "unsafe_allow_secret_forensics", False)
+        if unsafe:
+            # Allow bypassing secret errors ONLY with the dedicated flag
+            non_bypassable = [
+                d for d in non_bypassable
+                if d.get("code") != "E031_SECRET_NOT_BYPASSABLE"
+            ]
+        if non_bypassable:
+            return {
+                "ok": False,
+                "error": {
+                    "code": "E015_ATOMIC_WRITE_FAILED",
+                    "message": (
+                        f"mutation would produce {len(non_bypassable)} "
+                        "non-bypassable error(s); --force cannot override "
+                        "security/governance rules (use "
+                        "--unsafe-allow-secret-forensics for forensic "
+                        "recovery of secrets, if absolutely necessary)"
+                    ),
+                },
+                "diagnostics": non_bypassable,
+            }
+
+    # Bypassable errors: block unless --force
+    if bypassable and not getattr(args, "force", False):
+        return {
+            "ok": False,
+            "error": {
+                "code": "E015_ATOMIC_WRITE_FAILED",
+                "message": (
+                    f"mutation would produce {len(bypassable)} validation error(s); "
+                    "use --force to persist anyway, or --no-validate-write to skip"
+                ),
+            },
+            "diagnostics": bypassable,
+        }
+    return None

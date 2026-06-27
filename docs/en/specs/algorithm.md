@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+> **STATE NOTE:** This document is a specification or design document. The CLI and deterministic codec (parse, verify, render, CRUD) are implemented at `cli/` with 17 commands and 222 tests. Runtime and MCP are planned or future.
 
 **Abstract:** Cognitive density equations, lifecycle state machine, deterministic parsing algorithm (6-state character automaton), structural deep compare, verbatim PUML block parsing, and maturation engine algorithms (detect_recurrence, promote, decay). Includes the golden token distribution (φ=1.618) across cognitive layers and the context management cycle with exit GATE.
 
