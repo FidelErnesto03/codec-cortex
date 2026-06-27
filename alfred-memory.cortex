@@ -46,11 +46,12 @@ CNST:publication{rule:"publication with authorship: AUTHORS, CITATION.cff, CODEO
 
 $3: WORKING MEMORY
 
-FCS:primary{what:"CODEC-CORTEX v0.3.0 — CLI v1.1.9 integrado en cli/. Documentacion completa actualizada. Todos los .cortex en formato canonico validado.", priority:"high", status:"current", survive:"work"}
+FCS:primary{what:"CODEC-CORTEX v0.3.0 — Operando con CLI integrado. Skill local actualizado a v1.2.0.", priority:"high", status:"current", survive:"work"}
 OBJ:primary{goal:"v0.3.0 release: CLI integrado, .cortex canonicos, docs actualizadas", status:"done", success:"17 comandos CLI, 222 tests, 3/3 .cortex cortex verify --strict OK", survive:"recovery"}
-OBJ:current{goal:"Release v0.3.0: commit + push + tag. Brain y alfred-memory sincronizados.", status:"current", success:"Tag v0.3.0 creado. CHANGELOG 0.3.0 publicado.", survive:"work"}
-WRK:session{phase:"Release v0.3.0 completado", current:"brain.cortex y alfred-memory.cortex actualizados a v0.3.0. Pendiente commit+tag.", blocked:false, survive:"work", started:"2026-06-27"}
-STP:next{action:"Commit + tag v0.3.0 o esperar decision de namespace", reason:"Integracion completa. Brain cortex actualizado.", owner:"human", status:"current", survive:"work"}
+OBJ:current{goal:"Operar con v0.3.0. Skill local actualizado. Brain.cortex sincronizado.", status:"done", success:"Brain.cortex y alfred-memory en v0.3.0. Tag publicado.", survive:"work"}
+OBJ:explore{goal:"Explorar CLI: verify, render, doctor en .cortex del proyecto", status:"current", success:"CLI probado con todos los .cortex del proyecto", survive:"work"}
+WRK:session{phase:"Operacion v0.3.0", current:"Skill local actualizado. Brain.cortex y alfred-memory sincronizados en v0.3.0.", blocked:false, survive:"work", started:"2026-06-27"}
+STP:next{action:"Explorar CLI: verify, render, doctor, diff en .cortex del proyecto", reason:"v0.3.0 operativo. Skill local actualizado.", owner:"agent", status:"current", survive:"work"}
 
 $4: DIALECT KNOWLEDGE
 

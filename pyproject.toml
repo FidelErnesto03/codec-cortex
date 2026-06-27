@@ -39,3 +39,5 @@ Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/codec_cortex"]
+# CLI: see cli/pyproject.toml for the standalone CLI package.
+# Install with: pip install ./cli/

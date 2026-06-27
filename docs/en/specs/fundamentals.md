@@ -9,7 +9,7 @@
 
 ---
 
-> **STATE NOTE:** This document is a specification or design document. The CLI and deterministic codec (parse, verify, render, CRUD) are implemented at `cli/` with 17 commands and 222 tests. Runtime and MCP are planned or future.
+> **STATUS NOTE:** This document is specification or design. The CLI and deterministic codec (parse, encode, decode, verify, HCORTEX render) are implemented in cli/. Runtime and MCP are planned or future.
 
 **Abstract:** Cognitive ontology, architectural axioms, and guiding principles of the deterministic structural compression protocol for LLM agent memory. Covers the 3 cognitive cortices, the 7 foundational axioms, the 4 stages of competence as a maturation model, the HCORTEX human decompression protocol, advanced compression techniques (positional collapse and micro-glossary), and the golden ratio (φ=1.618) as a universal memory distribution pattern.
 

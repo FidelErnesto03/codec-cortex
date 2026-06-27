@@ -47,14 +47,15 @@ $2: OPERATIONAL STATE
 
 CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims", severity:"blocking", survive:"min"}
 CNST:output_format{rule:"Output in HCORTEX format: tables > lists > K/V > diagrams > prose. User language: ES. Structural: EN. Canonical memory: .cortex", severity:"warning", survive:"work"}
-FCS:primary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado. CLI v1.1.9 integrado en cli/. Documentacion actualizada para v0.3.0. Todos los .cortex en formato canonico validado.", priority:"high", status:"current", survive:"work"}
-FCS:secondary{what:"v0.3.0 liberado. CLI funcional (17 comandos, 222 tests). SKILL.md v1.2.0 mergeado.", priority:"medium", status:"current", survive:"work"}
+FCS:primary{what:"Operando con v0.3.0. CLI v1.1.9 integrado. Skill local actualizado a v1.2.0. Todos los .cortex en formato canonico.", priority:"high", status:"current", survive:"work"}
+FCS:secondary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado. Release v0.3.0 publicada en GitHub.", priority:"medium", status:"current", survive:"work"}
 OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", status:"done", success:"13/13 REs approved. 5 reglas en $4, 8 pasos en $10", survive:"min"}
 OBJ:secondary{goal:"Integrar CLI v1.1.9 en codec-cortex/cli/ y migrar .cortex a formato canonico para v0.3.0", status:"done", success:"CLI instalado, 222 tests, 3/3 .cortex migrados y validados con cortex verify --strict", survive:"recovery"}
-OBJ:release{goal:"Release v0.3.0: commit + push + tag en main. Namespace decision pasada.", status:"current", success:"Tag v0.3.0 en GitHub. Release notes publicadas. CHANGELOG actualizado.", survive:"work"}
-WRK:state{phase:"Release v0.3.0", current:"CLI integrado, docs actualizados, .cortex canonicos. Pendiente: commit+tag v0.3.0 y decision de namespace.", blocked:false, survive:"work", active_files:"brain.cortex, SKILL.cortex, alfred-memory.cortex, README.md, CHANGELOG.md, STATUS.md, ROADMAP.md"}
-WRK:repo{phase:"active", current:"main branch v0.3.0. CLI v1.1.9 en cli/. Todos los archivos validados.", blocked:false, survive:"work"}
-STP:next{action:"Commit + push + tag v0.3.0, o esperar decision de Fidel sobre namespace", reason:"Integracion CLI completa, docs actualizados, .cortex canonicos. Release candidate listo.", owner:"human", status:"current", survive:"min"}
+OBJ:release{goal:"Release v0.3.0: commit + push + tag en main. Namespace decision pasada.", status:"done", success:"Tag v0.3.0 en GitHub. Release notes publicadas. CHANGELOG actualizado.", survive:"work"}
+OBJ:operate{goal:"Operar con v0.3.0. Explorar casos de uso del CLI, tests de roundtrip, benchmarks automatizados.", status:"current", success:"CLI probado con .cortex reales. Proximo release planeado.", survive:"work"}
+WRK:state{phase:"Operacion v0.3.0", current:"Skill local actualizado. Brain.cortex sincronizado. CLI funcional en cli/.", blocked:false, survive:"work", active_files:"brain.cortex, skill/SKILL.cortex, cli/"}
+WRK:repo{phase:"active", current:"main branch v0.3.0. Tag v0.3.0 en GitHub. CLI v1.1.9 en cli/.", blocked:false, survive:"work"}
+STP:next{action:"Explorar casos de uso del CLI: verify, render, doctor en .cortex del proyecto", reason:"v0.3.0 liberado. Skill local actualizado. Comenzar operacion con el nuevo release.", owner:"agent", status:"current", survive:"min"}
 
 $3: RECENT SESSIONS
 
@@ -71,6 +72,8 @@ SES:hcortex_corrections{input:"RE-008 a RE-013 — D-01 a D-06", output:"5 regla
 SES:cli_integration{input:"codec-cortex-1.1.9.tar.gz extraido en cli/", output:"CLI instalado, 222 tests pasan, 17 comandos funcionales", outcome:"instalado y verificado", date:"2026-06-27"}
 SES:cli_documentation{input:"Fidel: actualizacion de documentacion COMPLETA para v0.3.0", output:"README v0.3.0/beta, CHANGELOG seccion 0.3.0, STATUS actualizado, ROADMAP Phase 4 current. brain.md/alfred-memory.md regenerados. summary.md actualizado.", outcome:"documentacion completa alineada con CLI", date:"2026-06-27"}
 SES:cortex_migration{input:"Formatos .cortex legacy con comentarios # -- sin secciones $N:", output:"brain.cortex, SKILL.cortex, alfred-memory.cortex en formato canonico con $N: headers, 6-column glossary, contratos validos", outcome:"3/3 .cortex pasan cortex verify --strict con 0 errores", date:"2026-06-27"}
+SES:skill_update_v030{input:"Fidel: actualiza tu skill instalado localmente y comienza a operar con v0.3.0", output:"SKILL.md v1.2.0, SKILL.cortex canonico, SKILL.en.md sync copiados a ~/.hermes/skills/codec-cortex/", outcome:"Skill local actualizado a v0.3.0. Operando con CLI.", date:"2026-06-27"}
+SES:enterprise_roadmap{input:"Fidel: verifica todo lo que hace falta para llevar codec-cortex a nivel enterprise", output:"Analisis de brecha E1-E5 documentado en ROADMAP.md. Universal Skill Distribution Protocol en docs/specs/skill-distribution.md. setup.sh creado.", outcome:"Roadmap enterprise completo + protocolo de distribucion universal.", date:"2026-06-27"}
 
 $4: LESSONS LEARNED
 
@@ -158,8 +161,9 @@ NXT:execute_re5{action:"Ejecutar RE-005 (agregar P0-P5 y perfiles a SKILL.cortex
 NXT:execute_re6{action:"Ejecutar RE-006 (crear specs + reglas Skill)", priority:"high", trigger:"after_RE005_done", status:"done", depends_on:"NXT:execute_re5", survive:"work"}
 NXT:review_re007{action:"Fidel revisa RE-007 y decide correcciones de conversion HCORTEX", priority:"high", trigger:"after_diagnosis", status:"done", survive:"work"}
 NXT:migrate_cortex_files{action:"Migrar brain.cortex + SKILL.cortex + alfred-memory.cortex a formato canonico con $N: headers", priority:"high", trigger:"now", status:"done", survive:"work"}
-NXT:decide_namespace{action:"Fidel decide namespace final del paquete CLI (cortex vs codec_cortex)", priority:"medium", trigger:"after_migration_validated", status:"current", survive:"work"}
-NXT:release_v030{action:"Commit + push + tag v0.3.0 en main", priority:"high", trigger:"after_docs_complete", status:"planned", survive:"work"}
+NXT:decide_namespace{action:"Fidel decide namespace final del paquete CLI (cortex vs codec_cortex)", priority:"medium", trigger:"after_migration_validated", status:"done", survive:"work"}
+NXT:release_v030{action:"Commit + push + tag v0.3.0 en main", priority:"high", trigger:"after_docs_complete", status:"done", survive:"work"}
+NXT:explore_cli{action:"Probar cortex verify, render, doctor en .cortex del proyecto", priority:"medium", trigger:"after_release", status:"current", survive:"work"}
 
 $8: CLAIMS AND LIMITS
 

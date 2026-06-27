@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. El CLI y codec determinista (parse, verify, render, CRUD) estan implementados en `cli/` con 17 comandos y 222 tests. Runtime y MCP son planificadas o futuras.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. El CLI y codec determinista (parse, encode, decode, verify, HCORTEX render) estan implementados en cli/. Runtime y MCP son planificadas o futuras.
 
 **Abstract:** Ecuaciones de densidad cognitiva, máquina de estados del ciclo de vida de memoria, algoritmo de parseo determinista (autómata de caracteres de 6 estados), deep compare estructural, parseo de bloques PUML verbatim, y algoritmos del motor de maduración (detect_recurrence, promote, decay). Incluye la distribución áurea de tokens (φ=1.618) entre capas cognitivas y el ciclo de gestión de contextos con GATE de salida.
 

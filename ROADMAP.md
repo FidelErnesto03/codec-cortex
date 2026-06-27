@@ -86,3 +86,95 @@
 **Non-goals:** MCP is not the first adoption mechanism.
 
 **Acceptance criteria:** every MCP handler maps to implemented codec/runtime functions and emits auditable operations.
+
+---
+
+## Enterprise Track
+
+Phases E1–E5 represent the enterprise-hardening track. They are independent of the canonical stack phases (1–6) and can be executed in parallel.
+
+### Phase E1: Distribution and CI/CD
+
+**Status:** planned.
+
+**Goal:** automate distribution, testing and publishing of the `cortex` CLI and SKILL artifacts across platforms.
+
+**Deliverables:**
+- PyPI package (`cortex-cli` or `codec-cortex`) — `pip install codec-cortex` installs CLI and SKILL.
+- GitHub Actions CI: lint, test (Python 3.9–3.12), verify-fixtures, coverage gate (≥85%).
+- `Makefile` or `Taskfile`: `install`, `test`, `lint`, `build`, `publish` targets.
+- `setuptools-scm` or `bump-my-version` for automated versioning.
+- Pre-commit hooks (`.pre-commit-config.yaml`): ruff, secret-scan, `cortex verify --strict`.
+
+**Non-goals:** no MCP server, no runtime.
+
+**Acceptance criteria:** `pip install codec-cortex` works. CI passes on every PR. Release published automatically on tag.
+
+### Phase E2: Security and Governance
+
+**Status:** planned.
+
+**Goal:** harden the CLI and protocol against misuse, secret leakage and unauthorized mutations.
+
+**Deliverables:**
+- Pre-commit secret scanner (hardens existing `cortex doctor` scan).
+- RBAC-like mutation gates: read-only mode, editor mode, admin mode (governs `--force`).
+- Persistent audit log: CRUD operations logged outside the `.cortex` file.
+- Release signing: SHA256 hashes for all published artifacts.
+- `cortex verify --signature` for artifact integrity checks.
+- Dependabot/Renovate configuration for dev dependencies.
+
+**Non-goals:** no federated identity, no enterprise SSO.
+
+**Acceptance criteria:** pre-commit hooks block secrets. Audit log captures every mutation with timestamp and agent identity.
+
+### Phase E3: Documentation and Test Coverage
+
+**Status:** planned.
+
+**Goal:** achieve production-grade documentation coverage and test quality.
+
+**Deliverables:**
+- Sphinx or MkDocs site with API reference, tutorials, how-to guides and explanations.
+- Docstrings complete for all public API in `cortex.core`, `cortex.crud`, `cortex.hcortex`, `cortex.glossary`.
+- Test coverage ≥85% measured by `pytest-cov`.
+- Automated benchmark suite: compression ratio, roundtrip fidelity, render latency.
+- `cortex benchmark` command (runs reproducible benchmarks from `benchmarks/`).
+
+**Non-goals:** no user-analytics, no telemetry.
+
+**Acceptance criteria:** coverage gate blocks PRs below 85%. MkDocs site auto-deploys on release.
+
+### Phase E4: Enterprise MCP Server
+
+**Status:** future.
+
+**Goal:** expose CLI and protocol capabilities as MCP tools for multi-agent orchestration.
+
+**Deliverables:**
+- `cortex-mcp` entry point (stdio transport, local).
+- `cortex-mcp --http` for HTTP/SSE transport (cloud deployments).
+- Auth middleware: API key, bearer token.
+- Audit events: every tool call emits `AUD`-compatible structured log.
+- Tool catalog: `cortex_list`, `cortex_verify`, `cortex_render`, `cortex_get`, `cortex_diff`.
+
+**Non-goals:** no runtime lifecycle management.
+
+**Acceptance criteria:** `cortex-mcp` connects to any MCP client (Claude Desktop, VS Code, custom). Every tool call is auditable.
+
+### Phase E5: Memory Runtime
+
+**Status:** future.
+
+**Goal:** automate the WRK → SES → LNG → KNW lifecycle with user-confirmed policies.
+
+**Deliverables:**
+- `cortex session start/close/status` — WRK lifecycle.
+- `cortex session consolidate` — compress SES from WRK history.
+- `cortex lesson extract` — detect patterns across SES (threshold configurable).
+- `cortex profile --budget 1000` — apply P0-P5 triage automatically.
+- Auto-promotion: `detect_recurrence(threshold=N) → ask_user → promote/decay`.
+
+**Non-goals:** no silent autonomous promotion.
+
+**Acceptance criteria:** lifecycle transitions are explicit, auditable and require human confirmation for promote/decay.

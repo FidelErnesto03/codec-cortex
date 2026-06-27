@@ -192,7 +192,7 @@ Perfil: CORTEX-WORK
 
 | key | value | source |
 | --- | --- | --- |
-| what | CODEC-CORTEX v0.3.0 — CLI v1.1.9 integrado en cli/. Documentacion completa actualizada. Todos los .cortex en formato canonico validado. | `FCS:primary` |
+| what | CODEC-CORTEX v0.3.0 — Operando con CLI integrado. Skill local actualizado a v1.2.0. | `FCS:primary` |
 | priority | high | `FCS:primary` |
 | status | current | `FCS:primary` |
 | survive | work | `FCS:primary` |
@@ -202,18 +202,28 @@ Perfil: CORTEX-WORK
 
 | key | value | source |
 | --- | --- | --- |
-| goal | Release v0.3.0: commit + push + tag. Brain y alfred-memory sincronizados. | `OBJ:current` |
-| status | current | `OBJ:current` |
-| success | Tag v0.3.0 creado. CHANGELOG 0.3.0 publicado. | `OBJ:current` |
+| goal | Operar con v0.3.0. Skill local actualizado. Brain.cortex sincronizado. | `OBJ:current` |
+| status | done | `OBJ:current` |
+| success | Brain.cortex y alfred-memory en v0.3.0. Tag publicado. | `OBJ:current` |
 | survive | work | `OBJ:current` |
+
+<!-- section: $3 · OBJ:explore · P2 -->
+### Objective: explore <sub>[P2]</sub>
+
+| key | value | source |
+| --- | --- | --- |
+| goal | Explorar CLI: verify, render, doctor en .cortex del proyecto | `OBJ:explore` |
+| status | current | `OBJ:explore` |
+| success | CLI probado con todos los .cortex del proyecto | `OBJ:explore` |
+| survive | work | `OBJ:explore` |
 
 <!-- section: $3 · WRK:session · P2 -->
 ### Work State: session <sub>[P2]</sub>
 
 | key | value | source |
 | --- | --- | --- |
-| phase | Release v0.3.0 completado | `WRK:session` |
-| current | brain.cortex y alfred-memory.cortex actualizados a v0.3.0. Pendiente commit+tag. | `WRK:session` |
+| phase | Operacion v0.3.0 | `WRK:session` |
+| current | Skill local actualizado. Brain.cortex y alfred-memory sincronizados en v0.3.0. | `WRK:session` |
 | blocked | false | `WRK:session` |
 | survive | work | `WRK:session` |
 | started | 2026-06-27 | `WRK:session` |
@@ -223,9 +233,9 @@ Perfil: CORTEX-WORK
 
 | key | value | source |
 | --- | --- | --- |
-| action | Commit + tag v0.3.0 o esperar decision de namespace | `STP:next` |
-| reason | Integracion completa. Brain cortex actualizado. | `STP:next` |
-| owner | human | `STP:next` |
+| action | Explorar CLI: verify, render, doctor, diff en .cortex del proyecto | `STP:next` |
+| reason | v0.3.0 operativo. Skill local actualizado. | `STP:next` |
+| owner | agent | `STP:next` |
 | status | current | `STP:next` |
 | survive | work | `STP:next` |
 

@@ -141,6 +141,8 @@ For a human-readable HCORTEX view of that same context, read `brain.md`. Use `sk
 | `docs/en/specs/mcp-bridge.md` | Future MCP bridge architecture | EN |
 | `docs/specs/context-survival.md` | Survival Core: survive, P0-P5, profiles, HCORTEX | ES |
 | `docs/specs/benchmark-methodology.md` | Survival benchmark methodology (5 questions) | ES |
+| `docs/specs/skill-distribution.md` | Universal Skill distribution for all agent platforms | EN |
+| `ROADMAP.md` | Phase plan from Skill to enterprise (E1-E5) | EN |
 
 ## Claim Policy
 

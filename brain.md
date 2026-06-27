@@ -31,9 +31,9 @@ Perfil: CORTEX-WORK
 
 | key | value | source |
 | --- | --- | --- |
-| action | Commit + push + tag v0.3.0, o esperar decision de Fidel sobre namespace | `STP:next` |
-| reason | Integracion CLI completa, docs actualizados, .cortex canonicos. Release candidate listo. | `STP:next` |
-| owner | human | `STP:next` |
+| action | Explorar casos de uso del CLI: verify, render, doctor en .cortex del proyecto | `STP:next` |
+| reason | v0.3.0 liberado. Skill local actualizado. Comenzar operacion con el nuevo release. | `STP:next` |
+| owner | agent | `STP:next` |
 | status | current | `STP:next` |
 | survive | min | `STP:next` |
 
@@ -178,7 +178,7 @@ Perfil: CORTEX-WORK
 
 | key | value | source |
 | --- | --- | --- |
-| what | Ciclo CORTEX-CONSOLIDATION-001 completado. CLI v1.1.9 integrado en cli/. Documentacion actualizada para v0.3.0. Todos los .cortex en formato canonico validado. | `FCS:primary` |
+| what | Operando con v0.3.0. CLI v1.1.9 integrado. Skill local actualizado a v1.2.0. Todos los .cortex en formato canonico. | `FCS:primary` |
 | priority | high | `FCS:primary` |
 | status | current | `FCS:primary` |
 | survive | work | `FCS:primary` |
@@ -188,7 +188,7 @@ Perfil: CORTEX-WORK
 
 | key | value | source |
 | --- | --- | --- |
-| what | v0.3.0 liberado. CLI funcional (17 comandos, 222 tests). SKILL.md v1.2.0 mergeado. | `FCS:secondary` |
+| what | Ciclo CORTEX-CONSOLIDATION-001 completado. Release v0.3.0 publicada en GitHub. | `FCS:secondary` |
 | priority | medium | `FCS:secondary` |
 | status | current | `FCS:secondary` |
 | survive | work | `FCS:secondary` |
@@ -199,20 +199,30 @@ Perfil: CORTEX-WORK
 | key | value | source |
 | --- | --- | --- |
 | goal | Release v0.3.0: commit + push + tag en main. Namespace decision pasada. | `OBJ:release` |
-| status | current | `OBJ:release` |
+| status | done | `OBJ:release` |
 | success | Tag v0.3.0 en GitHub. Release notes publicadas. CHANGELOG actualizado. | `OBJ:release` |
 | survive | work | `OBJ:release` |
+
+<!-- section: $2 · OBJ:operate · P2 -->
+### Objective: operate <sub>[P2]</sub>
+
+| key | value | source |
+| --- | --- | --- |
+| goal | Operar con v0.3.0. Explorar casos de uso del CLI, tests de roundtrip, benchmarks automatizados. | `OBJ:operate` |
+| status | current | `OBJ:operate` |
+| success | CLI probado con .cortex reales. Proximo release planeado. | `OBJ:operate` |
+| survive | work | `OBJ:operate` |
 
 <!-- section: $2 · WRK:state · P2 -->
 ### Work State: state <sub>[P2]</sub>
 
 | key | value | source |
 | --- | --- | --- |
-| phase | Release v0.3.0 | `WRK:state` |
-| current | CLI integrado, docs actualizados, .cortex canonicos. Pendiente: commit+tag v0.3.0 y decision de namespace. | `WRK:state` |
+| phase | Operacion v0.3.0 | `WRK:state` |
+| current | Skill local actualizado. Brain.cortex sincronizado. CLI funcional en cli/. | `WRK:state` |
 | blocked | false | `WRK:state` |
 | survive | work | `WRK:state` |
-| active_files | brain.cortex, SKILL.cortex, alfred-memory.cortex, README.md, CHANGELOG.md, STATUS.md, ROADMAP.md | `WRK:state` |
+| active_files | brain.cortex, skill/SKILL.cortex, cli/ | `WRK:state` |
 
 <!-- section: $2 · WRK:repo · P2 -->
 ### Work State: repo <sub>[P2]</sub>
@@ -220,7 +230,7 @@ Perfil: CORTEX-WORK
 | key | value | source |
 | --- | --- | --- |
 | phase | active | `WRK:repo` |
-| current | main branch v0.3.0. CLI v1.1.9 en cli/. Todos los archivos validados. | `WRK:repo` |
+| current | main branch v0.3.0. Tag v0.3.0 en GitHub. CLI v1.1.9 en cli/. | `WRK:repo` |
 | blocked | false | `WRK:repo` |
 | survive | work | `WRK:repo` |
 
@@ -563,7 +573,7 @@ Perfil: CORTEX-WORK
 | action | Fidel decide namespace final del paquete CLI (cortex vs codec_cortex) | `NXT:decide_namespace` |
 | priority | medium | `NXT:decide_namespace` |
 | trigger | after_migration_validated | `NXT:decide_namespace` |
-| status | current | `NXT:decide_namespace` |
+| status | done | `NXT:decide_namespace` |
 | survive | work | `NXT:decide_namespace` |
 
 <!-- section: $7 · NXT:release_v030 · P2 -->
@@ -574,8 +584,19 @@ Perfil: CORTEX-WORK
 | action | Commit + push + tag v0.3.0 en main | `NXT:release_v030` |
 | priority | high | `NXT:release_v030` |
 | trigger | after_docs_complete | `NXT:release_v030` |
-| status | planned | `NXT:release_v030` |
+| status | done | `NXT:release_v030` |
 | survive | work | `NXT:release_v030` |
+
+<!-- section: $7 · NXT:explore_cli · P2 -->
+### Queued Action: explore_cli <sub>[P2]</sub>
+
+| key | value | source |
+| --- | --- | --- |
+| action | Probar cortex verify, render, doctor en .cortex del proyecto | `NXT:explore_cli` |
+| priority | medium | `NXT:explore_cli` |
+| trigger | after_release | `NXT:explore_cli` |
+| status | current | `NXT:explore_cli` |
+| survive | work | `NXT:explore_cli` |
 
 <!-- section: $8 · CLAIM:survival_core · P2 -->
 ### Claim: survival_core <sub>[P2]</sub>
@@ -632,6 +653,7 @@ The following entries were omitted by profile **WORK** (allowed P-levels: P0, P1
 | $3 | SES | cli_integration | P3 | excluded by profile WORK |
 | $3 | SES | cli_documentation | P3 | excluded by profile WORK |
 | $3 | SES | cortex_migration | P3 | excluded by profile WORK |
+| $3 | SES | skill_update_v030 | P3 | excluded by profile WORK |
 | $5 | DIAG | skill_architecture | P5 | excluded by profile WORK |
 | $5 | DIAG | survival_degradation | P5 | excluded by profile WORK |
 | $9 | REF | skill_cortex | P4 | excluded by profile WORK |
