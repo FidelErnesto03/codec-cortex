@@ -1,0 +1,73 @@
+{
+  "benchmark_version": "1.0.0",
+  "generated_at": "2026-06-28",
+  "executor": "benchmark_harness.py",
+  "codec_cortex_version": "0.3.0",
+  "cli_version": "1.1.9",
+  "harness_version": "1.0.0",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "linux",
+    "tokenizer_proxy": "char-based (1 token ≈ 3.5-4.0 chars depending on format)"
+  },
+  "methods": [
+    "recent_tail_raw",
+    "head_tail_raw",
+    "head_json",
+    "head_markdown_summary",
+    "semantic_field_pack",
+    "keyword_retrieval_raw",
+    "cortex_priority_pack_v1",
+    "cortex_priority_pack_adaptive",
+    "cortex_priority_pack_semantic_hybrid",
+    "cortex_ablation_no_P0",
+    "cortex_ablation_no_temporal"
+  ],
+  "scenarios": [
+    "full",
+    "reduced_window_512",
+    "reduced_window_1024",
+    "reduced_window_2048",
+    "reduced_window_4096",
+    "middle_work_adversarial",
+    "stale_state_conflict",
+    "blocking_constraint_survival",
+    "unsupported_claim_suppression",
+    "corrupted_memory_tolerance",
+    "multi_instance_sigil"
+  ],
+  "metrics": [
+    "EAS",
+    "ETC",
+    "F1",
+    "DA",
+    "Avg_CT",
+    "P0_survival",
+    "P1_survival",
+    "BCFNR",
+    "UCFPR",
+    "CFCR",
+    "STR",
+    "BVR",
+    "MRD",
+    "QDD",
+    "ED"
+  ],
+  "budgets": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "seeds": [
+    "deterministic-no-randomness"
+  ],
+  "llm_phase": "not_executed (deterministic only per protocol §11.2)",
+  "totals": {
+    "methods": 11,
+    "scenarios": 11,
+    "cases": 10,
+    "tasks": 40,
+    "runs": 4840
+  }
+}

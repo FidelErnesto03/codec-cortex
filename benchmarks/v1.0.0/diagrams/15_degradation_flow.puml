@@ -1,0 +1,35 @@
+@startuml
+title Perfil de degradacion CODEC-CORTEX
+
+skinparam state {
+  BackgroundColor #DBEAFE
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+state "FULL\nP0-P5\nSin limite (~8K+)" as FULL
+state "WORK\nP0+P1+P2\n~3K tokens" as WORK
+state "RECOVERY\nP0+P1\n~1K tokens" as RECOVERY
+state "MIN\nP0 only\n~300 tokens" as MIN
+
+FULL --> WORK : presupuesto baja\n(drop P5->P4->P3)
+WORK --> RECOVERY : presupuesto baja\n(keep KNW:active, LNG:critical)
+RECOVERY --> MIN : presupuesto baja\n(P0 only)
+
+MIN --> RECOVERY : presupuesto sube
+RECOVERY --> WORK : presupuesto sube
+WORK --> FULL : presupuesto sube
+
+note right of MIN
+  Siempre preservado:
+  - FCS (foco)
+  - OBJ (objetivo)
+  - CNST blocking
+  - STP (next step)
+end note
+
+note left of FULL
+  Perfil default para
+  auditoria y export.
+end note
+@enduml

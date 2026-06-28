@@ -1,0 +1,2 @@
+Archivos .puml generados. Renderice con: plantuml -tsvg *.puml
+O visite https://www.plantuml.com/plantuml/uml/ para render online.

@@ -1,0 +1,45 @@
+@startuml
+title Matriz de claims — evidencia vs limitaciones
+
+skinparam rectangle {
+  BackgroundColor<<demostrado>> #D1FAE5
+  BackgroundColor<<parcial>> #FEF3C7
+  BackgroundColor<<hipotesis>> #FED7AA
+  BackgroundColor<<no_soportado>> #FEE2E2
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Demostrado por benchmark" as demo <<demostrado>> {
+  rectangle "CPP preserva P0 al 100%\nen todos los escenarios" as c1
+  rectangle "CPP BCFNR = 0\n(constraints blocking nunca omitidos)" as c2
+  rectangle "CPP UCFPR = 0\n(claims no soportados no emergen)" as c3
+  rectangle "CPP supera baselines posicionales\nen MRD (middle recovery)" as c4
+  rectangle "Ablation no_P0 degrada BCFNR\na 0.70 (causa de pérdida)" as c5
+}
+
+rectangle "Parcialmente soportado" as par <<parcial>> {
+  rectangle "CPP superior en EAS\n(limitado a corpus L2)" as p1
+  rectangle "STR alta en HCORTEX\n(depende de modo audit)" as p2
+}
+
+rectangle "Hipotesis razonable" as hip <<hipotesis>> {
+  rectangle "Beneficio se mantiene\nen corpus L3 adversarial" as h1
+  rectangle "Beneficio se mantiene\nen fase LLM separada" as h2
+}
+
+rectangle "No soportado" as nos <<no_soportado>> {
+  rectangle "CPP mejora razonamiento LLM\n(requiere fase LLM §11)" as n1
+  rectangle "CPP comprime sin perdida\n(literal reconstruction)" as n2
+}
+
+note right of demo
+  Evidencia: 4840 runs
+  Reproducible: hashes + manifest
+end note
+
+note right of nos
+  Prohibido por §1.4
+  (no sobreafirmacion)
+end note
+@enduml

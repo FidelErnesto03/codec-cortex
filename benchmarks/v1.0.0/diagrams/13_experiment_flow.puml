@@ -1,0 +1,42 @@
+@startuml
+title Flujo experimental del benchmark
+
+skinparam activity {
+  BackgroundColor #DBEAFE
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+start
+:Load corpus L2-multidomain;
+:Validate .cortex with cortex verify --strict;
+:Compute SHA-256 hashes;
+
+partition "Por method (11)" {
+  :Select method spec;
+  partition "Por scenario (11)" {
+    :Apply scenario transformation;
+    partition "Por task (40)" {
+      :Extract context under budget;
+      :Tokenize (proxy 3.5-4.0 chars/token);
+      :Compute metrics (EAS, ETC, F1, DA, ...);
+      :Compute survival rates (P0, P1, BCFNR, ...);
+      :Compute evidence density;
+    }
+  }
+}
+
+:Aggregate by method;
+:Aggregate by scenario;
+:Compute derived metrics (MRD, QDD);
+:Generate reports (CSV, JSON, Markdown);
+:Generate diagrams (PUML + matplotlib);
+
+stop
+
+note right
+  Total runs: 11 methods x 11 scenarios x 40 tasks = 4840
+  Deterministic: no LLM calls
+  Reproducible: hashes + manifest
+end note
+@enduml

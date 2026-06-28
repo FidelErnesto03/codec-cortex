@@ -1,0 +1,45 @@
+@startuml
+title Pila canonica CODEC-CORTEX (v0.3.0)
+
+skinparam rectangle {
+  BackgroundColor<<current>> #DBEAFE
+  BackgroundColor<<planned>> #FEF3C7
+  BackgroundColor<<future>> #FEE2E2
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Universal Skill\n(SKILL.md, SKILL.cortex)\nAdoption layer" as skill <<current>>
+rectangle ".cortex format\nStructured contextual memory\nsurvive P0-P5" as cortex <<current>>
+rectangle "HCORTEX\nHuman-readable render\n(Markdown auditable)" as hcortex <<current>>
+rectangle "Deterministic Codec\nCLI v1.1.9: verify, render,\nCRUD, doctor, diff, format" as codec <<current>>
+rectangle "Memory Runtime\nWRK/SES/LNG lifecycle" as runtime <<planned>>
+rectangle "Enterprise MCP\nGovernance + audit" as mcp <<future>>
+
+skill --> cortex : defines discipline
+cortex --> hcortex : renders for humans
+cortex --> codec : automated maintenance
+codec --> runtime : managed lifecycle
+runtime --> mcp : enterprise exposure
+
+note right of cortex
+  Priority Pack:
+  P0: FCS/OBJ/CNST/STP (inmutable)
+  P1: WRK/AUD/RSK/NXT
+  P2: CLAIM/LIM/KNW:active
+  P3: SES:last/STAT/VAL
+  P4: REF:critical/DOC
+  P5: DIAG/TBL/historico
+end note
+
+note right of codec
+  222 tests passing
+  17 CLI commands
+  cortex verify --strict
+end note
+
+note right of mcp
+  Future enterprise phase
+  Not a current feature
+end note
+@enduml

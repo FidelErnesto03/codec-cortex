@@ -1,0 +1,19 @@
+{
+  "MRD_by_method": {
+    "recent_tail_raw": 0.0,
+    "head_tail_raw": -0.0283,
+    "head_json": -1.4816,
+    "head_markdown_summary": -0.6365,
+    "semantic_field_pack": -0.236,
+    "keyword_retrieval_raw": -2.0356,
+    "cortex_priority_pack_v1": 2.1608,
+    "cortex_priority_pack_adaptive": 2.1608,
+    "cortex_priority_pack_semantic_hybrid": 2.1608,
+    "cortex_ablation_no_P0": -1.1197,
+    "cortex_ablation_no_temporal": 2.1413
+  },
+  "best_positional_middle_score": 4.935,
+  "QDD": -3.9528,
+  "best_passive_score": 7.0283,
+  "best_query_dependent_score": 3.0754
+}

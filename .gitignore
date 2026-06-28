@@ -36,3 +36,8 @@ env/
 
 # DIALECT project root docs (private, not part of public repo)
 ../docs/
+
+# Benchmarks — generated artifacts (reproducible from scripts + PUML sources)
+benchmarks/**/*.png
+benchmarks/**/*.svg
+benchmarks/**/*.pdf

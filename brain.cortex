@@ -74,6 +74,7 @@ SES:cli_documentation{input:"Fidel: actualizacion de documentacion COMPLETA para
 SES:cortex_migration{input:"Formatos .cortex legacy con comentarios # -- sin secciones $N:", output:"brain.cortex, SKILL.cortex, alfred-memory.cortex en formato canonico con $N: headers, 6-column glossary, contratos validos", outcome:"3/3 .cortex pasan cortex verify --strict con 0 errores", date:"2026-06-27"}
 SES:skill_update_v030{input:"Fidel: actualiza tu skill instalado localmente y comienza a operar con v0.3.0", output:"SKILL.md v1.2.0, SKILL.cortex canonico, SKILL.en.md sync copiados a ~/.hermes/skills/codec-cortex/", outcome:"Skill local actualizado a v0.3.0. Operando con CLI.", date:"2026-06-27"}
 SES:enterprise_roadmap{input:"Fidel: verifica todo lo que hace falta para llevar codec-cortex a nivel enterprise", output:"Analisis de brecha E1-E5 documentado en ROADMAP.md. Universal Skill Distribution Protocol en docs/specs/skill-distribution.md. setup.sh creado.", outcome:"Roadmap enterprise completo + protocolo de distribucion universal.", date:"2026-06-27"}
+SES:benchmark_integration{input:"Fidel: benchmark-cortex-v1.0.tar.gz — benchmark formal v1.0.0 desarrollado 2026-06-28", output:"82 archivos versionables extraidos a benchmarks/v1.0.0/. .gitignore actualizado para excluir PNG/SVG/PDF. benchmarks/README.md actualizado con catalogo.", outcome:"Benchmark v1.0.0 integrado como fuentes versionables. Artefactos binarios excluidos de git (GitHub Release).", date:"2026-06-28"}
 
 $4: LESSONS LEARNED
 
@@ -106,6 +107,7 @@ KNW:paths{topic:"Project Paths", content:"repo: ~/Projects/workspace/CODEC-CORTE
 KNW:compression_rules{topic:"HCORTEX Compression Rules", content:"hcortex_compact: !hcortex_profile, !hcortex_source, !hcortex_multi, !hcortex_expand, !hcortex_order. survive_rules: !survive_priority, !survive_degrade, !survive_status. filter: !p5_filter", status:"current"}
 KNW:skill_architecture_knowledge{topic:"SKILL Architecture Knowledge", content:"6-layer stack: Skill->.cortex->HCORTEX->Codec->Runtime->MCP. .cortex tiene survive P0-P5 + attrs-pos + 10-step HCORTEX", status:"current"}
 KNW:degradation_flow_knowledge{topic:"Degradation Flow Knowledge", content:"Degradacion FULL->MIN: drop P5->P4->P3 en WORK, keep KNW:LNG activos, solo P0 en MIN. CNST:blocking nunca desaparece. Bidireccional en recuperacion", status:"current"}
+KNW:benchmark_v1{topic:"Benchmark v1.0.0", content:"Formal scientific benchmark. 11 metodos x 11 escenarios x 40 tareas = 4,840 runs. Corpus L2: 10 dominios x 5 formatos. 15 metricas canonicas. Hallazgos: CPP preserva 100% P0 (BCFNR=0, UCFPR=0), MRD=+2.16, QDD=-3.95. CODEC v0.3.0 + CLI v1.1.9.", status:"current"}
 DIAG:skill_architecture{
 caption:"CODEC-CORTEX Canonical Stack v0.2.3",
 source:"SKILL.cortex $6",
@@ -170,7 +172,7 @@ $8: CLAIMS AND LIMITS
 CLAIM:survival_core{statement:"CODEC-CORTEX Survival Core esta especificado, ejecutado y liberado como v0.3.0 (MINOR). CLI v1.1.9 integrado con 222 tests.", evidence:"CLI en cli/. 3/3 .cortex validados. SKILL.md v1.2.0. CHANGELOG 0.3.0.", status:"current"}
 CLAIM:release_v030{statement:"v0.3.0 es un release MINOR legitimo bajo semver. Agrega CLI funcional con 17 comandos, parser determinista, verifier y renderer HCORTEX.", evidence:"CHANGELOG [0.3.0] con CLI integration. 222 tests pasan. cortex verify --strict pasa en todos los .cortex.", status:"current"}
 LIM:parser_gap{limit:"Sin parser, las reglas P0-P5 y survive se aplican manualmente por instruccion, no por automatizacion", scope:"fase actual pre-codec", status:"current"}
-LIM:benchmark_gap{limit:"Los benchmarks 0.1/0.1b/0.2 son offline/proxy. La automatizacion requiere parser", scope:"fase actual", status:"current"}
+LIM:benchmark_gap{limit:"Los benchmarks 0.1/0.1b/0.2 son offline/proxy. Benchmark v1.0.0 integrado como fuentes versionables en benchmarks/v1.0.0/. La automatizacion completa requiere parser + cortex benchmark command", scope:"fase actual", status:"current"}
 
 $9: REFERENCES
 
@@ -182,6 +184,7 @@ REF:status{PATH:"STATUS.md", purpose:"Truth registry"}
 REF:roadmap{PATH:"ROADMAP.md", purpose:"Phase model"}
 REF:changelog{PATH:"CHANGELOG.md", purpose:"Release history"}
 REF:brain_md{PATH:"brain.md", purpose:"HCORTEX human-readable view of brain.cortex"}
+REF:benchmark_v1{PATH:"benchmarks/v1.0.0/", purpose:"Benchmark cientifico v1.0.0 — corpus, scripts, resultados y reportes HCORTEX"}
 
 $10: AUDIT
 
@@ -191,4 +194,5 @@ AUD:brain_currentness{event:"brain.cortex audit", evidence:"Checked all sigils, 
 AUD:cli_integration{event:"CLI v1.1.9 integration", evidence:"codec-cortex-1.1.9.tar.gz extracted to cli/. 222 tests pass. 17 CLI commands functional.", result:"CLI instalado y funcional. brain.cortex migrado a formato canonico.", date:"2026-06-27"}
 AUD:docs_update{event:"Documentacion completa v0.3.0", evidence:"README v0.3.0/beta, CHANGELOG seccion 0.3.0, STATUS actualizado, ROADMAP Phase 4 current. brain.md/alfred-memory.md regenerados. summary.md actualizado.", result:"Documentacion alineada con CLI v1.1.9 y v0.3.0", date:"2026-06-27"}
 AUD:cortex_migration{event:"Migracion de .cortex a formato canonico", evidence:"brain.cortex, SKILL.cortex, alfred-memory.cortex migrados. cortex verify --strict pasa en los 3 con 0 errores.", result:"Todos los .cortex del proyecto en formato canonico $N: headers", date:"2026-06-27"}
-TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"Estado v0.3.0: CLI integrado, docs actualizados, .cortex canonicos"}
+AUD:benchmark_integration{event:"Integracion benchmark v1.0.0", evidence:"benchmark-cortex-v1.0.tar.gz (2.9 MB). 82 archivos versionables extraidos a benchmarks/v1.0.0/. Solo fuentes textuales: scripts, corpus, PUML, reports, runs CSV/JSON. .gitignore excluye PNG/SVG/PDF.", result:"Benchmark integrado como fuentes versionables. Artefactos binarios para GitHub Release.", date:"2026-06-28"}
+TAG:brain{type:"local operational memory", persistence:"tracked_file", update_reason:"Benchmark v1.0.0 integrado — 82 archivos fuente en benchmarks/v1.0.0/. 3-capas: fuentes en repo, binarios regenerables, distribucion via GitHub Release."}

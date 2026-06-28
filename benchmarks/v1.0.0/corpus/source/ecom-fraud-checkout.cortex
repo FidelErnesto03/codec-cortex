@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2026 Benchmark Corpus
+# SPDX-License-Identifier: MIT
+
+$0: MINIMAL LOCAL GLOSSARY
+
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN  | identity   | attrs | B | Semantic   | Actor identity
+# DOM  | domain     | attrs | B | Semantic   | Operating domain
+# CNST | constraint | attrs | H | Prefrontal  | Hard boundary
+# FCS  | focus      | attrs | H | Working     | Active attention
+# OBJ  | objective  | attrs | H | Working     | Active goal
+# WRK  | work       | attrs | M | Working     | Current state
+# STP  | step       | attrs | M | Working     | Next action
+# NXT  | next       | attrs | M | Working     | Queued action
+# AUD  | audit      | attrs | M | Prefrontal  | Verification record
+# RSK  | risk       | attrs | M | Prefrontal  | Identified risk
+# CLAIM| claim      | attrs | M | Prefrontal  | Verifiable claim
+# LIM  | limit      | attrs | M | Prefrontal  | Explicit limit
+# STAT | status     | attrs | B | Working     | State classifier
+
+$1: IDENTITY
+IDN:system{name:"fraud-detector-v3", role:"realtime decision", vendor:"internal"}
+DOM:project{area:"ecom-fraud-checkout", region:"eu-west", vertical:"fashion"}
+
+$2: OPERATIONAL STATE
+CNST:latency{rule:"decision must return in < 200ms p99", severity:"blocking", survive:"min"}
+CNST:pii{rule:"no PII in application logs", severity:"blocking", survive:"min"}
+FCS:primary{what:"Evaluate transaction tx_88291 risk score", priority:"high", status:"current", survive:"min"}
+OBJ:decide{goal:"Decide block/allow/manual_review para tx_88291", status:"current", success:"decision emitted in <200ms with documented rationale", survive:"min"}
+WRK:state{phase:"scoring", current:"score=0.87 computed, awaiting rule engine", blocked:false, survive:"work"}
+STP:next{action:"Apply rule: score > 0.85 -> block", reason:"score 0.87 supera threshold", owner:"fraud-detector", status:"current", survive:"min"}
+STAT:txn{state:"current", polarity:"current", survive:"min"}
+
+$3: RISKS AND AUDIT
+RSK:false_positive{risk:"Bloquear cliente VIP con score 0.87 falso positivo", impact:"medium", mitigation:"whitelist dominios corporativos conocidos", status:"current", survive:"recovery"}
+AUD:score_log{event:"score computation tx_88291", evidence:"feature_vector hashed", result:"score=0.87 model=fraud-v3", date:"2026-06-28"}
+
+$4: CLAIMS AND LIMITS
+CLAIM:threshold{statement:"score > 0.85 has precision 0.92 in offline eval", evidence:"monthly backtest Q2 2026", status:"current"}
+LIM:throughput{limit:"max 1000 decisions/second", scope:"capacity", status:"current"}
