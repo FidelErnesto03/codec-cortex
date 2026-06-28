@@ -188,7 +188,7 @@ REF:benchmark_v1{PATH:"benchmarks/v1.0.0/", purpose:"Benchmark cientifico v1.0.0
 
 $10: AUDIT
 
-AUD:last_release{event:"Release v0.2.3", evidence:"git tag v0.2.3 pushed, GitHub release created, CHANGELOG updated", result:"Published on github.com/FidelErnesto03/codec-cortex", date:"2026-06-24"}
+AUD:last_release{event:"Release v0.3.0", evidence:"git tag v0.3.0, GitHub release with 2 assets: benchmark-cortex-v1.0.tar.gz (2.9MB) + Benchmark_CODEC_CORTEX_v1.0.pdf (1.9MB)", result:"Published on github.com/FidelErnesto03/codec-cortex/releases/tag/v0.3.0", date:"2026-06-28"}
 AUD:session_outcome{event:"Survival Core refinement + HCORTEX corrections session", evidence:"13 REs approved (RE-004 through RE-013), quality_contract 10/10 on all, zero DRAFT, PUML validated", result:"v0.2.3 released. 5 hcortex rules in $4, 8 render steps in $10. Skill migrated to Hermes+DIALECT", date:"2026-06-24"}
 AUD:brain_currentness{event:"brain.cortex audit", evidence:"Checked all sigils, contracts, survive levels. New sigils: RSK/NXT/CLAIM/LIM. Contracts applied: FCS/OBJ/CNST/STP/WRK", result:"brain.cortex reflects complete cycle state post-RE-013", date:"2026-06-24"}
 AUD:cli_integration{event:"CLI v1.1.9 integration", evidence:"codec-cortex-1.1.9.tar.gz extracted to cli/. 222 tests pass. 17 CLI commands functional.", result:"CLI instalado y funcional. brain.cortex migrado a formato canonico.", date:"2026-06-27"}
