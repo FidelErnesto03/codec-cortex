@@ -13,7 +13,7 @@ CODEC-CORTEX is governed by **Fidel Ernesto Lozada A.** as BDFL (Benevolent Dict
 
 ## The BDFL Role
 
-- Maintains the canonical `skill/SKILL.md` specification
+- Maintains the canonical `skill/hcortex/SKILL_HCORTEX.md` specification
 - Approves or rejects PRs based on protocol consistency
 - Arbitrates disputes about protocol interpretation
 - Represents the project publicly
@@ -48,7 +48,7 @@ spec:   Specification change (MAJOR/MINOR)
 chore:  Maintenance, structure (PATCH)
 ```
 
-Current version: **v0.3.0**
+Current version: **v0.3.1**
 
 ## Contact
 

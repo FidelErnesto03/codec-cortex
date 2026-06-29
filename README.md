@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.3.0 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/SKILL.md">Specification</a></sub>
+  <sub>v0.3.1 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/hcortex/SKILL_HCORTEX.md">Specification</a></sub>
 </p>
 
 ---
@@ -18,7 +18,7 @@ Its native `.cortex` format is designed for dense model consumption. HCORTEX pro
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](LICENSE) |
-| **Version** | 0.3.0 |
+| **Version** | 0.3.1 |
 | **Stage** | Specification / beta |
 
 ---
@@ -94,10 +94,10 @@ end note
 
 ## Quick Start
 
-1. Read `skill/SKILL.md` for the Skill specification.
-2. Load `skill/SKILL.cortex` as the dense native Skill expression.
-3. Use `skill/AGENT.cortex` as the identity entry point.
-4. Copy or adapt `skill/brain.cortex` as a local memory template.
+1. Read `skill/hcortex/SKILL_HCORTEX.md` for the HCORTEX Skill specification.
+2. Load `skill/cortex/SKILL.md` as the dense CORTEX native Skill expression.
+3. Use `skill/cortex/AGENT.md` as the identity entry point.
+4. Copy or adapt `skill/cortex/brain.cortex` as a local memory template.
 5. Render or summarize active context as HCORTEX for human review.
 6. Try `cortex` commands from `cli/`: `cortex --help`, `cortex verify brain.cortex`.
 
@@ -109,7 +109,7 @@ Agents and reviewers that need the project state behind this release can read `b
 
 The **Survival Core** (v0.2.1) adds: `survive` attribute with 4 levels, priority pack P0-P5, conceptual context profiles (MIN/RECOVERY/WORK/FULL), degradation policy, HCORTEX render protocol (5 rules, 8 steps), and source traceability. See `docs/specs/context-survival.md` for the consolidated specification.
 
-For a human-readable HCORTEX view of that same context, read `brain.md`. Use `skill/brain.cortex` as the reusable template for a new local memory file. Use root `brain.cortex` and `brain.md` only as this repository's current context snapshot.
+For a human-readable HCORTEX view of that same context, read `brain.md`. Use `skill/cortex/brain.cortex` as the reusable template for a new local memory file. Use root `brain.cortex` and `brain.md` only as this repository's current context snapshot.
 
 ## Structure
 
@@ -129,8 +129,8 @@ For a human-readable HCORTEX view of that same context, read `brain.md`. Use `sk
 
 | Document | Content | Language |
 |----------|---------|----------|
-| `skill/SKILL.md` | Main Skill specification | ES |
-| `skill/SKILL.en.md` | Main Skill specification | EN |
+| `skill/hcortex/SKILL_HCORTEX.md` | Main HCORTEX Skill specification (canon) | ES |
+| `skill/cortex/SKILL.md` | Dense CORTEX Skill expression | CORTEX |
 | `docs/es/specs/fundamentos.md` | Ontology, axioms, principles, maturation and HCORTEX | ES |
 | `docs/en/specs/fundamentals.md` | Ontology, axioms, principles, maturation and HCORTEX | EN |
 | `docs/es/specs/algoritmo.md` | Parser, verification and planned codec algorithms | ES |

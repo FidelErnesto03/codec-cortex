@@ -9,7 +9,7 @@
 
 **Goal:** make CODEC-CORTEX adoptable by any LLM/SLM through instructions and `.cortex` files.
 
-**Deliverables:** `skill/SKILL.md`, `skill/SKILL.en.md`, `skill/SKILL.cortex`, `skill/AGENT.cortex`, `skill/brain.cortex`.
+**Deliverables:** `skill/hcortex/SKILL_HCORTEX.md`, `skill/cortex/SKILL.md`, `skill/cortex/AGENT.md`, `skill/cortex/brain.cortex`.
 
 **Non-goals:** no Python package, server or MCP bridge required for initial adoption.
 

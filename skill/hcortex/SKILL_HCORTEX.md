@@ -10,7 +10,7 @@ view_schema: 1
 <p align="center">
 <strong>CODEC-CORTEX</strong><br>
 Enterprise Skill Specification — Cognitive Memory Governance & Output Discipline
-<br><sub>SKILL_HCORTEX.md · spec 1.2.0-enterprise-candidate · project 0.3.0 · MIT</sub>
+<br><sub>SKILL_HCORTEX.md · spec 1.2.0-enterprise-candidate · project 0.3.1 · MIT</sub>
 </p>
 
 ---

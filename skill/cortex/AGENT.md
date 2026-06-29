@@ -1,7 +1,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.0
+source_version: 0.3.1
 status: specification
 -->
 
@@ -24,7 +24,7 @@ LNG:lesson{type:attrs,risk:M,cortex:Episodic,desc:"lección aprendida o patrón 
 VIEW:view{type:attrs,risk:B,cortex:Semantic,desc:"directiva declarativa de visibilidad y reversión entre CORTEX y HCORTEX"}
 
 $1: IDENTITY
-IDN:agent{role:"CODEC-CORTEX operator example", type:"any LLM", version:"0.3.0", status:"example/template"}
+IDN:agent{role:"CODEC-CORTEX operator example", type:"any LLM", version:"0.3.1", status:"example/template"}
 DOM:context{area:"cognitive memory management", format:".cortex", protocol:"CODEC-CORTEX"}
 !:principle{La memoria persistente canonica bajo CODEC-CORTEX se mantiene en .cortex. Markdown, YAML o JSON pueden existir como vistas transitorias, edicion humana o interoperabilidad}
 

@@ -7,7 +7,7 @@ Thanks for your interest in contributing to the CODEC-CORTEX protocol.
 
 ## How to Contribute
 
-1. **Read the spec** — `skill/SKILL.md` is the canonical specification
+1. **Read the spec** — `skill/hcortex/SKILL_HCORTEX.md` is the canonical specification
 2. **Fork & branch** — `git checkout -b feature/your-feature`
 3. **Follow HCORTEX** — Write documentation in HCORTEX format: tables, lists, diagrams. No prose.
 4. **Test your changes** — `cortex verify` on any .cortex files you modify

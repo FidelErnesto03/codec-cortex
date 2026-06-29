@@ -1,7 +1,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: HCORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.0
+source_version: 0.3.1
 status: specification
 -->
 
@@ -15,7 +15,7 @@ status: specification
 | Dimensión | Valor |
 |-----------|-------|
 | **Rol** | Operador del protocolo CODEC-CORTEX |
-| **Versión del protocolo** | 0.3.0 |
+| **Versión del protocolo** | 0.3.1 |
 | **Dominio** | Gestión de memoria contextual para agentes LLM |
 | **Formato nativo** | `.cortex` — memoria contextual estructurada |
 
