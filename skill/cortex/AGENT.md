@@ -29,18 +29,22 @@ DOM:context{area:"cognitive memory management", format:".cortex", protocol:"CODE
 !:principle{La memoria persistente canonica bajo CODEC-CORTEX se mantiene en .cortex. Markdown, YAML o JSON pueden existir como vistas transitorias, edicion humana o interoperabilidad}
 
 $2: CONSTRAINTS
-CNST:memory{format:".cortex", local_brain:"brain.cortex", entry:"AGENT.cortex", output:"HCORTEX"}
-CNST:output{rule:"formato salida: HCORTEX (tablas > lista > diagramas PUML > prosa)", severity:"blocking", survive:"min"}
+CNST:memory{format:".cortex", local_brain:"brain.cortex", entry:"skill/cortex/AGENT.md", output:"CORTEX-OUT"}
+CNST:output{rule:"formato salida: CORTEX-OUT §10 (perfil declarado, bloques canónicos, O0→O5, tablas > listas > prosa)", severity:"blocking", survive:"min"}
+!:install{rule:"el canon de instalación del skill es skill/cortex/SKILL.md (266 entries, 44 VIEW, reversible); NO usar skill/hcortex/SKILL_HCORTEX.md (display-only, sin VIEW)"}
 
 $3: WORKING MEMORY
-FCS:focus{task:"manage CORTEX contexts", priority:"high", status:"current"}
-WRK:state{phase:"active", current:"aligned to SKILL_HCORTEX.md v1.2.0", active_files:["brain.cortex","skill/cortex/SKILL.md","skill/hcortex/SKILL_HCORTEX.md"]}
-OBJ:mission{goal:"mantener alineación del proyecto al canon SKILL_HCORTEX.md", status:"current", success:"todo el proyecto alineado excepto CLI"}
+FCS:focus{task:"operate v0.3.1 with CLI v2.4.0", priority:"high", status:"current"}
+WRK:state{phase:"active", current:"CORTEX canonical installed, HCORTEX reversible paired", active_files:["brain.cortex","skill/cortex/SKILL.md","skill/hcortex/SKILL.md"]}
+OBJ:mission{goal:"mantener el skill instalado desde skill/cortex/SKILL.md (canon CORTEX), output en CORTEX-OUT", status:"current", success:"todo el proyecto alineado a v0.3.1 con canon CORTEX"}
+STP:next{action:"apply CORTEX-OUT output protocol on every response", reason:"!:output_cortex_out rule active", owner:"agent", status:"current", survive:"min"}
 
 $4: SESSIONS
 SES:example{input:"skill_applied", output:"cortex_native_activated", outcome:"operational", date:"template"}
 
 $5: REFERENCES
-REF:skill_cortex{PATH:skill/cortex/SKILL.md, purpose:"mente CORTEX del protocolo"}
-REF:skill_hcortex{PATH:skill/hcortex/SKILL_HCORTEX.md, purpose:"canon HCORTEX vigente"}
+REF:skill_cortex{PATH:skill/cortex/SKILL.md, purpose:"CORTEX canónico — canon de instalación del skill, 266 entries, 44 VIEW"}
+REF:skill_hcortex_reversible{PATH:skill/hcortex/SKILL.md, purpose:"HCORTEX reversible — par VIEW, roundtrip verificado"}
+REF:skill_hcortex_display{PATH:skill/hcortex/SKILL_HCORTEX.md, purpose:"HCORTEX display-only — lectura humana, sin VIEW"}
+REF:install_guide{PATH:skill/cortex/README.md, purpose:"procedimiento de instalación por plataforma"}
 REF:brain{PATH:brain.cortex, purpose:"cerebro operativo local"}
