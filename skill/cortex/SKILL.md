@@ -1,7 +1,7 @@
 ```markdown
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
-source_artifact: skill/hcortex/SKILL_HCORTEX.md
+source_artifact: skill/hcortex/SKILL.md
 source_version: 1.2.0-enterprise-candidate
 status: specification
 -->
@@ -32,8 +32,7 @@ PFL:pitfall{type:attrs,risk:M,cortex:Prefrontal,desc:"antipatrón conocido y pre
 DEP:dependency{type:attrs,risk:M,cortex:Semantic,desc:"dependencia entre artefactos/módulos"}
 DESC:description{type:cuerpo,risk:B,cortex:Semantic,desc:"descripción textual estructurada"}
 ERR:error{type:attrs,risk:M,cortex:Prefrontal,desc:"error conocido con causa y solución"}
-VIEW:view{type:attrs,risk:B,cortex:Semantic,desc:"directiva declarativa de visibilidad y reversión entre CORTEX y HCORTEX"}
-| $0:type_attrs{rule:"pares clave:valor o clave:\"valor\" dentro de {}"}
+$0:type_attrs{rule:"pares clave:valor o clave:\"valor\" dentro de {}"}
 $0:type_cuerpo{rule:"texto literal entre {}"}
 $0:type_bloque{rule:"multilinea verbatim"}
 $0:type_attrs_pos{rule:"valores posicionales separados por |; orden definido en $0"}
@@ -90,7 +89,7 @@ $0:enum_risk_level{values:"B,M,H"}
 $0:delimiters{values:"espacio | , { } salto_de_linea inicio_de_valor fin_de_valor"}
 
 $1
-IDN:project{name:"CODEC-CORTEX",author:"Fidel Ernesto Lozada A.",version:"1.2.0-enterprise-candidate",license:MIT,spec:"1.2.0-enterprise-candidate",project:"0.3.1"}
+IDN:project{name:"CODEC-CORTEX",author:"Fidel Ernesto Lozada A.",version:"1.2.0-enterprise-candidate",license:MIT,spec:"1.2.0-enterprise-candidate",project:"0.3.0"}
 DOM:scope{domain:"protocolo de memoria contextual para agentes LLM/SLM",lang_struct:"EN",lang_semantic:"idioma del dominio o usuario",output_human:"HCORTEX=render memoria; CORTEX-OUT=respuesta conversacional"}
 TAG:meta{category:"META-SKILL",nature:"gobierno cognitivo",target:"LLM/SLM agents"}
 REF:art_skill_root{path:"SKILL.md",role:"spec humana canónica"}
@@ -306,8 +305,6 @@ CNST:contract_lng{rule:"LNG requiere type,cause,lesson,prevention; no convertir 
 CNST:contract_knw{rule:"KNW requiere topic,content,status; no mezclar con estado transitorio",severity:warning,survive:full}
 CNST:contract_hdl{rule:"HDL requiere posición definida por $0 (operation|status|requires|notes); no presentar handler planificado como implementado",severity:warning,survive:min}
 CNST:contract_diag{rule:"DIAG requiere bloque verbatim válido; no reformatear bit a bit",severity:blocking,survive:min}
-$0:contract_view{pos:"kind|target|reverse|status"}
-CNST:contract_view{rule:"VIEW requiere kind,target,reverse,status; no declarar HCORTEX canónico sin cobertura de reversión",severity:warning,survive:full}
 
 $8
 !survive_priority{rule:"P0→min, P1→rec, P2→wrk, P3→reduced, P4→basic, P5→full",survive:min}
@@ -389,4 +386,50 @@ AXM:out_guiding{La comunicación saliente debe maximizar utilidad cognitiva por 
 !out_no_parse{rule:"MUST NOT tratarse como .cortex; MUST NOT crear sigilos, alterar $0, ni requerir contratos de parseo",survive:min}
 CNST:out_naming{rule:"nombre canónico CORTEX-OUT; HCORTEX-OUT NO DEBE usarse como nombre canónico",severity:warning,survive:full}
 KNW:out_blocks{topic:"bloques canónicos CORTEX-OUT",content:"Resultado:respuesta directa/veredicto, siempre que haya conclusión | Criterio:juicio técnico/decisión razonada, diseño/análisis/revisión | Evidencia:hechos/citas/datos verificables, auditoría/benchmark/revisión crítica | Riesgo:problemas/incoherencias/límites/impacto, decisiones críticas o incertidumbre | Acción:próximo paso/instrucción/recomendación, cuando exista continuidad operativa | Límite:qué no se sabe/no se hizo/no debe asumirse, incertidumbre o falta de evidencia | Entrega:artefacto final/código/texto/tabla/documento, OUT-FULL o artefactos reutilizables | Control:qué se modificó/qué pendiente/qué validar, cierre de trabajos largos. Usar solo bloques que agreguen valor; 1-2 bloques es correcto si resuelve la tarea",status:cur}
+
+$13
+VIEW:sigils_canonicos{kind:"table",target:"$0:canonical_sigils",reverse:"rows_to_entries",status:cur,title:"Sigilos Canónicos"}
+VIEW:type_decls{kind:"kv_table",target:"$0:type_decls",reverse:"row_to_attrs",status:cur,title:"Declaraciones de Tipo"}
+VIEW:contracts_decl{kind:"table",target:"$0:contracts",reverse:"rows_to_entries",status:cur,title:"Contratos Posicionales"}
+VIEW:microtokens_decl{kind:"table",target:"$0:microtokens",reverse:"rows_to_entries",status:cur,title:"Microtokens"}
+VIEW:enum_state_decl{kind:"kv_table",target:"$0:enum_state",reverse:"row_to_attrs",status:cur,title:"Enum: state"}
+VIEW:enum_severity_decl{kind:"kv_table",target:"$0:enum_severity",reverse:"row_to_attrs",status:cur,title:"Enum: severity"}
+VIEW:enum_priority_decl{kind:"kv_table",target:"$0:enum_priority",reverse:"row_to_attrs",status:cur,title:"Enum: priority"}
+VIEW:enum_risk_level_decl{kind:"kv_table",target:"$0:enum_risk_level",reverse:"row_to_attrs",status:cur,title:"Enum: risk_level"}
+VIEW:delimiters_decl{kind:"kv_table",target:"$0:delimiters",reverse:"row_to_attrs",status:cur,title:"Delimiters"}
+VIEW:axiom_canonical_decl{kind:"prose",target:"$0:AXM:axiom",reverse:"body_to_cuerpo",status:cur,title:"AXM (canonical declaration)"}
+VIEW:desc_canonical_decl{kind:"prose",target:"$0:DESC:description",reverse:"body_to_cuerpo",status:cur,title:"DESC (canonical declaration)"}
+VIEW:diag_canonical_decl{kind:"puml",target:"$0:DIAG:diagram",reverse:"verbatim_to_bloque",status:cur,title:"DIAG (canonical declaration)",preserve:"verbatim"}
+VIEW:project_identity{kind:"kv_table",target:"$1:IDN:project",reverse:"row_to_attrs",status:cur,title:"Identidad del Proyecto"}
+VIEW:project_scope{kind:"kv_table",target:"$1:DOM:scope",reverse:"row_to_attrs",status:cur,title:"Alcance del Proyecto"}
+VIEW:project_meta_tags{kind:"kv_table",target:"$1:TAG:meta",reverse:"row_to_attrs",status:cur,title:"Meta Tags"}
+VIEW:project_refs{kind:"table",target:"$1:REF:*",reverse:"rows_to_entries",status:cur,fields:"path,role,encoding",title:"Referencias de Artefactos"}
+VIEW:purpose_desc{kind:"prose",target:"$2:DESC:purpose",reverse:"body_to_cuerpo",status:cur,title:"Propósito"}
+VIEW:meta_skill_desc{kind:"prose",target:"$2:DESC:meta_skill",reverse:"body_to_cuerpo",status:cur,title:"Naturaleza Meta-Skill"}
+VIEW:axiom_canon{kind:"prose",target:"$2:AXM:canon",reverse:"body_to_cuerpo",status:cur,title:"Axima Canon"}
+VIEW:axiom_guiding{kind:"prose",target:"$2:AXM:guiding",reverse:"body_to_cuerpo",status:cur,title:"Axima Guía"}
+VIEW:knowledge_base{kind:"table",target:"$2:KNW:*",reverse:"rows_to_entries",status:cur,fields:"topic,content,status",title:"Conocimiento Base"}
+VIEW:constraints_purpose{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints de Propósito"}
+VIEW:handlers{kind:"table",target:"$3:HDL:*",reverse:"rows_to_entries",status:cur,fields:"operation,status,requires,notes",title:"Handlers Operacionales"}
+VIEW:rules_normalization{kind:"numbered_list",target:"$4:!:*",reverse:"items_to_ordered_entries",status:cur,fields:"rule,survive",title:"Reglas de Normalización"}
+VIEW:constraints_separators{kind:"table",target:"$5:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints de Separadores"}
+VIEW:limits_op{kind:"table",target:"$5:LIM:*",reverse:"rows_to_entries",status:cur,fields:"limit,scope,status",title:"Límites Operacionales"}
+VIEW:risks_op{kind:"callout",target:"$5:RSK:*",reverse:"callout_to_risk",status:cur,fields:"risk,impact,mitigation,status,survive",title:"Riesgos Operacionales"}
+VIEW:pitfalls_op{kind:"table",target:"$5:PFL:*",reverse:"rows_to_entries",status:cur,fields:"pattern,prevention,severity",title:"Pitfalls Operacionales"}
+VIEW:diagrams{kind:"puml",target:"$6:DIAG:*",reverse:"verbatim_to_bloque",status:cur,title:"Diagramas Arquitectónicos",preserve:"verbatim"}
+VIEW:contracts_full{kind:"table",target:"$7:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Contratos Completos"}
+VIEW:survive_rules{kind:"list",target:"$8:!:*",reverse:"items_to_entries",status:cur,fields:"rule,survive",title:"Reglas de Survive"}
+VIEW:survive_knowledge{kind:"kv_table",target:"$8:KNW:*",reverse:"row_to_attrs",status:cur,title:"Conocimiento de Survive"}
+VIEW:profiles{kind:"table",target:"$9:KNW:*",reverse:"rows_to_entries",status:cur,fields:"topic,content,status",title:"Perfiles Cognitivos"}
+VIEW:degrade_rules{kind:"list",target:"$10:!:*",reverse:"items_to_entries",status:cur,fields:"rule,survive",title:"Reglas de Degradación"}
+VIEW:hcortex_def{kind:"prose",target:"$11:DESC:hcortex_def",reverse:"body_to_cuerpo",status:cur,title:"Definición HCORTEX"}
+VIEW:hcortex_knowledge{kind:"kv_table",target:"$11:KNW:*",reverse:"row_to_attrs",status:cur,title:"Conocimiento HCORTEX"}
+VIEW:hcortex_rules{kind:"list",target:"$11:!:*",reverse:"items_to_entries",status:cur,fields:"rule,survive",title:"Reglas HCORTEX"}
+VIEW:hcortex_constraints{kind:"table",target:"$11:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints HCORTEX"}
+VIEW:hcortex_pitfalls{kind:"table",target:"$11:PFL:*",reverse:"rows_to_entries",status:cur,fields:"pattern,prevention,severity",title:"Pitfalls HCORTEX"}
+VIEW:out_def{kind:"prose",target:"$12:DESC:out_def",reverse:"body_to_cuerpo",status:cur,title:"Definición CORTEX-OUT"}
+VIEW:out_axiom{kind:"prose",target:"$12:AXM:out_guiding",reverse:"body_to_cuerpo",status:cur,title:"Axima CORTEX-OUT"}
+VIEW:out_rules{kind:"list",target:"$12:!:*",reverse:"items_to_entries",status:cur,fields:"rule,survive",title:"Reglas CORTEX-OUT"}
+VIEW:out_constraints{kind:"kv_table",target:"$12:CNST:out_naming",reverse:"row_to_attrs",status:cur,title:"Constraints CORTEX-OUT"}
+VIEW:out_knowledge{kind:"kv_table",target:"$12:KNW:out_blocks",reverse:"row_to_attrs",status:cur,title:"Conocimiento CORTEX-OUT"}
 ```
