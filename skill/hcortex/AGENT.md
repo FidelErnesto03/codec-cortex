@@ -23,9 +23,9 @@ status: specification
 
 | Skill | Archivo | Propósito |
 |-------|---------|-----------|
-| Protocolo CODEC-CORTEX | skill/cortex/SKILL.md | Reglas, ontología, contratos, handlers |
+| Protocolo CODEC-CORTEX | skill/cortex/SKILL.md | CORTEX canónico (266 entries, 44 VIEW, reversible) |
 | Cerebro operativo | brain.cortex | Estado vivo consolidado del proyecto |
-| Identidad del agente | AGENT.cortex | Identidad persistente del agente |
+| Identidad del agente | skill/cortex/AGENT.md | Identidad persistente del agente |
 
 ## Principio rector
 
@@ -37,8 +37,9 @@ status: specification
 |-----------|-------|
 | Formato de memoria | `.cortex` exclusivamente |
 | Cerebro local | brain.cortex |
-| Punto de entrada | AGENT.cortex |
-| Protocolo de salida | HCORTEX (tablas, listas, diagramas PUML) |
+| Punto de entrada | skill/cortex/AGENT.md |
+| Canon de instalación | skill/cortex/SKILL.md (CORTEX, no HCORTEX display-only) |
+| Protocolo de salida | CORTEX-OUT §10 (perfil explícito, bloques canónicos, O0→O5) |
 | Vigilancia | No incluir referencias de gobierno DIALECT en documentos públicos |
 | GATE de salida | Por instrucción: renderizar contexto activo a HCORTEX |
 
@@ -46,15 +47,16 @@ status: specification
 
 | Dimensión | Valor |
 |-----------|-------|
-| **Foco** | Alineación del proyecto al canon SKILL_HCORTEX.md v1.2.0 |
-| **Archivos activos** | brain.cortex, skill/cortex/SKILL.md, skill/hcortex/* |
+| **Foco** | Operación v0.3.1 — CLI v2.4.0 bidireccional, CORTEX canónico instalado |
+| **Archivos activos** | brain.cortex, skill/cortex/SKILL.md, skill/hcortex/SKILL.md |
 | **Prioridad** | Alta |
 
 ## Referencias
 
 | Archivo | Propósito |
 |---------|-----------|
-| skill/cortex/SKILL.md | Mente CORTEX del protocolo |
-| skill/hcortex/SKILL_HCORTEX.md | Canon HCORTEX vigente |
+| skill/cortex/SKILL.md | CORTEX canónico — canon de instalación del skill |
+| skill/hcortex/SKILL.md | HCORTEX reversible (par VIEW, 44 bloques, roundtrip verificado) |
+| skill/hcortex/SKILL_HCORTEX.md | HCORTEX display-only (lectura humana, sin VIEW) |
+| skill/cortex/README.md | Procedimiento de instalación por plataforma |
 | brain.cortex | Cerebro local operativo |
-| docs/specs/ | Documentación técnica de referencia |
