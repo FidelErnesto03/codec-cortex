@@ -1,5 +1,14 @@
+<!-- CODEC-CORTEX
+internal_encoding: HCORTEX
+source_artifact: skill/SKILL.md
+source_version: 1.2.0-enterprise-candidate
+status: deprecated
+-->
+
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
+
+> **NOTA:** Este documento es la versión histórica. El canon vigente es `skill/hcortex/SKILL_HCORTEX.md` (v1.2.0-enterprise-candidate). Este archivo se mantiene como referencia, pero todo desarrollo y auditoría debe usar SKILL_HCORTEX.md como fuente de verdad.
 
 <p align="center">
   <strong>CODEC-CORTEX</strong><br>
@@ -26,19 +35,54 @@
 | **Lenguaje estructural** | Inglés para sigilos, etiquetas, handlers, nombres técnicos y contratos parseables |
 | **Lenguaje semántico** | Idioma del dominio o del usuario |
 | **Salida humana** | HCORTEX para render de memoria; CORTEX-OUT para respuesta conversacional eficiente |
+| **Contenedores legibles por agentes** | Archivos `.md` pueden declarar codificación interna `CORTEX` o `HCORTEX` mediante encabezado inicial |
 
 ### 0.1 Relación con otros artefactos
 
 | Artefacto | Naturaleza | Responsabilidad |
 |---|---|---|
 | `SKILL.md` | Especificación humana canónica | Explica arquitectura, reglas, operación, gobierno y contratos |
-| `SKILL.cortex` | Mente comprimida del protocolo | Forma densa derivada de este documento; no contiene estado vivo |
+| `skill/cortex/SKILL.md` | Mente CORTEX del protocolo | Forma densa en contenedor Markdown con `internal_encoding:CORTEX`; no contiene estado vivo |
+| `skill/hcortex/SKILL.md` | Vista HCORTEX del protocolo | Vista humana canónica en contenedor Markdown con `internal_encoding:HCORTEX` |
 | `brain.cortex` | Cerebro operativo local | Estado persistente de trabajo: `FCS`, `OBJ`, `WRK`, `STP`, `NXT`, sesiones y aprendizaje |
 | `*.cortex` packages | Paquetes de contexto | Contexto transportable, sin ciclo de vida propio hasta ser absorbido por Nivel 2 |
 | `HCORTEX` | Vista humana de memoria | Render Markdown auditable y legible de `.cortex`; no es memoria canónica |
 | `CORTEX-OUT` | Política de salida conversacional | Formato independiente, inspirado en HCORTEX, para respuestas eficientes; no participa en decode/encode/verify |
 | `STATUS.md` | Registro de verdad | Declara qué existe, qué está planificado y qué es futuro |
 | `BENCHMARK.md` | Evidencia empírica | Declara métricas medidas, datasets, metodología, resultados y límites |
+
+### 0.1.1 Contenedor Markdown y codificación interna
+
+Para mejorar la adopción por modelos estandarizados, CODEC-CORTEX distingue entre extensión física del archivo y codificación interna del contenido.
+
+Un archivo con extensión `.md` PUEDE contener:
+
+| Codificación interna | Uso | Directorio recomendado |
+|---|---|---|
+| `CORTEX` | Memoria estructurada, densa y parseable para agentes | `skill/cortex/` |
+| `HCORTEX` | Vista humana Markdown, auditable y legible | `skill/hcortex/` |
+
+Todo archivo `.md` que use codificación interna `CORTEX` o `HCORTEX` DEBE declarar esa codificación al inicio del archivo, antes del contenido semántico.
+
+Formato mínimo de encabezado:
+
+```text
+<!-- CODEC-CORTEX
+internal_encoding: CORTEX|HCORTEX
+source_artifact: <logical-source>
+source_version: <protocol-version>
+status: current|specification|planned|future|experimental|deprecated
+-->
+```
+
+Reglas:
+
+* la extensión `.md` optimiza lectura, indexación y aceptación por agentes estándar;
+* `internal_encoding:CORTEX` indica que el contenido debe interpretarse con reglas `.cortex`;
+* `internal_encoding:HCORTEX` indica que el contenido es vista humana y no memoria canónica;
+* un archivo `HCORTEX` NO DEBE ser usado como fuente de roundtrip, decode, encode o verify;
+* un archivo `CORTEX` en contenedor `.md` conserva semántica CORTEX aunque su extensión no sea `.cortex`;
+* los derivados DEBEN declarar `source_artifact` y `source_version` para evitar desviaciones de identidad y versión.
 
 ### 0.2 Lenguaje normativo
 
@@ -66,15 +110,33 @@ Todo claim de capacidad DEBE indicar madurez cuando pueda inducir error.
 
 **Regla de honestidad:** ningún documento, agente, README, salida HCORTEX, salida CORTEX-OUT o interfaz comercial DEBE presentar como `current` una capacidad `planned`, `future` o no verificada.
 
+### 0.4 Autoridad de identidad, versión y derivación
+
+CODEC-CORTEX separa identidad de protocolo, identidad de artefacto e identidad operacional.
+
+| Identidad | Dueño | Regla |
+|---|---|---|
+| Proyecto | CODEC-CORTEX | Define nombre del proyecto, autoría, versión normativa y contratos de memoria |
+| Autoría | Fidel Ernesto Lozada A. | Declara origen intelectual y responsabilidad del protocolo |
+| Skill HCORTEX | `skill/hcortex/SKILL.md` | Vista humana canónica para lectura y gobierno normativo |
+| Skill CORTEX | `skill/cortex/SKILL.md` | Forma densa en contenedor `.md` con `internal_encoding:CORTEX` |
+| Cerebro operativo | `brain.cortex` de proyecto o sesión | Contiene estado vivo local, pero no redefine identidad del proyecto |
+
+La versión normativa del protocolo se declara en este documento. Todo derivado DEBE declarar `source_artifact` y `source_version`, y NO DEBE inventar una versión propia salvo que represente un artefacto con ciclo de release independiente.
+
+Las plantillas, ejemplos y fragmentos no operativos DEBEN usar placeholders como `<protocol_version>` o marcarse explícitamente como `example`, `template` o `non_operational`. No DEBEN usar una versión literal que pueda confundirse con la versión vigente.
+
+La identidad `IDN` de artefactos CODEC-CORTEX DEBE corresponder al proyecto, autoría, protocolo o artefacto. NO DEBE representar la identidad funcional de un agente ejecutor, porque múltiples agentes pueden operar sobre el mismo proyecto sin formar parte de su identidad canónica.
+
 ---
 
 # 1. Resumen ejecutivo
 
 CODEC-CORTEX no es un prompt ni solo un formato de archivo. Es un protocolo de memoria contextual para agentes LLM/SLM que reemplaza historia lineal por estado cognitivo estructurado, auditable y gobernable.
 
-El sistema se apoya en seis piezas:
+El sistema se apoya en siete componentes:
 
-1. **Mente (`SKILL.cortex`)**: reglas, ontología, contratos y algoritmos conceptuales.
+1. **Mente (`skill/cortex/SKILL.md`)**: reglas, ontología, contratos y algoritmos conceptuales en codificación interna CORTEX.
 2. **Cerebro operativo (`brain.cortex` + memoria nativa)**: estado vivo de trabajo.
 3. **Paquetes de contexto (`*.cortex`)**: payloads transportables de información.
 4. **Autocontención `$0`**: todo `.cortex` válido incluye un glosario local mínimo para arranque seguro entre agentes.
@@ -95,13 +157,26 @@ runtime madura cuando exista.
 MCP expone empresarialmente cuando exista.
 ```
 
-## 1.2 Problema que resuelve
+## 1.2 META-SKILL
+
+CODEC-CORTEX es un **META-SKILL**: una habilidad de gobierno cognitivo que, al integrarse en el funcionamiento natural de un agente, orienta cómo ese agente gestiona memoria nativa, contexto de trabajo, continuidad, aprendizaje, límites y salida conversacional para cualquier actividad solicitada.
+
+Como META-SKILL, CODEC-CORTEX:
+
+* no reemplaza las habilidades de dominio del agente;
+* gobierna cómo el agente conserva foco, objetivo, restricciones, evidencia, riesgos y próximos pasos;
+* aplica separación entre memoria persistente (`brain.cortex`), contexto transportable (`*.cortex`) y memoria nativa transitoria;
+* usa `skill/cortex/SKILL.md` como mente CORTEX del protocolo y `skill/hcortex/SKILL.md` como vista humana normativa;
+* permite que múltiples agentes operen sobre el mismo proyecto sin insertar su identidad funcional en la identidad canónica del proyecto;
+* debe estar activo por defecto cuando el agente trabaje en continuidad, memoria, contexto largo, aprendizaje operativo o claims de madurez.
+
+## 1.3 Problema que resuelve
 
 Los agentes LLM/SLM pierden continuidad cuando dependen de historial plano. El historial plano mezcla instrucciones, hechos, decisiones, riesgos, progreso, evidencia y referencias. Esa mezcla produce ruido, amnesia, contradicción, pérdida de foco y degradación por posición.
 
 CODEC-CORTEX impone separación de responsabilidades, prioridad cognitiva, render humano auditable y comunicación saliente eficiente.
 
-## 1.3 Principio rector
+## 1.4 Principio rector
 
 > Memoria contextual estructurada antes que historia lineal. El glosario `$0` dicta la sintaxis. El Nivel 2 contiene el estado vivo. HCORTEX permite auditoría humana de memoria. CORTEX-OUT gobierna la respuesta saliente sin participar en el codec. La automatización determinista pertenece al codec/runtime cuando esté implementada y verificada.
 
@@ -118,7 +193,7 @@ title CODEC-CORTEX — Arquitectura de 3 Niveles
 skinparam componentStyle rectangle
 skinparam shadowing false
 
-package "Nivel 1 — MENTE\nSKILL.cortex" as L1 {
+package "Nivel 1 — MENTE\nskill/cortex/SKILL.md\ninternal_encoding:CORTEX" as L1 {
   rectangle "Ontología" as L1A
   rectangle "Sigilos y contratos" as L1B
   rectangle "Reglas y axiomas" as L1C
@@ -172,7 +247,9 @@ RT ..> L3 : valida paquetes
 
 ## 2.2 Nivel 1 — Mente
 
-`SKILL.cortex` DEBE contener solamente:
+`skill/cortex/SKILL.md` DEBE contener la mente CORTEX del protocolo en contenedor Markdown con `internal_encoding:CORTEX`.
+
+La mente CORTEX DEBE contener solamente:
 
 - ontología cognitiva;
 - glosario universal `$0`;
@@ -185,17 +262,17 @@ RT ..> L3 : valida paquetes
 - diagramas normativos;
 - pitfalls y controles.
 
-`SKILL.cortex` MUST NOT contener estado vivo de una sesión.
+La mente CORTEX MUST NOT contener estado vivo de una sesión.
 
 ### Prohibición crítica
 
-Los siguientes sigilos NO DEBEN aparecer en `SKILL.cortex` como estado activo:
+Los siguientes sigilos NO DEBEN aparecer en la mente CORTEX como estado activo:
 
 ```text
 FCS, OBJ, WRK, STP, NXT
 ```
 
-Solo pueden aparecer en `SKILL.cortex` bajo una de estas condiciones:
+Solo pueden aparecer en `skill/cortex/SKILL.md` bajo una de estas condiciones:
 
 | Uso permitido | Requisito |
 |---|---|
@@ -219,6 +296,14 @@ Solo pueden aparecer en `SKILL.cortex` bajo una de estas condiciones:
 - conocimiento activo o promovido (`KNW`).
 
 El agente MUST validar `FCS` y `OBJ` antes de actuar. Si faltan, DEBE detener operación autónoma y solicitar o derivar el foco y objetivo desde el contexto disponible.
+
+Cuando no exista `brain.cortex` operativo, o exista pero no contenga `FCS` y `OBJ` válidos, el agente PUEDE derivar anclajes provisionales desde la solicitud actual para responder o ejecutar una tarea acotada. Esos anclajes son memoria nativa transitoria, no estado persistente de Nivel 2.
+
+El agente MUST NOT escribir `FCS`, `OBJ`, `WRK`, `STP` o `NXT` persistentes salvo que:
+
+* el usuario haya pedido mantener memoria `.cortex`;
+* el proyecto ya opere explícitamente con `brain.cortex`;
+* o el cambio sea parte de un cierre/auditoría de sesión aprobado.
 
 ## 2.4 Nivel 3 — Paquetes de contexto
 
@@ -308,7 +393,7 @@ Todo archivo `.cortex` DEBE iniciar con una sección `$0` local, mínima y autoc
 
 `$0` es el punto de arranque estructural del archivo. Su propósito es permitir que otro agente pueda iniciar lectura, recuperación o trabajo seguro sin depender de memoria oculta, prompts previos, archivos externos o conocimiento implícito del agente que creó el archivo.
 
-`SKILL.cortex` gobierna, especializa y endurece el protocolo, pero NO debe ser una dependencia obligatoria para iniciar la interpretación básica de un `brain.cortex`, paquete `.cortex` o cualquier otro artefacto `.cortex`.
+`skill/cortex/SKILL.md` gobierna, especializa y endurece el protocolo mediante codificación interna CORTEX, pero NO debe ser una dependencia obligatoria para iniciar la interpretación básica de un `brain.cortex`, paquete `.cortex` o cualquier otro artefacto `.cortex`.
 
 Por tanto:
 
@@ -418,7 +503,7 @@ Un archivo `.cortex` sin `$0` puede ser recuperable, pero no debe ser considerad
 
 | Sigilo | Nombre | Tipo | Riesgo | Capa | Descripción |
 |---|---|---|:---:|---|---|
-| `IDN` | identity | `attrs` | B | Semantic | Identidad de skill, agente, humano o sistema |
+| `IDN` | identity | `attrs` | B | Semantic | Identidad de proyecto, autoría, protocolo, artefacto o sistema |
 | `DOM` | domain | `attrs` | B | Semantic | Alcance, dominio y contexto de adopción |
 | `KNW` | knowledge | `attrs` | B | Semantic | Conocimiento base o promovido |
 | `REF` | reference | `attrs` | B | Semantic | Referencia a documento, archivo, repositorio o fuente |
@@ -518,7 +603,7 @@ Las secciones SHOULD usar numeración `$N`.
 |---|---|
 | `$0` | Glosario universal o declaración de herencia |
 | `$1` | Identidad y dominio |
-| `$2` | Contexto operativo, si es `brain.cortex`; propósito, si es `SKILL.cortex` |
+| `$2` | Contexto operativo, si es `brain.cortex`; propósito, si es `skill/cortex/SKILL.md` |
 | `$3` | Operaciones o handlers |
 | `$4` | Reglas |
 | `$5` | Pitfalls, riesgos o límites |
@@ -562,7 +647,7 @@ Campos adicionales están permitidos si no contradicen el contrato mínimo.
 
 | Sigilo | Campos requeridos | Prohibición relevante |
 |---|---|---|
-| `FCS` | `what`, `priority`, `status`, `survive` | No usar como estado vivo en `SKILL.cortex` |
+| `FCS` | `what`, `priority`, `status`, `survive` | No usar como estado vivo en `skill/cortex/SKILL.md` |
 | `OBJ` | `goal`, `status`, `success`, `survive` | No declarar objetivos activos en Nivel 1 |
 | `WRK` | `phase`, `current`, `blocked`, `survive` | No escribir progreso vivo en Nivel 1 o Nivel 3 |
 | `STP` | `action`, `reason`, `owner`, `status`, `survive` | No simular ejecución futura |
@@ -601,7 +686,7 @@ high | medium | low
 
 ## 7.1 Matriz de ubicación permitida
 
-| Sigilo | `SKILL.cortex` Nivel 1 | `brain.cortex` Nivel 2 | Package Nivel 3 |
+| Sigilo | `skill/cortex/SKILL.md` Nivel 1 | `brain.cortex` Nivel 2 | Package Nivel 3 |
 |---|:---:|:---:|:---:|
 | `IDN` | Sí | Sí | Sí |
 | `DOM` | Sí | Sí | Sí |
@@ -626,7 +711,7 @@ high | medium | low
 ## 7.2 Invariantes
 
 1. Nivel 1 MUST NOT almacenar estado vivo de sesión.
-2. Nivel 2 MUST contener el foco y objetivo antes de operar.
+2. Nivel 2 MUST contener foco y objetivo para operación persistente; para tareas acotadas sin `brain.cortex`, el agente MAY operar con anclajes provisionales derivados de la solicitud actual.
 3. Nivel 3 MUST NOT madurar por sí mismo.
 4. HCORTEX MUST NOT reemplazar a `.cortex` como persistencia canónica.
 5. Runtime/CLI/MCP MUST NOT asumirse existente sin confirmación de `STATUS.md` o herramienta real.
@@ -642,14 +727,14 @@ high | medium | low
 title CODEC-CORTEX — Inicio Operativo del Agente
 
 start
-:Leer SKILL.md o SKILL.cortex;
+:Leer SKILL.md con internal_encoding CORTEX o HCORTEX;
 :Identificar reglas de nivel 1;
 :Leer brain.cortex si existe;
 if (FCS y OBJ explícitos?) then (sí)
   :Usar estado activo;
 else (no)
-  :Derivar FCS/OBJ desde instrucciones actuales;
-  :Marcar como provisional si no fue confirmado;
+  :Derivar FCS/OBJ provisionales desde instrucciones actuales;
+  :Mantenerlos en memoria nativa transitoria;
 endif
 :Aplicar restricciones CNST;
 :Seleccionar perfil CORTEX;
@@ -662,8 +747,8 @@ stop
 
 El agente DEBE verificar:
 
-- `FCS` activo;
-- `OBJ` activo;
+- `FCS` activo o provisional;
+- `OBJ` activo o provisional;
 - restricciones `CNST:blocking`;
 - límites `LIM` relevantes;
 - claims de madurez;
@@ -981,9 +1066,9 @@ end note
 @enduml
 ```
 
-## 10.11 Axiomas y reglas derivables a `SKILL.cortex`
+## 10.11 Axiomas y reglas derivables a `skill/cortex/SKILL.md`
 
-Estas reglas pueden derivarse a `SKILL.cortex` usando sigilos ya existentes (`AXM`, `CNST`, `KNW`, `!`). No requieren nuevos sigilos.
+Estas reglas pueden derivarse a `skill/cortex/SKILL.md` usando sigilos ya existentes (`AXM`, `CNST`, `KNW`, `!`). No requieren nuevos sigilos.
 
 ```text
 AXM:out_separation{CORTEX-OUT is independent from HCORTEX. HCORTEX renders .cortex memory; CORTEX-OUT governs conversational responses. CORTEX-OUT does not participate in decode, encode, verify, AST or roundtrip.}
@@ -1112,6 +1197,9 @@ Preservar siempre lo mínimo necesario para actuar con foco, objetivo, restricci
 | Usar `FCS/OBJ/WRK` | Sí | No | `current` | Solo en Nivel 2 |
 | Producir HCORTEX básico | Sí | No | `current/specification` | Manual/asistido por agente |
 | Aplicar P0-P5 manualmente | Sí | No | `current/specification` | Por regla, no por parser |
+| Consolidación manual `WRK -> SES/LNG` | Sí | No | `current/specification` | Requiere valor futuro, no cada mensaje |
+| Detección manual de candidatos | Sí | No | `current/specification` | Puede usar score Fibonacci |
+| Promoción manual con confirmación | Sí | No | `current/specification` | Requiere usuario, evidencia fuerte o política explícita |
 | Verificación formal | Parcial | Sí | `planned` | Requiere AST/parser |
 | Encode/decode automático | No | Sí | `planned` | Fase codec |
 | Patch estructural | No | Sí | `planned` | Fase codec/CLI |
@@ -1197,7 +1285,7 @@ SES --> ARCH : baja relevancia
 
 ## 14.3 Regla de promoción
 
-Un `SES` o `LNG` SHOULD promoverse a `KNW` solo si cumple al menos una condición:
+Un `SES` o `LNG` SHOULD convertirse en candidato de promoción solo si cumple al menos una condición:
 
 - repetición observada;
 - validación humana explícita;
@@ -1205,11 +1293,248 @@ Un `SES` o `LNG` SHOULD promoverse a `KNW` solo si cumple al menos una condició
 - prevención de error crítico;
 - utilidad transversal a más de una sesión.
 
+La promoción efectiva a `KNW` requiere confirmación humana, evidencia fuerte o política explícita. La recurrencia por sí sola detecta candidatos; no decide maduración.
+
 ---
 
-# 15. Métricas, benchmarks y claims
+# 15. Aprendizaje y ascenso contextual
 
-## 15.1 Clasificación obligatoria de métricas
+## 15.1 Principio
+
+CODEC-CORTEX no registra todo lo ocurrido. Actualiza memoria solo para preservar aquello que cambia continuidad, decisión, riesgo, restricción, evidencia, aprendizaje o comportamiento futuro.
+
+El historial se colapsa, no se elimina:
+
+```text
+memoria nativa transitoria -> WRK -> SES/LNG -> CANDIDATE -> KNW
+```
+
+La relevancia contextual asciende por señal acumulada:
+
+```text
+P5 -> P4 -> P3 -> P2 -> P1 -> P0
+```
+
+El ascenso de relevancia no equivale automáticamente a promoción semántica. Una entrada puede subir en prioridad contextual sin convertirse en `KNW`.
+
+## 15.2 Tipos de memoria
+
+| Tipo | Función | Persistencia | Regla |
+|---|---|:---:|---|
+| Memoria nativa transitoria | Estado mental del agente durante la interacción | No | Puede guiar una respuesta, pero no modifica `brain.cortex` |
+| `WRK` | Estado operativo recuperable | Sí | Se actualiza cuando hay progreso que debe sobrevivir |
+| `SES` | Episodio comprimido: input, output, outcome | Sí | Resume lo ocurrido sin convertirlo en regla |
+| `LNG` | Lección, error o patrón observado | Sí | Puede advertir o guiar, pero no es conocimiento estable |
+| `KNW` | Conocimiento validado o promovido | Sí, alta prioridad | Guía comportamiento futuro |
+| `NXT` | Acción pendiente concreta | Sí, operativa | Permite recuperar continuidad |
+
+## 15.3 Cuándo actualizar `brain.cortex`
+
+Actualizar `brain.cortex` cuando el cambio afecte continuidad futura.
+
+| Caso | Sigilos sugeridos | Requiere `AUD` |
+|---|---|:---:|
+| Nueva tarea, foco u objetivo | `FCS`, `OBJ`, `STP` | No, salvo cambio de objetivo mayor |
+| Progreso operativo recuperable | `WRK`, `STP`, `NXT` | Opcional |
+| Bloqueo o riesgo activo | `WRK`, `RSK`, `NXT` | Sí |
+| Cierre de trabajo significativo | `SES`, `NXT` | Sí, si hubo decisión o verificación |
+| Error, desviación o patrón útil | `LNG`, `RSK` | Opcional |
+| Decisión relevante | `AUD`, `REF`, posible `KNW` | Sí |
+| Claim verificado o refutado | `CLAIM`, `AUD`, `REF` | Sí |
+| Límite o constraint nuevo | `CNST` o `LIM`, `AUD` | Sí |
+| Paquete Nivel 3 absorbido | `KNW`, `REF`, `DIAG`, `CLAIM`, `LIM`, `AUD` | Sí |
+| Conocimiento promovido | `KNW`, `AUD`, origen `SES/LNG` | Sí |
+
+No actualizar `brain.cortex` por cada mensaje, preferencia menor, razonamiento descartado, borrador no aprobado o información que no cambie el siguiente trabajo.
+
+## 15.4 Qué nunca se actualiza automáticamente
+
+Un agente o runtime MUST NOT actualizar automáticamente:
+
+- identidad del proyecto, autoría o versión normativa;
+- `AXM` y `CNST:blocking`;
+- claims de madurez, métricas o benchmarks;
+- promoción `SES/LNG -> KNW`;
+- decay, archivo o eliminación de `KNW`;
+- estado vivo (`FCS`, `OBJ`, `WRK`, `STP`, `NXT`) tomado desde paquetes Nivel 3;
+- secretos, credenciales, tokens o claves privadas;
+- conocimiento que contradiga una fuente canónica o decisión humana vigente.
+
+## 15.5 Confirmación humana
+
+El usuario es juez de maduración. La frecuencia detecta candidatos; no decide significado.
+
+La confirmación humana es REQUIRED para:
+
+- promover `SES` o `LNG` a `KNW`;
+- cambiar identidad, autoría, versión o alcance del protocolo;
+- agregar, quitar o endurecer constraints;
+- declarar una capacidad como `current`;
+- degradar, archivar o eliminar `KNW`;
+- resolver conflicto entre `brain.cortex`, paquete externo y solicitud actual;
+- convertir una lección circunstancial en regla general.
+
+## 15.6 Ascenso contextual por Fibonacci
+
+CODEC-CORTEX usa la progresión Fibonacci como umbral de ascenso contextual. La señal no crece linealmente: cada ascenso requiere evidencia más fuerte.
+
+| Score | Estado sugerido | Acción |
+|---:|---|---|
+| 1 | Observado | Mantener en memoria nativa transitoria o `SES` |
+| 2 | Repetición mínima | Registrar como `SES` relevante |
+| 3 | Patrón inicial | Crear o actualizar `LNG` |
+| 5 | Patrón operativo | Marcar `LNG` como candidato |
+| 8 | Conocimiento validable | Solicitar confirmación humana |
+| 13 | Conocimiento promovible | Promover a `KNW` si hay confirmación o evidencia fuerte |
+| 21 | Conocimiento crítico | Elevar prioridad contextual y registrar `AUD` |
+
+### 15.6.1 Señales y pesos
+
+| Señal | Peso |
+|---|---:|
+| Ocurre una vez | 1 |
+| Se repite en la misma sesión | 2 |
+| Se repite en sesiones distintas | 3 |
+| Afecta una decisión real | 5 |
+| Usuario lo valida explícitamente | 8 |
+| Evita error o riesgo importante | 13 |
+| Afecta seguridad, identidad, constraints o claims | 21 |
+
+### 15.6.2 Regla de separación
+
+El score Fibonacci puede elevar relevancia contextual, pero no puede saltarse las compuertas humanas de maduración.
+
+```text
+SES repetido -> LNG candidato
+LNG score >= 8 -> preguntar al usuario
+usuario confirma -> KNW
+KNW score >= 21 -> prioridad contextual alta
+```
+
+## 15.7 Prioridad contextual y P0-P5
+
+El ascenso contextual determina cuánto debe sobrevivir una entrada bajo presión de contexto.
+
+| Prioridad | Uso | Ejemplos |
+|---|---|---|
+| P5 | Contexto extendido | Historia larga, referencias amplias |
+| P4 | Referencia crítica | Fuentes, documentos, artefactos |
+| P3 | Evidencia reciente | `SES:last`, verificaciones recientes |
+| P2 | Honestidad y límites | `CLAIM`, `LIM`, `KNW:active`, `LNG:critical` |
+| P1 | Estado operacional | `WRK`, `AUD`, `RSK`, `NXT` |
+| P0 | Supervivencia crítica | `FCS`, `OBJ`, `CNST:blocking`, `STP` |
+
+Un `KNW` crítico puede influir P1/P0 solo cuando se materializa como riesgo, constraint, foco, objetivo o paso inmediato. P0 no debe llenarse con conocimiento general.
+
+## 15.8 Dinámica de aprendizaje
+
+```puml
+@startuml
+title CODEC-CORTEX — Aprendizaje y Ascenso Contextual
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+state "Memoria nativa\ntransitoria" as RAW
+state "WRK\nTrabajo activo" as WRK
+state "SES\nEpisodio comprimido" as SES
+state "LNG\nLección observada" as LNG
+state "CANDIDATE\nPatrón candidato" as CAND
+state "ASK_USER\nConfirmación humana" as ASK
+state "KNW\nConocimiento promovido" as KNW
+state "PRIORITY_UP\nAscenso P5->P1" as UP
+state "AUD\nRegistro de cambio" as AUD
+state "NXT\nContinuidad pendiente" as NXT
+
+[*] --> RAW : solicitud / interacción
+RAW --> WRK : foco, objetivo, progreso
+WRK --> SES : cierre significativo
+WRK --> LNG : error o patrón útil
+SES --> CAND : score >= 5
+LNG --> CAND : score >= 5
+CAND --> ASK : score >= 8
+ASK --> KNW : usuario confirma
+ASK --> SES : usuario rechaza o posterga
+KNW --> UP : score >= 21 / impacto alto
+UP --> AUD : cambio afecta futuro
+SES --> NXT : queda acción pendiente
+LNG --> NXT : mitigación pendiente
+KNW --> AUD : promoción registrada
+AUD --> [*]
+NXT --> [*]
+
+note right of ASK
+  La frecuencia detecta candidatos.
+  El usuario decide maduración.
+end note
+
+note bottom of UP
+  Ascender prioridad no equivale
+  a convertir automáticamente en KNW.
+end note
+@enduml
+```
+
+## 15.9 Reglas de `LNG`
+
+`LNG` puede existir sin volverse `KNW` cuando:
+
+- nace de un solo episodio;
+- no fue validado por el usuario;
+- puede ser circunstancial;
+- describe error a evitar, no verdad estable;
+- requiere recurrencia;
+- aún no tiene evidencia externa;
+- sirve como advertencia operativa temporal.
+
+Un `LNG` SHOULD incluir causa, lección y prevención. Un `LNG` MUST NOT convertirse en axioma por repetición aislada.
+
+## 15.10 Reglas de `AUD`
+
+`AUD` es obligatorio cuando el cambio afecta comportamiento futuro del agente o confianza del proyecto.
+
+Requiere `AUD`:
+
+- cambio de `OBJ`, `CNST`, `LIM`, `CLAIM`, `RSK` o `KNW`;
+- promoción `SES/LNG -> KNW`;
+- absorción de paquete Nivel 3;
+- cambio de identidad, versión o alcance;
+- verificación de implementación, benchmark o madurez;
+- decisión arquitectónica;
+- corrección de contradicción;
+- rechazo de promoción cuando el candidato podría reaparecer.
+
+`AUD` no reemplaza benchmark. Si el cambio declara métricas, debe referenciar evidencia reproducible.
+
+## 15.11 Algoritmo manual actual
+
+Mientras runtime y automatización de maduración no estén verificados como `current`, el agente aplica este proceso manualmente:
+
+1. Identificar si el hecho afecta continuidad futura.
+2. Clasificarlo como memoria transitoria, `WRK`, `SES`, `LNG`, `NXT`, `RSK`, `CLAIM` o `KNW`.
+3. Estimar score Fibonacci por señales observadas.
+4. Registrar `SES` o `LNG` si hay valor futuro.
+5. Marcar candidato si score >= 5.
+6. Pedir confirmación humana si score >= 8 o si cambia comportamiento futuro.
+7. Promover a `KNW` solo con confirmación, evidencia fuerte o política explícita.
+8. Registrar `AUD` cuando la actualización afecta objetivo, riesgo, constraint, claim, decisión o conocimiento promovido.
+
+## 15.12 Contrato de madurez
+
+| Capacidad | Estado | Regla |
+|---|---|---|
+| Consolidación manual `WRK -> SES/LNG` | `current/specification` | Puede hacerla un agente siguiendo este documento |
+| Detección manual de candidatos | `current/specification` | Puede usar score Fibonacci como criterio |
+| Promoción manual con confirmación | `current/specification` | Requiere usuario, evidencia o política explícita |
+| `detect_recurrence()` automático | `future/runtime` | No asumir implementado |
+| `promote()` automático | `future/runtime` | No promover sin confirmación humana |
+| `decay()` automático | `future/runtime` | No degradar `KNW` sin política verificada |
+
+---
+
+# 16. Métricas, benchmarks y claims
+
+## 16.1 Clasificación obligatoria de métricas
 
 | Clasificación | Uso permitido |
 |---|---|
@@ -1218,7 +1543,7 @@ Un `SES` o `LNG` SHOULD promoverse a `KNW` solo si cumple al menos una condició
 | `hypothesis` | Hipótesis razonable pendiente de prueba |
 | `illustrative` | Ejemplo didáctico, no evidencia |
 
-## 15.2 Métricas recomendadas
+## 16.2 Métricas recomendadas
 
 | Métrica | Definición | Clasificación inicial |
 |---|---|---|
@@ -1229,7 +1554,7 @@ Un `SES` o `LNG` SHOULD promoverse a `KNW` solo si cumple al menos una condició
 | Recovery completeness | P0/P1 recuperados tras interrupción | `target` |
 | Compression side effects | omisiones o distorsiones semánticas detectadas | `measured` solo con benchmark |
 
-## 15.3 Regla anti-overclaim
+## 16.3 Regla anti-overclaim
 
 No se permite decir:
 
@@ -1246,9 +1571,9 @@ HCORTEX ofrece reversibilidad contextual, no reconstrucción textual literal.
 
 ---
 
-# 16. Seguridad, privacidad y cumplimiento
+# 17. Seguridad, privacidad y cumplimiento
 
-## 16.1 Secretos
+## 17.1 Secretos
 
 `.cortex` MUST NOT almacenar secretos en claro:
 
@@ -1265,7 +1590,7 @@ Debe usarse referencia externa segura:
 REF:secret{provider:"vault", key:"ENVX/API_KEY", purpose:"runtime credential"}
 ```
 
-## 16.2 Datos sensibles
+## 17.2 Datos sensibles
 
 Los paquetes Nivel 3 SHOULD minimizar datos personales o sensibles. Si son necesarios, deben declarar:
 
@@ -1275,9 +1600,9 @@ Los paquetes Nivel 3 SHOULD minimizar datos personales o sensibles. Si son neces
 - fuente;
 - restricciones de uso.
 
-## 16.3 Auditoría
+## 17.3 Auditoría
 
-Cambios relevantes en `brain.cortex` SHOULD producir `AUD` cuando afectan:
+Cambios relevantes en `brain.cortex` SHOULD producir `AUD`. `AUD` es obligatorio en los casos definidos por la política de aprendizaje y ascenso contextual, especialmente cuando afectan:
 
 - objetivos;
 - restricciones;
@@ -1288,9 +1613,9 @@ Cambios relevantes en `brain.cortex` SHOULD producir `AUD` cuando afectan:
 
 ---
 
-# 17. Gobierno de cambios
+# 18. Gobierno de cambios
 
-## 17.1 Versionado
+## 18.1 Versionado
 
 CODEC-CORTEX SHOULD usar versionado semántico:
 
@@ -1305,7 +1630,7 @@ MAJOR.MINOR.PATCH[-label]
 | Corrige redacción, ambigüedad o errores sin romper | PATCH |
 | Especificación candidata | `-candidate`, `-rc`, `-alpha` |
 
-## 17.2 Compatibilidad progresiva
+## 18.2 Compatibilidad progresiva
 
 Una entrada `.cortex` válida en versiones previas SHOULD seguir siendo parseable, salvo decisión MAJOR explícita.
 
@@ -1316,7 +1641,7 @@ Si falta un campo nuevo obligatorio, el agente SHOULD:
 3. sugerir migración;
 4. no inventar valor crítico sin evidencia.
 
-## 17.3 Flujo de cambio normativo
+## 18.3 Flujo de cambio normativo
 
 ```puml
 @startuml
@@ -1327,7 +1652,7 @@ start
 :Clasificar impacto MAJOR/MINOR/PATCH;
 :Identificar sigilos y contratos afectados;
 :Actualizar SKILL.md;
-:Derivar SKILL.cortex;
+:Derivar skill/cortex/SKILL.md;
 :Actualizar STATUS.md;
 if (afecta métricas?) then (sí)
   :Actualizar BENCHMARK.md o marcar target;
@@ -1340,32 +1665,39 @@ stop
 
 ---
 
-# 18. Plantillas canónicas
+# 19. Plantillas canónicas
 
-## 18.1 `SKILL.cortex` no operativo
+## 19.1 `skill/cortex/SKILL.md` no operativo
 
 ```text
+<!-- CODEC-CORTEX
+internal_encoding: CORTEX
+source_artifact: skill/hcortex/SKILL.md
+source_version: <protocol_version>
+status: specification
+-->
+
 # -- $0: UNIVERSAL GLOSSARY --
 # Sigil | Name | Type | Risk | Cognitive Layer | Description
 ...
 
 # -- $1: IDENTITY --
-IDN:skill{name:"codec-cortex", version:"1.0.0", status:"specification", nature:"cognitive_memory_protocol"}
+IDN:project{name:"CODEC-CORTEX", author:"Fidel Ernesto Lozada A.", version:"<protocol_version>", status:"specification", nature:"cognitive_memory_protocol", template:true}
 DOM:protocol{area:"LLM/SLM contextual memory", format:".cortex", memory_output:"HCORTEX", conversational_output:"CORTEX-OUT"}
 
 # -- $2: AXIOMS --
 AXM:level_separation{
-SKILL.cortex governs behavior and contracts. It never stores live working state.
+skill/cortex/SKILL.md governs behavior and contracts through internal_encoding:CORTEX. It never stores live working state.
 }
 ```
 
-## 18.2 `brain.cortex` operativo
+## 19.2 `brain.cortex` operativo
 
 ```text
 # -- $0: MINIMAL LOCAL GLOSSARY --
 # Required: every .cortex artifact must be locally self-contained.
 # Sigil | Name | Type | Risk | Cognitive Layer | Description
-IDN   | identity   | attrs | B | Semantic   | Actor or memory identity
+IDN   | identity   | attrs | B | Semantic   | Project, author, protocol or memory identity
 DOM   | domain     | attrs | B | Semantic   | Operating domain or scope
 CNST  | constraint | attrs | H | Prefrontal | Hard operational boundary
 FCS   | focus      | attrs | H | Working    | Active attention anchor
@@ -1388,8 +1720,7 @@ REF   | reference  | attrs | B | Semantic   | File, object or source reference
 # ok=success fail=failure part=partial
 
 # -- $1: IDENTITY --
-IDN:agent{name:"agent", role:"operator"}
-IDN:human{name:"human", role:"architect"}
+IDN:project{name:"project_name", author:"author_name", protocol:"CODEC-CORTEX"}
 DOM:workspace{area:"active work", protocol:"CODEC-CORTEX", artifact:"brain.cortex"}
 
 # -- $2: ACTIVE WORK --
@@ -1402,7 +1733,7 @@ STP:next{action:"next action", reason:"why", owner:"agent", status:"current", su
 CNST:self_contained{rule:"This brain.cortex carries its own minimal $0 and does not require external glossary to begin safe interpretation.", severity:"blocking", survive:"min"}
 ```
 
-## 18.3 Paquete Nivel 3
+## 19.3 Paquete Nivel 3
 
 ```text
 # -- $0: MINIMAL LOCAL GLOSSARY --
@@ -1440,11 +1771,11 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 
 ---
 
-# 19. Pitfalls empresariales
+# 20. Pitfalls empresariales
 
 | Error | Impacto | Prevención |
 |---|---|---|
-| Mezclar `WRK` vivo en `SKILL.cortex` | Rompe separación de niveles | Nivel 1 solo contratos o ejemplos |
+| Mezclar `WRK` vivo en `skill/cortex/SKILL.md` | Rompe separación de niveles | Nivel 1 solo contratos o ejemplos |
 | Presentar CLI planificado como actual | Overclaim de producto | Usar taxonomía de madurez |
 | Decir “sin pérdida” | Claim falso o no demostrado | Usar reversibilidad estructural/contextual |
 | Truncar por posición | Pierde decisiones críticas | Aplicar P5→P1, P0 inmutable |
@@ -1459,9 +1790,9 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 
 ---
 
-# 20. Checklist de conformidad
+# 21. Checklist de conformidad
 
-## 20.1 Para `SKILL.md`
+## 21.1 Para `SKILL.md`
 
 - [ ] Declara versión, licencia y estado.
 - [ ] Distingue Skill, brain, package, HCORTEX, CORTEX-OUT, codec, runtime y MCP.
@@ -1471,12 +1802,13 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 - [ ] Define glosario `$0`.
 - [ ] Define contratos mínimos.
 - [ ] Define P0-P5.
+- [ ] Define política de aprendizaje, consolidación y ascenso contextual.
 - [ ] Define HCORTEX readable/audit.
 - [ ] Define CORTEX-OUT como salida independiente del codec.
 - [ ] Declara límites de métricas.
 - [ ] Incluye gate de salida.
 
-## 20.2 Para `SKILL.cortex`
+## 21.2 Para `skill/cortex/SKILL.md`
 
 - [ ] `$0` es primera sección.
 - [ ] No contiene `FCS/OBJ/WRK/STP/NXT` vivos.
@@ -1489,10 +1821,10 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 - [ ] Prohíbe dependencia obligatoria de glosarios externos para lectura básica.
 - [ ] Define reglas de extensión local de `$0`.
 
-## 20.3 Para `brain.cortex`
+## 21.3 Para `brain.cortex`
 
 - [ ] `$0` local mínimo es la primera sección.
-- [ ] No depende de `SKILL.cortex` para iniciar interpretación básica.
+- [ ] No depende de `skill/cortex/SKILL.md` para iniciar interpretación básica.
 - [ ] Todo sigilo usado está registrado en `$0`.
 - [ ] Todo micro-token usado está declarado en `$0`.
 - [ ] No usa `attrs-pos` sin contrato posicional local.
@@ -1501,10 +1833,11 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 - [ ] Tiene `WRK` si hay trabajo en curso.
 - [ ] Tiene `STP` o `NXT` si hay continuidad pendiente.
 - [ ] Registra `AUD` para cambios relevantes.
+- [ ] No promueve `SES/LNG` a `KNW` sin confirmación, evidencia fuerte o política explícita.
 - [ ] No almacena secretos en claro.
 - [ ] Aplica `survive` en entradas críticas.
 
-## 20.4 Para HCORTEX
+## 21.4 Para HCORTEX
 
 - [ ] Declara perfil.
 - [ ] Omite `$0` salvo auditoría estructural explícita.
@@ -1513,7 +1846,7 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 - [ ] Declara omisiones por presupuesto.
 - [ ] No promete reconstrucción literal.
 
-## 20.5 Para CORTEX-OUT
+## 21.5 Para CORTEX-OUT
 
 - [ ] No se presenta como HCORTEX.
 - [ ] No participa en `decode`, `encode`, `verify`, AST ni roundtrip.
@@ -1526,13 +1859,13 @@ CLAIM:self_contained{claim:"This package includes its own minimal $0 for safe in
 
 ---
 
-# 21. Definición de conformidad
+# 22. Definición de conformidad
 
 Un agente o implementación es conforme a CODEC-CORTEX si cumple:
 
 1. Respeta separación de niveles.
 2. Lee o aplica `$0` como contrato estructural.
-3. No actúa sin `FCS` y `OBJ` en Nivel 2.
+3. No actúa sin `FCS` y `OBJ` persistentes en Nivel 2, o sin anclajes provisionales explícitos cuando no existe Nivel 2 operativo.
 4. No trunca por posición cuando reduce contexto.
 5. Distingue madurez actual, planificada y futura.
 6. Renderiza HCORTEX sin ocultar perfil ni omisiones.
@@ -1540,15 +1873,16 @@ Un agente o implementación es conforme a CODEC-CORTEX si cumple:
 8. No declara métricas no medidas como resultados.
 9. Preserva `DIAG` verbatim.
 10. No guarda secretos en claro.
-11. Mantiene gate de salida hacia HCORTEX.
+11. Aplica la política de aprendizaje y ascenso contextual sin promover `KNW` automáticamente.
+12. Mantiene gate de salida hacia HCORTEX.
 
 ---
 
-# 22. Anexo A — Interface contracts planificados
+# 23. Anexo A — Interface contracts planificados
 
 Esta sección no declara implementación actual. Define contratos esperados para codec/runtime.
 
-## 22.1 Funciones planificadas
+## 23.1 Funciones planificadas
 
 | Función | Entrada | Salida | Estado |
 |---|---|---|---|
@@ -1563,7 +1897,7 @@ Esta sección no declara implementación actual. Define contratos esperados para
 | `promote()` | candidato | `KNW` | `future` |
 | `decay()` | `KNW` | `SES/ARCH` | `future` |
 
-## 22.2 CLI planificada
+## 23.2 CLI planificada
 
 ```text
 cortex decode <file> [--format yaml|hcortex]
@@ -1581,7 +1915,7 @@ cortex decay <file>
 
 ---
 
-# 23. Anexo B — Ejemplo de regla compacta
+# 24. Anexo B — Ejemplo de regla compacta
 
 ```text
 !guard{cond:"before_agent_action", acc:"require FCS and OBJ in level_2", severity:"blocking"}
@@ -1591,7 +1925,7 @@ cortex decay <file>
 
 ---
 
-# 24. Anexo C — Criterio de aceptación para benchmarks
+# 25. Anexo C — Criterio de aceptación para benchmarks
 
 Un benchmark CODEC-CORTEX SHOULD declarar:
 
@@ -1615,7 +1949,7 @@ Un benchmark CODEC-CORTEX SHOULD declarar:
 
 ---
 
-# 25. Anexo D — Cierre canónico
+# 26. Anexo D — Cierre canónico
 
 CODEC-CORTEX es aceptable empresarialmente solo si sostiene dos verdades al mismo tiempo:
 

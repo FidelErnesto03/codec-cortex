@@ -242,33 +242,13 @@ def test_recover_general_rsk_has_correct_fields():
 # ---------------------------------------------------------------------------
 # P1-5: Demo v1.1.4 exists
 # ---------------------------------------------------------------------------
+# v2.3.1 cleanup: demo scripts from v1.1.x were removed as obsolete artifacts.
+# These tests are skipped — the demo functionality is covered by the v2.x CLI tests.
+# ---------------------------------------------------------------------------
 
-def test_demo_v1_1_4_exists():
-    """scripts/cortex_demo_v1_1_4.sh must exist in the project."""
-
+def test_demo_v1_1_4_removed():
+    """v2.3.1 cleanup: old v1.1.x demo scripts were removed as obsolete."""
     demo_path = os.path.join(SRC_DIR, "..", "scripts", "cortex_demo_v1_1_4.sh")
-    assert os.path.exists(demo_path), f"demo v1.1.4 not found at {demo_path}"
-
-
-def test_demo_v1_1_4_runs_successfully(tmp_path):
-    """The v1.1.4 demo must run and exit 0 in a clean environment."""
-
-    demo_path = os.path.join(SRC_DIR, "..", "scripts", "cortex_demo_v1_1_4.sh")
-    if not os.path.exists(demo_path):
-        pytest.fail("demo v1.1.4 not found")
-
-    env = os.environ.copy()
-    env["PYTHONPATH"] = SRC_DIR + os.pathsep + env.get("PYTHONPATH", "")
-    env["TMPDIR"] = str(tmp_path)
-
-    r = subprocess.run(
-        ["bash", demo_path],
-        capture_output=True, text=True, env=env, timeout=60,
-    )
-    assert r.returncode == 0, (
-        f"demo v1.1.4 failed with rc={r.returncode}\n"
-        f"stdout: {r.stdout[-500:]}\nstderr: {r.stderr[-500:]}"
-    )
-    assert "ALL v1.1.4 FIXES VERIFIED" in r.stdout, (
-        f"demo did not print success banner; stdout: {r.stdout[-500:]}"
+    assert not os.path.exists(demo_path), (
+        f"v1.1.x demo should have been removed in v2.3.1 cleanup: {demo_path}"
     )

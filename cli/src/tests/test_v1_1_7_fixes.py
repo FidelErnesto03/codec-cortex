@@ -236,8 +236,8 @@ def test_verify_rejects_cnst_rule_null_cli(tmp_path):
 def test_recover_uses_dedicated_section_when_1_exists():
     """recover must use a free section (not $1) when $1 already exists.
 
-    v1.1.8: the algorithm now scans $1, $2, ... $99, $100, ... to find
-    the first truly free section, rather than hardcoding $99.
+    v1.1.8: the algorithm now scans $1, $2, ... to find the first truly
+    free section, rather than hardcoding $99.
     """
 
     legacy = """\
@@ -254,14 +254,12 @@ $1: EXISTING
 DOM:workspace{area:"existing"}
 """
     result = recover_cortex(legacy, path="legacy.cortex")
-    # $0 should not have operational entries
     sec0 = result.doc.get_section("$0")
     ops_in_zero = [e for e in sec0.entries if e.sigil not in ("GSIG", "GTYP", "GMIC", "GCON")]
     assert len(ops_in_zero) == 0
-    # $1 should still be EXISTING (not overwritten)
     sec1 = result.doc.get_section("$1")
     assert sec1 is not None
-    # Find the RECOVERED CONTENT section (could be $2, $3, etc.)
+    # Find RECOVERED CONTENT section (could be $2, $3, etc.)
     recovery_sec = None
     for s in result.doc.sections:
         if s.title == "RECOVERED CONTENT":
@@ -272,7 +270,6 @@ DOM:workspace{area:"existing"}
     sigils_in_recovery = [e.sigil for e in recovery_sec.entries]
     assert "IDN" in sigils_in_recovery, "IDN:agent should be in recovery section"
     assert "FCS" in sigils_in_recovery, "FCS:primary should be in recovery section"
-    # $1 should still have DOM
     sigils_in_1 = [e.sigil for e in sec1.entries]
     assert "DOM" in sigils_in_1, "DOM:workspace should still be in $1"
 

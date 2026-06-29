@@ -213,121 +213,6 @@ def normalise_legacy_type_name(name: str) -> str:
     return LEGACY_TYPE_ALIASES.get(name.lower(), name)
 
 
-def _canonical_sigil_lookup() -> dict[str, SigilDef]:
-    """Return canonical sigil metadata with enterprise-safe priority.
-
-    Shared sigils appear in several template sets.  Recovery prefers the
-    most operationally generic definition: brain > skill > package.
-    """
-
-    from ..glossary.minimal import brain_sigils, skill_sigils, package_sigils
-
-    lookup: dict[str, SigilDef] = {}
-    for source in (package_sigils(), skill_sigils(), brain_sigils()):
-        for sd in source:
-            lookup[sd.sigil] = sd
-    return lookup
-
-
-def _ensure_canonical_types_and_micro(doc: CortexDocument, diagnostics: List[dict]) -> list[str]:
-    """Ensure the local $0 has the minimum canonical types/micro-tokens.
-
-    v1.1.9: a file may have an existing but incomplete $0.  Recovery must
-    make that local glossary operable instead of only fixing missing $0.
-    """
-
-    added_types: list[str] = []
-    for type_name in CANONICAL_TYPES:
-        if type_name not in doc.glossary.types:
-            doc.glossary.add_type(TypeDef(name=type_name, description="canonical type"))
-            added_types.append(type_name)
-            diagnostics.append({
-                "code": "I005_TYPE_AUTO_DECLARED",
-                "message": f"type {type_name!r} auto-declared while repairing incomplete $0",
-                "type": type_name,
-                "severity": "info",
-            })
-
-    for tok, val in CANONICAL_MICRO.items():
-        if tok not in doc.glossary.micro:
-            doc.glossary.add_micro(MicroDef(token=tok, value=val))
-    return added_types
-
-
-def _repair_incomplete_glossary(doc: CortexDocument, diagnostics: List[dict]) -> list[str]:
-    """Auto-declare observed sigils missing from an existing $0.
-
-    Missing local declarations are a recoverable $0 incompleteness case, not
-    a runtime permission to keep E003_UNKNOWN_SIGIL.  Canonical sigils receive
-    canonical metadata; unknown sigils receive conservative reconstructed
-    metadata and remain auditable via diagnostics/RSK when embedded.
-    """
-
-    added_types = _ensure_canonical_types_and_micro(doc, diagnostics)
-    canonical_lookup = _canonical_sigil_lookup()
-
-    observed_sigils: list[str] = []
-    seen: set[str] = set()
-    for _sec, entry in doc.iter_entries():
-        if entry.sigil in {"GSIG", "GTYP", "GMIC", "GCON"}:
-            continue
-        if entry.sigil not in seen:
-            seen.add(entry.sigil)
-            observed_sigils.append(entry.sigil)
-
-    repaired: list[str] = []
-    noncanonical: list[str] = list(doc.meta.get("reconstructed_sigils", []))
-    for sig in observed_sigils:
-        if sig in doc.glossary.sigils:
-            continue
-        if sig in canonical_lookup:
-            doc.glossary.add_sigil(canonical_lookup[sig])
-        else:
-            doc.glossary.add_sigil(SigilDef(
-                sigil=sig,
-                name=sig.lower(),
-                type="attrs",
-                risk="M",
-                layer="Semantic",
-                description="auto-declared while repairing incomplete $0 (was: unknown)",
-            ))
-            if sig not in noncanonical:
-                noncanonical.append(sig)
-        repaired.append(sig)
-        diagnostics.append({
-            "code": "W012_INCOMPLETE_GLOSSARY_REPAIRED",
-            "message": (
-                f"sigil {sig!r} was used by entries but missing from $0; "
-                "auto-declared during recovery — verify local contract before trusting"
-            ),
-            "sigil": sig,
-            "severity": "warning",
-        })
-
-    if repaired or added_types:
-        doc.meta["repaired_incomplete_glossary"] = True
-        doc.meta["auto_declared_sigils"] = repaired
-        doc.meta["auto_declared_types"] = added_types
-        doc.meta["reconstructed_sigils"] = noncanonical
-
-    return repaired
-
-
-def _first_free_recovery_section_id(doc: CortexDocument) -> str:
-    """Return a section id guaranteed not to exist in ``doc``.
-
-    Recovery must never contaminate an existing section.  Scan until the
-    first free positive integer id; no artificial $999 ceiling.
-    """
-
-    n = 1
-    while True:
-        candidate = f"${n}"
-        if doc.get_section(candidate) is None:
-            return candidate
-        n += 1
-
-
 # Legacy declaration regex that accepts EITHER the new 6-column form
 # (Sigil | Name | Type | Risk | Layer | Description) or the legacy
 # 5-column form (Sigil | Name | Expansion | Risk | Description).
@@ -460,11 +345,6 @@ def recover_cortex(
             })
             sd.type = new_type
 
-    # v1.1.9: repair an existing but incomplete $0 by auto-declaring
-    # observed sigils and canonical types before validation/rendering.
-    # This closes the recovery gap where $0 existed but omitted KNW/RSK/etc.
-    auto_declared_sigils = _repair_incomplete_glossary(doc, diagnostics)
-
     # Emit RSK for every reconstructed sigil
     if doc.meta.get("reconstructed_glossary"):
         for sigil in doc.meta.get("reconstructed_sigils", []):
@@ -482,7 +362,6 @@ def recover_cortex(
     # existed.  The SKILL says $0 is structural metadata only; if a legacy
     # file has operational entries mixed into $0, recovery must separate
     # them into a proper operational section.
-    # v1.1.7 P1-4: if $1 already exists, use a dedicated recovery section.
     # v1.1.8 Fix 1: find a truly FREE section by scanning $1, $2, ... $99,
     # $100, ... until we find one that doesn't exist.  Never contaminate
     # an existing section.
@@ -500,9 +379,16 @@ def recover_cortex(
                 e for e in sec0.entries
                 if e.sigil in GLOSSARY_ENTRY_SIGILS
             ]
-            # v1.1.9: use the first truly free section with no ceiling.
-            # Never contaminate an existing section, regardless of $1/$99/etc.
-            recovery_section_id = _first_free_recovery_section_id(doc)
+            # v1.1.8 Fix 1: find the first truly free section.
+            # Scan $1, $2, ..., $99, $100, ... until we find one that doesn't exist.
+            recovery_section_id = None
+            n = 1
+            while True:
+                candidate = f"${n}"
+                if doc.get_section(candidate) is None:
+                    recovery_section_id = candidate
+                    break
+                n += 1
             recovery_sec = doc.get_or_create_section(
                 recovery_section_id, title="RECOVERED CONTENT"
             )
@@ -536,6 +422,10 @@ def recover_cortex(
                     "severity": "warning",
                 })
 
+    # v1.1.9: repair an existing but incomplete $0 by auto-declaring
+    # observed sigils and canonical types before validation/rendering.
+    auto_declared_sigils = _repair_incomplete_glossary(doc, diagnostics)
+
     # Re-audit M-RA-03: optionally embed AUD/RSK entries in the artefact
     # v1.1.8 Fix 2/3: pass recovery context so AUD describes the real event
     # and RSK is embedded for W011_RECOVERED_LIVE_STATE.
@@ -559,6 +449,104 @@ def recover_cortex(
     return result
 
 
+def _canonical_sigil_lookup() -> dict:
+    """Build canonical sigil lookup with brain > skill > package priority."""
+    from ..glossary.minimal import brain_sigils, skill_sigils, package_sigils
+    canonical_lookup = {}
+    for source in (package_sigils(), skill_sigils(), brain_sigils()):
+        for sd in source:
+            canonical_lookup[sd.sigil] = sd
+    return canonical_lookup
+
+
+def _ensure_canonical_types_and_micro(doc: CortexDocument, diagnostics: List[dict]) -> list:
+    """Ensure canonical types and micro-tokens exist in the glossary."""
+    from ..core.errors import CANONICAL_TYPES, CANONICAL_MICRO
+    from ..core.ast import TypeDef, MicroDef
+    added_types = []
+    for t in CANONICAL_TYPES:
+        if t not in doc.glossary.types:
+            doc.glossary.add_type(TypeDef(name=t, description="canonical type"))
+            added_types.append(t)
+    for tok, val in CANONICAL_MICRO.items():
+        if tok not in doc.glossary.micro:
+            doc.glossary.add_micro(MicroDef(token=tok, value=val))
+    return added_types
+
+
+def _repair_incomplete_glossary(doc: CortexDocument, diagnostics: List[dict]) -> list:
+    """Auto-declare observed sigils missing from an existing $0.
+
+    v1.1.9: Missing local declarations are a recoverable $0 incompleteness
+    case, not a runtime permission to keep E003_UNKNOWN_SIGIL.
+    """
+
+    added_types = _ensure_canonical_types_and_micro(doc, diagnostics)
+    canonical_lookup = _canonical_sigil_lookup()
+
+    observed_sigils: list = []
+    seen: set = set()
+    for _sec, entry in doc.iter_entries():
+        if entry.sigil in {"GSIG", "GTYP", "GMIC", "GCON"}:
+            continue
+        if entry.sigil not in seen:
+            seen.add(entry.sigil)
+            observed_sigils.append(entry.sigil)
+
+    repaired: list = []
+    noncanonical: list = list(doc.meta.get("reconstructed_sigils", []))
+    for sig in observed_sigils:
+        if sig in doc.glossary.sigils:
+            continue
+        if sig in canonical_lookup:
+            doc.glossary.add_sigil(canonical_lookup[sig])
+        else:
+            from ..core.ast import SigilDef
+            doc.glossary.add_sigil(SigilDef(
+                sigil=sig,
+                name=sig.lower(),
+                type="attrs",
+                risk="M",
+                layer="Semantic",
+                description="auto-declared while repairing incomplete $0 (was: unknown)",
+            ))
+            if sig not in noncanonical:
+                noncanonical.append(sig)
+        repaired.append(sig)
+        diagnostics.append({
+            "code": "W012_INCOMPLETE_GLOSSARY_REPAIRED",
+            "message": (
+                f"sigil {sig!r} was used by entries but missing from $0; "
+                "auto-declared during recovery — verify local contract before trusting"
+            ),
+            "sigil": sig,
+            "severity": "warning",
+        })
+
+    if repaired or added_types:
+        doc.meta["repaired_incomplete_glossary"] = True
+        doc.meta["auto_declared_sigils"] = repaired
+        doc.meta["auto_declared_types"] = added_types
+        doc.meta["reconstructed_sigils"] = noncanonical
+
+    return repaired
+
+
+def _first_free_recovery_section_id(doc: CortexDocument) -> str:
+    """Return a section id guaranteed not to exist in ``doc``.
+
+    v1.1.8 Fix 1 / v1.1.9 Fix 3: Scan until the first free positive integer
+    id; no artificial ceiling.
+    """
+
+    n = 1
+    while True:
+        candidate = f"${n}"
+        if doc.get_section(candidate) is None:
+            return candidate
+        n += 1
+
+
 def _embed_recovery_trace(
     doc: CortexDocument,
     diagnostics: List[dict],
@@ -569,6 +557,7 @@ def _embed_recovery_trace(
 
     v1.1.8 Fix 2: embed RSK for W011_RECOVERED_LIVE_STATE (moved live state).
     v1.1.8 Fix 3: AUD describes the real event, not always glossary_reconstruction.
+    v1.1.9: embed RSK/RSK for incomplete_glossary_repair.
     """
 
     from ..core.parser import build_entry_from_value
@@ -600,13 +589,13 @@ def _embed_recovery_trace(
                 "severity": "info",
             })
 
-    # v1.1.8 Fix 3: AUD describes the real event(s), not always glossary_reconstruction
+    # v1.1.8 Fix 3: AUD describes the real event(s)
     reconstructed = recovery_context.get("reconstructed_glossary", False)
     repaired_incomplete = recovery_context.get("repaired_incomplete_glossary", False)
     auto_declared = list(recovery_context.get("auto_declared_sigils", []))
     auto_declared_types = list(recovery_context.get("auto_declared_types", []))
     moved_live = recovery_context.get("moved_live_entries", [])
-    # Build event description
+
     events = []
     if reconstructed:
         events.append("glossary_reconstruction")
@@ -615,7 +604,7 @@ def _embed_recovery_trace(
     if moved_live:
         events.append("live_state_recovered_from_zero")
     if not events:
-        events.append("recovery_processing")  # fallback
+        events.append("recovery_processing")
     event_str = "+".join(events)
 
     result_parts = []
@@ -640,7 +629,7 @@ def _embed_recovery_trace(
             "event": event_str,
             "evidence": f"{len(diagnostics)} diagnostic(s) emitted",
             "result": result_str,
-            "date": "1970-01-01",  # placeholder; caller may patch
+            "date": "1970-01-01",
         },
     ))
 
@@ -657,7 +646,6 @@ def _embed_recovery_trace(
                 "survive": "work",
             },
         ))
-        # Per-sigil RSK for non-canonical reconstructed sigils
         for sig in doc.meta.get("reconstructed_sigils", []):
             rsk_sec.entries.append(build_entry_from_value(
                 "$5", "RSK", f"reconstructed_{sig.lower()}", "attrs",
@@ -670,7 +658,7 @@ def _embed_recovery_trace(
                 },
             ))
 
-    # v1.1.9: embed RSK when an existing but incomplete $0 was repaired.
+    # v1.1.9: embed RSK when an existing but incomplete $0 was repaired
     if repaired_incomplete:
         rsk_sec = doc.get_or_create_section("$5", title="RECOVERY RISKS")
         rsk_sec.entries.append(build_entry_from_value(
@@ -736,7 +724,16 @@ def _reconstruct_glossary(text: str, path: str) -> CortexDocument:
             sigils_seen.append(sig)
 
     # Build minimal glossary
-    canonical_lookup = _canonical_sigil_lookup()
+    from ..core.errors import CANONICAL_SIGILS  # local import to avoid cycle
+    # Re-audit M-RA-04: build canonical lookup with explicit priority
+    # (brain > skill > package) so shared sigils like IDN get the most
+    # generic (brain-flavoured) description rather than the package one.
+    from ..glossary.minimal import brain_sigils, skill_sigils, package_sigils
+    canonical_lookup = {}
+    # Insert in reverse priority so higher-priority overrides lower
+    for source in (package_sigils(), skill_sigils(), brain_sigils()):
+        for sd in source:
+            canonical_lookup[sd.sigil] = sd
 
     g = Glossary()
     for t in CANONICAL_TYPES:

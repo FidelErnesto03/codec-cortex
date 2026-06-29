@@ -54,6 +54,14 @@ from .commands import (
     format as cmd_format,
     recover as cmd_recover,
     diagram as cmd_diagram,
+    v2_roundtrip as cmd_v2_roundtrip,
+    v2_convert as cmd_v2_convert,
+    v2_roundtrip_bidir as cmd_v2_roundtrip_bidir,
+    v2_compare as cmd_v2_compare,
+    v2_verify_view as cmd_v2_verify_view,
+    v2_explain_loss as cmd_v2_explain_loss,
+    v2_canonicalize as cmd_v2_canonicalize,
+    v2_inspect as cmd_v2_inspect,
 )
 
 
@@ -401,6 +409,98 @@ def build_parser() -> argparse.ArgumentParser:
     dsp.add_argument("--name", default=None, help="specific DIAG name (default: all)")
     dsp.add_argument("--format", choices=["text", "json"], default="text")
     dsp.set_defaults(func=cmd_diagram.run_validate)
+
+    # ------------------------------------------------------------------
+    # v2-roundtrip (v2.0.0 — CORTEX v2 byte-identical roundtrip)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-roundtrip", help="verify CORTEX v2 roundtrip fidelity (byte-identical)")
+    sp.add_argument("input", help="CORTEX v2 file to test")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.set_defaults(func=cmd_v2_roundtrip.run)
+
+    # ------------------------------------------------------------------
+    # v2-convert (v2.1.0 — CORTEX ⇄ HCORTEX conversion)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-convert", help="convert between CORTEX v2 and HCORTEX v2")
+    sp.add_argument("input", help="input file")
+    sp.add_argument("--from", dest="from_format", choices=["cortex", "hcortex", "hcortex-r"], required=True,
+                    help="source format")
+    sp.add_argument("--to", dest="to_format", choices=["cortex", "hcortex", "hcortex-r"], required=True,
+                    help="target format")
+    sp.add_argument("--out", default=None, help="output file (default: stdout)")
+    sp.add_argument(
+        "--force-write-on-error", action="store_true",
+        help="v2.2.2: write --out even when E_VIEW_* errors occur. "
+             "Default: skip writing --out if any E_VIEW_* error is present "
+             "(prevents invalid artefacts on disk).",
+    )
+    sp.add_argument(
+        "--strict", action="store_true",
+        help="v2.2.2: promote W_VIEW_* warnings to errors (rc=1).",
+    )
+    sp.add_argument(
+        "--mode", choices=["normal", "strict", "audit", "recovery", "display"], default="normal",
+        help="v2.2.3 PRE-05: operating mode. 'display' produces Markdown without "
+             "reversible contract (not canonical HCORTEX).",
+    )
+    sp.set_defaults(func=cmd_v2_convert.run)
+
+    # ------------------------------------------------------------------
+    # v2-roundtrip-bidir (v2.3.0 — CORTEX ⇄ HCORTEX bidirectional roundtrip)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-roundtrip-bidir",
+                        help="v2.3.0: validate CORTEX ⇄ HCORTEX bidirectional roundtrip")
+    sp.add_argument("input", help="CORTEX or HCORTEX file")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.set_defaults(func=cmd_v2_roundtrip_bidir.run)
+
+    # ------------------------------------------------------------------
+    # v2-compare (v2.3.0 — compare two artefacts)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-compare",
+                        help="v2.3.0: compare two CORTEX/HCORTEX artefacts (byte/AST/semantic/content)")
+    sp.add_argument("left", help="left file")
+    sp.add_argument("right", help="right file")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.add_argument("--verbose", action="store_true", help="show first 20 diffs in detail")
+    sp.set_defaults(func=cmd_v2_compare.run)
+
+    # ------------------------------------------------------------------
+    # v2-verify-view (v2.3.0 — validate VIEW coverage and reversibility)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-verify-view",
+                        help="v2.3.0: validate VIEW coverage, reversibility, consistency")
+    sp.add_argument("input", help="CORTEX file")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.add_argument("--strict", action="store_true", help="warnings also cause non-zero rc")
+    sp.set_defaults(func=cmd_v2_verify_view.run)
+
+    # ------------------------------------------------------------------
+    # v2-explain-loss (v2.3.0 — explain loss, omission, non-reversible)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-explain-loss",
+                        help="v2.3.0: explain loss, omission, or non-reversible content")
+    sp.add_argument("input", help="CORTEX or HCORTEX file")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.set_defaults(func=cmd_v2_explain_loss.run)
+
+    # ------------------------------------------------------------------
+    # v2-canonicalize (v2.3.0 — normalize without changing semantics)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-canonicalize",
+                        help="v2.3.0: normalize artefact without changing semantics")
+    sp.add_argument("input", help="CORTEX or HCORTEX file")
+    sp.add_argument("--out", default=None, help="output file (default: stdout)")
+    sp.set_defaults(func=cmd_v2_canonicalize.run)
+
+    # ------------------------------------------------------------------
+    # v2-inspect (v2.3.0 — show AST, sections, sigils, VIEW, errors)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("v2-inspect",
+                        help="v2.3.0: inspect AST, sections, sigils, VIEW coverage, errors")
+    sp.add_argument("input", help="CORTEX or HCORTEX file")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.set_defaults(func=cmd_v2_inspect.run)
 
     return p
 

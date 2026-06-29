@@ -27,7 +27,7 @@ Thanks for your interest in contributing to the CODEC-CORTEX protocol.
 - PUML diagrams over ASCII art (always)
 - Tables over lists over prose
 - Every flow of 3+ steps requires a diagram
-- Follow the golden ratio (φ=1.618) for proportional layouts
+- Follow HCORTEX formatting conventions (see skill/hcortex/SKILL_HCORTEX.md §9)
 
 ## License
 

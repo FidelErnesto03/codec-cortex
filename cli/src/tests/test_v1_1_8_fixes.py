@@ -49,16 +49,13 @@ $99: EXISTING SPECIAL
 DOM:special{area:"special"}
 """
     result = recover_cortex(legacy, path="legacy.cortex")
-    # $0 should not have operational entries
     sec0 = result.doc.get_section("$0")
     ops_in_zero = [e for e in sec0.entries if e.sigil not in ("GSIG", "GTYP", "GMIC", "GCON")]
     assert len(ops_in_zero) == 0
-    # $1 and $99 should be untouched
     sec1 = result.doc.get_section("$1")
     sec99 = result.doc.get_section("$99")
     assert sec1 is not None and sec1.title == "EXISTING"
     assert sec99 is not None and sec99.title == "EXISTING SPECIAL"
-    # Find RECOVERED CONTENT section — should be $2 (first free)
     recovery_sec = None
     for s in result.doc.sections:
         if s.title == "RECOVERED CONTENT":
@@ -73,9 +70,8 @@ DOM:special{area:"special"}
 
 
 def test_recover_never_contaminates_existing_section():
-    """Even if all sections $1..$99 exist, recover finds $100 or higher."""
+    """Even if all sections $1..$5 exist, recover finds $6."""
 
-    # Build a file with sections $1 through $5 (simulating a full brain)
     legacy = """\
 $0: GLOSSARY
 
@@ -94,7 +90,6 @@ $5: E
 DOM:workspace{area:"test"}
 """
     result = recover_cortex(legacy, path="legacy.cortex")
-    # Find RECOVERED CONTENT — should be $6 (first free after $5)
     recovery_sec = None
     for s in result.doc.sections:
         if s.title == "RECOVERED CONTENT":
@@ -125,10 +120,8 @@ FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}
 OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}
 """
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
-    # Look for RSK entries about recovered live state
     rsk_entries = [e for _, e in result.doc.iter_entries() if e.sigil == "RSK"]
     rsk_names = [e.name for e in rsk_entries]
-    # Should have RSK:recovered_live_fcs_primary and RSK:recovered_live_obj_main
     assert any("recovered_live_fcs" in n for n in rsk_names), (
         f"expected RSK for recovered FCS; got RSK names: {rsk_names}"
     )
@@ -145,7 +138,6 @@ def test_aud_describes_real_event_not_always_glossary_reconstruction():
     """When $0 was NOT reconstructed but live state was moved, AUD should
     describe 'live_state_recovered_from_zero', not 'glossary_reconstruction'."""
 
-    # File with existing $0 that has ops mixed in (no reconstruction needed)
     legacy = """\
 $0: GLOSSARY
 
@@ -158,7 +150,6 @@ FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}
 OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}
 """
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
-    # Find AUD:recovery entry
     aud = None
     for _, e in result.doc.iter_entries():
         if e.sigil == "AUD" and e.name == "recovery":
@@ -166,7 +157,6 @@ OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}
             break
     assert aud is not None, "AUD:recovery not found"
     event = aud.value.get("event", "")
-    # Should NOT be just "glossary_reconstruction" (since $0 was not reconstructed)
     assert "glossary_reconstruction" not in event or "live_state" in event, (
         f"AUD event should describe live_state recovery; got: {event!r}"
     )
@@ -178,7 +168,6 @@ OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}
 def test_aud_describes_glossary_reconstruction_when_it_happened():
     """When $0 WAS reconstructed, AUD should mention glossary_reconstruction."""
 
-    # Entry-first file (no $0 at all)
     legacy = (
         'IDN:agent{name:"legacy"}\n'
         'FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}\n'

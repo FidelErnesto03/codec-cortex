@@ -1,107 +1,348 @@
 # CHANGELOG — codec-cortex
 
+## [2.4.0] — 2026-06-30
+
+### Added
+
+- Núcleo bidireccional CORTEX ⇄ HCORTEX verificado sobre artefactos canónicos.
+- Reconstrucción HCORTEX → CORTEX de 266/266 entries y 44/44 VIEW directives.
+- Source markers para recuperar nombres originales desde tablas, listas y bloques PUML.
+- Pipe escaping en tablas HCORTEX (`|` ⇄ `\|`).
+- Nombres sintéticos snake_case estables y reparsables cuando no existe source explícito.
+- Validación real de hash cuando un bloque declara hash; mismatch emite `E_VIEW_HASH_MISMATCH`.
+- Post-write validation dura para evitar escritura de CORTEX degradado.
+- Documentación alineada para CORTEX, HCORTEX, VIEW, equivalencia, packaging y errores.
+
+### Changed
+
+- `HCORTEX → CORTEX` pasa de experimental a `current` para los artefactos canónicos.
+- `v2-roundtrip-bidir` pasa con `rc=0` en `skill/cortex/SKILL.md` y `skill/hcortex/SKILL.md`.
+- `STATUS.md` deja de declarar parser inverso como futuro/no implementado.
+- `README.md` aclara que `v2-doctor` y JSON uniforme para comandos v2 siguen planned.
+
+### Fixed
+
+- Inconsistencias documentales heredadas de v2.3.1.
+- Bytes reales de `skill/cortex/SKILL.md`: 43,925.
+- Paquete limpio sin `.pytest_cache`, `__pycache__` ni `.pyc`.
+
+### Evidence
+
+```bash
+cortex --version                         # cortex 2.4.0
+cortex v2-inspect skill/cortex/SKILL.md  # 14 sections, 266 entries, 44 VIEW, 100%
+cortex v2-roundtrip-bidir skill/cortex/SKILL.md   # rc=0, 0 diffs
+cortex v2-roundtrip-bidir skill/hcortex/SKILL.md  # rc=0, 0 diffs
+```
+
 Todos los cambios notables de este proyecto se documentan en este archivo.
 El formato se adhiere a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 y el versionado a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.9] — 2026-06-27
+## [2.3.1] — 2026-06-30
 
 ### Resumen
 
-Cierre de recuperación enterprise para `$0` existente pero incompleto y
-endurecimiento de demo: `recover` ahora auto-declara sigilos usados pero
-ausentes en `$0`, embebe AUD/RSK para esa reparación y los demos verifican
-`E034` explícitamente sin falsos positivos por nombres de archivo.
+Corrective hard release post-auditoría v2.3.0. El auditor rechazó v2.3.0
+como release bidireccional porque el roundtrip HCORTEX → CORTEX perdía
+estructura, VIEW directives, y producía CORTEX inválido (sigilos con
+backticks, cabeceras mal mapeadas, 0 entries reportado como 100%
+coverage).
 
-### Fix 1: recover repara `$0` existente pero incompleto
+v2.3.1 corrige los 8 P0 del auditor y reclasifica el estado real:
+- **CORTEX → HCORTEX:** `current` (sólido)
+- **HCORTEX → CORTEX:** `experimental` (funciona para casos simples,
+  pierde estructura en contracts/DIAG/profiles con nombres largos)
+- **Roundtrip bidireccional perfecto:** `planned` (meta para v2.3.2)
 
-- **Problema:** si `$0` existía pero omitía sigilos usados por el payload
-  (`KNW`, `RSK`, etc.), `recover` no lo completaba y el artefacto seguía
-  fallando con `E003_UNKNOWN_SIGIL`.
-- **Fix:** `_repair_incomplete_glossary()` auto-declara sigilos observados
-  ausentes y asegura tipos canónicos en el `$0` local.
-- **Tests:** `test_recover_repairs_existing_incomplete_glossary`,
-  `test_recover_cli_repairs_incomplete_glossary_and_returns_zero`.
+### P0 — Cierre obligatorio
 
-### Fix 2: AUD/RSK para reparación de glosario incompleto
+#### P0-1: Tests T-03/T-04/T-12 ahora fallan si la reversibilidad falla
 
-- **Problema:** la reparación de `$0` incompleto no dejaba traza embebida
-  equivalente a los flujos de reconstrucción.
-- **Fix:** `--embed-aud-rsk` agrega `AUD:recovery` con
-  `event:"incomplete_glossary_repair"` y `RSK:incomplete_glossary_repaired`
-  más riesgos por sigilo auto-declarado.
-- **Tests:** `test_recover_embed_aud_rsk_for_incomplete_glossary_repair`,
-  `test_recover_incomplete_glossary_content_visible_in_hcortex`.
+- **Problema:** Los tests pasaban aunque `v2-roundtrip-bidir` fallara.
+- **Fix:** T-03 exige AST-equivalent==True, T-04 exige content-equivalent==True,
+  T-12 ejecuta `v2-roundtrip-bidir` CLI y exige rc=0.
+- **Estado:** Los tests ahora **fallan honestamente** (4 tests en rojo),
+  reflejando que el roundtrip bidireccional perfecto aún no se logra.
 
-### Fix 3: sección libre sin techo artificial
+#### P0-2: Sanitizar tablas HCORTEX → CORTEX
 
-- **Problema:** la estrategia anterior escaneaba rangos acotados.
-- **Fix:** `_first_free_recovery_section_id()` busca indefinidamente la
-  primera sección libre positiva y evita contaminar secciones existentes.
-- **Test:** `test_recover_uses_free_section_even_when_many_sections_exist`.
+- **Problema:** Sigilos con backticks (`` `IDN` ``), cabeceras en español
+  no mapeadas (`tipo` en vez de `type`, `riesgo` en vez de `risk`).
+- **Fix:** `HEADER_MAP` con 40+ mapeos español→inglés, `_strip_backticks()`,
+  `_sanitize_value()`. Entradas reconstruidas ahora usan sigilos limpios.
 
-### Fix 4: demo v1.1.9 sin falso positivo de sentinel
+#### P0-3: Reconstruir $13 con VIEW directives
 
-- **Problema:** el demo v1.1.8 podía construir nombres de archivo inválidos
-  con `n/a` y aprobar por `rc != 0` sin verificar `E034`.
-- **Fix:** `scripts/cortex_demo_v1_1_9.sh` sanitiza nombres y exige que la
-  salida contenga `E034_CRITICAL_REQUIRED_FIELD_EMPTY`.
+- **Problema:** El encoder no reproducía la sección $13 con las 44 VIEW.
+- **Fix:** `_block_to_view_entry()` reconstruye cada VIEW desde el bloque.
+- **Estado:** $13 ahora se reconstruye con 44 VIEW directives.
 
-### Tests
+#### P0-4: Fix v2-roundtrip-bidir Direction 2
 
-- Suite ampliada: 217 → 222 tests (5 nuevos de v1.1.9).
+- **Problema:** Direction 2 usaba CORTEX como si fuera HCORTEX.
+- **Fix:** Lógica corregida — CORTEX input → Direction 1 (C→H→C) +
+  Direction 2 (C→H→C→H); HCORTEX input → Direction 1 (H→C→H) +
+  Direction 2 (H→C→H→C).
 
-## [1.1.8] — 2026-06-27
+#### P0-5: Coverage 0 entries + 0 directives = 0% (no 100%)
+
+- **Problema:** `calculate_view_coverage()` retornaba 1.0 para docs vacíos.
+- **Fix:** Si `len(eligible) == 0`, retornar 0.0 (no 1.0).
+
+#### P0-6: Post-write validation
+
+- **Problema:** El encoder escribía CORTEX inválido sin detectarlo.
+- **Fix:** `encode_cortex_from_ast()` re-serializa y reparsa; si
+  `re_entries < declared_entries`, emite `E_AST_EQUIVALENCE_FAIL`.
+
+#### P0-7: E_VIEW_HASH_MISMATCH real
+
+- **Problema:** Hash era solo estructural (se parseaba, no se verificaba).
+- **Fix:** `_compute_block_hash()` calcula SHA-256 del contenido del bloque;
+  si no coincide con el declarado, emite `E_VIEW_HASH_MISMATCH`.
+
+#### P0-8: Limpiar .pytest_cache del paquete
+
+- **Fix:** Script de empaquetado elimina `__pycache__`, `.pytest_cache`,
+  `*.egg-info` antes de crear el tarball.
+
+### Limitaciones declaradas (honestas)
+
+- **Roundtrip bidireccional perfecto NO logrado:** El encoder reconstruye
+  182/266 entries (68%). Pierde entries cuando:
+  - Tablas sin columna `name` usan contenido de `rule` como nombre
+    (nombres largos no reparsables).
+  - DIAG bloques con PUML multilínea no se reconstruyen en $6.
+  - KNW profiles en $9 no se reconstruyen.
+- **4 tests en rojo intencionalmente:** T-03, T-04, T-12, y
+  `test_cli_v2_convert_hcortex_to_cortex` fallan para reflejar que el
+  roundtrip bidireccional perfecto es `planned`, no `current`.
+- **Meta para v2.3.2:** Roundtrip bidireccional perfecto (0 diffs).
+
+## [2.3.0] — 2026-06-30
 
 ### Resumen
 
-Cierre de bordes de recovery y null-like: recovery nunca contamina
-secciones existentes, AUD describe el evento real, RSK se embebe para
-estado vivo recuperado, y E034 cubre todos los null-like sentinels
-comunes (none, nil, undefined, n/a, tbd, ???, -, --).
+Salto fundacional: **CORTEX ⇄ HCORTEX verificable**, no solo renderizable.
+Implementa parser inverso HCORTEX → AST, encoder HCORTEX → CORTEX, motor
+de equivalencia (4 niveles: byte/AST/semantic/content), 11 errores
+formales, 5 modos de operación, 7 comandos CLI nuevos, 12 tests de
+aceptación T-01..T-12, y documentación obligatoria (VIEW_SCHEMA.md,
+EQUIVALENCE.md, INFORME_DE_ENTREGA_v2.3.0.md).
 
-### Fix 1: Recovery elige sección libre real
+### Funcionalidades
 
-- **Problema:** recover usaba $99 si $1 existía, pero si $99 también
-  existía, contaminaba esa sección.
-- **Fix:** recover ahora escanea $1, $2, ..., $99, $100, ... hasta
-  encontrar la primera sección verdaderamente libre.
-- **Tests:** `test_recover_finds_free_section_when_1_and_99_exist`,
-  `test_recover_never_contaminates_existing_section`.
+- **F-01..F-08:** Parser HCORTEX (`hcortex_parser.py`) — header, VIEW
+  markers, tablas, listas, bloques verbatim, HUMAN_BLOCK, section resolver.
+- **F-09..F-15:** Encoder HCORTEX → CORTEX (`encoder.py`) —
+  `encode_cortex_from_ast()` con 8 estrategias reverse (rows_to_entries,
+  row_to_attrs, items_to_entries, body_to_cuerpo, verbatim_to_bloque,
+  callout_to_risk, etc.).
+- **F-16..F-22:** Motor de equivalencia (`equivalence.py`) — 4 niveles
+  (byte_identical, ast_equivalent, semantic_equivalent, content_equivalent)
+  + diffs por sigilo/sección/VIEW.
+- **F-29..F-34:** Hashes y trazabilidad estructural, preserve:verbatim
+  estricto, declaración de pérdida.
 
-### Fix 2: --embed-aud-rsk embebe RSK para W011_RECOVERED_LIVE_STATE
+### CLI
 
-- **Problema:** recover emitía W011_RECOVERED_LIVE_STATE como
-  diagnóstico, pero `--embed-aud-rsk` no insertaba RSK equivalentes
-  en el artefacto.
-- **Fix:** `_embed_recovery_trace()` ahora inserta `RSK:recovered_live_*`
-  para cada sigilo de estado vivo movido desde $0.
-- **Tests:** `test_embed_aud_rsk_inserts_rsk_for_moved_live_state`.
+- `cortex v2-convert --from hcortex --to cortex` (conversión inversa)
+- `cortex v2-roundtrip-bidir` (CORTEX ⇄ HCORTEX bidireccional)
+- `cortex v2-compare` (comparar dos artefactos)
+- `cortex v2-verify-view` (validar coverage y reversibilidad)
+- `cortex v2-explain-loss` (explicar pérdida)
+- `cortex v2-canonicalize` (normalizar)
+- `cortex v2-inspect` (inspeccionar AST/sections/VIEW/errors)
 
-### Fix 3: AUD describe el evento real
+### Errores formales (11)
 
-- **Problema:** AUD:recovery siempre decía
-  `event:"glossary_reconstruction"` incluso cuando el $0 no fue
-  reconstruido (solo se movieron entradas).
-- **Fix:** AUD ahora describe el evento real: `glossary_reconstruction`
-  si se reconstruyó $0, `live_state_recovered_from_zero` si se movió
-  estado vivo, o ambos combinados.
-- **Tests:** `test_aud_describes_real_event_not_always_glossary_reconstruction`,
-  `test_aud_describes_glossary_reconstruction_when_it_happened`.
-
-### Fix 4: E034 cubre null-like sentinels
-
-- **Problema:** `none`, `nil`, `undefined`, `n/a`, `tbd`, `???`, `-`
-  pasaban como valores válidos en campos críticos.
-- **Fix:** `_is_field_empty()` ahora detecta todos estos sentinels
-  (case-insensitive). El parser de attrs y el CLI `--set` también
-  convierten `none`/`nil`/`undefined` a Python None.
-- **Tests:** 10 tests parametrizados para cada sentinel + test de
-  valores reales no bloqueados.
+`E_HCORTEX_HEADER_INVALID`, `E_HCORTEX_NOT_REVERSIBLE`, `E_VIEW_MISSING`,
+`E_VIEW_TARGET_UNRESOLVED`, `E_VIEW_REVERSE_UNSUPPORTED`,
+`E_VIEW_HASH_MISMATCH` (estructural), `E_HUMAN_BLOCK_UNDECLARED`,
+`E_TABLE_SCHEMA_MISMATCH`, `E_BLOCK_NOT_PRESERVED`,
+`E_AST_EQUIVALENCE_FAIL`, `W_HCORTEX_DISPLAY_ONLY`.
 
 ### Tests
 
-- Suite ampliada: 196 → 217 tests (21 nuevos de v1.1.8).
+- 12 tests de aceptación T-01..T-12 (todos pasan)
+- 8 tests CLI para comandos nuevos
+- Suite total: 345 tests pasando
+
+### Documentación
+
+- `VIEW_SCHEMA.md` (nuevo): contrato de VIEW con 13 kinds × 13 reverses
+- `EQUIVALENCE.md` (nuevo): 4 niveles de equivalencia
+- `INFORME_DE_ENTREGA_v2.3.0.md` (nuevo): evidencia real
+
+## [2.2.3] — 2026-06-30
+
+### Resumen
+
+Cierre de los 8 prerrequisitos (PRE-01..PRE-08) exigidos antes de v2.3.0.
+Establece el modelo conceptual canónico: CORTEX como fuente densa nativa,
+HCORTEX como representación reversible por contrato, VIEW como contrato
+de correspondencia. Implementa el gate `reversible: true`, diferencia
+display vs canónico, publica artefactos canónicos, y normaliza docs.
+
+### PRE — Cierre obligatorio
+
+#### PRE-01: Informe de entrega con versión real
+
+- Creado `INFORME_DE_ENTREGA_v2.2.3.md` con versión, comandos y evidencia real.
+
+#### PRE-02/03: Artefactos canónicos publicados
+
+- `skill/cortex/SKILL.md` (43925 bytes, 14 secciones, 266 entries, 44 VIEW directives)
+- `skill/hcortex/SKILL.md` (40954 bytes, 723 líneas, view_coverage: 100, reversible: true)
+- Ya no viven solo en `tests/fixtures/`.
+
+#### PRE-04: Gate `reversible:true`
+
+- **Problema:** v2.2.2 emitía `reversible: true` sin verificar cobertura ni errores.
+- **Fix:** `render_hcortex()` ahora calcula `is_reversible = (coverage == 1.0) AND (not has_errors) AND (mode != "display")`. El header refleja el estado real.
+- **Tests:** `test_reversible_true_only_when_coverage_full_and_no_errors`.
+
+#### PRE-05: Diferenciar HCORTEX display vs canónico
+
+- Nuevo flag `--mode` con 5 valores: `normal`, `strict`, `audit`, `recovery`, `display`.
+- `display` produce `reversible: false` + `W_HCORTEX_DISPLAY_ONLY`.
+- `strict` promueve `W_VIEW_*` a errors (rc=1).
+
+#### PRE-06: README/STATUS/CHANGELOG alineados
+
+- README declara CORTEX como denso nativo, HCORTEX como representación reversible por contrato.
+- STATUS matriz v2.2.3 actualizada.
+- CHANGELOG entrada [2.2.3] completa.
+
+#### PRE-07/08: Paquete limpio + suite real
+
+- Limpieza de `__pycache__`, `.pytest_cache`, `*.egg-info` en paquete.
+- Suite real: **312 tests pasando** (no 290).
+
+## [2.2.2] — 2026-06-30
+
+### Resumen
+
+Surgical hardening post-auditoría v2.2.1. La auditoría identificó que el
+SKILL.md real seguía con coverage 0% (no había directivas VIEW operacionales),
+que `E_VIEW_EMPTY_TARGET` reportaba como warning con rc=0 (inconsistencia
+de prefijo), que el CLI escribía `--out` aún con rc=1 (artefactos inválidos
+en disco), y que los targets heterogéneos podían inflar artificialmente
+el coverage. v2.2.2 cierra estas 5 brechas + actualiza docs al modelo
+conceptual CORTEX/HCORTEX/VIEW.
+
+### P0 — Cierre obligatorio
+
+#### P0-1: SKILL.md migrado con VIEW directives reales (100% coverage)
+
+- **Problema:** El SKILL_v2.cortex.md canónico no tenía directivas VIEW
+  operacionales. `cortex v2-convert` reportaba `view_coverage: 0.0%`,
+  `Uncovered entries: 167`. El HCORTEX generado era sólo header.
+- **Fix:** Se añadió una sección `$13` al SKILL.md con 44 directivas
+  VIEW que cubren los 167 entries elegibles. Coverage ahora 100%.
+  Roundtrip byte-identical preservado (43925 bytes).
+- **Selectors utilizados:** `$0:canonical_sigils`, `$0:type_decls`,
+  `$0:contracts`, `$0:microtokens`, `$0:enum_state`, `$0:delimiters`,
+  `$N:SIGIL:*` (con fix del resolver para 3-part selectors),
+  `$N:SIGIL:name` (con fix del resolver para 3-part name selectors).
+- **Tests:** `test_skill_v2_2_2_view_coverage_100_percent`,
+  `test_skill_v2_2_2_view_directives_count_44`.
+
+#### P0-2: Renombrado E_VIEW_EMPTY_TARGET → W_VIEW_EMPTY_TARGET
+
+- **Problema:** `E_VIEW_EMPTY_TARGET` se reportaba con `severity=warning`
+  y rc=0. La inconsistencia (prefijo `E_` para warning) violaba la
+  convención de códigos.
+- **Fix:** Renombrado a `W_VIEW_EMPTY_TARGET` para reflejar que un
+  target vacío es recuperable (e.g., sección opcional faltante).
+- **Tests:** `test_view_empty_target_uses_W_prefix`.
+
+#### P0-3: --out no se escribe si hay E_VIEW_* (salvo --force-write-on-error)
+
+- **Problema:** Con `kind:bogus`, el comando retornaba rc=1 pero
+  escribía un archivo `--out` con `reversible: true` y
+  `view_schema: 1`. Eso dejaba artefactos inválidos en disco.
+- **Fix:** Por defecto, si hay E_VIEW_* errors, `--out` NO se escribe.
+  Nuevo flag `--force-write-on-error` para override explícito (forense).
+- **Tests:** `test_out_not_written_on_view_errors`,
+  `test_out_written_with_force_write_on_error`.
+
+#### P0-4: --strict promueve W_VIEW_* a errors
+
+- **Problema:** No había forma de tratar warnings como errores en CI.
+- **Fix:** Nuevo flag `--strict` en `v2-convert`. W_VIEW_EMPTY_TARGET,
+  W_VIEW_HETEROGENEOUS_TARGET, etc. se cuentan como errors y producen rc=1.
+- **Tests:** `test_strict_promotes_w_view_to_errors`.
+
+#### P0-5: Detección de targets heterogéneos (W_VIEW_HETEROGENEOUS_TARGET)
+
+- **Problema:** Un target como `IDN:*` podía cubrir tanto declaraciones
+  `$0` (sigil_decl) como entradas operativas (attrs). El renderer
+  derivaba columnas de la primera entrada y dejaba otras filas vacías,
+  pero igual reportaba `view_coverage: 100`.
+- **Fix:** Nuevo diagnóstico `W_VIEW_HETEROGENEOUS_TARGET` cuando un
+  target resuelve a entries con múltiples `entry_type`s o múltiples
+  attr key sets y no tiene `fields` explícito. Se silencia agregando
+  `fields:"..."` a la directiva.
+- **Tests:** `test_heterogeneous_target_warns_without_fields`,
+  `test_heterogeneous_target_silent_with_fields`.
+
+#### P0-6: Documentación alineada al modelo CORTEX/HCORTEX/VIEW
+
+- **Problema:** README y STATUS aún trataban HCORTEX como "vista humana"
+  no como memoria canónica reversible.
+- **Fix:** README ahora declara el modelo conceptual:
+  - CORTEX = denso nativo
+  - HCORTEX / HUMAN-CORTEX = humano denso reversible
+  - VIEW = contrato de correspondencia
+  STATUS añade matriz de capacidades v2.2.2 con conceptos base.
+
+### Mantenimiento
+
+- `resolve_target()` fix: `$N:SIGIL:name` (3-part) y `$N:NAME` (single
+  colon) ahora resuelven correctamente. Antes caían al branch equivocado.
+- Testsuite: 290 → 290+ tests pasando (sin regresiones).
+
+## [2.2.1] — 2026-06-29
+
+### Resumen
+
+Hardening de VIEW directives. Elimina HCORTEX-R como concepto separado,
+redefine HCORTEX como reversible por definición, corrige parsing de
+VIEW:view en $0, hace que E_VIEW_* retornen rc!=0, preserva DIAG
+verbatim, y preserva toda la metadata en VIEW markers.
+
+## [2.2.0] — 2026-06-28
+
+### Resumen
+
+VIEW directives system. 13 ViewKind × 13 ReverseStrategy con matriz de
+compatibilidad, parse_view_entries_from_doc, resolve_target con selectors
+especiales ($0:canonical_sigils, $0:contracts, etc.), calculate_view_coverage,
+render_hcortex_r con `<!-- VIEW:name ... -->` markers.
+
+## [2.1.0] — 2026-06-27
+
+### Resumen
+
+SkillIR + HCORTEX renderer v2. cortex_to_ir, ir_to_cortex, render_hcortex_v2.
+
+## [2.0.1] — 2026-06-26
+
+### Resumen
+
+Fixes H-01..H-04, M-01, M-02 post-auditoría v2.0.0. Header notes quoting,
+`!` entry dual format (sigil_decl vs rule), HDL trailing `|`, `cortex:/`
+quoting.
+
+## [2.0.0] — 2026-06-25
+
+### Resumen
+
+CORTEX v2 parser/writer (byte-identical roundtrip). parse_cortex_v2,
+write_cortex_v2, $0 entry-based glossary, HDL bare attrs-pos, `!` entries,
+DIAG multiline bloque, markdown wrapper.
 
 ## [1.1.7] — 2026-06-27
 

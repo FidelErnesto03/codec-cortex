@@ -41,3 +41,6 @@ env/
 benchmarks/**/*.png
 benchmarks/**/*.svg
 benchmarks/**/*.pdf
+
+# CLI backup
+cli.bak/

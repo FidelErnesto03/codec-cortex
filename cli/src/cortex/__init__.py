@@ -14,5 +14,5 @@ The package is organized in layers:
 - ``cli``       : argparse-based command-line entry point
 """
 
-__version__ = "1.1.9"
+__version__ = "2.4.0"
 __all__ = ["__version__"]

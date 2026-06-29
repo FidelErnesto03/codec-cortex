@@ -128,8 +128,8 @@ def _is_field_empty(value) -> bool:
     as empty.
     v1.1.8: expanded to cover all common null-like sentinels that a user
     or LLM might write instead of a real value: none, nil, undefined,
-    n/a, n.a., tbd, tbd, ???, -, --.  These are all semantically empty
-    for critical required fields per SKILL.md §6.
+    n/a, n.a., na, tbd, todo, tbc, ???, ?, -, --.  These are all
+    semantically empty for critical required fields per SKILL.md §6.
     """
     if value is None:
         return True

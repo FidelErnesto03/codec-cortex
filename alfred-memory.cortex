@@ -32,7 +32,7 @@ $1: IDENTITY
 
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com", git_user:"Fidel Lozada", git_email:"fidel.lozada@vatrox.com", gh_auth:"SSH"}
 IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent", home:"~/.hermes/skills/", runtime:"Hermes Agent"}
-DOM:project{area:"CODEC-CORTEX — Cognitive Operational Retrieval & Execution Template", license:"MIT", repo:"github.com/FidelErnesto03/codec-cortex", version:"v0.3.0", dialect_cycle:"CORTEX-CONSOLIDATION-001"}
+DOM:project{area:"CODEC-CORTEX — Cognitive Operational Retrieval & Execution Template", license:"MIT", repo:"github.com/FidelErnesto03/codec-cortex", version:"v0.3.1", dialect_cycle:"CORTEX-CONSOLIDATION-001"}
 TAG:memory{source:"hermes_persistent_store", format:"c1", encoding_date:"2026-06-24"}
 
 $2: CONSTRAINTS

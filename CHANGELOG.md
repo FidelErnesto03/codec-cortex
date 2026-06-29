@@ -8,6 +8,25 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] — 2026-06-29
+
+### Changed
+
+- **CLI actualizado** de v1.1.9 → v2.4.0 (núcleo bidireccional CORTEX ⇄ HCORTEX).
+- 25 nuevos comandos v2: `v2-roundtrip`, `v2-convert`, `v2-roundtrip-bidir`, `v2-compare`, `v2-verify-view`, `v2-explain-loss`, `v2-canonicalize`, `v2-inspect`.
+- Roundtrip bidireccional: CORTEX → HCORTEX → CORTEX AST-equivalent, 0 diffs sobre artefactos canónicos.
+- HCORTEX → CORTEX → HCORTEX content-equivalent, 0 diffs.
+- VIEW directives: 44/44 en skill/cortex/SKILL.md, coverage 100%.
+- Gates de reversibilidad: `reversible:true` solo con coverage 100% y cero errores.
+- Post-write validation: no escribe output si hay pérdida salvo --force.
+- Test suite: 341 passed, 3 skipped (vs 222 tests anteriores).
+- Versión del proyecto actualizada a v0.3.1.
+
+### Fixed
+
+- BENCHMARK.md, STATUS.md, README.md alineados al canon v2.4.0.
+- `INFORME_DE_ENTREGA_v2.3.1.md` agregado para trazabilidad de versiones.
+
 ## [0.3.0] — 2026-06-27
 
 ### Added
