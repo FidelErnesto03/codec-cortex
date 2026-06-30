@@ -44,3 +44,7 @@ benchmarks/**/*.pdf
 
 # CLI backup
 cli.bak/
+
+# CLI build artifacts
+cli/dist/
+cli/src/cortex/_version.py

@@ -14,5 +14,9 @@ The package is organized in layers:
 - ``cli``       : argparse-based command-line entry point
 """
 
-__version__ = "2.4.0"
+try:
+    from ._version import version as __version__
+except ImportError:
+    # Fallback for editable/dev installs without _version.py
+    __version__ = "0.0.0.dev0"
 __all__ = ["__version__"]
