@@ -92,6 +92,26 @@ end note
 @enduml
 ```
 
+## Installation
+
+### From source (current)
+
+```bash
+git clone https://github.com/FidelErnesto03/codec-cortex.git
+cd codec-cortex/cli
+pip install -e .          # minimal install
+pip install -e ".[dev]"   # with test dependencies
+cortex --version
+```
+
+### From PyPI (once published)
+
+```bash
+pip install codec-cortex
+```
+
+See `cli/README.md` for full CLI documentation and `skill/cortex/README.md` for installation as a universal agent skill.
+
 ## Quick Start
 
 1. Read `skill/hcortex/SKILL_HCORTEX.md` for the HCORTEX Skill specification.
