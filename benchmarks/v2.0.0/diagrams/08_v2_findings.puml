@@ -1,0 +1,46 @@
+@startuml
+title Hallazgos clave del benchmark v2.0.0
+
+skinparam rectangle {
+  BackgroundColor<<positive>> #D1FAE5
+  BackgroundColor<<neutral>> #FEF3C7
+  BackgroundColor<<negative>> #FEE2E2
+  BackgroundColor<<finding>> #DBEAFE
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Hallazgos positivos" as pos <<positive>> {
+  rectangle "CPP v1 mantiene 100% P0\ny BCFNR=0 en v2.0.0\n(igual que v1.0.0)" as f1
+  rectangle "CPP v2 con fallback\nproduce resultados identicos\na CPP v1 (Δ=0.0)" as f2
+  rectangle "QDD = -3.95\nestructura cognitiva supera\na query-dependent" as f3
+}
+
+rectangle "Hallazgos neutrales" as neu <<neutral>> {
+  rectangle "VIEW_coverage = 0%\nen corpus v1.0.0\n(sin VIEW directives)" as f4
+  rectangle "Reversibility = 0\nen corpus v1.0.0\n(requiere migracion a v2)" as f5
+}
+
+rectangle "Hallazgos negativos" as neg <<negative>> {
+  rectangle "v2_canonical falla:\nBCFNR=1.0, WS=-2.73\n(v2-canonicalize rompe\ncompatibilidad)" as f6
+  rectangle "v2-convert produce\nHCORTEX vacio (251 bytes)\nsin VIEW directives" as f7
+}
+
+rectangle "Implicacion cientifica" as imp <<finding>> {
+  rectangle "La bidireccionalidad CORTEX⇄HCORTEX\nREQUIERE migrar artefactos a v2\ncon VIEW directives explicitas\n(formato $N/SIGIL:name en entries)" as f8
+}
+
+f1 --> imp
+f2 --> imp
+f4 --> imp
+f5 --> imp
+f6 --> imp
+f7 --> imp
+
+note right of imp
+  Conclusion: v2.4.0 es funcionalmente
+  superior pero requiere migracion
+  del corpus para explotar sus
+  capacidades bidireccionales.
+end note
+@enduml

@@ -1,0 +1,36 @@
+identity:
+  name: wh-bot-007
+  role: warehouse navigation
+domain:
+  area: robotics-warehouse
+  facility: DC-3
+  aisle: A-12
+constraints:
+  - id: safety
+    rule: distance to human MUST be > 1m at all times
+    severity: blocking
+    survive: min
+  - id: speed
+    rule: max speed 1.5 m/s in shared zones
+    severity: blocking
+    survive: min
+  - id: battery
+    rule: battery MUST stay > 20% to complete mission
+    severity: warning
+    survive: work
+focus:
+  what: Navegar aisle A-12 evitando peaton detectado
+  status: current
+  survive: min
+objective:
+  goal: Entregar SKU 9921 en dock-4 en < 90s
+  status: in_progress
+  survive: min
+work:
+  phase: navigation
+  current: speed 0.8 m/s, peaton a 1.4m, slowing down
+  blocked: false
+step:
+  action: Reduce speed a 0.3 m/s y mantener rumbo
+  status: current
+  survive: min

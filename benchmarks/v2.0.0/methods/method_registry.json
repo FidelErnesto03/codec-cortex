@@ -1,0 +1,132 @@
+{
+  "version": "2.0.0",
+  "methods": [
+    {
+      "method_id": "recent_tail_raw",
+      "name": "Recent Tail Raw",
+      "family": "passive_positional",
+      "description": "Toma los ultimos N tokens del raw prose (cola reciente). Sin comprension de contenido.",
+      "config": {
+        "source": "raw_prose",
+        "selector": "tail"
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "head_tail_raw",
+      "name": "Head + Tail Raw",
+      "family": "passive_positional",
+      "description": "Toma cabecera + cola del raw prose con proporcion 25/75.",
+      "config": {
+        "source": "raw_prose",
+        "selector": "head_tail",
+        "head_ratio": 0.25
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "head_json",
+      "name": "Head JSON",
+      "family": "passive_positional",
+      "description": "Toma los primeros N tokens del JSON.",
+      "config": {
+        "source": "json",
+        "selector": "head"
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "head_markdown_summary",
+      "name": "Head Markdown Summary",
+      "family": "passive_positional",
+      "description": "Toma los primeros N tokens del markdown estructurado.",
+      "config": {
+        "source": "markdown",
+        "selector": "head"
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "semantic_field_pack",
+      "name": "Semantic Field Pack",
+      "family": "passive_semantic",
+      "description": "Selecciona entradas por perfil semantico general: identity, constraints, focus, objective.",
+      "config": {
+        "source": "cortex",
+        "selector": "semantic_pack"
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "keyword_retrieval_raw",
+      "name": "Keyword Retrieval Raw",
+      "family": "query_dependent",
+      "description": "BM25-like: rankea parrafos de raw prose por coincidencia con la pregunta + gold terms.",
+      "config": {
+        "source": "raw_prose",
+        "selector": "bm25"
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "cortex_priority_pack_v1",
+      "name": "CORTEX PP v1 (CLI v1.x render)",
+      "family": "cortex_v1",
+      "description": "Seleccion por prioridad cognitiva P0->P5 usando CLI v1.x render --profile.",
+      "config": {
+        "source": "cortex",
+        "selector": "cortex_cli_v1",
+        "use_cli": true
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "cortex_v2_priority_pack",
+      "name": "CORTEX v2 PP (CLI v2.4 v2-convert)",
+      "family": "cortex_v2",
+      "description": "v2.0.0: usa v2-convert --from cortex --to hcortex con perfiles y VIEW directives.",
+      "config": {
+        "source": "cortex",
+        "selector": "cortex_v2_convert",
+        "use_cli": true
+      },
+      "is_v2": true
+    },
+    {
+      "method_id": "cortex_v2_canonical",
+      "name": "CORTEX v2 Canonical (normalize + render)",
+      "family": "cortex_v2",
+      "description": "v2.0.0: v2-canonicalize seguido de v2-convert. Produces normalized HCORTEX.",
+      "config": {
+        "source": "cortex",
+        "selector": "cortex_v2_canonical",
+        "use_cli": true
+      },
+      "is_v2": true
+    },
+    {
+      "method_id": "cortex_ablation_no_P0",
+      "name": "Ablation: no P0 priority",
+      "family": "cortex_v1",
+      "description": "Elimina prioridad P0 (FCS, OBJ, CNST, STP tratados como P5). Mide contribucion de P0.",
+      "config": {
+        "source": "cortex",
+        "selector": "cortex_ablation_no_P0",
+        "use_cli": false
+      },
+      "is_v2": false
+    },
+    {
+      "method_id": "cortex_ablation_no_temporal",
+      "name": "Ablation: no temporal",
+      "family": "cortex_v1",
+      "description": "Elimina distincion current/planned/future. Mide contribucion del scope temporal.",
+      "config": {
+        "source": "cortex",
+        "selector": "cortex_ablation_no_temporal",
+        "use_cli": false
+      },
+      "is_v2": false
+    }
+  ]
+}

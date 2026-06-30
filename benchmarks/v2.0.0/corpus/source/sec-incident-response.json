@@ -1,0 +1,17 @@
+{
+  "identity": {"name": "ir-agent-v1", "role": "incident response", "team": "soc-tier2"},
+  "domain": {"area": "sec-incident", "severity": "high", "incident_id": "INC-2026-0628-003"},
+  "constraints": [
+    {"id": "containment_sla", "rule": "containment must initiate within 15min of detection", "severity": "blocking", "survive": "min"},
+    {"id": "evidence", "rule": "forensic evidence must be preserved before any destructive action", "severity": "blocking", "survive": "min"},
+    {"id": "approval", "rule": "destructive actions require SOC lead approval", "severity": "blocking", "survive": "min"}
+  ],
+  "focus": {"what": "Responder a exfiltracion credenciales INC-2026-0628-003", "priority": "high", "status": "current", "survive": "min"},
+  "objective": {"goal": "Contener incidente preservando evidencia y rotando credenciales", "status": "in_progress", "success": "host aislado, evidencia capturada, credenciales rotadas", "survive": "min"},
+  "work": {"phase": "containment", "current": "host win-7E-3 marcado para aislamiento, captura memoria pendiente", "blocked": false, "survive": "work"},
+  "step": {"action": "Ejecutar memory dump antes de isolation", "owner": "ir-agent", "status": "current", "survive": "min"},
+  "risks": [{"id": "lateral_movement", "risk": "Adversario puede moverse lateralmente durante delay", "impact": "high", "mitigation": "block SMB lateral ports inmediatamente"}],
+  "audit": [{"event": "detection INC-2026-0628-003", "evidence": "EDR alert: credenciales en plaintext en proceso malicioso", "result": "confirmed exfiltration", "date": "2026-06-28"}],
+  "claims": [{"id": "mttd", "statement": "MTTD para exfiltracion de credenciales es 4.2min", "evidence": "Q2 2026 SOC metrics"}],
+  "limits": [{"id": "scope", "limit": "Containment scope limited a hosts confirmados comprometidos"}]
+}

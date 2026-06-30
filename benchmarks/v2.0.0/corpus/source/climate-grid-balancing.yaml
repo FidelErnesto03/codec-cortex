@@ -1,0 +1,36 @@
+identity:
+  name: grid-balancer-v3
+  role: automatic generation control
+domain:
+  area: climate-grid
+  region: EU-continental
+  frequency_baseline: 50Hz
+constraints:
+  - id: frequency
+    rule: grid frequency MUST stay in 49.8-50.2 Hz
+    severity: blocking
+    survive: min
+  - id: reserve
+    rule: operating reserve MUST stay > 5% of demand
+    severity: blocking
+    survive: min
+  - id: blackout
+    rule: no blackout allowed under any circumstance
+    severity: blocking
+    survive: min
+focus:
+  what: Balancear red ante rampa solar +12% en 15min
+  status: current
+  survive: min
+objective:
+  goal: Mantener frecuencia en 49.95-50.05 Hz con reserva > 5%
+  status: in_progress
+  survive: min
+work:
+  phase: balancing
+  current: freq=50.18 Hz subiendo, solar ramping, reserve=4.8%
+  blocked: false
+step:
+  action: Curtail solar 8% y dispatch gas peaker 200MW
+  status: current
+  survive: min
