@@ -54,10 +54,11 @@ OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", 
 OBJ:release_v031{goal:"Integrar CLI v2.4.0 y actualizar proyecto a v0.3.1", status:"done", success:"341 tests, 25 comandos v2, roundtrip bidireccional, project v0.3.1", survive:"recovery"}
 OBJ:secondary{goal:"Integrar CLI v1.1.9 en codec-cortex/cli/ y migrar .cortex a formato canonico para v0.3.0", status:"done", success:"CLI instalado, 222 tests, 3/3 .cortex migrados y validados con cortex verify --strict", survive:"recovery"}
 OBJ:release{goal:"Release v0.3.0: commit + push + tag en main. Namespace decision pasada.", status:"done", success:"Tag v0.3.0 en GitHub. Release notes publicadas. CHANGELOG actualizado.", survive:"work"}
-OBJ:operate{goal:"Operar con v0.3.0. Explorar casos de uso del CLI, tests de roundtrip, benchmarks automatizados.", status:"current", success:"CLI probado con .cortex reales. Proximo release planeado.", survive:"work"}
+OBJ:operate{goal:"Operación v0.3.1: CLI bidireccional, skill canónico, benchmark v2.0.0", status:"done", success:"E1 infrastructure (PyPI, Makefile, pre-commit, CI). Benchmark v2.0.0 integrado. ROADMAP actualizado.", survive:"recovery"}
+OBJ:benchmark_v2{goal:"Integrar benchmark v2.0.0 del núcleo bidireccional", status:"done", success:"84 fuentes versionables en benchmarks/v2.0.0/. 4,840 runs, 19 métricas.", survive:"recovery"}
 WRK:state{phase:"Operacion v0.3.1", current:"CLI v2.4.0 integrado. Proyecto actualizado a v0.3.1. 341 tests pasan.", blocked:false, survive:"work", active_files:"brain.cortex, cli/, skill/cortex/SKILL.md"}
 WRK:repo{phase:"active", current:"main branch v0.3.1. CLI v2.4.0 en cli/. 341 tests pasan.", blocked:false, survive:"work"}
-STP:next{action:"Explorar CLI v2.4.0: roundtrip, convert, verify-view en .cortex del proyecto", reason:"v0.3.1 operativo. CLI bidireccional integrado.", owner:"agent", status:"current", survive:"min"}
+STP:next{action:"Preparar publicación PyPI y activar CI/CD (token workflow scope)", reason:"v0.3.1 alineado. E1 infraestructura lista. Siguiente: pip install codec-cortex.", owner:"agent", status:"planned", survive:"min"}
 
 $3: RECENT SESSIONS
 
@@ -72,6 +73,7 @@ SES:re007_diagnosis{input:"analisis de conversion .cortex->HCORTEX", output:"RE-
 SES:re007_approved{input:"5 ajustes del governor", output:"RE-007 approved. 0 archivos modificados (MR-02)", outcome:"approved", date:"2026-06-24"}
 SES:hcortex_corrections{input:"RE-008 a RE-013 — D-01 a D-06", output:"5 reglas !hcortex_* en $4. 8 pasos en $10. Ciclo completado: 13/13 REs", outcome:"12 commits, v0.2.3, brain.cortex actualizado", date:"2026-06-24"}
 SES:cli_integration{input:"Fidel: codec_cortex-2.4.0-full.tar.gz — CLI bidireccional v2.4.0", output:"CLI actualizado: 25 comandos v2, 341 tests, roundtrip bidireccional CORTEX↔HCORTEX", outcome:"CLI v2.4.0 integrado como cli/. Proyecto v0.3.1.", date:"2026-06-29"}
+SES:alignment_v031{input:"Alineación completa del proyecto al canon SKILL_HCORTEX.md v1.2.0 + integración CLI v2.4.0", output:"CORTEX canónico instalado (266 entries, 44 VIEW). E1 infraestructura creada. Benchmark v2.0.0 integrado. ROADMAP actualizado.", outcome:"Proyecto v0.3.1 completamente alineado. Skill canónico en Hermes con reglas CORTEX-OUT.", date:"2026-06-30"}
 SES:cli_documentation{input:"Fidel: actualizacion de documentacion COMPLETA para v0.3.0", output:"README v0.3.0/beta, CHANGELOG seccion 0.3.0, STATUS actualizado, ROADMAP Phase 4 current. brain.md/alfred-memory.md regenerados. summary.md actualizado.", outcome:"documentacion completa alineada con CLI", date:"2026-06-27"}
 SES:cortex_migration{input:"Formatos .cortex legacy con comentarios # -- sin secciones $N:", output:"brain.cortex, SKILL.cortex, alfred-memory.cortex en formato canonico con $N: headers, 6-column glossary, contratos validos", outcome:"3/3 .cortex pasan cortex verify --strict con 0 errores", date:"2026-06-27"}
 SES:skill_update_v030{input:"Fidel: actualiza tu skill instalado localmente y comienza a operar con v0.3.0", output:"SKILL.md v1.2.0, SKILL.cortex canonico, SKILL.en.md sync copiados a ~/.hermes/skills/codec-cortex/", outcome:"Skill local actualizado a v0.3.0. Operando con CLI.", date:"2026-06-27"}
