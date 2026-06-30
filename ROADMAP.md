@@ -29,7 +29,7 @@
 
 ### Phase 2.1: Survival Core
 
-**Status:** specification draft.
+**Status:** current.
 
 **Goal:** define minimum survival context: `survive` attribute, priority pack P0-P5, conceptual profiles, and degradation policy.
 
@@ -53,15 +53,22 @@
 
 ## Phase 4: Deterministic Codec
 
-**Status:** current/specification.
+**Status:** current.
 
 **Goal:** maintain parser, encoder, decoder, verifier, renderer and CLI.
 
-**Deliverables:** `cortex` CLI at `cli/` — 17 commands, 222 tests, `cortex verify --strict`, `cortex render`, `cortex doctor`, CRUD operations, structural diff, diagram extraction/validation, recovery, format, glossary management.
+**Deliverables:** `cortex` CLI at `cli/` — v2.4.0, 25 comandos (17 clásicos + 8 v2), 341 tests, núcleo bidireccional CORTEX ⇄ HCORTEX verificado sobre artefactos canónicos (266 entries, 44 VIEW, coverage 100%, roundtrip 0 diffs).
 
-**Non-goals:** no LLM calls inside parse, encode, decode or verify operations.
+| Capacidad | Estado |
+|-----------|:------:|
+| CORTEX → HCORTEX | `current` — byte-identical contra canónico |
+| HCORTEX → CORTEX | `current` — reconstruye 266/266 entries |
+| Roundtrip bidireccional | `current` — AST-equivalent y content-equivalent, 0 diffs |
+| VIEW directives | `current` — 44/44, coverage 100% |
+| Gate reversible:true | `current` — coverage 100%, cero errores, no display-only |
+| CLI commands | `current` — 25 comandos (ver tabla completa en README) |
 
-**Acceptance criteria:** all `.cortex` files pass `cortex verify --strict` with 0 errors. HCORTEX renders correctly in readable and audit modes. Roundtrip decode→edit→encode preserves content.
+**Acceptance criteria:** all `.cortex` files pass `cortex verify --strict` with 0 errors. HCORTEX renders correctly in readable and audit modes. Roundtrip CORTEX → HCORTEX → CORTEX is AST-equivalent. Roundtrip HCORTEX → CORTEX → HCORTEX is content-equivalent.
 
 ## Phase 5: Memory Runtime
 
