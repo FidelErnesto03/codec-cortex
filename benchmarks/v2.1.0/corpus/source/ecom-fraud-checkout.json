@@ -1,0 +1,15 @@
+{
+  "identity": {"name": "fraud-detector-v3", "role": "realtime decision"},
+  "domain": {"area": "ecom-fraud-checkout", "region": "eu-west", "vertical": "fashion"},
+  "constraints": [
+    {"id": "latency", "rule": "decision must return in < 200ms p99", "severity": "blocking", "survive": "min"},
+    {"id": "pii", "rule": "no PII in application logs", "severity": "blocking", "survive": "min"}
+  ],
+  "focus": {"what": "Evaluate transaction tx_88291 risk score", "priority": "high", "status": "current", "survive": "min"},
+  "objective": {"goal": "Decide block/allow/manual_review para tx_88291", "status": "in_progress", "success": "decision emitted in <200ms with documented rationale", "survive": "min"},
+  "work": {"phase": "scoring", "current": "score=0.87 computed, awaiting rule engine", "blocked": false, "survive": "work"},
+  "step": {"action": "Apply rule: score > 0.85 -> block", "owner": "fraud-detector", "status": "current", "survive": "min"},
+  "risks": [{"id": "false_positive", "risk": "Bloquear cliente VIP con score 0.87 falso positivo", "impact": "medium", "mitigation": "whitelist dominios corporativos"}],
+  "claims": [{"id": "threshold", "statement": "score > 0.85 has precision 0.92 in offline eval", "evidence": "monthly backtest Q2 2026"}],
+  "limits": [{"id": "throughput", "limit": "max 1000 decisions/second"}]
+}

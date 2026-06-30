@@ -1,0 +1,34 @@
+identity:
+  name: cds-engine-v2
+  role: clinical decision support
+domain:
+  area: medication-alert
+  patient_pseudo_id: p_4471
+  encounter: enc_99201
+constraints:
+  - id: hitl
+    rule: physician must confirm before action
+    severity: blocking
+    survive: min
+  - id: disclaimer
+    rule: output is advisory, not diagnosis
+    severity: blocking
+    survive: min
+focus:
+  what: Evaluar interaccion warfarin + ibuprofen en paciente p_4471
+  priority: high
+  status: current
+  survive: min
+objective:
+  goal: Producir recomendacion block/monitor/allow para prescripcion
+  status: in_progress
+  success: recomendacion emitida con fuente citada y disclaimer
+  survive: min
+work:
+  phase: interaction check
+  current: warfarin + ibuprofen detectado, severity=high
+  blocked: false
+step:
+  action: Emitir alerta BLOCK con referencia a Lexicomp
+  status: current
+  survive: min

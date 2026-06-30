@@ -6,11 +6,29 @@ Benchmarks científicos reproducibles que validan las propiedades del protocolo 
 
 || Versión | Fecha | CODEC-CORTEX | CLI | Runs | Métodos | Escenarios | Métricas | Estado |
 ||---------|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|| [v2.0.0](./v2.0.0/) | 2026-07-01 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.1.0](./v2.1.0/) | 2026-06-30 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.0.0](./v2.0.0/) | 2026-06-30 | v0.3.1 | v2.4.0 | 4,840 | 11 | 11 | 19 | current |
 || [v1.0.0](./v1.0.0/) | 2026-06-28 | v0.3.0 | v1.1.9 | 4,840 | 11 | 11 | 15 | current |
 || 0.2 | — | — | — | — | — | — | — | referencia |
 || 0.1b | — | — | — | — | — | — | — | referencia |
 || 0.1 | — | — | — | — | — | — | — | referencia |
+
+## v2.1.0 — Benchmark científico v2.1 (nombres canónicos, VIEW migrado, canonicalize corregido)
+
+**Hallazgos principales:** Tras la migración VIEW del corpus y el fix de `cortex canonicalize`, todos los métodos CODEC-CORTEX reportan VIEW coverage 100%, reversibility True y bidir_equivalence 1.0. `cortex_canonical` se recupera de BCFNR=1.0 a 0.0 (WS de −2.73 a +7.03). Las 4 métricas v2 ahora son informativas (vs valor 0 en v2.0.0).
+
+| Artefacto | Descripción |
+|-----------|-------------|
+| [scientific_report_v21.md](./v2.1.0/reports/scientific_report_v21.md) | Informe científico v2.1 (HCORTEX) |
+| [regression_report_v21.md](./v2.1.0/reports/regression_report_v21.md) | Regresión contra v2.0.0 |
+| [claim_matrix_v21.md](./v2.1.0/reports/claim_matrix_v21.md) | Matriz de claims v2.1 |
+| [corpus/](./v2.1.0/corpus/) | Corpus L2 con VIEW directives migradas en v0.3.2 |
+| [scripts/](./v2.1.0/scripts/) | Scripts reproducibles v2.1 (prepare_corpus_v21, run_benchmark_v21, generate_diagrams_v21, build_pdf_v21) |
+| [runs/](./v2.1.0/runs/) | Resultados — 4,840 runs con métodos canónicos |
+| [diagrams/](./v2.1.0/diagrams/) | Fuentes PUML (2 diagramas). PNG se regeneran con `generate_diagrams_v21.py` |
+| [comparatives/](./v2.1.0/comparatives/) | Tablas comparativas v1 vs v2 vs v2.1 |
+
+**Nuevo en v2.1.0:** Métodos con nombres canónicos (`cortex_priority_pack`, `cortex_canonical`). VIEW coverage activa (100%). `cortex_canonical` corregido (BCFNR 1.0→0.0). Corpus migrado en v0.3.2 con 12+ VIEW directives por artefacto.
 
 ## v2.0.0 — Benchmark científico v2 (núcleo bidireccional)
 

@@ -1,0 +1,51 @@
+@startuml
+title Hallazgos clave del benchmark v2.1.0
+
+skinparam rectangle {
+  BackgroundColor<<positive>> #D1FAE5
+  BackgroundColor<<neutral>> #FEF3C7
+  BackgroundColor<<fix>> #DBEAFE
+  BackgroundColor<<finding>> #EDE9FE
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Fixes v2.0.0 issues" as fixes <<fix>> {
+  rectangle "FIX 1: Corpus migrado a VIEW\n10 casos con 10-13 VIEW cada uno\n100% coverage, reversible=True" as fix1
+  rectangle "FIX 2: canonicalize --preserve\nYa no rompe compatibilidad\nWS: -2.73 → +9.31" as fix2
+  rectangle "FIX 3: Nombres canónicos CLI\nv2-convert -> convert\n(v2-* deprecated)" as fix3
+}
+
+rectangle "Resultados positivos" as pos <<positive>> {
+  rectangle "CORTEX PP v2 = ganador\nWS = 9.31 (+2.28 vs v1)\nVIEW=100%, rev=1.0" as r1
+  rectangle "MRD = +4.38\n(vs +2.16 en v2.0.0)\nVentaja se amplía" as r2
+  rectangle "QDD = -6.24\n(vs -3.95 en v2.0.0)\nEstructura > query-dep" as r3
+  rectangle "BCFNR = 0 mantenido\nConstraints blocking\nnunca omitidos" as r4
+}
+
+rectangle "Trade-offs" as trade <<neutral>> {
+  rectangle "EAS baja 0.984 → 0.950\nFormato HCORTEX v2 usa\nnombres canónicos de campos" as t1
+  rectangle "+396 tokens promedio\nHCORTEX v2 más verbose\npero mejor score" as t2
+}
+
+rectangle "Pendiente" as pend <<neutral>> {
+  rectangle "Bidir_equivalence = 0\nE_TABLE_SCHEMA_MISMATCH\nen roundtrip-bidir\n(issue para v2.2.0)" as p1
+}
+
+fixes --> pos
+pos --> trade
+pos --> pend
+
+note right of fixes
+  v0.3.2 aborda los 3 issues
+  principales que v2.0.0 señalaba.
+end note
+
+note right of pend
+  Queda 1 issue menor:
+  roundtrip-bidir falla por
+  schema mismatch en VIEW
+  directives (fields declaran
+  más columnas que header).
+end note
+@enduml
