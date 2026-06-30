@@ -38,3 +38,18 @@ AUD:score_log{event:"score computation tx_88291", evidence:"feature_vector hashe
 $4: CLAIMS AND LIMITS
 CLAIM:threshold{statement:"score > 0.85 has precision 0.92 in offline eval", evidence:"monthly backtest Q2 2026", status:"current"}
 LIM:throughput{limit:"max 1000 decisions/second", scope:"capacity", status:"current"}
+
+$5: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:cur,fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:cur,fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:cur,fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:cur,fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:cur,fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:cur,fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:cur,fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:aud{kind:"table",target:"$3:AUD:*",reverse:"rows_to_entries",status:cur,fields:"event,evidence,result,date",title:"Audit Trail"}
+VIEW:claim{kind:"table",target:"$4:CLAIM:*",reverse:"rows_to_entries",status:cur,fields:"statement,evidence,status",title:"Claims"}
+VIEW:lim{kind:"table",target:"$4:LIM:*",reverse:"rows_to_entries",status:cur,fields:"limit,scope,status",title:"Limits"}
+VIEW:stat{kind:"table",target:"$2:STAT:*",reverse:"rows_to_entries",status:cur,fields:"txn,result,status",title:"Stats"}

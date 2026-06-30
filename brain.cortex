@@ -42,23 +42,23 @@ $1: IDENTITY
 
 IDN:human{name:"Fidel Ernesto Lozada A.", role:"Creator & Architect", academic:"Systems Engineer / MSc. Management Sciences", github:"FidelErnesto03", email:"fidelernesto@gmail.com"}
 IDN:agent{name:"alfred", role:"Protocol implementation and documentation agent", type:"AI coding agent"}
-DOM:project{area:"CODEC-CORTEX", protocol:"cognitive_memory", artifact:"brain.cortex", version:"0.3.1", repo:"github.com/FidelErnesto03/codec-cortex"}
+DOM:project{area:"CODEC-CORTEX", protocol:"cognitive_memory", artifact:"brain.cortex", version:"0.3.2", repo:"github.com/FidelErnesto03/codec-cortex"}
 
 $2: OPERATIONAL STATE
 
 CNST:honesty{rule:"current/planned/future must remain explicit; no unsupported metrics or implementation claims", severity:"blocking", survive:"min"}
 CNST:output_format{rule:"Output in HCORTEX format: tables > lists > K/V > diagrams > prose. User language: ES. Structural: EN. Canonical memory: .cortex", severity:"warning", survive:"work"}
-FCS:primary{what:"CODEC-CORTEX v0.3.1 — CLI v2.4.0 núcleo bidireccional CORTEX⇄HCORTEX.", priority:"high", status:"current", survive:"work"}
+FCS:primary{what:"CODEC-CORTEX v0.3.2 — CLI v0.3.2 nombres canónicos + fix canonicalize VIEW-aware + corpus migrado a VIEW.", priority:"high", status:"current", survive:"work"}
 FCS:secondary{what:"Ciclo CORTEX-CONSOLIDATION-001 completado. Release v0.3.0 publicada en GitHub.", priority:"medium", status:"current", survive:"work"}
 OBJ:primary{goal:"Ejecutar y aprobar las 6 correcciones HCORTEX (D-01 a D-06)", status:"done", success:"13/13 REs approved. 5 reglas en $4, 8 pasos en $10", survive:"min"}
-OBJ:release_v031{goal:"Integrar CLI v2.4.0 y actualizar proyecto a v0.3.1", status:"done", success:"341 tests, 25 comandos v2, roundtrip bidireccional, project v0.3.1", survive:"recovery"}
+OBJ:release_v032{goal:"Integrar CLI v0.3.2 con nombres canónicos y fix canonicalize VIEW-aware", status:"done", success:"8 comandos canónicos, alias v2-* deprecados, --preserve flag, B-01/B-05 fix, corpus migrado a VIEW, method renames", survive:"recovery"}
 OBJ:secondary{goal:"Integrar CLI v1.1.9 en codec-cortex/cli/ y migrar .cortex a formato canonico para v0.3.0", status:"done", success:"CLI instalado, 222 tests, 3/3 .cortex migrados y validados con cortex verify --strict", survive:"recovery"}
 OBJ:release{goal:"Release v0.3.0: commit + push + tag en main. Namespace decision pasada.", status:"done", success:"Tag v0.3.0 en GitHub. Release notes publicadas. CHANGELOG actualizado.", survive:"work"}
-OBJ:operate{goal:"Operación v0.3.1: CLI bidireccional, skill canónico, benchmark v2.0.0", status:"done", success:"E1 infrastructure (PyPI, Makefile, pre-commit, CI). Benchmark v2.0.0 integrado. ROADMAP actualizado.", survive:"recovery"}
+OBJ:operate{goal:"Operación v0.3.2: CLI con nombres canónicos, skill canónico, corpus migrado a VIEW", status:"done", success:"Canonical naming. canonicalize VIEW-aware. 10/10 corpus con VIEW. method_registry renombrado. Workflow agente integrado.", survive:"recovery"}
 OBJ:benchmark_v2{goal:"Integrar benchmark v2.0.0 del núcleo bidireccional", status:"done", success:"84 fuentes versionables en benchmarks/v2.0.0/. 4,840 runs, 19 métricas.", survive:"recovery"}
-WRK:state{phase:"Operacion v0.3.1", current:"CLI v2.4.0 integrado. Proyecto actualizado a v0.3.1. 341 tests pasan.", blocked:false, survive:"work", active_files:"brain.cortex, cli/, skill/cortex/SKILL.md"}
-WRK:repo{phase:"active", current:"main branch v0.3.1. CLI v2.4.0 en cli/. 341 tests pasan.", blocked:false, survive:"work"}
-STP:next{action:"Preparar publicación PyPI y activar CI/CD (token workflow scope)", reason:"v0.3.1 alineado. E1 infraestructura lista. Siguiente: pip install codec-cortex.", owner:"agent", status:"planned", survive:"min"}
+WRK:state{phase:"Operacion v0.3.2", current:"CLI v0.3.2 integrado. Proyecto actualizado a v0.3.2. Nombres canónicos sin prefijo v2-. canonicalize VIEW-aware. Corpus migrado a VIEW directives.", blocked:false, survive:"work", active_files:"brain.cortex, cli/, skill/cortex/SKILL.md, docs/specs/agent-workflow.md"}
+WRK:repo{phase:"active", current:"main branch v0.3.2. CLI v0.3.2 en cli/. 341 tests pasan. Nombres canónicos adoptados.", blocked:false, survive:"work"}
+STP:next{action:"Preparar publicación PyPI y activar CI/CD (token workflow scope)", reason:"v0.3.2 alineado. Nombres canónicos. Siguiente: pip install codec-cortex.", owner:"agent", status:"planned", survive:"min"}
 
 $3: RECENT SESSIONS
 
@@ -79,6 +79,7 @@ SES:cortex_migration{input:"Formatos .cortex legacy con comentarios # -- sin sec
 SES:skill_update_v030{input:"Fidel: actualiza tu skill instalado localmente y comienza a operar con v0.3.0", output:"SKILL.md v1.2.0, SKILL.cortex canonico, SKILL.en.md sync copiados a ~/.hermes/skills/codec-cortex/", outcome:"Skill local actualizado a v0.3.0. Operando con CLI.", date:"2026-06-27"}
 SES:enterprise_roadmap{input:"Fidel: verifica todo lo que hace falta para llevar codec-cortex a nivel enterprise", output:"Analisis de brecha E1-E5 documentado en ROADMAP.md. Universal Skill Distribution Protocol en docs/specs/skill-distribution.md. setup.sh creado.", outcome:"Roadmap enterprise completo + protocolo de distribucion universal.", date:"2026-06-27"}
 SES:benchmark_integration{input:"Fidel: benchmark-cortex-v1.0.tar.gz — benchmark formal v1.0.0 desarrollado 2026-06-28", output:"82 archivos versionables extraidos a benchmarks/v1.0.0/. .gitignore actualizado para excluir PNG/SVG/PDF. benchmarks/README.md actualizado con catalogo.", outcome:"Benchmark v1.0.0 integrado como fuentes versionables. Artefactos binarios excluidos de git (GitHub Release).", date:"2026-06-28"}
+SES:canonical_naming_v032{input:"Plan v032-canonical-naming-view-migration.md: renombrar comandos v2-* a canonicos, fix canonicalize VIEW-aware, migrar corpus a VIEW, alinear documentacion, integrar workflow agente", output:"8 comandos canonicos (roundtrip, convert, roundtrip-bidir, compare, verify-view, explain-loss, canonicalize, inspect) + alias v2-* deprecados con WARNING. Flag --preserve en canonicalize. write_cortex_v2_preserve() + has_view_directives() en writer.py. Parser v2 acepta seccion v1 $0: DESCRIPTION. 10/10 corpus .cortex migrados a VIEW directives. method_registry renombrado (cortex_v2_priority_pack -> cortex_priority_pack, cortex_v2_canonical -> cortex_canonical). runs/* actualizados. hashes.json recompputado. docs/specs/agent-workflow.md creado con 5 PUML + 4 reglas ! + 5 perfiles CORTEX-OUT. CHANGELOG/STATUS/README/AGENT/ROADMAP/benchmarks README alineados a v0.3.2.", outcome:"Proyecto v0.3.2: naming canónico CLI, fix B-01/B-05, corpus con VIEW, workflow agente integrado.", date:"2026-07-01"}
 
 $4: LESSONS LEARNED
 
@@ -99,6 +100,9 @@ LNG:render_order_by_priority{type:"implementation", cause:"Ordenar HCORTEX por n
 LNG:gov_isolation_mandatory{type:"security", cause:"Referencias de gobierno (RE-IDs, nombres de ciclo) en documentos publicos", lesson:"Ningun documento publico del proyecto debe contener referencias de gobierno. Violacion: strip antes de push", prevention:"Regla !gov_isolation en workbook. Pre-push grep check"}
 LNG:cortex_md_sync{type:"process", cause:"brain.cortex existia sin brain.md correspondiente", lesson:"Todo archivo .cortex con estado operativo debe tener su correspondiente .md HCORTEX sincronizado. El .md es la vista legible humana del .cortex", prevention:"cortex render brain.cortex -> brain.md automatico"}
 LNG:version_centralization{type:"process", cause:"Versiones divergentes entre superficies (SKILL.cortex vs pyproject.toml vs brain.cortex)", lesson:"Version unica para todas las superficies. SKILL no tiene version independiente — hereda la del proyecto", prevention:"grep -rn version_string antes de cada tag"}
+LNG:canonical_naming_no_version_prefix{type:"api_design", cause:"Comandos CLI v2-* causaban confusion: eran nombres publicos con version embebida", lesson:"Los nombres publicos de recursos y comandos NO deben embeber version. La version va en metadata (header, --version), no en el nombre. Los alias v2-* se mantienen como deprecated por compatibilidad pero se documentan los canonicos como primarios", prevention:"Regla !:canonical_names en AGENT.md. WARNING automatico al invocar alias v2-* desde CLI"}
+LNG:canonicalize_view_aware{type:"implementation", cause:"v2-canonicalize siempre reescribia .cortex perdiendo compatibilidad con v1 render (issues B-01, B-05)", lesson:"canonicalize debe ser VIEW-aware: sin VIEW directives, solo normalizar whitespace/orden (preservar estructura). Con VIEW, aplicar canonicalizacion completa. Flag --preserve fuerza preservation", prevention:"has_view_directives() en writer.py. write_cortex_v2_preserve() como fallback seguro. Test B-01 fix en canonicalize command"}
+LNG:corpus_view_migration{type:"benchmark", cause:"Corpus v1.0.0 sin VIEW directives provocaba VIEW_coverage=0%, reversibility=False, BCFNR=1.0 en cortex_canonical", lesson:"El corpus de benchmark debe tener VIEW directives para validar reversible HCORTEX. Cada artefacto necesita 3-5 VIEW cubriendo IDN, DOM, FCS, OBJ, CNST", prevention:"Script migrate_corpus_views.py idempotente. recompute_corpus_hashes.py post-migracion. verify-view en CI"}
 
 $5: ACTIVE KNOWLEDGE AND DIAGRAMS
 

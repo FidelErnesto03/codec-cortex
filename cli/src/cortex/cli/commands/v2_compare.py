@@ -1,4 +1,8 @@
-"""``cortex v2-compare`` — compare two CORTEX/HCORTEX artefacts."""
+"""``cortex compare`` — compare two CORTEX/HCORTEX artefacts.
+
+Canonical name: ``compare`` (since v0.3.2).
+Deprecated alias: ``v2-compare`` (still accepted).
+"""
 
 from __future__ import annotations
 

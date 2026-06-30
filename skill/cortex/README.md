@@ -46,13 +46,19 @@ cp skill/cortex/SKILL.md ~/my-agent-skills/codec-cortex.cortex.md
 
 ## Verification
 
-After installation, verify the artifact is intact:
+After installation, verify the artifact is intact (v0.3.2 — canonical command names):
 
 ```bash
-cortex v2-inspect skill/cortex/SKILL.md          # 14 sections, 266 entries, 44 VIEW, 100%
-cortex v2-roundtrip-bidir skill/cortex/SKILL.md   # rc=0, 0 diffs
-cortex verify --strict skill/cortex/SKILL.md      # 0 errors, 0 warnings
+cortex inspect skill/cortex/SKILL.md          # 14 sections, 266 entries, 44 VIEW, 100%
+cortex roundtrip-bidir skill/cortex/SKILL.md   # rc=0, 0 diffs
+cortex verify --strict skill/cortex/SKILL.md   # 0 errors, 0 warnings
 ```
+
+> v0.3.2 — Naming canónico: `cortex inspect`, `cortex roundtrip-bidir`,
+> `cortex verify-view`, `cortex canonicalize`, etc. Los alias `v2-*`
+> (`cortex v2-inspect`, `cortex v2-roundtrip-bidir`, ...) se mantienen
+> como deprecated y emiten un `WARNING` a stderr al ser invocados. Serán
+> removidos en v1.0.0.
 
 **Canonical HCORTEX spec (human reference):** `skill/hcortex/SKILL_HCORTEX.md` — v1.2.0-enterprise-candidate.
 

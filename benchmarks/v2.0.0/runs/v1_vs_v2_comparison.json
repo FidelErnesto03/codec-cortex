@@ -1,12 +1,12 @@
 {
   "v1_reference": "cortex_priority_pack_v1",
   "v2_methods": [
-    "cortex_v2_priority_pack",
-    "cortex_v2_canonical"
+    "cortex_priority_pack",
+    "cortex_canonical"
   ],
   "comparison": [
     {
-      "v2_method": "cortex_v2_priority_pack",
+      "v2_method": "cortex_priority_pack",
       "v1_method": "cortex_priority_pack_v1",
       "deltas": {
         "avg_EAS": 0.0,
@@ -29,7 +29,7 @@
         "avg_weighted_score": 0.0
       },
       "v2_metrics": {
-        "method_id": "cortex_v2_priority_pack",
+        "method_id": "cortex_priority_pack",
         "n_tasks": 440,
         "avg_EAS": 0.9841,
         "avg_ETC": 0.9841,
@@ -74,7 +74,7 @@
       }
     },
     {
-      "v2_method": "cortex_v2_canonical",
+      "v2_method": "cortex_canonical",
       "v1_method": "cortex_priority_pack_v1",
       "deltas": {
         "avg_EAS": -0.8091,
@@ -97,7 +97,7 @@
         "avg_weighted_score": -9.7582
       },
       "v2_metrics": {
-        "method_id": "cortex_v2_canonical",
+        "method_id": "cortex_canonical",
         "n_tasks": 440,
         "avg_EAS": 0.175,
         "avg_ETC": 0.0583,

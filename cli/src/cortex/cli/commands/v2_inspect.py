@@ -1,4 +1,8 @@
-"""``cortex v2-inspect`` — show AST, sections, sigils, VIEW coverage, errors."""
+"""``cortex inspect`` — show AST, sections, sigils, VIEW coverage, errors.
+
+Canonical name: ``inspect`` (since v0.3.2).
+Deprecated alias: ``v2-inspect`` (still accepted).
+"""
 
 from __future__ import annotations
 

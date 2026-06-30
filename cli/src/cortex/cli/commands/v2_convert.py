@@ -1,4 +1,7 @@
-"""``cortex v2-convert`` — convert between CORTEX v2 and HCORTEX.
+"""``cortex convert`` — convert between CORTEX v2 and HCORTEX.
+
+Canonical name: ``convert`` (since v0.3.2).
+Deprecated alias: ``v2-convert`` (still accepted).
 
 v2.3.0: Supports reverse conversion HCORTEX → CORTEX via parse_hcortex + encode_cortex_from_ast.
 """

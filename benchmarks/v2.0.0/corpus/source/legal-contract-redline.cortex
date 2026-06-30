@@ -33,3 +33,16 @@ $3: RISKS AND CLAIMS
 RSK:ambiguous_clause{risk:"Cláusula de indemnidad ambigua genera litigio futuro", impact:"high", mitigation:"exigir lenguaje mutuo y explicito", status:"current", survive:"recovery"}
 CLAIM:standard{statement:"liability cap 12 meses fees es estandar de industria SaaS", evidence:"internal benchmark 2025", status:"current"}
 LIM:timeline{limit:"Review debe completar en < 5 dias habiles", scope:"SLA legal", status:"current"}
+
+$4: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:cur,fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:cur,fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:cur,fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:cur,fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:cur,fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:cur,fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:cur,fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:claim{kind:"table",target:"$3:CLAIM:*",reverse:"rows_to_entries",status:cur,fields:"statement,evidence,status",title:"Claims"}
+VIEW:lim{kind:"table",target:"$3:LIM:*",reverse:"rows_to_entries",status:cur,fields:"limit,scope,status",title:"Limits"}

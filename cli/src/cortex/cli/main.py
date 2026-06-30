@@ -20,12 +20,26 @@ Usage (canonical commands):
     cortex diagram list brain.cortex
     cortex diagram extract brain.cortex --name flow
 
+v2 commands (canonical names since v0.3.2; v2-* aliases are deprecated):
+    cortex roundtrip        <file>           # was v2-roundtrip
+    cortex convert          <file> ...       # was v2-convert
+    cortex roundtrip-bidir  <file>           # was v2-roundtrip-bidir
+    cortex compare          <a> <b>          # was v2-compare
+    cortex verify-view      <file>           # was v2-verify-view
+    cortex explain-loss     <file>           # was v2-explain-loss
+    cortex canonicalize     <file>           # was v2-canonicalize (now VIEW-aware)
+    cortex inspect          <file>           # was v2-inspect
+
 Aliases (Section 22.2 of SKILL.md):
     cortex decode   = cortex render   (decode .cortex to a view)
     cortex encode   = cortex compile  (encode a view back to .cortex)
     cortex patch_add     = cortex add
     cortex patch_update  = cortex update
     cortex patch_remove  = cortex delete
+
+Deprecated aliases (still accepted, will be removed in v1.0.0):
+    v2-roundtrip, v2-convert, v2-roundtrip-bidir, v2-compare,
+    v2-verify-view, v2-explain-loss, v2-canonicalize, v2-inspect
 """
 
 from __future__ import annotations
@@ -411,17 +425,29 @@ def build_parser() -> argparse.ArgumentParser:
     dsp.set_defaults(func=cmd_diagram.run_validate)
 
     # ------------------------------------------------------------------
-    # v2-roundtrip (v2.0.0 — CORTEX v2 byte-identical roundtrip)
+    # roundtrip  (canonical; alias: v2-roundtrip — deprecated)
+    # v2.0.0: CORTEX v2 byte-identical roundtrip.
+    # v0.3.2: rename v2-roundtrip → roundtrip (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-roundtrip", help="verify CORTEX v2 roundtrip fidelity (byte-identical)")
+    sp = sub.add_parser(
+        "roundtrip",
+        help="verify CORTEX v2 roundtrip fidelity (byte-identical)",
+        aliases=["v2-roundtrip"],
+    )
     sp.add_argument("input", help="CORTEX v2 file to test")
     sp.add_argument("--format", choices=["text", "json"], default="text")
     sp.set_defaults(func=cmd_v2_roundtrip.run)
 
     # ------------------------------------------------------------------
-    # v2-convert (v2.1.0 — CORTEX ⇄ HCORTEX conversion)
+    # convert  (canonical; alias: v2-convert — deprecated)
+    # v2.1.0: CORTEX ⇄ HCORTEX conversion.
+    # v0.3.2: rename v2-convert → convert (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-convert", help="convert between CORTEX v2 and HCORTEX v2")
+    sp = sub.add_parser(
+        "convert",
+        help="convert between CORTEX v2 and HCORTEX v2",
+        aliases=["v2-convert"],
+    )
     sp.add_argument("input", help="input file")
     sp.add_argument("--from", dest="from_format", choices=["cortex", "hcortex", "hcortex-r"], required=True,
                     help="source format")
@@ -446,19 +472,29 @@ def build_parser() -> argparse.ArgumentParser:
     sp.set_defaults(func=cmd_v2_convert.run)
 
     # ------------------------------------------------------------------
-    # v2-roundtrip-bidir (v2.3.0 — CORTEX ⇄ HCORTEX bidirectional roundtrip)
+    # roundtrip-bidir  (canonical; alias: v2-roundtrip-bidir — deprecated)
+    # v2.3.0: CORTEX ⇄ HCORTEX bidirectional roundtrip.
+    # v0.3.2: rename v2-roundtrip-bidir → roundtrip-bidir (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-roundtrip-bidir",
-                        help="v2.3.0: validate CORTEX ⇄ HCORTEX bidirectional roundtrip")
+    sp = sub.add_parser(
+        "roundtrip-bidir",
+        help="validate CORTEX ⇄ HCORTEX bidirectional roundtrip",
+        aliases=["v2-roundtrip-bidir"],
+    )
     sp.add_argument("input", help="CORTEX or HCORTEX file")
     sp.add_argument("--format", choices=["text", "json"], default="text")
     sp.set_defaults(func=cmd_v2_roundtrip_bidir.run)
 
     # ------------------------------------------------------------------
-    # v2-compare (v2.3.0 — compare two artefacts)
+    # compare  (canonical; alias: v2-compare — deprecated)
+    # v2.3.0: compare two CORTEX/HCORTEX artefacts.
+    # v0.3.2: rename v2-compare → compare (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-compare",
-                        help="v2.3.0: compare two CORTEX/HCORTEX artefacts (byte/AST/semantic/content)")
+    sp = sub.add_parser(
+        "compare",
+        help="compare two CORTEX/HCORTEX artefacts (byte/AST/semantic/content)",
+        aliases=["v2-compare"],
+    )
     sp.add_argument("left", help="left file")
     sp.add_argument("right", help="right file")
     sp.add_argument("--format", choices=["text", "json"], default="text")
@@ -466,38 +502,70 @@ def build_parser() -> argparse.ArgumentParser:
     sp.set_defaults(func=cmd_v2_compare.run)
 
     # ------------------------------------------------------------------
-    # v2-verify-view (v2.3.0 — validate VIEW coverage and reversibility)
+    # verify-view  (canonical; alias: v2-verify-view — deprecated)
+    # v2.3.0: validate VIEW coverage, reversibility, consistency.
+    # v0.3.2: rename v2-verify-view → verify-view (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-verify-view",
-                        help="v2.3.0: validate VIEW coverage, reversibility, consistency")
+    sp = sub.add_parser(
+        "verify-view",
+        help="validate VIEW coverage, reversibility, consistency",
+        aliases=["v2-verify-view"],
+    )
     sp.add_argument("input", help="CORTEX file")
     sp.add_argument("--format", choices=["text", "json"], default="text")
     sp.add_argument("--strict", action="store_true", help="warnings also cause non-zero rc")
     sp.set_defaults(func=cmd_v2_verify_view.run)
 
     # ------------------------------------------------------------------
-    # v2-explain-loss (v2.3.0 — explain loss, omission, non-reversible)
+    # explain-loss  (canonical; alias: v2-explain-loss — deprecated)
+    # v2.3.0: explain loss, omission, or non-reversible content.
+    # v0.3.2: rename v2-explain-loss → explain-loss (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-explain-loss",
-                        help="v2.3.0: explain loss, omission, or non-reversible content")
+    sp = sub.add_parser(
+        "explain-loss",
+        help="explain loss, omission, or non-reversible content",
+        aliases=["v2-explain-loss"],
+    )
     sp.add_argument("input", help="CORTEX or HCORTEX file")
     sp.add_argument("--format", choices=["text", "json"], default="text")
     sp.set_defaults(func=cmd_v2_explain_loss.run)
 
     # ------------------------------------------------------------------
-    # v2-canonicalize (v2.3.0 — normalize without changing semantics)
+    # canonicalize  (canonical; alias: v2-canonicalize — deprecated)
+    # v2.3.0: normalize artefact without changing semantics.
+    # v0.3.2: rename v2-canonicalize → canonicalize (canonical).
+    #          Adds --preserve flag and VIEW-aware behavior (B-01/B-05 fix):
+    #          - If the artefact has no VIEW directives, emit a warning and
+    #            only normalize whitespace/section ordering (no structural
+    #            rewrite). This preserves v1-render compatibility.
+    #          - --preserve forces this behavior even when VIEW directives
+    #            are present.
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-canonicalize",
-                        help="v2.3.0: normalize artefact without changing semantics")
+    sp = sub.add_parser(
+        "canonicalize",
+        help="normalize artefact without changing semantics (VIEW-aware)",
+        aliases=["v2-canonicalize"],
+    )
     sp.add_argument("input", help="CORTEX or HCORTEX file")
     sp.add_argument("--out", default=None, help="output file (default: stdout)")
+    sp.add_argument(
+        "--preserve", action="store_true",
+        help="v0.3.2: preserve original structure even if VIEW directives "
+             "are present. Only normalize whitespace and section ordering. "
+             "Forces v1-render compatibility.",
+    )
     sp.set_defaults(func=cmd_v2_canonicalize.run)
 
     # ------------------------------------------------------------------
-    # v2-inspect (v2.3.0 — show AST, sections, sigils, VIEW, errors)
+    # inspect  (canonical; alias: v2-inspect — deprecated)
+    # v2.3.0: inspect AST, sections, sigils, VIEW coverage, errors.
+    # v0.3.2: rename v2-inspect → inspect (canonical).
     # ------------------------------------------------------------------
-    sp = sub.add_parser("v2-inspect",
-                        help="v2.3.0: inspect AST, sections, sigils, VIEW coverage, errors")
+    sp = sub.add_parser(
+        "inspect",
+        help="inspect AST, sections, sigils, VIEW coverage, errors",
+        aliases=["v2-inspect"],
+    )
     sp.add_argument("input", help="CORTEX or HCORTEX file")
     sp.add_argument("--format", choices=["text", "json"], default="text")
     sp.set_defaults(func=cmd_v2_inspect.run)
@@ -511,6 +579,37 @@ def main(argv: Optional[List[str]] = None) -> int:
     if not getattr(args, "func", None):
         parser.print_help()
         return 2
+
+    # v0.3.2 — Deprecation warning for v2-* aliases.
+    # The canonical names (roundtrip, convert, ...) should be used instead.
+    # The v2-* forms are still accepted for backward compatibility but will
+    # be removed in v1.0.0.
+    _DEPRECATED_ALIASES = {
+        "v2-roundtrip", "v2-convert", "v2-roundtrip-bidir", "v2-compare",
+        "v2-verify-view", "v2-explain-loss", "v2-canonicalize", "v2-inspect",
+    }
+    invoked_command = None
+    if argv:
+        # Skip global flags before the subcommand name
+        for token in argv:
+            if token.startswith("-"):
+                continue
+            invoked_command = token
+            break
+    elif sys.argv and len(sys.argv) > 1:
+        for token in sys.argv[1:]:
+            if token.startswith("-"):
+                continue
+            invoked_command = token
+            break
+    if invoked_command in _DEPRECATED_ALIASES:
+        canonical = invoked_command.removeprefix("v2-")
+        print(
+            f"WARNING: `cortex {invoked_command}` is deprecated since v0.3.2; "
+            f"use `cortex {canonical}` instead. The `v2-` prefix will be "
+            f"removed in v1.0.0.",
+            file=sys.stderr,
+        )
 
     # Normalise --json: stash it on args so subcommands can read it (audit L-03)
     json_mode = getattr(args, "json", False) or ("--json" in (argv or sys.argv))

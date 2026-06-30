@@ -1,4 +1,7 @@
-"""``cortex v2-roundtrip`` — verify CORTEX v2 roundtrip fidelity.
+"""``cortex roundtrip`` — verify CORTEX v2 roundtrip fidelity.
+
+Canonical name: ``roundtrip`` (since v0.3.2).
+Deprecated alias: ``v2-roundtrip`` (still accepted).
 
 v2.0.1: compares bytes (not text) using read_bytes(), reports stat bytes.
 """

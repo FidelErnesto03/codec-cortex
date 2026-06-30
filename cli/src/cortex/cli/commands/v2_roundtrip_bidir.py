@@ -1,4 +1,7 @@
-"""``cortex v2-roundtrip-bidir`` — validate CORTEX ⇄ HCORTEX roundtrip.
+"""``cortex roundtrip-bidir`` — validate CORTEX ⇄ HCORTEX roundtrip.
+
+Canonical name: ``roundtrip-bidir`` (since v0.3.2).
+Deprecated alias: ``v2-roundtrip-bidir`` (still accepted).
 
 v2.3.1: Fixed Direction 2 logic — was using CORTEX as HCORTEX.
 Now properly tests both directions with correct format detection.

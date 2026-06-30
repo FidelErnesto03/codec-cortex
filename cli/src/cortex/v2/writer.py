@@ -6,6 +6,13 @@ Reproduces the exact byte layout of ``skill/cortex/SKILL.md``:
   3. ``$0`` section with sigil declarations and metadata
   4. Sections ``$1``–``$12`` with entries
   5. Closing ``\`\`\``
+
+v0.3.2 additions:
+  - ``write_cortex_v2_preserve()``: structure-preserving serializer used by
+    ``cortex canonicalize --preserve`` and by the VIEW-aware fallback path
+    of ``cortex canonicalize`` when no VIEW directives are present. It only
+    normalizes whitespace and section ordering, leaving entries in their
+    original form. This keeps v1-render compatibility (B-01/B-05 fix).
 """
 
 from __future__ import annotations
@@ -192,3 +199,103 @@ def _escape_string(s: str) -> str:
     # e.g. rule:"pares clave:valor o clave:\"valor\" dentro de {}"
     result = s.replace('\\', '\\\\').replace('"', '\\"')
     return result
+
+
+# ---------------------------------------------------------------------------
+# v0.3.2 — Structure-preserving canonicalizer (B-01/B-05 fix)
+# ---------------------------------------------------------------------------
+
+# Section IDs are sorted numerically by their $N component.
+_SECTION_SORT_RE = re.compile(r'^\$(\d+)$')
+
+
+def _section_sort_key(sec: V2Section):
+    """Sort key for sections: $0, $1, ..., $12 (numeric)."""
+    m = _SECTION_SORT_RE.match(sec.id)
+    if m:
+        return (0, int(m.group(1)))
+    # Non-numeric section ids sort after numeric ones, alphabetically.
+    return (1, sec.id)
+
+
+def has_view_directives(doc: CortexV2Document) -> bool:
+    """Return True if ``doc`` has at least one operational VIEW directive.
+
+    A VIEW entry inside ``$0`` that has ``type/risk/cortex/desc`` is a sigil
+    declaration, NOT an operational directive (mirrors
+    ``view.parse_view_entries_from_doc``).
+    """
+    for sec in doc.sections:
+        for entry in sec.entries:
+            if entry.sigil != "VIEW":
+                continue
+            if sec.id == "$0" and isinstance(entry.value, dict):
+                if any(k in entry.value for k in ("type", "risk", "cortex", "desc")):
+                    continue
+            return True
+    return False
+
+
+def write_cortex_v2_preserve(doc: CortexV2Document) -> str:
+    """Serialize ``doc`` preserving original structure (v0.3.2 — B-01/B-05 fix).
+
+    Unlike :func:`write_cortex_v2`, this serializer:
+
+      * Keeps the original entry order within each section (no reordering).
+      * Preserves the original entry ``raw`` text when available, falling
+        back to a normal serialization only if ``raw`` is missing.
+      * Normalizes only whitespace and blank lines between sections.
+      * Sorts sections numerically ($0, $1, ..., $12) so the output is
+        deterministic, but never reorders entries inside a section.
+      * Does NOT touch the markdown wrapper or CODEC-CORTEX header — those
+        are reproduced verbatim if present, omitted if absent.
+
+    This guarantees v1-render compatibility for artefacts that do not
+    declare VIEW directives (the corpus case), and provides the
+    ``--preserve`` escape hatch for artefacts that DO have VIEW but where
+    the user explicitly wants the original structure kept.
+    """
+    parts: List[str] = []
+
+    # 1. Opening wrapper (only if the source had one — detected via raw_text)
+    raw = doc.raw_text or ""
+    had_wrapper = raw.lstrip().startswith('```markdown')
+
+    if had_wrapper:
+        parts.append('```markdown')
+
+    # 2. CODEC-CORTEX header (reproduced verbatim from doc.header)
+    if doc.header:
+        parts.append('<!-- CODEC-CORTEX')
+        for k, v in doc.header.items():
+            if isinstance(v, str) and (' ' in v or ',' in v or '"' in v or '—' in v):
+                escaped = v.replace('"', '\\"')
+                parts.append(f'{k}: "{escaped}"')
+            else:
+                parts.append(f'{k}: {v}')
+        parts.append('-->')
+        parts.append('')
+
+    # 3. Sections, numerically sorted; entries preserved in original order.
+    sorted_sections = sorted(doc.sections, key=_section_sort_key)
+    for sec in sorted_sections:
+        parts.append(sec.id)
+        for entry in sec.entries:
+            # Prefer the original raw text when available — this is what
+            # makes the operation structure-preserving.
+            if entry.raw:
+                parts.append(entry.raw)
+            else:
+                parts.append(_serialize_entry(entry))
+        parts.append('')
+
+    # 4. Trim trailing blank lines and close wrapper if it was opened.
+    text = '\n'.join(parts)
+    text = text.rstrip('\n')
+    if had_wrapper:
+        text += '\n```'
+    else:
+        # Ensure a single trailing newline for non-wrapped artefacts
+        # (matches the corpus files convention).
+        text += '\n'
+    return text

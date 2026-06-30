@@ -1,4 +1,8 @@
-"""``cortex v2-explain-loss`` — explain loss, omission, or non-reversible content."""
+"""``cortex explain-loss`` — explain loss, omission, or non-reversible content.
+
+Canonical name: ``explain-loss`` (since v0.3.2).
+Deprecated alias: ``v2-explain-loss`` (still accepted).
+"""
 
 from __future__ import annotations
 

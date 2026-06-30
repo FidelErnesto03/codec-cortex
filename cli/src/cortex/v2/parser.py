@@ -98,8 +98,13 @@ _HEADER_RE = re.compile(
     re.DOTALL
 )
 
-# Regex for section headers: bare $N on its own line
-_SECTION_RE = re.compile(r'^\$(\d+)$', re.MULTILINE)
+# Regex for section headers: bare $N on its own line.
+# v0.3.2: also accept v1-style "$N: DESCRIPTION" headers (used by the
+# benchmark corpus). The description must start with a space after the
+# colon to distinguish from $0 metadata entries like $0:type_attrs{...}.
+# The description must not contain braces (those are entry bodies, not
+# section descriptions). The captured section id is just $N.
+_SECTION_RE = re.compile(r'^\$(\d+)(?::\s+[^\n{}]*)?$', re.MULTILINE)
 
 # Regex for entry starts: SIGIL:name{ or $0:name{ or HDL:name|
 # Special case: ! entries can be !:name{ or !name{ (without colon)

@@ -1,7 +1,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: HCORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.1
+source_version: 0.3.2
 status: specification
 -->
 
@@ -15,7 +15,7 @@ status: specification
 | Dimensión | Valor |
 |-----------|-------|
 | **Rol** | Operador del protocolo CODEC-CORTEX |
-| **Versión del protocolo** | 0.3.1 |
+| **Versión del protocolo** | 0.3.2 |
 | **Dominio** | Gestión de memoria contextual para agentes LLM |
 | **Formato nativo** | `.cortex` — memoria contextual estructurada |
 
@@ -42,14 +42,30 @@ status: specification
 | Protocolo de salida | CORTEX-OUT §10 (perfil explícito, bloques canónicos, O0→O5) |
 | Vigilancia | No incluir referencias de gobierno DIALECT en documentos públicos |
 | GATE de salida | Por instrucción: renderizar contexto activo a HCORTEX |
+| Nombres CLI | Canónicos sin prefijo `v2-` desde v0.3.2 (alias `v2-*` deprecated) |
 
 ## Memoria de trabajo
 
 | Dimensión | Valor |
 |-----------|-------|
-| **Foco** | Operación v0.3.1 — CLI v2.4.0 bidireccional, CORTEX canónico instalado |
+| **Foco** | Operación v0.3.2 — CLI v0.3.2 con nombres canónicos, CORTEX canónico instalado |
 | **Archivos activos** | brain.cortex, skill/cortex/SKILL.md, skill/hcortex/SKILL.md |
 | **Prioridad** | Alta |
+
+## Comandos CLI canónicos (v0.3.2)
+
+| Operación | Comando canónico | Alias deprecado |
+|-----------|-------------------|------------------|
+| Inspección | `cortex inspect` | `cortex v2-inspect` |
+| Coverage VIEW | `cortex verify-view` | `cortex v2-verify-view` |
+| Roundtrip byte-identical | `cortex roundtrip` | `cortex v2-roundtrip` |
+| Roundtrip bidireccional | `cortex roundtrip-bidir` | `cortex v2-roundtrip-bidir` |
+| Conversión | `cortex convert` | `cortex v2-convert` |
+| Comparación | `cortex compare` | `cortex v2-compare` |
+| Explicar pérdida | `cortex explain-loss` | `cortex v2-explain-loss` |
+| Canonicalización | `cortex canonicalize` | `cortex v2-canonicalize` |
+
+`cortex canonicalize` es ahora VIEW-aware (B-01/B-05 fix): preserva estructura cuando no hay VIEW directives; canonicaliza completamente cuando las hay; flag `--preserve` fuerza preservation.
 
 ## Referencias
 
@@ -59,4 +75,5 @@ status: specification
 | skill/hcortex/SKILL.md | HCORTEX reversible (par VIEW, 44 bloques, roundtrip verificado) |
 | skill/hcortex/SKILL_HCORTEX.md | HCORTEX display-only (lectura humana, sin VIEW) |
 | skill/cortex/README.md | Procedimiento de instalación por plataforma |
+| cli/CHANGELOG.md | Historial de cambios (sección [0.3.2] актуальна) |
 | brain.cortex | Cerebro local operativo |

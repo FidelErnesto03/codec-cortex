@@ -81,28 +81,30 @@
       "is_v2": false
     },
     {
-      "method_id": "cortex_v2_priority_pack",
-      "name": "CORTEX v2 PP (CLI v2.4 v2-convert)",
+      "method_id": "cortex_priority_pack",
+      "name": "CORTEX PP (CLI convert + VIEW)",
       "family": "cortex_v2",
-      "description": "v2.0.0: usa v2-convert --from cortex --to hcortex con perfiles y VIEW directives.",
+      "description": "v0.3.2: canonical name (was cortex_v2_priority_pack). Uses `cortex convert --from cortex --to hcortex` with profiles and VIEW directives.",
       "config": {
         "source": "cortex",
         "selector": "cortex_v2_convert",
         "use_cli": true
       },
-      "is_v2": true
+      "is_v2": true,
+      "deprecated_aliases": ["cortex_v2_priority_pack"]
     },
     {
-      "method_id": "cortex_v2_canonical",
-      "name": "CORTEX v2 Canonical (normalize + render)",
+      "method_id": "cortex_canonical",
+      "name": "CORTEX Canonical (normalize + render)",
       "family": "cortex_v2",
-      "description": "v2.0.0: v2-canonicalize seguido de v2-convert. Produces normalized HCORTEX.",
+      "description": "v0.3.2: canonical name (was cortex_v2_canonical). `cortex canonicalize` (VIEW-aware) followed by `cortex convert`. Produces normalized HCORTEX. With VIEW directives the full canonicalization is applied; without VIEW, structure-preserving normalization is used (v1-render compat).",
       "config": {
         "source": "cortex",
         "selector": "cortex_v2_canonical",
         "use_cli": true
       },
-      "is_v2": true
+      "is_v2": true,
+      "deprecated_aliases": ["cortex_v2_canonical"]
     },
     {
       "method_id": "cortex_ablation_no_P0",

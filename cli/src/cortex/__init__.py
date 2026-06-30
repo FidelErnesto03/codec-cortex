@@ -15,7 +15,7 @@ The package is organized in layers:
 """
 
 try:
-    from ._version import version as __version__
+    from ._version import __version__
 except ImportError:
     # Fallback for editable/dev installs without _version.py
     __version__ = "0.0.0.dev0"

@@ -57,18 +57,25 @@
 
 **Goal:** maintain parser, encoder, decoder, verifier, renderer and CLI.
 
-**Deliverables:** `cortex` CLI at `cli/` — v2.4.0, 25 comandos (17 clásicos + 8 v2), 341 tests, núcleo bidireccional CORTEX ⇄ HCORTEX verificado sobre artefactos canónicos (266 entries, 44 VIEW, coverage 100%, roundtrip 0 diffs).
+**Deliverables:** `cortex` CLI at `cli/` — v0.3.2, 25 comandos (17 clásicos + 8 canónicos v2 con alias `v2-*` deprecados), 341 tests, núcleo bidireccional CORTEX ⇄ HCORTEX verificado sobre artefactos canónicos (266 entries, 44 VIEW, coverage 100%, roundtrip 0 diffs), corpus benchmark migrado a VIEW directives (10/10 artefactos), `cortex canonicalize` VIEW-aware (B-01/B-05 fix), workflow operativo del agente integrado al skill.
 
 | Capacidad | Estado |
 |-----------|:------:|
 | CORTEX → HCORTEX | `current` — byte-identical contra canónico |
 | HCORTEX → CORTEX | `current` — reconstruye 266/266 entries |
 | Roundtrip bidireccional | `current` — AST-equivalent y content-equivalent, 0 diffs |
-| VIEW directives | `current` — 44/44, coverage 100% |
+| VIEW directives | `current` — 44/44 en skill; 10/10 artefactos del corpus migrados en v0.3.2 |
 | Gate reversible:true | `current` — coverage 100%, cero errores, no display-only |
-| CLI commands | `current` — 25 comandos (ver tabla completa en README) |
+| CLI commands | `current` — 25 comandos (8 canónicos v2 + 8 alias `v2-*` deprecados + 9 legacy) |
+| `cortex canonicalize` VIEW-aware | `current` — v0.3.2: preserva estructura sin VIEW; canonicaliza con VIEW; flag `--preserve` |
+| Nombres canónicos CLI | `current` — v0.3.2: `roundtrip`, `convert`, `inspect`, etc. sin prefijo `v2-` |
+| Workflow operativo del agente | `current` — v0.3.2: 5 PUML + 4 reglas `!` + 5 perfiles CORTEX-OUT |
+| `doctor` v2 | `planned` — no implementado como comando separado |
+| JSON uniforme para todos los v2 | `planned` — no declarar como actual |
+| MCP server | `future` — no implementado |
+| Runtime promote/decay | `future` — no implementado |
 
-**Acceptance criteria:** all `.cortex` files pass `cortex verify --strict` with 0 errors. HCORTEX renders correctly in readable and audit modes. Roundtrip CORTEX → HCORTEX → CORTEX is AST-equivalent. Roundtrip HCORTEX → CORTEX → HCORTEX is content-equivalent.
+**Acceptance criteria:** all `.cortex` files pass `cortex verify --strict` with 0 errors. HCORTEX renders correctly in readable and audit modes. Roundtrip CORTEX → HCORTEX → CORTEX is AST-equivalent. Roundtrip HCORTEX → CORTEX → HCORTEX is content-equivalent. Corpus benchmark completa con VIEW directives y coverage 100% (v0.3.2). `cortex canonicalize` no rompe compatibilidad con artefactos sin VIEW (v0.3.2).
 
 ## Phase 5: Memory Runtime
 

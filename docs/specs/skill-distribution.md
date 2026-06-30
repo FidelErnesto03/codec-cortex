@@ -145,9 +145,12 @@ Para agentes sin acceso a terminal (OpenAI GPTs, Claude Projects):
 ## 7. Verificación post-instalación
 
 ```bash
-# Con CLI instalado:
-cortex doctor skill/SKILL.cortex        # Diagnóstico del skill
-cortex verify --strict skill/SKILL.cortex  # Validación completa
+# v0.3.2 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
+cortex doctor skill/SKILL.cortex            # Diagnóstico del skill
+cortex verify --strict skill/SKILL.cortex   # Validación completa
+cortex inspect skill/SKILL.cortex           # Inspección v2 (secciones, entries, VIEW)
+cortex verify-view skill/SKILL.cortex       # Coverage VIEW
+cortex roundtrip-bidir skill/SKILL.cortex   # Roundtrip bidireccional
 
 # Sin CLI: revisión manual
 # Verificar que SKILL.cortex tenga:

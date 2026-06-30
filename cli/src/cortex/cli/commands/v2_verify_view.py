@@ -1,4 +1,8 @@
-"""``cortex v2-verify-view`` — validate VIEW coverage, reversibility, consistency."""
+"""``cortex verify-view`` — validate VIEW coverage, reversibility, consistency.
+
+Canonical name: ``verify-view`` (since v0.3.2).
+Deprecated alias: ``v2-verify-view`` (still accepted).
+"""
 
 from __future__ import annotations
 

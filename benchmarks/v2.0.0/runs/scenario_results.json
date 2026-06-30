@@ -1386,7 +1386,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "full",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1404,7 +1404,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "reduced_window_512",
     "n": 40,
     "avg_EAS": 0.825,
@@ -1422,7 +1422,7 @@
     "avg_evidence_density": 0.0125
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "reduced_window_1024",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1440,7 +1440,7 @@
     "avg_evidence_density": 0.0103
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "reduced_window_2048",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1458,7 +1458,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "reduced_window_4096",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1476,7 +1476,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "middle_work_adversarial",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1494,7 +1494,7 @@
     "avg_evidence_density": 0.0103
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "stale_state_conflict",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1512,7 +1512,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "blocking_constraint_survival",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1530,7 +1530,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "unsupported_claim_suppression",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1548,7 +1548,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "corrupted_memory_tolerance",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1566,7 +1566,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_priority_pack",
+    "method_id": "cortex_priority_pack",
     "scenario_id": "multi_instance_sigil",
     "n": 40,
     "avg_EAS": 1.0,
@@ -1584,7 +1584,7 @@
     "avg_evidence_density": 0.0094
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "full",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1602,7 +1602,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "reduced_window_512",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1620,7 +1620,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "reduced_window_1024",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1638,7 +1638,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "reduced_window_2048",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1656,7 +1656,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "reduced_window_4096",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1674,7 +1674,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "middle_work_adversarial",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1692,7 +1692,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "stale_state_conflict",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1710,7 +1710,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "blocking_constraint_survival",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1728,7 +1728,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "unsupported_claim_suppression",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1746,7 +1746,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "corrupted_memory_tolerance",
     "n": 40,
     "avg_EAS": 0.175,
@@ -1764,7 +1764,7 @@
     "avg_evidence_density": -0.0384
   },
   {
-    "method_id": "cortex_v2_canonical",
+    "method_id": "cortex_canonical",
     "scenario_id": "multi_instance_sigil",
     "n": 40,
     "avg_EAS": 0.175,

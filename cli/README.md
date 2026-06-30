@@ -1,10 +1,12 @@
 # codec-cortex
 
-> Implementación determinista del codec CODEC-CORTEX v2.4.0. El núcleo v2 soporta CORTEX ⇄ HCORTEX verificable sobre los artefactos canónicos del paquete. CORTEX es el formato denso nativo; HCORTEX es su representación humana reversible.
+> Implementación determinista del codec CODEC-CORTEX v0.3.2. El núcleo v2 soporta CORTEX ⇄ HCORTEX verificable sobre los artefactos canónicos del paquete. CORTEX es el formato denso nativo; HCORTEX es su representación humana reversible.
 
 `codec-cortex` procesa artefactos `.cortex` y `.hcortex.md` sin depender de LLM: parsea a AST, serializa CORTEX, renderiza HCORTEX, ejecuta validaciones VIEW, compara equivalencia y valida roundtrip bidireccional.
 
-## Modelo conceptual v2.4.0
+> **v0.3.2 — Naming canónico:** los comandos `v2-*` se han renombrado a sus formas canónicas (`roundtrip`, `convert`, `roundtrip-bidir`, `compare`, `verify-view`, `explain-loss`, `canonicalize`, `inspect`). Los nombres `v2-*` se mantienen como alias deprecados y emiten un `WARNING` a stderr al ser invocados. Serán eliminados en v1.0.0.
+
+## Modelo conceptual v0.3.2
 
 | Concepto | Rol | Estado |
 |---|---|---|
@@ -13,7 +15,7 @@
 | **VIEW** | Contrato declarativo de correspondencia CORTEX ⇄ HCORTEX. Define render, reversión, campos, preservación y fallback. | `current` |
 | **CORTEX-OUT** | Respuesta conversacional eficiente. No participa en decode/encode/verify/roundtrip. | `specification` |
 
-HCORTEX canónico no es “Markdown bonito”. Para declararse canónico debe poder participar en `decode/encode/verify/roundtrip` mediante VIEW o trazabilidad equivalente. Un Markdown sin VIEW/trazabilidad se considera `display-only` y debe reportar `reversible:false`.
+HCORTEX canónico no es "Markdown bonito". Para declararse canónico debe poder participar en `decode/encode/verify/roundtrip` mediante VIEW o trazabilidad equivalente. Un Markdown sin VIEW/trazabilidad se considera `display-only` y debe reportar `reversible:false`.
 
 ## Gate de reversibilidad
 
@@ -28,14 +30,15 @@ HCORTEX canónico no es “Markdown bonito”. Para declararse canónico debe po
 
 | Capacidad | Estado | Evidencia principal |
 |---|---|---|
-| CORTEX v2 parser/writer | `current` | `v2-roundtrip` byte-identical |
+| CORTEX v2 parser/writer | `current` | `cortex roundtrip` byte-identical |
 | CORTEX → HCORTEX | `current` | genera `skill/hcortex/SKILL.md` byte-identical |
 | HCORTEX → CORTEX | `current` | reconstruye 266/266 entries en `skill/cortex/SKILL.md` |
-| Roundtrip bidireccional | `current` | `v2-roundtrip-bidir` rc=0, 0 diffs en ambos artefactos canónicos |
-| VIEW coverage | `current` | 44/44 VIEW, coverage 100% |
+| Roundtrip bidireccional | `current` | `cortex roundtrip-bidir` rc=0, 0 diffs en ambos artefactos canónicos |
+| VIEW coverage | `current` | 44/44 VIEW en skill; 10/10 artefactos del corpus migrados a VIEW en v0.3.2 |
+| `cortex canonicalize` (VIEW-aware) | `current` | preserva estructura sin VIEW; canonicalización completa con VIEW (B-01/B-05 fix) |
 | Hash mismatch | `current` para hashes declarados | `E_VIEW_HASH_MISMATCH` si el hash existe y no coincide |
 | `doctor` legacy | `current` | diagnóstico clásico del CLI |
-| `v2-doctor` | `planned` | no existe como comando separado en v2.4.0 |
+| `doctor` v2 | `planned` | no existe como comando separado en v0.3.2 |
 | JSON global para comandos legacy soportados | `current` parcial | `--json` donde el comando lo soporta |
 | JSON uniforme para todos los comandos v2 | `planned` | no declarar como actual |
 | MCP server | `future` | no implementado |
@@ -47,6 +50,7 @@ HCORTEX canónico no es “Markdown bonito”. Para declararse canónico debe po
 |---|---|---|
 | `skill/cortex/SKILL.md` | CORTEX canónico | 43,925 bytes; 14 secciones; 266 entries; 44 VIEW |
 | `skill/hcortex/SKILL.md` | HCORTEX canónico | 47,186 bytes; reversible; roundtrip válido |
+| `benchmarks/v2.0.0/corpus/source/*.cortex` (10) | Corpus migrado a VIEW | 10/10 artefactos con VIEW directives; coverage 100% |
 
 ## Instalación
 
@@ -56,36 +60,52 @@ pip install -e .
 pip install -e ".[dev]"
 ```
 
-## Comandos v2 principales
+## Comandos principales (nombres canónicos v0.3.2)
 
 ```bash
 # Identidad
 cortex --version
 
 # Inspección y cobertura
-cortex v2-inspect skill/cortex/SKILL.md
-cortex v2-verify-view skill/cortex/SKILL.md
+cortex inspect skill/cortex/SKILL.md
+cortex verify-view skill/cortex/SKILL.md
 
 # Roundtrip CORTEX byte-identical
-cortex v2-roundtrip skill/cortex/SKILL.md
+cortex roundtrip skill/cortex/SKILL.md
 
 # CORTEX → HCORTEX
-cortex v2-convert skill/cortex/SKILL.md --from cortex --to hcortex --out /tmp/skill.hcortex.md
+cortex convert skill/cortex/SKILL.md --from cortex --to hcortex --out /tmp/skill.hcortex.md
 
 # HCORTEX → CORTEX
-cortex v2-convert skill/hcortex/SKILL.md --from hcortex --to cortex --out /tmp/skill.cortex.md
+cortex convert skill/hcortex/SKILL.md --from hcortex --to cortex --out /tmp/skill.cortex.md
 
 # Roundtrip bidireccional
-cortex v2-roundtrip-bidir skill/cortex/SKILL.md
-cortex v2-roundtrip-bidir skill/hcortex/SKILL.md
+cortex roundtrip-bidir skill/cortex/SKILL.md
+cortex roundtrip-bidir skill/hcortex/SKILL.md
 
 # Comparación de equivalencia
-cortex v2-compare skill/cortex/SKILL.md /tmp/skill.cortex.md
+cortex compare skill/cortex/SKILL.md /tmp/skill.cortex.md
 
-# Pérdida / canonicalización
-cortex v2-explain-loss skill/hcortex/SKILL.md
-cortex v2-canonicalize skill/cortex/SKILL.md --out /tmp/canonical.cortex.md
+# Pérdida / canonicalización (VIEW-aware desde v0.3.2)
+cortex explain-loss skill/hcortex/SKILL.md
+cortex canonicalize skill/cortex/SKILL.md --out /tmp/canonical.cortex.md
+cortex canonicalize benchmarks/v2.0.0/corpus/source/devops-k8s-rollout.cortex \
+    --out /tmp/canonical.cortex            # WARNING: no VIEW → structure-preserving
+cortex canonicalize skill/cortex/SKILL.md --preserve --out /tmp/preserved.cortex
 ```
+
+### Alias deprecados (aún aceptados, removidos en v1.0.0)
+
+| Canonical | Alias deprecado |
+|-----------|------------------|
+| `cortex roundtrip` | `cortex v2-roundtrip` |
+| `cortex convert` | `cortex v2-convert` |
+| `cortex roundtrip-bidir` | `cortex v2-roundtrip-bidir` |
+| `cortex compare` | `cortex v2-compare` |
+| `cortex verify-view` | `cortex v2-verify-view` |
+| `cortex explain-loss` | `cortex v2-explain-loss` |
+| `cortex canonicalize` | `cortex v2-canonicalize` |
+| `cortex inspect` | `cortex v2-inspect` |
 
 ## Comandos legacy principales
 
@@ -100,7 +120,7 @@ cortex diff brain.cortex brain.compiled.cortex --profile structural
 
 ## JSON
 
-El flag global `--json` existe, pero no todos los comandos v2 emiten JSON uniforme en v2.4.0. No declarar JSON v2 completo como capacidad actual. Los comandos legacy que lo soportan siguen disponibles; algunos comandos aceptan `--format json` local.
+El flag global `--json` existe, pero no todos los comandos v2 emiten JSON uniforme en v0.3.2. No declarar JSON v2 completo como capacidad actual. Los comandos legacy que lo soportan siguen disponibles; algunos comandos aceptan `--format json` local.
 
 ## Tests
 

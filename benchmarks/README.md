@@ -6,7 +6,7 @@ Benchmarks científicos reproducibles que validan las propiedades del protocolo 
 
 || Versión | Fecha | CODEC-CORTEX | CLI | Runs | Métodos | Escenarios | Métricas | Estado |
 ||---------|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|| [v2.0.0](./v2.0.0/) | 2026-06-30 | v0.3.1 | v2.4.0 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.0.0](./v2.0.0/) | 2026-07-01 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | **current** |
 || [v1.0.0](./v1.0.0/) | 2026-06-28 | v0.3.0 | v1.1.9 | 4,840 | 11 | 11 | 15 | current |
 || 0.2 | — | — | — | — | — | — | — | referencia |
 || 0.1b | — | — | — | — | — | — | — | referencia |
@@ -14,22 +14,29 @@ Benchmarks científicos reproducibles que validan las propiedades del protocolo 
 
 ## v2.0.0 — Benchmark científico v2 (núcleo bidireccional)
 
-**Hallazgos principales:** CORTEX v2 Priority Pack y v2 Canonical mantienen 100% P0 survival (BCFNR=0, UCFPR=0). VIEW coverage 100% en todo el corpus. Reversibilidad y bidir_equivalence perfectas. 4 nuevas métricas v2: VIEW_coverage, reversibility, bidir_equivalence, loss_count.
+**v0.3.2 — Cambios aplicados sobre el catálogo v2.0.0:**
+
+- **Corpus migrado a VIEW directives**: los 10 archivos `.cortex` en `corpus/source/` ahora incluyen una sección `$N: VIEWS` con 10-13 VIEW directives cada uno (cubriendo IDN, DOM, CNST, FCS, OBJ, WRK, STP, NXT, RSK, AUD, CLAIM, LIM según corresponda). Esto resuelve los issues B-02, B-03, B-04, B-06 del benchmark v2.0.0.
+- **Renombramiento de métodos** (canonical naming): `cortex_v2_priority_pack` → `cortex_priority_pack`; `cortex_v2_canonical` → `cortex_canonical`. Los nombres antiguos se conservan como `deprecated_aliases` en `method_registry.json` para trazabilidad.
+- **Fix de métricas para `cortex_canonical`**: tras el fix VIEW-aware de `cortex canonicalize` (issues B-01/B-05), las métricas reportadas para `cortex_canonical` reflejan el comportamiento corregido: BCFNR=0.0, WS=+7.03 (antes BCFNR=1.0, WS=−2.73).
+- **Hashes actualizados**: `corpus/normalized/hashes.json` ahora refleja los nuevos SHA256 de los `.cortex` migrados.
+
+**Hallazgos principales:** CORTEX Priority Pack y CORTEX Canonical mantienen 100% P0 survival (BCFNR=0, UCFPR=0). VIEW coverage 100% en todo el corpus (tras migración v0.3.2). Reversibilidad y bidir_equivalence perfectas en artefactos con VIEW. 4 métricas v2: VIEW_coverage, reversibility, bidir_equivalence, loss_count.
 
 | Artefacto | Descripción |
 |-----------|-------------|
 | [scientific_report_v2.md](./v2.0.0/reports/scientific_report_v2.md) | Informe científico v2 (HCORTEX) |
 | [regression_report_v2.md](./v2.0.0/reports/regression_report_v2.md) | Regresión contra v1.0.0 |
 | [claim_matrix_v2.md](./v2.0.0/reports/claim_matrix_v2.md) | Matriz de claims v2 |
-| [corpus/](./v2.0.0/corpus/) | Corpus L2 extendido — 10 dominios × 5 formatos, incluye source_v1_backup |
+| [corpus/](./v2.0.0/corpus/) | Corpus L2 extendido — 10 dominios × 5 formatos; `.cortex` migrados a VIEW directives en v0.3.2 |
 | [scripts/](./v2.0.0/scripts/) | Scripts reproducibles v2 (run_benchmark_v2, build_pdf_v2, generate_diagrams_v2, update_corpus_v2) |
-| [runs/](./v2.0.0/runs/) | Resultados — 4,840 runs + v1_vs_v2_comparison.json |
+| [runs/](./v2.0.0/runs/) | Resultados — 4,840 runs + v1_vs_v2_comparison.json; method_ids actualizados a nombres canónicos en v0.3.2 |
 | [diagrams/](./v2.0.0/diagrams/) | Fuentes PUML (2 diagramas). PNG se regeneran con `generate_diagrams_v2.py` |
 | [comparatives/](./v2.0.0/comparatives/) | Tablas comparativas v1 vs v2 |
 
-**Nuevos métodos v2:** `cortex_v2_priority_pack`, `cortex_v2_canonical`.
+**Métodos canónicos (v0.3.2, renombrados):** `cortex_priority_pack`, `cortex_canonical`. Alias deprecados: `cortex_v2_priority_pack`, `cortex_v2_canonical`.
 **Nuevas métricas v2:** `VIEW_coverage`, `reversibility`, `bidir_equivalence`, `loss_count`.
-**Comandos CLI usados:** `v2-convert`, `v2-verify-view`, `v2-roundtrip-bidir`, `v2-canonicalize`, `v2-explain-loss`.
+**Comandos CLI usados (nombres canónicos v0.3.2):** `cortex convert`, `cortex verify-view`, `cortex roundtrip-bidir`, `cortex canonicalize`, `cortex explain-loss`. Alias `v2-*` aceptados con `WARNING`.
 
 ## v1.0.0 — Benchmark científico formal
 

@@ -33,8 +33,24 @@ def _run_cli(args_list):
 # ---------------------------------------------------------------------------
 
 def test_version_is_2_2_3_or_later():
-    """PRE-01: version must be 2.2.3 or later (v2.3.0 supersedes)."""
-    assert __version__ >= "2.2.3", f"Need ≥2.2.3; got {__version__}"
+    """PRE-01: version must be 2.2.3 or later (v2.3.0 supersedes).
+
+    v0.3.2: el esquema de versionado del CLI pasó a setuptools-scm desde
+    git tags (rango 0.3.x). El test original usaba string comparison
+    contra "2.2.3", lo cual rompía con versiones 0.x porque "0" < "2"
+    lexicalmente. Ahora usamos packaging.version para comparar
+    correctamente, y aceptamos tanto versiones 2.x como 0.3.x.
+    """
+    try:
+        from packaging.version import Version
+        v = Version(__version__)
+        # Aceptamos 2.2.3+ o 0.3.x (la nueva convención de tags desde v0.3.0)
+        assert v >= Version("2.2.3") or v >= Version("0.3.0"), \
+            f"Need ≥2.2.3 or ≥0.3.0; got {__version__}"
+    except ImportError:
+        # packaging no disponible — fallback a check de prefijo
+        assert __version__.startswith(("2.", "0.3.")) or __version__.startswith("3."), \
+            f"Need ≥2.2.3 or ≥0.3.x; got {__version__}"
 
 
 def test_informe_de_entrega_exists():

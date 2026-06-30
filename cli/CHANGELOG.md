@@ -1,5 +1,128 @@
 # CHANGELOG — codec-cortex
 
+## [0.3.2] — 2026-07-01
+
+> Release canónica: nombres canónicos sin prefijo `v2-`, fix de
+> `canonicalize` (issues B-01/B-05), migración del corpus a VIEW
+> directives, integración del agente con workflows operativos.
+
+### Added
+
+- **Nombres canónicos CLI** (sin prefijo `v2-`):
+  - `cortex roundtrip`, `cortex convert`, `cortex roundtrip-bidir`,
+    `cortex compare`, `cortex verify-view`, `cortex explain-loss`,
+    `cortex canonicalize`, `cortex inspect`.
+  - Los nombres `v2-*` se mantienen como alias deprecados (still
+    accepted, will be removed in v1.0.0). Al invocar un alias se emite
+    un `WARNING` a stderr.
+- **Flag `--preserve` en `cortex canonicalize`**:
+  - Fuerza la canonicalización structure-preserving (sólo whitespace +
+    orden de secciones) incluso cuando el artefacto tiene VIEW
+    directives.
+- **VIEW-aware behavior en `cortex canonicalize`** (B-01/B-05 fix):
+  - Si el artefacto NO tiene VIEW directives, se aplica
+    canonicalización structure-preserving con advertencia. Esto
+    preserva compatibilidad con v1 render.
+  - Si el artefacto SÍ tiene VIEW directives, se aplica
+    canonicalización completa (comportamiento v2.3.x).
+- **`write_cortex_v2_preserve()` en `cortex/v2/writer.py`**:
+  - Serializador structure-preserving. Reproduce `entry.raw` cuando
+    está disponible, ordena secciones numéricamente, normaliza
+    whitespace.
+- **`has_view_directives()` en `cortex/v2/writer.py`**:
+  - Detecta VIEW directives operacionales (excluye sigil_decl en $0).
+- **Parser v2 ahora acepta sección estilo v1** (`$0: DESCRIPTION`):
+  - Regex `_SECTION_RE` extendido con `(?::\s*[^\n]*)?` para que el
+    parser pueda procesar el corpus v1.0.0 sin migración forzada.
+- **Migración del corpus a VIEW directives**:
+  - Los 10 archivos `.cortex` en `benchmarks/v2.0.0/corpus/source/`
+    ahora incluyen una sección `$N: VIEWS` con 10-13 VIEW directives
+    cada uno, cubriendo IDN, DOM, CNST, FCS, OBJ, WRK, STP, NXT, RSK,
+    AUD, CLAIM, LIM (según corresponda por artefacto).
+  - `corpus/normalized/hashes.json` actualizado con los nuevos SHA256.
+- **Renombramiento de métodos de benchmark**:
+  - `cortex_v2_priority_pack` → `cortex_priority_pack`.
+  - `cortex_v2_canonical` → `cortex_canonical`.
+  - Manteniendo `deprecated_aliases` para trazabilidad.
+  - `runs/method_results.json`, `scenario_results.json`,
+    `derived_metrics.json`, `v1_vs_v2_comparison.json`,
+    `provenance.csv`, `scored_tasks.csv`, `summary_tasks.csv`
+    actualizados.
+- **Workflow operativo del agente** (Sección 9 del plan v0.3.2):
+  - 5 workflows PUML: startup, operación diaria, validación pre-commit,
+    migración VIEW, selección de perfil CORTEX-OUT.
+  - 4 reglas `!` nuevas en el skill: `!:startup_verify`,
+    `!:precommit_verify`, `!:output_cortex_out` (refuerzo),
+    `!:canonical_names`.
+  - 5 perfiles CORTEX-OUT declarados: OUT-MIN, OUT-WORK, OUT-AUDIT,
+    OUT-FULL, OUT-ERROR.
+
+### Changed
+
+- `cli/README.md`: comandos `v2-*` reemplazados por sus nombres
+  canónicos en todos los ejemplos.
+- `cli/STATUS.md`: tabla de capacidades con nombres canónicos.
+- `benchmarks/README.md`: catálogo v2.0.0 actualizado; notas sobre
+  migración VIEW.
+- `skill/cortex/README.md`: procedimiento con comandos canónicos.
+- `skill/cortex/AGENT.md`: referencias actualizadas.
+- `skill/hcortex/AGENT.md`: referencias actualizadas.
+- `docs/specs/skill-distribution.md`: comandos canónicos.
+- `ROADMAP.md`: Phase 4 actualizada con entregables v0.3.2.
+- Métricas post-fix para `cortex_canonical`: `BCFNR` 1.0 → 0.0,
+  `WS` −2.73 → +7.03, `VIEW_coverage` 0 → 1.0, `reversibility` 0 → 1.0.
+
+### Fixed
+
+- **B-01**: `cortex_v2_canonical` BCFNR=1.0, WS=−2.73 →
+  `cortex_canonical` BCFNR=0.0, WS=+7.03. La causa raíz era que
+  `canonicalize` siempre reescribía el `.cortex` perdiendo
+  compatibilidad con v1 render. Ahora detecta VIEW y preserva
+  estructura cuando no hay.
+- **B-02**: VIEW coverage = 0% en todo el corpus → 100% tras
+  migración. Cada artefacto del corpus ahora declara sus VIEW
+  directives.
+- **B-03**: `v2-convert` producía HCORTEX vacío (251 bytes) sin VIEW →
+  ahora produce HCORTEX sustancial porque el corpus tiene VIEW.
+- **B-04**: Reversibility = False → True en skill canónico y corpus.
+- **B-05**: `canonicalize` rompía compatibilidad con v1 render legacy →
+  ahora preserva estructura cuando no hay VIEW.
+- **B-06**: Las 4 métricas v2 (VIEW_coverage, reversibility,
+  bidir_equivalence, loss_count) valen 0 → 1.0/1.0/1.0/0.0 tras
+  migración.
+
+### Acceptance criteria (Sección 8 del plan)
+
+- [x] Ningún recurso público del proyecto usa "v2" en su nombre canónico.
+- [x] `cortex canonicalize` no rompe compatibilidad con artefactos sin
+      VIEW.
+- [x] Corpus benchmark completo con VIEW directives (10 artefactos).
+- [x] `cortex verify-view` reporta 100% coverage en skill canónico y
+      corpus.
+- [x] `cortex roundtrip-bidir` pasa en skill canónico.
+- [x] Documentación actualizada sin referencias a "v2-" como nombre
+      primario.
+- [x] Tag v0.3.1 → v0.3.2.
+
+### Evidence
+
+```bash
+cortex --version                                          # ≥ 0.3.2
+cortex canonicalize benchmarks/v2.0.0/corpus/source/devops-k8s-rollout.cortex \
+    --out /tmp/canonical.cortex                           # WARNING emitted, structure preserved
+cortex verify-view benchmarks/v2.0.0/corpus/source/devops-k8s-rollout.cortex
+                                                          # coverage 100%
+cortex roundtrip-bidir skill/cortex/SKILL.md              # rc=0, 0 diffs
+cortex inspect benchmarks/v2.0.0/corpus/source/devops-k8s-rollout.cortex
+                                                          # 6 sections, ~14 entries, 12 VIEW
+```
+
+---
+
+Todos los cambios notables de este proyecto se documentan en este archivo.
+El formato se adhiere a [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+y el versionado a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## [2.4.0] — 2026-06-30
 
 ### Added

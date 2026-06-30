@@ -1,7 +1,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.1
+source_version: 0.3.2
 status: specification
 -->
 
@@ -24,7 +24,7 @@ LNG:lesson{type:attrs,risk:M,cortex:Episodic,desc:"lección aprendida o patrón 
 VIEW:view{type:attrs,risk:B,cortex:Semantic,desc:"directiva declarativa de visibilidad y reversión entre CORTEX y HCORTEX"}
 
 $1: IDENTITY
-IDN:agent{role:"CODEC-CORTEX operator example", type:"any LLM", version:"0.3.1", status:"example/template"}
+IDN:agent{role:"CODEC-CORTEX operator example", type:"any LLM", version:"0.3.2", status:"example/template"}
 DOM:context{area:"cognitive memory management", format:".cortex", protocol:"CODEC-CORTEX"}
 !:principle{La memoria persistente canonica bajo CODEC-CORTEX se mantiene en .cortex. Markdown, YAML o JSON pueden existir como vistas transitorias, edicion humana o interoperabilidad}
 
@@ -32,11 +32,15 @@ $2: CONSTRAINTS
 CNST:memory{format:".cortex", local_brain:"brain.cortex", entry:"skill/cortex/AGENT.md", output:"CORTEX-OUT"}
 CNST:output{rule:"formato salida: CORTEX-OUT §10 (perfil declarado, bloques canónicos, O0→O5, tablas > listas > prosa)", severity:"blocking", survive:"min"}
 !:install{rule:"el canon de instalación del skill es skill/cortex/SKILL.md (266 entries, 44 VIEW, reversible); NO usar skill/hcortex/SKILL_HCORTEX.md (display-only, sin VIEW)"}
+!:canonical_names{rule:"usar nombres canónicos para comandos CLI y recursos. No usar prefijos de versión (v2-, v3-) en nombres públicos. Los alias deprecados existen por compatibilidad pero no se documentan como nombre primario."}
+!:startup_verify{rule:"al cargar el skill, ejecutar cortex verify --strict skill/cortex/SKILL.md y cortex verify-view skill/cortex/SKILL.md. Reportar fallos como WARNING."}
+!:precommit_verify{rule:"si se modificó un .cortex, ejecutar cortex verify --strict sobre ese archivo antes de permitir el commit."}
+!:output_cortex_out{rule:"aplicar CORTEX-OUT §10 como protocolo de respuesta."}
 
 $3: WORKING MEMORY
-FCS:focus{task:"operate v0.3.1 with CLI v2.4.0", priority:"high", status:"current"}
-WRK:state{phase:"active", current:"CORTEX canonical installed, HCORTEX reversible paired", active_files:["brain.cortex","skill/cortex/SKILL.md","skill/hcortex/SKILL.md"]}
-OBJ:mission{goal:"mantener el skill instalado desde skill/cortex/SKILL.md (canon CORTEX), output en CORTEX-OUT", status:"current", success:"todo el proyecto alineado a v0.3.1 con canon CORTEX"}
+FCS:focus{task:"operate v0.3.2 with CLI v0.3.2 canonical names", priority:"high", status:"current"}
+WRK:state{phase:"active", current:"CORTEX canonical installed, HCORTEX reversible paired, canonical CLI names adopted", active_files:["brain.cortex","skill/cortex/SKILL.md","skill/hcortex/SKILL.md"]}
+OBJ:mission{goal:"mantener el skill instalado desde skill/cortex/SKILL.md (canon CORTEX), output en CORTEX-OUT", status:"current", success:"todo el proyecto alineado a v0.3.2 con canon CORTEX y nombres canónicos CLI"}
 STP:next{action:"apply CORTEX-OUT output protocol on every response", reason:"!:output_cortex_out rule active", owner:"agent", status:"current", survive:"min"}
 
 $4: SESSIONS
@@ -48,3 +52,4 @@ REF:skill_hcortex_reversible{PATH:skill/hcortex/SKILL.md, purpose:"HCORTEX rever
 REF:skill_hcortex_display{PATH:skill/hcortex/SKILL_HCORTEX.md, purpose:"HCORTEX display-only — lectura humana, sin VIEW"}
 REF:install_guide{PATH:skill/cortex/README.md, purpose:"procedimiento de instalación por plataforma"}
 REF:brain{PATH:brain.cortex, purpose:"cerebro operativo local"}
+REF:changelog{PATH:cli/CHANGELOG.md, purpose:"historial de cambios por versión (sección [0.3.2] актуальна)"}
