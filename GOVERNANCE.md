@@ -48,7 +48,7 @@ spec:   Specification change (MAJOR/MINOR)
 chore:  Maintenance, structure (PATCH)
 ```
 
-Current version: **v0.3.1**
+Current version: **v0.3.2**
 
 ## Contact
 

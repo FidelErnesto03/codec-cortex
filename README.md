@@ -4,7 +4,7 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.3.1 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/hcortex/SKILL_HCORTEX.md">Specification</a></sub>
+  <sub>v0.3.2 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/hcortex/SKILL_HCORTEX.md">Specification</a></sub>
 </p>
 
 ---
@@ -18,7 +18,7 @@ Its native `.cortex` format is designed for dense model consumption. HCORTEX pro
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
 | **License** | [MIT](LICENSE) |
-| **Version** | 0.3.1 |
+| **Version** | 0.3.2 |
 | **Stage** | Specification / beta |
 
 ---

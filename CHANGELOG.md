@@ -8,6 +8,28 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] — 2026-06-30
+
+### Added
+
+- **Comandos canónicos CLI**: `roundtrip`, `convert`, `roundtrip-bidir`, `compare`, `verify-view`, `explain-loss`, `canonicalize`, `inspect`. Los alias `v2-*` se mantienen como deprecados (warning en stderr).
+- **Flag `--preserve`** en `canonicalize`: preserva estructura original incluso con VIEW directives.
+- **Corpus benchmark migrado a VIEW**: 10 artefactos .cortex con 12+ VIEW directives c/u, coverage 100%, reversibility True.
+- **Workflow del agente**: `docs/specs/agent-workflow.md` con 5 diagramas PUML, 4 reglas `!`, 5 perfiles CORTEX-OUT.
+- **Reglas `!` en skill**: `!:canonical_names`, `!:startup_verify`, `!:precommit_verify`.
+
+### Changed
+
+- `cortex canonicalize` ahora es VIEW-aware: sin VIEW directives preserva estructura (fix B-01/B-05).
+- Métodos de benchmark renombrados: `cortex_v2_priority_pack` → `cortex_priority_pack`, `cortex_v2_canonical` → `cortex_canonical`.
+- Regex de parser extendido para aceptar formato `$N: DESCRIPTION` (compatibilidad v1).
+
+### Fixed
+
+- B-01: `cortex_v2_canonical` BCFNR=1.0 → corregido con VIEW-aware canonicalize.
+- B-05: `v2-canonicalize` rompía compatibilidad con v1 render — ahora preserva estructura cuando no hay VIEW.
+- Versión del proyecto actualizada a v0.3.2 en todas las superficies.
+
 ## [0.3.1] — 2026-06-29
 
 ### Changed

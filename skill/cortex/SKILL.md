@@ -89,7 +89,7 @@ $0:enum_risk_level{values:"B,M,H"}
 $0:delimiters{values:"espacio | , { } salto_de_linea inicio_de_valor fin_de_valor"}
 
 $1
-IDN:project{name:"CODEC-CORTEX",author:"Fidel Ernesto Lozada A.",version:"1.2.0-enterprise-candidate",license:MIT,spec:"1.2.0-enterprise-candidate",project:"0.3.0"}
+IDN:project{name:"CODEC-CORTEX",author:"Fidel Ernesto Lozada A.",version:"1.2.0-enterprise-candidate",license:MIT,spec:"1.2.0-enterprise-candidate",project:"0.3.2"}
 DOM:scope{domain:"protocolo de memoria contextual para agentes LLM/SLM",lang_struct:"EN",lang_semantic:"idioma del dominio o usuario",output_human:"HCORTEX=render memoria; CORTEX-OUT=respuesta conversacional"}
 TAG:meta{category:"META-SKILL",nature:"gobierno cognitivo",target:"LLM/SLM agents"}
 REF:art_skill_root{path:"SKILL.md",role:"spec humana canónica"}
