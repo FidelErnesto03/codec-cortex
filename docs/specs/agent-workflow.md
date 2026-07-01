@@ -96,10 +96,22 @@ Para cada .cortex sin VIEW:
 | ! | cond | acc |
 |---|------|-----|
 | `!:release_workflow` | `on_tag` | Después de crear un tag vX.Y.Z, ejecutar `gh release create` con release notes extraídas de CHANGELOG.md. No dejar tags huérfanos sin release asociado. Si no hay `gh` disponible, documentar el tag manualmente en GitHub Releases. |
+| `!:pre_release_docs` | `before_tag` | Antes de crear cualquier tag vX.Y.Z, ejecutar verificación de superficies de versión en README, CHANGELOG, STATUS, ROADMAP, GOVERNANCE, skill/cortex/*, skill/hcortex/*, docs/specs/*. No taggear si hay versiones desactualizadas. |
 
 **Pipeline de release completo:**
 
 ```bash
+# 0. Verificar superficies de versión (BLOQUEANTE)
+grep -rn "0\.3\.[0-9]" README.md CHANGELOG.md cli/CHANGELOG.md \
+  cli/STATUS.md ROADMAP.md GOVERNANCE.md \
+  skill/cortex/README.md docs/specs/skill-distribution.md \
+  skill/cortex/SKILL.md skill/hcortex/SKILL_HCORTEX.md \
+  skill/cortex/AGENT.md skill/hcortex/AGENT.md \
+  2>/dev/null | grep -v "SES:\|LNG:\|AUD:\|OBJ:\|WRK:\|STP:\|RSK:\|CLAIM:\|LIM:\|NXT:\|KNW:\|FCS:\|\[0\.3\.0\]\|\[0\.3\.1\]\|\[0\.3\.2\]\|\[0\.3\.3\]" \
+  | grep -v "0\.3\.0 —\|0\.3\.1 —"
+# Si aparecen referencias a versiones anteriores → STOP. Actualizar docs primero.
+echo "Version surfaces OK — no stale references found."
+
 # 1. Verificar que todo pasa
 make all                           # lint + test + verify + roundtrip
 cortex verify --strict skill/cortex/SKILL.md   # 0 errors
