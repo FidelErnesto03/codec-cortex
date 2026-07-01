@@ -8,5 +8,5 @@ GSIG:LIM{name:"limit",type:"attrs",risk:"M",layer:"Prefrontal",desc:"limit"}
 $1
 IDN:spec{name:"documentation-protocol",status:"current",requires:"cortex 0.3.5+"}
 DESC:summary{text:"CORTEX API docs are the source for human reference and CLI docstrings."}
-KNW:chain{topic:"documentation",content:"docs/cortex/api is source; docs/hcortex is human view; docs/README.md is public entry point",status:"current"}
+KNW:chain{topic:"documentation",content:"docs/cortex/api is source; docs/en/hcortex or docs/es/hcortex is human view; docs/README.md is public entry point",status:"current"}
 LIM:markdown_entry{limit:"docs/README.md remains standard Markdown",scope:"documentation",status:"current"}

@@ -64,6 +64,79 @@ def _run_signature_check(args) -> int:
     return 0 if result.ok else 1
 
 
+def _run_verify_v2(args, raw_text: str) -> int:
+    """Verify a v2-format CORTEX file using the v2 parser directly.
+
+    v2 files have a ```markdown wrapper and/or <!-- CODEC-CORTEX --> header.
+    The v2 parser handles these natively. Validation checks structure:
+    - $0 must exist and have section definitions
+    - All sections must parse
+    - At least one VIEW directive in $13
+    """
+    from ...v2.parser import parse_cortex_v2
+
+    strict = getattr(args, "strict", False)
+
+    inner = raw_text
+    if inner.startswith("```"):
+        idx = inner.find("\n")
+        if idx != -1:
+            inner = inner[idx + 1 :]
+        close_idx = inner.rfind("\n```")
+        if close_idx != -1:
+            inner = inner[:close_idx]
+
+    v2_doc = parse_cortex_v2(inner)
+
+    total_entries = sum(len(s.entries) for s in v2_doc.sections)
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    # Structural validation for v2 CORTEX
+    if "$0" not in {s.id for s in v2_doc.sections}:
+        errors.append("[E_MISSING_GLOSSARY] $0 section not found")
+    else:
+        s0 = next(s for s in v2_doc.sections if s.id == "$0")
+        if not s0.entries:
+            warnings.append("[W_EMPTY_GLOSSARY] $0 section exists but has no entries")
+
+    # Check $13 has VIEW directives
+    if "$13" in {s.id for s in v2_doc.sections}:
+        s13 = next(s for s in v2_doc.sections if s.id == "$13")
+        view_count = sum(1 for e in s13.entries if e.sigil == "VIEW")
+        if view_count == 0:
+            warnings.append("[W_NO_VIEWS] $13 section exists but has no VIEW directives")
+
+    if strict and not errors and not warnings:
+        pass  # v2 format validated
+
+    kind_label = "v2"
+    from pathlib import Path
+    p = Path(args.input)
+    if p.name.lower().startswith("skill") or "skill" in str(p).lower():
+        kind_label = "skill (v2)"
+
+    print(f"verifying: {args.input}")
+    print(f"  kind:          {kind_label}")
+    print(f"  sections:      {len(v2_doc.sections)}")
+    print(f"  entries:       {total_entries}")
+    print(f"  errors:        {len(errors)}")
+    print(f"  warnings:      {len(warnings)}")
+    print(f"  strict mode:   {strict}")
+    if errors:
+        print()
+        print("errors:")
+        for e in errors:
+            print(f"  {e}")
+    if warnings:
+        print()
+        print("warnings:")
+        for w in warnings:
+            print(f"  {w}")
+
+    return 0 if not errors else 1
+
+
 def run(args) -> int:
     # v0.3.4 (E2.6): --signature short-circuits all other validation.
     signature_manifest = getattr(args, "signature_manifest", None) or getattr(
@@ -71,6 +144,17 @@ def run(args) -> int:
     )
     if signature_manifest:
         return _run_signature_check(args)
+
+    # Detect v2 format early — use v2 parser directly
+    from ...core.parser import parse_cortex
+
+    with open(args.input, "r", encoding="utf-8") as f:
+        raw_text = f.read()
+
+    is_v2 = raw_text.lstrip().startswith("```") or "<!-- CODEC-CORTEX" in raw_text
+
+    if is_v2:
+        return _run_verify_v2(args, raw_text)
 
     doc = load_doc(args.input)
 

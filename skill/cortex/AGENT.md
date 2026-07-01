@@ -1,55 +1,77 @@
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.2
-status: specification
+source_version: 0.3.6
+status: current
 -->
 
-<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
-
 $0
-IDN:identity{type:attrs,risk:B,cortex:Semantic,desc:"identidad de proyecto/autoría/protocolo/artefacto"}
-DOM:domain{type:attrs,risk:B,cortex:Semantic,desc:"alcance, dominio, contexto de adopción"}
-KNW:knowledge{type:attrs,risk:B,cortex:Semantic,desc:"conocimiento base o promovido"}
-CNST:constraint{type:attrs,risk:H,cortex:Prefrontal,desc:"restricción dura o límite operativo"}
-OBJ:objective{type:attrs,risk:H,cortex:Working,desc:"meta activa con criterio de éxito"}
-WRK:work{type:attrs,risk:B,cortex:Working,desc:"estado de ejecución actual"}
-FCS:focus{type:attrs,risk:H,cortex:Working,desc:"anclaje de atención activo"}
-STP:step{type:attrs,risk:M,cortex:Working,desc:"próxima acción inmediata"}
-REF:reference{type:attrs,risk:B,cortex:Semantic,desc:"referencia a documento/archivo/repositorio"}
-SES:session{type:attrs,risk:M,cortex:Episodic,desc:"episodio comprimido I/O/R"}
-LNG:lesson{type:attrs,risk:M,cortex:Episodic,desc:"lección aprendida o patrón operativo"}
-!:rule{type:attrs,risk:H,cortex:Prefrontal,desc:"regla operacional compacta"}
-VIEW:view{type:attrs,risk:B,cortex:Semantic,desc:"directiva declarativa de visibilidad y reversión entre CORTEX y HCORTEX"}
 
-$1: IDENTITY
-IDN:agent{role:"CODEC-CORTEX operator example", type:"any LLM", version:"0.3.2", status:"example/template"}
-DOM:context{area:"cognitive memory management", format:".cortex", protocol:"CODEC-CORTEX"}
-!:principle{La memoria persistente canonica bajo CODEC-CORTEX se mantiene en .cortex. Markdown, YAML o JSON pueden existir como vistas transitorias, edicion humana o interoperabilidad}
+$1
+IDN:agent{}
+REF:synthetic_ref_s1_000{skill:"Protocolo CODEC-CORTEX",archivo:"skill/cortex/SKILL.md",propósito:"CORTEX canónico — canon de instalación"}
+REF:synthetic_ref_s1_001{skill:"Cerebro operativo",archivo:"brain.cortex",propósito:"Estado vivo consolidado del proyecto"}
+REF:synthetic_ref_s1_002{skill:"Identidad del agente",archivo:"skill/cortex/AGENT.md",propósito:"Identidad persistente del agente"}
+KNW:inspecci_n{operation:"Inspección",comando:"cortex inspect",desde:"0.3.2"}
+KNW:verificaci_n{operation:"Verificación",comando:"cortex verify --strict",desde:"0.3.0"}
+KNW:cobertura_view{operation:"Cobertura VIEW",comando:"cortex verify-view",desde:"0.3.2"}
+KNW:firma_e2{operation:"Firma (E2)",comando:"cortex verify --signature",desde:"0.3.4"}
+KNW:roundtrip{operation:"Roundtrip",comando:"cortex roundtrip",desde:"0.3.2"}
+KNW:roundtrip_bidireccional{operation:"Roundtrip bidireccional",comando:"cortex roundtrip-bidir",desde:"0.3.2"}
+KNW:conversi_n{operation:"Conversión",comando:"cortex convert",desde:"0.3.2"}
+KNW:comparaci_n{operation:"Comparación",comando:"cortex compare",desde:"0.3.2"}
+KNW:explicar_p_rdida{operation:"Explicar pérdida",comando:"cortex explain-loss",desde:"0.3.2"}
+KNW:canonicalizaci_n{operation:"Canonicalización",comando:"cortex canonicalize",desde:"0.3.2"}
+KNW:docstring_e3{operation:"Docstring (E3)",comando:"cortex docstring",desde:"0.3.5"}
+KNW:benchmark_e3{operation:"Benchmark (E3)",comando:"cortex benchmark",desde:"0.3.5"}
+KNW:diagn_stico{operation:"Diagnóstico",comando:"cortex doctor",desde:"0.3.0"}
+KNW:scan_de_secretos_e2{operation:"Scan de secretos (E2)",comando:"cortex doctor --scan-secrets",desde:"0.3.4"}
+KNW:auditor_a_e2{operation:"Auditoría (E2)",comando:"cortex audit on/off/status/snapshot",desde:"0.3.4"}
+KNW:modos_de_operaci_n_e2{operation:"Modos de operación (E2)",comando:"cortex --mode read-only|editor|admin",desde:"0.3.4"}
+KNW:recuperaci_n_legacy{operation:"Recuperación legacy",comando:"cortex recover",desde:"0.3.0"}
+REF:synthetic_ref_s1_000{archivo:"skill/cortex/SKILL.md",propósito:"CORTEX canónico — canon de instalación del skill"}
+REF:synthetic_ref_s1_001{archivo:"brain.cortex",propósito:"Cerebro local operativo"}
+REF:synthetic_ref_s1_002{archivo:"docs/cortex/api/*.cortex",propósito:"Referencia de comandos CLI (fuente de verdad)"}
 
-$2: CONSTRAINTS
-CNST:memory{format:".cortex", local_brain:"brain.cortex", entry:"skill/cortex/AGENT.md", output:"CORTEX-OUT"}
-CNST:output{rule:"formato salida: CORTEX-OUT §10 (perfil declarado, bloques canónicos, O0→O5, tablas > listas > prosa)", severity:"blocking", survive:"min"}
-!:install{rule:"el canon de instalación del skill es skill/cortex/SKILL.md (266 entries, 44 VIEW, reversible); NO usar skill/hcortex/SKILL_HCORTEX.md (display-only, sin VIEW)"}
-!:canonical_names{rule:"usar nombres canónicos para comandos CLI y recursos. No usar prefijos de versión (v2-, v3-) en nombres públicos. Los alias deprecados existen por compatibilidad pero no se documentan como nombre primario."}
-!:startup_verify{rule:"al cargar el skill, ejecutar cortex verify --strict skill/cortex/SKILL.md y cortex verify-view skill/cortex/SKILL.md. Reportar fallos como WARNING."}
-!:precommit_verify{rule:"si se modificó un .cortex, ejecutar cortex verify --strict sobre ese archivo antes de permitir el commit."}
-!:output_cortex_out{rule:"aplicar CORTEX-OUT §10 como protocolo de respuesta."}
+$2
+AXM:guiding{> La memoria persistente canónica bajo CODEC-CORTEX se mantiene en `.cortex`. Markdown, YAML o JSON pueden existir como vistas transitorias, edición humana o interoperabilidad. CORTEX-OUT es la respuesta conversacional.}
 
-$3: WORKING MEMORY
-FCS:focus{task:"operate v0.3.2 with CLI v0.3.2 canonical names", priority:"high", status:"current"}
-WRK:state{phase:"active", current:"CORTEX canonical installed, HCORTEX reversible paired, canonical CLI names adopted", active_files:["brain.cortex","skill/cortex/SKILL.md","skill/hcortex/SKILL.md"]}
-OBJ:mission{goal:"mantener el skill instalado desde skill/cortex/SKILL.md (canon CORTEX), output en CORTEX-OUT", status:"current", success:"todo el proyecto alineado a v0.3.2 con canon CORTEX y nombres canónicos CLI"}
-STP:next{action:"apply CORTEX-OUT output protocol on every response", reason:"!:output_cortex_out rule active", owner:"agent", status:"current", survive:"min"}
+$3
+WRK:entry{}
+HDL:synthetic_hdl_s3_001{rule:"agent_init` — Al cargar el skill: leer SKILL.md, identificar reglas Nivel 1, leer brain.cortex, derivar FCS/OBJ si no existen, aplicar CNST, seleccionar perfil CORTEX."}
+HDL:synthetic_hdl_s3_002{rule:"pre_action` — Antes de cada acción: verificar FCS activo, OBJ, CNST:blocking, LIM, RSK, STP. Si hay contradicción con CNST:blocking → detener."}
+HDL:synthetic_hdl_s3_003{rule:"absorb_pkg` — Al recibir un paquete `.cortex`: validar $0, identificar propósito, no absorber WRK/FCS/OBJ como vivo sin confirmación, integrar KNW/REF/DIAG/CLAIM/LIM, registrar AUD."}
+HDL:synthetic_hdl_s3_004{rule:"session_close` — Al cerrar sesión: producir SES (input/output/outcome), LNG si hubo error, AUD si se verificó, RSK si hay riesgo, NXT si hay acción pendiente."}
+HDL:synthetic_hdl_s3_005{rule:"hcortex_render` — Para renderizar memoria a HCORTEX: resolver perfil, filtrar por survive, resolver tipo desde $0, agregar source, ordenar P0→P5."}
+HDL:synthetic_hdl_s3_006{rule:"recovery_missing_0` — Si el `.cortex` no tiene $0: no ejecutar decisiones operativas, reconstruir $0 mínimo, marcar ambigüedades como RSK/AUD."}
 
-$4: SESSIONS
-SES:example{input:"skill_applied", output:"cortex_native_activated", outcome:"operational", date:"template"}
+$4
+!startup_verify{rule:"Al cargar el skill: ejecutar `cortex verify --strict skill/cortex/SKILL.md`."}
+!precommit_verify{rule:"Antes de commit .cortex: `cortex verify --strict <archivo>`."}
+!secret_scan{rule:"Antes de commit: `cortex doctor --scan-secrets <archivo>`."}
+!output_cortex_out{rule:"Las respuestas del agente usan CORTEX-OUT (no prosa libre)."}
+!canonical_names{rule:"Usar nombres canónicos sin prefijo `v2-`."}
+!mutation_mode{rule:"Respetar `--mode read-only|editor|admin` y env `$CORTEX_MODE`."}
+!docs_source_of_truth{rule:"La ayuda CLI deriva de `docs/cortex/api/*.cortex`."}
 
-$5: REFERENCES
-REF:skill_cortex{PATH:skill/cortex/SKILL.md, purpose:"CORTEX canónico — canon de instalación del skill, 266 entries, 44 VIEW"}
-REF:skill_hcortex_reversible{PATH:skill/hcortex/SKILL.md, purpose:"HCORTEX reversible — par VIEW, roundtrip verificado"}
-REF:skill_hcortex_display{PATH:skill/hcortex/SKILL_HCORTEX.md, purpose:"HCORTEX display-only — lectura humana, sin VIEW"}
-REF:install_guide{PATH:skill/cortex/README.md, purpose:"procedimiento de instalación por plataforma"}
-REF:brain{PATH:brain.cortex, purpose:"cerebro operativo local"}
-REF:changelog{PATH:cli/CHANGELOG.md, purpose:"historial de cambios por versión (sección [0.3.2] актуальна)"}
+$5
+LIM:entry{}
+
+$12
+KNW:synthetic_knw_s12_000{perfil:"OUT-MIN",bloques:"Resultado + Acción",cuándo:"Presupuesto <500t"}
+KNW:synthetic_knw_s12_001{perfil:"OUT-WORK",bloques:"Resultado + Criterio + Acción + Límite",cuándo:"Respuesta operativa"}
+KNW:synthetic_knw_s12_002{perfil:"OUT-AUDIT",bloques:"Todos + trazabilidad",cuándo:"Verificación o auditoría"}
+KNW:synthetic_knw_s12_003{perfil:"OUT-FULL",bloques:"Todos expandidos",cuándo:"Reporte completo de sesión"}
+KNW:synthetic_knw_s12_004{perfil:"OUT-ERROR",bloques:"Código error + causa + recuperación",cuándo:"Error o advertencia"}
+
+$13
+VIEW:perfil_agente{kind:"kv_table",target:"$1:IDN:agent",reverse:"row_to_attrs",status:cur,fields:"dimension,valor",title:"Perfil del Agente"}
+VIEW:skills_cargados{kind:"table",target:"$1:REF:*",reverse:"rows_to_entries",status:cur,fields:"skill,archivo,proposito",title:"Skills Cargados"}
+VIEW:principio_rector{kind:"prose",target:"$2:AXM:guiding",reverse:"body_to_cuerpo",status:cur,title:"Principio Rector"}
+VIEW:limites_operativos{kind:"kv_table",target:"$5:LIM:*",reverse:"row_to_attrs",status:cur,fields:"dimension,valor",title:"Límites Operativos"}
+VIEW:memoria_trabajo{kind:"kv_table",target:"$3:WRK:*",reverse:"row_to_attrs",status:cur,fields:"dimension,valor",title:"Memoria de Trabajo"}
+VIEW:handlers_agente{kind:"numbered_list",target:"$3:HDL:*",reverse:"items_to_ordered_entries",status:cur,title:"Handlers del Agente"}
+VIEW:comandos_cli{kind:"table",target:"$1:KNW:commands",reverse:"rows_to_entries",status:cur,fields:"operacion,comando,version",title:"Comandos CLI"}
+VIEW:perfiles_salida{kind:"table",target:"$12:KNW:out_profile_*",reverse:"rows_to_entries",status:cur,fields:"perfil,bloques,cuando",title:"Perfiles de Salida CORTEX-OUT"}
+VIEW:reglas_obligatorias{kind:"numbered_list",target:"$4:!:*",reverse:"items_to_ordered_entries",status:cur,title:"Reglas Obligatorias"}
+VIEW:referencias_agente{kind:"table",target:"$1:REF:*",reverse:"rows_to_entries",status:cur,fields:"archivo,proposito",title:"Referencias"}

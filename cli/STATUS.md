@@ -1,4 +1,4 @@
-# STATUS — codec-cortex v0.3.5
+# STATUS — codec-cortex v0.3.6
 
 > Matriz de madurez de capacidades. Ningún claim debe presentarse como `current` sin evidencia reproducible.
 
@@ -60,7 +60,7 @@
 | MCP server | `future` | no implementado |
 | Runtime promote/decay | `future` | no implementado |
 | **Documentación central E3** | `current` | `docs/README.md` |
-| **HCORTEX humano E3** | `current` | `docs/hcortex/tutorials/getting-started.md` |
+|| **HCORTEX humano E3** | `current` | `docs/es/hcortex/tutorials/primeros-pasos.md` (ES) · `docs/en/hcortex/tutorials/getting-started.md` (EN) |
 | **API reference CORTEX E3** | `current` | `docs/cortex/api/*.cortex` |
 | **Docstring derivada E3** | `current` | `cortex docstring canonicalize` |
 | **Benchmark inventory E3** | `current` | `cortex benchmark --list` |
@@ -76,7 +76,7 @@
 
 ## Cambios por versión
 
-- **0.3.5:** Protocolo de Documentación E3. `docs/README.md` central, estructura `docs/hcortex/` (tutorial, how-to, explicación, referencia), `docs/cortex/api/*.cortex` para referencia API autocontenida. Comandos `cortex docstring` y `cortex benchmark`. Entry point E3 con fallback histórico. Coverage gate 85%.
+- **0.3.6:** SKILL v1.3.0 Documentation Alignment. SKILL reescrito en HCORTEX con 35 VIEW directives. CLI: `cortex verify` soporta formato v2 nativamente. Docs reorganizadas por idioma. HCORTEX expandido: tutorial, how-to, explanation, reference en EN y ES. Nuevas specs: CORTEX-OUT, microtokens, VIEW directives. Parser CLI ajustado para v2.
 - **0.3.2:** naming canónico CLI (sin prefijo `v2-`); fix `cortex canonicalize` (B-01/B-05); flag `--preserve`; migración corpus a VIEW directives; renombramiento de métodos de benchmark; workflow operativo del agente (5 PUML, 4 reglas `!`, 5 perfiles CORTEX-OUT).
 - **2.4.0:** núcleo bidireccional verificado. CORTEX ⇄ HCORTEX pasa con 0 diffs en artefactos canónicos; HCORTEX → CORTEX reconstruye 266/266 entries; VIEW 44/44; coverage 100%; paquete limpio; documentación alineada.
 - **2.3.1:** release correctivo experimental. Tests empezaron a fallar honestamente cuando el roundtrip bidireccional no era real.
@@ -96,4 +96,4 @@
 | Alias `v2-*` | `deprecated` desde v0.3.2; se remueven en v1.0.0 |
 | `cortex docstring` | Lee `docs/cortex/api` desde el checkout del repositorio |
 | `cortex benchmark` | Inventaria suites versionadas; no ejecuta modelos externos |
-| Publicación v0.3.5 | Requiere tag `v0.3.5` |
+| Publicación v0.3.6 | Requiere tag `v0.3.6` |

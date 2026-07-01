@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
 
-# CODEC-CORTEX — Agent Workflow (v0.3.5)
+# CODEC-CORTEX — Agent Workflow (v0.3.6)
 
 > Especificación del workflow operativo que el agente ejecuta al cargar
 > el skill `codec-cortex`. Complementa al `SKILL.md` canónico con
@@ -84,7 +84,7 @@ Para cada .cortex sin VIEW:
 
 ---
 
-## 5. Reglas `!` a agregar en el skill Hermes
+## 5. Reglas `!` a agregar en el skill
 
 | ! | cond | acc |
 |---|------|-----|
@@ -111,7 +111,7 @@ Para cada .cortex sin VIEW:
 # 0. Verificar superficies de versión (BLOQUEANTE)
 grep -rn "0\.3\.[0-9]" README.md CHANGELOG.md cli/CHANGELOG.md \
   cli/STATUS.md ROADMAP.md GOVERNANCE.md \
-  skill/cortex/README.md docs/specs/skill-distribution.md \
+  skill/cortex/AGENT.md skill/hcortex/AGENT.md \
   skill/cortex/SKILL.md skill/hcortex/SKILL_HCORTEX.md \
   skill/cortex/AGENT.md skill/hcortex/AGENT.md \
   2>/dev/null | grep -v "SES:\|LNG:\|AUD:\|OBJ:\|WRK:\|STP:\|RSK:\|CLAIM:\|LIM:\|NXT:\|KNW:\|FCS:\|\[0\.3\.0\]\|\[0\.3\.1\]\|\[0\.3\.2\]\|\[0\.3\.3\]\|\[0\.3\.4\]\|\[0\.3\.5\]" \

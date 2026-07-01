@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. As of v0.3.5 the CLI and deterministic codec (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect, explain-loss) are implemented in cli/ with canonical command names (no `v2-` prefix; legacy aliases still accepted with WARNING). The E2 security layer (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) and E3 documentation protocol (`cortex docstring`, `cortex benchmark`) are also current. Runtime lifecycle and the MCP server remain planned or future.
+> **STATUS NOTE:** This document is specification or design. As of v0.3.6 the CLI and deterministic codec (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect, explain-loss) are implemented in cli/ with canonical command names (no `v2-` prefix; legacy aliases still accepted with WARNING). The E2 security layer (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) and E3 documentation protocol (`cortex docstring`, `cortex benchmark`) are also current. Runtime lifecycle and the MCP server remain planned or future.
 
 **Abstract:** Cognitive density equations, lifecycle state machine, deterministic parsing algorithm (6-state character automaton), structural deep compare, verbatim PUML block parsing, and maturation engine algorithms (detect_recurrence, promote, decay). Includes the golden token distribution (φ=1.618) across cognitive layers and the context management cycle with exit GATE.
 
@@ -634,6 +634,12 @@ FUNCTION pipeline_cortex(file: str) → bool:
 ---
 
 ## 7. Cognitive Maturation FSM (Learning Engine)
+
+The maturation engine lifecycle — `detect_recurrence()`, `ask_user()`, `promote()`, and `decay()` — is the formal FSM that operationalizes the learning process.
+
+For the **complete operational specification** — memory type taxonomy, Fibonacci thresholds, human confirmation gates, AUD rules, manual algorithm, and maturity contract — see:
+
+> **See:** [`learning.md`](learning.md) — Full learning process: when to update `brain.cortex`, Fibonacci contextual ascent (score 1–21), signals and weights, LNG/AUD rules, manual algorithm, maturity contract.
 
 ### 7.1. Engine Architecture
 

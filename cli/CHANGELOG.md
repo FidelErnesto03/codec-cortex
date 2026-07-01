@@ -1,5 +1,30 @@
 # CHANGELOG — codec-cortex
 
+## [0.3.6] — 2026-07-01
+
+> Release v0.3.6 — SKILL v1.3.0 Documentation Alignment
+
+### Added
+- SKILL reescrito en HCORTEX con 35 VIEW directives (v1.2.0 → v1.3.0).
+- CORTEX SKILL + AGENT generados desde HCORTEX, 0 errores verify.
+- Nuevas specs: CORTEX-OUT protocol, microtokens reference, VIEW directives reference.
+- HCORTEX expandido: tutorial, how-to, explanation, reference en EN y ES.
+- Docs reorganizadas por idioma: 12 EN specs + 12 ES specs.
+- CLI: `cortex verify` ahora soporta formato v2 nativamente (wrapper + header).
+- Nuevo EN→ES: `docs/en/specs/learning.md`, `docs/es/specs/microtokens.md`, `docs/es/specs/directivas-view.md`, `docs/es/specs/salida-agente.md`.
+
+### Changed
+- `cli/src/cortex/cli/commands/verify.py`: detección v2 + `_run_verify_v2()`.
+- `cli/src/cortex/cli/commands/__init__.py`: `load_doc()` v2-aware.
+- Todas las versiones de proyecto: v0.3.5 → v0.3.6.
+- Todas las STATUS NOTES: "As of v0.3.5" → "As of v0.3.6".
+- Referencias cruzadas a `docs/specs/` → `docs/en/specs/` + `docs/es/specs/`.
+
+### Fixed
+- `skill/cortex/AGENT.md`: eliminadas referencias a HCORTEX.
+- `skill/hcortex/AGENT.md`: eliminadas referencias a HCORTEX (no sobreviven en conversión).
+- `skill/hcortex/SKILL.md`: eliminada referencia de HCORTEX a sí mismo.
+
 ## [0.3.5] — 2026-07-01
 
 > Release E3 — Protocolo de Documentación

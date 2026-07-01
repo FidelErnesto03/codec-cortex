@@ -1,16 +1,17 @@
 <!-- CODEC-CORTEX
 internal_encoding: HCORTEX
 source_artifact: skill/hcortex/SKILL.md
-source_version: 1.2.0-enterprise-candidate
+source_version: 1.3.0
 status: specification
-reversible: true
-view_schema: 1
+reversible: false
+view_schema: 0
+view_coverage: 0
 -->
 
 <p align="center">
 <strong>CODEC-CORTEX</strong><br>
 Enterprise Skill Specification — Cognitive Memory Governance & Output Discipline
-<br><sub>SKILL_HCORTEX.md · spec 1.2.0-enterprise-candidate · project 0.3.2 · MIT</sub>
+<br><sub>SKILL_HCORTEX.md · spec 1.3.0 · project 0.3.6 · MIT</sub>
 </p>
 
 ---
@@ -27,7 +28,7 @@ Enterprise Skill Specification — Cognitive Memory Governance & Output Discipli
 | Sistema | CODEC-CORTEX |
 | Propósito | Gobernar cómo agentes leen, producen y gestionan memoria `.cortex` |
 | Estado | `specification` |
-| Versión | `1.2.0-enterprise-candidate` |
+| Versión | `1.3.0` |
 | Licencia | MIT |
 | Autoría | Fidel Ernesto Lozada A. |
 | Lenguaje estructural | EN (sigilos, handlers, contratos) |
