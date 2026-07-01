@@ -1,4 +1,4 @@
-# STATUS — codec-cortex v0.3.2
+# STATUS — codec-cortex v0.3.4
 
 > Matriz de madurez de capacidades. Ningún claim debe presentarse como `current` sin evidencia reproducible.
 

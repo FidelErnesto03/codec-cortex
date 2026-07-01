@@ -145,7 +145,7 @@ Para agentes sin acceso a terminal (OpenAI GPTs, Claude Projects):
 ## 7. Verificación post-instalación
 
 ```bash
-# v0.3.2 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
+# v0.3.4 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
 cortex doctor skill/SKILL.cortex            # Diagnóstico del skill
 cortex verify --strict skill/SKILL.cortex   # Validación completa
 cortex inspect skill/SKILL.cortex           # Inspección v2 (secciones, entries, VIEW)
@@ -167,7 +167,7 @@ cortex roundtrip-bidir skill/SKILL.cortex   # Roundtrip bidireccional
 # pyproject.toml del paquete
 [project]
 name = "codec-cortex"
-version = "0.3.0"
+version = "0.3.4"
 
 # Los datos del SKILL se empaquetan como package data:
 [tool.setuptools.package-data]

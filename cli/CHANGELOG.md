@@ -1,5 +1,34 @@
 # CHANGELOG — codec-cortex
 
+## [0.3.4] — 2026-07-01
+
+> Release E2 — Security & Governance
+
+### Added
+- Secret scanner (12 patrones): `cortex doctor --scan-secrets`
+- Mutation gates: `--mode read-only|editor|admin`, env `CORTEX_MODE`
+- Audit log bajo demanda: `cortex audit on/off/status/snapshot/prune`
+- `cortex verify --signature` para verificación de integridad
+- Dependabot para pip y GitHub Actions
+- 68 nuevos tests (409 total)
+
+### Changed
+- `cortex doctor` ahora incluye scan de secretos (opt-in con `--scan-secrets`)
+- Pre-commit hooks: detect-secrets + cortex-secret-scan
+
+## [0.3.3] — 2026-07-01
+
+> Release E1 — Distribution & CI/CD completado
+
+### Added
+- GitHub Actions CI (ruff lint + test 3.9-3.12 + verify + build + publish)
+- Ruff 0 errores (231 legacy errors fixed)
+- workflow_dispatch trigger
+- Personal files (brain.cortex, alfred-memory.*) untracked de git
+
+### Changed
+- `pip install codec-cortex` ahora desde PyPI
+
 ## [0.3.2] — 2026-07-01
 
 > Release canónica: nombres canónicos sin prefijo `v2-`, fix de
