@@ -56,8 +56,7 @@ OBJ:operate{goal:"Operación v0.3.2: CLI con nombres canónicos, skill canónico
 OBJ:benchmark_v2{goal:"Integrar benchmark v2.0.0 del núcleo bidireccional", status:"done", success:"84 fuentes versionables en benchmarks/v2.0.0/. 4,840 runs, 19 métricas.", survive:"recovery"}
 WRK:state{phase:"Operacion v0.3.2", current:"CLI v0.3.2 integrado. Proyecto actualizado a v0.3.2. Nombres canónicos sin prefijo v2-. canonicalize VIEW-aware. Corpus migrado a VIEW directives.", blocked:false, survive:"work", active_files:"brain.cortex, cli/, skill/cortex/SKILL.md, docs/specs/agent-workflow.md"}
 WRK:repo{phase:"active", current:"main branch v0.3.2. CLI v0.3.2 en cli/. 341 tests pasan. Nombres canónicos adoptados.", blocked:false, survive:"work"}
-STP:next{action:"Preparar publicación PyPI y activar CI/CD (token workflow scope)", reason:"v0.3.2 alineado. Nombres canónicos. Siguiente: pip install codec-cortex.", owner:"agent", status:"planned", survive:"min"}
-OBJ:cli_demo{goal:"demostrar operaciones CLI en .cortex", status:"current", success:"usuario verifica visualmente", survive:"min"}
+STP:next{action:"Configurar PyPI API token para publicación automática", reason:"CI/CD activo. v0.3.2 taggeado. Falta PyPI token para completar E1.", owner:"agent", status:"planned", survive:"min"}
 
 $3: RECENT SESSIONS
 
