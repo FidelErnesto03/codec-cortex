@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. As of v0.3.5 the agent-assisted manual consolidation is current Skill usage, and the CLI provides the deterministic codec, the E2 security layer (secret scanner, mutation gates, audit log, signature verification) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). Automatic recurrence detection, promotion, decay and structural reordering by runtime remain planned or future unless verified implementation exists.
+> **STATUS NOTE:** This document is specification or design. As of v0.3.6 the agent-assisted manual consolidation is current Skill usage, and the CLI provides the deterministic codec, the E2 security layer (secret scanner, mutation gates, audit log, signature verification) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). Automatic recurrence detection, promotion, decay and structural reordering by runtime remain planned or future unless verified implementation exists.
 
 **Abstract:** Defines the CODEC-CORTEX learning process for `brain.cortex`: when to update memory, how to collapse work into `SES` and `LNG`, how to detect candidate knowledge, how to apply Fibonacci thresholds for contextual ascent, when to request human confirmation, what requires `AUD`, and how to distinguish transient native memory, `SES`, `LNG`, `KNW` and `NXT`.
 
@@ -157,18 +157,11 @@ KNW score >= 21 -> high contextual priority
 
 ## 7. Contextual priority and P0-P5
 
-Contextual ascent determines how much an entry should survive under context pressure.
+The P0-P5 priority system is the core survival mechanism for entries under context pressure. It is defined in full in the dedicated spec:
 
-| Priority | Use | Examples |
-|:--------:|-----|----------|
-| P5 | Extended context | Long history, broad references |
-| P4 | Critical reference | Sources, documents, artifacts |
-| P3 | Recent evidence | `SES:last`, recent verifications |
-| P2 | Honesty and limits | `CLAIM`, `LIM`, `KNW:active`, `LNG:critical` |
-| P1 | Operational state | `WRK`, `AUD`, `RSK`, `NXT` |
-| P0 | Critical survival | `FCS`, `OBJ`, `CNST:blocking`, `STP` |
+> **See:** [`context-survival.md`](context-survival.md) — Priority Pack P0-P5 with token budgets, degradation policy, loading order, and per-level preservation rules.
 
-A critical `KNW` may influence P1/P0 only when it materializes as risk, constraint, focus, objective or immediate step. P0 should not be filled with general knowledge.
+**Key principle:** Contextual ascent determines how much an entry should survive under context pressure. Relevance rise does not equal automatic semantic promotion. P0 must not be filled with general knowledge.
 
 ---
 

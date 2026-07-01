@@ -3,10 +3,10 @@
 
 # CODEC-CORTEX — Universal Skill Distribution Protocol
 
-> **Versión:** 1.1 · alineada a proyecto v0.3.5 · 2026-07-01
+> **Versión:** 1.1 · alineada a proyecto v0.3.6 · 2026-07-01
 > **Propósito:** Definir cómo distribuir e instalar el SKILL CODEC-CORTEX en cualquier agente LLM/SLM, independientemente de plataforma, modelo o marca.
 >
-> **NOTA DE ESTADO:** En v0.3.5 el paquete `codec-cortex` está publicado en PyPI (`pip install codec-cortex`) e incluye el CLI canónico, la capa E2 de seguridad y el protocolo E3 de documentación. La distribución manual por plataforma y el script `setup.sh` siguen vigentes como alternativa para entornos sin acceso a `pip`.
+> **NOTA DE ESTADO:** En v0.3.6 el paquete `codec-cortex` está publicado en PyPI (`pip install codec-cortex`) e incluye el CLI canónico, la capa E2 de seguridad y el protocolo E3 de documentación. La distribución manual por plataforma y el script `setup.sh` siguen vigentes como alternativa para entornos sin acceso a `pip`.
 
 ---
 
@@ -148,7 +148,7 @@ Para agentes sin acceso a terminal (OpenAI GPTs, Claude Projects):
 ## 7. Verificación post-instalación
 
 ```bash
-# v0.3.5 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
+# v0.3.6 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
 cortex verify --strict skill/cortex/SKILL.md   # Validación completa del canon CORTEX
 cortex roundtrip-bidir skill/cortex/SKILL.md   # Roundtrip bidireccional
 cortex verify-view skill/cortex/SKILL.md       # Coverage VIEW

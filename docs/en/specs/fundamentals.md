@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. As of v0.3.5 the CLI and deterministic codec (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect), the E2 security layer (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`) are implemented in cli/. Runtime lifecycle and the MCP server remain planned or future.
+> **STATUS NOTE:** This document is specification or design. As of v0.3.6 the CLI and deterministic codec (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect), the E2 security layer (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`) are implemented in cli/. Runtime lifecycle and the MCP server remain planned or future.
 
 **Abstract:** Cognitive ontology, architectural axioms, and guiding principles of the deterministic structural compression protocol for LLM agent memory. Covers the 3 cognitive cortices, the 7 foundational axioms, the 4 stages of competence as a maturation model, the HCORTEX human decompression protocol, advanced compression techniques (positional collapse and micro-glossary), and the golden ratio (φ=1.618) as a universal memory distribution pattern.
 
@@ -485,6 +485,12 @@ CODEC-CORTEX's own SKILL.md follows this paradigm: PUML diagrams are the primary
 ---
 
 ## 8. Cognitive Maturation Model
+
+The CODEC-CORTEX cognitive maturation model follows 4 stages of competence, derived from the Dreyfus model: **Novice → Advanced Beginner → Competent → Proficient**. Each stage defines what kind of memory the agent can produce, what it can verify, and what requires human confirmation.
+
+For the **operational learning process** — memory type taxonomy, Fibonacci thresholds, human confirmation gates, AUD rules, and the manual algorithm — see the dedicated specification:
+
+> **See:** [`learning.md`](learning.md) — Full learning specification: memory types, when to update `brain.cortex`, Fibonacci contextual ascent (score 1–21), flags and weights, P0-P5 priority, LNG/AUD rules, maturity contract.
 
 ### 8.1. The 4 Stages of Competence
 

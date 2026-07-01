@@ -22,7 +22,7 @@ This file is the maturity registry for public claims in the repository. README, 
 - **Survival Core:** Degradation policy with direct selection by budget.
 - **HCORTEX render protocol:** 5 rules, 8 steps (profile, source, instance, type, order).
 - **Context Survival Rules** in `SKILL.md` and `SKILL.en.md`.
-- Documentation: `docs/specs/context-survival.md`, `docs/specs/benchmark-methodology.md`.
+- Documentation: `docs/en/specs/context-survival.md` (EN) · `docs/es/specs/supervivencia-contexto.md` (ES) · `docs/en/specs/benchmark-methodology.md` (EN) · `docs/es/specs/metodologia-benchmark.md` (ES).
 - Benchmarks registry: `benchmarks/README.md` (0.1, 0.1b, 0.2).
 - **CLI v1.1.9 at `cli/`:** 17 commands (`new`, `render`, `compile`, `verify`, `get`, `list`, `add`, `update`, `delete`, `move`, `glossary`, `micro`, `doctor`, `diff`, `format`, `recover`, `diagram`), 222 tests passing.
 - **Deterministic parser, verifier and HCORTEX renderer** integrated in CLI: `cortex verify --strict`, `cortex render`, `cortex doctor`.
@@ -31,7 +31,7 @@ This file is the maturity registry for public claims in the repository. README, 
 - **Recovery:** `cortex recover` repairs legacy/non-conforming `.cortex` files.
 - **Diagram operations:** `cortex diagram extract` and `cortex diagram validate`.
 - **All `.cortex` files validated:** `brain.cortex`, `SKILL.cortex`, `alfred-memory.cortex` pass `cortex verify --strict` (0 errors, 0 warnings).
-- **SKILL.md v1.2.0-enterprise-candidate:** `$0` self-containment emphasis added.
+- **SKILL.md v1.3.0:** HCORTEX canonical with 35 VIEW directives, 0 errors verify.
 
 ## Specification Exists
 

@@ -33,7 +33,7 @@
 
 **Goal:** define minimum survival context: `survive` attribute, priority pack P0-P5, conceptual profiles, and degradation policy.
 
-**Deliverables:** `survive` specification, P0-P5 priority pack, context profiles (MIN/RECOVERY/WORK/FULL), HCORTEX as render target, degradation policy with direct selection. Documents: `docs/specs/context-survival.md`, `docs/specs/benchmark-methodology.md`.
+**Deliverables:** `survive` specification, P0-P5 priority pack, context profiles (MIN/RECOVERY/WORK/FULL), HCORTEX as render target, degradation policy with direct selection. Documents: `docs/en/specs/context-survival.md` (EN), `docs/es/specs/supervivencia-contexto.md` (ES), `docs/en/specs/benchmark-methodology.md` (EN), `docs/es/specs/metodologia-benchmark.md` (ES).
 
 **Non-goals:** no parser, no runtime, no automated benchmarks.
 
@@ -148,13 +148,13 @@ Phases E1–E5 represent the enterprise-hardening track. They are independent of
 
 ### Phase E3: Documentation and Test Coverage
 
-**Status:** current (v0.3.5).
+**Status:** current (v0.3.6).
 
 **Goal:** achieve production-grade documentation coverage and test quality.
 
-**Deliverables (implemented in v0.3.5):**
+**Deliverables (implemented in v0.3.6):**
 - `docs/README.md` central con navegación por audiencia y formato.
-- Estructura `docs/hcortex/` con tutorial, how-to, explicaciones y referencia humana.
+- Estructura `docs/es/hcortex/` (ES) · `docs/en/hcortex/` (EN) con tutorial, how-to, explicaciones y referencia humana.
 - Referencia API autocontenida en `docs/cortex/api/*.cortex`.
 - `cortex docstring` — deriva docstrings desde `docs/cortex/api/`.
 - `cortex benchmark` — inventario/validación local de suites bajo `benchmarks/`.
