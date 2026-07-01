@@ -4,6 +4,15 @@
 
 `codec-cortex` es un procesador determinista de memoria cognitiva para agentes LLM/SLM. Opera sobre archivos `.cortex` (formato denso nativo) y `.hcortex.md` (representación humana reversible), sin depender de modelos de lenguaje.
 
+## Gate de reversibilidad
+
+`reversible:true` solo es válido cuando:
+
+1. `view_coverage == 100%`;
+2. no existen errores `E_VIEW_*` ni `E_HCORTEX_*`;
+3. el modo no es `display`;
+4. el roundtrip canónico aplicable pasa sin pérdida no declarada.
+
 ## Modelo conceptual
 
 | Concepto | Rol | Estado |
