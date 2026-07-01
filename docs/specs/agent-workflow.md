@@ -91,7 +91,45 @@ Para cada .cortex sin VIEW:
 
 ---
 
-## 6. Verificación de integración
+### 5.4 Release workflow
+
+| ! | cond | acc |
+|---|------|-----|
+| `!:release_workflow` | `on_tag` | Después de crear un tag vX.Y.Z, ejecutar `gh release create` con release notes extraídas de CHANGELOG.md. No dejar tags huérfanos sin release asociado. Si no hay `gh` disponible, documentar el tag manualmente en GitHub Releases. |
+
+**Pipeline de release completo:**
+
+```bash
+# 1. Verificar que todo pasa
+make all                           # lint + test + verify + roundtrip
+cortex verify --strict skill/cortex/SKILL.md   # 0 errors
+cortex verify-view skill/cortex/SKILL.md       # coverage 100%
+cortex roundtrip-bidir skill/cortex/SKILL.md   # rc=0
+
+# 2. Crear release notes desde CHANGELOG.md
+# Extraer sección [X.Y.Z] manualmente
+
+# 3. Tag + push
+git tag -a vX.Y.Z -m "Resumen del release"
+git push origin vX.Y.Z
+
+# 4. Crear release en GitHub
+gh release create vX.Y.Z --title "vX.Y.Z — Título" --notes "notas del release"
+
+# 5. Publicar a PyPI (si aplica)
+make publish
+```
+
+### 5.5 Makefile targets de release
+
+```makefile
+.PHONY: release
+release: all
+	@echo "Listo para tag. Ejecuta:"
+	@echo "  git tag -a v$$(cortex --version) -m \"...\""
+	@echo "  git push origin v$$(cortex --version)"
+	@echo "  gh release create v$$(cortex --version) --title \"...\" --notes \"...\""
+```
 
 ```bash
 # Pipeline completo que el agente ejecuta post-instalación

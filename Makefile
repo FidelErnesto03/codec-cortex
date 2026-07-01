@@ -29,6 +29,13 @@ verify:
 	cd cli && cortex verify --strict ../skill/cortex/SKILL.md
 
 roundtrip:
-	cd cli && cortex v2-roundtrip-bidir ../skill/cortex/SKILL.md
+	cd cli && cortex roundtrip-bidir ../skill/cortex/SKILL.md
+
+release: verify roundtrip
+	@printf "\n=== Pipeline de release ===\n"
+	@printf "  git tag -a v$$(cortex --version) -m \"Resumen\"\n"
+	@printf "  git push origin v$$(cortex --version)\n"
+	@printf "  gh release create v$$(cortex --version) --title \"v$$(cortex --version) — \" --notes \"...\"\n"
+	@printf "  make publish  (si aplica)\n"
 
 all: install lint test verify roundtrip
