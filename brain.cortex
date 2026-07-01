@@ -1,42 +1,40 @@
-# SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
-# SPDX-License-Identifier: MIT
-
 $0: MINIMAL LOCAL GLOSSARY
 
 # -- $0: MINIMAL LOCAL GLOSSARY --
 # Required: every .cortex artifact must be locally self-contained.
-# Sigil | Name       | Type      | Risk | Cognitive Layer | Description
-# IDN   | identity   | attrs     | B    | Semantic       | Actor identity
-# DOM   | domain     | attrs     | B    | Semantic       | Operating domain or scope
-# CNST  | constraint | attrs     | H    | Prefrontal     | Hard operational boundary
-# FCS   | focus      | attrs     | H    | Working        | Active attention anchor
-# OBJ   | objective  | attrs     | H    | Working        | Active goal with success criterion
-# WRK   | work       | attrs     | M    | Working        | Current operational state
-# STP   | step       | attrs     | M    | Working        | Immediate next action
-# SES   | session    | attrs     | M    | Episodic       | Compressed episode I/O/R
-# LNG   | lesson     | attrs     | M    | Episodic       | Learned operational rule
-# KNW   | knowledge  | attrs     | B    | Semantic       | Stable or promoted knowledge
-# DIAG  | diagram    | bloque    | M    | Episodic/Visual| Verbatim diagram block
-# REF   | reference  | attrs     | B    | Semantic       | File, object or source reference
-# AUD   | audit      | attrs     | M    | Prefrontal     | Audit or verification record
-# RSK   | risk       | attrs     | M    | Prefrontal     | Identified risk with mitigation
-# NXT   | next       | attrs     | M    | Working        | Queued next action with trigger
-# CLAIM | claim      | attrs     | M    | Prefrontal     | Verifiable claim
-# LIM   | limit      | attrs     | M    | Prefrontal     | Explicit operational limit
-# !     | rule       | attrs     | H    | Prefrontal     | Mandatory operational rule
-# TAG   | tag        | attrs     | B    | Semantic       | Classification metadata
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# DOM   | domain     | attrs      | B | Semantic       | Operating domain or scope
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# REF   | reference  | attrs      | B | Semantic       | File, object or source reference
+# TAG   | tag        | attrs      | B | Semantic       | Classification metadata
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard operational boundary
+# !     | rule       | attrs      | H | Prefrontal     | Mandatory operational rule
+# CLAIM | claim      | attrs      | M | Prefrontal     | Verifiable claim
+# LIM   | limit      | attrs      | M | Prefrontal     | Explicit operational limit
+# AUD   | audit      | attrs      | M | Prefrontal     | Audit or verification record
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | M | Working        | Current operational state
+# STP   | step       | attrs      | M | Working        | Immediate next action
+# NXT   | next       | attrs      | M | Working        | Queued next action with trigger
+# SES   | session    | attrs      | M | Episodic       | Compressed episode I/O/R
+# LNG   | lesson     | attrs      | M | Episodic       | Learned operational rule
+# DIAG  | diagram    | bloque     | M | Episodic/Visual | Verbatim diagram block
 #
 # Types:
-# attrs = key:value pairs
-# attrs-pos = positional with explicit contract
-# cuerpo = free text body
-# bloque = verbatim multiline block
 # relación = causal A -> B form
+# attrs-pos = positional with explicit contract
+# bloque = verbatim multiline block
+# attrs = key:value pairs
+# cuerpo = free text body
 #
 # Micro-glossary:
 # cur=current pln=planned fut=future blk=blocked
 # min=minimum rec=recovery wrk=work full=full
 # ok=success fail=failure part=partial
+
 
 $1: IDENTITY
 
@@ -59,6 +57,7 @@ OBJ:benchmark_v2{goal:"Integrar benchmark v2.0.0 del núcleo bidireccional", sta
 WRK:state{phase:"Operacion v0.3.2", current:"CLI v0.3.2 integrado. Proyecto actualizado a v0.3.2. Nombres canónicos sin prefijo v2-. canonicalize VIEW-aware. Corpus migrado a VIEW directives.", blocked:false, survive:"work", active_files:"brain.cortex, cli/, skill/cortex/SKILL.md, docs/specs/agent-workflow.md"}
 WRK:repo{phase:"active", current:"main branch v0.3.2. CLI v0.3.2 en cli/. 341 tests pasan. Nombres canónicos adoptados.", blocked:false, survive:"work"}
 STP:next{action:"Preparar publicación PyPI y activar CI/CD (token workflow scope)", reason:"v0.3.2 alineado. Nombres canónicos. Siguiente: pip install codec-cortex.", owner:"agent", status:"planned", survive:"min"}
+OBJ:cli_demo{goal:"demostrar operaciones CLI en .cortex", status:"current", success:"usuario verifica visualmente", survive:"min"}
 
 $3: RECENT SESSIONS
 
@@ -86,8 +85,7 @@ $4: LESSONS LEARNED
 
 LNG:tag_release_gap{type:"process", cause:"Creé 8 tags pero solo 5 releases en GitHub — el tag no crea la release automáticamente", lesson:"git tag + push no es suficiente. gh release create es un paso separado que debe ejecutarse inmediatamente después del tag. Sin él, el tag queda huérfano y no visible como release.", prevention:"Regla !:release_workflow{cond:on_tag} + Makefile target 'release' + pipeline documentado en agent-workflow.md"}
 LNG:canonical_naming_discipline{type:"naming", cause:"Benchmark v2.0.0 usaba cortex_v2_priority_pack y cortex_v2_canonical como nombres de método, y comandos CLI con prefijo v2-", lesson:"Los nombres con versión incorporada (v2-, v3-) son frágiles: cada release mayor requiere renombrar recursos públicos. Nombres canónicos estables eliminan este costo de mantenimiento.", prevention:"Regla !:canonical_names en el skill. Los alias deprecados existen solo para compatibilidad transitoria."}
-LNG:use_cli_not_raw_edit{type:"process", cause:"Edité brain.cortex con patch en lugar de usar cortex add, a pesar de ser CORTEX puro y tener el CLI disponible", lesson:"El CLI existe precisamente para manipular .cortex. Editar raw cuando el CLI puede hacerlo es eludir la herramienta que el propio proyecto construyó. Si el CLI no soporta una operación, es señal de que falta un comando, no de que hay que editar raw.", prevention:"Usar cortex add/update/delete para operaciones CRUD sobre .cortex. Si falta un comando, reportarlo o implementarlo en el CLI."}
-
+LNG:use_cli_not_raw_edit{type:"process", cause:"Edité brain.cortex con patch en lugar de usar cortex add, a pesar de ser CORTEX puro y tener el CLI disponible", lesson:"El flujo eficiente es: editar raw (rápido, flexible) + cortex verify --strict (valida estructura). El CLI como editor en crudo es lento por los escapes de argumentos. El CLI como validador post-edit es indispensable y rápidísimo. No sacrificar velocidad de edición por dogmatismo de herramienta — pero nunca omitir la verificación.", prevention:"Flujo canónico: 1) editar raw con patch/write_file, 2) cortex verify --strict, 3) si falla, corregir. El CLI es el guardián de estructura, no necesariamente el editor."}
 LNG:survival_core_emerged{type:"architectural_insight", cause:"12 premisas del arquitecto durante sesion de refinamiento", lesson:"CODEC-CORTEX reorientado de formato denso a sistema de supervivencia contextual. Cuando todo lo demas se pierde, todavia sobreviven FCS, OBJ, CNST, STP", prevention:"Incorporar survive como atributo de primer orden en todos los sigilos criticos"}
 LNG:re_before_code{type:"process", cause:"Impulso de implementar parser antes de tener REs refinadas", lesson:"No escribir codigo ni parser antes de tener las REs refinadas y aprobadas. La especificacion gobierna la implementacion", prevention:"Gate de REs en open con quality_contract 10/10 antes de cualquier codigo"}
 LNG:section7_means_use{type:"documentation", cause:"Confusion entre diseno operativo y pasos de ejecucion", lesson:"Diseno operativo (§7) debe mostrar uso funcional del entregable en el proyecto, no pasos de ejecucion de la RE. Ejecucion va en §10", prevention:"Template de RE con secciones claramente delimitadas"}
