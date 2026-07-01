@@ -34,7 +34,6 @@ def load_doc(path: str) -> CortexDocument:
 
     # v2 format: use v2 parser, convert to v1 text, re-parse with v1 parser
     from ...v2.parser import parse_cortex_v2
-    from ...v2.writer import write_cortex_v2
 
     # Strip markdown wrapper for v2 parser
     inner = text

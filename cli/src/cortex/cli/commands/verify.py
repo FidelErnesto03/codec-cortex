@@ -14,7 +14,6 @@ from pathlib import Path
 
 from ...core.compare import compare_ast
 from ...core.document_kind import infer_document_kind
-from ...core.parser import parse_cortex
 from ...core.writer import write_cortex
 from ...core.validator import validate
 from ...hcortex import parse_hcortex_edit, render_hcortex_edit
