@@ -18,7 +18,7 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
+    "Programming Language :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -30,15 +30,15 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/FidelErnesto03/codec-cortex"
-Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/cli/README.md"
+Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/docs/README.md"
 Repository = "https://github.com/FidelErnesto03/codec-cortex"
 Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
 
 [project.scripts]
-cortex = "cortex.cli.main:main"
+cortex = "cortex.cli.main_e3:main"
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "pytest-cov>=4.1"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -47,10 +47,12 @@ packages = [
     "cortex.cli",
     "cortex.cli.commands",
     "cortex.core",
+    "cortex.audit",
     "cortex.glossary",
     "cortex.hcortex",
     "cortex.crud",
     "cortex.templates",
+    "cortex.security",
     "cortex.v2",
 ]
 
@@ -74,3 +76,4 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 pythonpath = ["src"]
+addopts = "--cov=cortex --cov-report=term-missing --cov-fail-under=85"
