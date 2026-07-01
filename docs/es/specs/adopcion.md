@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. El CLI y codec determinista (parse, encode, decode, verify, HCORTEX render) estan implementados en cli/. Runtime y MCP son planificadas o futuras.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.3.5 el CLI y codec determinista estan implementados en cli/, distribuidos via PyPI (`pip install codec-cortex`), e incluyen la capa de seguridad E2 (secret scanner, mutation gates, audit log, signature verification) y el protocolo de documentacion E3 (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). El runtime y el servidor MCP siguen siendo planificados o futuros; el MCP enterprise es la fase futura.
 
 **Abstract:** Guía práctica de integración del protocolo CODEC-CORTEX en agentes LLM y SLM. Cubre 3 patrones de adopción (generic agent host, coding agent client, CLI-based coding agent), estrategia CAG vs RAG con árbol de decisión, benchmarks de compresión con SLMs de 4K-8K tokens, uso de diagramas PUML en integraciones, y referencia de la trinidad cognitiva y GATE de salida.
 

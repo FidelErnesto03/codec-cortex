@@ -3,6 +3,14 @@
 
 # Project Reorientation Report
 
+> **NOTA EDITORIAL (v0.3.5):** Este reporte es un documento histórico de revisión,
+> producido antes de los releases E1 (v0.3.3, CI/CD + PyPI), E2 (v0.3.4, security &
+> governance) y E3 (v0.3.5, protocolo de documentación). Las correcciones listadas
+> abajo se aplicaron en su momento y varias de las concerns planteadas (CLI phantom,
+> falta de STATUS, métricas sin benchmark) han sido resueltas en releases posteriores.
+> Se conserva íntegro como registro de la decisión de reorientación; para el estado
+> actual del proyecto, consultar `STATUS.md` y `CHANGELOG.md` en la raíz del repo.
+
 ## Diagnosis
 
 The repository narrative was codec-first and used implementation-strength claims before the codec, CLI, runtime and MCP existed. The adjustment pass reorients CODEC-CORTEX as a universal Skill and contextual memory protocol first, with `.cortex` as the model-facing memory format and HCORTEX as the human audit view.

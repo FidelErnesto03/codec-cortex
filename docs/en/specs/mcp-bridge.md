@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. Codec, CLI, runtime and MCP operations are planned or future unless STATUS.md marks them implemented now.
+> **STATUS NOTE:** This document is specification or design. As of v0.3.5 the codec, CLI (including E2 security and E3 documentation protocol), and HCORTEX render are implemented in cli/. The runtime lifecycle and the MCP server itself remain planned or future; the handler map below is the design contract that the future MCP server will expose.
 
 **Abstract:** Architectural design of the bridge between the CODEC-CORTEX SKILL and an MCP (Model Context Protocol) server. Includes a complete handler map with JSON-RPC schemas for the 18 codec operations, a sync→async wrapper with closure capture, execution flow diagrams, and a registration guide for agent clients.
 

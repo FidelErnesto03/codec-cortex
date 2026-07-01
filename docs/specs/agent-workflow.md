@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
 
-# CODEC-CORTEX — Agent Workflow (v0.3.2)
+# CODEC-CORTEX — Agent Workflow (v0.3.5)
 
 > Especificación del workflow operativo que el agente ejecuta al cargar
 > el skill `codec-cortex`. Complementa al `SKILL.md` canónico con
@@ -52,13 +52,17 @@ Antes de cada commit que toque .cortex:
   1. cortex verify --strict <archivo>
   2. cortex verify-view <archivo>       (si tiene VIEW)
   3. cortex roundtrip-bidir <archivo>   (si tiene VIEW)
-  4. git diff --check
+  4. cortex doctor --scan-secrets <archivo>   (E2: secret scanner, opt-in)
+  5. git diff --check
 
 Antes de cada tag:
   1. make all  (lint + test + verify + roundtrip)
   2. cortex roundtrip-bidir skill/cortex/SKILL.md
   3. cortex roundtrip-bidir skill/hcortex/SKILL.md
-  4. grep -rn "version_string" para verificar superficies
+  4. cortex verify --signature skill/cortex/SKILL.md   (E2: integridad)
+  5. cortex docstring --all                              (E3: docstrings desde docs/cortex/api/)
+  6. cortex benchmark --list                             (E3: inventario de suites)
+  7. grep -rn "version_string" para verificar superficies
 ```
 
 ---
@@ -88,6 +92,9 @@ Para cada .cortex sin VIEW:
 | `!:precommit_verify` | `before_commit` | Si se modificó un .cortex, ejecutar `cortex verify --strict` sobre ese archivo antes de permitir el commit. |
 | `!:output_cortex_out` | `always` | Aplicar CORTEX-OUT §10 como protocolo de respuesta (existente). |
 | `!:canonical_names` | `always` | Usar nombres canónicos para comandos CLI y recursos. No usar prefijos de versión (v2-, v3-) en nombres públicos. Los alias deprecados existen por compatibilidad pero no se documentan como nombre primario. |
+| `!:mutation_mode` | `always` | Respetar el mutation gate activo (`CORTEX_MODE` env o `--mode`). En `read-only` no escribir `.cortex`; en `editor` no tocar governance; `admin` sólo con autorización explícita del usuario. |
+| `!:docs_source_of_truth` | `before_doc_edit` | Toda referencia API nueva se escribe primero en `docs/cortex/api/<command>.cortex`; las vistas humanas y docstrings se derivan con `cortex docstring`. No duplicar referencia API en Markdown. |
+| `!:secret_scan` | `before_commit` | Si el commit incluye artefactos `.cortex` nuevos o modificados, ejecutar `cortex doctor --scan-secrets` sobre ellos antes de permitir el commit. |
 
 ---
 
@@ -107,8 +114,8 @@ grep -rn "0\.3\.[0-9]" README.md CHANGELOG.md cli/CHANGELOG.md \
   skill/cortex/README.md docs/specs/skill-distribution.md \
   skill/cortex/SKILL.md skill/hcortex/SKILL_HCORTEX.md \
   skill/cortex/AGENT.md skill/hcortex/AGENT.md \
-  2>/dev/null | grep -v "SES:\|LNG:\|AUD:\|OBJ:\|WRK:\|STP:\|RSK:\|CLAIM:\|LIM:\|NXT:\|KNW:\|FCS:\|\[0\.3\.0\]\|\[0\.3\.1\]\|\[0\.3\.2\]\|\[0\.3\.3\]" \
-  | grep -v "0\.3\.0 —\|0\.3\.1 —"
+  2>/dev/null | grep -v "SES:\|LNG:\|AUD:\|OBJ:\|WRK:\|STP:\|RSK:\|CLAIM:\|LIM:\|NXT:\|KNW:\|FCS:\|\[0\.3\.0\]\|\[0\.3\.1\]\|\[0\.3\.2\]\|\[0\.3\.3\]\|\[0\.3\.4\]\|\[0\.3\.5\]" \
+  | grep -v "0\.3\.0 —\|0\.3\.1 —\|0\.3\.2 —\|0\.3\.3 —\|0\.3\.4 —\|0\.3\.5 —"
 # Si aparecen referencias a versiones anteriores → STOP. Actualizar docs primero.
 echo "Version surfaces OK — no stale references found."
 
@@ -137,15 +144,15 @@ make publish
 ```makefile
 .PHONY: release
 release: all
-	@echo "Listo para tag. Ejecuta:"
-	@echo "  git tag -a v$$(cortex --version) -m \"...\""
-	@echo "  git push origin v$$(cortex --version)"
-	@echo "  gh release create v$$(cortex --version) --title \"...\" --notes \"...\""
+        @echo "Listo para tag. Ejecuta:"
+        @echo "  git tag -a v$$(cortex --version) -m \"...\""
+        @echo "  git push origin v$$(cortex --version)"
+        @echo "  gh release create v$$(cortex --version) --title \"...\" --notes \"...\""
 ```
 
 ```bash
 # Pipeline completo que el agente ejecuta post-instalación
-cortex --version                          # ≥ 0.3.2
+cortex --version                          # ≥ 0.3.5
 cortex verify --strict skill/cortex/SKILL.md   # 0 errors
 cortex verify-view skill/cortex/SKILL.md       # coverage 100%
 cortex roundtrip-bidir skill/cortex/SKILL.md   # rc=0, 0 diffs
