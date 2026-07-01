@@ -4,13 +4,11 @@ import pytest
 
 from cortex.templates import build_brain
 from cortex.core.parser import parse_cortex
-from cortex.core.writer import write_cortex
 from cortex.core.errors import (
     E001_MISSING_GLOSSARY,
     E002_GLOSSARY_NOT_FIRST,
     E003_UNKNOWN_SIGIL,
     E005_UNBALANCED_BRACES,
-    E008_DUPLICATE_ENTRY,
     E010_HCORTEX_READ_NOT_COMPILABLE,
     E011_HCORTEX_EDIT_METADATA_MISSING,
     E012_ROUNDTRIP_FAILED,
@@ -19,12 +17,9 @@ from cortex.core.errors import (
     HCortexEditMetadataMissingError,
     HCortexReadNotCompilableError,
     MissingGlossaryError,
-    UnknownSigilError,
 )
 from cortex.core.validator import validate
-from cortex.hcortex import render_hcortex_edit, render_hcortex_read, parse_hcortex_edit
-from cortex.crud.mutations import add_entry
-from cortex.crud.selectors import select_one
+from cortex.hcortex import render_hcortex_read, parse_hcortex_edit
 
 
 def test_e001_missing_glossary():
@@ -78,7 +73,7 @@ IDN:agent{name:"x"
     try:
         doc = parse_cortex(text)
         # If parsing succeeded, it should have recorded a diagnostic
-        codes = [d.get("code") for d in doc.diagnostics]
+        [d.get("code") for d in doc.diagnostics]
         # The lexer emits TEXT tokens for unbalanced entries; check that
         # at least one diagnostic was recorded
         assert len(doc.diagnostics) >= 0  # parser is lenient about brace errors

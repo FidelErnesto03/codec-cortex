@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import Iterable, Optional
 
-from ..core.ast import Entry, Glossary, SigilDef
+from ..core.ast import Entry, Glossary
 from ..core.errors import CANONICAL_SIGILS
 
 

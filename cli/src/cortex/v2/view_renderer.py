@@ -9,12 +9,11 @@ E_VIEW_* errors produce rc!=0.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import List, Tuple
 
 from .parser import CortexV2Document, V2Entry
-from .ir import SkillIR, IREntry
 from .view import (
-    ViewDirective, ViewKind, ReverseStrategy, ViewDiagnostic,
+    ViewDirective, ViewKind, ViewDiagnostic,
     parse_view_entries_from_doc, resolve_target, calculate_view_coverage,
 )
 

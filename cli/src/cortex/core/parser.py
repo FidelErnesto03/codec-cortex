@@ -29,15 +29,11 @@ from .ast import (
     compute_document_hash,
 )
 from .errors import (
-    Diagnostic,
     E017_UNPARSED_LINE,
-    E002_GLOSSARY_NOT_FIRST,
-    E001_MISSING_GLOSSARY,
     E003_UNKNOWN_SIGIL,
     E004_UNKNOWN_TYPE,
     E006_INVALID_ATTRS,
     E007_ATTRS_POS_CONTRACT_MISSING,
-    CANONICAL_SIGILS,
     CANONICAL_TYPES,
     CANONICAL_MICRO,
     GLOSSARY_RESERVED_SIGILS,
@@ -518,7 +514,7 @@ def _build_entry(tok, section_id: str) -> Entry:
     sigil = tok.sigil or ""
     name = tok.name or ""
     raw = tok.text
-    body = _extract_body(raw)
+    _extract_body(raw)
     # Compute line range
     line_start = tok.line
     line_end = line_start + raw.count("\n")

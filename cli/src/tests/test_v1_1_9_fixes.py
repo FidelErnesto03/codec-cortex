@@ -6,20 +6,14 @@ Fix 3: RECOVERED CONTENT uses free section without artificial ceiling
 Fix 4: demo validates E034 explicitly (tested via test suite, not demo)
 """
 
-import json
 import os
 import subprocess
 import sys
 
-import pytest
 
 from cortex.templates import build_brain
-from cortex.core.parser import parse_cortex, build_entry_from_value
-from cortex.core.writer import write_cortex
 from cortex.crud.transactions import atomic_write_cortex
 from cortex.hcortex import recover_cortex
-from cortex.core.validator import validate
-from cortex.core.document_kind import DocumentKind
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))

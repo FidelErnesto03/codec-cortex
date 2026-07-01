@@ -8,12 +8,11 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 
 from ...core.errors import CortexError
 from ...v2.parser import parse_cortex_v2
 from ...v2.view import parse_view_entries_from_doc, calculate_view_coverage
-from ...v2.view_renderer import render_hcortex, has_view_errors
+from ...v2.view_renderer import render_hcortex
 
 
 def run(args) -> int:

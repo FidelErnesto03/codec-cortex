@@ -61,6 +61,13 @@ cortex = ["py.typed"]
 write_to = "src/cortex/_version.py"
 root = ".."
 
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+ignore = ["E402"]
+
 [tool.pytest.ini_options]
 testpaths = ["src/tests"]
 python_files = ["test_*.py"]

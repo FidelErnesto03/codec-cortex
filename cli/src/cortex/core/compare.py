@@ -13,9 +13,9 @@ Comparison rules (Section 10.2 of the spec):
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
-from .ast import CortexDocument, Entry, Glossary, Section
+from .ast import CortexDocument, Entry, Glossary
 
 
 @dataclass

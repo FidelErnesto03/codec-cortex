@@ -15,7 +15,7 @@ The IR is the single source of truth for conversion:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 
 from .parser import CortexV2Document, V2Entry, V2Section
 

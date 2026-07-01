@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 from collections import Counter
 
 from ...core.errors import CortexError
@@ -94,20 +93,20 @@ def run(args) -> int:
             print(f"VIEW directives: {result['view_count']}")
             print(f"VIEW coverage: {result['view_coverage_percent']}%")
             print(f"Reversible: {result['reversible']}")
-            print(f"\nSections:")
+            print("\nSections:")
             for s in result['sections']:
                 print(f"  {s['id']}: {s['entry_count']} entries")
-            print(f"\nSigil distribution:")
+            print("\nSigil distribution:")
             for sig, cnt in list(result['sigil_distribution'].items())[:15]:
                 print(f"  {sig}: {cnt}")
-            print(f"\nEntry type distribution:")
+            print("\nEntry type distribution:")
             for t, cnt in result['entry_type_distribution'].items():
                 print(f"  {t}: {cnt}")
         else:
             print(f"Header: reversible={result['header']['reversible']}, view_coverage={result['header']['view_coverage']}")
             print(f"Blocks: {result['block_count']}")
             print(f"Orphan lines: {result['orphan_lines']}")
-            print(f"\nBlocks:")
+            print("\nBlocks:")
             for b in result['blocks']:
                 print(f"  {b['view_name']}: kind={b['kind']}, target={b['target']}, reverse={b['reverse']}")
 

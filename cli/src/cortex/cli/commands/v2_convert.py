@@ -8,19 +8,15 @@ v2.3.0: Supports reverse conversion HCORTEX → CORTEX via parse_hcortex + encod
 
 from __future__ import annotations
 
-import json
 import os
 import sys
 
 from ...core.errors import CortexError
 from ...v2.parser import parse_cortex_v2
 from ...v2.writer import write_cortex_v2
-from ...v2.ir import cortex_to_ir, ir_to_cortex
-from ...v2.hcortex_renderer import render_hcortex_v2
-from ...v2.view_renderer import render_hcortex, has_view_errors
+from ...v2.view_renderer import render_hcortex
 from ...v2.hcortex_parser import parse_hcortex
 from ...v2.encoder import encode_cortex_from_ast
-from ..commands import load_doc
 
 
 def run(args) -> int:
@@ -74,7 +70,7 @@ def run(args) -> int:
                 f.write(hcortex_md)
             _print_cortex_to_hcortex_summary(args, doc, hcortex_md, effective_errors, warnings)
             if has_errors:
-                print(f"  NOTE: --out written despite errors (--force-write-on-error).", file=sys.stderr)
+                print("  NOTE: --out written despite errors (--force-write-on-error).", file=sys.stderr)
                 return 1
         elif args.out and has_errors and not force_write_on_error:
             _print_cortex_to_hcortex_skip(args, doc, hcortex_md, effective_errors, warnings)
@@ -115,7 +111,7 @@ def run(args) -> int:
             for d in all_diags[:10]:
                 print(f"    [{d.severity}] {d.code}: {d.message}")
             if has_errors:
-                print(f"  NOTE: --out written despite errors (--force-write-on-error).", file=sys.stderr)
+                print("  NOTE: --out written despite errors (--force-write-on-error).", file=sys.stderr)
                 return 1
         elif args.out and has_errors and not force_write_on_error:
             print(f"converted HCORTEX → CORTEX: {args.input} (NOT written — {len(errors)} errors)", file=sys.stderr)
@@ -124,7 +120,7 @@ def run(args) -> int:
             print(f"  warnings: {len(warnings)}")
             for d in all_diags[:10]:
                 print(f"    [{d.severity}] {d.code}: {d.message}")
-            print(f"  Use --force-write-on-error to write --out anyway.", file=sys.stderr)
+            print("  Use --force-write-on-error to write --out anyway.", file=sys.stderr)
             return 1
         else:
             sys.stdout.write(cortex_text)
@@ -176,7 +172,7 @@ def _print_cortex_to_hcortex_skip(args, doc, hcortex_md, errors, warnings):
         print(f"    [{d.severity}] {d.code}: {d.message}")
     for d in warnings[:10]:
         print(f"    [{d.severity}] {d.code}: {d.message}")
-    print(f"  Use --force-write-on-error to write --out anyway.", file=sys.stderr)
+    print("  Use --force-write-on-error to write --out anyway.", file=sys.stderr)
 
 
 def _print_diags_to_stderr(errors, warnings):

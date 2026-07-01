@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 
 from ...core.errors import CortexError
 from ...v2.parser import parse_cortex_v2

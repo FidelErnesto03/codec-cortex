@@ -7,7 +7,7 @@ import pytest
 
 from cortex.core.parser import parse_cortex
 from cortex.core.writer import write_cortex
-from cortex.core.validator import validate, is_valid
+from cortex.core.validator import validate
 from cortex.core.errors import CortexError
 from cortex.hcortex import render_hcortex_edit, parse_hcortex_edit
 from cortex.core.compare import compare_ast

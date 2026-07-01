@@ -12,10 +12,9 @@ Produces human-readable Markdown with:
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List
 
-from .ir import SkillIR, IREntry, IRBlock
-from .parser import CortexV2Document, V2Entry, V2Section
+from .ir import SkillIR, IREntry
 
 
 # Human-readable sigil names
@@ -61,7 +60,7 @@ def render_hcortex_v2(ir: SkillIR) -> str:
 
     # 1. Header
     lines.append("<!-- CODEC-CORTEX")
-    lines.append(f"internal_encoding: HCORTEX")
+    lines.append("internal_encoding: HCORTEX")
     if "source_artifact" in ir.header:
         lines.append(f"source_artifact: {ir.header['source_artifact']}")
     if "source_version" in ir.header:
@@ -196,7 +195,7 @@ def _render_identity(lines: List[str], ir: SkillIR, entries: List[IREntry]) -> N
     """Render $1 identity entries."""
     for e in entries:
         if e.sigil == "IDN" and isinstance(e.value, dict):
-            lines.append(f"## Identidad del proyecto")
+            lines.append("## Identidad del proyecto")
             lines.append("")
             lines.append("| Campo | Valor |")
             lines.append("|---|---|")
@@ -204,7 +203,7 @@ def _render_identity(lines: List[str], ir: SkillIR, entries: List[IREntry]) -> N
                 lines.append(f"| {k} | {v} |")
             lines.append("")
         elif e.sigil == "DOM" and isinstance(e.value, dict):
-            lines.append(f"## Dominio")
+            lines.append("## Dominio")
             lines.append("")
             lines.append("| Campo | Valor |")
             lines.append("|---|---|")
@@ -272,7 +271,7 @@ def _render_rules(lines: List[str], ir: SkillIR, entries: List[IREntry]) -> None
         lines.append("| Regla | survive |")
         lines.append("|---|---|")
         for e in entries:
-            rule_text = e.value.get('rule', '') if isinstance(e.value, dict) else ''
+            e.value.get('rule', '') if isinstance(e.value, dict) else ''
             survive = e.value.get('survive', '') if isinstance(e.value, dict) else ''
             lines.append(f"| `!{e.name}` | {survive} |")
         lines.append("")

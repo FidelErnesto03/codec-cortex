@@ -14,7 +14,6 @@ import os
 import sys
 import subprocess
 
-import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
@@ -28,7 +27,7 @@ from cortex.v2.view import (
     calculate_view_coverage,
     resolve_target,
 )
-from cortex.v2.view_renderer import render_hcortex, has_view_errors, has_view_warnings
+from cortex.v2.view_renderer import render_hcortex
 
 FIXTURES_DIR = os.path.join(HERE, "fixtures")
 SKILL_CORTEX_PATH = os.path.join(FIXTURES_DIR, "SKILL_v2.cortex.md")
@@ -263,7 +262,7 @@ VIEW:empty{kind:table,target:"$99",reverse:rows_to_entries,status:cur}
                   "--out", out_path, "--strict"])
     assert r.returncode == 1, f"Strict must promote W_VIEW_* to rc=1; got rc={r.returncode}"
     assert not os.path.exists(out_path), (
-        f"--out should NOT be written in strict mode with W_VIEW_* promoted to errors"
+        "--out should NOT be written in strict mode with W_VIEW_* promoted to errors"
     )
 
 

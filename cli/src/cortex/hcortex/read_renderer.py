@@ -17,14 +17,12 @@ Modes (Section 9.2):
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
-from ..core.ast import CortexDocument, Entry, Glossary, Section
+from ..core.ast import CortexDocument, Entry, Glossary
 from ..core.writer import serialize_value
 from .markdown_model import HCORTEX_READ_HEADER
 from .profiles import (
-    Profile,
-    ProfileFilterResult,
     filter_by_profile,
     resolve_profile,
     sort_by_plevel,

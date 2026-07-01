@@ -7,10 +7,9 @@ Closes audit gap B-010: the SKILL plans ``diagram list/extract/validate``
 from __future__ import annotations
 
 import json
-import os
 import sys
 
-from ...core.ast import CortexDocument, Entry
+from ...core.ast import CortexDocument
 from ...core.errors import CortexError, NotFoundError
 from ..commands import load_doc
 

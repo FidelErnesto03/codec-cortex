@@ -6,9 +6,9 @@ is handled by :mod:`cortex.crud.transactions`.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Optional, Union
 
-from ..core.ast import CortexDocument, Entry, Section, normalize_section_id
+from ..core.ast import CortexDocument, Entry, normalize_section_id
 from ..core.errors import (
     DuplicateEntryError,
     InvalidValueError,
@@ -17,7 +17,7 @@ from ..core.errors import (
 )
 from ..core.parser import build_entry_from_value, parse_attrs_body
 from ..core.validator import is_protected_entry
-from .selectors import select, select_one, parse_selector
+from .selectors import select_one
 
 
 # ---------------------------------------------------------------------------
@@ -133,7 +133,7 @@ def update_entry(
         for k, v in set_.items():
             entry.value[k] = v
         # Recompute raw + hash
-        from ..core.writer import serialize_entry, serialize_entry_value
+        from ..core.writer import serialize_entry_value
         body = serialize_entry_value(entry.value, entry.type)
         entry.raw = f"{entry.sigil}:{entry.name}{{{body}}}"
         from ..core.ast import compute_entry_hash
@@ -240,7 +240,7 @@ def add_sigil_to_glossary(
     with a different type/contract.
     """
 
-    from ..core.errors import CANONICAL_SIGILS, ProtectedSigilError
+    from ..core.errors import ProtectedSigilError
     existing = doc.glossary.sigils.get(sigil)
     if existing is not None:
         # Refuse to redefine without explicit governance override
@@ -267,7 +267,6 @@ def update_sigil_in_glossary(
 ) -> None:
     """Update a sigil's metadata (NOT its type if used)."""
 
-    from ..core.errors import SigilInUseError
     sd = doc.glossary.sigils.get(sigil)
     if sd is None:
         raise NotFoundError(f"sigil {sigil}")

@@ -14,7 +14,6 @@ import json
 
 from ...core.compare import compare_ast
 from ...core.document_kind import infer_document_kind, validate_level_policy
-from ...core.validator import validate
 from ..commands import load_doc
 
 

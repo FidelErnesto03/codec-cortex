@@ -11,9 +11,8 @@ Mirrors Section 18.2 of SKILL.md.
 
 from __future__ import annotations
 
-from typing import Optional
 
-from ..core.ast import CortexDocument, Entry, Section
+from ..core.ast import CortexDocument, Section
 from ..core.parser import build_entry_from_value
 from ..glossary.minimal import brain_sigils
 from .minimal_glossary import build_minimal_glossary

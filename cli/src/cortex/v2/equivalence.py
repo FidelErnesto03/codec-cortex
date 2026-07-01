@@ -18,7 +18,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-from .parser import CortexV2Document, V2Entry, V2Section
+from .parser import CortexV2Document, V2Entry
 
 
 # ---------------------------------------------------------------------------

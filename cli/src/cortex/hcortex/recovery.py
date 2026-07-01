@@ -38,11 +38,9 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Tuple
 
 from ..core.ast import (
-    AttrsPosContract,
     CortexDocument,
     Glossary,
     MicroDef,
-    Section,
     SigilDef,
     TypeDef,
 )
@@ -53,7 +51,6 @@ from ..core.errors import (
     E030_RECOVERY_INCOMPLETE,
 )
 from ..core.parser import parse_cortex
-from ..core.writer import write_cortex
 
 
 # ---------------------------------------------------------------------------
@@ -424,7 +421,7 @@ def recover_cortex(
 
     # v1.1.9: repair an existing but incomplete $0 by auto-declaring
     # observed sigils and canonical types before validation/rendering.
-    auto_declared_sigils = _repair_incomplete_glossary(doc, diagnostics)
+    _repair_incomplete_glossary(doc, diagnostics)
 
     # Re-audit M-RA-03: optionally embed AUD/RSK entries in the artefact
     # v1.1.8 Fix 2/3: pass recovery context so AUD describes the real event
@@ -724,7 +721,6 @@ def _reconstruct_glossary(text: str, path: str) -> CortexDocument:
             sigils_seen.append(sig)
 
     # Build minimal glossary
-    from ..core.errors import CANONICAL_SIGILS  # local import to avoid cycle
     # Re-audit M-RA-04: build canonical lookup with explicit priority
     # (brain > skill > package) so shared sigils like IDN get the most
     # generic (brain-flavoured) description rather than the package one.
@@ -751,7 +747,7 @@ def _reconstruct_glossary(text: str, path: str) -> CortexDocument:
                 type="attrs",
                 risk="M",
                 layer="Semantic",
-                description=f"reconstructed from usage (was: unknown)",
+                description="reconstructed from usage (was: unknown)",
             ))
             reconstructed_sigils.append(sig)
 

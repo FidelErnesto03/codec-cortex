@@ -16,9 +16,7 @@ from .ast import (
     Entry,
     Glossary,
     MicroDef,
-    Section,
     SigilDef,
-    TypeDef,
 )
 
 

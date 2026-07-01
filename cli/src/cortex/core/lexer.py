@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Iterator, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 from .errors import BraceError
 
@@ -249,7 +249,7 @@ def lex(text: str) -> List[Token]:
         if looks_like_entry_start(line):
             try:
                 raw, _, end = collect_balanced_entry(lines, i)
-            except BraceError as e:
+            except BraceError:
                 # emit a TEXT token and a diagnostic upstream
                 tokens.append(Token(TokenKind.TEXT, line, line_no))
                 i += 1

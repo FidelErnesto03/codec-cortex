@@ -25,13 +25,11 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional
 
-from .ast import CortexDocument, Entry, Section
+from .ast import CortexDocument, Entry
 from .errors import (
     ALLOWED_PRIORITY,
     ALLOWED_SEVERITY,
     ALLOWED_STATUS,
-    CANONICAL_SIGILS,
-    Diagnostic,
     E003_UNKNOWN_SIGIL,
     E004_UNKNOWN_TYPE,
     E007_ATTRS_POS_CONTRACT_MISSING,
@@ -39,7 +37,6 @@ from .errors import (
 )
 from .document_kind import (
     DocumentKind,
-    infer_document_kind,
     validate_level_policy,
 )
 

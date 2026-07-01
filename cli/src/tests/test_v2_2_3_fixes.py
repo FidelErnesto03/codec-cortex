@@ -199,7 +199,6 @@ def test_changelog_has_v2_2_3_entry():
 # ---------------------------------------------------------------------------
 
 def test_no_pycache_in_download():
-    import pytest
     pytest.skip("PyTest creates __pycache__ at import; run separately for cleanup check")
     """PRE-07: no __pycache__/.pytest_cache in skill/ or src/."""
     for root, dirs, files in os.walk(os.path.join(ROOT, "src")):

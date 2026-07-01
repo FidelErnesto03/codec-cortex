@@ -1,27 +1,22 @@
 """CRUD operation tests — selectors, mutations, atomic writes."""
 
-import json
 import os
 
 import pytest
 
-from cortex.templates import build_brain
-from cortex.core.parser import parse_cortex
-from cortex.core.writer import write_cortex
 from cortex.core.errors import (
     AmbiguousSelectorError,
     DuplicateEntryError,
     NotFoundError,
     ProtectedEntryError,
     SigilInUseError,
-    MicroInUseError,
     ProtectedSigilError,
 )
 from cortex.crud.selectors import select, select_one, parse_selector
 from cortex.crud.mutations import (
     add_entry, update_entry, delete_entry, move_entry,
     add_sigil_to_glossary, delete_sigil_from_glossary,
-    add_micro_to_glossary, delete_micro_from_glossary,
+    add_micro_to_glossary,
 )
 from cortex.crud.transactions import atomic_write_cortex, atomic_write_text
 
@@ -238,7 +233,7 @@ def test_atomic_write_dry_run(brain_doc, tmp_path):
 
 def test_atomic_write_text(brain_doc, tmp_path):
     path = str(tmp_path / "test.md")
-    result = atomic_write_text("hello world\n", path)
+    atomic_write_text("hello world\n", path)
     assert os.path.exists(path)
     with open(path) as f:
         assert f.read() == "hello world\n"

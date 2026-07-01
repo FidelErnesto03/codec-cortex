@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import os
 import shutil
-import tempfile
 from dataclasses import dataclass
 from typing import Optional
 

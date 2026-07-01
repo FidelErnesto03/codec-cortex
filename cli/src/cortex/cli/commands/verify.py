@@ -8,11 +8,9 @@ import tempfile
 
 from ...core.compare import compare_ast
 from ...core.document_kind import infer_document_kind
-from ...core.errors import CortexError, RoundtripFailedError
 from ...core.parser import parse_cortex
 from ...core.writer import write_cortex
 from ...core.validator import validate
-from ...crud.transactions import atomic_write_text
 from ...hcortex import parse_hcortex_edit, render_hcortex_edit
 from ..commands import load_doc
 

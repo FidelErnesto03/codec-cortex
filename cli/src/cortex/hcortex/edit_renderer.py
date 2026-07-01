@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import List
 
-from ..core.ast import CortexDocument, Entry, Glossary, Section, SigilDef
+from ..core.ast import CortexDocument, Entry, Glossary, SigilDef
 from ..core.writer import serialize_value
 from .markdown_model import HCORTEX_EDIT_HEADER
 from .read_renderer import SECTION_TITLES
@@ -132,7 +132,7 @@ def render_hcortex_edit(doc: CortexDocument, source: str = "<ast>") -> str:
     out.append("")
 
     # $0 glossary
-    out.append(f"## $0 · GLOSSARY")
+    out.append("## $0 · GLOSSARY")
     out.append("")
     out.append('<!-- cortex-section: id="$0" title="GLOSSARY" -->')
     out.append("")

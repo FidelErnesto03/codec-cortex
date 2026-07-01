@@ -11,7 +11,7 @@ import sys
 
 import pytest
 
-from cortex.templates import build_brain, build_package, build_skill
+from cortex.templates import build_brain
 from cortex.core.parser import parse_cortex
 from cortex.core.writer import write_cortex
 from cortex.core.validator import validate, is_valid
@@ -24,7 +24,7 @@ from cortex.hcortex import (
 )
 from cortex.crud.selectors import select_one
 from cortex.crud.mutations import add_entry, update_entry, delete_entry
-from cortex.crud.transactions import atomic_write_cortex, atomic_write_text
+from cortex.crud.transactions import atomic_write_cortex
 from cortex.core.compare import compare_ast
 
 
@@ -69,7 +69,7 @@ def test_criterion_3_rejects_missing_glossary():
     """A .cortex without $0 must be rejected in normal mode."""
 
     from cortex.core.errors import (
-        MissingGlossaryError, GlossaryNotFirstError, CortexError,
+        GlossaryNotFirstError, CortexError,
     )
     bad_text = """\
 $1: IDENTITY

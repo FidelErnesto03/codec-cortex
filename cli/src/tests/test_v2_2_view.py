@@ -2,7 +2,6 @@
 
 import os
 import sys
-import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
@@ -12,12 +11,11 @@ if SRC_DIR not in sys.path:
 from cortex.v2.parser import parse_cortex_v2
 from cortex.v2.writer import write_cortex_v2
 from cortex.v2.view import (
-    ViewDirective, ViewKind, ReverseStrategy, ViewDiagnostic,
-    parse_view_entry, parse_view_entries_from_doc,
+    ViewKind, ReverseStrategy, parse_view_entry, parse_view_entries_from_doc,
     resolve_target, calculate_view_coverage,
-    VALID_KINDS, VALID_REVERSES, KIND_REVERSE_COMPAT,
+    KIND_REVERSE_COMPAT,
 )
-from cortex.v2.view_renderer import render_hcortex, render_hcortex_r
+from cortex.v2.view_renderer import render_hcortex
 
 
 FIXTURES_DIR = os.path.join(HERE, "fixtures")

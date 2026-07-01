@@ -2,16 +2,15 @@
 
 import os
 import sys
-import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
-from cortex.v2.parser import parse_cortex_v2, CortexV2Document
+from cortex.v2.parser import parse_cortex_v2
 from cortex.v2.writer import write_cortex_v2
-from cortex.v2.ir import SkillIR, IREntry, cortex_to_ir, ir_to_cortex
+from cortex.v2.ir import SkillIR, cortex_to_ir, ir_to_cortex
 from cortex.v2.hcortex_renderer import render_hcortex_v2
 
 FIXTURES_DIR = os.path.join(HERE, "fixtures")

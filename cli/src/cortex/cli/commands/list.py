@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 
 from ...crud.selectors import select
-from ..commands import emit, load_doc
+from ..commands import load_doc
 
 
 def run(args) -> int:

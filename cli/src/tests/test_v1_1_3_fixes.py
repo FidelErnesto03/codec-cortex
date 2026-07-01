@@ -25,12 +25,11 @@ import sys
 import pytest
 
 from cortex.templates import build_brain
-from cortex.core.parser import parse_cortex, build_entry_from_value
-from cortex.core.writer import write_cortex
+from cortex.core.parser import build_entry_from_value
 from cortex.crud.transactions import atomic_write_cortex
 from cortex.hcortex import recover_cortex, render_hcortex_read
 from cortex.core.validator import validate
-from cortex.core.document_kind import DocumentKind, validate_level_policy
+from cortex.core.document_kind import DocumentKind
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))

@@ -8,7 +8,6 @@ P1: marker metadata, HUMAN_BLOCK, strict mode, v2-view-lint, display mode
 import os
 import sys
 import subprocess
-import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
@@ -18,9 +17,8 @@ if SRC_DIR not in sys.path:
 from cortex.v2.parser import parse_cortex_v2
 from cortex.v2.writer import write_cortex_v2
 from cortex.v2.view import (
-    ViewDirective, ViewKind, ReverseStrategy, ViewDiagnostic,
     parse_view_entry, parse_view_entries_from_doc,
-    resolve_target, calculate_view_coverage,
+    calculate_view_coverage,
 )
 from cortex.v2.view_renderer import render_hcortex, has_view_errors
 
@@ -119,7 +117,7 @@ VIEW:bad{kind:invalid_kind,target:"IDN:*",reverse:"rows_to_entries",status:cur}
 
     r = _run_cli(["v2-convert", tmp_path, "--from", "cortex", "--to", "hcortex"])
     os.unlink(tmp_path)
-    assert r.returncode != 0, f"Should return non-zero for E_VIEW errors; got rc=0"
+    assert r.returncode != 0, "Should return non-zero for E_VIEW errors; got rc=0"
 
 
 def test_duplicate_view_returns_nonzero():

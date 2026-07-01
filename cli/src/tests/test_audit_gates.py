@@ -4,22 +4,20 @@ Each gate verifies that the corresponding acceptance criterion
 (cognitive governance, HCORTEX canónico, recovery, etc.) is met.
 """
 
-import json
 import os
 import subprocess
 import sys
 
 import pytest
 
-from cortex.templates import build_brain, build_skill, build_package
+from cortex.templates import build_brain, build_skill
 from cortex.core.parser import parse_cortex, build_entry_from_value
 from cortex.core.writer import write_cortex
 from cortex.core.validator import validate
-from cortex.core.errors import ALLOWED_SURVIVE
 from cortex.hcortex import (
     render_hcortex_read, render_hcortex_edit, parse_hcortex_edit,
     recover_cortex, resolve_profile, classify_entry,
-    filter_by_profile, sort_by_plevel,
+    filter_by_profile,
 )
 from cortex.crud.mutations import update_entry
 from cortex.core.compare import compare_ast
@@ -236,7 +234,7 @@ def test_g5_recover_with_legacy_type_alias():
     # declaration to 'contenido' and verify recovery normalises it.
     doc = build_brain()
     # Inject a custom sigil with legacy type name
-    text = write_cortex(doc)
+    write_cortex(doc)
     # The recovery path normalises type names in the glossary;
     # we test the helper directly:
     from cortex.hcortex import normalise_legacy_type_name

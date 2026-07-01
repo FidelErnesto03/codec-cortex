@@ -9,14 +9,13 @@ import json
 import os
 import subprocess
 import sys
-import tempfile
 
 import pytest
 
-from cortex.templates import build_brain, build_skill, build_package
-from cortex.core.parser import parse_cortex, build_entry_from_value
+from cortex.templates import build_brain, build_skill
+from cortex.core.parser import build_entry_from_value
 from cortex.core.writer import write_cortex
-from cortex.core.document_kind import DocumentKind, validate_level_policy
+from cortex.core.document_kind import DocumentKind
 from cortex.core.validator import validate
 from cortex.crud.transactions import atomic_write_cortex
 from cortex.hcortex import recover_cortex, render_hcortex_read
@@ -407,7 +406,6 @@ def test_cli_diff_governance_json_returns_nonzero_on_findings(tmp_path):
     # v1.1.4: atomic_write_cortex blocks non-bypassable errors even with
     # force=True.  We bypass by using --no-validate-write equivalent:
     # write the text directly to the file.
-    from cortex.core.writer import write_cortex
     text2 = write_cortex(doc2)
     with open(path2, "w") as f:
         f.write(text2)

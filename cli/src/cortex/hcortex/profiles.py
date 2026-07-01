@@ -20,7 +20,6 @@ from typing import Dict, List, Optional, Tuple
 
 from ..core.ast import CortexDocument, Entry
 from ..core.errors import (
-    ALLOWED_SURVIVE,
     PLEVEL_ORDER,
     SIGIL_DEFAULT_PLEVEL,
     SURVIVE_TO_PLEVEL,

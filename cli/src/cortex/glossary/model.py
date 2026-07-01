@@ -6,7 +6,7 @@ and queries used by templates, the CRUD layer and the CLI.
 
 from __future__ import annotations
 
-from typing import Iterable, List, Optional
+from typing import Iterable
 
 from ..core.ast import (
     AttrsPosContract,

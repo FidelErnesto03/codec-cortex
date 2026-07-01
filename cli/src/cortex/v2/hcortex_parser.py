@@ -21,9 +21,9 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
-from .diagnostics import Diagnostic, has_errors
+from .diagnostics import Diagnostic
 from .view import ViewKind, ReverseStrategy, KIND_REVERSE_COMPAT
 
 
@@ -254,7 +254,7 @@ def _parse_blocks(body: str, strict: bool = False) -> Tuple[List[HCorTEXBlock], 
                 orphans.extend(orphan_buffer)
                 orphan_buffer = []
 
-            full_marker = open_m.group(0)
+            open_m.group(0)
             view_tag = open_m.group(1)  # "VIEW:name"
             attrs_str = open_m.group(2)
             view_name = view_tag.split(':', 1)[1]

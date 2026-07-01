@@ -25,14 +25,11 @@ from typing import List, Optional
 from .ast import CortexDocument, Entry
 from .errors import (
     ALLOWED_SURVIVE,
-    CortexError,
-    Diagnostic,
     E023_LEVEL1_LIVE_STATE,
     E024_LEVEL2_MISSING_FOCUS,
     E025_INVALID_SURVIVE,
     E026_BLOCKING_NOT_P0,
     E027_ATTRS_POS_ARITY,
-    E028_SECRET_IN_CLEAR,
     E029_LEVEL3_LIVE_STATE,
     E031_SECRET_NOT_BYPASSABLE,
     E032_CRITICAL_SIGIL_INCOMPLETE,
@@ -198,7 +195,7 @@ def validate_level_policy(
         kind = infer_document_kind(doc, doc.meta.get("path"))
 
     findings: List[dict] = []
-    sigils_present = {e.sigil for _, e in doc.iter_entries()}
+    {e.sigil for _, e in doc.iter_entries()}
 
     # --- $0 section integrity (v1.1.5 P0-1) ------------------------------
     # $0 is structural metadata, NOT working memory.  Only glossary

@@ -7,7 +7,6 @@ import os
 import sys
 import subprocess
 
-import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
@@ -21,7 +20,7 @@ from cortex.v2.hcortex_parser import parse_hcortex
 from cortex.v2.encoder import encode_cortex_from_ast
 from cortex.v2.equivalence import (
     compare_byte_identical, compare_ast_equivalent,
-    compare_semantic_equivalent, compare_content_equivalent,
+    compare_content_equivalent,
 )
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -119,7 +118,7 @@ def test_T04_hcortex_to_cortex_to_hcortex_content_equivalent():
     with open(SKILL_HCORTEX, "r", encoding="utf-8") as f:
         hcortex_text = f.read()
     hdoc_orig = parse_hcortex(hcortex_text, strict=False)
-    orig_block_count = len(hdoc_orig.blocks)
+    len(hdoc_orig.blocks)
 
     doc, _ = encode_cortex_from_ast(hdoc_orig)
     hcortex_regen, _ = render_hcortex(doc)

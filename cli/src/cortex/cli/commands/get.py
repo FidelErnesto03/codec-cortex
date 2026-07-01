@@ -6,7 +6,7 @@ import json
 
 from ...core.errors import CortexError
 from ...crud.selectors import select_one
-from ..commands import emit, load_doc
+from ..commands import load_doc
 
 
 def run(args) -> int:

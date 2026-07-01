@@ -30,24 +30,15 @@ from ..core.ast import (
     compute_entry_hash,
 )
 from ..core.errors import (
-    AttrsPosContractMissingError,
-    BraceError,
-    CortexError,
     HCortexEditMetadataMissingError,
     HCortexReadNotCompilableError,
-    InvalidAttrsError,
 )
-from ..core.parser import parse_attrs_body
 from .markdown_model import (
     EditHeader,
     ENTRY_MARKER_RE,
-    GLOSARY_FENCE_RE,
     SECTION_MARKER_RE,
-    VERBATIM_FENCE_RE,
     is_hcortex_edit,
-    is_hcortex_read,
     is_hcortex_read_in_text,
-    is_hcortex_edit_in_text,
 )
 
 
@@ -224,7 +215,7 @@ def _parse_attrs_table(lines: List[str], start: int) -> Tuple[dict, int]:
     if i >= len(lines) or "|" not in lines[i]:
         return {}, i
     # header
-    header_cells = _split_markdown_row(lines[i])
+    _split_markdown_row(lines[i])
     i += 1
     # separator
     if i < len(lines) and re.match(r"^\s*\|?\s*[-:]+", lines[i]):
@@ -311,11 +302,9 @@ def parse_hcortex_edit(text: str, source: str = "<hcortex-edit>") -> CortexDocum
 
     # Find the cortex-edit header line
     edit_header_line = None
-    edit_header_idx = -1
     for idx, line in enumerate(lines[:5]):
         if is_hcortex_edit(line):
             edit_header_line = line
-            edit_header_idx = idx
             break
     if edit_header_line is None:
         raise HCortexEditMetadataMissingError(
@@ -427,7 +416,7 @@ def _parse_entry_block(
     sigil = marker_match.group("sigil")
     name = marker_match.group("name")
     type_ = marker_match.group("type")
-    old_hash = marker_match.group("hash") or ""
+    marker_match.group("hash") or ""
 
     # Body starts on the line after the marker
     i = marker_idx + 1
@@ -436,18 +425,16 @@ def _parse_entry_block(
         i += 1
 
     value: object = None
-    raw_body = ""
 
     if type_ in ("attrs", "attrs-pos"):
         attrs, i = _parse_attrs_table(lines, i)
         value = attrs
-        raw_body = ", ".join(f"{k}:{v!r}" for k, v in attrs.items())
+        ", ".join(f"{k}:{v!r}" for k, v in attrs.items())
     elif type_ == "cuerpo":
         # expect a fenced block ```text ... ```
         if i < len(lines) and lines[i].strip().startswith("```"):
             lang, body, i = _parse_fenced_block(lines, i)
             value = body
-            raw_body = body
         else:
             # fallback: take text until blank line
             buf = []
@@ -455,37 +442,32 @@ def _parse_entry_block(
                 buf.append(lines[i])
                 i += 1
             value = "\n".join(buf)
-            raw_body = value
     elif type_ == "bloque":
         # expect a fenced block
         if i < len(lines) and (lines[i].strip().startswith("```") or lines[i].strip().startswith("~~~~")):
             lang, body, i = _parse_fenced_block(lines, i)
             value = body
-            raw_body = body
         else:
             buf = []
             while i < len(lines) and lines[i].strip():
                 buf.append(lines[i])
                 i += 1
             value = "\n".join(buf)
-            raw_body = value
     elif type_ == "relación":
         if i < len(lines) and lines[i].strip().startswith("```"):
             lang, body, i = _parse_fenced_block(lines, i)
             value = body
-            raw_body = body
         else:
             buf = []
             while i < len(lines) and lines[i].strip():
                 buf.append(lines[i])
                 i += 1
             value = "\n".join(buf)
-            raw_body = value
     else:
         # Unknown type — fallback to attrs
         attrs, i = _parse_attrs_table(lines, i)
         value = attrs
-        raw_body = ", ".join(f"{k}:{v!r}" for k, v in attrs.items())
+        ", ".join(f"{k}:{v!r}" for k, v in attrs.items())
 
     # Build canonical raw text (for AST compatibility)
     from ..core.writer import serialize_entry_value

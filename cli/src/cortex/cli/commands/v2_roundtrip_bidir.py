@@ -61,16 +61,16 @@ def run(args) -> int:
         rc2 = _roundtrip_cortex_to_hcortex_to_cortex(cortex_text)
         return rc1 or rc2
     else:
-        print(f"ERROR: Could not detect format (no CODEC-CORTEX header)", file=sys.stderr)
+        print("ERROR: Could not detect format (no CODEC-CORTEX header)", file=sys.stderr)
         return 1
 
 
 def _roundtrip_cortex_to_hcortex_to_cortex(cortex_text: str) -> int:
     """CORTEX → HCORTEX → CORTEX: verify AST equivalence."""
 
-    original_bytes = cortex_text.encode("utf-8")
+    cortex_text.encode("utf-8")
     doc_orig = parse_cortex_v2(cortex_text)
-    orig_entry_count = sum(len(s.entries) for s in doc_orig.sections)
+    sum(len(s.entries) for s in doc_orig.sections)
 
     # CORTEX → HCORTEX
     hcortex_md, diags = render_hcortex(doc_orig)

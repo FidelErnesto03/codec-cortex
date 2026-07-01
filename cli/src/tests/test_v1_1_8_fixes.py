@@ -7,14 +7,10 @@ Fix 4: E034 covers none, nil, undefined, n/a, tbd in critical fields
 """
 
 import os
-import sys
 
 import pytest
 
 from cortex.templates import build_brain
-from cortex.core.parser import parse_cortex, build_entry_from_value
-from cortex.core.writer import write_cortex
-from cortex.crud.transactions import atomic_write_cortex
 from cortex.hcortex import recover_cortex
 from cortex.core.validator import validate
 from cortex.core.document_kind import DocumentKind, _is_field_empty
