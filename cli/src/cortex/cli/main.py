@@ -50,6 +50,15 @@ import sys
 from typing import List, Optional
 
 from .. import __version__
+from ..core.modes import (
+    Mode,
+    annotate_args,
+    check_permission,
+    is_meta_command,
+    is_read_command,
+    is_write_command,
+    resolve_mode,
+)
 from .commands import (
     new as cmd_new,
     render as cmd_render,
@@ -68,6 +77,7 @@ from .commands import (
     format as cmd_format,
     recover as cmd_recover,
     diagram as cmd_diagram,
+    audit as cmd_audit,
     v2_roundtrip as cmd_v2_roundtrip,
     v2_convert as cmd_v2_convert,
     v2_roundtrip_bidir as cmd_v2_roundtrip_bidir,
@@ -91,6 +101,22 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--json", action="store_true",
         help="emit machine-readable JSON where supported",
+    )
+    # v0.3.4 (E2.3): mutation gate — global --mode flag.
+    # NOTE: ``dest="op_mode"`` to avoid collision with v2-convert's own
+    # ``--mode`` flag (which has different choices: normal/strict/audit/...).
+    # The env var is ``CORTEX_MODE`` (per the E2.3 plan).
+    p.add_argument(
+        "--mode", dest="op_mode", default=None,
+        choices=["read-only", "editor", "admin"],
+        help="v0.3.4 (E2.3): operating mode. read-only blocks writes; "
+             "editor (default) requires confirmation for --force; admin "
+             "skips all checks. Can also be set via $CORTEX_MODE.",
+    )
+    p.add_argument(
+        "--yes", dest="yes", action="store_true",
+        help="v0.3.4 (E2.3): pre-confirm destructive operations in editor "
+             "mode (equivalent to answering 'y' to all prompts).",
     )
     sub = p.add_subparsers(dest="command", required=True)
 
@@ -148,7 +174,9 @@ def build_parser() -> argparse.ArgumentParser:
     sp.set_defaults(func=cmd_compile.run)
 
     # ------------------------------------------------------------------
-    # verify  (with --strict and --kind)
+    # verify  (with --strict, --kind, --signature)
+    # v0.3.4 (E2.6): --signature <manifest> verifies SHA256 of the input
+    # file against the manifest entry.
     # ------------------------------------------------------------------
     sp = sub.add_parser("verify", help="validate a .cortex file (optionally with roundtrip)")
     sp.add_argument("input")
@@ -157,6 +185,21 @@ def build_parser() -> argparse.ArgumentParser:
                     help="promote warnings to errors (cognitive governance)")
     sp.add_argument("--kind", choices=["brain", "skill", "package", "generic"], default=None,
                     help="explicit document kind for level-policy checks")
+    sp.add_argument(
+        "--signature", dest="signature_manifest", default=None,
+        metavar="MANIFEST",
+        help="v0.3.4 (E2.6): verify the SHA256 of <input> against a "
+             "SHA256SUMS manifest. When set, no other validation runs; "
+             "exit code 0 = match, 1 = mismatch/missing. Combine with "
+             "--strict to also fail when the file is not listed in the "
+             "manifest.",
+    )
+    sp.add_argument(
+        "--manifest", dest="manifest_path", default=None,
+        metavar="MANIFEST",
+        help="alias for --signature (mutually exclusive: if both are "
+             "set, --signature wins).",
+    )
     sp.set_defaults(func=cmd_verify.run)
 
     # ------------------------------------------------------------------
@@ -346,7 +389,7 @@ def build_parser() -> argparse.ArgumentParser:
     msp.set_defaults(func=cmd_micro.run_delete)
 
     # ------------------------------------------------------------------
-    # doctor  (with --strict and --kind)
+    # doctor  (with --strict, --kind, and E2.2 secret scan flags)
     # ------------------------------------------------------------------
     sp = sub.add_parser("doctor", help="deep diagnostic of a .cortex file")
     sp.add_argument("input")
@@ -355,6 +398,26 @@ def build_parser() -> argparse.ArgumentParser:
                     help="promote warnings to errors (cognitive governance)")
     sp.add_argument("--kind", choices=["brain", "skill", "package", "generic"], default=None,
                     help="explicit document kind for level-policy checks")
+    sp.add_argument(
+        "--scan-secrets", action="store_true",
+        help="v0.3.4 (E2.2): exit 2 if any high-severity secret finding "
+             "is detected. The scan always runs and is reported in the "
+             "summary; this flag only changes the exit code.",
+    )
+    sp.add_argument(
+        "--scan-secrets-paths", dest="scan_secrets_paths", nargs="+", default=[],
+        metavar="PATH",
+        help="v0.3.4 (E2.2): additional paths to scan for secrets "
+             "(in addition to <input>). Use to scan a whole repo.",
+    )
+    sp.add_argument(
+        "--secrets-baseline", dest="secrets_baseline", default=None,
+        metavar="BASELINE",
+        help="v0.3.4 (E2.2): path to a .secrets.baseline JSON file. "
+             "Findings matching (path, rule, line) in the baseline are "
+             "silenced. Use `cortex doctor --scan-secrets-paths ... --format json` "
+             "to produce a baseline draft.",
+    )
     sp.set_defaults(func=cmd_doctor.run)
 
     # ------------------------------------------------------------------
@@ -423,6 +486,30 @@ def build_parser() -> argparse.ArgumentParser:
     dsp.add_argument("--name", default=None, help="specific DIAG name (default: all)")
     dsp.add_argument("--format", choices=["text", "json"], default="text")
     dsp.set_defaults(func=cmd_diagram.run_validate)
+
+    # ------------------------------------------------------------------
+    # audit  (E2.4, v0.3.4 — on-demand audit logging)
+    # ------------------------------------------------------------------
+    sp = sub.add_parser("audit", help="on-demand audit logging control (E2.4)")
+    a_sub = sp.add_subparsers(dest="audit_command", required=True)
+
+    asp = a_sub.add_parser("on", help="enable audit logging for this session")
+    asp.set_defaults(func=cmd_audit.run_on)
+
+    asp = a_sub.add_parser("off", help="disable audit logging")
+    asp.set_defaults(func=cmd_audit.run_off)
+
+    asp = a_sub.add_parser("status", help="show audit logging status")
+    asp.set_defaults(func=cmd_audit.run_status)
+
+    asp = a_sub.add_parser("snapshot", help="export a one-shot snapshot of a .cortex file")
+    asp.add_argument("file", help="path to the .cortex file to snapshot")
+    asp.add_argument("--label", default=None, help="optional label appended to the snapshot filename")
+    asp.set_defaults(func=cmd_audit.run_snapshot)
+
+    asp = a_sub.add_parser("prune", help="delete old daily log files")
+    asp.add_argument("--keep-days", type=int, default=30, help="delete logs older than N days (default: 30)")
+    asp.set_defaults(func=cmd_audit.run_prune)
 
     # ------------------------------------------------------------------
     # roundtrip  (canonical; alias: v2-roundtrip — deprecated)
@@ -580,32 +667,43 @@ def main(argv: Optional[List[str]] = None) -> int:
         parser.print_help()
         return 2
 
+    # v0.3.4: prefer the parsed subcommand name from argparse, which is
+    # always correct regardless of preceding global flags like --mode.
+    invoked_command = getattr(args, "command", None)
+    if not invoked_command:
+        # Fallback: scan argv for the first non-flag token (used when the
+        # command is invoked via an alias like `v2-roundtrip` — argparse
+        # resolves the alias to the canonical name in `args.command`, so
+        # this fallback is only for very edge cases).
+        for token in (argv or sys.argv[1:]):
+            if token.startswith("-"):
+                continue
+            invoked_command = token
+            break
+
     # v0.3.2 — Deprecation warning for v2-* aliases.
-    # The canonical names (roundtrip, convert, ...) should be used instead.
-    # The v2-* forms are still accepted for backward compatibility but will
-    # be removed in v1.0.0.
+    # The original alias name (e.g. "v2-roundtrip") must be detected from
+    # the raw argv because argparse resolves it to the canonical name
+    # (e.g. "roundtrip") before we see `args.command`.
     _DEPRECATED_ALIASES = {
         "v2-roundtrip", "v2-convert", "v2-roundtrip-bidir", "v2-compare",
         "v2-verify-view", "v2-explain-loss", "v2-canonicalize", "v2-inspect",
     }
-    invoked_command = None
-    if argv:
-        # Skip global flags before the subcommand name
-        for token in argv:
-            if token.startswith("-"):
-                continue
-            invoked_command = token
+    raw_alias_used = None
+    for token in (argv or sys.argv[1:]):
+        if token in _DEPRECATED_ALIASES:
+            raw_alias_used = token
             break
-    elif sys.argv and len(sys.argv) > 1:
-        for token in sys.argv[1:]:
-            if token.startswith("-"):
-                continue
-            invoked_command = token
+        if token and not token.startswith("-") and token not in (
+            "read-only", "editor", "admin"
+        ):
+            # First non-flag, non-mode-value token is the command name;
+            # if it's not in DEPRECATED_ALIASES, we can stop scanning.
             break
-    if invoked_command in _DEPRECATED_ALIASES:
-        canonical = invoked_command.removeprefix("v2-")
+    if raw_alias_used:
+        canonical = raw_alias_used.removeprefix("v2-")
         print(
-            f"WARNING: `cortex {invoked_command}` is deprecated since v0.3.2; "
+            f"WARNING: `cortex {raw_alias_used}` is deprecated since v0.3.2; "
             f"use `cortex {canonical}` instead. The `v2-` prefix will be "
             f"removed in v1.0.0.",
             file=sys.stderr,
@@ -615,10 +713,66 @@ def main(argv: Optional[List[str]] = None) -> int:
     json_mode = getattr(args, "json", False) or ("--json" in (argv or sys.argv))
     args._json_mode = json_mode  # type: ignore[attr-defined]
 
+    # v0.3.4 (E2.3) — Mutation gate.
+    mode = resolve_mode(getattr(args, "op_mode", None))
+    annotate_args(args, mode)
+    if getattr(args, "yes", False):
+        args.mode_confirmed = True  # type: ignore[attr-defined]
+
+    # Build the canonical command name for the gate. For subcommand groups
+    # (glossary, micro, diagram, audit), the canonical name is "<group> <sub>".
+    cmd_name = invoked_command or ""
+    sub_action = getattr(args, "glossary_command", None) or \
+                 getattr(args, "micro_command", None) or \
+                 getattr(args, "diagram_command", None) or \
+                 getattr(args, "audit_command", None)
+    if sub_action and cmd_name:
+        canonical_cmd = f"{cmd_name} {sub_action}"
+    else:
+        canonical_cmd = cmd_name
+
+    uses_force = bool(getattr(args, "force", False))
+    non_interactive = not sys.stdin.isatty()
+
+    gate_error = check_permission(
+        mode=mode,
+        command=canonical_cmd,
+        uses_force=uses_force,
+        confirmed=bool(getattr(args, "mode_confirmed", False)),
+        non_interactive=non_interactive,
+    )
+    if gate_error is not None:
+        if json_mode:
+            print(json.dumps({
+                "ok": False,
+                "error": {
+                    "code": gate_error.code,
+                    "message": str(gate_error),
+                },
+                "mode": mode.value,
+                "command": canonical_cmd,
+            }, indent=2, ensure_ascii=False))
+        else:
+            print(f"error: {gate_error}", file=sys.stderr)
+        # Exit code 13 = mode violation (distinguishes from generic rc=1).
+        # Still log the blocked attempt if audit is on.
+        _maybe_audit_log(canonical_cmd, args, mode, result="blocked",
+                         error_code=gate_error.code)
+        return 13
+
     try:
         rc = args.func(args)
-        return int(rc or 0)
+        rc_int = int(rc or 0)
+        # E2.4: log successful or failed mutation (only if audit is on).
+        result = "ok" if rc_int == 0 else "error"
+        _maybe_audit_log(canonical_cmd, args, mode, result=result)
+        return rc_int
     except Exception as e:
+        # E2.4: log the exception.
+        _maybe_audit_log(
+            canonical_cmd, args, mode, result="error",
+            error_code=getattr(e, "code", "E000_UNKNOWN"),
+        )
         if json_mode:
             print(json.dumps({
                 "ok": False,
@@ -630,6 +784,46 @@ def main(argv: Optional[List[str]] = None) -> int:
         else:
             print(f"error: {e}", file=sys.stderr)
         return 1
+
+
+def _maybe_audit_log(
+    command: str,
+    args,
+    mode,
+    *,
+    result: str,
+    error_code: Optional[str] = None,
+) -> None:
+    """E2.4 (v0.3.4): append an audit entry IF logging is enabled.
+
+    Only mutation commands (add/update/delete/move/format/compile/recover)
+    are logged. Read commands (list/get/verify/...) are NOT logged — the
+    plan says "Cada mutación CRUD solo se loguea si `cortex audit on`
+    está activo".
+    """
+    from ..core.modes import is_write_command
+    from ..audit.logger import AuditEntry, append_entry
+
+    if not is_write_command(command):
+        return
+
+    # The .cortex file path is in args.input for most commands.
+    file_path = getattr(args, "input", None) or ""
+
+    entry = AuditEntry(
+        op=command,
+        file=str(file_path),
+        mode=mode.value,
+        result=result,
+        selector=getattr(args, "selector", None),
+        error_code=error_code,
+    )
+    try:
+        append_entry(entry)
+    except Exception:
+        # Audit logging must NEVER break the actual command.
+        # Silently swallow errors.
+        pass
 
 
 if __name__ == "__main__":

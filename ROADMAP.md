@@ -129,21 +129,22 @@ Phases E1–E5 represent the enterprise-hardening track. They are independent of
 
 ### Phase E2: Security and Governance
 
-**Status:** planned.
+**Status:** current (v0.3.4).
 
 **Goal:** harden the CLI and protocol against misuse, secret leakage and unauthorized mutations.
 
-**Deliverables:**
-- Pre-commit secret scanner (hardens existing `cortex doctor` scan).
-- RBAC-like mutation gates: read-only mode, editor mode, admin mode (governs `--force`).
-- Persistent audit log: CRUD operations logged outside the `.cortex` file.
-- Release signing: SHA256 hashes for all published artifacts.
-- `cortex verify --signature` for artifact integrity checks.
-- Dependabot/Renovate configuration for dev dependencies.
+**Deliverables (all implemented in v0.3.4):**
+- **E2.1 Dependabot:** `.github/dependabot.yml` — weekly PRs for pip (`/cli`) and GitHub Actions.
+- **E2.2 Secret scanner:** `cortex/security/secret_scanner.py` (12 patterns) + `cortex doctor --scan-secrets` + pre-commit `detect-secrets` hook + `.secrets.baseline`.
+- **E2.3 Mutation gates:** `cortex/core/modes.py` — `read-only`/`editor`/`admin` modes via `--mode` flag or `$CORTEX_MODE` env var. Exit code 13 for mode violations.
+- **E2.4 Audit log (on-demand):** `cortex/audit/logger.py` + `cortex audit on/off/status/snapshot/prune`. Append-only JSONL in `~/.codec-cortex/audit/`. Only logs when explicitly enabled.
+- **E2.5 Release signing:** `scripts/sign_release.py` generates `SHA256SUMS` for `*.whl` and `*.tar.gz`.
+- **E2.6 `cortex verify --signature`:** `cortex/security/signature.py` + `--signature <manifest>` flag on `cortex verify`.
+- 68 new tests (409 total: 341 original + 68 E2), all passing.
 
 **Non-goals:** no federated identity, no enterprise SSO.
 
-**Acceptance criteria:** pre-commit hooks block secrets. Audit log captures every mutation with timestamp and agent identity.
+**Acceptance criteria:** pre-commit hooks block secrets (`ghp_`, `pypi-`, etc.). `cortex --mode read-only` blocks all writes (rc=13). `cortex audit on` enables per-session logging. `cortex verify --signature` detects tampered artifacts. Dependabot opens weekly PRs.
 
 ### Phase E3: Documentation and Test Coverage
 

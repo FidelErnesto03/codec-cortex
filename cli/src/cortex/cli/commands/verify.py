@@ -1,10 +1,16 @@
-"""``cortex verify`` — validate a .cortex file and optionally roundtrip."""
+"""``cortex verify`` — validate a .cortex file and optionally roundtrip.
+
+v0.3.4 (E2.6): supports ``--signature <MANIFEST>`` (and alias
+``--manifest``) to verify the SHA256 of the input file against a
+SHA256SUMS manifest produced by ``scripts/sign_release.py``.
+"""
 
 from __future__ import annotations
 
 import json
 import os
 import tempfile
+from pathlib import Path
 
 from ...core.compare import compare_ast
 from ...core.document_kind import infer_document_kind
@@ -12,10 +18,60 @@ from ...core.parser import parse_cortex
 from ...core.writer import write_cortex
 from ...core.validator import validate
 from ...hcortex import parse_hcortex_edit, render_hcortex_edit
+from ...security.signature import verify_signature
 from ..commands import load_doc
 
 
+def _run_signature_check(args) -> int:
+    """E2.6 (v0.3.4): handle ``cortex verify --signature <manifest>``.
+
+    Returns 0 on match, 1 on mismatch/missing.
+    """
+    manifest_arg = getattr(args, "signature_manifest", None) or getattr(
+        args, "manifest_path", None
+    )
+    if not manifest_arg:
+        # Should not happen — caller checks before dispatching.
+        raise RuntimeError("verify_signature dispatched without --signature/--manifest")
+    manifest_path = Path(manifest_arg).expanduser().resolve()
+    target_file = Path(args.input).expanduser().resolve()
+    strict = getattr(args, "strict", False)
+
+    result = verify_signature(target_file, manifest_path, strict=strict)
+
+    json_mode = getattr(args, "_json_mode", False)
+    if json_mode:
+        payload = {
+            "ok": result.ok,
+            "input": args.input,
+            "manifest": str(manifest_path),
+            "strict": strict,
+            "result": result.to_dict(),
+        }
+        print(json.dumps(payload, indent=2, ensure_ascii=False, default=str))
+    else:
+        lines = [
+            f"signature verify: {args.input}",
+            f"  manifest:      {manifest_path}",
+            f"  ok:            {result.ok}",
+            f"  reason:        {result.reason}",
+        ]
+        if result.expected_hash:
+            lines.append(f"  expected:      {result.expected_hash}")
+        if result.actual_hash:
+            lines.append(f"  actual:        {result.actual_hash}")
+        print("\n".join(lines))
+    return 0 if result.ok else 1
+
+
 def run(args) -> int:
+    # v0.3.4 (E2.6): --signature short-circuits all other validation.
+    signature_manifest = getattr(args, "signature_manifest", None) or getattr(
+        args, "manifest_path", None
+    )
+    if signature_manifest:
+        return _run_signature_check(args)
+
     doc = load_doc(args.input)
 
     # Apply explicit kind if provided (audit gap H-01/H-02)
