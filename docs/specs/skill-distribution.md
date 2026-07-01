@@ -3,8 +3,10 @@
 
 # CODEC-CORTEX — Universal Skill Distribution Protocol
 
-> **Versión:** 1.0-draft · 2026-06-27
+> **Versión:** 1.1 · alineada a proyecto v0.3.5 · 2026-07-01
 > **Propósito:** Definir cómo distribuir e instalar el SKILL CODEC-CORTEX en cualquier agente LLM/SLM, independientemente de plataforma, modelo o marca.
+>
+> **NOTA DE ESTADO:** A v0.3.5 el paquete `codec-cortex` está publicado en PyPI (`pip install codec-cortex`) e incluye el CLI canónico, la capa E2 de seguridad y el protocolo E3 de documentación. La distribución manual por plataforma y el script `setup.sh` siguen vigentes como alternativa para entornos sin acceso a `pip`.
 
 ---
 
@@ -145,10 +147,10 @@ Para agentes sin acceso a terminal (OpenAI GPTs, Claude Projects):
 ## 7. Verificación post-instalación
 
 ```bash
-# v0.3.4 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
+# v0.3.5 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
 cortex doctor skill/SKILL.cortex            # Diagnóstico del skill
 cortex verify --strict skill/SKILL.cortex   # Validación completa
-cortex inspect skill/SKILL.cortex           # Inspección v2 (secciones, entries, VIEW)
+cortex inspect skill/SKILL.cortex           # Inspección (secciones, entries, VIEW)
 cortex verify-view skill/SKILL.cortex       # Coverage VIEW
 cortex roundtrip-bidir skill/SKILL.cortex   # Roundtrip bidireccional
 
@@ -161,13 +163,15 @@ cortex roundtrip-bidir skill/SKILL.cortex   # Roundtrip bidireccional
 
 ---
 
-## 8. Distribución futura (PyPI)
+## 8. Distribución vía PyPI (actual desde v0.3.3)
+
+El paquete `codec-cortex` se publica en PyPI desde v0.3.3 (release E1). El CLI y los datos del SKILL se empaquetan juntos:
 
 ```toml
 # pyproject.toml del paquete
 [project]
 name = "codec-cortex"
-version = "0.3.4"
+version = "0.3.5"
 
 # Los datos del SKILL se empaquetan como package data:
 [tool.setuptools.package-data]
@@ -175,13 +179,17 @@ cortex = ["skill/*.md", "skill/*.cortex", "benchmarks/*.md"]
 ```
 
 ```bash
-# Instalación futura:
+# Instalación:
 pip install codec-cortex
 # El SKILL queda disponible en:
 # site-packages/cortex/skill/SKILL.md
 # site-packages/cortex/skill/SKILL.cortex
 
 # Y el comando cortex queda disponible globalmente
+cortex --version    # 0.3.5
+cortex doctor --scan-secrets skill/SKILL.cortex   # E2: secret scanner
+cortex docstring canonicalize                      # E3: docstring desde docs/cortex/api/
+cortex benchmark --list                            # E3: inventario de suites
 ```
 
 ---
