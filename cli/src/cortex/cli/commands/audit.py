@@ -41,7 +41,7 @@ def _emit_status() -> int:
 
 def run_on(args) -> int:
     state = enable_logging()
-    print(f"audit logging: ON")
+    print("audit logging: ON")
     print(f"  started_at: {state.started_at}")
     print(f"  pid:        {state.pid}")
     print(f"  log file:   {daily_log_path()}")
@@ -50,7 +50,7 @@ def run_on(args) -> int:
 
 def run_off(args) -> int:
     disable_logging()
-    print(f"audit logging: OFF")
+    print("audit logging: OFF")
     print(f"  (existing entries in {audit_dir()} are preserved)")
     return 0
 

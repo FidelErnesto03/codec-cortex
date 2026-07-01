@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import os
 import sys
-import tempfile
-from pathlib import Path
 
 import pytest
 
@@ -16,7 +14,6 @@ if SRC_DIR not in sys.path:
 
 from cortex.core.modes import (
     Mode,
-    ModeEditorConfirmRequiredError,
     ModeReadOnlyError,
     ModeUnknownError,
     check_permission,

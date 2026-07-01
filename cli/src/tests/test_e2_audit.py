@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import os
 import sys
-import tempfile
 from pathlib import Path
 
 import pytest
@@ -18,7 +17,6 @@ if SRC_DIR not in sys.path:
 from cortex.audit.logger import (
     AuditEntry,
     append_entry,
-    audit_dir,
     disable_logging,
     enable_logging,
     read_session_state,

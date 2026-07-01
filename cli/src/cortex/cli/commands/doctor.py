@@ -10,7 +10,6 @@ the .cortex file itself (useful for scanning a whole repo).
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 from ...core.document_kind import infer_document_kind

@@ -51,11 +51,8 @@ from typing import List, Optional
 
 from .. import __version__
 from ..core.modes import (
-    Mode,
     annotate_args,
     check_permission,
-    is_meta_command,
-    is_read_command,
     is_write_command,
     resolve_mode,
 )
@@ -801,7 +798,6 @@ def _maybe_audit_log(
     plan says "Cada mutación CRUD solo se loguea si `cortex audit on`
     está activo".
     """
-    from ..core.modes import is_write_command
     from ..audit.logger import AuditEntry, append_entry
 
     if not is_write_command(command):

@@ -13,7 +13,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-import pytest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
@@ -21,8 +20,6 @@ if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 from cortex.security.secret_scanner import (
-    ScanResult,
-    SecretFinding,
     load_baseline,
     redact,
     save_baseline,
