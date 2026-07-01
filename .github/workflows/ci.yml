@@ -82,7 +82,10 @@ jobs:
       - name: Build wheel
         run: |
           pip install build
-          SETUPTOOLS_SCM_PRETEND_VERSION=${GITHUB_REF_NAME#v} python -m build --wheel
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            export SETUPTOOLS_SCM_PRETEND_VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          python -m build --wheel
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -111,7 +114,8 @@ jobs:
       - name: Build wheel
         run: |
           pip install build
-          SETUPTOOLS_SCM_PRETEND_VERSION=${GITHUB_REF_NAME#v} python -m build --wheel
+          export SETUPTOOLS_SCM_PRETEND_VERSION="${GITHUB_REF_NAME#v}"
+          python -m build --wheel
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
