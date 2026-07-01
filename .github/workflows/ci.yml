@@ -109,3 +109,5 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: cli/dist/
+          attestations: false
+          skip-existing: true
