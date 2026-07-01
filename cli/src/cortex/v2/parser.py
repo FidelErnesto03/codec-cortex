@@ -589,7 +589,7 @@ def _parse_attrs(body: str) -> Dict[str, Any]:
         if i >= n:
             break
         # Read key
-        m = re.match(r'([A-Za-z_][A-Za-z0-9_]*)', s[i:])
+        m = re.match(r'([^\W\d_][\w]*)', s[i:])
         if not m:
             break
         key = m.group(1)

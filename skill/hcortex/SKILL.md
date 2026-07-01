@@ -710,13 +710,13 @@ CORTEX-OUT NO participa en: decode, encode, verify, AST, $0, contratos de sigilo
 
 ## §14 Directivas VIEW del HCORTEX SKILL
 
-| VIEW | Sección | Kind | Target | Reverse |
+| VIEW | Section | Kind | Target | Reverse |
 |:----:|:-------:|:----:|--------|:-------:|
 | `identidad_skill` | §1 | kv_table | `$1:IDN:project` | row_to_attrs |
 | `referencias_skill` | §1 | table | `$1:REF:*` | rows_to_entries |
 | `activacion_skill` | §2 | table | `$2:KNW:trigger` | rows_to_entries |
 | `sigilos_canonicos` | §3 | table | `$0:canonical_sigils` | rows_to_entries |
-| `sistema_tipos` | §3 | table | `$0:type_decls` | row_to_attrs |
+| `sistema_tipos` | §3 | kv_table | `$0:type_decls` | row_to_attrs |
 | `contratos_posicionales` | §4 | table | `$0:contracts` | rows_to_entries |
 | `microtokens` | §5 | table | `$0:microtokens` | rows_to_entries |
 | `enumeraciones` | §5 | kv_table | `$0:enum_state` | row_to_attrs |
