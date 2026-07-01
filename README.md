@@ -104,11 +104,14 @@ pip install -e ".[dev]"   # with test dependencies
 cortex --version
 ```
 
-### From PyPI (once published)
+### From PyPI
 
 ```bash
 pip install codec-cortex
+cortex --version
 ```
+
+Requires Python ≥ 3.9. The package installs the `cortex` CLI with all v2 commands (`convert`, `inspect`, `roundtrip-bidir`, `canonicalize`, etc.).
 
 See `cli/README.md` for full CLI documentation and `skill/cortex/README.md` for installation as a universal agent skill.
 
