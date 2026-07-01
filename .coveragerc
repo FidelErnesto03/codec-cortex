@@ -1,6 +1,5 @@
 [run]
 branch = True
-source = cortex
 omit =
     */src/tests/*
     */tests/*
