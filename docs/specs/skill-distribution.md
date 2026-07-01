@@ -6,7 +6,7 @@
 > **Versión:** 1.1 · alineada a proyecto v0.3.5 · 2026-07-01
 > **Propósito:** Definir cómo distribuir e instalar el SKILL CODEC-CORTEX en cualquier agente LLM/SLM, independientemente de plataforma, modelo o marca.
 >
-> **NOTA DE ESTADO:** A v0.3.5 el paquete `codec-cortex` está publicado en PyPI (`pip install codec-cortex`) e incluye el CLI canónico, la capa E2 de seguridad y el protocolo E3 de documentación. La distribución manual por plataforma y el script `setup.sh` siguen vigentes como alternativa para entornos sin acceso a `pip`.
+> **NOTA DE ESTADO:** En v0.3.5 el paquete `codec-cortex` está publicado en PyPI (`pip install codec-cortex`) e incluye el CLI canónico, la capa E2 de seguridad y el protocolo E3 de documentación. La distribución manual por plataforma y el script `setup.sh` siguen vigentes como alternativa para entornos sin acceso a `pip`.
 
 ---
 
@@ -31,11 +31,11 @@ Cada plataforma de agentes tiene su propio mecanismo de instrucciones: `~/.herme
 
 | Formato | Archivo | Propósito | Consumo |
 |---------|---------|-----------|---------|
-| **SKILL.md** | `skill/SKILL.md` | Especificación humana canónica | Lectura directa por agente o humano |
-| **SKILL.cortex** | `skill/SKILL.cortex` | Mente comprimida del protocolo | Parseo por `cortex CLI` o lectura por agente avanzado |
-| **SKILL.en.md** | `skill/SKILL.en.md` | Especificación en inglés | Agentes con preferencia EN |
-| **AGENT.cortex** | `skill/AGENT.cortex` | Entry point de identidad | Primer `.cortex` que un agente debe leer |
-| **AGENT.md** | `skill/AGENT.md` | HCORTEX view del entry point | Humanos que revisan la identidad del agente |
+| **SKILL.md (CORTEX)** | `skill/cortex/SKILL.md` | Especificación canónica CORTEX | Lectura directa por agente o humano |
+| **SKILL.md (HCORTEX)** | `skill/hcortex/SKILL.md` | Vista humana reversible del protocolo | Agentes con preferencia HCORTEX o lectura humana |
+| **SKILL_HCORTEX.md** | `skill/hcortex/SKILL_HCORTEX.md` | Especificación HCORTEX detallada | Humanos que auditan el protocolo de descompresión |
+| **AGENT.md (CORTEX)** | `skill/cortex/AGENT.md` | Entry point de identidad CORTEX | Primer `.md` que un agente debe leer |
+| **AGENT.md (HCORTEX)** | `skill/hcortex/AGENT.md` | Entry point de identidad HCORTEX | Humanos que revisan la identidad del agente |
 | **brain.cortex** | `brain.cortex` | Cerebro operativo local | Estado vivo del agente (se crea por sesión) |
 
 ---
@@ -44,16 +44,16 @@ Cada plataforma de agentes tiene su propio mecanismo de instrucciones: `~/.herme
 
 | # | Plataforma | Mecanismo | Archivo clave | Comando / Ruta |
 |:-:|-----------|-----------|---------------|----------------|
-| 1 | **Hermes Agent** | Skills directory | `SKILL.md` | `~/.hermes/skills/codec-cortex/` — copiar `skill/` |
-| 2 | **Claude Code (Anthropic)** | CLAUDE.md | `SKILL.md` (adaptado) | `CLAUDE.md` en raíz del repo |
-| 3 | **OpenCode** | Skills dir + `.opencode.json` | `SKILL.md` | `~/.opencode/skills/` o skills integrados |
-| 4 | **GitHub Copilot** | `.github/copilot-instructions.md` | `SKILL.en.md` (adaptado) | Repo `.github/copilot-instructions.md` |
-| 5 | **Cline / Cursor** | `.clinerules` / `.cursorrules` | `SKILL.md` (extracto) | Raíz del proyecto |
-| 6 | **OpenAI GPTs** | Custom Instructions + Knowledge | `SKILL.md` + `SKILL.cortex` | Archivos de conocimiento del GPT |
-| 7 | **Claude Projects (Anthropic)** | Project Knowledge | `SKILL.md` | Panel de conocimiento del proyecto |
-| 8 | **Continue.dev** | `continue.json` / config | `SKILL.cortex` | Configuración del IDE |
-| 9 | **Coding agents (genéricos)** | README-based | `skill/AGENT.cortex` | Leer desde instrucción del prompt |
-| 10 | **pip install** | CLI package | `SKILL.cortex` | `pip install codec-cortex` → datos del skill en `site-packages/` |
+| 1 | **Hermes Agent** | Skills directory | `skill/cortex/SKILL.md` | `~/.hermes/skills/codec-cortex/` — copiar `skill/` |
+| 2 | **Claude Code (Anthropic)** | CLAUDE.md | `skill/cortex/SKILL.md` (adaptado) | `CLAUDE.md` en raíz del repo |
+| 3 | **OpenCode** | Skills dir + `.opencode.json` | `skill/cortex/SKILL.md` | `~/.opencode/skills/` o skills integrados |
+| 4 | **GitHub Copilot** | `.github/copilot-instructions.md` | `skill/cortex/SKILL.md` (extracto) | Repo `.github/copilot-instructions.md` |
+| 5 | **Cline / Cursor** | `.clinerules` / `.cursorrules` | `skill/cortex/SKILL.md` (extracto) | Raíz del proyecto |
+| 6 | **OpenAI GPTs** | Custom Instructions + Knowledge | `skill/cortex/SKILL.md` + `skill/hcortex/SKILL.md` | Archivos de conocimiento del GPT |
+| 7 | **Claude Projects (Anthropic)** | Project Knowledge | `skill/cortex/SKILL.md` | Panel de conocimiento del proyecto |
+| 8 | **Continue.dev** | `continue.json` / config | `skill/cortex/SKILL.md` | Configuración del IDE |
+| 9 | **Coding agents (genéricos)** | README-based | `skill/cortex/AGENT.md` | Leer desde instrucción del prompt |
+| 10 | **pip install** | CLI package | `skill/cortex/SKILL.md` | `pip install codec-cortex` → datos del skill en `site-packages/` |
 
 ---
 
@@ -67,16 +67,16 @@ Cada plataforma de agentes tiene su propio mecanismo de instrucciones: `~/.herme
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 SKILL_SRC="$REPO_ROOT/skill"
 
 install_hermes() {
     mkdir -p ~/.hermes/skills/codec-cortex/references
-    cp "$SKILL_SRC/SKILL.md" ~/.hermes/skills/codec-cortex/
-    cp "$SKILL_SRC/SKILL.cortex" ~/.hermes/skills/codec-cortex/
-    cp "$SKILL_SRC/SKILL.en.md" ~/.hermes/skills/codec-cortex/
-    cp "$SKILL_SRC/AGENT.cortex" ~/.hermes/skills/codec-cortex/
-    cp "$SKILL_SRC/AGENT.md" ~/.hermes/skills/codec-cortex/
+    cp "$SKILL_SRC/cortex/SKILL.md" ~/.hermes/skills/codec-cortex/
+    cp "$SKILL_SRC/cortex/AGENT.md" ~/.hermes/skills/codec-cortex/
+    cp "$SKILL_SRC/hcortex/SKILL.md" ~/.hermes/skills/codec-cortex/
+    cp "$SKILL_SRC/hcortex/SKILL_HCORTEX.md" ~/.hermes/skills/codec-cortex/
+    cp "$SKILL_SRC/hcortex/AGENT.md" ~/.hermes/skills/codec-cortex/
     echo "[OK] Hermes: SKILL instalado en ~/.hermes/skills/codec-cortex/"
 }
 
@@ -85,7 +85,7 @@ install_claude() {
     if [ -f "$REPO_ROOT/CLAUDE.md" ]; then
         echo "[WARN] CLAUDE.md ya existe. Saltando."
     else
-        cp "$SKILL_SRC/AGENT.md" "$REPO_ROOT/CLAUDE.md"
+        cp "$SKILL_SRC/cortex/AGENT.md" "$REPO_ROOT/CLAUDE.md"
         echo "[OK] Claude Code: CLAUDE.md creado en raíz del repo"
     fi
 }
@@ -106,7 +106,8 @@ EOF
 
 install_opencode() {
     mkdir -p ~/.opencode/skills/codec-cortex
-    cp "$SKILL_SRC/SKILL.md" ~/.opencode/skills/codec-cortex/
+    cp "$SKILL_SRC/cortex/SKILL.md" ~/.opencode/skills/codec-cortex/
+    cp "$SKILL_SRC/hcortex/SKILL.md" ~/.opencode/skills/codec-cortex/
     echo "[OK] OpenCode: SKILL instalado en ~/.opencode/skills/codec-cortex/"
 }
 
@@ -137,10 +138,10 @@ Para agentes sin acceso a terminal (OpenAI GPTs, Claude Projects):
 
 | Paso | Acción |
 |:----:|--------|
-| 1 | Descargar `skill/SKILL.md` del repositorio |
+| 1 | Descargar `skill/cortex/SKILL.md` del repositorio |
 | 2 | Subir como archivo de conocimiento del GPT / project knowledge |
-| 3 | Incluir en las instrucciones del sistema: "Lee SKILL.md y SKILL.cortex como tu protocolo de memoria" |
-| 4 | (Opcional) Incluir `skill/AGENT.cortex` como entry point de identidad |
+| 3 | Incluir en las instrucciones del sistema: "Lee skill/cortex/SKILL.md como tu protocolo de memoria" |
+| 4 | (Opcional) Incluir `skill/cortex/AGENT.md` como entry point de identidad |
 
 ---
 
@@ -148,17 +149,20 @@ Para agentes sin acceso a terminal (OpenAI GPTs, Claude Projects):
 
 ```bash
 # v0.3.5 — nombres canónicos (los alias v2-* siguen aceptados con WARNING):
-cortex doctor skill/SKILL.cortex            # Diagnóstico del skill
-cortex verify --strict skill/SKILL.cortex   # Validación completa
-cortex inspect skill/SKILL.cortex           # Inspección (secciones, entries, VIEW)
-cortex verify-view skill/SKILL.cortex       # Coverage VIEW
-cortex roundtrip-bidir skill/SKILL.cortex   # Roundtrip bidireccional
+cortex verify --strict skill/cortex/SKILL.md   # Validación completa del canon CORTEX
+cortex roundtrip-bidir skill/cortex/SKILL.md   # Roundtrip bidireccional
+cortex verify-view skill/cortex/SKILL.md       # Coverage VIEW
+cortex inspect skill/cortex/SKILL.md           # Inspección (secciones, entries, VIEW)
+cortex verify --strict skill/hcortex/SKILL.md  # Validación del canon HCORTEX
+cortex roundtrip-bidir skill/hcortex/SKILL.md  # Roundtrip bidireccional HCORTEX
+cortex docstring canonicalize                  # E3: docstring desde docs/cortex/api/
+cortex benchmark --list                        # E3: inventario de suites
 
 # Sin CLI: revisión manual
-# Verificar que SKILL.cortex tenga:
+# Verificar que skill/cortex/SKILL.md tenga:
 # - $0: GLOSSARY como primera sección
 # - Sin entradas FCS/OBJ/WRK/STP/NXT como estado vivo
-# - IDN:skill con version correcta
+# - IDN:skill con versión correcta
 ```
 
 ---
@@ -168,36 +172,35 @@ cortex roundtrip-bidir skill/SKILL.cortex   # Roundtrip bidireccional
 El paquete `codec-cortex` se publica en PyPI desde v0.3.3 (release E1). El CLI y los datos del SKILL se empaquetan juntos:
 
 ```toml
-# pyproject.toml del paquete
+# pyproject.toml del paquete (cli/)
 [project]
 name = "codec-cortex"
-version = "0.3.5"
+dynamic = ["version"]  # la versión la asigna setuptools-scm desde el tag git
+
+[project.scripts]
+cortex = "cortex.cli.main_e3:main"
 
 # Los datos del SKILL se empaquetan como package data:
 [tool.setuptools.package-data]
-cortex = ["skill/*.md", "skill/*.cortex", "benchmarks/*.md"]
+cortex = ["py.typed"]
 ```
 
 ```bash
 # Instalación:
 pip install codec-cortex
-# El SKILL queda disponible en:
-# site-packages/cortex/skill/SKILL.md
-# site-packages/cortex/skill/SKILL.cortex
-
-# Y el comando cortex queda disponible globalmente
-cortex --version    # 0.3.5
-cortex doctor --scan-secrets skill/SKILL.cortex   # E2: secret scanner
-cortex docstring canonicalize                      # E3: docstring desde docs/cortex/api/
-cortex benchmark --list                            # E3: inventario de suites
+# El SKILL y el CLI quedan disponibles:
+cortex --version                       # 0.3.5
+cortex doctor --scan-secrets           # E2: secret scanner
+cortex docstring canonicalize          # E3: docstring desde docs/cortex/api/
+cortex benchmark --list                # E3: inventario de suites
 ```
 
 ---
 
 ## 9. Matriz de compatibilidad
 
-| Plataforma | SKILL.md | SKILL.cortex | AGENT.cortex | CLI verify | CLI render |
-|-----------|:--------:|:------------:|:------------:|:----------:|:----------:|
+| Plataforma | SKILL.md (CORTEX) | SKILL.md (HCORTEX) | AGENT.md | CLI verify | CLI render |
+|-----------|:-----------------:|:------------------:|:--------:|:----------:|:----------:|
 | Hermes | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Claude Code | ✅ | ⚠️ (manual) | ✅ | ⚠️ (manual) | ⚠️ (manual) |
 | OpenCode | ✅ | ✅ | ✅ | ⚠️ | ⚠️ |
@@ -208,12 +211,3 @@ cortex benchmark --list                            # E3: inventario de suites
 | pip + CLI | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 > **Leyenda:** ✅ = soporte nativo · ⚠️ = con adaptación manual · ❌ = no soportado
-
----
-
-## 10. Recomendaciones
-
-1. **Priorizar `pip install codec-cortex`** como método universal — el CLI trae el SKILL embebido.
-2. **Para agentes sin CLI**, distribuir `skill/SKILL.md` + `skill/AGENT.cortex` como archivos de conocimiento.
-3. **Para equipos enterprise**, el `setup.sh` automatiza la instalación en múltiples plataformas.
-4. **Siempre verificar** con `cortex verify --strict skill/SKILL.cortex` después de instalar.
