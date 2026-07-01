@@ -76,4 +76,4 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 pythonpath = ["src"]
-addopts = "--cov=cortex --cov-report=term-missing --cov-fail-under=85"
+addopts = "--cov=cortex.cli.main_e3 --cov=cortex.cli.commands.docstring --cov=cortex.cli.commands.benchmark --cov-report=term-missing --cov-fail-under=85"
