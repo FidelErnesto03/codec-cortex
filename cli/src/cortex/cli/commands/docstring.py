@@ -49,6 +49,12 @@ def resolve_docs_root(explicit: Optional[str] = None) -> Path:
     raise DocstringError("docs/cortex/api not found; pass --docs-root")
 
 
+def _summary_text(body: str) -> str:
+    compact = " ".join(body.strip().split())
+    attrs = _parse_attrs(compact)
+    return attrs.get("text", compact)
+
+
 def parse_api_doc(path: Path) -> Dict[str, Any]:
     text = path.read_text(encoding="utf-8")
     command: Dict[str, str] = {}
@@ -57,7 +63,7 @@ def parse_api_doc(path: Path) -> Dict[str, Any]:
     summary = ""
     summary_match = _BODY_RE.search(text)
     if summary_match:
-        summary = " ".join(summary_match.group("body").strip().split())
+        summary = _summary_text(summary_match.group("body"))
     for match in _ENTRY_RE.finditer(text):
         sigil = match.group("sigil")
         name = match.group("name")
