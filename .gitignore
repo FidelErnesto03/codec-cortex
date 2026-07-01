@@ -45,6 +45,15 @@ benchmarks/**/*.pdf
 # CLI backup
 cli.bak/
 
+# Personal brain/alfred files (per-agent, not part of the repo)
+brain.cortex
+brain.md
+alfred-memory.cortex
+alfred-memory.md
+
 # CLI build artifacts
 cli/dist/
 cli/src/cortex/_version.py
+
+# uv lock file (generated)
+cli/uv.lock

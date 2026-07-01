@@ -12,7 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Comandos canónicos CLI**: `roundtrip`, `convert`, `roundtrip-bidir`, `compare`, `verify-view`, `explain-loss`, `canonicalize`, `inspect`. Los alias `v2-*` se mantienen como deprecados (warning en stderr).
+- **E1 Distribution & CI/CD**: GitHub Actions CI (ruff lint + test 3.9-3.12 + verify-view + roundtrip-bidir + build). `pip install codec-cortex` published to PyPI (v0.3.2).
+- **Ruff lint**: 0 errors across all 59 Python files (231 legacy errors fixed).
+- **Pre-commit hooks**: ruff, trailing-whitespace, end-of-file-fixer, cortex verify --strict.
+- **Makefile targets**: `install`, `test`, `lint`, `build`, `publish`, `verify`, `roundtrip`, `release`.
 - **Flag `--preserve`** en `canonicalize`: preserva estructura original incluso con VIEW directives.
 - **Corpus benchmark migrado a VIEW**: 10 artefactos .cortex con 12+ VIEW directives c/u, coverage 100%, reversibility True.
 - **Workflow del agente**: `docs/specs/agent-workflow.md` con 5 diagramas PUML, 4 reglas `!`, 5 perfiles CORTEX-OUT.

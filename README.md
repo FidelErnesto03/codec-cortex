@@ -123,6 +123,14 @@ See `cli/README.md` for full CLI documentation and `skill/cortex/README.md` for 
 
 A `cortex` CLI binary is available at `cli/`. Initial adoption does not require a server, MCP bridge or Python package. An agent can use CODEC-CORTEX by reading the Skill and following the `.cortex` memory discipline.
 
+### Personal files
+
+`brain.cortex`, `brain.md`, `alfred-memory.cortex` and `alfred-memory.md` are **per-agent** and excluded from version control via `.gitignore`. A template is available at `skill/cortex/brain.cortex`. Copy it to initialize your agent memory:
+
+```bash
+cp skill/cortex/brain.cortex brain.cortex
+```
+
 ## Current Context
 
 Agents and reviewers that need the project state behind this release can read `brain.cortex` at the repository root. It is the local operational memory snapshot for CODEC-CORTEX: active focus, release state, recent sessions, lessons, validation evidence and audit references.

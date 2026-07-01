@@ -109,16 +109,19 @@ Phases E1–E5 represent the enterprise-hardening track. They are independent of
 
 ### Phase E1: Distribution and CI/CD
 
-**Status:** planned.
+**Status:** current.
 
 **Goal:** automate distribution, testing and publishing of the `cortex` CLI and SKILL artifacts across platforms.
 
 **Deliverables:**
-- PyPI package (`cortex-cli` or `codec-cortex`) — `pip install codec-cortex` installs CLI and SKILL.
-- GitHub Actions CI: lint, test (Python 3.9–3.12), verify-fixtures, coverage gate (≥85%).
-- `Makefile` or `Taskfile`: `install`, `test`, `lint`, `build`, `publish` targets.
-- `setuptools-scm` or `bump-my-version` for automated versioning.
-- Pre-commit hooks (`.pre-commit-config.yaml`): ruff, secret-scan, `cortex verify --strict`.
+- PyPI package (`codec-cortex`) — `pip install codec-cortex` installs CLI (v0.3.2, 341 tests).
+- GitHub Actions CI: lint (ruff), test (Python 3.9–3.12), verify-view, roundtrip-bidir, build.
+- `Makefile`: `install`, `test`, `lint`, `build`, `publish`, `verify`, `roundtrip` targets.
+- `setuptools-scm` for automated versioning from git tags.
+- Pre-commit hooks (`.pre-commit-config.yaml`): ruff, trailing-whitespace, `cortex verify --strict`.
+- Ruff lint: 0 errors across entire codebase (231 legacy errors fixed).
+- `PYPI_API_TOKEN` configured as GitHub secret for automated publishing on tag.
+- Personal files (`brain.cortex`, `alfred-memory.*`) removed from version control (agent-specific).
 
 **Non-goals:** no MCP server, no runtime.
 
