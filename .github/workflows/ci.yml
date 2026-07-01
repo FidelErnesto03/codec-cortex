@@ -39,7 +39,8 @@ jobs:
         run: pip install ruff && ruff check src/
 
       - name: Test with pytest
-        run: python -m pytest src/tests/ -q
+        run: |
+          python -m pytest src/tests/ -q
 
       - name: Verify canonical artifacts
         run: |

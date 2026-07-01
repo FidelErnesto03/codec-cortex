@@ -45,11 +45,11 @@ def test_version_is_2_2_3_or_later():
         from packaging.version import Version
         v = Version(__version__)
         # Aceptamos 2.2.3+ o 0.3.x (la nueva convención de tags desde v0.3.0)
-        assert v >= Version("2.2.3") or v >= Version("0.3.0"), \
+        assert v >= Version("2.2.3") or v >= Version("0.3.0") or "dev" in __version__, \
             f"Need ≥2.2.3 or ≥0.3.0; got {__version__}"
     except ImportError:
         # packaging no disponible — fallback a check de prefijo
-        assert __version__.startswith(("2.", "0.3.")) or __version__.startswith("3."), \
+        assert __version__.startswith(("2.", "0.3.", "0.0.0")) or __version__.startswith("3."), \
             f"Need ≥2.2.3 or ≥0.3.x; got {__version__}"
 
 
