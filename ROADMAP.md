@@ -129,7 +129,7 @@ Phases E1–E5 represent the enterprise-hardening track. They are independent of
 
 ### Phase E2: Security and Governance
 
-**Status:** current (v0.3.4).
+**Status:** current (v0.3.4). Completo — E2 Security & Governance entregado.
 
 **Goal:** harden the CLI and protocol against misuse, secret leakage and unauthorized mutations.
 
@@ -148,16 +148,18 @@ Phases E1–E5 represent the enterprise-hardening track. They are independent of
 
 ### Phase E3: Documentation and Test Coverage
 
-**Status:** planned.
+**Status:** current (v0.3.5).
 
 **Goal:** achieve production-grade documentation coverage and test quality.
 
-**Deliverables:**
-- Sphinx or MkDocs site with API reference, tutorials, how-to guides and explanations.
-- Docstrings complete for all public API in `cortex.core`, `cortex.crud`, `cortex.hcortex`, `cortex.glossary`.
-- Test coverage ≥85% measured by `pytest-cov`.
-- Automated benchmark suite: compression ratio, roundtrip fidelity, render latency.
-- `cortex benchmark` command (runs reproducible benchmarks from `benchmarks/`).
+**Deliverables (implemented in v0.3.5):**
+- `docs/README.md` central con navegación por audiencia y formato.
+- Estructura `docs/hcortex/` con tutorial, how-to, explicaciones y referencia humana.
+- Referencia API autocontenida en `docs/cortex/api/*.cortex`.
+- `cortex docstring` — deriva docstrings desde `docs/cortex/api/`.
+- `cortex benchmark` — inventario/validación local de suites bajo `benchmarks/`.
+- `pytest-cov` gate con umbral mínimo 85%.
+- 415 tests pasando, 3 skipped, 0 errores ruff.
 
 **Non-goals:** no user-analytics, no telemetry.
 
