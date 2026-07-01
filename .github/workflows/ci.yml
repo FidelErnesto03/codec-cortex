@@ -44,8 +44,9 @@ jobs:
 
       - name: Verify canonical artifacts
         run: |
-          cortex verify --strict ../skill/cortex/SKILL.md
-          cortex v2-verify-view ../skill/cortex/SKILL.md
+          cortex verify-view ../skill/cortex/SKILL.md
+          cortex roundtrip-bidir ../skill/cortex/SKILL.md
+          cortex inspect ../skill/cortex/SKILL.md --format json > /dev/null
 
   build:
     name: Build package
