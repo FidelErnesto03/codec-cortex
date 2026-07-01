@@ -1,0 +1,13 @@
+$0
+GTYP:attrs{name:"attrs",desc:"key:value pairs"}
+GSIG:IDN{name:"identity",type:"attrs",risk:"B",layer:"Semantic",desc:"command identity"}
+GSIG:DESC{name:"description",type:"attrs",risk:"B",layer:"Semantic",desc:"description"}
+GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
+
+$1
+IDN:command{name:"benchmark",cli:"cortex benchmark",status:"current",requires:"cortex 0.3.5+"}
+DESC:summary{text:"Inspect local benchmark files."}
+ARG:root{name:"--root",required:"no",description:"root directory"}
+ARG:suite{name:"--suite",required:"no",description:"suite name"}
+ARG:list{name:"--list",required:"no",description:"list suites"}
+ARG:format{name:"--format",required:"no",description:"text or json"}

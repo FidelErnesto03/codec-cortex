@@ -44,15 +44,24 @@ jobs:
       - name: Lint with ruff
         run: pip install ruff && ruff check src/
 
-      - name: Test with pytest
+      - name: Test with pytest and coverage gate
         run: |
-          python -m pytest src/tests/ -q
+          python -m pytest src/tests/ -q --cov-config ../.coveragerc
+
+      - name: Verify documentation API sources
+        run: |
+          for f in ../docs/cortex/api/*.cortex; do cortex verify "$f" --strict; done
+          cortex docstring canonicalize > /dev/null
 
       - name: Verify canonical artifacts
         run: |
           cortex verify-view ../skill/cortex/SKILL.md
           cortex roundtrip-bidir ../skill/cortex/SKILL.md
           cortex inspect ../skill/cortex/SKILL.md --format json > /dev/null
+
+      - name: Benchmark inventory gate
+        run: |
+          cortex benchmark --list
 
   build:
     name: Build package
@@ -73,6 +82,9 @@ jobs:
       - name: Build wheel
         run: |
           pip install build
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            export SETUPTOOLS_SCM_PRETEND_VERSION="${GITHUB_REF_NAME#v}"
+          fi
           python -m build --wheel
 
       - name: Upload artifact
@@ -102,6 +114,7 @@ jobs:
       - name: Build wheel
         run: |
           pip install build
+          export SETUPTOOLS_SCM_PRETEND_VERSION="${GITHUB_REF_NAME#v}"
           python -m build --wheel
 
       - name: Publish to PyPI
