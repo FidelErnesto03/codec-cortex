@@ -14,43 +14,34 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 SKILL_SRC="$REPO_ROOT/skill"
-VERSION="0.3.0"
 
-echo "CODEC-CORTEX Universal Skill Installer v$VERSION"
+echo "CODEC-CORTEX Universal Skill Installer v0.3.5"
 echo "Source: $SKILL_SRC"
 echo "---"
 
 install_hermes() {
     local target="$HOME/.hermes/skills/codec-cortex"
     mkdir -p "$target/references"
-    cp "$SKILL_SRC/SKILL.md" "$target/"
-    cp "$SKILL_SRC/SKILL.cortex" "$target/"
-    cp "$SKILL_SRC/SKILL.en.md" "$target/"
-    cp "$SKILL_SRC/AGENT.cortex" "$target/" 2>/dev/null || true
-    cp "$SKILL_SRC/AGENT.md" "$target/" 2>/dev/null || true
+    cp "$SKILL_SRC/cortex/SKILL.md" "$target/"
+    cp "$SKILL_SRC/cortex/AGENT.md" "$target/"
+    cp "$SKILL_SRC/hcortex/SKILL.md" "$target/"
+    cp "$SKILL_SRC/hcortex/SKILL_HCORTEX.md" "$target/"
+    cp "$SKILL_SRC/hcortex/AGENT.md" "$target/"
     echo "[OK] Hermes: SKILL instalado en $target"
 }
 
 install_claude() {
     if [ -f "$REPO_ROOT/CLAUDE.md" ]; then
-        echo "[WARN] Claude Code: CLAUDE.md ya existe. No se sobrescribe."
+        echo "[WARN] CLAUDE.md ya existe. Saltando."
     else
-        cp "$SKILL_SRC/AGENT.md" "$REPO_ROOT/CLAUDE.md" 2>/dev/null || {
-            echo "[WARN] Claude Code: AGENT.md no encontrado, saltando."
-            return
-        }
+        cp "$SKILL_SRC/cortex/AGENT.md" "$REPO_ROOT/CLAUDE.md"
         echo "[OK] Claude Code: CLAUDE.md creado en raíz del repo"
     fi
 }
 
 install_copilot() {
     mkdir -p "$REPO_ROOT/.github"
-    local target="$REPO_ROOT/.github/copilot-instructions.md"
-    if [ -f "$target" ]; then
-        echo "[WARN] Copilot: instrucciones ya existen. No se sobrescriben."
-        return
-    fi
-    cat > "$target" << 'EOF'
+    cat > "$REPO_ROOT/.github/copilot-instructions.md" << 'EOF'
 # CODEC-CORTEX para GitHub Copilot
 
 CODEC-CORTEX is a structured memory protocol for LLM agents.
@@ -58,31 +49,30 @@ Key sigils: FCS (focus), OBJ (objective), WRK (work), CNST (constraint), STP (st
 Memory is stored in .cortex files with $0 glossary, $1 identity, $2 operational state.
 HCORTEX is the human-readable view. CLI at cli/ for verify/render/CRUD.
 EOF
-    echo "[OK] Copilot: instrucciones creadas en $target"
+    echo "[OK] Copilot: instrucciones creadas en .github/copilot-instructions.md"
 }
 
 install_opencode() {
-    local target="$HOME/.opencode/skills/codec-cortex"
-    mkdir -p "$target"
-    cp "$SKILL_SRC/SKILL.md" "$target/"
-    echo "[OK] OpenCode: SKILL instalado en $target"
+    mkdir -p ~/.opencode/skills/codec-cortex
+    cp "$SKILL_SRC/cortex/SKILL.md" ~/.opencode/skills/codec-cortex/
+    cp "$SKILL_SRC/hcortex/SKILL.md" ~/.opencode/skills/codec-cortex/
+    echo "[OK] OpenCode: SKILL instalado en ~/.opencode/skills/codec-cortex/"
 }
 
 case "${1:-all}" in
-    hermes)   install_hermes ;;
-    claude)   install_claude ;;
-    copilot)  install_copilot ;;
-    opencode) install_opencode ;;
+    hermes)    install_hermes ;;
+    claude)    install_claude ;;
+    copilot)   install_copilot ;;
+    opencode)  install_opencode ;;
     all)
         install_hermes
         install_claude
         install_copilot
         install_opencode
-        echo "---"
-        echo "[OK] CODEC-CORTEX SKILL instalado en todas las plataformas disponibles"
+        echo "[OK] SKILL instalado en todas las plataformas disponibles"
         ;;
     *)
-        echo "Uso: bash setup.sh [hermes | claude | copilot | opencode | all]"
+        echo "Uso: bash setup.sh [hermes|claude|copilot|opencode|all]"
         exit 1
         ;;
 esac
