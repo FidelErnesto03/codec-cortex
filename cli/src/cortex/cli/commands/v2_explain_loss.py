@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex explain-loss`` — explain loss, omission, or non-reversible content.
 
 Canonical name: ``explain-loss`` (since v0.3.2).

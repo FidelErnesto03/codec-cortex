@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Nivel 3 ``package.cortex`` template factory.
 
 Builds a transportable context package with:

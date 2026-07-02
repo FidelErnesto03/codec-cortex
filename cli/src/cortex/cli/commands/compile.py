@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex compile`` — compile HCORTEX-EDIT markdown back to .cortex."""
 
 from __future__ import annotations

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Character-stream lexer for ``.cortex``.
 
 The lexer is a small deterministic automaton (Section 6.2 of the spec)

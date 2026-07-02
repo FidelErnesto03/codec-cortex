@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Equivalence engine v2.3.0 — compare CORTEX and HCORTEX artefacts.
 
 Implements F-16..F-22 from v2.3.0 spec:

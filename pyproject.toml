@@ -4,10 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "codec-cortex"
-version = "0.3.7"
+version = "0.4.0"
 description = "CODEC-CORTEX — Universal memory Skill and contextual memory protocol for LLM/SLM agents; CLI at cli/"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "MPL-2.0"}
 authors = [
     {name = "Fidel Ernesto Lozada A.", email = "fidelernesto@gmail.com"},
     {name = "alfred", email = ""},
@@ -21,7 +21,7 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",

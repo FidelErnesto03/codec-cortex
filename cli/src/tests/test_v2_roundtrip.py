@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v2.0.0 roundtrip tests — CORTEX → AST → CORTEX must be byte-identical."""
 
 import os

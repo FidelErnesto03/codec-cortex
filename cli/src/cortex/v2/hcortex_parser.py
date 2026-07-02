@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """HCORTEX parser v2.3.0 — read canonical HCORTEX and reconstruct AST.
 
 Implements F-01..F-08 from v2.3.0 spec:

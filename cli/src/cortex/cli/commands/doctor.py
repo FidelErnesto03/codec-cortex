@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex doctor`` — deep diagnostic of a .cortex file.
 
 v0.3.4 (E2.2): adds secret scanning via :mod:`cortex.security.secret_scanner`.

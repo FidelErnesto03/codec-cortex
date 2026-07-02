@@ -1,5 +1,5 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
+<!-- SPDX-License-Identifier: MPL-2.0 -->
 
 # CODEC-CORTEX Roadmap
 
@@ -148,11 +148,11 @@ Phases E1–E5 represent the enterprise-hardening track. They are independent of
 
 ### Phase E3: Documentation and Test Coverage
 
-**Status:** current (v0.3.7).
+**Status:** current (v0.4.0).
 
 **Goal:** achieve production-grade documentation coverage and test quality.
 
-**Deliverables (implemented in v0.3.7):**
+**Deliverables (implemented in v0.4.0):**
 - `docs/README.md` central con navegación por audiencia y formato.
 - Estructura `docs/es/hcortex/` (ES) · `docs/en/hcortex/` (EN) con tutorial, how-to, explicaciones y referencia humana.
 - Referencia API autocontenida en `docs/cortex/api/*.cortex`.

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Error model for the learning engine.
 
 These errors are intentionally local to the learning subsystem; they

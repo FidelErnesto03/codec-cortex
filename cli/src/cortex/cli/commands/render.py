@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex render`` (alias: ``cortex decode``) — render .cortex to HCORTEX markdown.
 
 v1.1.2: ``--json`` now produces real JSON output (was text-only before).

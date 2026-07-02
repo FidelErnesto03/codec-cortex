@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Recovery / migration mode for legacy ``.cortex`` artefacts.
 
 Closes audit gap H-06 / B-006:

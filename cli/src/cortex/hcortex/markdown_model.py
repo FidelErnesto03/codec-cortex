@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Markdown model for HCORTEX renderers.
 
 Defines the small set of markers used by the EDIT renderer to embed

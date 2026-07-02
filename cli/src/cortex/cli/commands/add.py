@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex add`` (alias: ``cortex patch_add``) — add a new entry to a .cortex file.
 
 v1.1.2: post-mutation validation via :func:`~cortex.cli.commands.post_mutation_gate`.

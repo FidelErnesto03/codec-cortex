@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex diff`` — structural/semantic/governance diff between two .cortex files.
 
 v1.1.2: ``--profile governance`` redefinido.  Antes comparaba sólo los

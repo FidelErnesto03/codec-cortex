@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v1.1.3 fixes — tests for the 10 issues raised in the fourth review.
 
 P0 (critical):

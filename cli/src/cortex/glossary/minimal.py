@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Minimal sigil sets per template kind.
 
 Each function returns a list of :class:`~cortex.core.ast.SigilDef`

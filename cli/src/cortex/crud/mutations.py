@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Mutations — add / update / delete / move entries in a :class:`CortexDocument`.
 
 All mutations operate on the AST in memory; persistence (atomic write)

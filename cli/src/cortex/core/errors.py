@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """CODEC-CORTEX error model.
 
 Every error has a stable machine-readable code (``E0xx_*``) and a human

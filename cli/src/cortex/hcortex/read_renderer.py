@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """HCORTEX-READ renderer — human-friendly Markdown with profile support.
 
 Per Section 8.1 and 9 of the SKILL:

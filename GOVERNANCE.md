@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<!-- Copyright (c) 2026 Fidel Ernesto Lozada A. -->
+
 # Governance
 
 CODEC-CORTEX is governed by **Fidel Ernesto Lozada A.** as BDFL (Benevolent Dictator for Life) under the following model:
@@ -48,7 +51,7 @@ spec:   Specification change (MAJOR/MINOR)
 chore:  Maintenance, structure (PATCH)
 ```
 
-Current version: **v0.3.7**
+Current version: **v0.4.0**
 
 ## Contact
 

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Candidate detection and explanation.
 
 A *candidate* is a group of one or more index entries that the engine

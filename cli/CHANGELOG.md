@@ -1,5 +1,27 @@
 # CHANGELOG — codec-cortex
 
+## [0.4.0] — 2026-07-02
+
+> Release v0.4.0 — License transition to MPL-2.0
+
+### Changed
+- **Relicensed project core from MIT to Mozilla Public License 2.0 (MPL-2.0)**.
+- Previous releases remain available under their original MIT terms.
+- Added SPDX-License-Identifier: MPL-2.0 headers to all source files.
+- Added formal license policy under `docs/legal/license.md`.
+- Added trademark policy for the CODEC-CORTEX name and related marks.
+- Added legacy MIT notice for historical artifacts.
+- Updated package metadata, README, CONTRIBUTING, and all license surfaces.
+
+### Rationale
+MPL-2.0 better protects the deterministic, reversible and auditable core
+while preserving commercial adoption and integration into larger proprietary
+or open-source systems.
+
+### Fixed
+- All MIT references in active surfaces migrated to MPL-2.0.
+- Historical benchmarks and reports preserved under MIT.
+
 ## [0.3.7] — 2026-07-02
 
 > Release v0.3.7 — Learning Engine v0.1.0 + Benchmark v2.2.x

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v1.1.6 fixes — tests for semantic emptiness and recovery conformant exit.
 
 P0:

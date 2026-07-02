@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v1.1.7 fixes — tests for null/None handling and recovery section isolation.
 
 P0:

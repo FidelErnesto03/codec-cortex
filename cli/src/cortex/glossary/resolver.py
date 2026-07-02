@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Glossary resolver — runtime queries over a :class:`Glossary`.
 
 Used by renderers, the validator and the CRUD layer to answer:

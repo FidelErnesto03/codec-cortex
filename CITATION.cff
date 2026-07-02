@@ -30,6 +30,6 @@ keywords:
   - protocol
   - deterministic
   - slm
-license: MIT
+license: MPL-2.0
 version: 0.2.0
 date-released: '2026-06-24'

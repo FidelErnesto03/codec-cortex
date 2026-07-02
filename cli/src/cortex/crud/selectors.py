@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Selectors — locate entries in a :class:`CortexDocument`.
 
 Selector grammar (Section 12.1 of the spec):

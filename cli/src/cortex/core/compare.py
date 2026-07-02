@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Structural comparison of two :class:`CortexDocument` ASTs.
 
 Used by ``cortex verify --roundtrip hcortex-edit`` to verify that

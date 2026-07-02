@@ -1,5 +1,5 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
+<!-- SPDX-License-Identifier: MPL-2.0 -->
 
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Benchmark Methodology

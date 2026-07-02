@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Rebuildable learning index (``learn-index.json``).
 
 The index is the performance cache for the engine — never canonical

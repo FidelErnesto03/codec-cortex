@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex recover`` — recover a legacy or non-conforming .cortex file.
 
 Closes audit gap H-06: tolerates preambles, legacy column names, missing

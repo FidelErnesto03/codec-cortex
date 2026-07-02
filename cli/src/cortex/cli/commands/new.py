@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex new`` — create a new .cortex file from a template.
 
 v1.1.2: ``--json`` now produces real JSON output (was text-only before).

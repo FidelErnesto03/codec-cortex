@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex verify-view`` — validate VIEW coverage, reversibility, consistency.
 
 Canonical name: ``verify-view`` (since v0.3.2).

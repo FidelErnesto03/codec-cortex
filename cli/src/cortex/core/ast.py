@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Canonical AST for CODEC-CORTEX.
 
 The AST is the *only* internal representation of a ``.cortex`` document.

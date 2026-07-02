@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex canonicalize`` — normalize artefacts without changing semantics.
 
 Canonical name: ``canonicalize`` (since v0.3.2).

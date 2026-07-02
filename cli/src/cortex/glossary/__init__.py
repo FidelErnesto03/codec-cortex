@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Glossary package — minimal sigil sets, resolver, contracts."""
 
 from .model import minimal_glossary, add_sigil, add_micro, add_contract, sigils_in_use

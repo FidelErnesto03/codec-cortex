@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex format`` — re-serialize a .cortex file canonically."""
 
 from __future__ import annotations

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """HCORTEX-EDIT renderer — human-editable, structurally reversible Markdown.
 
 Per Section 8.2 of the spec:

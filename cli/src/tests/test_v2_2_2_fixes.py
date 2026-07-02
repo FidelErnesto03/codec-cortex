@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v2.2.2 tests — surgical hardening post-auditoría v2.2.1.
 
 5 brechas cerradas:

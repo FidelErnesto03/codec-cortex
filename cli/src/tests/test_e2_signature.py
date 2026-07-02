@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """E2.6 (v0.3.4) — Tests for `cortex verify --signature` and the
 underlying :mod:`cortex.security.signature` module.
 """

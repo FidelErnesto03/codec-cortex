@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex benchmark`` — inspect and validate suites under ``benchmarks/``."""
 
 from __future__ import annotations

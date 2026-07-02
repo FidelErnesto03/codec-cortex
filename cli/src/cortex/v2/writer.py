@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""CORTEX v2 writer — serializes a :class:`CortexV2Document` back to exact format.
 
 Reproduces the exact byte layout of ``skill/cortex/SKILL.md``:

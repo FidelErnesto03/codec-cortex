@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v2.3.0 acceptance tests — T-01..T-12 per spec section 10.
 
 Cada test valida una operación bidireccional o gate de reversibilidad.

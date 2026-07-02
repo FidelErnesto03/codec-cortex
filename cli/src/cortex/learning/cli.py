@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Argparse subcommand integration for the learning engine.
 
 Adds a ``learn`` subcommand to the existing ``cortex`` CLI with the

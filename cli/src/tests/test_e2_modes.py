@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """E2.3 (v0.3.4) — Tests for mutation gates (read-only/editor/admin)."""
 
 from __future__ import annotations

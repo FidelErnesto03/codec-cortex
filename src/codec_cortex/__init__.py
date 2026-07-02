@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 
 """
 CODEC-CORTEX — specification-stage universal memory Skill and contextual memory protocol.

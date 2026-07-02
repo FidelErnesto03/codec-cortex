@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v1.1.8 fixes — tests for free section selection, RSK embedding, AUD description, null-like sentinels.
 
 Fix 1: Recovery chooses a truly free section ($1, $2, ..., $99, $100, ...)
