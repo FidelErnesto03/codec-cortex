@@ -1,0 +1,330 @@
+{
+  "version": "2.1.0",
+  "generated_at": "2026-07-01",
+  "corpus_level": "L2-multidomain-v2.1-with-VIEW",
+  "domains": [
+    {
+      "name": "climate",
+      "case_count": 1
+    },
+    {
+      "name": "cybersecurity",
+      "case_count": 1
+    },
+    {
+      "name": "devops",
+      "case_count": 1
+    },
+    {
+      "name": "ecommerce",
+      "case_count": 1
+    },
+    {
+      "name": "education",
+      "case_count": 1
+    },
+    {
+      "name": "fintech",
+      "case_count": 1
+    },
+    {
+      "name": "healthcare",
+      "case_count": 1
+    },
+    {
+      "name": "iot",
+      "case_count": 1
+    },
+    {
+      "name": "legal",
+      "case_count": 1
+    },
+    {
+      "name": "robotics",
+      "case_count": 1
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "devops-k8s-rollout",
+      "domain": "devops",
+      "purpose": "Operar rollout seguro de servicio stateful en Kubernetes con constraint de PDB",
+      "state": "current",
+      "restrictions": [
+        "no downtime > 30s",
+        "PDB minAvailable=2",
+        "registry interno"
+      ],
+      "risks": [
+        "rolling update puede violar PDB si MaxSurge=1"
+      ],
+      "decisions": [
+        "adoptar MaxSurge=2 MaxUnavailable=0",
+        "healthcheck readinessProbe +5s"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 12
+    },
+    {
+      "case_id": "ecom-fraud-checkout",
+      "domain": "ecommerce",
+      "purpose": "Decidir bloqueo de transaccion sospechosa de fraude en checkout",
+      "state": "current",
+      "restrictions": [
+        "PCI-DSS compliant",
+        "no PII en logs",
+        "max 200ms decision"
+      ],
+      "risks": [
+        "falso positivo bloquea cliente legitimo",
+        "falso negativo permite chargeback"
+      ],
+      "decisions": [
+        "score > 0.85 block",
+        "score 0.6-0.85 manual review"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 10
+    },
+    {
+      "case_id": "health-medication-alert",
+      "domain": "healthcare",
+      "purpose": "Evaluar alerta de interaccion farmacologica antes de prescripcion",
+      "state": "current",
+      "restrictions": [
+        "HIPAA compliant",
+        "medical disclaimer mandatory",
+        "human-in-the-loop"
+      ],
+      "risks": [
+        "sobre-alerta causa fatiga de alarmas",
+        "omitir interaccion causa dano"
+      ],
+      "decisions": [
+        "warfarin + NSAID -> block",
+        "monitor INR semanal"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 10
+    },
+    {
+      "case_id": "fintech-aml-kyc",
+      "domain": "fintech",
+      "purpose": "Verificar KYC/AML antes de aprobar cuenta de alto valor",
+      "state": "current",
+      "restrictions": [
+        "GDPR compliant",
+        "MUST log decision rationale",
+        "freeze if score>0.9"
+      ],
+      "risks": [
+        "onboarding friccion para clientes legitimos",
+        "fraude no detectado"
+      ],
+      "decisions": [
+        "PEP check mandatory",
+        "manual review para tx > 10k EUR"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 10
+    },
+    {
+      "case_id": "iot-hvac-anomaly",
+      "domain": "iot",
+      "purpose": "Detectar y responder a anomalia termica en edificio inteligente",
+      "state": "current",
+      "restrictions": [
+        "comfort band 21-24C",
+        "max energy 150kWh/day",
+        "safety first"
+      ],
+      "risks": [
+        "sobre-calentamiento de equipos",
+        "falsas anomalias por sensor drift"
+      ],
+      "decisions": [
+        "anomaly > 2sigma -> alert",
+        "anomaly > 3sigma -> shutdown"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 11
+    },
+    {
+      "case_id": "legal-contract-redline",
+      "domain": "legal",
+      "purpose": "Revisar clausulas criticas de contrato SaaS antes de firma",
+      "state": "current",
+      "restrictions": [
+        "liability cap mandatory",
+        "GDPR DPA mandatory",
+        "auto-renew < 12 meses"
+      ],
+      "risks": [
+        "clausula ambigua genera litigio",
+        "falta de indemnidad genera perdida"
+      ],
+      "decisions": [
+        "liability cap = 12 meses fees",
+        "indemnidad mutua"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 11
+    },
+    {
+      "case_id": "edu-adaptive-lesson",
+      "domain": "education",
+      "purpose": "Adaptar leccion segun progreso y emocion del estudiante",
+      "state": "current",
+      "restrictions": [
+        "no frustration > 3 intentos",
+        "COPPA compliant (under 13)",
+        "max 30min sesion"
+      ],
+      "risks": [
+        "contenido demasiado facil aburre",
+        "contenido demasiado dificil frustra"
+      ],
+      "decisions": [
+        "3 fallos consecutivos -> reducir dificultad",
+        "5 aciertos -> subir dificultad"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 10
+    },
+    {
+      "case_id": "sec-incident-response",
+      "domain": "cybersecurity",
+      "purpose": "Responder a incidente de exfiltracion de credenciales",
+      "state": "current",
+      "restrictions": [
+        "containment < 15min",
+        "preserve forensic evidence",
+        "no destructive action without approval"
+      ],
+      "risks": [
+        "lateral movement",
+        "evidence destruction"
+      ],
+      "decisions": [
+        "isolate host",
+        "rotate credentials"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 13
+    },
+    {
+      "case_id": "robotics-warehouse-bot",
+      "domain": "robotics",
+      "purpose": "Navegar bot de almacen evitando obstaculos dinamicos",
+      "state": "current",
+      "restrictions": [
+        "max speed 1.5 m/s",
+        "human safety distance 1m",
+        "battery > 20%"
+      ],
+      "risks": [
+        "colision con humano",
+        "deadlock en pasillo estrecho"
+      ],
+      "decisions": [
+        "stop if human < 1m",
+        "reroute if deadlock > 5s"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 11
+    },
+    {
+      "case_id": "climate-grid-balancing",
+      "domain": "climate",
+      "purpose": "Balancear red electrica con alta penetracion renovable",
+      "state": "current",
+      "restrictions": [
+        "frequency 49.8-50.2 Hz",
+        "reserve margin > 5%",
+        "no blackout"
+      ],
+      "risks": [
+        "sobre-produccion solar causa over-frequency",
+        "rampa de demanda supera reserva"
+      ],
+      "decisions": [
+        "curtail solar if freq > 50.1",
+        "dispatch gas peaker if reserve < 5%"
+      ],
+      "alternatives": [
+        "raw_prose",
+        "markdown",
+        "json",
+        "yaml"
+      ],
+      "has_view": true,
+      "view_count": 10
+    }
+  ],
+  "totals": {
+    "domains": 10,
+    "cases": 10,
+    "artifacts": 50,
+    "with_view_directives": 10,
+    "view_directives_total": 108
+  },
+  "migrations_from_v2.0.0": [
+    "Added CODEC-CORTEX header to enable v2 parser detection",
+    "Fixed status:cur -> status:current in VIEW directives",
+    "Corpus now passes verify-view with 100% coverage and reversible=True"
+  ]
+}

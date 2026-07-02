@@ -1,0 +1,72 @@
+@startuml
+title Arquitectura Benchmark v2.2.0 — CLI v0.3.6 + Learning Engine v0.1.0
+
+skinparam rectangle {
+  BackgroundColor<<cortex_v1>> #DBEAFE
+  BackgroundColor<<cortex_v2>> #EDE9FE
+  BackgroundColor<<baseline>> #F1F5F9
+  BackgroundColor<<learning>> #DCFCE7
+  BackgroundColor<<security>> #FEF3C7
+  BackgroundColor<<metric>> #FCE7F3
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Corpus L2 v2.1 (VIEW migrated)\n10 dominios, 108 VIEW directives\n100% coverage, reversible" as corpus <<baseline>>
+
+package "Metodos (11)" {
+  rectangle "Pasivos (4) + Semantico (1)\n+ Query-Dep (1)" as baselines <<baseline>>
+  rectangle "CODEC-CORTEX v1\nCPP v1 (render --profile)" as cortex_v1 <<cortex_v1>>
+  rectangle "CODEC-CORTEX v2 (2)\nCPP v2 + Canonical\n(convert + canonicalize)" as cortex_v2 <<cortex_v2>>
+  rectangle "Ablations (2)\nno_P0, no_temporal" as ablation <<baseline>>
+}
+
+package "NUEVO v2.2.0: Learning Engine" {
+  rectangle "CODEC-CORTEX Learning Engine\n(CLE) v0.1.0" as cle <<learning>>
+  rectangle "cortex learn scan\ncortex learn candidates\ncortex learn elevate" as learn_cmds <<learning>>
+  rectangle "golden_fibonacci_v1\nscoring algorithm\n(observed=1, repeated=2,\npattern=3, candidate=5,\nask_user=8, strong=13)" as scoring <<learning>>
+}
+
+package "NUEVO v2.2.0: E2 Security" {
+  rectangle "cortex doctor --scan-secrets\n(12 patrones)" as secrets <<security>>
+  rectangle "cortex audit on/off/status\ncortex --mode read-only|editor|admin\ncortex verify --signature" as audit <<security>>
+}
+
+package "Metricas (24)" {
+  rectangle "v1.0 (15): EAS, ETC, F1, DA,\nP0/P1, BCFNR, UCFPR, CFCR,\nSTR, BVR, MRD, QDD, ED, Avg CT" as m1 <<metric>>
+  rectangle "v2.0 (4): VIEW_cov, reversibility,\nbidir_equiv, loss_count" as m2 <<metric>>
+  rectangle "v2.2 NEW (5): learn_candidates,\nlearn_promotion_score, learn_elevations,\nlearn_hotness_avg, secret_count" as m3 <<metric>>
+}
+
+corpus --> baselines
+corpus --> cortex_v1
+corpus --> cortex_v2
+corpus --> ablation
+corpus --> cle
+cle --> learn_cmds
+cle --> scoring
+corpus --> secrets
+corpus --> audit
+
+cortex_v2 --> m1
+cortex_v2 --> m2
+cortex_v2 --> m3
+cle --> m3
+secrets --> m3
+
+note right of cle
+  NUEVO en v0.3.6:
+  Learning Engine determinista,
+  local-first, sin LLM.
+  Detecta candidatos de
+  elevacion SES/LNG -> KNW.
+end note
+
+note right of scoring
+  Fibonacci thresholds:
+  5=candidate, 8=ask_user,
+  13=strong_candidate, 21=critical.
+  Promedio corpus: 0.65 (sobre 1.05
+  candidates por run).
+end note
+@enduml

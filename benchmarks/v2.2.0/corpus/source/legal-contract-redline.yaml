@@ -1,0 +1,37 @@
+identity:
+  name: legal-counsel
+  role: contract reviewer
+  team: legal-ops
+domain:
+  area: legal-contract-redline
+  contract_id: ctr_2026_0417
+  counterparty: VendorX
+constraints:
+  - id: liability
+    rule: liability cap must be >= 12 meses fees
+    severity: blocking
+    survive: min
+  - id: dpa
+    rule: GDPR DPA must be in place before signature
+    severity: blocking
+    survive: min
+  - id: renewal
+    rule: auto-renew clause must be < 12 meses
+    severity: warning
+    survive: work
+focus:
+  what: Redline ctr_2026_0417 con VendorX
+  status: current
+  survive: min
+objective:
+  goal: Aprobar o rechazar contrato para firma
+  status: in_progress
+  survive: min
+work:
+  phase: clause review
+  current: liability cap ausente, DPA pendiente, auto-renew=24meses
+  blocked: true
+step:
+  action: Solicitar enmienda
+  status: current
+  survive: min

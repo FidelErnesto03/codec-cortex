@@ -6,12 +6,28 @@ Benchmarks científicos reproducibles que validan las propiedades del protocolo 
 
 || Versión | Fecha | CODEC-CORTEX | CLI | Runs | Métodos | Escenarios | Métricas | Estado |
 ||---------|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|| [v2.1.0](./v2.1.0/) | 2026-06-30 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.2.0](./v2.2.0/) | 2026-07-02 | v0.3.6 | v0.3.6 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.1.0](./v2.1.0/) | 2026-06-30 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | current |
 || [v2.0.0](./v2.0.0/) | 2026-06-30 | v0.3.1 | v2.4.0 | 4,840 | 11 | 11 | 19 | current |
 || [v1.0.0](./v1.0.0/) | 2026-06-28 | v0.3.0 | v1.1.9 | 4,840 | 11 | 11 | 15 | current |
 || 0.2 | — | — | — | — | — | — | — | referencia |
 || 0.1b | — | — | — | — | — | — | — | referencia |
 || 0.1 | — | — | — | — | — | — | — | referencia |
+
+## v2.2.0 — Benchmark científico v2.2 (learning engine v0.1.0 integrado)
+
+**Hallazgos principales:** Primer benchmark con el CODEC-CORTEX Learning Engine v0.1.0 integrado. Evalúa scoring, detección de candidatos, elevación por políticas y rendimiento del índice de aprendizaje sobre 11 escenarios con 4,840 runs.
+
+| Artefacto | Descripción |
+|-----------|-------------|
+| [scientific_report_v22.md](./v2.2.0/reports/scientific_report_v22.md) | Informe científico v2.2 (HCORTEX) |
+| [regression_report_v22.md](./v2.2.0/reports/regression_report_v22.md) | Regresión contra v2.1.0 |
+| [claim_matrix_v22.md](./v2.2.0/reports/claim_matrix_v22.md) | Matriz de claims v2.2 |
+| [corpus/](./v2.2.0/corpus/) | Corpus L2 con 11 dominios (fintech, ecom, health, iot, robotics, devops, climate, edu, legal, sec) |
+| [learning_workspaces/](./v2.2.0/learning_workspaces/) | Workspaces .cortex con brain, policies, index por dominio |
+| [scripts/](./v2.2.0/scripts/) | Scripts reproducibles v2.2 (run_benchmark_v22, generate_diagrams_v22, build_pdf_v22) |
+| [runs/](./v2.2.0/runs/) | Resultados — 4,840 runs con learning engine |
+| [diagrams/](./v2.2.0/diagrams/) | Fuentes PUML (3 diagramas). PNG se regeneran con `generate_diagrams_v22.py` |
 
 ## v2.1.0 — Benchmark científico v2.1 (nombres canónicos, VIEW migrado, canonicalize corregido)
 

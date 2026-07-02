@@ -1,0 +1,67 @@
+@startuml
+title Flujo del Learning Engine (CLE v0.1.0)
+
+skinparam activity {
+  BackgroundColor #DCFCE7
+  BorderColor #16A34A
+}
+skinparam shadowing false
+
+start
+:cortex learn init --workspace;
+:Creates .cortex/ with:
+- MANIFEST.cortex
+- brain.cortex
+- learn-policies.cortex
+- index/ dir
+- cache/ dir;
+
+:cortex learn scan --workspace;
+:Scans brain.cortex entries;
+:Applies golden_fibonacci_v1 scoring;
+:Signals: observed, repeated, pattern, candidate;
+
+if (Promotion score >= 5?) then (yes)
+  :Mark as candidate;
+  if (Promotion score >= 8?) then (yes)
+    :Suggest elevation (ask_user);
+    if (Promotion score >= 13?) then (yes)
+      :Strong candidate;
+    else (no)
+      :Regular candidate;
+    endif
+  else (no)
+    :Track for future;
+  endif
+else (no)
+  :No elevation yet;
+endif
+
+:cortex learn candidates;
+:List all candidates with:
+- source_entries
+- target (e.g., NXT->STP)
+- promotion_score
+- hotness_score
+- suggested_action;
+
+if (User confirms?) then (yes)
+  :cortex learn elevate;
+  :Apply policy-driven mutation;
+  :SES -> LNG (if score >= 8);
+  :LNG -> KNW (if score >= 13);
+  :Update brain.cortex;
+  :Log AUD entry;
+else (no)
+  :Keep tracking;
+endif
+
+stop
+
+note right
+  Deterministic, local-first.
+  No LLM, no network.
+  Indices rebuildable.
+  LLM cannot edit brain directly.
+end note
+@enduml
