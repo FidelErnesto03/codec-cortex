@@ -1,0 +1,61 @@
+@startuml
+title Landscape comparativo: CODEC-CORTEX vs paquetes PyPI
+
+skinparam rectangle {
+  BackgroundColor<<codec>> #DBEAFE
+  BackgroundColor<<tier1>> #D1FAE5
+  BackgroundColor<<tier2>> #FEF3C7
+  BackgroundColor<<tier3>> #FEE2E2
+  BackgroundColor<<other>> #F1F5F9
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "CODEC-CORTEX v0.3.6\n(este proyecto)" as codec <<codec>>
+
+rectangle "Tier 1: Muy similares\n(memoria estructurada + determinista)" as t1 <<tier1>> {
+  rectangle "cortext-memory v0.3.1\nW5H-structured,\ncontradiction-aware" as ctm
+  rectangle "cortex-recall v0.6.1\nFour-layer cognitive,\nlearning" as cr
+  rectangle "cortex-ai-memory v2.2.0\nRust engine,\nknowledge graph" as cam
+}
+
+rectangle "Tier 2: Similares en\nalgunos aspectos" as t2 <<tier2>> {
+  rectangle "cortex-mem v1.0.0\nProgressive Disclosure\nL0/L1/L2" as cm
+  rectangle "llm-cortex-memory v1.2.0\nPortable, clustering,\nnumpy/scipy" as lcm
+  rectangle "cortex-persist v1.0.0\nCryptographic integrity,\naudit trails" as cp
+  rectangle "cortexgraph v1.2.1\nTemporal memory,\nMCP" as cg
+  rectangle "hippocortex v1.2.1\nLearns from experience" as hc
+}
+
+rectangle "Tier 3: Diferentes pero\nrelacionados" as t3 <<tier3>> {
+  rectangle "cortex-mcp v1.1.20\nMCP persistent memory" as cmcp
+  rectangle "cortex-brain v0.1.0b3\nCross-tool memory" as cb
+  rectangle "neuro-cortex-memory v3.23.0\nComputational neuro" as ncm
+}
+
+rectangle "Otros 200+ paquetes\n(gaming, IoT, Snowflake, etc.)" as other <<other>>
+
+codec -right-> t1 : comparable
+t1 -right-> t2 : similar features
+t2 -right-> t3 : related
+t3 -right-> other : different domain
+
+note right of codec
+  ÚNICO con TODAS las features:
+  - Determinista
+  - Estructurado
+  - Audit trail
+  - Learning engine
+  - Contradiction-aware
+  - Temporal-aware
+  - Bidirectional
+  - 0 dependencias
+  - 25 CLI commands
+end note
+
+note right of t1
+  Tier 1 tiene 2-5 features
+  de 9 evaluadas.
+  CODEC-CORTEX tiene 9/9.
+end note
+@enduml

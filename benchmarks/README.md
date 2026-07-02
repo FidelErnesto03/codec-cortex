@@ -6,13 +6,26 @@ Benchmarks científicos reproducibles que validan las propiedades del protocolo 
 
 || Versión | Fecha | CODEC-CORTEX | CLI | Runs | Métodos | Escenarios | Métricas | Estado |
 ||---------|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|| [v2.2.0](./v2.2.0/) | 2026-07-02 | v0.3.6 | v0.3.6 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.2.1](./v2.2.1/) | 2026-07-02 | v0.3.7 | v0.3.7 | 4,840 | 11 | 11 | 19 | **current** |
+|| [v2.2.0](./v2.2.0/) | 2026-07-02 | v0.3.6 | v0.3.6 | 4,840 | 11 | 11 | 19 | current |
 || [v2.1.0](./v2.1.0/) | 2026-06-30 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | current |
 || [v2.0.0](./v2.0.0/) | 2026-06-30 | v0.3.1 | v2.4.0 | 4,840 | 11 | 11 | 19 | current |
 || [v1.0.0](./v1.0.0/) | 2026-06-28 | v0.3.0 | v1.1.9 | 4,840 | 11 | 11 | 15 | current |
 || 0.2 | — | — | — | — | — | — | — | referencia |
 || 0.1b | — | — | — | — | — | — | — | referencia |
 || 0.1 | — | — | — | — | — | — | — | referencia |
+
+## v2.2.1 — Benchmark científico v2.2.1 (PyPI comparative landscape)
+
+**Hallazgos principales:** Benchmark tangencial comparando codec-cortex contra competidores detectados en PyPI. Evaluación de preservación estructural, latencia, matriz de funcionalidades y radar comparativo sobre el corpus v2.2.0 existente.
+
+| Artefacto | Descripción |
+|-----------|-------------|
+| [scientific_report_v221.md](./v2.2.1/reports/scientific_report_v221.md) | Informe comparativo PyPI (HCORTEX) |
+| [comparative_pypi_results.json](./v2.2.1/runs/comparative_pypi_results.json) | Resultados comparativos |
+| [comparative_pypi_benchmark.py](./v2.2.1/scripts/comparative_pypi_benchmark.py) | Script de benchmark comparativo |
+| [generate_diagrams_v221.py](./v2.2.1/scripts/generate_diagrams_v221.py) | Generador de diagramas |
+| [diagrams/](./v2.2.1/diagrams/) | Fuentes PUML (2 diagramas). PNG se regeneran |
 
 ## v2.2.0 — Benchmark científico v2.2 (learning engine v0.1.0 integrado)
 
