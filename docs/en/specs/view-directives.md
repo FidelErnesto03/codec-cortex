@@ -3,7 +3,7 @@
 
 # CODEC-CORTEX — VIEW Directives Reference
 
-> **STATUS NOTE:** As of v0.3.6 the canonical SKILL.md contains 44 VIEW directives covering all 14 sections. This document summarizes the VIEW directive kinds, targets, and reverse strategies.
+> **STATUS NOTE:** As of v0.3.7 the canonical SKILL.md contains 44 VIEW directives covering all 14 sections. This document summarizes the VIEW directive kinds, targets, and reverse strategies.
 
 ---
 

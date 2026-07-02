@@ -4,12 +4,12 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Context Survival Specification
   <br>
-  <sub>SPECIFICATION · Survival Core · v0.3.6 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · Survival Core · v0.3.7 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
 
-> **STATUS NOTE:** This document is specification. As of v0.3.6 the concepts defined here (`survive` attribute, priority pack P0-P5, MIN/RECOVERY/WORK/FULL profiles, degradation policy, HCORTEX as render target) are implemented in the CLI (`cortex verify`, `cortex render`, `cortex canonicalize`, `cortex inspect`) and in the deterministic parser. The contextual efficiency metric remains conceptual: survival benchmark automation is planned but not blocking for current protocol usage.
+> **STATUS NOTE:** This document is specification. As of v0.3.7 the concepts defined here (`survive` attribute, priority pack P0-P5, MIN/RECOVERY/WORK/FULL profiles, degradation policy, HCORTEX as render target) are implemented in the CLI (`cortex verify`, `cortex render`, `cortex canonicalize`, `cortex inspect`) and in the deterministic parser. The contextual efficiency metric remains conceptual: survival benchmark automation is planned but not blocking for current protocol usage.
 
 **Abstract:** Single document consolidating the foundations of the CODEC-CORTEX Survival Core: `survive` attribute, priority pack P0-P5, conceptual load profiles, degradation policy, HCORTEX as render target, and contextual efficiency metric.
 

@@ -33,7 +33,7 @@ pip install -e .[dev]
 
 ```bash
 cortex --version
-# Expected: 0.3.6 or later
+# Expected: 0.3.7 or later
 ```
 
 ---

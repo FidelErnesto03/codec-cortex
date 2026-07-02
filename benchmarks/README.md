@@ -4,16 +4,17 @@ Benchmarks científicos reproducibles que validan las propiedades del protocolo 
 
 ## Catálogo
 
-|| Versión | Fecha | CODEC-CORTEX | CLI | Runs | Métodos | Escenarios | Métricas | Estado |
-||---------|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|| [v2.2.1](./v2.2.1/) | 2026-07-02 | v0.3.7 | v0.3.7 | 4,840 | 11 | 11 | 19 | **current** |
-|| [v2.2.0](./v2.2.0/) | 2026-07-02 | v0.3.6 | v0.3.6 | 4,840 | 11 | 11 | 19 | current |
-|| [v2.1.0](./v2.1.0/) | 2026-06-30 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | current |
-|| [v2.0.0](./v2.0.0/) | 2026-06-30 | v0.3.1 | v2.4.0 | 4,840 | 11 | 11 | 19 | current |
-|| [v1.0.0](./v1.0.0/) | 2026-06-28 | v0.3.0 | v1.1.9 | 4,840 | 11 | 11 | 15 | current |
-|| 0.2 | — | — | — | — | — | — | — | referencia |
-|| 0.1b | — | — | — | — | — | — | — | referencia |
-|| 0.1 | — | — | — | — | — | — | — | referencia |
+| Versión | Fecha | CODEC-CORTEX | CLI | Runs | Métodos | Escenarios | Métricas | Estado |
+|---------|-------|---|---|---|---|---|---|---|
+| [v2.2.2](./v2.2.2/) | 2026-07-02 | v0.3.7 | v0.3.7 | 4,840 | 11 | 11 | 19 | **current** |
+| [v2.2.1](./v2.2.1/) | 2026-07-02 | v0.3.7 | v0.3.7 | 4,840 | 11 | 11 | 19 | current |
+| [v2.2.0](./v2.2.0/) | 2026-07-02 | v0.3.6 | v0.3.6 | 4,840 | 11 | 11 | 19 | current |
+| [v2.1.0](./v2.1.0/) | 2026-06-30 | v0.3.2 | v0.3.2 | 4,840 | 11 | 11 | 19 | current |
+| [v2.0.0](./v2.0.0/) | 2026-06-30 | v0.3.1 | v2.4.0 | 4,840 | 11 | 11 | 19 | current |
+| [v1.0.0](./v1.0.0/) | 2026-06-28 | v0.3.0 | v1.1.9 | 4,840 | 11 | 11 | 15 | current |
+| 0.2 | — | — | — | — | — | — | — | referencia |
+| 0.1b | — | — | — | — | — | — | — | referencia |
+| 0.1 | — | — | — | — | — | — | — | referencia |
 
 ## v2.2.1 — Benchmark científico v2.2.1 (PyPI comparative landscape)
 

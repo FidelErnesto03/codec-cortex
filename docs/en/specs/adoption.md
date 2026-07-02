@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. As of v0.3.6 the CLI and deterministic codec are implemented in cli/, distributed via PyPI (`pip install codec-cortex`), and include the E2 security layer (secret scanner, mutation gates, audit log, signature verification) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). Runtime lifecycle and the MCP server remain planned or future; enterprise MCP is the future phase.
+> **STATUS NOTE:** This document is specification or design. As of v0.3.7 the CLI and deterministic codec are implemented in cli/, distributed via PyPI (`pip install codec-cortex`), and include the E2 security layer (secret scanner, mutation gates, audit log, signature verification) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). Runtime lifecycle and the MCP server remain planned or future; enterprise MCP is the future phase.
 
 **Abstract:** Practical integration guide for the CODEC-CORTEX protocol in LLM and SLM agents. Covers 3 adoption patterns (generic agent host, coding agent client, CLI-based coding agent), CAG vs RAG strategy with decision tree, compression benchmarks with 4K-8K token SLMs, PUML diagram usage in integrations, and reference to the cognitive trinity and output GATE.
 

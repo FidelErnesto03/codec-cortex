@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.3.6 el CLI y codec determinista (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect, explain-loss) estan implementados en cli/ con nombres canonicos (sin prefijo `v2-`; los alias legacy se aceptan con WARNING). La capa de seguridad E2 (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) y el protocolo de documentacion E3 (`cortex docstring`, `cortex benchmark`) tambien son actuales. El runtime y el servidor MCP siguen siendo planificados o futuros.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.3.7 el CLI y codec determinista (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect, explain-loss) estan implementados en cli/ con nombres canonicos (sin prefijo `v2-`; los alias legacy se aceptan con WARNING). La capa de seguridad E2 (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) y el protocolo de documentacion E3 (`cortex docstring`, `cortex benchmark`) tambien son actuales. El runtime y el servidor MCP siguen siendo planificados o futuros.
 
 **Abstract:** Ecuaciones de densidad cognitiva, máquina de estados del ciclo de vida de memoria, algoritmo de parseo determinista (autómata de caracteres de 6 estados), deep compare estructural, parseo de bloques PUML verbatim, y algoritmos del motor de maduración (detect_recurrence, promote, decay). Incluye la distribución áurea de tokens (φ=1.618) entre capas cognitivas y el ciclo de gestión de contextos con GATE de salida.
 

@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
 
-# CODEC-CORTEX — Agent Workflow (v0.3.6)
+# CODEC-CORTEX — Agent Workflow (v0.3.7)
 
 > Operational workflow specification for agents loading the `codec-cortex` skill. Complements the canonical `SKILL.md` with concrete procedural instructions: how to start, how to operate per interaction, how to validate before commit, how to migrate artifacts to VIEW directives, and how to select the CORTEX-OUT profile.
 

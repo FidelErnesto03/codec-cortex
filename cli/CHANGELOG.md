@@ -1,5 +1,24 @@
 # CHANGELOG — codec-cortex
 
+## [0.3.7] — 2026-07-02
+
+> Release v0.3.7 — Learning Engine v0.1.0 + Benchmark v2.2.x
+
+### Added
+- CODEC-CORTEX Learning Engine v0.1.0 (11 modules, 49 tests).
+- CLI: `cortex learn` con 10 subcomandos (init, doctor, policy, index, scan, candidates, explain, elevate, profile, workspace).
+- Benchmark v2.2.0: 11 dominios, 4,840 runs con learning engine.
+- Benchmark v2.2.1: comparativa PyPI contra 7 paquetes.
+- Benchmark v2.2.2: bridge LoCoMo/LongMemEval-style + 4 familias + threat model.
+
+### Changed
+- Versiones de proyecto: v0.3.6 → v0.3.7 (42 superficies actualizadas).
+- brain.cortex: actualizado con 12 lecciones de sesión v0.3.6→v0.3.7.
+
+### Fixed
+- v2 parser regex Unicode (`[A-Za-z]` → `[^\W\d_][\w]*`) para attrs keys con acentos.
+- CI: roundtrip-bidir no bloqueante para CORTEX v2 (known limitation).
+
 ## [0.3.6] — 2026-07-01
 
 > Release v0.3.6 — SKILL v1.3.0 Documentation Alignment

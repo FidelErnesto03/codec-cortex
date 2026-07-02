@@ -3,10 +3,10 @@
 
 # CODEC-CORTEX — Universal Skill Distribution Protocol
 
-> **Version:** 1.1 · aligned to project v0.3.6 · 2026-07-01
+> **Version:** 1.1 · aligned to project v0.3.7 · 2026-07-01
 > **Purpose:** Define how to distribute and install the CODEC-CORTEX SKILL on any LLM/SLM agent, regardless of platform, model, or brand.
 >
-> **STATUS NOTE:** As of v0.3.6 the `codec-cortex` package is published on PyPI (`pip install codec-cortex`) and includes the canonical CLI, the E2 security layer, and the E3 documentation protocol. Manual distribution per platform and the `setup.sh` script remain available as alternatives for environments without `pip` access.
+> **STATUS NOTE:** As of v0.3.7 the `codec-cortex` package is published on PyPI (`pip install codec-cortex`) and includes the canonical CLI, the E2 security layer, and the E3 documentation protocol. Manual distribution per platform and the `setup.sh` script remain available as alternatives for environments without `pip` access.
 
 ---
 
