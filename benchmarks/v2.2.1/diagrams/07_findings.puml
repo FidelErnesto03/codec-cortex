@@ -1,0 +1,40 @@
+@startuml
+title Hallazgos clave del benchmark v2.2.1
+
+skinparam rectangle {
+  BackgroundColor<<positive>> #D1FAE5
+  BackgroundColor<<neutral>> #FEF3C7
+  BackgroundColor<<finding>> #DBEAFE
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Resultados empíricos" as emp <<positive>> {
+  rectangle "CODEC-CORTEX: 100% preservación\nFCS=10/10, OBJ=10/10, CNST=10/10" as r1
+  rectangle "cortex-ai-memory: 10% FCS, 0% OBJ, 20% CNST\n(retrieval por similitud pierde)" as r2
+  rectangle "llm-cortex-memory: 10% FCS, 0% OBJ, 40% CNST\n(clustering pierde evidencia)" as r3
+}
+
+rectangle "Feature matrix" as fm <<finding>> {
+  rectangle "CODEC-CORTEX: 9/9 features\n(determinista + estructurado + audit +\nlearning + contradiction + temporal +\ntoken + bidirectional)" as f1
+  rectangle "cortext-memory: 5/9\n(determinista + estructurado +\ncontradiction + token)" as f2
+  rectangle "cortex-recall: 5/9\n(determinista + estructurado +\nlearning + KG)" as f3
+  rectangle "cortex-ai-memory: 3/9\n(local + estructurado + KG)" as f4
+  rectangle "llm-cortex-memory: 3/9\n(local + learning + vector)" as f5
+}
+
+rectangle "Hallazgo científico" as finding <<finding>> {
+  rectangle "CODEC-CORTEX es el ÚNICO paquete PyPI\nque combina determinismo + estructura\ncognitiva + audit + learning + bidirectional.\nLos demás optimizan retrieval pero pierden\nevidencia operacional crítica." as h1
+}
+
+emp --> finding
+fm --> finding
+
+note right of finding
+  Conclusión: CODEC-CORTEX ocupa un
+  nicho único en el landscape PyPI.
+  Ningún competidor combina todas las
+  features para memoria operacional
+  determinista con aprendizaje.
+end note
+@enduml
