@@ -654,6 +654,14 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--format", choices=["text", "json"], default="text")
     sp.set_defaults(func=cmd_v2_inspect.run)
 
+    # ------------------------------------------------------------------
+    # learn  (CODEC-CORTEX Learning Engine / CLE)
+    # Deterministic, local-first learning engine for .cortex workspaces.
+    # See SPEC §8 for the full command surface.
+    # ------------------------------------------------------------------
+    from ..learning.cli import add_learn_subparser
+    add_learn_subparser(sub)
+
     return p
 
 
