@@ -1,5 +1,5 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
+<!-- SPDX-License-Identifier: MPL-2.0 -->
 
 # Contributing to CODEC-CORTEX
 
@@ -31,4 +31,8 @@ Thanks for your interest in contributing to the CODEC-CORTEX protocol.
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+By contributing to CODEC-CORTEX, you agree that your contributions are licensed under the Mozilla Public License 2.0 (MPL-2.0), unless explicitly stated otherwise in writing.
+
+You represent that you have the right to submit the contribution and to license it under MPL-2.0.
+
+Contributions that include third-party code, generated code, model outputs, datasets or external artifacts must clearly identify their origin and license.

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v2.2.3 tests — prerrequisitos PRE-01..PRE-08."""
 
 import os

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """CRUD package — selectors, mutations, atomic transactions."""
 
 from .selectors import Selector, parse_selector, select, select_one

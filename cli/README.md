@@ -1,6 +1,8 @@
 # codec-cortex
 
-> Implementación determinista del codec CODEC-CORTEX v0.3.7. Procesador modular de artefactos `.cortex` y `.hcortex.md` sin dependencia de LLM: parsea a AST, serializa CORTEX, renderiza HCORTEX, ejecuta validaciones VIEW, compara equivalencia, valida roundtrip bidireccional, deriva documentación e inventaria benchmarks.
+> Implementación determinista del codec CODEC-CORTEX v0.4.0. Procesador modular de artefactos `.cortex` y `.hcortex.md` sin dependencia de LLM: parsea a AST, serializa CORTEX, renderiza HCORTEX, ejecuta validaciones VIEW, compara equivalencia, valida roundtrip bidireccional, deriva documentación e inventaria benchmarks.
+
+**Licencia:** [MPL-2.0](LICENSE). Releases anteriores bajo MIT.
 
 `codec-cortex` es un procesador determinista de memoria cognitiva para agentes LLM/SLM. Opera sobre archivos `.cortex` (formato denso nativo) y `.hcortex.md` (representación humana reversible), sin depender de modelos de lenguaje.
 
@@ -89,7 +91,7 @@ cortex verify --signature skill/cortex/SKILL.md
 
 ## Versiones
 
-- **v0.3.7** (actual) — SKILL v1.3.0 Documentation Alignment. CLI soporta formato v2, docs reorganizadas por idioma, HCORTEX expandido.
+- **v0.4.0** (actual) — License transition a MPL-2.0. SPDX headers, docs/legal/, trademark policy.
 - **v0.3.4** — E2: Security & Governance. Secret scanner, mutation gates, audit log, verify --signature.
 - **v0.3.3** — E1: CI/CD + PyPI. GitHub Actions, ruff 0 errores, publish automático.
 - **v0.3.2** — Nombres canónicos CLI. VIEW-aware canonicalize, corpus VIEW migration.

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Tests that load fixtures and invalid examples from tests/fixtures/ and tests/invalid/."""
 
 import os

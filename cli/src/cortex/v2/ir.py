@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""SkillIR — Intermediate Representation for bidirectional CORTEX ⇄ HCORTEX.
 
 The IR preserves:

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``brain.cortex`` template factory.
 
 Builds a Nivel 2 operative brain with:

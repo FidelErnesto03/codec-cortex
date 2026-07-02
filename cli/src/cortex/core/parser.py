@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``.cortex`` parser — turns raw text into a :class:`CortexDocument` AST.
 
 The parser follows the algorithm in Section 6 of the spec:

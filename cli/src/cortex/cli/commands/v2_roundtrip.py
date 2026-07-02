@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex roundtrip`` — verify CORTEX v2 roundtrip fidelity.
 
 Canonical name: ``roundtrip`` (since v0.3.2).

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Acceptance tests — verify all 15 criteria from Section 18 of the spec.
 
 Each criterion is implemented as a separate test so failures pinpoint

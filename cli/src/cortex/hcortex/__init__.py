@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """HCORTEX package — READ renderer, EDIT renderer, EDIT parser, profiles, recovery."""
 
 from .profiles import (

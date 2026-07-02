@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""CORTEX v2 parser — handles the exact format of ``skill/cortex/SKILL.md``.
 
 The v2 format has these key characteristics:

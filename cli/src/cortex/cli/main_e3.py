@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """E3 CLI wrapper for documentation and benchmark commands.
 
 The historical parser remains the source of truth for existing commands.  This

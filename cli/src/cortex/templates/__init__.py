@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Template factories for new ``.cortex`` documents."""
 
 from .minimal_glossary import build_minimal_glossary

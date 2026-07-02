@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 #
 # CODEC-CORTEX Universal Skill Installer
 # Installs the CODEC-CORTEX SKILL across multiple agent platforms.

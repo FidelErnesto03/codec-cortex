@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""VIEW renderer — renders CORTEX entries as HCORTEX with VIEW markers.
 
 v2.2.1: HCORTEX-R eliminated. HCORTEX is reversible by definition when

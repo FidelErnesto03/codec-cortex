@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex inspect`` — show AST, sections, sigils, VIEW coverage, errors.
 
 Canonical name: ``inspect`` (since v0.3.2).

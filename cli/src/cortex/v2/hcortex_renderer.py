@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""HCORTEX v2 renderer — converts SkillIR to canonical HCORTEX Markdown.
 
 Produces human-readable Markdown with:

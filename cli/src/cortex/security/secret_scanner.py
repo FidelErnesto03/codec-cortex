@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """E2.2 (v0.3.4) — Heuristic secret scanner.
 
 Detects likely secrets (API tokens, passwords, private keys) in text

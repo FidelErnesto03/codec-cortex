@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Allow ``python -m cortex`` to invoke the CLI."""
 
 from .cli.main_e3 import main

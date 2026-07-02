@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Document kind inference and level-policy validation.
 
 Implements the cognitive governance rules that close the audit gaps:

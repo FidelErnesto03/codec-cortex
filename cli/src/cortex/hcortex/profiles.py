@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """HCORTEX profile resolver and priority classifier.
 
 Implements audit gaps B-003, B-004, H-03:

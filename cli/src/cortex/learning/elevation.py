@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Elevation planner: propose, dry-run and apply patches to ``brain.cortex``.
 
 Elevations are the only path through which the learning engine mutates

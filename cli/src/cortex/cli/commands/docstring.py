@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex docstring`` — derive compact Python help text from CORTEX API docs."""
 
 from __future__ import annotations

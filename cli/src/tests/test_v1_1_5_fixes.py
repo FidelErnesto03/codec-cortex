@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v1.1.5 fixes — tests for the $0 section integrity breach.
 
 P0:

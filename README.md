@@ -1,10 +1,10 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
-<!-- SPDX-License-Identifier: MIT -->
+<!-- SPDX-License-Identifier: MPL-2.0 -->
 
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Universal Memory Skill for LLM/SLM Agents
   <br>
-  <sub>v0.3.7 · MIT · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/hcortex/SKILL_HCORTEX.md">Specification</a></sub>
+  <sub>v0.4.0 · MPL-2.0 · <a href="AUTHORS.md">Fidel Ernesto Lozada A.</a> · <a href="skill/hcortex/SKILL_HCORTEX.md">Specification</a></sub>
 </p>
 
 ---
@@ -17,8 +17,8 @@ Its native `.cortex` format is designed for dense model consumption. HCORTEX pro
 |---|---|
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | [github.com/FidelErnesto03/codec-cortex](https://github.com/FidelErnesto03/codec-cortex) |
-| **License** | [MIT](LICENSE) |
-| **Version** | 0.3.7 |
+| **License** | [MPL-2.0](LICENSE) |
+| **Version** | 0.4.0 |
 | **Stage** | Specification / beta |
 
 ---
@@ -200,4 +200,8 @@ See [ROADMAP.md](ROADMAP.md) for phase details.
 
 ## License
 
-MIT — See [LICENSE](LICENSE) for details.
+Starting with CODEC-CORTEX v0.4.0, the project core is licensed under the Mozilla Public License 2.0 (MPL-2.0).
+
+Previous releases published under the MIT License remain available under their original MIT terms. The license change applies prospectively to v0.4.0 and later releases.
+
+The CODEC-CORTEX name, logo, visual identity and related marks are not licensed under MPL-2.0 and are governed by the project trademark policy.

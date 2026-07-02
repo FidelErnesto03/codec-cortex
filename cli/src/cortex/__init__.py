@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """CODEC-CORTEX CLI — modular deterministic processor for .cortex files.
 
 This package implements the CODEC-CORTEX specification: a structural,

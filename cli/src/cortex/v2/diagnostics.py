@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Diagnostics for v2.3.0 — formal error taxonomy.
 
 11 error codes + 1 warning per spec section 5.

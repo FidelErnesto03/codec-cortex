@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Audit gate tests — G1 through G8 from the audit report.
 
 Each gate verifies that the corresponding acceptance criterion

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """HCORTEX → CORTEX encoder v2.4.0 — bidirectional verified release.
 
 v2.3.1 had critical issues:

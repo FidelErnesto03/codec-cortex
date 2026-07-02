@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """v1.1.9 fixes — tests for incomplete $0 repair and AUD/RSK trace.
 
 Fix 1: recover repairs existing but incomplete $0

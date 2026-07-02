@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex verify`` — validate a .cortex file and optionally roundtrip.
 
 v0.3.4 (E2.6): supports ``--signature <MANIFEST>`` (and alias

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex convert`` — convert between CORTEX v2 and HCORTEX.
 
 Canonical name: ``convert`` (since v0.3.2).

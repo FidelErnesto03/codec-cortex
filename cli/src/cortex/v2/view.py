@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""VIEW directives — declarative reversible render for CORTEX ⇄ HCORTEX-R.
 
 Implements the VIEW sigilo: a declarative contract inside CORTEX that

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Re-audit gap tests — CLI end-to-end coverage for H-RA-01 through H-RA-09 + M-RA-02/03/04.
 
 These tests run the actual CLI as subprocesses (not just the internal API)

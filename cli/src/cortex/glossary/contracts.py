@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Positional contracts for ``attrs-pos`` sigils.
 
 A contract is the ordered list of field names that the parser must use

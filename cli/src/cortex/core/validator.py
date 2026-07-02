@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Validator — checks an AST against the CODEC-CORTEX contract.
 
 The validator runs a series of structural rules:

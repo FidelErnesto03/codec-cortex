@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Minimal-glossary factory — produces a fully-seeded :class:`Glossary`.
 
 The minimal glossary always includes the canonical expansion types

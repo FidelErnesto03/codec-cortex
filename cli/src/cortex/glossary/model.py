@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """Glossary model and helpers.
 
 Wraps the :class:`~cortex.core.ast.Glossary` with convenience builders

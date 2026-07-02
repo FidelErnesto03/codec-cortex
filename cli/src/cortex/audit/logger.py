@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """E2.4 (v0.3.4) — On-demand audit logging.
 
 This module implements the audit log described in the E2.4 plan:

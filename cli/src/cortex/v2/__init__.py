@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 r"""CODEC-CORTEX v2 — High-fidelity CORTEX <-> HCORTEX translation.
 
 v2.2.1: HCORTEX is reversible by definition when VIEW coverage is valid.

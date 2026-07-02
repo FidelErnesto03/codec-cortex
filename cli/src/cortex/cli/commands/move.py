@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Fidel Ernesto Lozada A.
+
 """``cortex move`` — move an entry to another section.
 
 v1.1.2: post-mutation validation via :func:`~cortex.cli.commands.post_mutation_gate`
