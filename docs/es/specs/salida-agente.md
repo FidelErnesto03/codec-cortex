@@ -3,7 +3,7 @@
 
 # CODEC-CORTEX — Protocolo de Salida CORTEX-OUT
 
-> **NOTA DE ESTADO:** Este documento es especificación. A v0.3.6 CORTEX-OUT es el protocolo de salida canónico para respuestas de agente CODEC-CORTEX. HCORTEX-OUT PUEDE aparecer como referencia histórica o descriptiva de diseño pero NO DEBE usarse como nombre canónico porque induce a confundirlo con HCORTEX. CORTEX-OUT NO participa en: decode, encode, verify, AST, $0, contratos de sigilos, roundtrip ni persistencia canónica.
+> **NOTA DE ESTADO:** Este documento es especificación. A v0.3.7 CORTEX-OUT es el protocolo de salida canónico para respuestas de agente CODEC-CORTEX. HCORTEX-OUT PUEDE aparecer como referencia histórica o descriptiva de diseño pero NO DEBE usarse como nombre canónico porque induce a confundirlo con HCORTEX. CORTEX-OUT NO participa en: decode, encode, verify, AST, $0, contratos de sigilos, roundtrip ni persistencia canónica.
 
 ---
 
@@ -91,7 +91,7 @@ CORTEX-OUT se compone de bloques opcionales. Usar solo bloques que agreguen valo
 ## 8. Conocimiento
 
 **Nombre canónico:** CORTEX-OUT
-**Estado:** current (v0.3.6)
+**Estado:** current (v0.3.7)
 **Introducido en:** v0.3.2 (como concepto de protocolo de salida)
 
 > **Ver también:** [`flujo-agente.md`](flujo-agente.md) §6 para referencia rápida de perfiles de salida.

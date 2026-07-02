@@ -3,7 +3,7 @@
 
 # CODEC-CORTEX — CORTEX-OUT Protocol
 
-> **STATUS NOTE:** This document is specification. As of v0.3.6 CORTEX-OUT is the canonical output protocol for CODEC-CORTEX agent responses. HCORTEX-OUT may appear as a historical or descriptive design reference but MUST NOT be used as a canonical name — it induces confusion with HCORTEX. CORTEX-OUT does NOT participate in: decode, encode, verify, AST, $0, sigil contracts, roundtrip, or canonical persistence.
+> **STATUS NOTE:** This document is specification. As of v0.3.7 CORTEX-OUT is the canonical output protocol for CODEC-CORTEX agent responses. HCORTEX-OUT may appear as a historical or descriptive design reference but MUST NOT be used as a canonical name — it induces confusion with HCORTEX. CORTEX-OUT does NOT participate in: decode, encode, verify, AST, $0, sigil contracts, roundtrip, or canonical persistence.
 
 ---
 
@@ -91,7 +91,7 @@ CORTEX-OUT is composed of optional blocks. Only blocks that add value should be 
 ## 8. Knowledge
 
 **Canonical name:** CORTEX-OUT
-**Status:** current (v0.3.6)
+**Status:** current (v0.3.7)
 **First introduced:** v0.3.2 (as output protocol concept)
 
 > **See:** [`agent-workflow.md`](agent-workflow.md) §6 for output profile quick-reference.

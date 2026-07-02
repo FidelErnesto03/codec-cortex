@@ -4,12 +4,12 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Context Survival Specification
   <br>
-  <sub>SPECIFICATION · Survival Core · v0.3.6 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · Survival Core · v0.3.7 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificación. A v0.3.6 los conceptos aquí definidos (atributo `survive`, priority pack P0-P5, perfiles MIN/RECOVERY/WORK/FULL, política de degradación, HCORTEX como render target) están implementados en el CLI (`cortex verify`, `cortex render`, `cortex canonicalize`, `cortex inspect`) y en el parser determinista. La métrica de eficiencia contextual sigue siendo conceptual: la automatización de benchmarks de supervivencia está planificada pero no es bloqueante para el uso actual del protocolo.
+> **NOTA DE ESTADO:** Este documento es especificación. A v0.3.7 los conceptos aquí definidos (atributo `survive`, priority pack P0-P5, perfiles MIN/RECOVERY/WORK/FULL, política de degradación, HCORTEX como render target) están implementados en el CLI (`cortex verify`, `cortex render`, `cortex canonicalize`, `cortex inspect`) y en el parser determinista. La métrica de eficiencia contextual sigue siendo conceptual: la automatización de benchmarks de supervivencia está planificada pero no es bloqueante para el uso actual del protocolo.
 
 **Abstract:** Documento único que consolida los fundamentos del Survival Core de CODEC-CORTEX: atributo `survive`, priority pack P0-P5, perfiles conceptuales de carga, política de degradación, HCORTEX como render target, y métrica de eficiencia contextual.
 
@@ -18,7 +18,7 @@
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | github.com/FidelErnesto03/codec-cortex |
 | **License** | MIT |
-| **Version** | v0.3.6 (conceptos implementados en CLI; benchmark automatizado planeado) |
+| **Version** | v0.3.7 (conceptos implementados en CLI; benchmark automatizado planeado) |
 | **Language** | Español |
 
 ---
@@ -144,4 +144,4 @@ Cadena conceptual: `CORTEX-FULL → CORTEX-WORK → CORTEX-RECOVERY → CORTEX-M
 E = Critical_Context_Recovered / Tokens_Used
 ```
 
-La eficiencia se mide por cuántas decisiones, restricciones, foco, objetivo, estado y próximo paso sobreviven por token usado. El conjunto exacto de campos críticos se estabilizará con benchmarks posteriores. A v0.3.6 el parser determinista y el CLI ya existen — la métrica sigue siendo conceptual en tanto no se publiquen suites automatizadas de supervivencia que la calculen de forma reproducible.
+La eficiencia se mide por cuántas decisiones, restricciones, foco, objetivo, estado y próximo paso sobreviven por token usado. El conjunto exacto de campos críticos se estabilizará con benchmarks posteriores. A v0.3.7 el parser determinista y el CLI ya existen — la métrica sigue siendo conceptual en tanto no se publiquen suites automatizadas de supervivencia que la calculen de forma reproducible.

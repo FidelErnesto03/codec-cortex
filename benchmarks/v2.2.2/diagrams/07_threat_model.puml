@@ -1,0 +1,40 @@
+@startuml
+title Threat Model — codec-cortex v0.3.7
+
+skinparam rectangle {
+  BackgroundColor<<threat>> #FEE2E2
+  BackgroundColor<<mitigated>> #D1FAE5
+  BackgroundColor<<unmitigated>> #FEF3C7
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Amenazas mitigadas" as mitigated <<mitigated>> {
+  rectangle "T-01: Secret leakage\nMitigation: E2 secret scanner (12 patrones)\nStatus: implemented v0.3.4" as t01
+  rectangle "T-02: Unauthorized mutation\nMitigation: --mode read-only|editor|admin\nStatus: implemented v0.3.4" as t02
+  rectangle "T-03: Tampered artefacts\nMitigation: SHA256SUMS, verify --signature\nStatus: implemented v0.3.4" as t03
+  rectangle "T-04: Irreversible HCORTEX\nMitigation: VIEW coverage, reversible gate\nStatus: implemented v0.3.2" as t04
+  rectangle "T-05: LLM direct editing\nMitigation: CLE dry_run_first, gates\nStatus: implemented v0.3.6" as t05
+  rectangle "T-06: Privacy exfiltration\nMitigation: local-first, no telemetry\nStatus: implemented by design" as t06
+}
+
+rectangle "No mitigadas" as unmit <<unmitigated>> {
+  rectangle "No formal threat model\nin repo (this benchmark)" as u1
+  rectangle "No specific privacy\npolicy document" as u2
+  rectangle "MCP server (future E5)\nwill need network\nthreat model" as u3
+}
+
+note right of mitigated
+  6 amenazas identificadas,
+  todas con mitigación
+  implementada en E2 (v0.3.4)
+  o por diseño local-first.
+end note
+
+note right of unmit
+  3 gaps documentales:
+  threat model formal,
+  privacy policy, y
+  MCP network surface.
+end note
+@enduml

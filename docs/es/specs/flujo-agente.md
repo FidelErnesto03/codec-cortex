@@ -1,7 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MIT -->
 
-# CODEC-CORTEX — Agent Workflow (v0.3.6)
+# CODEC-CORTEX — Agent Workflow (v0.3.7)
 
 > Especificación del workflow operativo que el agente ejecuta al cargar
 > el skill `codec-cortex`. Complementa al `SKILL.md` canónico con

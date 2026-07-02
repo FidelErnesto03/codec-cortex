@@ -9,7 +9,7 @@
 
 ---
 
-> **STATUS NOTE:** This document is specification or design. As of v0.3.6 the agent-assisted manual consolidation is current Skill usage, and the CLI provides the deterministic codec, the E2 security layer (secret scanner, mutation gates, audit log, signature verification) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). Automatic recurrence detection, promotion, decay and structural reordering by runtime remain planned or future unless verified implementation exists.
+> **STATUS NOTE:** This document is specification or design. As of v0.3.7 the agent-assisted manual consolidation is current Skill usage, and the CLI provides the deterministic codec, the E2 security layer (secret scanner, mutation gates, audit log, signature verification) and the E3 documentation protocol (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`). Automatic recurrence detection, promotion, decay and structural reordering by runtime remain planned or future unless verified implementation exists.
 
 **Abstract:** Defines the CODEC-CORTEX learning process for `brain.cortex`: when to update memory, how to collapse work into `SES` and `LNG`, how to detect candidate knowledge, how to apply Fibonacci thresholds for contextual ascent, when to request human confirmation, what requires `AUD`, and how to distinguish transient native memory, `SES`, `LNG`, `KNW` and `NXT`.
 

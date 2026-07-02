@@ -6,7 +6,7 @@
 **Algorithm:** `golden_fibonacci_v1`
 **Package:** `codec-cortex-learning-engine-0.1.0.tar.gz`
 **Package SHA-256:** see the sidecar file `codec-cortex-learning-engine-0.1.0.tar.gz.sha256` shipped alongside the tarball. (The hash is intentionally NOT embedded inside the tarball to avoid a chicken-and-egg hash recomputation loop.)
-**Target commit:** `9999399` (codec-cortex v0.3.6)
+**Target commit:** `9999399` (codec-cortex v0.3.7)
 
 ---
 

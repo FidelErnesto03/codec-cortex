@@ -3,7 +3,7 @@
 
 # CODEC-CORTEX — Referencia de Directivas VIEW
 
-> **NOTA DE ESTADO:** A v0.3.6 el SKILL.md canónico contiene 44 directivas VIEW cubriendo las 14 secciones. Este documento resume los tipos de VIEW, sus targets y estrategias de reversión.
+> **NOTA DE ESTADO:** A v0.3.7 el SKILL.md canónico contiene 44 directivas VIEW cubriendo las 14 secciones. Este documento resume los tipos de VIEW, sus targets y estrategias de reversión.
 
 ---
 

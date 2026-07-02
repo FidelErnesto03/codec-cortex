@@ -1,0 +1,61 @@
+@startuml
+title Benchmark v2.2.2 — Bridge a LoCoMo/LongMemEval + 4 familias
+
+skinparam rectangle {
+  BackgroundColor<<bridge>> #DBEAFE
+  BackgroundColor<<family>> #EDE9FE
+  BackgroundColor<<metric>> #FEF3C7
+  BackgroundColor<<audit>> #FEE2E2
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Bridge Benchmark\n(NEW v2.2.2)" as bridge <<bridge>> {
+  rectangle "30 tareas estilo\nLoCoMo + LongMemEval\n(single/multi-hop,\ntemporal, info-flow)" as tasks
+  rectangle "codec-cortex: 100% EAS\n(30/30 tareas pasan)" as codec_bridge
+}
+
+rectangle "4 Familias comparadas" as fams <<family>> {
+  rectangle "codec-cortex\n(determinista, local)\n0★, 120 commits" as f1
+  rectangle "Mem0\n(memory layer, LLM)\n60k★, 2432 commits\nLoCoMo=91.6%" as f2
+  rectangle "Zep/Graphiti\n(temporal KG)\n28.3k★, 881 commits\nLoCoMo=94.7%" as f3
+  rectangle "Letta\n(stateful harness)\n23.6k★, 7466 commits\nLoCoMo=74.0%" as f4
+  rectangle "LangMem\n(LangGraph SDK)\n1.5k★, 135 commits" as f5
+}
+
+rectangle "Resource Metrics\n(NEW v2.2.2)" as res <<metric>> {
+  rectangle "Throughput: 4.7 files/s\nLatency: 214 ms/file\nPeak RAM: 0.06 MB" as res_data
+}
+
+rectangle "Version Audit\n(NEW v2.2.2)" as ver <<audit>> {
+  rectangle "42 surfaces con v0.3.6\n0 surfaces con v0.3.7\nCHANGELOG sin entrada v0.3.7" as ver_data
+}
+
+tasks --> codec_bridge
+codec_bridge --> f1
+f1 ..> f2 : diferente familia
+f1 ..> f3 : diferente familia
+f1 ..> f4 : diferente familia
+f1 ..> f5 : diferente familia
+
+note right of bridge
+  Aborda recomendación #1
+  del informe analítico:
+  bridge a benchmarks
+  estándar de memoria.
+end note
+
+note right of res
+  Aborda recomendación #3:
+  métricas de throughput,
+  RAM y CPU no especificadas
+  en versiones anteriores.
+end note
+
+note right of ver
+  Aborda recomendación #1:
+  alinear versiones v0.3.6
+  → v0.3.7 en todas las
+  superficies del repo.
+end note
+@enduml

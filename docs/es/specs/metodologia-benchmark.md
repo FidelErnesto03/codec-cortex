@@ -4,12 +4,12 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Benchmark Methodology
   <br>
-  <sub>SPECIFICATION · Survival Core · v0.3.6 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · Survival Core · v0.3.7 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificación. A v0.3.6 el parser determinista, el CLI y `cortex benchmark` (inventario + validación de suites) están implementados. Las suites científicas v1.0.0, v2.0.0 y v2.1.0 existen en `benchmarks/` con 4,840 runs cada una. Las suites 0.1, 0.1b y 0.2 siguen listadas como referencia histórica offline/proxy. La metodología descrita aquí es aplicable tanto a las suites existentes como a futuras automatizaciones de supervivencia contextual.
+> **NOTA DE ESTADO:** Este documento es especificación. A v0.3.7 el parser determinista, el CLI y `cortex benchmark` (inventario + validación de suites) están implementados. Las suites científicas v1.0.0, v2.0.0 y v2.1.0 existen en `benchmarks/` con 4,840 runs cada una. Las suites 0.1, 0.1b y 0.2 siguen listadas como referencia histórica offline/proxy. La metodología descrita aquí es aplicable tanto a las suites existentes como a futuras automatizaciones de supervivencia contextual.
 
 **Abstract:** Metodología de benchmark centrada en supervivencia de decisiones — no en ocurrencia de términos. Define 5 preguntas de evaluación, 2 escenarios, y métricas de tasa de supervivencia contextual. Las suites 0.1, 0.1b y 0.2 existen como evidencia offline/proxy; las suites v1.0.0, v2.0.0 y v2.1.0 son benchmarks científicos reproducibles publicados en `benchmarks/`.
 
@@ -18,7 +18,7 @@
 | **Author** | Fidel Ernesto Lozada A. — Systems Engineer / MSc. Management Sciences |
 | **Repository** | github.com/FidelErnesto03/codec-cortex |
 | **License** | MIT |
-| **Version** | v0.3.6 (methodology; suites v1.0.0 / v2.0.0 / v2.1.0 publicadas) |
+| **Version** | v0.3.7 (methodology; suites v1.0.0 / v2.0.0 / v2.1.0 publicadas) |
 | **Language** | Español |
 
 ---
@@ -89,4 +89,4 @@ CODEC-CORTEX no mide eficiencia por compresión de bytes. La mide por cuántas d
 | **0.1b** | — | offline/proxy | `cortex_priority_pack` como experimento (referencia histórica) |
 | **0.1** | — | offline/proxy | Evaluación inicial de densidad y compresión (referencia histórica) |
 
-Las suites v1.0.0, v2.0.0 y v2.1.0 se publican en `benchmarks/` con corpus, scripts y resultados reproducibles. Las suites 0.1, 0.1b y 0.2 son artefactos generados por agentes externos como evidencia temprana. A v0.3.6 `cortex benchmark --list` y `cortex benchmark --suite <name>` permiten inventariar y validar las suites locales; la automatización de la metodología de supervivencia descrita en §2-§4 sobre nuevos escenarios es trabajo en curso.
+Las suites v1.0.0, v2.0.0 y v2.1.0 se publican en `benchmarks/` con corpus, scripts y resultados reproducibles. Las suites 0.1, 0.1b y 0.2 son artefactos generados por agentes externos como evidencia temprana. A v0.3.7 `cortex benchmark --list` y `cortex benchmark --suite <name>` permiten inventariar y validar las suites locales; la automatización de la metodología de supervivencia descrita en §2-§4 sobre nuevos escenarios es trabajo en curso.

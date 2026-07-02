@@ -1,7 +1,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: HCORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.6
+source_version: 0.3.7
 status: current
 reversible: true
 view_schema: 1
@@ -18,7 +18,7 @@ mode: audit
 | Dimensión | Valor |
 |-----------|-------|
 | **Rol** | Operador del protocolo CODEC-CORTEX |
-| **Versión del protocolo** | 0.3.6 |
+| **Versión del protocolo** | 0.3.7 |
 | **Dominio** | Gestión de memoria contextual para agentes LLM |
 | **Formato nativo** | `.cortex` — memoria contextual estructurada |
 | **Salida humana** | CORTEX-OUT (respuesta conversacional) |
@@ -69,7 +69,7 @@ mode: audit
 
 | Dimensión | Valor |
 |-----------|-------|
-| **Foco** | Operación v0.3.6 — CLI con nombres canónicos, E2 security, E3 documentation |
+| **Foco** | Operación v0.3.7 — CLI con nombres canónicos, E2 security, E3 documentation |
 | **Archivos activos** | brain.cortex, skill/cortex/SKILL.md |
 | **Prioridad** | Alta |
 
