@@ -1,0 +1,152 @@
+{
+  "schema_version": "0.1.0",
+  "engine_version": "0.1.0",
+  "brain_hash": "sha256:096852c073d8509d297838b5587a1b2d3b352b27eb831cbb67cab6b281843553",
+  "policy_hash": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+  "algorithm": "golden_fibonacci_v1",
+  "entries": {
+    "WRK:state": {
+      "entry_id": "WRK:state",
+      "selector": "WRK:state",
+      "fingerprint": "sha256:5d95f347623dbc0ec0dfad1f558211b02cc6944409b8f0dbe4179c7717866f3d",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P3",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "RSK:alarm_fatigue": {
+      "entry_id": "RSK:alarm_fatigue",
+      "selector": "RSK:alarm_fatigue",
+      "fingerprint": "sha256:8253af58593d85049ec021706ebfe19b3673d974259595726e165b1715c6cdd2",
+      "hotness_score": 1,
+      "promotion_score": 13,
+      "risk_weight": 13,
+      "read_priority": "P1",
+      "candidate": true,
+      "suggested_action": "propose_priority_boost",
+      "signals": [
+        "observed",
+        "risk_preventing"
+      ],
+      "hits": 1
+    },
+    "IDN:system": {
+      "entry_id": "IDN:system",
+      "selector": "IDN:system",
+      "fingerprint": "sha256:bffe21aa4f4a3f051c5c49a915b594a8281109ad9b97daaf2377250a67b468ae",
+      "hotness_score": 21,
+      "promotion_score": 5,
+      "risk_weight": 21,
+      "read_priority": "P1",
+      "candidate": false,
+      "suggested_action": "protect",
+      "signals": [
+        "observed",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "DOM:project": {
+      "entry_id": "DOM:project",
+      "selector": "DOM:project",
+      "fingerprint": "sha256:93a24a34e43ea9feeeb97158d2f2a67262cb7423a32eb2972742bdfc03697bcb",
+      "hotness_score": 1,
+      "promotion_score": 1,
+      "risk_weight": 1,
+      "read_priority": "P5",
+      "candidate": false,
+      "suggested_action": "index",
+      "signals": [
+        "observed"
+      ],
+      "hits": 1
+    },
+    "CNST:hitl": {
+      "entry_id": "CNST:hitl",
+      "selector": "CNST:hitl",
+      "fingerprint": "sha256:8294bc5844be383f2ef9822a87b8a207568e4cb2e5216ec85880a71ab4b2cc29",
+      "hotness_score": 21,
+      "promotion_score": 5,
+      "risk_weight": 21,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "CNST:disclaimer": {
+      "entry_id": "CNST:disclaimer",
+      "selector": "CNST:disclaimer",
+      "fingerprint": "sha256:966df8567591282622f1a2b9b28c132de2c7ed9e7731cb998abf6ca070453578",
+      "hotness_score": 21,
+      "promotion_score": 5,
+      "risk_weight": 21,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "FCS:primary": {
+      "entry_id": "FCS:primary",
+      "selector": "FCS:primary",
+      "fingerprint": "sha256:0ec977f5729f64e2c4b5f8fa50059f4a104d32e90776aa02448a41a48b166dc4",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "OBJ:alert": {
+      "entry_id": "OBJ:alert",
+      "selector": "OBJ:alert",
+      "fingerprint": "sha256:8b94c0ab4265e0c9b1d296bf0ad7d98e65f1bb49aa443ca0f26877fe123fb66f",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "STP:next": {
+      "entry_id": "STP:next",
+      "selector": "STP:next",
+      "fingerprint": "sha256:c1d7af004d62bd764202939a4524baf4cf66ebd318d8dd9013ef02a692979996",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    }
+  }
+}

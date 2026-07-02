@@ -1,0 +1,15 @@
+{
+  "identity": {"name": "tutor-agent-v2", "role": "adaptive learning"},
+  "domain": {"area": "edu-adaptive", "student_id": "stu_3301", "subject": "algebra-basics"},
+  "constraints": [
+    {"id": "no_frustration", "rule": "3 fallos consecutivos => reducir dificultad", "severity": "blocking", "survive": "min"},
+    {"id": "coppa", "rule": "no PII para estudiantes < 13 anos", "severity": "blocking", "survive": "min"}
+  ],
+  "focus": {"what": "Adaptar leccion algebra-basics para stu_3301", "priority": "high", "status": "current", "survive": "min"},
+  "objective": {"goal": "Estudiante alcanza 80% mastery en subtopic eq-lineal", "status": "in_progress", "success": "3 ejercicios consecutivos correctos", "survive": "min"},
+  "work": {"phase": "adaptacion", "current": "2 fallos consecutivos en eq-lineal-2, dificultad=medium", "blocked": false, "survive": "work"},
+  "step": {"action": "Reducir dificultad a easy y ofrecer hint guiado", "owner": "tutor-agent", "status": "current", "survive": "min"},
+  "risks": [{"id": "boredom", "risk": "5 aciertos consecutivos sin subir dificultad causa abandono", "impact": "medium", "mitigation": "auto-bump dificultad tras 5 aciertos"}],
+  "claims": [{"id": "zone", "statement": "Mantener dificultad en zona proximal desarrollo mejora retencion 35%", "evidence": "Vygotsky-based pilot 2025"}],
+  "limits": [{"id": "session", "limit": "Sesion maximo 30 minutos continuos"}]
+}

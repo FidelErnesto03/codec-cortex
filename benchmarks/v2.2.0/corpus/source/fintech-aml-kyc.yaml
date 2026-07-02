@@ -1,0 +1,32 @@
+identity:
+  name: aml-engine-v4
+  role: KYC/AML screening
+domain:
+  area: aml-kyc
+  jurisdiction: EU
+  customer_id: cust_5512
+constraints:
+  - id: freeze
+    rule: score > 0.9 MUST freeze account pending review
+    severity: blocking
+    survive: min
+  - id: audit_log
+    rule: decision rationale MUST be logged with timestamp
+    severity: blocking
+    survive: min
+focus:
+  what: KYC screening cust_5512 high-value onboarding
+  status: current
+  survive: min
+objective:
+  goal: Decidir approve/review/reject para cuenta cust_5512
+  status: in_progress
+  survive: min
+work:
+  phase: screening
+  current: PEP match=true, sanctions=false, score=0.92
+  blocked: false
+step:
+  action: Freeze account y escalar a compliance officer
+  status: current
+  survive: min

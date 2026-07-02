@@ -1,0 +1,32 @@
+identity:
+  name: tutor-agent-v2
+  role: adaptive learning
+domain:
+  area: edu-adaptive
+  student_id: stu_3301
+  subject: algebra-basics
+constraints:
+  - id: no_frustration
+    rule: 3 fallos consecutivos => reducir dificultad
+    severity: blocking
+    survive: min
+  - id: coppa
+    rule: no PII para estudiantes < 13 anos
+    severity: blocking
+    survive: min
+focus:
+  what: Adaptar leccion algebra-basics para stu_3301
+  status: current
+  survive: min
+objective:
+  goal: Estudiante alcanza 80% mastery en subtopic eq-lineal
+  status: in_progress
+  survive: min
+work:
+  phase: adaptacion
+  current: 2 fallos consecutivos en eq-lineal-2, dificultad=medium
+  blocked: false
+step:
+  action: Reducir dificultad a easy y ofrecer hint guiado
+  status: current
+  survive: min

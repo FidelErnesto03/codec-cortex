@@ -1,0 +1,16 @@
+# -- $0: GLOSSARY --
+GSIG:IDN{sigil:"IDN", name:"identity", type:"attrs", risk:"B", description:"workspace identity"}
+GSIG:REF{sigil:"REF", name:"reference", type:"attrs", risk:"B", description:"workspace file reference"}
+GSIG:CNST{sigil:"CNST", name:"constraint", type:"attrs", risk:"H", description:"workspace hard rule"}
+
+# -- $1: IDENTITY --
+IDN:workspace{name:"codec_cortex_workspace", version:"0.1.0"}
+
+# -- $2: FILES --
+REF:brain{path:".cortex/brain.cortex", role:"operational_memory", required:true, canonical:true}
+REF:learn_policy{path:".cortex/learn-policies.cortex", role:"learning_policy", required:false, canonical:true}
+REF:learn_index{path:".cortex/index/learn-index.json", role:"learning_performance_index", required:false, canonical:false, rebuildable:true}
+
+# -- $3: CONSTRAINTS --
+CNST:no_direct_llm_mutation{rule:"LLM/SLM must request mutations through the learning engine", severity:"blocking"}
+CNST:index_rebuildable{rule:"learning index is derived and rebuildable; it is not canonical memory", severity:"blocking"}

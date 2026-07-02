@@ -1,0 +1,217 @@
+{
+  "schema_version": "0.1.0",
+  "engine_version": "0.1.0",
+  "brain_hash": "sha256:9880c84565d0f41fcc1011b5b7377dd5670d6e5600f5c63fccacf7935bd1b790",
+  "policy_hash": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+  "algorithm": "golden_fibonacci_v1",
+  "entries": {
+    "WRK:state": {
+      "entry_id": "WRK:state",
+      "selector": "WRK:state",
+      "fingerprint": "sha256:7cb698d90b04daee732c7439b8952fc9a75c5ef2b2578260581365cc332d7efd",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P3",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "RSK:pdb_violation": {
+      "entry_id": "RSK:pdb_violation",
+      "selector": "RSK:pdb_violation",
+      "fingerprint": "sha256:a9edeb236b537665c688a5b8d30fa77909dc129b3648a466982be80a26dbdd54",
+      "hotness_score": 1,
+      "promotion_score": 13,
+      "risk_weight": 13,
+      "read_priority": "P1",
+      "candidate": true,
+      "suggested_action": "propose_priority_boost",
+      "signals": [
+        "observed",
+        "risk_preventing"
+      ],
+      "hits": 1
+    },
+    "NXT:verify_pdb": {
+      "entry_id": "NXT:verify_pdb",
+      "selector": "NXT:verify_pdb",
+      "fingerprint": "sha256:aff8259e8c8b377cb8b8367badd36848c4588b1589536242296d572df1337293",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P3",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "NXT:rollback": {
+      "entry_id": "NXT:rollback",
+      "selector": "NXT:rollback",
+      "fingerprint": "sha256:e4ab9bf456fc0ae7930c416bec6eb9efaa0bd87535626bdb776b2e8f19a2b4d7",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P3",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "CLAIM:strategy": {
+      "entry_id": "CLAIM:strategy",
+      "selector": "CLAIM:strategy",
+      "fingerprint": "sha256:016da14c4173ab314c5295f0b26d000cddeb7cb01a403764ad4d3a770f1b6774",
+      "hotness_score": 21,
+      "promotion_score": 18,
+      "risk_weight": 21,
+      "read_priority": "P1",
+      "candidate": false,
+      "suggested_action": "protect",
+      "signals": [
+        "observed",
+        "risk_preventing",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "LIM:timeout": {
+      "entry_id": "LIM:timeout",
+      "selector": "LIM:timeout",
+      "fingerprint": "sha256:067ae6b818a93a526808251f5faa0c27a2ca6eb587d193dd48639e36b8db1567",
+      "hotness_score": 21,
+      "promotion_score": 18,
+      "risk_weight": 21,
+      "read_priority": "P1",
+      "candidate": false,
+      "suggested_action": "protect",
+      "signals": [
+        "observed",
+        "risk_preventing",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "IDN:operator": {
+      "entry_id": "IDN:operator",
+      "selector": "IDN:operator",
+      "fingerprint": "sha256:651918a33dc1501078214cccdcae121a7cc167f528c0746bd267bc1fc5faefc8",
+      "hotness_score": 21,
+      "promotion_score": 5,
+      "risk_weight": 21,
+      "read_priority": "P1",
+      "candidate": false,
+      "suggested_action": "protect",
+      "signals": [
+        "observed",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "DOM:project": {
+      "entry_id": "DOM:project",
+      "selector": "DOM:project",
+      "fingerprint": "sha256:ef62e7e266df5bdc7a14d3d160ba2888098c3dff4ec08a4920336f2586662935",
+      "hotness_score": 1,
+      "promotion_score": 1,
+      "risk_weight": 1,
+      "read_priority": "P5",
+      "candidate": false,
+      "suggested_action": "index",
+      "signals": [
+        "observed"
+      ],
+      "hits": 1
+    },
+    "CNST:no_downtime": {
+      "entry_id": "CNST:no_downtime",
+      "selector": "CNST:no_downtime",
+      "fingerprint": "sha256:99fe8c24b67893c1c737df1810a7f975b24a5d7dc1f761d8b50a02a0915abdba",
+      "hotness_score": 21,
+      "promotion_score": 5,
+      "risk_weight": 21,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "critical"
+      ],
+      "hits": 1
+    },
+    "CNST:registry": {
+      "entry_id": "CNST:registry",
+      "selector": "CNST:registry",
+      "fingerprint": "sha256:e476b58f6f8779548fd4d37f3d893cfa85d070e21a3551863ced9e5f27f1590a",
+      "hotness_score": 1,
+      "promotion_score": 1,
+      "risk_weight": 13,
+      "read_priority": "P5",
+      "candidate": false,
+      "suggested_action": "index",
+      "signals": [
+        "observed"
+      ],
+      "hits": 1
+    },
+    "FCS:primary": {
+      "entry_id": "FCS:primary",
+      "selector": "FCS:primary",
+      "fingerprint": "sha256:e65adc01115e425fea1a7017d36e3ba3662c09946aced14c01cc394bd5257ff1",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "OBJ:rollout": {
+      "entry_id": "OBJ:rollout",
+      "selector": "OBJ:rollout",
+      "fingerprint": "sha256:f82be860e897706b92288b79492da62d99c17e028ef3aa4ba30e6e9504e02ab8",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    },
+    "STP:next": {
+      "entry_id": "STP:next",
+      "selector": "STP:next",
+      "fingerprint": "sha256:53b08e873a57e4b992f092682e8397a12b9be5c7efe338187bbe1fbef142a30a",
+      "hotness_score": 1,
+      "promotion_score": 5,
+      "risk_weight": 5,
+      "read_priority": "P0",
+      "candidate": true,
+      "suggested_action": "consider_elevation",
+      "signals": [
+        "observed",
+        "decision_relevant"
+      ],
+      "hits": 1
+    }
+  }
+}

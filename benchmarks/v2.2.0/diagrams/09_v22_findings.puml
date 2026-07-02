@@ -1,0 +1,48 @@
+@startuml
+title Hallazgos clave del benchmark v2.2.0
+
+skinparam rectangle {
+  BackgroundColor<<positive>> #D1FAE5
+  BackgroundColor<<neutral>> #FEF3C7
+  BackgroundColor<<new>> #DCFCE7
+  BackgroundColor<<finding>> #EDE9FE
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Novedades v2.2.0" as nov <<new>> {
+  rectangle "Learning Engine v0.1.0\n(cortex learn scan/candidates/elevate)\nFunciona: 1.05 candidates/run\n0.65 promotion_score" as n1
+  rectangle "E2 Security\n0 secrets en corpus limpio\naudit + scan-secrets + --mode" as n2
+  rectangle "SKILL v1.3.0\nReescrito en HCORTEX\n35 VIEW directives\nAGENT.md con KNW CLI" as n3
+}
+
+rectangle "Resultados positivos" as pos <<positive>> {
+  rectangle "CORTEX PP v2 = ganador\nWS = 9.47 (+2.29 vs v1)\n(+0.16 vs v2.1.0)" as r1
+  rectangle "Learning metrics activas\nen todos los metodos CODEC\n(1.05, 0.65, 0.58, 0.0)" as r2
+  rectangle "MRD = +4.38\n(igual que v2.1.0)\nVentaja mantenida" as r3
+  rectangle "QDD = -6.39\n(vs -6.24 en v2.1.0)\nLigera ampliacion" as r4
+  rectangle "BCFNR = 0 mantenido\n0 secrets detectados\nCorpus seguro" as r5
+}
+
+rectangle "Trade-offs" as trade <<neutral>> {
+  rectangle "EAS 0.950 (mantiene v2.1)\nNombres canonicos v2\nPersiste vs v1" as t1
+  rectangle "+130 tokens vs v1\n(menos que v2.1: +396)\nPor learning scan en full" as t2
+}
+
+rectangle "Issues pendientes" as pend <<neutral>> {
+  rectangle "roundtrip-bidir direction 1\nE_TABLE_SCHEMA_MISMATCH\n(known limitation, CI non-blocking)" as p1
+  rectangle "SKILL canónico 21% VIEW coverage\n(synthetic_knw entries no cubiertas)\n vs corpus 100%" as p2
+}
+
+nov --> pos
+pos --> trade
+pos --> pend
+
+note right of nov
+  v0.3.6 anade:
+  - Learning Engine (CLE v0.1.0)
+  - E2 Security (secret scanner)
+  - SKILL v1.3.0 (HCORTEX)
+  - AGENT.md actualizado
+end note
+@enduml
