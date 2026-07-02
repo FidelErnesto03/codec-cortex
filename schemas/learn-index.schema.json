@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CODEC-CORTEX Learning Index",
+  "type": "object",
+  "required": ["schema_version", "engine_version", "brain_hash", "policy_hash", "algorithm", "entries"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "engine_version": {"type": "string"},
+    "brain_hash": {"type": "string", "pattern": "^sha256:.+"},
+    "policy_hash": {"type": "string", "pattern": "^sha256:.+"},
+    "algorithm": {"type": "string"},
+    "entries": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["entry_id", "selector", "fingerprint", "hotness_score", "promotion_score", "risk_weight", "read_priority", "candidate", "signals"],
+        "properties": {
+          "entry_id": {"type": "string"},
+          "selector": {"type": "string"},
+          "fingerprint": {"type": "string"},
+          "hotness_score": {"type": "integer", "minimum": 0},
+          "promotion_score": {"type": "integer", "minimum": 0},
+          "risk_weight": {"type": "integer", "minimum": 0},
+          "read_priority": {"type": "string", "enum": ["P0", "P1", "P2", "P3", "P4", "P5"]},
+          "candidate": {"type": "boolean"},
+          "suggested_action": {"type": "string"},
+          "signals": {"type": "array", "items": {"type": "string"}},
+          "hits": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
