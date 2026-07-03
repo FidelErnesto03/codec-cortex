@@ -1,6 +1,3 @@
-<!-- SPDX-License-Identifier: MPL-2.0 -->
-<!-- Copyright (c) 2026 Fidel Ernesto Lozada A. -->
-
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
 source_artifact: skill/cortex/SKILL.md
@@ -58,7 +55,7 @@ $0:micro_t1{expand:structure}
 $0:enum_state{}
 
 $1
-IDN:project{name:"CODEC-CORTEX",autor:"Fidel Ernesto Lozada A.",versión del skill:"1.3.0",licencia:"MIT",versión del proyecto:"v0.3.6",repositorio:"github.com/FidelErnesto03/codec-cortex",dominio:"Protocolo de memoria contextual para agentes LLM/SLM",idioma estructural:"EN",idioma semántico:"Idioma del dominio o usuario",salida para humanos:"HCORTEX=render de memoria; CORTEX-OUT=respuesta conversacional"}
+IDN:project{name:"CODEC-CORTEX",autor:"Fidel Ernesto Lozada A.",versión del skill:"1.3.0",licencia:"MIT",versión del proyecto:"v0.3.7",repositorio:"github.com/FidelErnesto03/codec-cortex",dominio:"Protocolo de memoria contextual para agentes LLM/SLM",idioma estructural:"EN",idioma semántico:"Idioma del dominio o usuario",salida para humanos:"HCORTEX=render de memoria; CORTEX-OUT=respuesta conversacional"}
 REF:skill{path:"skill/cortex/SKILL.md",role:"Especificación canónica del protocolo (CORTEX)",formato:"CORTEX"}
 REF:brain{path:"brain.cortex",role:"Estado vivo de trabajo",formato:"CORTEX"}
 REF:entry{path:"*.cortex",role:"Paquetes de contexto transportables",formato:"CORTEX"}
@@ -100,7 +97,7 @@ KNW:brain_location{| Propiedad | Valor |
 | **Ubicación canónica** | Raíz del proyecto (`./brain.cortex`) |
 | **Formato** | CORTEX (`internal_encoding: CORTEX`) |
 | **Propósito** | Estado vivo del proyecto: foco activo, objetivos, trabajo, sesiones, lecciones, auditoría |
-| **Carga** | `agent_init` → leer si existe; si no, crear desde cero |
+| **Carga** | `agent_init` → leer si existe; si no, crear desde cero usando `cortex learn init --workspace .` |
 | **Persistencia** | Agente escribe en cada `session_close` |
 | **Verificación** | `cortex verify --strict brain.cortex` antes de commit |
 | **Relación con SKILL** | SKILL.md es el canon de instalación (reglas); brain.cortex es el estado operativo (datos) |}
@@ -149,13 +146,20 @@ skinparam activity {
 
 start
 :agent_init;
+
 :Leer skill/cortex/SKILL.md (CORTEX);
 :Identificar reglas, handlers y contratos;
+
+if (¿Existe .cortex/?) then (no)
+  :Crear workspace automáticamente:\ncortex learn init --workspace .;
+  note right: MANIFEST.cortex + brain.cortex\n+ learn-policies.cortex + index/
+endif
 
 if (¿brain.cortex existe?) then (sí)
   :Leer brain.cortex;
 else (no)
-  :Inicializar memoria nativa transitoria\nen formato CORTEX;
+  :Crear brain.cortex desde template;
+  note right: cortex new brain --out brain.cortex\no template desde templates/.cortex/
 endif
 
 if (¿FCS y OBJ explícitos?) then (sí)

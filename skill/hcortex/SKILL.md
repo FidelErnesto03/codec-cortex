@@ -64,7 +64,7 @@ mode: full
 | **Ubicación canónica** | Raíz del proyecto (`./brain.cortex`) |
 | **Formato** | CORTEX (`internal_encoding: CORTEX`) |
 | **Propósito** | Estado vivo del proyecto: foco activo, objetivos, trabajo, sesiones, lecciones, auditoría |
-| **Carga** | `agent_init` → leer si existe; si no, crear desde cero |
+| **Carga** | `agent_init` → leer si existe; si no, crear desde cero usando `cortex learn init --workspace .` |
 | **Persistencia** | Agente escribe en cada `session_close` |
 | **Verificación** | `cortex verify --strict brain.cortex` antes de commit |
 | **Relación con SKILL** | SKILL.md es el canon de instalación (reglas); brain.cortex es el estado operativo (datos) |
@@ -265,13 +265,20 @@ skinparam activity {
 
 start
 :agent_init;
+
 :Leer skill/cortex/SKILL.md (CORTEX);
 :Identificar reglas, handlers y contratos;
+
+if (¿Existe .cortex/?) then (no)
+  :Crear workspace automáticamente:\ncortex learn init --workspace .;
+  note right: MANIFEST.cortex + brain.cortex\n+ learn-policies.cortex + index/
+endif
 
 if (¿brain.cortex existe?) then (sí)
   :Leer brain.cortex;
 else (no)
-  :Inicializar memoria nativa transitoria\nen formato CORTEX;
+  :Crear brain.cortex desde template;
+  note right: cortex new brain --out brain.cortex\no template desde templates/.cortex/
 endif
 
 if (¿FCS y OBJ explícitos?) then (sí)

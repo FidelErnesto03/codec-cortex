@@ -50,12 +50,12 @@ Al iniciar en cualquier directorio, el agente DEBE ejecutar estas reglas en orde
 2. **Si encuentra `.cortex/MANIFEST.cortex` o `.cortex/brain.cortex`:**
    - Activar el skill CODEC-CORTEX automáticamente.
    - Cargar `skill/cortex/SKILL.md` (canon de instalación).
-   - Leer `brain.cortex` si existe.
+   - Leer `brain.cortex` si existe; si no, crearlo desde template.
    - Aplicar el flujo `agent_init` del skill.
 3. **Si NO encuentra `.cortex/`:**
-   - Operar normalmente sin CODEC-CORTEX.
-   - Si el usuario pide explícitamente "carga CODEC-CORTEX" o "activa codec-cortex", cargar el skill manualmente.
-   - Ofrecer inicializar: `cortex learn init --workspace .`
+   - Crear el workspace automáticamente: `cortex learn init --workspace .`
+   - Esto genera `.cortex/` con MANIFEST.cortex, brain.cortex, learn-policies.cortex e index/.
+   - Activar CODEC-CORTEX y continuar con el flujo `agent_init`.
 4. **Una vez activado:** toda la memoria del agente se gestiona en formato CORTEX. Las respuestas usan CORTEX-OUT.
 
 <!-- /VIEW:entrypoint -->
