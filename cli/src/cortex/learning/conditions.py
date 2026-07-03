@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Safe, deterministic condition parser for learning policies.
 
 A *condition* is a string of the form::

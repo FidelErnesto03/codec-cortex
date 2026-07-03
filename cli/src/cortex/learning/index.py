@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Rebuildable learning index (``learn-index.json``).
 
 The index is the performance cache for the engine — never canonical
@@ -13,7 +10,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from ..core.ast import CortexDocument, Entry
 from . import ALGORITHM, ENGINE_VERSION, SCHEMA_VERSION
@@ -77,6 +74,7 @@ class LearnIndex:
                 suggested_action=v.get("suggested_action", "index"),
                 signals=list(v.get("signals", [])),
                 hits=int(v.get("hits", 1)),
+                last_accessed=v.get("last_accessed", ""),
             )
         return cls(
             schema_version=data.get("schema_version", SCHEMA_VERSION),
@@ -150,11 +148,18 @@ def rebuild_index(
     *,
     engine_version: str = ENGINE_VERSION,
     algorithm: str = ALGORITHM,
+    previous_index: Optional[LearnIndex] = None,
+    now_iso: Optional[str] = None,
 ) -> LearnIndex:
     """Rebuild the learn-index from a parsed brain + policy set.
 
     Implements the pseudocode in SPEC §6.2. Deterministic: same inputs
     always produce the same entries, in the same order.
+
+    v0.2.0: when ``previous_index`` is provided, the rebuilt index
+    preserves each entry's ``last_accessed`` timestamp from the
+    previous index. New entries get ``last_accessed = now_iso`` (or
+    the current UTC time if ``now_iso`` is None).
     """
 
     # Step 1: collect candidate entries (those the policy allows scanning)
@@ -175,6 +180,11 @@ def rebuild_index(
     # Step 2: compute cluster hits per fingerprint group
     # (entries with the same sigil + topic/outcome/lesson count as one cluster)
     cluster_map = _compute_cluster_map(candidates)
+
+    # v0.2.0 — fallback "now" timestamp for new entries
+    if now_iso is None:
+        from datetime import datetime, timezone
+        now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # Step 3: score each entry
     entries: Dict[str, ScoreRecord] = {}
@@ -198,6 +208,12 @@ def rebuild_index(
             promotion >= policy_set.threshold("candidate") and not protected
         )
         selector = f"{entry.sigil}:{entry.name}"
+        # v0.2.0 — preserve last_accessed from previous index, else stamp now
+        last_accessed = now_iso
+        if previous_index is not None:
+            prev_rec = previous_index.entries.get(selector)
+            if prev_rec is not None and prev_rec.last_accessed:
+                last_accessed = prev_rec.last_accessed
         entries[selector] = ScoreRecord(
             entry_id=selector,
             selector=selector,
@@ -210,6 +226,7 @@ def rebuild_index(
             suggested_action=action,
             signals=signals.to_list(),
             hits=cluster_hits,
+            last_accessed=last_accessed,
         )
 
     return LearnIndex(
@@ -252,7 +269,11 @@ def _compute_cluster_map(entries: List[Entry]) -> Dict[str, int]:
 
 
 def rebuild_for_workspace(workspace: Workspace) -> LearnIndex:
-    """Rebuild the index for a workspace and persist it to disk."""
+    """Rebuild the index for a workspace and persist it to disk.
+
+    v0.2.0: preserves ``last_accessed`` timestamps from any existing
+    on-disk index so decay history survives a rebuild.
+    """
 
     brain_doc = workspace.parse_brain()
     policy_doc = workspace.parse_policy()
@@ -260,7 +281,16 @@ def rebuild_for_workspace(workspace: Workspace) -> LearnIndex:
     ps = parse_policy_document(policy_doc)
     brain_hash = workspace.brain_hash()
     policy_hash = workspace.policy_hash()
-    idx = rebuild_index(brain_doc, ps, brain_hash, policy_hash)
+    previous_index = None
+    if workspace.index_path.exists():
+        try:
+            previous_index = load_index(workspace.index_path)
+        except Exception:
+            previous_index = None
+    idx = rebuild_index(
+        brain_doc, ps, brain_hash, policy_hash,
+        previous_index=previous_index,
+    )
     workspace.ensure_dirs()
     save_index(idx, workspace.index_path)
     return idx

@@ -665,6 +665,14 @@ def build_parser() -> argparse.ArgumentParser:
     from ..learning.cli import add_learn_subparser
     add_learn_subparser(sub)
 
+    # ------------------------------------------------------------------
+    # session  (v0.2.0 — CODEC-CORTEX session lifecycle)
+    # Wraps the learning engine's session module: start / status /
+    # consolidate / close. See learning-engine-evolution.md §A.
+    # ------------------------------------------------------------------
+    from ..learning.session_cli import add_session_subparser
+    add_session_subparser(sub)
+
     return p
 
 

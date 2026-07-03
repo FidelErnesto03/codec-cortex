@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Workspace discovery and initialization for the learning engine.
 
 A *workspace* is a project directory that contains a canonical

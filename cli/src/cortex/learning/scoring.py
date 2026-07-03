@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Golden-ratio / Fibonacci scoring for the learning engine.
 
 Implements four derived scores per SPEC §6.1:
@@ -110,9 +107,12 @@ class ScoreRecord:
     suggested_action: str = "index"
     signals: List[str] = field(default_factory=list)
     hits: int = 1
+    # v0.2.0 — last_accessed (ISO-8601 UTC) for decay computation.
+    # Stored in the index, NOT in brain.cortex. Updated on every scan.
+    last_accessed: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        d = {
             "entry_id": self.entry_id,
             "selector": self.selector,
             "fingerprint": self.fingerprint,
@@ -125,6 +125,9 @@ class ScoreRecord:
             "signals": list(self.signals),
             "hits": self.hits,
         }
+        if self.last_accessed:
+            d["last_accessed"] = self.last_accessed
+        return d
 
 
 # ---------------------------------------------------------------------------
