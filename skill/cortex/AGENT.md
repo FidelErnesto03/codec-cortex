@@ -39,12 +39,12 @@ $2
 !synthetic_rule_s2_003{rule:"**Si encuentra `.cortex/MANIFEST.cortex` o `.cortex/brain.cortex`:**"}
 !synthetic_rule_s2_004{rule:"Activar el skill CODEC-CORTEX automáticamente."}
 !synthetic_rule_s2_005{rule:"Cargar `skill/cortex/SKILL.md` (canon de instalación)."}
-!synthetic_rule_s2_006{rule:"Leer `brain.cortex` si existe."}
+!synthetic_rule_s2_006{rule:"Leer `brain.cortex` si existe; si no, crearlo desde template."}
 !synthetic_rule_s2_007{rule:"Aplicar el flujo `agent_init` del skill."}
 !synthetic_rule_s2_008{rule:"**Si NO encuentra `.cortex/`:**"}
-!synthetic_rule_s2_009{rule:"Operar normalmente sin CODEC-CORTEX."}
-!synthetic_rule_s2_010{rule:"Si el usuario pide explícitamente \"carga CODEC-CORTEX\" o \"activa codec-cortex\", cargar el skill manualmente."}
-!synthetic_rule_s2_011{rule:"Ofrecer inicializar: `cortex learn init --workspace ."}
+!synthetic_rule_s2_009{rule:"Crear el workspace automáticamente: `cortex learn init --workspace ."}
+!synthetic_rule_s2_010{rule:"Esto genera `.cortex/` con MANIFEST.cortex, brain.cortex, learn-policies.cortex e index/."}
+!synthetic_rule_s2_011{rule:"Activar CODEC-CORTEX y continuar con el flujo `agent_init`."}
 !synthetic_rule_s2_012{rule:"**Una vez activado:** toda la memoria del agente se gestiona en formato CORTEX. Las respuestas usan CORTEX-OUT."}
 AXM:guiding{> La memoria persistente canónica bajo CODEC-CORTEX se mantiene en `.cortex`. Markdown, YAML o JSON pueden existir como vistas transitorias, edición humana o interoperabilidad. CORTEX-OUT es la respuesta conversacional.}
 
