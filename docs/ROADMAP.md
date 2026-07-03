@@ -3,198 +3,131 @@
 
 # CODEC-CORTEX Roadmap
 
-## Phase 1: Universal Skill
-
-**Status:** current.
-
-**Goal:** make CODEC-CORTEX adoptable by any LLM/SLM through instructions and `.cortex` files.
-
-**Deliverables:** `skill/hcortex/SKILL_HCORTEX.md`, `skill/cortex/SKILL.md`, `skill/cortex/AGENT.md`, `skill/cortex/brain.cortex`.
-
-**Non-goals:** no Python package, server or MCP bridge required for initial adoption.
-
-**Acceptance criteria:** a reader understands that initial adoption is Skill-first and can separate FCS, OBJ and WRK from linear history.
-
-## Phase 2: Cortex Format
-
-**Status:** current/specification.
-
-**Goal:** stabilize `.cortex` structure, sigils, sections, glossary and examples.
-
-**Deliverables:** formal grammar, valid examples, pitfall catalog and template files.
-
-**Non-goals:** no unsupported promise of literal source reconstruction.
-
-**Acceptance criteria:** examples are coherent, placeholders are explicit and sigil rules are consistent.
-
-### Phase 2.1: Survival Core
-
-**Status:** current.
-
-**Goal:** define minimum survival context: `survive` attribute, priority pack P0-P5, conceptual profiles, and degradation policy.
-
-**Deliverables:** `survive` specification, P0-P5 priority pack, context profiles (MIN/RECOVERY/WORK/FULL), HCORTEX as render target, degradation policy with direct selection. Documents: `docs/en/specs/context-survival.md` (EN), `docs/es/specs/supervivencia-contexto.md` (ES), `docs/en/specs/benchmark-methodology.md` (EN), `docs/es/specs/metodologia-benchmark.md` (ES).
-
-**Non-goals:** no parser, no runtime, no automated benchmarks.
-
-**Acceptance criteria:** SKILL.cortex instructs agents to survive context reduction by cognitive priority.
-
-## Phase 3: HCORTEX
-
-**Status:** current/specification.
-
-**Goal:** define a human-readable contextual output for inspection, audit, correction and continuity.
-
-**Deliverables:** rendering rules, sample HCORTEX output and audit checklist.
-
-**Non-goals:** HCORTEX is not a literal decode of every original raw message.
-
-**Acceptance criteria:** a human can inspect focus, objective, rules, state, sessions and lessons.
-
-## Phase 4: Deterministic Codec
-
-**Status:** current.
-
-**Goal:** maintain parser, encoder, decoder, verifier, renderer and CLI.
-
-**Deliverables:** `cortex` CLI at `cli/` — v0.3.2, 25 comandos (17 clásicos + 8 canónicos v2 con alias `v2-*` deprecados), 341 tests, núcleo bidireccional CORTEX ⇄ HCORTEX verificado sobre artefactos canónicos (266 entries, 44 VIEW, coverage 100%, roundtrip 0 diffs), corpus benchmark migrado a VIEW directives (10/10 artefactos), `cortex canonicalize` VIEW-aware (B-01/B-05 fix), workflow operativo del agente integrado al skill.
-
-| Capacidad | Estado |
-|-----------|:------:|
-| CORTEX → HCORTEX | `current` — byte-identical contra canónico |
-| HCORTEX → CORTEX | `current` — reconstruye 266/266 entries |
-| Roundtrip bidireccional | `current` — AST-equivalent y content-equivalent, 0 diffs |
-| VIEW directives | `current` — 44/44 en skill; 10/10 artefactos del corpus migrados en v0.3.2 |
-| Gate reversible:true | `current` — coverage 100%, cero errores, no display-only |
-| CLI commands | `current` — 25 comandos (8 canónicos v2 + 8 alias `v2-*` deprecados + 9 legacy) |
-| `cortex canonicalize` VIEW-aware | `current` — v0.3.2: preserva estructura sin VIEW; canonicaliza con VIEW; flag `--preserve` |
-| Nombres canónicos CLI | `current` — v0.3.2: `roundtrip`, `convert`, `inspect`, etc. sin prefijo `v2-` |
-| Workflow operativo del agente | `current` — v0.3.2: 5 PUML + 4 reglas `!` + 5 perfiles CORTEX-OUT |
-| `doctor` v2 | `planned` — no implementado como comando separado |
-| JSON uniforme para todos los v2 | `planned` — no declarar como actual |
-| MCP server | `future` — no implementado |
-| Runtime promote/decay | `future` — no implementado |
-
-**Acceptance criteria:** all `.cortex` files pass `cortex verify --strict` with 0 errors. HCORTEX renders correctly in readable and audit modes. Roundtrip CORTEX → HCORTEX → CORTEX is AST-equivalent. Roundtrip HCORTEX → CORTEX → HCORTEX is content-equivalent. Corpus benchmark completa con VIEW directives y coverage 100% (v0.3.2). `cortex canonicalize` no rompe compatibilidad con artefactos sin VIEW (v0.3.2).
-
-## Phase 5: Memory Runtime
-
-**Status:** future.
-
-**Goal:** manage context lifecycle and maturation.
-
-**Deliverables:** WRK update, SES consolidation, LNG extraction, promote/decay policy and audit rules.
-
-**Non-goals:** the runtime must not silently promote knowledge without a user-confirmed policy.
-
-**Acceptance criteria:** lifecycle transitions are explicit, auditable and reversible as operational context.
-
-## Phase 6: Enterprise MCP
-
-**Status:** future.
-
-**Goal:** expose implemented codec/runtime operations as enterprise-grade agent tools.
-
-**Deliverables:** MCP server, handler schemas, auth model, audit events and deployment guide.
-
-**Non-goals:** MCP is not the first adoption mechanism.
-
-**Acceptance criteria:** every MCP handler maps to implemented codec/runtime functions and emits auditable operations.
+**v0.4.0 · MPL-2.0 · 464 tests · 35+ comandos CLI · 2026-07-02**
 
 ---
 
-## Enterprise Track
+## Resumen
 
-Phases E1–E5 represent the enterprise-hardening track. They are independent of the canonical stack phases (1–6) and can be executed in parallel.
+| # | Etapa | Estado | Kernel |
+|:-:|-------|:------:|--------|
+| 1 | **Protocolo universal** | ✅ | SKILL v1.3.0, 25 sigilos, $0 autocontenido, Survival Core P0-P5, HCORTEX + CORTEX-OUT |
+| 2 | **Codec determinista** | ✅ | CLI v0.4.0, parser, verifier, renderer, roundtrip, CI/CD + PyPI + security (E1+E2) |
+| 3 | **Documentación y distribución** | ✅ | Docs EN/ES (12+12 specs), wiki, legal (MPL-2.0), benchmarks v1.0→v2.2.2, API reference |
+| 4 | **Motor de aprendizaje** | 🔄 | Learning engine v0.1.0: scoring Fibonacci, candidates, elevation, policies, index |
+| 5 | **Runtime y MCP enterprise** | ⏳ | MCP server (`cortex-mcp`), session lifecycle, auto-promote/decay, multi-agente |
 
-### Phase E1: Distribution and CI/CD
+---
 
-**Status:** current.
+## Etapa 1: Protocolo universal
 
-**Goal:** automate distribution, testing and publishing of the `cortex` CLI and SKILL artifacts across platforms.
+**Estado:** ✅ current. **Versión:** SKILL v1.3.0.
 
-**Deliverables:**
-- PyPI package (`codec-cortex`) — `pip install codec-cortex` installs CLI (v0.3.2, 341 tests).
-- GitHub Actions CI: lint (ruff), test (Python 3.9–3.12), verify-view, roundtrip-bidir, build.
-- `Makefile`: `install`, `test`, `lint`, `build`, `publish`, `verify`, `roundtrip` targets.
-- `setuptools-scm` for automated versioning from git tags.
-- Pre-commit hooks (`.pre-commit-config.yaml`): ruff, trailing-whitespace, `cortex verify --strict`.
-- Ruff lint: 0 errors across entire codebase (231 legacy errors fixed).
-- `PYPI_API_TOKEN` configured as GitHub secret for automated publishing on tag.
-- Personal files (`brain.cortex`, `alfred-memory.*`) removed from version control (agent-specific).
+**Qué es:** el protocolo que cualquier agente carga para gobernar su memoria. Define la ontología, los sigilos, los contratos posicionales, los handlers operacionales y las reglas de supervivencia contextual.
 
-**Non-goals:** no MCP server, no runtime.
+**Entregables:**
+- `skill/cortex/SKILL.md` — 250 entries, 38 VIEW directives, 13 secciones.
+- `skill/hcortex/SKILL.md` — HCORTEX canónico reversible con 35 VIEW markers.
+- 25 sigilos canónicos con contratos posicionales en `$0`.
+- Survival Core: `survive`, prioridad P0-P5, perfiles MIN/RECOVERY/WORK/FULL, degradación.
+- HCORTEX: 12 reglas de densidad, 15 constraints, 12 anti-patrones, 4 modos de render.
+- CORTEX-OUT: protocolo de salida conversacional con 5 perfiles.
+- Diagrama PUML operativo del ciclo de vida del agente.
 
-**Acceptance criteria:** `pip install codec-cortex` works. CI passes on every PR. Release published automatically on tag.
+**Criterio:** un agente que carga este SKILL puede gestionar foco, objetivos, restricciones y memoria sin depender de historial lineal.
 
-### Phase E2: Security and Governance
+---
 
-**Status:** current (v0.3.4). Completo — E2 Security & Governance entregado.
+## Etapa 2: Codec determinista
 
-**Goal:** harden the CLI and protocol against misuse, secret leakage and unauthorized mutations.
+**Estado:** ✅ current. **Versión:** CLI v0.4.0.
 
-**Deliverables (all implemented in v0.3.4):**
-- **E2.1 Dependabot:** `.github/dependabot.yml` — weekly PRs for pip (`/cli`) and GitHub Actions.
-- **E2.2 Secret scanner:** `cortex/security/secret_scanner.py` (12 patterns) + `cortex doctor --scan-secrets` + pre-commit `detect-secrets` hook + `.secrets.baseline`.
-- **E2.3 Mutation gates:** `cortex/core/modes.py` — `read-only`/`editor`/`admin` modes via `--mode` flag or `$CORTEX_MODE` env var. Exit code 13 for mode violations.
-- **E2.4 Audit log (on-demand):** `cortex/audit/logger.py` + `cortex audit on/off/status/snapshot/prune`. Append-only JSONL in `~/.codec-cortex/audit/`. Only logs when explicitly enabled.
-- **E2.5 Release signing:** `scripts/sign_release.py` generates `SHA256SUMS` for `*.whl` and `*.tar.gz`.
-- **E2.6 `cortex verify --signature`:** `cortex/security/signature.py` + `--signature <manifest>` flag on `cortex verify`.
-- 68 new tests (409 total: 341 original + 68 E2), all passing.
+**Qué es:** el CLI que procesa archivos `.cortex` de forma determinista, sin dependencia de LLM. Incluye parser, encoder, decoder, verifier, renderer HCORTEX, y el pipeline completo de CI/CD + seguridad.
 
-**Non-goals:** no federated identity, no enterprise SSO.
+**Entregables:**
+- **CLI `cortex`** — 35+ comandos: CRUD (add, update, delete, move, list, get), codec v2 (convert, verify-view, roundtrip-bidir, inspect, canonicalize, compare, explain-loss), E2 security (doctor --scan-secrets, audit, verify --signature), E3 docs (docstring, benchmark).
+- **Parser dual** — v1 para comandos CRUD y `verify --strict`, v2 para codec y VIEW. `load_doc()` v2-aware.
+- **Codec bidireccional** — CORTEX ⇄ HCORTEX con 38 VIEW directives. Cobertura 100%.
+- **CI/CD** — GitHub Actions: lint + test (3.9–3.12) + verify-view + build + publish a PyPI en tag.
+- **Seguridad** — secret scanner (12 patrones), mutation gates (`--mode`), audit log on-demand, release signing.
+- **464 tests** — 415 core + 49 learning engine. Ruff 0 errores.
 
-**Acceptance criteria:** pre-commit hooks block secrets (`ghp_`, `pypi-`, etc.). `cortex --mode read-only` blocks all writes (rc=13). `cortex audit on` enables per-session logging. `cortex verify --signature` detects tampered artifacts. Dependabot opens weekly PRs.
+**Criterio:** todo `.cortex` pasa `cortex verify --strict` con 0 errores. `pip install codec-cortex` funciona. CI publica en cada tag.
 
-### Phase E3: Documentation and Test Coverage
+---
 
-**Status:** current (v0.4.0).
+## Etapa 3: Documentación y distribución
 
-**Goal:** achieve production-grade documentation coverage and test quality.
+**Estado:** ✅ current. **Versión:** v0.4.0.
 
-**Deliverables (implemented in v0.4.0):**
-- `docs/README.md` central con navegación por audiencia y formato.
-- Estructura `docs/es/hcortex/` (ES) · `docs/en/hcortex/` (EN) con tutorial, how-to, explicaciones y referencia humana.
-- Referencia API autocontenida en `docs/cortex/api/*.cortex`.
-- `cortex docstring` — deriva docstrings desde `docs/cortex/api/`.
-- `cortex benchmark` — inventario/validación local de suites bajo `benchmarks/`.
-- `pytest-cov` gate con umbral mínimo 85%.
-- 415 tests pasando, 3 skipped, 0 errores ruff.
+**Qué es:** documentación completa bilingüe, benchmarks científicos reproducibles, wiki pública, y transición legal a MPL-2.0.
 
-**Non-goals:** no user-analytics, no telemetry.
+**Entregables:**
+- **Docs EN/ES** — 12 specs en inglés, 12 specs en español con STATUS NOTES. 4 HCORTEX en cada idioma (tutorial, how-to, explicación, referencia).
+- **API reference** — 9 archivos `.cortex` autocontenidos en `docs/cortex/api/`.
+- **Benchmarks** — 6 versiones (v1.0.0 → v2.2.2), 11 dominios, 4,840 runs cada una. Corpus fuente versionable.
+- **Wiki** — 8 páginas en github.com/FidelErnesto03/codec-cortex/wiki.
+- **Legal** — MPL-2.0 con SPDX headers en 150+ archivos. `docs/legal/`: license.md, trademark-policy.md, legacy-mit-notice.md. `docs/security/privacy.md`.
+- `cortex docstring` — deriva docstrings desde API reference.
+- `cortex benchmark` — inventario de suites.
 
-**Acceptance criteria:** coverage gate blocks PRs below 85%. MkDocs site auto-deploys on release.
+**Criterio:** cobertura documental completa. Navegación clara desde `docs/README.md`. Benchmarks reproducibles con scripts versionados.
 
-### Phase E4: Enterprise MCP Server
+---
 
-**Status:** future.
+## Etapa 4: Motor de aprendizaje
 
-**Goal:** expose CLI and protocol capabilities as MCP tools for multi-agent orchestration.
+**Estado:** 🔄 learning engine v0.1.0. Runtime completo → futuro.
 
-**Deliverables:**
-- `cortex-mcp` entry point (stdio transport, local).
-- `cortex-mcp --http` for HTTP/SSE transport (cloud deployments).
-- Auth middleware: API key, bearer token.
-- Audit events: every tool call emits `AUD`-compatible structured log.
-- Tool catalog: `cortex_list`, `cortex_verify`, `cortex_render`, `cortex_get`, `cortex_diff`.
+**Qué es:** sistema determinista de scoring, detección de candidatos y elevación de conocimiento sobre workspaces `.cortex/`.
 
-**Non-goals:** no runtime lifecycle management.
+**Entregables actuales (v0.1.0):**
+- `cortex learn` — 10 subcomandos: init, doctor, policy, index, scan, candidates, explain, elevate, profile, workspace.
+- Algoritmo `golden_fibonacci_v1`: hotness, promotion_score, risk_weight, read_priority.
+- Workspace `.cortex/` con brain, learn-policies, MANIFEST, index, cache.
+- Policies: condiciones evaluables (`promotion_score>=8|user_validated=true`).
+- Elevación controlada: `plan_patch` → `render_diff` → `apply_patch` → `verify_post_apply`.
+- 49 tests dedicados.
 
-**Acceptance criteria:** `cortex-mcp` connects to any MCP client (Claude Desktop, VS Code, custom). Every tool call is auditable.
+**Entregables futuros (runtime completo):**
+- `cortex session start/close/status` — ciclo de vida WRK.
+- `cortex session consolidate` — SES desde historial.
+- Auto-promote/decay con confirmación humana.
+- `cortex profile --budget N` — triage P0-P5 automático.
 
-### Phase E5: Memory Runtime
+**Criterio:** transiciones explícitas, auditables y con confirmación humana para promociones a KNW.
 
-**Status:** future.
+---
 
-**Goal:** automate the WRK → SES → LNG → KNW lifecycle with user-confirmed policies.
+## Etapa 5: Runtime y MCP enterprise
 
-**Deliverables:**
-- `cortex session start/close/status` — WRK lifecycle.
-- `cortex session consolidate` — compress SES from WRK history.
-- `cortex lesson extract` — detect patterns across SES (threshold configurable).
-- `cortex profile --budget 1000` — apply P0-P5 triage automatically.
-- Auto-promotion: `detect_recurrence(threshold=N) → ask_user → promote/decay`.
+**Estado:** ⏳ future.
 
-**Non-goals:** no silent autonomous promotion.
+**Qué es:** exponer el codec y el motor de aprendizaje como servidor MCP para orquestación multi-agente empresarial, con ciclo de vida de sesión completo.
 
-**Acceptance criteria:** lifecycle transitions are explicit, auditable and require human confirmation for promote/decay.
+**Entregables planeados:**
+- `cortex-mcp` — entry point stdio (local) + HTTP/SSE (cloud).
+- Auth: API key, bearer token.
+- Tool catalog: `cortex_list`, `cortex_verify`, `cortex_render`, `cortex_get`, `cortex_diff`, `cortex_learn_*`, `cortex_session_*`.
+- Ciclo de vida: `cortex session start/close/consolidate`, `cortex lesson extract`.
+- Auto-promoción con políticas confirmadas: `detect_recurrence → ask_user → promote/decay`.
+- Auditoría: cada tool call emite `AUD` estructurado.
+
+**Criterio:** `cortex-mcp` se conecta a cualquier cliente MCP. Cada operación es auditable. Las promociones requieren confirmación humana.
+
+---
+
+## Historial de versiones
+
+| Versión | Fecha | Hito |
+|---------|-------|------|
+| v0.4.0 | 2026-07-02 | Etapa 3 completa: documentación, wiki, legal, licencia MPL-2.0 |
+| v0.3.7 | 2026-07-02 | Etapa 4 parcial: learning engine v0.1.0 + benchmarks v2.2.x |
+| v0.3.6 | 2026-07-01 | Etapa 1 refinada: SKILL v1.3.0, parser v2-aware, docs EN/ES |
+| v0.3.5 | 2026-07-01 | Etapa 3 iniciada: protocolo de documentación E3 |
+| v0.3.4 | 2026-06-30 | Etapa 2: seguridad E2 (secret scanner, mutation gates, audit) |
+| v0.3.3 | 2026-06-29 | Etapa 2: CI/CD E1 (PyPI, GitHub Actions, ruff) |
+| v0.3.2 | 2026-06-28 | Etapa 2: codec v2, VIEW migration, canonical naming |
+| v0.3.1 | 2026-06-27 | Etapa 2: CLI v2 codec, benchmark v1.0.0 |
+| v0.3.0 | 2026-06-27 | Etapa 2 iniciada: CLI integration, .cortex canónicos |
+| v0.2.x | 2026-06-24 | Etapa 1: Survival Core, HCORTEX, DIALECT |

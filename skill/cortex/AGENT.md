@@ -1,6 +1,3 @@
-<!-- SPDX-License-Identifier: MPL-2.0 -->
-<!-- Copyright (c) 2026 Fidel Ernesto Lozada A. -->
-
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
 source_artifact: skill/cortex/AGENT.md
@@ -37,6 +34,18 @@ REF:synthetic_ref_s1_001{archivo:"brain.cortex",propósito:"Cerebro local operat
 REF:synthetic_ref_s1_002{archivo:"docs/cortex/api/*.cortex",propósito:"Referencia de comandos CLI (fuente de verdad)"}
 
 $2
+!synthetic_rule_s2_001{rule:"Al iniciar en cualquier directorio, el agente DEBE ejecutar estas reglas en orden:"}
+!synthetic_rule_s2_002{rule:"**Buscar `.cortex/`** subiendo desde el directorio actual (`cwd`) hasta la raíz del sistema de archivos."}
+!synthetic_rule_s2_003{rule:"**Si encuentra `.cortex/MANIFEST.cortex` o `.cortex/brain.cortex`:**"}
+!synthetic_rule_s2_004{rule:"Activar el skill CODEC-CORTEX automáticamente."}
+!synthetic_rule_s2_005{rule:"Cargar `skill/cortex/SKILL.md` (canon de instalación)."}
+!synthetic_rule_s2_006{rule:"Leer `brain.cortex` si existe."}
+!synthetic_rule_s2_007{rule:"Aplicar el flujo `agent_init` del skill."}
+!synthetic_rule_s2_008{rule:"**Si NO encuentra `.cortex/`:**"}
+!synthetic_rule_s2_009{rule:"Operar normalmente sin CODEC-CORTEX."}
+!synthetic_rule_s2_010{rule:"Si el usuario pide explícitamente \"carga CODEC-CORTEX\" o \"activa codec-cortex\", cargar el skill manualmente."}
+!synthetic_rule_s2_011{rule:"Ofrecer inicializar: `cortex learn init --workspace ."}
+!synthetic_rule_s2_012{rule:"**Una vez activado:** toda la memoria del agente se gestiona en formato CORTEX. Las respuestas usan CORTEX-OUT."}
 AXM:guiding{> La memoria persistente canónica bajo CODEC-CORTEX se mantiene en `.cortex`. Markdown, YAML o JSON pueden existir como vistas transitorias, edición humana o interoperabilidad. CORTEX-OUT es la respuesta conversacional.}
 
 $3
@@ -70,6 +79,7 @@ KNW:synthetic_knw_s12_004{perfil:"OUT-ERROR",bloques:"Código error + causa + re
 $13
 VIEW:perfil_agente{kind:"kv_table",target:"$1:IDN:agent",reverse:"row_to_attrs",status:cur,fields:"dimension,valor",title:"Perfil del Agente"}
 VIEW:skills_cargados{kind:"table",target:"$1:REF:*",reverse:"rows_to_entries",status:cur,fields:"skill,archivo,proposito",title:"Skills Cargados"}
+VIEW:entrypoint{kind:"numbered_list",target:"$2:!:auto_*",reverse:"items_to_ordered_entries",status:cur,title:"Entrypoint — Autodescubrimiento"}
 VIEW:principio_rector{kind:"prose",target:"$2:AXM:guiding",reverse:"body_to_cuerpo",status:cur,title:"Principio Rector"}
 VIEW:limites_operativos{kind:"kv_table",target:"$5:LIM:*",reverse:"row_to_attrs",status:cur,fields:"dimension,valor",title:"Límites Operativos"}
 VIEW:memoria_trabajo{kind:"kv_table",target:"$3:WRK:*",reverse:"row_to_attrs",status:cur,fields:"dimension,valor",title:"Memoria de Trabajo"}

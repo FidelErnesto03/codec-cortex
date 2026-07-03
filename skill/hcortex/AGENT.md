@@ -40,6 +40,26 @@ mode: audit
 
 <!-- /VIEW:skills_cargados -->
 
+<!-- VIEW:entrypoint kind="numbered_list" target="$2:!:auto_*" reverse="items_to_ordered_entries" title="Entrypoint — Autodescubrimiento" status:current -->
+
+## Entrypoint — Autodescubrimiento
+
+Al iniciar en cualquier directorio, el agente DEBE ejecutar estas reglas en orden:
+
+1. **Buscar `.cortex/`** subiendo desde el directorio actual (`cwd`) hasta la raíz del sistema de archivos.
+2. **Si encuentra `.cortex/MANIFEST.cortex` o `.cortex/brain.cortex`:**
+   - Activar el skill CODEC-CORTEX automáticamente.
+   - Cargar `skill/cortex/SKILL.md` (canon de instalación).
+   - Leer `brain.cortex` si existe.
+   - Aplicar el flujo `agent_init` del skill.
+3. **Si NO encuentra `.cortex/`:**
+   - Operar normalmente sin CODEC-CORTEX.
+   - Si el usuario pide explícitamente "carga CODEC-CORTEX" o "activa codec-cortex", cargar el skill manualmente.
+   - Ofrecer inicializar: `cortex learn init --workspace .`
+4. **Una vez activado:** toda la memoria del agente se gestiona en formato CORTEX. Las respuestas usan CORTEX-OUT.
+
+<!-- /VIEW:entrypoint -->
+
 <!-- VIEW:principio_rector kind="prose" target="$2:AXM:guiding" reverse="body_to_cuerpo" title="Principio Rector" status:current -->
 
 ## Principio rector

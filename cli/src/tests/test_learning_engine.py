@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Unit + integration tests for the CODEC-CORTEX Learning Engine (CLE).
 
 These tests cover SPEC §10 (Unit tests), §10.2 (Integration tests),

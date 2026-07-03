@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Learning-policy parser, validator and evaluator.
 
 A *learning policy* is a structured rule stored in
@@ -131,6 +128,120 @@ class Gate:
     default: str  # dry_run_first | block_unless_admin_policy | ...
 
 
+# ---------------------------------------------------------------------------
+# v0.2.0 — Configurable threshold profiles
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class FibonacciThresholds:
+    """Per-sigil promotion thresholds (``POL:fibonacci_thresholds{...}``).
+
+    These are *minimum* ``promotion_score`` values required for an entry
+    of the given sigil to be considered for elevation to the next layer.
+    """
+
+    ses: int = 1
+    lng: int = 3
+    knw: int = 8
+    auto_knw: int = 13
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {"ses": self.ses, "lng": self.lng, "knw": self.knw, "auto_knw": self.auto_knw}
+
+
+@dataclass
+class CoolingPolicy:
+    """Decay / cooling parameters (``POL:cooling{...}``).
+
+    The cooling factor is ``0.5 ** (days / half_life_days)`` — an
+    exponential decay with the given half-life. Entries whose cooled
+    ``promotion_score`` falls below ``min_score_to_survive`` are
+    dropped from the index.
+    """
+
+    half_life_days: int = 7
+    min_score_to_survive: int = 1
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "half_life_days": self.half_life_days,
+            "min_score_to_survive": self.min_score_to_survive,
+        }
+
+
+@dataclass
+class DetectionPolicy:
+    """Candidate-detection tuning (``POL:detection{...}``).
+
+    ``same_sigil_in_window`` is the minimum number of occurrences of the
+    same sigil (within ``window_hours``) required to fire the
+    ``pattern`` signal. ``cross_session`` controls whether occurrences
+    from previous sessions count.
+    """
+
+    same_sigil_in_window: int = 3
+    window_hours: int = 72
+    cross_session: bool = True
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "same_sigil_in_window": self.same_sigil_in_window,
+            "window_hours": self.window_hours,
+            "cross_session": self.cross_session,
+        }
+
+
+@dataclass
+class FeedbackPolicy:
+    """Feedback-loop tuning (``POL:feedback{...}``).
+
+    When ``adaptive`` is true, the engine adjusts per-sigil-type
+    thresholds based on acceptance rate. ``adjustment_rate`` is the
+    fraction (0..1) by which thresholds move per feedback event.
+    Adjusted thresholds are clamped to ``[min_threshold, max_threshold]``.
+    """
+
+    adaptive: bool = True
+    adjustment_rate: float = 0.1
+    min_threshold: int = 1
+    max_threshold: int = 20
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "adaptive": self.adaptive,
+            "adjustment_rate": self.adjustment_rate,
+            "min_threshold": self.min_threshold,
+            "max_threshold": self.max_threshold,
+        }
+
+
+@dataclass
+class ProtectedPatterns:
+    """Glob-style protected sigil patterns (``POL:protected_patterns{...}``).
+
+    Each pattern is a sigil-name glob like ``"CNST:*"``, ``"!:*"``,
+    ``"FCS:*"``. The engine treats matching entries as protected from
+    both elevation and decay.
+    """
+
+    patterns: List[str] = field(default_factory=list)
+
+    def matches(self, sigil: str, name: str = "") -> bool:
+        import fnmatch
+        for pat in self.patterns:
+            if ":" in pat:
+                psig, pname = pat.split(":", 1)
+                if psig != sigil:
+                    continue
+                if fnmatch.fnmatchcase(name, pname):
+                    return True
+            else:
+                if pat == sigil:
+                    return True
+        return False
+
+
 @dataclass
 class LearningPolicySet:
     """Aggregated, validated policy view of a ``learn-policies.cortex`` file."""
@@ -143,6 +254,15 @@ class LearningPolicySet:
     candidate_scan_sigils: List[str] = field(default_factory=list)
     candidate_algorithm: str = "golden_fibonacci_v1"
     diagnostics: List[Dict[str, Any]] = field(default_factory=list)
+    # v0.2.0 — configurable threshold profile fields
+    fibonacci_thresholds: FibonacciThresholds = field(default_factory=FibonacciThresholds)
+    cooling: CoolingPolicy = field(default_factory=CoolingPolicy)
+    detection: DetectionPolicy = field(default_factory=DetectionPolicy)
+    feedback: FeedbackPolicy = field(default_factory=FeedbackPolicy)
+    protected_patterns: ProtectedPatterns = field(default_factory=ProtectedPatterns)
+    # v0.2.0 — per-sigil-type adjusted thresholds (feedback-loop product).
+    # Maps a candidate-type string like "SES->LNG" to an int threshold.
+    adjusted_thresholds: Dict[str, int] = field(default_factory=dict)
 
     def policies_for(self, source: str, target: Optional[str] = None) -> List[LearningPolicy]:
         out: List[LearningPolicy] = []
@@ -156,6 +276,25 @@ class LearningPolicySet:
 
     def threshold(self, name: str) -> int:
         return getattr(self.thresholds, name, 0)
+
+    # v0.2.0 — convenience accessors
+
+    def effective_threshold(self, candidate_type: str, default: int) -> int:
+        """Return the feedback-adjusted threshold for a candidate type,
+        falling back to the static ``default`` when no adjustment is
+        registered."""
+
+        return self.adjusted_thresholds.get(candidate_type, default)
+
+    def record_adjusted_threshold(self, candidate_type: str, value: int) -> None:
+        """Record / overwrite the adjusted threshold for a candidate type."""
+
+        self.adjusted_thresholds[candidate_type] = int(value)
+
+    def is_protected_pattern(self, sigil: str, name: str = "") -> bool:
+        """Return True if (sigil, name) matches a protected pattern."""
+
+        return self.protected_patterns.matches(sigil, name)
 
 
 # ---------------------------------------------------------------------------
@@ -238,6 +377,51 @@ def _handle_protected(ps: LearningPolicySet, entry: Entry) -> None:
 
 def _handle_policy(ps: LearningPolicySet, entry: Entry) -> None:
     attrs = entry.value if isinstance(entry.value, dict) else {}
+
+    # v0.2.0 — handle configuration-style policy entries that do NOT
+    # follow the elevation-policy schema (no source/target/when). These
+    # are configuration blocks, not elevation rules.
+    if entry.name == "fibonacci_thresholds":
+        ps.fibonacci_thresholds = FibonacciThresholds(
+            ses=int(attrs.get("ses", 1)),
+            lng=int(attrs.get("lng", 3)),
+            knw=int(attrs.get("knw", 8)),
+            auto_knw=int(attrs.get("auto_knw", 13)),
+        )
+        return
+    if entry.name == "cooling":
+        ps.cooling = CoolingPolicy(
+            half_life_days=int(attrs.get("half_life_days", 7)),
+            min_score_to_survive=int(attrs.get("min_score_to_survive", 1)),
+        )
+        return
+    if entry.name == "detection":
+        ps.detection = DetectionPolicy(
+            same_sigil_in_window=int(attrs.get("same_sigil_in_window", 3)),
+            window_hours=int(attrs.get("window_hours", 72)),
+            cross_session=bool(attrs.get("cross_session", True)),
+        )
+        return
+    if entry.name == "feedback":
+        ps.feedback = FeedbackPolicy(
+            adaptive=bool(attrs.get("adaptive", True)),
+            adjustment_rate=float(attrs.get("adjustment_rate", 0.1)),
+            min_threshold=int(attrs.get("min_threshold", 1)),
+            max_threshold=int(attrs.get("max_threshold", 20)),
+        )
+        return
+    if entry.name == "protected_patterns":
+        patterns = attrs.get("patterns", "")
+        if isinstance(patterns, str):
+            pat_list = [s.strip() for s in patterns.split("|") if s.strip()]
+        elif isinstance(patterns, list):
+            pat_list = [str(s).strip() for s in patterns if str(s).strip()]
+        else:
+            pat_list = []
+        ps.protected_patterns = ProtectedPatterns(patterns=pat_list)
+        return
+
+    # Standard elevation-policy schema
     action = str(attrs.get("action", "score"))
     if action not in _VALID_ACTIONS:
         raise LearningError(
@@ -327,4 +511,10 @@ __all__ = [
     "parse_policy_document",
     "is_protected_by_policy",
     "find_policy",
+    # v0.2.0
+    "FibonacciThresholds",
+    "CoolingPolicy",
+    "DetectionPolicy",
+    "FeedbackPolicy",
+    "ProtectedPatterns",
 ]

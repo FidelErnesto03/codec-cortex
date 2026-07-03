@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Fidel Ernesto Lozada A.
-
 """Argparse subcommand integration for the learning engine.
 
 Adds a ``learn`` subcommand to the existing ``cortex`` CLI with the
@@ -25,7 +22,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from .candidates import detect_candidates, explain_candidate
 from .elevation import apply_patch, plan_patch
@@ -107,11 +104,53 @@ def add_learn_subparser(subparsers: argparse._SubParsersAction) -> None:
     p_pol_add.add_argument("--json", action="store_true")
     p_pol_add.set_defaults(func=_cmd_policy_add)
 
+    # v0.2.0 — policy set
+    p_pol_set = pol_sub.add_parser("set", help="set a configurable threshold")
+    p_pol_set.add_argument("--workspace", default=None)
+    p_pol_set.add_argument("target", choices=[
+        "fibonacci_thresholds", "cooling", "detection", "feedback", "protected_patterns",
+    ])
+    p_pol_set.add_argument("--ses", type=int, default=None)
+    p_pol_set.add_argument("--lng", type=int, default=None)
+    p_pol_set.add_argument("--knw", type=int, default=None)
+    p_pol_set.add_argument("--auto-knw", type=int, default=None)
+    p_pol_set.add_argument("--half-life", type=int, default=None, help="cooling half-life (days)")
+    p_pol_set.add_argument("--min-score", type=int, default=None, help="cooling survival floor")
+    p_pol_set.add_argument("--window", default=None, help="detection window (e.g. 48h)")
+    p_pol_set.add_argument("--occurrences", type=int, default=None, help="detection occurrences")
+    p_pol_set.add_argument("--cross-session", choices=["true", "false"], default=None)
+    p_pol_set.add_argument("--adaptive", choices=["true", "false"], default=None)
+    p_pol_set.add_argument("--adjustment-rate", type=float, default=None)
+    p_pol_set.add_argument("--patterns", default=None, help="protected patterns (pipe-separated)")
+    p_pol_set.add_argument("--dry-run", action="store_true")
+    p_pol_set.add_argument("--confirm", action="store_true")
+    p_pol_set.add_argument("--json", action="store_true")
+    p_pol_set.set_defaults(func=_cmd_policy_set)
+
+    # v0.2.0 — policy profile
+    p_pol_prof = pol_sub.add_parser("profile", help="apply a predefined profile")
+    p_pol_prof.add_argument("--workspace", default=None)
+    p_pol_prof.add_argument("profile", choices=["default", "aggressive", "conservative"])
+    p_pol_prof.add_argument("--dry-run", action="store_true")
+    p_pol_prof.add_argument("--confirm", action="store_true")
+    p_pol_prof.add_argument("--json", action="store_true")
+    p_pol_prof.set_defaults(func=_cmd_policy_profile)
+
+    # v0.2.0 — policy reset
+    p_pol_reset = pol_sub.add_parser("reset", help="reset policy file to defaults")
+    p_pol_reset.add_argument("--workspace", default=None)
+    p_pol_reset.add_argument("--confirm", action="store_true", required=True,
+                              help="required: confirm reset")
+    p_pol_reset.add_argument("--json", action="store_true")
+    p_pol_reset.set_defaults(func=_cmd_policy_reset)
+
     # index
     p_idx = sub.add_parser("index", help="learn-index operations")
     idx_sub = p_idx.add_subparsers(dest="index_command", required=True)
     p_idx_rb = idx_sub.add_parser("rebuild", help="rebuild the learn-index")
     p_idx_rb.add_argument("--workspace", default=None)
+    p_idx_rb.add_argument("--if-stale", action="store_true",
+                           help="only rebuild if the index is stale")
     p_idx_rb.add_argument("--json", action="store_true")
     p_idx_rb.set_defaults(func=_cmd_index_rebuild)
     p_idx_st = idx_sub.add_parser("status", help="show index freshness")
@@ -151,6 +190,35 @@ def add_learn_subparser(subparsers: argparse._SubParsersAction) -> None:
     p_prof.add_argument("--budget", type=int, default=1000,
                          help="approximate token budget")
     p_prof.set_defaults(func=_cmd_profile)
+
+    # v0.2.0 — feedback
+    p_fb = _mk("feedback", "record accept/reject feedback on a candidate")
+    p_fb.add_argument("--accept", action="store_true")
+    p_fb.add_argument("--reject", action="store_true")
+    p_fb.add_argument("--candidate", required=True,
+                       help="candidate id (e.g. cand_001) or selector (e.g. SES:foo)")
+    p_fb.add_argument("--type", default=None,
+                       help="candidate type (e.g. SES->LNG); inferred when omitted")
+    p_fb.add_argument("--reason", default=None,
+                       help="optional reason (especially for rejections)")
+    p_fb.add_argument("--score", type=int, default=0,
+                       help="promotion_score at the time of decision")
+    p_fb.set_defaults(func=_cmd_feedback)
+
+    # v0.2.0 — feedback show
+    p_fb_show = _mk("feedback-show", "show feedback history and adjusted thresholds")
+    p_fb_show.set_defaults(func=_cmd_feedback_show)
+
+    # v0.2.0 — pre-action
+    p_pre = _mk("pre-action", "detect recurrent themes before acting on user input")
+    p_pre.add_argument("--input", required=True, help="user input text")
+    p_pre.set_defaults(func=_cmd_pre_action)
+
+    # v0.2.0 — post-action
+    p_post = _mk("post-action", "evaluate accumulated signals and emit candidate notifications")
+    p_post.add_argument("--modified", action="store_true",
+                         help="signal that the brain was modified by the action")
+    p_post.set_defaults(func=_cmd_post_action)
 
 
 # ---------------------------------------------------------------------------
@@ -299,6 +367,15 @@ def _cmd_policy_add(args) -> int:
 
 def _cmd_index_rebuild(args) -> int:
     ws = _resolve_workspace(args)
+    if getattr(args, "if_stale", False) and ws.index_path.exists():
+        # Only rebuild if stale
+        try:
+            existing = load_index(ws.index_path)
+            if not is_stale(existing, ws.brain_hash(), ws.policy_hash()):
+                print(f"index already fresh — no rebuild needed ({ws.index_path})")
+                return 0
+        except Exception:
+            pass
     idx = rebuild_for_workspace(ws)
     print(f"rebuilt index at {ws.index_path}")
     print(f"  engine_version: {idx.engine_version}")
@@ -482,6 +559,248 @@ def _cmd_profile(args) -> int:
         "entries": selected,
     }
     _emit(payload, _json_active(args))
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# v0.2.0 — policy set / profile / reset
+# ---------------------------------------------------------------------------
+
+
+def _policy_replace_block(text: str, block_name: str, new_block: str) -> str:
+    """Replace a ``POL:<block_name>{...}`` line in ``text`` with ``new_block``.
+
+    Returns the modified text. If the block is not found, appends it.
+    """
+
+    import re
+    pattern = re.compile(
+        r"^POL:" + re.escape(block_name) + r"\{[^}]*\}\s*$",
+        re.MULTILINE,
+    )
+    if pattern.search(text):
+        return pattern.sub(new_block, text, count=1)
+    # Append at the end
+    if not text.endswith("\n"):
+        text = text + "\n"
+    return text + new_block + "\n"
+
+
+def _cmd_policy_set(args) -> int:
+    ws = _resolve_workspace(args)
+    target = args.target
+    target_path = ws.policy_path or ws.cortex_dir / "learn-policies.cortex"
+    text = target_path.read_text(encoding="utf-8") if target_path.exists() else ""
+    if not text.strip():
+        from .policy_defaults import default_policy_text
+        text = default_policy_text()
+
+    new_block: Optional[str] = None
+    if target == "fibonacci_thresholds":
+        ses = args.ses if args.ses is not None else 1
+        lng = args.lng if args.lng is not None else 3
+        knw = args.knw if args.knw is not None else 8
+        auto_knw = args.auto_knw if args.auto_knw is not None else 13
+        new_block = f"POL:fibonacci_thresholds{{ses:{ses}, lng:{lng}, knw:{knw}, auto_knw:{auto_knw}}}"
+    elif target == "cooling":
+        hl = args.half_life if args.half_life is not None else 7
+        ms = args.min_score if args.min_score is not None else 1
+        new_block = f"POL:cooling{{half_life_days:{hl}, min_score_to_survive:{ms}}}"
+    elif target == "detection":
+        occ = args.occurrences if args.occurrences is not None else 3
+        window_str = args.window or "72h"
+        # parse "48h" → 48
+        try:
+            window_hours = int(str(window_str).rstrip("h"))
+        except Exception:
+            window_hours = 72
+        cs = args.cross_session or "true"
+        new_block = (
+            f"POL:detection{{same_sigil_in_window:{occ}, "
+            f"window_hours:{window_hours}, cross_session:{cs}}}"
+        )
+    elif target == "feedback":
+        adp = args.adaptive or "true"
+        rate = args.adjustment_rate if args.adjustment_rate is not None else 0.1
+        new_block = (
+            f"POL:feedback{{adaptive:{adp}, adjustment_rate:{rate}, "
+            f"min_threshold:1, max_threshold:20}}"
+        )
+    elif target == "protected_patterns":
+        patterns = args.patterns or "CNST:*|!:*|FCS:*|OBJ:*"
+        new_block = f"POL:protected_patterns{{patterns:\"{patterns}\"}}"
+    else:
+        print(f"error: unknown target {target!r}", file=sys.stderr)
+        return 1
+
+    if args.dry_run:
+        print(f"# dry-run: would replace POL:{target}{{...}} in {target_path}")
+        print(new_block)
+        return 0
+    if not args.confirm:
+        print("error: --confirm required to apply", file=sys.stderr)
+        return 1
+    new_text = _policy_replace_block(text, target, new_block)
+    target_path.write_text(new_text, encoding="utf-8")
+    print(f"updated POL:{target} in {target_path}")
+    return 0
+
+
+def _cmd_policy_profile(args) -> int:
+    from .policy_defaults import PROFILES
+    ws = _resolve_workspace(args)
+    profile = args.profile
+    text = PROFILES[profile]()
+    target_path = ws.policy_path or ws.cortex_dir / "learn-policies.cortex"
+    if args.dry_run:
+        print(f"# dry-run: would write profile {profile!r} to {target_path}")
+        print(text)
+        return 0
+    if not args.confirm:
+        print("error: --confirm required to apply", file=sys.stderr)
+        return 1
+    target_path.write_text(text, encoding="utf-8")
+    print(f"applied profile {profile!r} to {target_path}")
+    return 0
+
+
+def _cmd_policy_reset(args) -> int:
+    from .policy_defaults import default_policy_text
+    ws = _resolve_workspace(args)
+    target_path = ws.policy_path or ws.cortex_dir / "learn-policies.cortex"
+    target_path.write_text(default_policy_text(), encoding="utf-8")
+    print(f"reset {target_path} to defaults")
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# v0.2.0 — feedback
+# ---------------------------------------------------------------------------
+
+
+def _cmd_feedback(args) -> int:
+    from .feedback import (
+        record_feedback, adjust_thresholds,
+        save_feedback_history, derive_candidate_type, derive_sigil_pattern,
+    )
+    from .candidates import detect_candidates
+    from .index import load_or_rebuild
+    from .policy import parse_policy_document
+
+    if not (args.accept ^ args.reject):
+        print("error: pass exactly one of --accept / --reject", file=sys.stderr)
+        return 1
+    decision = bool(args.accept)
+
+    ws = _resolve_workspace(args)
+    # Try to resolve the candidate from the live candidates list
+    cand_id = args.candidate
+    candidate_type = args.type
+    sigil_pattern = ""
+    promotion_score = args.score
+
+    if not candidate_type or not sigil_pattern or not promotion_score:
+        # Look up the candidate
+        idx = load_or_rebuild(ws)
+        brain_doc = ws.parse_brain()
+        ps = parse_policy_document(ws.parse_policy())
+        cands = detect_candidates(brain_doc, idx, ps)
+        # Match by candidate_id OR by source selector
+        match = None
+        for c in cands:
+            if c.candidate_id == cand_id:
+                match = c
+                break
+            if cand_id in c.source_entries:
+                match = c
+                break
+        if match is not None:
+            if not candidate_type:
+                src_sigil = match.source_entries[0].split(":", 1)[0] if match.source_entries else ""
+                candidate_type = derive_candidate_type(src_sigil, match.target)
+            if not sigil_pattern and match.source_entries:
+                src = match.source_entries[0]
+                if ":" in src:
+                    s_sig, s_name = src.split(":", 1)
+                    sigil_pattern = derive_sigil_pattern(s_sig, s_name)
+                else:
+                    sigil_pattern = src
+            if not promotion_score:
+                promotion_score = match.promotion_score
+        else:
+            # Fall back: treat the input as a raw selector like "SES:foo"
+            if ":" in cand_id:
+                s_sig, s_name = cand_id.split(":", 1)
+                if not candidate_type:
+                    candidate_type = derive_candidate_type(s_sig, "LNG")
+                if not sigil_pattern:
+                    sigil_pattern = derive_sigil_pattern(s_sig, s_name)
+            else:
+                if not candidate_type:
+                    print(f"error: candidate {cand_id!r} not found and --type not given",
+                          file=sys.stderr)
+                    return 1
+                sigil_pattern = sigil_pattern or cand_id
+
+    history = record_feedback(
+        ws,
+        candidate_id=cand_id,
+        candidate_type=candidate_type or "UNKNOWN",
+        sigil_pattern=sigil_pattern,
+        decision=decision,
+        reason=args.reason,
+        promotion_score=promotion_score,
+    )
+    ps = parse_policy_document(ws.parse_policy())
+    adjusted = adjust_thresholds(history, ps)
+    save_feedback_history(ws, history)
+    payload = {
+        "recorded": True,
+        "decision": "accept" if decision else "reject",
+        "candidate_id": cand_id,
+        "candidate_type": candidate_type,
+        "sigil_pattern": sigil_pattern,
+        "reason": args.reason,
+        "promotion_score": promotion_score,
+        "total_records": len(history.records),
+        "adjusted_thresholds": adjusted,
+    }
+    _emit(payload, _json_active(args))
+    return 0
+
+
+def _cmd_feedback_show(args) -> int:
+    from .feedback import load_feedback_history, acceptance_rate
+    ws = _resolve_workspace(args)
+    history = load_feedback_history(ws)
+    payload = {
+        "total_records": len(history.records),
+        "adjusted_thresholds": dict(history.adjusted_thresholds),
+        "acceptance_stats": acceptance_rate(history),
+        "records": [r.to_dict() for r in history.records[-20:]],  # last 20
+    }
+    _emit(payload, _json_active(args))
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# v0.2.0 — pre/post-action handlers
+# ---------------------------------------------------------------------------
+
+
+def _cmd_pre_action(args) -> int:
+    from .handlers import pre_action
+    ws = _resolve_workspace(args)
+    report = pre_action(ws, args.input)
+    _emit(report.to_dict(), _json_active(args))
+    return 0
+
+
+def _cmd_post_action(args) -> int:
+    from .handlers import post_action
+    ws = _resolve_workspace(args)
+    report = post_action(ws, brain_modified=bool(args.modified))
+    _emit(report.to_dict(), _json_active(args))
     return 0
 
 
