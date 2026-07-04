@@ -55,7 +55,7 @@ $0:micro_t1{expand:structure}
 $0:enum_state{}
 
 $1
-IDN:project{name:"CODEC-CORTEX",autor:"Fidel Ernesto Lozada A.",versión del skill:"1.3.0",licencia:"MIT",versión del proyecto:"v0.3.7",repositorio:"github.com/FidelErnesto03/codec-cortex",dominio:"Protocolo de memoria contextual para agentes LLM/SLM",idioma estructural:"EN",idioma semántico:"Idioma del dominio o usuario",salida para humanos:"HCORTEX=render de memoria; CORTEX-OUT=respuesta conversacional"}
+IDN:project{name:"CODEC-CORTEX",autor:"Fidel Ernesto Lozada A.",versión del skill:"1.3.0",licencia:"MIT",versión del proyecto:"v0.4.1",repositorio:"github.com/FidelErnesto03/codec-cortex",dominio:"Protocolo de memoria contextual para agentes LLM/SLM",idioma estructural:"EN",idioma semántico:"Idioma del dominio o usuario",salida para humanos:"HCORTEX=render de memoria; CORTEX-OUT=respuesta conversacional"}
 REF:skill{path:"skill/cortex/SKILL.md",role:"Especificación canónica del protocolo (CORTEX)",formato:"CORTEX"}
 REF:brain{path:"brain.cortex",role:"Estado vivo de trabajo",formato:"CORTEX"}
 REF:entry{path:"*.cortex",role:"Paquetes de contexto transportables",formato:"CORTEX"}

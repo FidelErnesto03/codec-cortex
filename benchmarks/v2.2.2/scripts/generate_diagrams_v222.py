@@ -200,9 +200,9 @@ def chart_version_audit(data):
     audit = data["version_audit"]
     
     fig, ax = plt.subplots(figsize=(9, 5), constrained_layout=True)
-    categories = ["Surfaces con\nv0.3.6", "Surfaces con\nv0.3.7", "CHANGELOG\nentrada v0.3.7"]
-    values = [len(audit["surfaces_declaring_v0.3.6"]), len(audit["surfaces_declaring_v0.3.7"]),
-              1 if audit["changelog_has_v0.3.7_entry"] else 0]
+    categories = ["Surfaces con\nv0.3.6", "Surfaces con\nv0.4.1", "CHANGELOG\nentrada v0.4.1"]
+    values = [len(audit["surfaces_declaring_v0.3.6"]), len(audit["surfaces_declaring_v0.4.1"]),
+              1 if audit["changelog_has_v0.4.1_entry"] else 0]
     colors = ['#dc2626', '#16a34a', '#dc2626']
     
     bars = ax.bar(categories, values, color=colors, edgecolor='white')
@@ -250,7 +250,7 @@ rectangle "Resource Metrics\\n(NEW v2.2.2)" as res <<metric>> {
 }
 
 rectangle "Version Audit\\n(NEW v2.2.2)" as ver <<audit>> {
-  rectangle "42 surfaces con v0.3.6\\n0 surfaces con v0.3.7\\nCHANGELOG sin entrada v0.3.7" as ver_data
+  rectangle "42 surfaces con v0.3.6\\n0 surfaces con v0.4.1\\nCHANGELOG sin entrada v0.4.1" as ver_data
 }
 
 tasks --> codec_bridge
@@ -277,7 +277,7 @@ end note
 note right of ver
   Aborda recomendación #1:
   alinear versiones v0.3.6
-  → v0.3.7 en todas las
+  → v0.4.1 en todas las
   superficies del repo.
 end note
 @enduml
@@ -288,7 +288,7 @@ end note
 
 def puml_threat_model():
     content = """@startuml
-title Threat Model — codec-cortex v0.3.7
+title Threat Model — codec-cortex v0.4.1
 
 skinparam rectangle {
   BackgroundColor<<threat>> #FEE2E2

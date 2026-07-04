@@ -14,7 +14,7 @@
 | **Benchmark version** | 2.2.2 |
 | **Tipo** | Bridge a benchmarks estándar + comparativa 4 familias + resource metrics |
 | **Fecha** | 2026-07-02 |
-| **CODEC-CORTEX versión** | 0.3.7 (tag latest) |
+| **CODEC-CORTEX versión** | 0.4.1 (tag latest) |
 | **Recomendaciones del informe analítico abordadas** | 6/6 |
 
 ### Novedades v2.2.2 vs v2.2.1
@@ -35,8 +35,8 @@
 | H-01 | codec-cortex logra **100% EAS** en 30 tareas bridge estilo LoCoMo/LongMemEval | **Demostrado** |
 | H-02 | codec-cortex usa **0.06 MB peak RAM** (extremadamente liviano) vs stacks pesados de competidores | **Demostrado** |
 | H-03 | Throughput de codec-cortex: **4.7 files/s** (214 ms/file) para verify/render/verify-view/learn-scan | **Demostrado** |
-| H-04 | **42 superficies del repo declaran v0.3.6, 0 declaran v0.3.7** — confirma observación del análisis | **Demostrado** |
-| H-05 | CHANGELOG **sin entrada v0.3.7** — gap documental crítico | **Demostrado** |
+| H-04 | **42 superficies del repo declaran v0.3.6, 0 declaran v0.4.1** — confirma observación del análisis | **Demostrado** |
+| H-05 | CHANGELOG **sin entrada v0.4.1** — gap documental crítico | **Demostrado** |
 | H-06 | codec-cortex es el **único determinista + local-first + audit + learning + bidirectional** entre las 4 familias | **Demostrado** |
 | H-07 | Mem0 (LoCoMo 91.6%) y Zep/Graphiti (94.7%) lideran en benchmarks estándar; codec-cortex no compite ahí | **Demostrado** (documental) |
 | H-08 | 6 amenazas identificadas, todas con mitigación implementada; 3 gaps documentales (threat model formal, privacy policy, MCP) | **Demostrado** |
@@ -49,7 +49,7 @@
 
 El informe analítico externo identificó 6 recomendaciones para codec-cortex:
 
-1. Alinear superficies de versión a v0.3.7
+1. Alinear superficies de versión a v0.4.1
 2. Abrir canal público de issues
 3. Publicar benchmark puente a LoCoMo/LongMemEval
 4. Documentar API Python estable
@@ -64,7 +64,7 @@ Este benchmark v2.2.2 aborda las recomendaciones **#1, #3, #5** empíricamente, 
 |-----------|-------------|
 | H1-v222 | codec-cortex puede evaluarse en tareas estilo LoCoMo/LongMemEval adaptadas |
 | H2-v222 | codec-cortex tiene footprint de recursos (RAM/CPU) significativamente menor que competidores |
-| H3-v222 | Existe un gap documental de versiones entre tag v0.3.7 y superficies que declaran v0.3.6 |
+| H3-v222 | Existe un gap documental de versiones entre tag v0.4.1 y superficies que declaran v0.3.6 |
 | H4-v222 | codec-cortex ocupa un nicho único (determinista + local + audit + learning + bidirectional) que ninguna de las 4 familias cubre |
 
 ---
@@ -155,10 +155,10 @@ Los competidores (Mem0, Zep, Letta, LangMem) requieren LLM APIs y/o infraestruct
 | Superficie | Cantidad | Estado |
 |------------|:---:|:---:|
 | Archivos declarando v0.3.6 | **42** | ⚠️ Desactualizado |
-| Archivos declarando v0.3.7 | **0** | ⚠️ Ninguno actualizado |
-| CHANGELOG con entrada v0.3.7 | **No** | ⚠️ Gap crítico |
-| Git tag latest | v0.3.7 | ✓ Correcto |
-| PyPI version | 0.3.7 | ✓ Correcto |
+| Archivos declarando v0.4.1 | **0** | ⚠️ Ninguno actualizado |
+| CHANGELOG con entrada v0.4.1 | **No** | ⚠️ Gap crítico |
+| Git tag latest | v0.4.1 | ✓ Correcto |
+| PyPI version | 0.4.1 | ✓ Correcto |
 
 ### 4.2 Superficies afectadas (15 principales)
 
@@ -182,7 +182,7 @@ skill/hcortex/SKILL_HCORTEX.md
 
 ### 4.3 Recomendación
 
-**Acción inmediata**: actualizar las 42 superficies de v0.3.6 a v0.3.7 y añadir entrada `[0.3.7]` al CHANGELOG. Esto cierra la discrepancia entre tags/PyPI y documentación, mejorando credibilidad externa.
+**Acción inmediata**: actualizar las 42 superficies de v0.3.6 a v0.4.1 y añadir entrada `[0.4.1]` al CHANGELOG. Esto cierra la discrepancia entre tags/PyPI y documentación, mejorando credibilidad externa.
 
 ---
 
@@ -295,7 +295,7 @@ codec-cortex ocupa un **nicho único** que ninguna de las 4 familias cubre:
 
 | Recomendación | Estado en v2.2.2 | Evidencia |
 |---------------|:---:|-----------|
-| #1 Alinear versiones a v0.3.7 | ✓ Auditado | 42 superficies identificadas, recomendación clara |
+| #1 Alinear versiones a v0.4.1 | ✓ Auditado | 42 superficies identificadas, recomendación clara |
 | #2 Abrir canal de issues | ✗ No abordado | Requiere acción del maintainer (BDFL) |
 | #3 Benchmark puente LoCoMo/LongMemEval | ✓ Implementado | 30 tareas bridge, 100% EAS |
 | #4 API Python estable | ✗ No abordado | Requiere decisión de diseño del maintainer |
@@ -327,7 +327,7 @@ codec-cortex ocupa un **nicho único** que ninguna de las 4 familias cubre:
 
 2. **codec-cortex usa 0.06 MB peak RAM** — 3-4 órdenes de magnitud más liviano que competidores (Mem0, Zep, Letta, LangMem), apto para embedded y CLI tools.
 
-3. **42 superficies del repo declaran v0.3.6** cuando el tag y PyPI están en v0.3.7 — confirma la observación del informe analítico y requiere acción inmediata.
+3. **42 superficies del repo declaran v0.3.6** cuando el tag y PyPI están en v0.4.1 — confirma la observación del informe analítico y requiere acción inmediata.
 
 4. **codec-cortex ocupa un nicho único** entre las 4 familias: es el único determinista + local-first + audit + learning + bidirectional. No compite con Mem0/Zep/Letta/LangMem; es complementario.
 
@@ -350,6 +350,6 @@ codec-cortex ocupa un **nicho único** que ninguna de las 4 familias cubre:
 | R-05 | Zep/Graphiti: https://github.com/getzep/graphiti |
 | R-06 | Letta: https://github.com/letta-ai/letta |
 | R-07 | LangMem: https://github.com/langchain-ai/langmem |
-| R-08 | CODEC-CORTEX v0.3.7: https://github.com/FidelErnesto03/codec-cortex |
+| R-08 | CODEC-CORTEX v0.4.1: https://github.com/FidelErnesto03/codec-cortex |
 | R-09 | Benchmark v2.2.1: `benchmarks/v2.2.1/` (comparativo PyPI) |
 | R-10 | Benchmark v2.2.0: `benchmarks/v2.2.0/` (Learning Engine) |

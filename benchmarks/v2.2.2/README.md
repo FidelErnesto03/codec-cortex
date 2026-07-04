@@ -10,7 +10,7 @@
 | Benchmark estándar | No | **LoCoMo/LongMemEval-style (30 tareas, 100% EAS)** |
 | Familias comparadas | 7 paquetes PyPI "cortex" | **4 familias arquitectónicas** (Mem0, Zep, Letta, LangMem) |
 | Resource metrics | No | **Throughput (4.7 files/s), RAM (0.06 MB), latencia (214 ms)** |
-| Version audit | No | **42 superficies auditadas (v0.3.6 vs v0.3.7)** |
+| Version audit | No | **42 superficies auditadas (v0.3.6 vs v0.4.1)** |
 | Threat model | No | **6 amenazas + 3 gaps + privacy policy** |
 
 ## 📊 Hallazgos principales
@@ -20,8 +20,8 @@
 | H-01 | codec-cortex logra **100% EAS** en 30 tareas bridge estilo LoCoMo/LongMemEval | **Demostrado** |
 | H-02 | codec-cortex usa **0.06 MB peak RAM** (3-4 órdenes de magnitud más liviano que competidores) | **Demostrado** |
 | H-03 | Throughput: **4.7 files/s** (214 ms/file) para verify/render/verify-view/learn-scan | **Demostrado** |
-| H-04 | **42 superficies declaran v0.3.6, 0 declaran v0.3.7** — confirma observación del análisis | **Demostrado** |
-| H-05 | CHANGELOG **sin entrada v0.3.7** — gap documental crítico | **Demostrado** |
+| H-04 | **42 superficies declaran v0.3.6, 0 declaran v0.4.1** — confirma observación del análisis | **Demostrado** |
+| H-05 | CHANGELOG **sin entrada v0.4.1** — gap documental crítico | **Demostrado** |
 | H-06 | codec-cortex es **único** (determinista + local + audit + learning + bidirectional) entre 4 familias | **Demostrado** |
 | H-07 | 6 amenazas identificadas, todas mitigadas; 3 gaps documentales | **Demostrado** |
 
@@ -83,7 +83,7 @@ benchmark-cortex-v222/
 
 | # | Recomendación | Estado |
 |:---:|---------------|:---:|
-| 1 | Alinear versiones a v0.3.7 | ✓ Auditado (42 superficies) |
+| 1 | Alinear versiones a v0.4.1 | ✓ Auditado (42 superficies) |
 | 2 | Abrir canal de issues | ✗ Requiere maintainer |
 | 3 | Benchmark puente LoCoMo/LongMemEval | ✓ Implementado (30 tareas) |
 | 4 | API Python estable | ✗ Requiere decisión diseño |

@@ -77,6 +77,29 @@ def load_doc(path: str) -> CortexDocument:
         v1_parts.append("")
     v1_text = "\n".join(v1_parts)
 
+    # v1.1.3: If $0 has no entries (v2 parser didn't capture comment-based
+    # glossary declarations), inject them from the original text.
+    if not v2_doc.get_section("$0") or not v2_doc.get_section("$0").entries:
+        from ...core.parser import _GLOSSARY_DECL_RE as _GD_R1, _CONTRACT_RE, _TYPE_DECL_RE, _MICRO_PAIR_RE
+        import re as _re
+        # Scan original inner text for comment-based glossary declarations
+        # These are lines like: # IDN | identity | attrs | B | Semantic | desc
+        found_glossary_lines: list[str] = []
+        for line in inner.split("\n"):
+            stripped = line.strip()
+            if stripped.startswith("#") and "|" in stripped:
+                if _GD_R1.match(stripped) or _CONTRACT_RE.match(stripped):
+                    found_glossary_lines.append(stripped)
+                elif "=" in stripped:
+                    eq_count = stripped.count("=")
+                    if eq_count == 1 and _TYPE_DECL_RE.match(stripped):
+                        found_glossary_lines.append(stripped)
+                    elif eq_count > 1 and _MICRO_PAIR_RE.findall(stripped):
+                        found_glossary_lines.append(stripped)
+        if found_glossary_lines:
+            # Prepend the comment-style glossary declarations to $0
+            v1_text = "$0\n" + "\n".join(found_glossary_lines) + "\n\n" + v1_text
+
     return parse_cortex(v1_text, path=path)
 
 

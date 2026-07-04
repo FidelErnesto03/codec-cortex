@@ -10,7 +10,7 @@
 - **Previous license:** MIT
 - **New license:** Mozilla Public License 2.0 (MPL-2.0)
 - **Transition version:** v0.4.0
-- **MIT final tag:** v0.3.7-mit-final
+- **MIT final tag:** v0.4.1-mit-final
 
 ## Authorship Audit
 

@@ -8,6 +8,12 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] — 2026-07-04
+
+### Fixed
+
+- **Bug E003_UNKNOWN_SIGIL**: `cortex add` rechazaba sigilos declarados en $0 cuando el brain tenía header `<!-- CODEC-CORTEX -->`. Causa: el parser v2 no reconoce glosario en formato de comentarios (`# IDN | identity | ...`). Fix en `load_doc()`: inyección de comment-based glossary en conversión v2→v1.
+
 ## [0.3.2] — 2026-06-30
 
 ### Added

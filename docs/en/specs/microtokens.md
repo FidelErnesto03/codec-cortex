@@ -3,7 +3,7 @@
 
 # CODEC-CORTEX — Microtokens Reference
 
-> **STATUS NOTE:** As of v0.3.7 the canonical glossary in `skill/cortex/SKILL.md` $0 defines 30+ microtokens — compact abbreviations that expand to full terms during CORTEX parsing. They MUST be registered in $0 before first use and MUST NOT expand inside words or verbatim blocks.
+> **STATUS NOTE:** As of v0.4.1 the canonical glossary in `skill/cortex/SKILL.md` $0 defines 30+ microtokens — compact abbreviations that expand to full terms during CORTEX parsing. They MUST be registered in $0 before first use and MUST NOT expand inside words or verbatim blocks.
 
 ---
 

@@ -345,7 +345,7 @@
   "version_audit": {
     "audit_date": "2026-07-02",
     "git_tag_latest": "v0.3.7",
-    "pypi_version": "0.3.7",
+    "pypi_version": "0.4.1",
     "surfaces_declaring_v0.3.6": [
       "PATCH_SUMMARY.md",
       "README.md",

@@ -23,8 +23,8 @@ Versions released before v0.4.0 remain available under the MIT License.
 
 | Tag | License |
 |-----|---------|
-| `v0.3.7-mit-final` | MIT |
-| `v0.3.7` and earlier | MIT |
+| `v0.4.1-mit-final` | MIT |
+| `v0.4.1` and earlier | MIT |
 
 ## User-Owned Artifacts
 

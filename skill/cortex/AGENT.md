@@ -1,7 +1,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: CORTEX
 source_artifact: skill/cortex/AGENT.md
-source_version: 0.3.7
+source_version: 0.4.1
 status: current
 -->
 
