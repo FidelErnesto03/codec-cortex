@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.3.7 la consolidacion manual asistida por agente es uso actual del Skill, y el CLI ofrece el codec determinista, la capa E2 de seguridad y el protocolo E3 de documentacion. La deteccion automatica de recurrencia, promocion, decay y reordenamiento estructural por runtime siguen siendo planificadas o futuras salvo implementacion verificada.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.4.1 la consolidacion manual asistida por agente es uso actual del Skill, y el CLI ofrece el codec determinista, la capa E2 de seguridad y el protocolo E3 de documentacion. La deteccion automatica de recurrencia, promocion, decay y reordenamiento estructural por runtime siguen siendo planificadas o futuras salvo implementacion verificada.
 
 **Abstract:** Define el proceso de aprendizaje CODEC-CORTEX para `brain.cortex`: cuando actualizar memoria, como colapsar trabajo en `SES` y `LNG`, como detectar conocimiento candidato, como aplicar umbrales Fibonacci para ascenso contextual, cuando pedir confirmacion humana, que requiere `AUD`, y como distinguir memoria nativa transitoria, `SES`, `LNG`, `KNW` y `NXT`.
 

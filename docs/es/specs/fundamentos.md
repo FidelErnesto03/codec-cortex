@@ -9,7 +9,7 @@
 
 ---
 
-> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.3.7 el CLI y codec determinista (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect), la capa de seguridad E2 (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) y el protocolo de documentacion E3 (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`) estan implementados en cli/. El runtime y el servidor MCP siguen siendo planificados o futuros.
+> **NOTA DE ESTADO:** Este documento es especificacion o diseno. A v0.4.1 el CLI y codec determinista (parse, encode, decode, verify, HCORTEX render, canonicalize, convert, roundtrip-bidir, inspect), la capa de seguridad E2 (`cortex doctor --scan-secrets`, `cortex audit`, `cortex --mode`, `cortex verify --signature`) y el protocolo de documentacion E3 (`docs/cortex/api/*.cortex`, `cortex docstring`, `cortex benchmark`) estan implementados en cli/. El runtime y el servidor MCP siguen siendo planificados o futuros.
 
 **Abstract:** Ontología cognitiva, axiomas arquitectónicos y principios rectores del protocolo de compresión estructural determinista para memoria de agentes LLM. Cubre las 3 cortezas cognitivas, los 7 axiomas fundacionales, las 4 etapas de competencia como modelo de maduración, el protocolo HCORTEX de descompresión humana, las técnicas de compresión avanzada (colapso posicional y micro-glosario), y la proporción áurea (φ=1.618) como patrón universal de distribución de memoria.
 

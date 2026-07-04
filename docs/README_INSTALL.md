@@ -17,7 +17,7 @@ service.
 
 - Python ≥ 3.10
 - `pip` available on `$PATH`
-- A local checkout of `codec-cortex` (tested against v0.3.7 / commit `9999399`)
+- A local checkout of `codec-cortex` (tested against v0.4.1 / commit `9999399`)
 
 ---
 

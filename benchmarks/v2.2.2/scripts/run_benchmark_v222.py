@@ -296,12 +296,12 @@ def audit_version_alignment() -> Dict:
     repo = Path("/home/z/my-project/codec-cortex")
     audit = {
         "audit_date": "2026-07-02",
-        "git_tag_latest": "v0.3.7",
-        "pypi_version": "0.3.7",
+        "git_tag_latest": "v0.4.1",
+        "pypi_version": "0.4.1",
         "surfaces_declaring_v0.3.6": [],
-        "surfaces_declaring_v0.3.7": [],
-        "changelog_has_v0.3.7_entry": False,
-        "recommendation": "Actualizar 15 superficies de v0.3.6 a v0.3.7 + añadir entrada CHANGELOG",
+        "surfaces_declaring_v0.4.1": [],
+        "changelog_has_v0.4.1_entry": False,
+        "recommendation": "Actualizar 15 superficies de v0.3.6 a v0.4.1 + añadir entrada CHANGELOG",
     }
     
     # Find all files declaring versions
@@ -315,16 +315,16 @@ def audit_version_alignment() -> Dict:
             audit["surfaces_declaring_v0.3.6"].append(line.replace(str(repo) + "/", ""))
     
     r = sp.run(
-        ["grep", "-rl", "0.3.7", "--include=*.md", "--include=*.toml", "--include=*.py", str(repo)],
+        ["grep", "-rl", "0.4.1", "--include=*.md", "--include=*.toml", "--include=*.py", str(repo)],
         capture_output=True, text=True,
     )
     for line in r.stdout.strip().split("\n"):
         if line and "benchmarks/" not in line and ".git/" not in line:
-            audit["surfaces_declaring_v0.3.7"].append(line.replace(str(repo) + "/", ""))
+            audit["surfaces_declaring_v0.4.1"].append(line.replace(str(repo) + "/", ""))
     
     # Check CHANGELOG
     changelog = (repo / "cli" / "CHANGELOG.md").read_text()
-    audit["changelog_has_v0.3.7_entry"] = "## [0.3.7]" in changelog
+    audit["changelog_has_v0.4.1_entry"] = "## [0.4.1]" in changelog
     
     return audit
 
@@ -341,7 +341,7 @@ FOUR_FAMILY_MATRIX = {
         "io_api": "CLI cortex; .cortex, .hcortex.md, JSON/AST, JSONL audit. MCP: futuro",
         "dependencies": "Python ≥3.9; wheel pequeña; 0 deps runtime",
         "license": "MIT",
-        "maturity": "Temprano pero activo: 120 commits, tags hasta v0.3.7, comunidad externa mínima",
+        "maturity": "Temprano pero activo: 120 commits, tags hasta v0.4.1, comunidad externa mínima",
         "stars": 0,
         "commits": 120,
         "releases": 8,
@@ -483,7 +483,7 @@ FOUR_FAMILY_MATRIX = {
 
 THREAT_MODEL = {
     "project": "codec-cortex",
-    "version": "v0.3.7",
+    "version": "v0.4.1",
     "date": "2026-07-02",
     "scope": "Local-first deterministic codec for .cortex files",
     "principles": [
@@ -564,8 +564,8 @@ def main():
     audit = audit_version_alignment()
     print(f"  Git tag: {audit['git_tag_latest']}, PyPI: {audit['pypi_version']}")
     print(f"  Surfaces with v0.3.6: {len(audit['surfaces_declaring_v0.3.6'])}")
-    print(f"  Surfaces with v0.3.7: {len(audit['surfaces_declaring_v0.3.7'])}")
-    print(f"  CHANGELOG has v0.3.7 entry: {audit['changelog_has_v0.3.7_entry']}")
+    print(f"  Surfaces with v0.4.1: {len(audit['surfaces_declaring_v0.4.1'])}")
+    print(f"  CHANGELOG has v0.4.1 entry: {audit['changelog_has_v0.4.1_entry']}")
     (RUNS / "version_audit.json").write_text(json.dumps(audit, indent=2, ensure_ascii=False))
     
     # 2. Bridge benchmark
@@ -617,7 +617,7 @@ def main():
     print("=" * 70)
     print(f"  Bridge tasks: {len(tasks)} ({n_eas} EAS passed = {n_eas/len(tasks)*100:.0f}%)")
     print(f"  Resource: verify {resource['operations']['verify']['throughput_files_per_s']} files/s")
-    print(f"  Version audit: {len(audit['surfaces_declaring_v0.3.6'])} surfaces need v0.3.6 -> v0.3.7")
+    print(f"  Version audit: {len(audit['surfaces_declaring_v0.3.6'])} surfaces need v0.3.6 -> v0.4.1")
     print(f"  Four families compared: {list(FOUR_FAMILY_MATRIX.keys())}")
     print(f"  Threat model: {len(THREAT_MODEL['threats'])} threats documented")
 

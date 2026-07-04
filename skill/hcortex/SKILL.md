@@ -14,7 +14,7 @@ mode: full
 
 # CODEC-CORTEX — Especificación Canónica del Skill (HCORTEX)
 
-> **Estado:** v0.3.7 · 2026-07-01 · MIT · Fidel Ernesto Lozada A.
+> **Estado:** v0.4.1 · 2026-07-01 · MIT · Fidel Ernesto Lozada A.
 >
 > **Usar cuando:** Eres un agente que necesita operar bajo el protocolo de memoria CODEC-CORTEX, o un humano auditando la especificación del protocolo.
 >
@@ -32,7 +32,7 @@ mode: full
 | Autor | Fidel Ernesto Lozada A. |
 | Versión del skill | 1.3.0 |
 | Licencia | MIT |
-| Versión del proyecto | v0.3.7 |
+| Versión del proyecto | v0.4.1 |
 | Repositorio | github.com/FidelErnesto03/codec-cortex |
 | Dominio | Protocolo de memoria contextual para agentes LLM/SLM |
 | Idioma estructural | EN |

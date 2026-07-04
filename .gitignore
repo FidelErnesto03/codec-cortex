@@ -57,3 +57,6 @@ cli/src/cortex/_version.py
 
 # uv lock file (generated)
 cli/uv.lock
+*.bak
+cli/.coverage
+uv.lock

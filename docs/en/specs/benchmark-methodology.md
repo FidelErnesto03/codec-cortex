@@ -4,12 +4,12 @@
 <p align="center">
   <strong>CODEC-CORTEX</strong> — Benchmark Methodology
   <br>
-  <sub>SPECIFICATION · Survival Core · v0.3.7 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
+  <sub>SPECIFICATION · Survival Core · v0.4.1 · MIT · <a href="../../AUTHORS.md">Fidel Ernesto Lozada A.</a></sub>
 </p>
 
 ---
 
-> **STATUS NOTE:** This document is specification. As of v0.3.7 the deterministic parser, the CLI, and `cortex benchmark` (inventory + suite validation) are implemented. The scientific suites v1.0.0, v2.0.0 and v2.1.0 are published under `benchmarks/` with 4,840 runs each. Suites 0.1, 0.1b, and 0.2 remain listed as legacy offline/proxy reference. The methodology described here applies both to existing suites and to future contextual survival automation.
+> **STATUS NOTE:** This document is specification. As of v0.4.1 the deterministic parser, the CLI, and `cortex benchmark` (inventory + suite validation) are implemented. The scientific suites v1.0.0, v2.0.0 and v2.1.0 are published under `benchmarks/` with 4,840 runs each. Suites 0.1, 0.1b, and 0.2 remain listed as legacy offline/proxy reference. The methodology described here applies both to existing suites and to future contextual survival automation.
 
 **Abstract:** Decision-survival-centered benchmark methodology — not term occurrence. Defines 5 evaluation questions, 2 scenarios, and contextual survival rate metrics. Suites 0.1, 0.1b, and 0.2 exist as offline/proxy evidence; suites v1.0.0, v2.0.0, and v2.1.0 are reproducible scientific benchmarks published under `benchmarks/`.
 

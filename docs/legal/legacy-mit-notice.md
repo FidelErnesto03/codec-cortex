@@ -13,7 +13,7 @@ Current CODEC-CORTEX core releases starting with v0.4.0 are licensed under MPL-2
 
 | Artifact | Last MIT Version |
 |----------|:---------------:|
-| Core source code | `v0.3.7-mit-final` |
+| Core source code | `v0.4.1-mit-final` |
 | Benchmark v2.2.2 | `v2.2.2` (MIT) |
 | Benchmark v2.2.1 | `v2.2.1` (MIT) |
 | Benchmark v2.2.0 | `v2.2.0` (MIT) |
@@ -25,6 +25,6 @@ Current CODEC-CORTEX core releases starting with v0.4.0 are licensed under MPL-2
 ## Verification
 
 ```bash
-git tag v0.3.7-mit-final  # Last MIT release
+git tag v0.4.1-mit-final  # Last MIT release
 git tag v0.4.0             # First MPL-2.0 release
 ```

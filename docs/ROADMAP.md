@@ -122,7 +122,7 @@
 | Versión | Fecha | Hito |
 |---------|-------|------|
 | v0.4.0 | 2026-07-02 | Etapa 3 completa: documentación, wiki, legal, licencia MPL-2.0 |
-| v0.3.7 | 2026-07-02 | Etapa 4 parcial: learning engine v0.1.0 + benchmarks v2.2.x |
+| v0.4.1 | 2026-07-02 | Etapa 4 parcial: learning engine v0.1.0 + benchmarks v2.2.x |
 | v0.3.6 | 2026-07-01 | Etapa 1 refinada: SKILL v1.3.0, parser v2-aware, docs EN/ES |
 | v0.3.5 | 2026-07-01 | Etapa 3 iniciada: protocolo de documentación E3 |
 | v0.3.4 | 2026-06-30 | Etapa 2: seguridad E2 (secret scanner, mutation gates, audit) |
