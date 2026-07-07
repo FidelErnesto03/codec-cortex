@@ -132,7 +132,11 @@ def validate(
                 "entry": entry.name,
                 "severity": "error",
             })
-        if sd.type == "attrs-pos" and doc.glossary.contract_for(entry.sigil) is None:
+        if (
+            sd.type == "attrs-pos"
+            and doc.glossary.contract_for(entry.sigil) is None
+            and not isinstance(entry.value, dict)
+        ):
             findings.append({
                 "code": E007_ATTRS_POS_CONTRACT_MISSING,
                 "message": f"attrs-pos sigil {entry.sigil!r} has no positional contract",

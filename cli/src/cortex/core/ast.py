@@ -304,13 +304,17 @@ def normalize_section_id(section_id: str) -> str:
     s = section_id.strip()
     if not s:
         return "$0"
+    def is_section_number(value: str) -> bool:
+        parts = value.split(".")
+        return bool(parts) and all(part.isdigit() for part in parts)
+
     if not s.startswith("$"):
         # accept "2" or "2: title"
-        if s.split(":", 1)[0].strip().isdigit():
+        if is_section_number(s.split(":", 1)[0].strip()):
             return "$" + s.split(":", 1)[0].strip()
         return "$" + s
     # already starts with $
     head = s[1:].split(":", 1)[0].split("·", 1)[0].strip()
-    if head.isdigit():
+    if is_section_number(head):
         return "$" + head
     return s
