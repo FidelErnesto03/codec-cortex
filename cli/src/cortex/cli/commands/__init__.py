@@ -81,7 +81,6 @@ def load_doc(path: str) -> CortexDocument:
     # glossary declarations), inject them from the original text.
     if not v2_doc.get_section("$0") or not v2_doc.get_section("$0").entries:
         from ...core.parser import _GLOSSARY_DECL_RE as _GD_R1, _CONTRACT_RE, _TYPE_DECL_RE, _MICRO_PAIR_RE
-        import re as _re
         # Scan original inner text for comment-based glossary declarations
         # These are lines like: # IDN | identity | attrs | B | Semantic | desc
         found_glossary_lines: list[str] = []

@@ -40,9 +40,9 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Tuple
 
 from ..core.ast import Entry
-from .index import LearnIndex, ScoreRecord
+from .index import LearnIndex
 from .policy import LearningPolicySet
-from .scoring import ScoreRecord  # noqa: F401  (re-export)
+from .scoring import ScoreRecord
 
 
 # ---------------------------------------------------------------------------
