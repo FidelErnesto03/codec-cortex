@@ -76,12 +76,16 @@ def looks_like_section_header(line: str) -> bool:
     s = line.strip()
     if not s:
         return False
+    def is_section_number(value: str) -> bool:
+        parts = value.split(".")
+        return bool(parts) and all(part.isdigit() for part in parts)
+
     # Markdown-style: ## $2 · TITLE
     if s.startswith("##"):
         rest = s.lstrip("#").strip()
         if rest.startswith("$"):
             head = rest[1:].split(":", 1)[0].split("·", 1)[0].strip()
-            return head.isdigit()
+            return is_section_number(head)
         return False
     # Comment-style: # -- $2: TITLE --
     if s.startswith("#"):
@@ -90,15 +94,15 @@ def looks_like_section_header(line: str) -> bool:
         inner = inner.lstrip("-").strip()
         if inner.startswith("$"):
             head = inner[1:].split(":", 1)[0].split("·", 1)[0].strip()
-            return head.isdigit()
+            return is_section_number(head)
         return False
     # Plain: $2 or $2: TITLE
     if s.startswith("$"):
         head = s[1:].split(":", 1)[0].split("·", 1)[0].strip()
-        return head.isdigit()
+        return is_section_number(head)
     # Bare number "2" — accept only if the entire token is a digit
     head = s.split(":", 1)[0].split("·", 1)[0].strip()
-    return head.isdigit()
+    return is_section_number(head)
 
 
 def parse_section_header(line: str) -> Tuple[str, str]:
@@ -123,7 +127,8 @@ def parse_section_header(line: str) -> Tuple[str, str]:
         num, title = s, ""
     num = num.strip()
     title = title.strip().rstrip("-").strip()
-    if not num.isdigit():
+    parts = num.split(".")
+    if not parts or not all(part.isdigit() for part in parts):
         # Not a real section header; return as-is and let caller decide.
         return ("$" + num if num else "$0", title)
     return ("$" + num, title)
@@ -137,7 +142,7 @@ _ENTRY_START_RE = _re.compile(
     r"""^
     (?P<sigil>[A-Z][A-Z0-9_]*|!)    # sigil (uppercase, or single '!')
     :
-    (?P<name>[A-Za-z_][A-Za-z0-9_]*) # snake_case name
+    (?P<name>[A-Za-z_][A-Za-z0-9_.]*) # entry name
     \s*
     \{                              # opening brace (rest of line = body start)
     (?P<rest>.*)

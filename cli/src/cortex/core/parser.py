@@ -112,43 +112,48 @@ def parse_attrs_body(body: str) -> Dict[str, Any]:
       - bare numbers (int/float)
       - booleans (true/false)
       - bare words (treated as strings)
+      - nested ``{...}`` maps, parsed recursively
 
     Raises :class:`InvalidAttrsError` on malformed input.
     """
+
+    def parse_bare(raw: str) -> Any:
+        if raw in ("true", "false"):
+            return raw == "true"
+        if raw.lower() in ("null", "none", "nil", "undefined"):
+            return None
+        if re.fullmatch(r"-?\d+", raw):
+            return int(raw)
+        if re.fullmatch(r"-?\d+\.\d+", raw):
+            return float(raw)
+        return raw
 
     out: Dict[str, Any] = {}
     s = body.strip()
     if not s:
         return out
-    # Tokenize: key : value (, key : value)*
     i = 0
     n = len(s)
     while i < n:
-        # skip whitespace and leading commas
         while i < n and (s[i].isspace() or s[i] == ","):
             i += 1
         if i >= n:
             break
-        # read key (identifier)
-        m = re.match(r"([A-Za-z_][A-Za-z0-9_]*)", s[i:])
+        m = re.match(r"([A-Za-z0-9_][A-Za-z0-9_]*)", s[i:])
         if not m:
             raise errors.InvalidAttrsError(f"expected key at position {i}: {s[i:i+20]!r}")
         key = m.group(1)
         i += len(key)
-        # skip whitespace
         while i < n and s[i].isspace():
             i += 1
         if i >= n or s[i] != ":":
             raise errors.InvalidAttrsError(f"expected ':' after key {key!r}")
         i += 1
-        # skip whitespace
         while i < n and s[i].isspace():
             i += 1
         if i >= n:
             raise errors.InvalidAttrsError(f"missing value for key {key!r}")
-        # read value
         if s[i] == '"':
-            # quoted string
             j = i + 1
             buf: List[str] = []
             escape = False
@@ -175,25 +180,61 @@ def parse_attrs_body(body: str) -> Dict[str, Any]:
                 raise errors.InvalidAttrsError(f"unterminated string for key {key!r}")
             value: Any = "".join(buf)
             i = j + 1
-        else:
-            # bare value: read until , or end
+        elif s[i] == "{":
+            depth = 0
             j = i
-            while j < n and s[j] != ",":
+            in_string = False
+            escape = False
+            while j < n:
+                ch = s[j]
+                if escape:
+                    escape = False
+                elif ch == "\\":
+                    escape = True
+                elif in_string:
+                    if ch == '"':
+                        in_string = False
+                elif ch == '"':
+                    in_string = True
+                elif ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                j += 1
+            if j >= n or depth != 0:
+                raise errors.InvalidAttrsError(f"unterminated map for key {key!r}")
+            value = parse_attrs_body(s[i + 1:j])
+            i = j + 1
+        else:
+            j = i
+            in_string = False
+            escape = False
+            depth = 0
+            while j < n:
+                ch = s[j]
+                if escape:
+                    escape = False
+                elif ch == "\\":
+                    escape = True
+                elif in_string:
+                    if ch == '"':
+                        in_string = False
+                elif ch == '"':
+                    in_string = True
+                elif ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    if depth == 0:
+                        break
+                    depth -= 1
+                elif ch == "," and depth == 0:
+                    break
                 j += 1
             raw = s[i:j].strip()
+            value = parse_bare(raw)
             i = j
-            # interpret
-            if raw in ("true", "false"):
-                value = (raw == "true")
-            elif raw.lower() in ("null", "none", "nil", "undefined"):
-                # v1.1.7 P0-3 + v1.1.8: convert null-like literals to None
-                value = None
-            elif re.fullmatch(r"-?\d+", raw):
-                value = int(raw)
-            elif re.fullmatch(r"-?\d+\.\d+", raw):
-                value = float(raw)
-            else:
-                value = raw
         out[key] = value
     return out
 
@@ -602,16 +643,7 @@ def _parse_entry_values(doc: CortexDocument) -> None:
             elif t == "attrs-pos":
                 contract = doc.glossary.contract_for(entry.sigil)
                 if contract is None:
-                    doc.diagnostics.append({
-                        "code": E007_ATTRS_POS_CONTRACT_MISSING,
-                        "message": f"attrs-pos sigil {entry.sigil!r} has no contract",
-                        "line": entry.line_start,
-                        "section": sec.id,
-                        "sigil": entry.sigil,
-                        "entry": entry.name,
-                        "severity": "error",
-                    })
-                    entry.value = {}
+                    entry.value = parse_attrs_body(body)
                 else:
                     entry.value = parse_attrs_pos_body(body, contract)
             elif t == "cuerpo":
