@@ -80,8 +80,22 @@ def atomic_write_cortex(
     reparsed = parse_cortex(text, path=path)
     diagnostics = validate(reparsed)
     errors = [d for d in diagnostics if d.get("severity") == "error"]
+
+    # v1.1.7 BLP-019: auto-repair E032/E034 when force=True
+    # Allows legacy brains (LNG without prevention, etc.) to be written.
+    if force:
+        from ..core.repair import has_e032_e034, repair_doc
+        if has_e032_e034(diagnostics):
+            repair_log = repair_doc(reparsed)
+            if repair_log:
+                # Re-serialize, re-parse, re-validate after repair
+                text = write_cortex(reparsed)
+                reparsed = parse_cortex(text, path=path)
+                diagnostics = validate(reparsed)
+                errors = [d for d in diagnostics if d.get("severity") == "error"]
+
     # v1.1.3 P0-2/P0-3: non-bypassable errors (secrets, critical sigil
-    # incompleteness) CANNOT be overridden by --force.
+    # incompleteness) CANNOT be overridden by --force (except via auto-repair above).
     non_bypassable = [d for d in errors if d.get("bypassable") is False]
     bypassable = [d for d in errors if d.get("bypassable") is not False]
     # v1.1.3 P0-2: --unsafe-allow-secret-forensics can bypass secret errors ONLY

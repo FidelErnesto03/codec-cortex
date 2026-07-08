@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "codec-cortex"
-version = "0.4.2"
+version = "0.4.3"
 description = "CODEC-CORTEX — Universal memory Skill and contextual memory protocol for LLM/SLM agents; CLI at cli/"
 readme = "README.md"
 license = {text = "MPL-2.0"}
