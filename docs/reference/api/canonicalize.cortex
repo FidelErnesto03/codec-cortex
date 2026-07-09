@@ -6,5 +6,5 @@ GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
 
 $1
 IDN:command{name:"canonicalize",cli:"cortex canonicalize",status:"current",requires:"cortex 0.3.5+"}
-DESC:summary{text:"Normalize one CORTEX file."}
+DESC:summary{name:"summary",text:"Normalize one CORTEX file."}
 ARG:input{name:"input",required:"yes",description:"source file"}

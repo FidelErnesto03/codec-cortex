@@ -6,7 +6,7 @@ GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
 
 $1
 IDN:command{name:"docstring",cli:"cortex docstring",status:"current",requires:"cortex 0.3.5+"}
-DESC:summary{text:"Generate compact help text from CORTEX API docs."}
+DESC:summary{name:"summary",text:"Generate compact help text from CORTEX API docs."}
 ARG:command{name:"command",required:"no",description:"command name"}
 ARG:all{name:"--all",required:"no",description:"generate all docs"}
 ARG:docs_root{name:"--docs-root",required:"no",description:"API docs directory"}

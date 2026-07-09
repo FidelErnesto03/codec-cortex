@@ -46,10 +46,10 @@ def resolve_docs_root(explicit: Optional[str] = None) -> Path:
             return path
         raise DocstringError(f"docs root not found: {path}")
     for base in _candidate_roots():
-        candidate = base / "docs" / "cortex" / "api"
+        candidate = base / "docs" / "reference" / "api"
         if candidate.is_dir():
             return candidate
-    raise DocstringError("docs/cortex/api not found; pass --docs-root")
+    raise DocstringError("docs/reference/api not found; pass --docs-root")
 
 
 def _summary_text(body: str) -> str:
@@ -114,7 +114,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="cortex docstring")
     parser.add_argument("command", nargs="?", help="command name, e.g. canonicalize")
     parser.add_argument("--all", action="store_true", help="generate docstrings for all API docs")
-    parser.add_argument("--docs-root", default=None, help="directory containing docs/cortex/api/*.cortex")
+    parser.add_argument("--docs-root", default=None, help="directory containing docs/reference/api/*.cortex")
     parser.add_argument("--format", choices=["text", "json"], default="text")
     return parser
 

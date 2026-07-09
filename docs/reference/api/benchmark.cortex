@@ -6,7 +6,7 @@ GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
 
 $1
 IDN:command{name:"benchmark",cli:"cortex benchmark",status:"current",requires:"cortex 0.3.5+"}
-DESC:summary{text:"Inspect local benchmark files."}
+DESC:summary{name:"summary",text:"Inspect local benchmark files."}
 ARG:root{name:"--root",required:"no",description:"root directory"}
 ARG:suite{name:"--suite",required:"no",description:"suite name"}
 ARG:list{name:"--list",required:"no",description:"list suites"}
