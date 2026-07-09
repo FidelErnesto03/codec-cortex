@@ -219,12 +219,10 @@ def test_suite_count_real():
         capture_output=True, text=True, cwd=ROOT,
         env={**os.environ, "PYTHONPATH": SRC_DIR},
     )
-    # Last line has count like "312 tests collected"
-    last_lines = r.stdout.strip().split("\n")[-3:]
-    count_text = " ".join(last_lines)
-    # Extract number
+    # Search entire stdout for test count (not just last lines, as
+    # coverage plugins may add varying output on different Python versions)
     import re
-    m = re.search(r"(\d+) tests?", count_text)
-    assert m, f"Could not parse test count from {count_text!r}"
+    m = re.search(r"(\d+) tests? collected", r.stdout)
+    assert m, f"Could not parse test count from stdout:\n{r.stdout[-500:]}"
     count = int(m.group(1))
     assert count >= 312, f"Suite must have ≥312 tests; got {count}"
