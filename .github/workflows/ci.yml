@@ -50,7 +50,7 @@ jobs:
 
       - name: Verify documentation API sources
         run: |
-          for f in ../docs/cortex/api/*.cortex; do cortex verify "$f" --strict; done
+          for f in ../docs/reference/api/*.cortex; do cortex verify "$f" --strict; done
           cortex docstring canonicalize > /dev/null
 
       - name: Verify canonical artifacts
