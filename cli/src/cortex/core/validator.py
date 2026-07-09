@@ -32,9 +32,6 @@ from .ast import CortexDocument, Entry
 from .errors import (
     ALLOWED_PRIORITY,
     ALLOWED_SEVERITY,
-    ALLOWED_STATUS,
-    E003_UNKNOWN_SIGIL,
-    E004_UNKNOWN_TYPE,
     E007_ATTRS_POS_CONTRACT_MISSING,
     E008_DUPLICATE_ENTRY,
 )
