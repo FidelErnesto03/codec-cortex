@@ -8,6 +8,33 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] — 2026-07-09
+
+### Added
+
+- **New project vision**: CODEC-CORTEX redefinido como "Universal Communication Protocol for LLM/SLM Agents" — un codec de compresión de conocimiento en 3 capas (Syntax → Transport → Knowledge).
+- **Documented roadmap**: Fase 1 (File CODEC ✅), Fase 2 (Stream CODEC / MCP 🚧), Fase 3 (Database CODEC 🔮).
+- **CORTEX ≠ ArqUX distinction**: documentado formalmente que los niveles de documento pertenecen al framework de gobernanza, no al formato.
+- **Auto-numbering design**: BLP-003 con contador secuencial por sección para evitar duplicados de nombre en .cortex.
+- **`docs/` reorganization**: documentación consolidada en 7 categorías (reference, releases, verification, benchmarks, proposals, archive).
+- **Enterprise README**: nuevo README con tabla de compresión, diagrama de capas, tabla de transportes y sección de enterprise readiness.
+
+### Changed
+
+- **Version bumped**: 0.4.3 → 0.5.0.
+- **README.md**: reposicionado como protocolo de comunicación universal.
+- **pyproject.toml**: description actualizada, author "alfred" removido.
+- **STATUS.md**: actualizado con estado actual y hoja de ruta.
+- **Project structure cleanup**: `.project-control/` eliminado (legacy governance), `codex-skills/` removido, `src/` placeholder eliminado, archivos de agente (brain.cortex, alfred-memory.*) removidos del repositorio.
+
+### Consolidated
+
+- `codec-cortex/docs/` → `docs/` (documentación del package fusionada en estructura principal).
+- `codec-cortex/benchmarks/` → `docs/benchmarks/` (con versiones v1.0.0 a v2.2.2).
+- `codec-cortex/reports/` → `docs/archive/reports/`.
+- `others/` → `docs/archive/` (tarballs, recovery codes).
+- Duplicados de PDFs de benchmark eliminados.
+
 ## [0.4.1] — 2026-07-04
 
 ### Fixed

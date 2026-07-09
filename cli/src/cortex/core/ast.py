@@ -35,6 +35,8 @@ class SigilDef:
     risk: str = "M"
     layer: str = "Semantic"
     description: str = ""
+    fields: Optional[List[str]] = None
+    needs_review: bool = False
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -44,6 +46,8 @@ class SigilDef:
             "risk": self.risk,
             "layer": self.layer,
             "description": self.description,
+            "fields": self.fields,
+            "needs_review": self.needs_review,
         }
 
 
@@ -91,6 +95,8 @@ class Glossary:
     types: Dict[str, TypeDef] = field(default_factory=dict)
     micro: Dict[str, MicroDef] = field(default_factory=dict)
     contracts: Dict[str, AttrsPosContract] = field(default_factory=dict)
+    status_custom: Optional[List[str]] = None
+    types_custom: Optional[List[str]] = None
 
     def add_sigil(self, sigil: SigilDef) -> None:
         self.sigils[sigil.sigil] = sigil

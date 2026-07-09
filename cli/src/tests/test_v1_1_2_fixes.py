@@ -83,8 +83,8 @@ def test_recover_embed_then_verify_strict_cli(tmp_path):
         f.write(
             "$1: X\n\n"
             'IDN:agent{name:"legacy"}\n'
-            'FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}\n'
-            'OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}\n'
+            'FCS:primary{name:"primary", what:"x", priority:"high", status:"current", survive:"min"}\n'
+            'OBJ:main{name:"main", goal:"y", status:"current", success:"z", survive:"min"}\n'
         )
     out_path = str(tmp_path / "legacy.fixed.cortex")
 
@@ -111,20 +111,13 @@ def test_cli_update_blocked_by_validation(tmp_path):
     path = str(tmp_path / "brain.cortex")
     atomic_write_cortex(doc, path, force=True)
 
-    # Try to set survive=work on CNST:blocking — should break E026
+    # Explicit retention is now independent from blocking protection.
     r = _run_cli(["update", path, "CNST:self_contained", "--set", "survive=work"])
-    assert r.returncode != 0, f"expected rc!=0, got {r.returncode}\n{r.stdout}"
-    combined = r.stdout + r.stderr
-    assert "E015_ATOMIC_WRITE_FAILED" in combined or "validation" in combined.lower(), (
-        f"expected validation failure, got: {combined}"
-    )
-
-    # The file must NOT have been modified
+    assert r.returncode == 0, f"expected rc=0, got {r.returncode}\n{r.stdout}"
+    # The file is modified while retaining independent blocking protection.
     with open(path) as f:
         text = f.read()
-    assert 'survive:"min"' in text or "survive:min" in text, (
-        "file was modified despite validation gate"
-    )
+    assert 'survive:"work"' in text or "survive:work" in text
 
 
 def test_cli_update_force_bypasses_gate(tmp_path):
@@ -195,21 +188,20 @@ def test_internal_post_mutation_gate_helper():
     args = Args()
     # A valid brain should pass the gate
     assert post_mutation_gate(doc, args) is None
-    # A brain with a broken CNST should fail
+    # A blocking CNST may explicitly retain at work level.
     cnst = doc.find_entries(sigil="CNST")[0]
     cnst.value["survive"] = "work"
     err = post_mutation_gate(doc, args)
-    assert err is not None, "expected gate to block broken brain"
-    assert err["error"]["code"] == "E015_ATOMIC_WRITE_FAILED"
-    # v1.1.4: --force can NOT bypass E026 (governance invariant)
+    assert err is None, "explicit survive must not disable blocking protection"
+    # Force remains harmless because there is no validation error to bypass.
     args.force = True
     err = post_mutation_gate(doc, args)
-    assert err is not None, "v1.1.4: --force must NOT bypass governance invariants"
-    # With --no-validate-write, bypassable=False errors still block
+    assert err is None
+    # With --no-validate-write the valid document still passes.
     args.force = False
     args.no_validate_write = True
     err = post_mutation_gate(doc, args)
-    assert err is not None, "v1.1.4: --no-validate-write must NOT bypass governance invariants"
+    assert err is None
 
 
 # ---------------------------------------------------------------------------

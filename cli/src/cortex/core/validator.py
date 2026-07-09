@@ -42,6 +42,8 @@ from .document_kind import (
     DocumentKind,
     validate_level_policy,
 )
+from .parser import ensure_in_glossary
+from .schema import SchemaResolver
 
 
 # Required fields per critical sigil (Section 6 of SKILL.md)
@@ -75,7 +77,6 @@ def _is_protected(entry: Entry) -> bool:
 
 def is_protected_entry(entry: Entry) -> bool:
     """Public wrapper used by the CRUD layer."""
-
     return _is_protected(entry)
 
 
@@ -105,32 +106,37 @@ def validate(
     """
 
     findings: List[Dict] = list(doc.diagnostics)
+    resolver = SchemaResolver(doc.glossary)
+    resolver_statuses = resolver.valid_statuses()
+    resolver_types = resolver.valid_types()
 
-    # 1. Unknown sigils (parser may already have flagged some)
+    # 1. Unknown sigils (parser may already have flagged some as info)
     for sec, entry in doc.iter_entries():
         if entry.sigil in {"GSIG", "GTYP", "GMIC", "GCON"}:
             continue
         if entry.sigil not in doc.glossary.sigils:
+            ensure_in_glossary(doc, sigil=entry.sigil)
             findings.append({
-                "code": E003_UNKNOWN_SIGIL,
-                "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) not declared in $0",
+                "code": "I001_UNDECLARED_SIGIL",
+                "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) not declared in $0 — auto-registered with needs_review",
                 "line": entry.line_start,
                 "section": sec.id,
                 "sigil": entry.sigil,
                 "entry": entry.name,
-                "severity": "error",
+                "severity": "info",
             })
             continue
         sd = doc.glossary.sigils[entry.sigil]
-        if sd.type not in doc.glossary.types:
+        if sd.type not in resolver_types:
+            ensure_in_glossary(doc, type_=sd.type)
             findings.append({
-                "code": E004_UNKNOWN_TYPE,
-                "message": f"type {sd.type!r} (sigil {entry.sigil!r}) not declared in $0",
+                "code": "I002_UNDECLARED_TYPE",
+                "message": f"type {sd.type!r} (sigil {entry.sigil!r}) auto-registered in $0",
                 "line": entry.line_start,
                 "section": sec.id,
                 "sigil": entry.sigil,
                 "entry": entry.name,
-                "severity": "error",
+                "severity": "info",
             })
         if (
             sd.type == "attrs-pos"
@@ -147,10 +153,10 @@ def validate(
                 "severity": "error",
             })
 
-    # 2. Required fields for critical sigils
+    # 2. Required fields for critical sigils (using SchemaResolver)
     for sec, entry in doc.iter_entries():
-        required = REQUIRED_FIELDS.get(entry.sigil)
-        if not required:
+        required, optional = resolver.required_fields(entry.sigil)
+        if not required and not optional:
             continue
         if not isinstance(entry.value, dict):
             findings.append({
@@ -174,16 +180,27 @@ def validate(
                 "entry": entry.name,
                 "severity": "warning",
             })
+        optional_missing = [f for f in optional if f not in entry.value]
+        if optional_missing:
+            findings.append({
+                "code": "I003_OPTIONAL_FIELDS",
+                "message": f"{entry.sigil}:{entry.name} optional fields missing (canonical but not in $0): {optional_missing}",
+                "line": entry.line_start,
+                "section": sec.id,
+                "sigil": entry.sigil,
+                "entry": entry.name,
+                "severity": "info",
+            })
 
-    # 3. Status / severity / priority allowed values
+    # 3. Status / severity / priority allowed values (using SchemaResolver)
     for sec, entry in doc.iter_entries():
         if not isinstance(entry.value, dict):
             continue
         status = entry.value.get("status")
-        if isinstance(status, str) and status not in ALLOWED_STATUS:
+        if isinstance(status, str) and status not in resolver_statuses:
             findings.append({
                 "code": "W002_INVALID_STATUS",
-                "message": f"{entry.sigil}:{entry.name} status={status!r} not in {sorted(ALLOWED_STATUS)}",
+                "message": f"{entry.sigil}:{entry.name} status={status!r} not in {sorted(resolver_statuses)}",
                 "line": entry.line_start,
                 "section": sec.id,
                 "sigil": entry.sigil,
@@ -232,10 +249,6 @@ def validate(
         seen.setdefault(key, []).append(entry.name)
 
     # 5. Cognitive governance (audit hardening, 1.1.0):
-    #    level separation, FCS/OBJ in brain, survive domain, blocking→min,
-    #    attrs-pos arity, secret scanning.
-    # Re-audit H-RA-01: pass explicit `kind` through so `verify --kind X`
-    # actually applies the right level-policy rules.
     findings.extend(validate_level_policy(doc, kind=kind))
 
     # 6. Strict mode: promote all warnings to errors

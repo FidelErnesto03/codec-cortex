@@ -165,6 +165,9 @@ def serialize_glossary(glossary: Glossary) -> str:
             f"# {sd.sigil:<5} | {sd.name:<10} | {sd.type:<10} | {sd.risk:<1} | "
             f"{sd.layer:<14} | {sd.description}"
         )
+    if glossary.status_custom:
+        lines.append("#")
+        lines.append("# status: " + ", ".join(glossary.status_custom))
     # Types
     lines.append("#")
     lines.append("# Types:")

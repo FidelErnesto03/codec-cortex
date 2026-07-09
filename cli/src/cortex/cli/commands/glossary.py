@@ -17,6 +17,41 @@ from ...crud.transactions import atomic_write_cortex
 from ..commands import load_doc
 
 
+def review_glossary(doc):
+    """Return every glossary element with its review state."""
+    items = []
+    for sigil in sorted(doc.glossary.sigils.values(), key=lambda item: item.sigil):
+        items.append({
+            "kind": "sigil",
+            "name": sigil.sigil,
+            "location": "$0",
+            "status": "needs_review" if sigil.needs_review else "declared",
+            "action": "define type, risk, layer, and description" if sigil.needs_review else "none",
+        })
+    for status in sorted(doc.glossary.status_custom or []):
+        items.append({"kind": "status", "name": status, "location": "$0", "status": "declared", "action": "none"})
+    for type_name in sorted(doc.glossary.types_custom or []):
+        items.append({"kind": "type", "name": type_name, "location": "$0", "status": "declared", "action": "none"})
+    return items
+
+
+def run_review(args) -> int:
+    """List all $0 elements and identify entries that need definition."""
+    items = review_glossary(load_doc(args.input))
+    pending = sum(item["status"] == "needs_review" for item in items)
+    if args.format == "json":
+        print(json.dumps({"ok": True, "count": len(items), "pending": pending, "items": items}, indent=2))
+    else:
+        if not items:
+            print("(no glossary elements declared)")
+            return 0
+        lines = [f"{'KIND':<8} {'NAME':<12} {'STATUS':<14} ACTION", "-" * 72]
+        for item in items:
+            lines.append(f"{item['kind']:<8} {item['name']:<12} {item['status']:<14} {item['action']}")
+        print("\n".join(lines))
+    return 0
+
+
 def run_list(args) -> int:
     doc = load_doc(args.input)
     sigils = list(doc.glossary.sigils.values())

@@ -4,7 +4,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: HCORTEX
 source_artifact: skill/cortex/SKILL.md
-source_version: 1.3.0
+source_version: 1.4.0
 status: specification
 reversible: true
 view_schema: 1
@@ -14,7 +14,7 @@ mode: full
 
 # CODEC-CORTEX — Especificación Canónica del Skill (HCORTEX)
 
-> **Estado:** v0.4.1 · 2026-07-01 · MIT · Fidel Ernesto Lozada A.
+> **Estado:** v0.4.3 · 2026-07-09 · MPL-2.0 · Fidel Ernesto Lozada A.
 >
 > **Usar cuando:** Eres un agente que necesita operar bajo el protocolo de memoria CODEC-CORTEX, o un humano auditando la especificación del protocolo.
 >
@@ -30,9 +30,9 @@ mode: full
 |-------|-------|
 | Nombre | CODEC-CORTEX |
 | Autor | Fidel Ernesto Lozada A. |
-| Versión del skill | 1.3.0 |
-| Licencia | MIT |
-| Versión del proyecto | v0.4.1 |
+| Versión del skill | 1.4.0 |
+| Licencia | MPL-2.0 |
+| Versión del proyecto | v0.4.3 |
 | Repositorio | github.com/FidelErnesto03/codec-cortex |
 | Dominio | Protocolo de memoria contextual para agentes LLM/SLM |
 | Idioma estructural | EN |
@@ -426,7 +426,7 @@ CODEC-CORTEX reemplaza la historia lineal con estado cognitivo estructurado, aud
 
 ---
 
-<!-- VIEW:reglas_estructurales kind="numbered_list" target="$4:!:type_strict,$4:!:section_normalize,$4:!:id_format,$4:!:micro_delimit,$4:!:extend_glossary" reverse="items_to_ordered_entries" title="Reglas Estructurales" status:current -->
+<!-- VIEW:reglas_estructurales kind="numbered_list" target="$4:!:type_strict,$4:!:section_normalize,$4:!:id_format,$4:!:micro_delimit,$4:!:extend_glossary,$4:!:decimal_sections,$4:!:dot_entry_names,$4:!:nested_attrs_maps,$4:!:attrs_pos_fallback" reverse="items_to_ordered_entries" title="Reglas Estructurales" status:current -->
 
 ## §7 Reglas Operacionales (`!`)
 
@@ -437,6 +437,10 @@ CODEC-CORTEX reemplaza la historia lineal con estado cognitivo estructurado, aud
 3. `!:id_format` — Instancias en snake_case; sigilos en MAYÚSCULAS salvo `!`
 4. `!:micro_delimit` — Microtokens se expanden solo por delimitador; NO DEBEN expandirse dentro de palabras
 5. `!:extend_glossary` — Nuevo sigilo → registrar en $0 antes del primer uso; NO redefinir silenciosamente
+6. `!:decimal_sections` — Secciones decimales (`$2.1`, `$3.5`) válidas. `normalize_section_id()` preserva puntos.
+7. `!:dot_entry_names` — Nombres de entrada permiten puntos (`HDL:workspace.init`). Selector usa nombre completo.
+8. `!:nested_attrs_maps` — `parse_attrs_body()` soporta mapas anidados `{...}` como valores. Claves aceptan dígito inicial.
+9. `!:attrs_pos_fallback` — Sigilo attrs-pos sin contrato en `$0` → parsea como attrs body. `E007` solo si valor no es dict.
 
 <!-- /VIEW:reglas_estructurales -->
 
@@ -451,7 +455,7 @@ CODEC-CORTEX reemplaza la historia lineal con estado cognitivo estructurado, aud
 
 <!-- /VIEW:reglas_hcortex -->
 
-<!-- VIEW:reglas_workflow kind="numbered_list" target="$4:!:canonical_names,$4:!:startup_verify,$4:!:precommit_verify,$4:!:output_cortex_out,$4:!:mutation_mode,$4:!:docs_source_of_truth,$4:!:secret_scan" reverse="items_to_ordered_entries" title="Reglas de Workflow Operativo" status:current -->
+<!-- VIEW:reglas_workflow kind="numbered_list" target="$4:!:canonical_names,$4:!:startup_verify,$4:!:precommit_verify,$4:!:output_cortex_out,$4:!:mutation_mode,$4:!:docs_source_of_truth,$4:!:secret_scan,$4:!:auto_repair_fields" reverse="items_to_ordered_entries" title="Reglas de Workflow Operativo" status:current -->
 
 ### Reglas de workflow operativo
 
@@ -462,6 +466,7 @@ CODEC-CORTEX reemplaza la historia lineal con estado cognitivo estructurado, aud
 5. `!:mutation_mode` — Respetar `--mode read-only|editor|admin` y env `$CORTEX_MODE`
 6. `!:docs_source_of_truth` — Ayuda CLI deriva de `docs/cortex/api/*.cortex`
 7. `!:secret_scan` — Ejecutar `cortex doctor --scan-secrets` antes de commitear
+8. `!:auto_repair_fields` — `atomic_write_cortex(force=True)` repara E032/E034: rellena campos requeridos faltantes con defaults semánticos
 
 <!-- /VIEW:reglas_workflow -->
 

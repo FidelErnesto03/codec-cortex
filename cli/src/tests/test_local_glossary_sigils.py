@@ -3,7 +3,7 @@
 
 """Regression tests for local $0 glossary sigils."""
 
-from cortex.core.errors import E003_UNKNOWN_SIGIL, E006_INVALID_ATTRS
+from cortex.core.errors import E006_INVALID_ATTRS
 from cortex.core.parser import parse_cortex
 from cortex.core.validator import validate
 
@@ -26,7 +26,6 @@ STP:discover{
     codes = [finding["code"] for finding in findings]
 
     assert E006_INVALID_ATTRS not in codes
-    assert E003_UNKNOWN_SIGIL not in codes
     entry = doc.find_entries("STP", "discover")[0]
     assert entry.value["1_explain"] == "Explain the workflow."
     assert entry.value["2"] == "Continue with the next action."
@@ -63,7 +62,6 @@ HDL:workspace.init{signature:"init(path?)", purpose:"Initialize workspace"}
     codes = [finding["code"] for finding in findings]
 
     assert E006_INVALID_ATTRS not in codes
-    assert E003_UNKNOWN_SIGIL not in codes
     entry = doc.find_entries("HDL", "workspace.init")[0]
     assert entry.value["signature"] == "init(path?)"
 
@@ -95,7 +93,7 @@ STP:adopt{
     assert entry.value["3_connectivity"] == "Verify handlers"
 
 
-def test_undeclared_local_sigil_still_reports_e003():
+def test_undeclared_local_sigil_gets_auto_added():
     text = """\
 $0
 
@@ -107,5 +105,8 @@ ZZZ:item{name:"not declared"}
 """
     doc = parse_cortex(text)
     findings = validate(doc)
+    codes = [finding["code"] for finding in findings]
 
-    assert E003_UNKNOWN_SIGIL in [finding["code"] for finding in findings]
+    assert "I001_UNDECLARED_SIGIL" in codes
+    assert "ZZZ" in doc.glossary.sigils
+    assert doc.glossary.sigils["ZZZ"].needs_review is True

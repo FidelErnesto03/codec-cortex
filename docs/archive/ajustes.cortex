@@ -1,0 +1,353 @@
+<!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
+<!-- SPDX-License-Identifier: MIT -->
+
+# ============================================================================
+# CODEC-CORTEX · ajustes.cortex
+# Purpose:
+#   Dense operational adjustment map for reorienting CODEC-CORTEX documentation,
+#   specification, examples and roadmap.
+#
+# Canonical direction:
+#   Universal Skill first.
+#   .cortex as contextual memory format.
+#   HCORTEX as human contextual reversibility.
+#   Deterministic codec as automation phase.
+#   Enterprise MCP as future operating layer.
+#
+# Boundary:
+#   This file must not reference external author projects or unrelated systems.
+# ============================================================================
+
+# -- $0: GLOSSARY -------------------------------------------------------------
+# Sigil | Name          | Expansion | Risk | Description
+# ------+---------------+-----------+------+---------------------------------------------
+# IDN   | identity      | attrs     | B    | File identity and scope
+# AXM   | axiom         | cuerpo    | H    | Non-negotiable principle
+# OBJ   | objective     | attrs     | H    | Target outcome
+# FCS   | focus         | attrs     | H    | Attention anchor for the agent
+# CNST  | constraint    | attrs     | H    | Hard boundary
+# TERM  | term          | attrs     | M    | Canonical term definition
+# PHASE | phase         | attrs     | M    | Project phase and maturity
+# DOC   | document      | attrs     | M    | Repository file or document to adjust
+# ADJ   | adjustment    | attrs     | M    | Required change
+# FIX   | fix           | attrs     | M    | Concrete correction
+# REW   | rewrite       | attrs     | M    | Suggested replacement text
+# CLAIM | claim         | attrs     | H    | Public claim policy
+# RUL   | rule          | cuerpo    | H    | Mandatory operational rule
+# PFL   | pitfall       | contenido | M    | Known risk and prevention
+# GTE   | gate          | attrs     | H    | Acceptance or stop gate
+# CHK   | check         | attrs     | M    | Verification checkpoint
+# TODO  | task          | attrs     | B    | Ordered work item
+# OUT   | output        | attrs     | B    | Expected deliverable
+# STAT  | status        | attrs     | B    | Status declaration
+# MAP   | mapping       | attrs     | B    | Before to after relation
+# TEST  | test          | attrs     | M    | Validation test
+# DIAG  | diagram       | bloque    | M    | PUML diagram verbatim
+# TAG   | tag           | attrs     | B    | Classification metadata
+#
+# -- $0: MICRO-GLOSSARY -------------------------------------------------------
+# Token | Expansion
+# sk    | Skill
+# cx    | .cortex
+# hc    | HCORTEX
+# cd    | deterministic codec
+# mcp   | enterprise MCP
+# mem   | contextual memory
+# rt    | runtime
+# doc   | documentation
+# rd    | README
+# sp    | specification
+# ex    | examples
+# bm    | benchmark
+# rv    | reversibility
+# ast   | abstract syntax tree
+# wrk   | working memory
+# fcs   | focus
+# obj   | objective
+# ses   | session
+# lng   | lesson
+# knw   | knowledge
+# now   | current stage
+# fut   | future phase
+# pln   | planned
+# impl  | implemented
+# hyp   | hypothesis
+# val   | validation
+# ql    | quality
+# nox   | forbidden external references
+
+# -- $1: IDENTITY & SCOPE -----------------------------------------------------
+
+IDN:file{name:"ajustes-cortex", version:"1.0.0", language:"ES", purpose:"operational reorientation map", target:"CODEC-CORTEX repository"}
+OBJ:main{goal:"realinear redacción, especificación, ejemplos, claims y roadmap con la intención real del proyecto", priority:"critical", scope:"repository-wide"}
+FCS:primary{what:"CODEC-CORTEX debe entenderse primero como Skill universal de memoria contextual para LLM/SLM", priority:"highest"}
+CNST:nox{rule:"no mencionar proyectos externos o sistemas ajenos a CODEC-CORTEX", severity:"blocking"}
+CNST:honesty{rule:"no presentar como implementado lo que sea diseño o fase futura", severity:"blocking"}
+CNST:evidence{rule:"no publicar métricas como probadas sin benchmark reproducible", severity:"blocking"}
+CNST:scope{include:["README.md","skill/SKILL.md","skill/SKILL.cortex","skill/AGENT.cortex","skill/brain.cortex","docs/es/specs/*.md","docs/en/specs/*.md","pyproject.toml","src/codec_cortex/__init__.py","ROADMAP.md","STATUS.md"], exclude:["external-project-names","unrelated-business-context","private-systems"]}
+TAG:mode{kind:"dense operational specification", consumer:["local-agent","human-reviewer"], format:"cortex-like directive file"}
+
+AXM:direction{Universal Skill first. .cortex as contextual memory. HCORTEX as human contextual reversibility. Deterministic codec as automation. Enterprise MCP as future operating layer}
+AXM:truth{The repository must never sound more implemented than it actually is}
+AXM:memory{The project is not merely token compression. It is structured contextual memory for agent continuity}
+AXM:human{Human reversibility means operational context can be inspected, audited and corrected. It does not mean literal reconstruction of every original word}
+AXM:adoption{A model can adopt the Skill by reading and following the specification even before a codec exists}
+AXM:separation{Skill, format, human view, codec, runtime and MCP are distinct layers and must not be collapsed into one claim}
+
+# -- $2: CANONICAL PROJECT THESIS --------------------------------------------
+
+TERM:codec_cortex{name:"CODEC-CORTEX", definition:"universal Skill and contextual memory protocol for LLM/SLM agents", avoid:"describirlo solo como librería Python o compresor de tokens"}
+TERM:skill{name:"Skill", definition:"first adoption layer read and followed by an LLM/SLM to manage memory as structured context", status:"current"}
+TERM:cortex{name:".cortex", definition:"native structured contextual memory format optimized for model consumption and operational continuity", status:"current/specification"}
+TERM:hcortex{name:"HCORTEX", definition:"human-readable contextual view of .cortex for inspection, audit, correction and continuity", status:"current/specification"}
+TERM:codec{name:"deterministic codec", definition:"future or developing implementation for parse, encode, decode, verify and render operations", status:"planned"}
+TERM:runtime{name:"memory runtime", definition:"future layer for managed WRK, SES, LNG, promote, decay and context lifecycle", status:"future"}
+TERM:mcp{name:"enterprise MCP", definition:"future enterprise layer exposing codec and memory operations as agent tools with governance and audit", status:"future"}
+TERM:reversibility_structural{name:"structural reversibility", definition:"cx to ast to cx preserves equivalent structure", applies_to:"codec"}
+TERM:reversibility_contextual{name:"contextual reversibility", definition:"cx to hc recovers operational meaning for humans", applies_to:"memory/human-review"}
+TERM:reversibility_textual{name:"textual reversibility", definition:"literal reconstruction of original source conversation or raw text", applies_to:"not-promised"}
+
+REW:thesis_es{use:"CODEC-CORTEX es un Skill universal y protocolo de memoria contextual para agentes LLM/SLM. Su primera función es enseñar al agente a organizar memoria persistente como identidad, foco, objetivo, trabajo activo, reglas, sesiones, lecciones, conocimiento y referencias. Su formato .cortex reduce ruido contextual y facilita recuperación operativa por el modelo. HCORTEX permite que el mismo contexto sea leído, auditado, corregido y reutilizado por humanos. En fases posteriores, el protocolo puede automatizarse mediante un codec determinista y exponerse como MCP empresarial", target:["README.md","skill/SKILL.md","docs/es/specs/fundamentos.md"]}
+REW:thesis_en{use:"CODEC-CORTEX is a universal Skill and contextual memory protocol for LLM/SLM agents. Its first role is to teach agents how to organize persistent memory as identity, focus, objective, working state, rules, sessions, lessons, knowledge and references. Its native .cortex format reduces contextual noise and improves operational recovery by the model. HCORTEX makes the same context readable, auditable, correctable and reusable by humans. Later phases may automate the protocol through a deterministic codec and expose it through an enterprise MCP layer", target:["README.md","skill/SKILL.en.md","docs/en/specs/fundamentals.md"]}
+
+# -- $3: REQUIRED NARRATIVE ORDER --------------------------------------------
+
+MAP:narrative_order{from:"codec-first", to:"skill-first", required_order:["problem","universal_skill","cortex_format","hcortex_human_view","deterministic_codec","memory_runtime","enterprise_mcp","roadmap","status"]}
+ADJ:problem_section{target:"README.md", action:"insert_or_rewrite", intent:"explain linear context as noisy, costly and difficult to recover", must_include:["agents accumulate memory as text","context grows linearly","important intent gets diluted","working state is not separated from history"]}
+ADJ:solution_section{target:"README.md", action:"insert_or_rewrite", intent:"present CODEC-CORTEX first as universal Skill", must_include:["readable by any agent","does not require initial server","does not require initial Python package","can be adopted by instruction and files"]}
+ADJ:format_section{target:"README.md", action:"insert_or_rewrite", intent:"explain .cortex as contextual memory format", must_include:["identity","focus","objective","working state","rules","sessions","lessons","knowledge","references"]}
+ADJ:human_section{target:"README.md", action:"insert_or_rewrite", intent:"explain HCORTEX as human contextual reversibility", must_include:["audit","review","correct","continue","not literal reconstruction"]}
+ADJ:automation_section{target:"README.md", action:"insert_or_rewrite", intent:"position codec as planned automation", must_include:["parser","encoder","decoder","verifier","HCORTEX renderer","CLI"]}
+ADJ:enterprise_section{target:"README.md", action:"insert_or_rewrite", intent:"position MCP as future enterprise layer", must_include:["agent tools","governance","auditability","regular operations","not implemented yet"]}
+
+DIAG:canonical_stack{
+@startuml
+title CODEC-CORTEX Canonical Stack
+
+rectangle "Universal Skill\ncurrent adoption layer" as skill
+rectangle ".cortex\nstructured contextual memory" as cortex
+rectangle "HCORTEX\nhuman-readable context view" as hcortex
+rectangle "Deterministic Codec\nparse encode decode verify" as codec
+rectangle "Memory Runtime\nWRK SES LNG lifecycle" as runtime
+rectangle "Enterprise MCP\nagent tools governance audit" as mcp
+
+skill --> cortex : defines memory discipline
+cortex --> hcortex : renders for humans
+cortex --> codec : automated maintenance
+codec --> runtime : managed lifecycle
+runtime --> mcp : enterprise exposure
+
+note right of skill
+  Current center of gravity.
+  Must be clear in README.
+end note
+
+note right of codec
+  Planned automation.
+  Do not present as complete.
+end note
+
+note right of mcp
+  Future enterprise phase.
+  Do not present as current feature.
+end note
+@enduml
+}
+
+# -- $4: CLAIM POLICY ---------------------------------------------------------
+
+CLAIM:compression_85{current_phrase:"85% less tokens", risk:"unproven metric if no reproducible benchmark exists", allowed:"design target or illustrative example only", rewrite:"Designed for high-density contextual memory. Token reduction targets require benchmark validation"}
+CLAIM:zero_llm{current_phrase:"Zero LLM in compilation cycle", risk:"valid only for future codec operations, not for Skill adoption by LLM", allowed:"codec target", rewrite:"The planned codec is deterministic and does not require LLM calls for parse, encode, decode or verify"}
+CLAIM:reversible_100{current_phrase:"100% reversible", risk:"ambiguous and overbroad", allowed:"structural roundtrip target", rewrite:"Lossless at codec-structure level; contextually reversible for humans through HCORTEX"}
+CLAIM:recall_96{current_phrase:"OBJ recall >= 96%", risk:"benchmark claim without evidence", allowed:"target benchmark", rewrite:"Target metric for future benchmarks"}
+CLAIM:slm_performance{current_phrase:"model-specific improvement numbers", risk:"appears empirically proven", allowed:"hypothesis or expected benchmark", rewrite:"Expected benchmark pending reproducible validation"}
+CLAIM:enterprise_ready{current_phrase:"enterprise-ready MCP", risk:"feature not implemented", allowed:"roadmap", rewrite:"Enterprise MCP is a future phase"}
+CLAIM:production{current_phrase:"production-ready", risk:"unsupported", allowed:"not allowed", rewrite:"specification / alpha stage"}
+
+RUL:claim_disclosure{Every metric must be labeled as measured, target, illustrative or planned. If evidence is absent, use target or illustrative. Never imply measured performance without benchmark files}
+RUL:status_disclosure{Every feature mentioned in public docs must carry one of current, specification, planned, future, experimental or not implemented}
+RUL:reversibility_language{Use structural reversibility for codec. Use contextual reversibility for HCORTEX. Never claim literal reconstruction of raw history}
+
+# -- $5: FILE-SPECIFIC ADJUSTMENTS -------------------------------------------
+
+DOC:readme{path:"README.md", role:"public entry point", priority:"critical", current_problem:"appears codec-first and overpromises implementation maturity", desired_state:"skill-first, honest, roadmap-aware"}
+ADJ:readme_headline{target:"README.md", action:"replace_headline", from:"Deterministic structural compression protocol for LLM agent cognitive memory", to:"Universal memory Skill for LLM/SLM agents"}
+ADJ:readme_subtitle{target:"README.md", action:"replace_claim", from:"85% less tokens. Zero LLM in the compilation cycle. 100% reversible.", to:"Structured contextual memory through .cortex. Human-readable through HCORTEX. Automatable through a deterministic codec. Enterprise MCP planned"}
+ADJ:readme_stage{target:"README.md", action:"add_section", title:"Current stage", content:"This repository is currently in specification/alpha stage. The Universal Skill, .cortex format, HCORTEX protocol and examples exist. The Python codec, CLI, runtime and MCP bridge are planned or future phases unless explicitly implemented"}
+ADJ:readme_quickstart{target:"README.md", action:"rewrite", intent:"show immediate adoption without requiring codec", steps:["read skill/SKILL.md","load skill/SKILL.cortex","use skill/AGENT.cortex as identity entry point","copy/adapt skill/brain.cortex as local memory template","render or summarize context as HCORTEX for human review"]}
+ADJ:readme_structure{target:"README.md", action:"update_table", rule:"src/ must be described as planned codec implementation if only placeholder exists"}
+ADJ:readme_roadmap{target:"README.md", action:"add_roadmap_summary", phases:["Universal Skill","Cortex Format","HCORTEX","Deterministic Codec","Memory Runtime","Enterprise MCP"]}
+
+DOC:skill_md{path:"skill/SKILL.md", role:"main Skill specification", priority:"critical", current_problem:"mixes current Skill behavior with future codec operations", desired_state:"clear separation between direct adoption and automated codec"}
+ADJ:skill_when_to_use{target:"skill/SKILL.md", action:"rewrite", must_include:["persistent agent memory","limited context windows","need to separate objective from history","human audit of agent context","model-agnostic memory discipline"]}
+ADJ:skill_adoption_directive{target:"skill/SKILL.md", action:"soften_and_clarify", from:"immediate full migration", to:"progressive adoption of .cortex as canonical persistent memory under CODEC-CORTEX"}
+ADJ:skill_operations_table{target:"skill/SKILL.md", action:"add_table", columns:["operation","available_by_skill_now","requires_codec","status","notes"], rows:["read .cortex yes no current direct-agent-reading","use FCS/OBJ/WRK yes no current core-skill","produce HCORTEX basic yes no current/by-instruction","formal verify partial yes planned parser-required","automatic encode no yes planned","automatic decode no yes planned","MCP handlers no yes future"]}
+ADJ:skill_no_yaml_rule{target:"skill/SKILL.md", action:"correct_policy", rule:"cortex is canonical persistent memory; Markdown/YAML/JSON may be transitional views"}
+ADJ:skill_reversibility{target:"skill/SKILL.md", action:"split_concept", include:["structural reversibility","contextual reversibility","no literal history reconstruction"]}
+ADJ:skill_compiler_language{target:"skill/SKILL.md", action:"clarify", rule:"compilation claims apply only when codec exists"}
+
+DOC:skill_cortex{path:"skill/SKILL.cortex", role:"native dense Skill expression", priority:"critical", current_problem:"handlers may imply existing CLI", desired_state:"handlers carry status and distinguish current/planned/future"}
+ADJ:skill_cortex_handlers{target:"skill/SKILL.cortex", action:"mark_status", rule:"all CLI-like handlers must declare current, planned or future"}
+ADJ:skill_cortex_axioms{target:"skill/SKILL.cortex", action:"rewrite_axioms", must_include:["skill-first","cortex-canonical","hcortex-human-view","codec-planned","mcp-future"]}
+ADJ:skill_cortex_microglossary{target:"skill/SKILL.cortex", action:"review", rule:"tokens should improve density without making human review impossible"}
+ADJ:skill_cortex_delete_absolutes{target:"skill/SKILL.cortex", action:"remove_or_soften", phrases:["Nada en texto plano","Nada en JSON","Nada en YAML","100% reversible if not scoped"]}
+ADJ:skill_cortex_gate_exit{target:"skill/SKILL.cortex", action:"clarify", rule:"exit means render active context to HCORTEX, not necessarily decode every original raw source"}
+
+DOC:agent_cortex{path:"skill/AGENT.cortex", role:"example agent identity", priority:"high", current_problem:"contains overly absolute memory rule", desired_state:"clean portable example"}
+FIX:agent_rule{target:"skill/AGENT.cortex", from:"Toda memoria se gestiona en formato .cortex. Nada en texto plano. Nada en JSON. Nada en YAML", to:"La memoria persistente canónica bajo CODEC-CORTEX se mantiene en .cortex. Markdown, YAML o JSON pueden existir como vistas transitorias, edición humana o interoperabilidad"}
+ADJ:agent_status{target:"skill/AGENT.cortex", action:"add_status", value:"example/template"}
+ADJ:agent_refs{target:"skill/AGENT.cortex", action:"correct_paths", rule:"ensure REF paths resolve to actual repository paths"}
+
+DOC:brain_cortex{path:"skill/brain.cortex", role:"local brain template", priority:"high", current_problem:"placeholder values look like real state", desired_state:"explicit template"}
+ADJ:brain_notice{target:"skill/brain.cortex", action:"add_comment", content:"TEMPLATE NOTICE: This file is a local brain template. Replace placeholders before operational use"}
+ADJ:brain_placeholders{target:"skill/brain.cortex", action:"wrap_placeholders", examples:["<human_name>","<github_user>","<agent_name>","<current_task>","<active_goal>"]}
+ADJ:brain_audit_values{target:"skill/brain.cortex", action:"mark_examples", rule:"token counts and phi deviation values are illustrative, not measured unless generated by a real tool"}
+
+DOC:fundamentos_es{path:"docs/es/specs/fundamentos.md", role:"theory and principles", priority:"high", current_problem:"some statements sound empirically proven or too absolute", desired_state:"precise conceptual foundation"}
+ADJ:fundamentos_problem{target:"docs/es/specs/fundamentos.md", action:"strengthen", focus:"memory as unstructured linear text vs structured operational context"}
+ADJ:fundamentos_axioms{target:"docs/es/specs/fundamentos.md", action:"refine", rule:"distinguish codec-level determinism from Skill-level adoption"}
+ADJ:fundamentos_yaml{target:"docs/es/specs/fundamentos.md", action:"resolve_contradiction", rule:"YAML-Edit is transitional human editing view, not canonical memory"}
+ADJ:fundamentos_reversibility{target:"docs/es/specs/fundamentos.md", action:"split", include:["structural","contextual","textual-not-promised"]}
+
+DOC:algoritmo_es{path:"docs/es/specs/algoritmo.md", role:"algorithm reference", priority:"high", current_problem:"mixes deterministic codec design with cognitive compression claims", desired_state:"formal but honest algorithm roadmap"}
+ADJ:algorithm_parser{target:"docs/es/specs/algoritmo.md", action:"choose_policy", options:["pure character automaton","simple lexical regex plus deterministic parser"], requirement:"make all examples consistent with chosen policy"}
+ADJ:algorithm_compress{target:"docs/es/specs/algoritmo.md", action:"reclassify", from:"lossless codec operation", to:"contextual consolidation operation that may be reductive"}
+ADJ:algorithm_verify{target:"docs/es/specs/algoritmo.md", action:"scope", rule:"verify checks structural equivalence, not human semantic truth"}
+ADJ:algorithm_diag{target:"docs/es/specs/algoritmo.md", action:"split_modes", modes:["DIAG raw bit-for-bit","DIAG semantic parsed equivalence"]}
+ADJ:algorithm_benchmarks{target:"docs/es/specs/algoritmo.md", action:"label", rule:"expected benchmark until measured"}
+
+DOC:adopcion_es{path:"docs/es/specs/adopcion.md", role:"adoption guide", priority:"high", current_problem:"may imply CLI/MCP availability", desired_state:"layered adoption guide"}
+ADJ:adoption_levels{target:"docs/es/specs/adopcion.md", action:"insert_table", levels:["direct reading current","operational Skill current","codec-assisted planned","MCP enterprise future"]}
+ADJ:adoption_slm_claims{target:"docs/es/specs/adopcion.md", action:"relabel", rule:"SLM performance examples are expected benchmarks unless measured"}
+ADJ:adoption_cli_examples{target:"docs/es/specs/adopcion.md", action:"mark_planned", rule:"CLI examples depend on codec implementation"}
+ADJ:adoption_cag{target:"docs/es/specs/adopcion.md", action:"clarify", rule:"CAG here means contextual agent state recovery, not factual retrieval"}
+
+DOC:mcp_bridge_es{path:"docs/es/specs/mcp-bridge.md", role:"future MCP architecture", priority:"medium", current_problem:"design status must be unmissable", desired_state:"future enterprise design document"}
+ADJ:mcp_status_banner{target:"docs/es/specs/mcp-bridge.md", action:"add_banner", text:"Estado: diseño futuro. Este documento no describe una implementación actual. Define la arquitectura deseada para una fase empresarial posterior"}
+ADJ:mcp_handler_status{target:"docs/es/specs/mcp-bridge.md", action:"add_status_to_handlers", values:["requires_codec","future_mcp"]}
+ADJ:mcp_scope{target:"docs/es/specs/mcp-bridge.md", action:"clarify", rule:"MCP exposes codec/runtime operations; it is not the first adoption mechanism"}
+
+DOC:pyproject{path:"pyproject.toml", role:"Python package metadata", priority:"medium", current_problem:"package metadata may suggest usable library", desired_state:"alpha/specification honest metadata"}
+ADJ:pyproject_description{target:"pyproject.toml", action:"review", preferred:"Universal memory Skill and contextual memory protocol for LLM/SLM agents; deterministic codec planned"}
+ADJ:pyproject_classifiers{target:"pyproject.toml", action:"keep_or_update", rule:"Development Status :: 3 - Alpha is acceptable if README clarifies implementation status"}
+
+DOC:init_py{path:"src/codec_cortex/__init__.py", role:"placeholder package", priority:"medium", current_problem:"implementation absent", desired_state:"explicit placeholder with roadmap pointer"}
+ADJ:init_message{target:"src/codec_cortex/__init__.py", action:"clarify", text:"Specification-stage package placeholder. Deterministic codec implementation planned. See README, STATUS.md and skill/SKILL.md"}
+
+DOC:roadmap{path:"ROADMAP.md", role:"phase plan", priority:"high", current_problem:"may not exist", desired_state:"official staged plan"}
+ADJ:roadmap_create{target:"ROADMAP.md", action:"create", phases:["Phase 1 Universal Skill","Phase 2 Cortex Format","Phase 3 HCORTEX","Phase 4 Deterministic Codec","Phase 5 Memory Runtime","Phase 6 Enterprise MCP"]}
+ADJ:roadmap_each_phase{target:"ROADMAP.md", action:"require_fields", fields:["goal","status","deliverables","non-goals","acceptance criteria"]}
+
+DOC:status{path:"STATUS.md", role:"truth registry", priority:"high", current_problem:"may not exist", desired_state:"single source of truth for maturity"}
+ADJ:status_create{target:"STATUS.md", action:"create", sections:["Implemented now","Specification exists","Designed but not implemented","Planned next","Future phase","Not promised"]}
+ADJ:status_rule{target:"STATUS.md", action:"enforce", rule:"README and docs must not contradict STATUS.md"}
+
+# -- $6: FORMAL DISTINCTIONS TO ENFORCE --------------------------------------
+
+MAP:skill_vs_codec{wrong:"CODEC-CORTEX is a Python codec", right:"CODEC-CORTEX starts as a universal Skill; the Python codec automates protocol operations later"}
+MAP:compression_vs_memory{wrong:"the main value is token compression", right:"the main value is structured contextual memory; token reduction is a design consequence"}
+MAP:reversibility_vs_reconstruction{wrong:"the system reconstructs original history", right:"the system recovers operational context for model and human continuity"}
+MAP:mcp_vs_adoption{wrong:"agents need MCP to use CODEC-CORTEX", right:"agents can adopt the Skill by reading .cortex; MCP is enterprise exposure later"}
+MAP:benchmark_vs_target{wrong:"expected numbers are proven results", right:"unmeasured numbers are targets or illustrative examples"}
+MAP:yaml_vs_cortex{wrong:"YAML is forbidden in all cases", right:"YAML may be transitional; .cortex is canonical persistent memory"}
+
+PFL:overclaim{error:"README promises finished codec behavior while src only contains placeholder", impact:"technical readers lose trust", solution:"status section plus roadmap plus claim policy"}
+PFL:layer_collapse{error:"Skill, format, codec and MCP are described as one thing", impact:"project purpose becomes unclear", solution:"canonical stack and phase model"}
+PFL:lossless_confusion{error:"compress is treated as fully reversible", impact:"mathematical contradiction", solution:"classify compress as contextual consolidation, not lossless codec roundtrip"}
+PFL:human_reversibility{error:"HCORTEX is described as decode of original text", impact:"unrealistic promise", solution:"HCORTEX renders operational context, not full source history"}
+PFL:cli_phantom{error:"docs show CLI commands as if implemented", impact:"user tries unavailable commands", solution:"mark CLI as planned or create minimal implementation"}
+PFL:mcp_premature{error:"MCP design sounds current", impact:"enterprise capability appears overstated", solution:"status banner and future phase tags"}
+PFL:examples_as_state{error:"templates look like real memory state", impact:"agents may inherit fake values", solution:"explicit placeholders and TEMPLATE NOTICE"}
+PFL:nox{error:"references to unrelated projects enter docs", impact:"public positioning becomes dependent on private context", solution:"block all external project mentions"}
+
+# -- $7: ROADMAP DETAIL -------------------------------------------------------
+
+PHASE:one{id:"P1", name:"Universal Skill", status:"current", goal:"make CODEC-CORTEX adoptable by any LLM/SLM through instructions and .cortex files", deliverables:["skill/SKILL.md","skill/SKILL.cortex","skill/AGENT.cortex","skill/brain.cortex"], acceptance:["reader understands no codec required for initial adoption","FCS/OBJ/WRK discipline clear","HCORTEX role clear"]}
+PHASE:two{id:"P2", name:"Cortex Format", status:"current/specification", goal:"stabilize .cortex structure, sigils, sections, glossary and examples", deliverables:["formal grammar","example files","pitfall catalog"], acceptance:["valid examples parse conceptually","glossary rules consistent","placeholders explicit"]}
+PHASE:three{id:"P3", name:"HCORTEX", status:"current/specification", goal:"define human-readable contextual output", deliverables:["rendering rules","sample HCORTEX output","audit checklist"], acceptance:["human can inspect focus, objective, rules, state, sessions and lessons"]}
+PHASE:four{id:"P4", name:"Deterministic Codec", status:"planned", goal:"implement parser, encoder, decoder, verifier, renderer and CLI", deliverables:["src/codec_cortex/parser.py","encoder.py","verify.py","hcortex.py","cli.py","tests"], acceptance:["roundtrip tests pass","invalid braces fail clearly","DIAG raw mode preserved","README no longer says coming soon"]}
+PHASE:five{id:"P5", name:"Memory Runtime", status:"future", goal:"manage context lifecycle and maturation", deliverables:["WRK update","SES consolidation","LNG extraction","promote/decay policy"], acceptance:["runtime does not silently mutate KNW without user-confirmed policy"]}
+PHASE:six{id:"P6", name:"Enterprise MCP", status:"future", goal:"expose operations as enterprise-grade agent tools", deliverables:["MCP server","handler schemas","auth model","audit events","deployment guide"], acceptance:["all handlers map to implemented codec/runtime functions"]}
+
+# -- $8: ACCEPTANCE GATES -----------------------------------------------------
+
+GTE:g1{name:"No External References", condition:"repository contains no forbidden external project references", action_if_fail:"block merge"}
+GTE:g2{name:"Skill First", condition:"README describes CODEC-CORTEX as universal Skill before codec", action_if_fail:"rewrite README opening"}
+GTE:g3{name:"Status Honesty", condition:"current/planned/future are clearly separated", action_if_fail:"update STATUS.md and affected docs"}
+GTE:g4{name:"Reversibility Scoped", condition:"all reversibility claims specify structural/contextual/textual distinction", action_if_fail:"rewrite claim"}
+GTE:g5{name:"Benchmark Integrity", condition:"all unmeasured metrics labeled target/expected/illustrative", action_if_fail:"relabel or remove"}
+GTE:g6{name:"CLI Availability", condition:"CLI commands are either implemented or marked planned", action_if_fail:"mark planned or implement minimal CLI"}
+GTE:g7{name:"MCP Future", condition:"MCP document clearly says future design", action_if_fail:"add status banner"}
+GTE:g8{name:"Examples Safe", condition:"AGENT and brain examples cannot be mistaken for real operational state", action_if_fail:"add template notices and placeholders"}
+GTE:g9{name:"README 30-second Test", condition:"new reader understands problem, Skill, .cortex, HCORTEX, codec plan and MCP future in 30 seconds", action_if_fail:"simplify opening"}
+GTE:g10{name:"Consistency", condition:"README, SKILL, docs, ROADMAP and STATUS tell the same story", action_if_fail:"synchronize terminology"}
+
+# -- $9: EXECUTION PLAN FOR LOCAL AGENT ---------------------------------------
+
+TODO:read_all{id:"T01", order:1, action:"read", targets:["README.md","skill/SKILL.md","skill/SKILL.cortex","skill/AGENT.cortex","skill/brain.cortex","docs/es/specs/*.md","docs/en/specs/*.md","pyproject.toml","src/codec_cortex/__init__.py"], output:"inventory of current claims and statuses"}
+TODO:diagnose{id:"T02", order:2, action:"create_report", target:"docs/review/project-reorientation-report.md", include:["overclaims","layer confusion","status ambiguity","reversibility ambiguity","missing roadmap","missing status registry"]}
+TODO:rewrite_readme{id:"T03", order:3, action:"rewrite", target:"README.md", anchor:"Skill-first public narrative"}
+TODO:rewrite_skill{id:"T04", order:4, action:"rewrite", target:"skill/SKILL.md", anchor:"adoption protocol plus current/planned operations"}
+TODO:align_cortex{id:"T05", order:5, action:"align", target:"skill/SKILL.cortex", anchor:"dense native version of corrected Skill"}
+TODO:fix_examples{id:"T06", order:6, action:"edit", targets:["skill/AGENT.cortex","skill/brain.cortex"], anchor:"safe templates and corrected rules"}
+TODO:fix_docs{id:"T07", order:7, action:"edit", targets:["docs/es/specs/*.md","docs/en/specs/*.md"], anchor:"same canonical narrative"}
+TODO:create_roadmap{id:"T08", order:8, action:"create", target:"ROADMAP.md", anchor:"phase model"}
+TODO:create_status{id:"T09", order:9, action:"create", target:"STATUS.md", anchor:"truth registry"}
+TODO:review_claims{id:"T10", order:10, action:"scan", target:"repository", query_terms:["85%","100% reversible","guarantee","benchmark","MCP","CLI","production-ready","zero hallucination"], output:"claim correction list"}
+TODO:final_diff{id:"T11", order:11, action:"produce_summary", output:"per-file diff summary and unresolved questions"}
+
+# -- $10: EXPECTED OUTPUTS ----------------------------------------------------
+
+OUT:report{path:"docs/review/project-reorientation-report.md", required:true, content:["diagnosis","risk register","file-by-file recommendations","claim inventory","status inventory"]}
+OUT:readme{path:"README.md", required:true, content:["problem","what it is","current stage","quick start","stack","roadmap","status","license"]}
+OUT:skill{path:"skill/SKILL.md", required:true, content:["when to use","adoption directive","memory model","operations table","HCORTEX","reversibility policy","pitfalls","checklist"]}
+OUT:skill_cortex{path:"skill/SKILL.cortex", required:true, content:["same canonical narrative in dense form","handler statuses","rules","pitfalls","diagrams"]}
+OUT:agent_cortex{path:"skill/AGENT.cortex", required:true, content:["example identity","safe canonical memory rule","placeholders if applicable"]}
+OUT:brain_cortex{path:"skill/brain.cortex", required:true, content:["template notice","placeholder values","local brain structure"]}
+OUT:roadmap{path:"ROADMAP.md", required:true, content:["phases","deliverables","acceptance criteria","non-goals"]}
+OUT:status{path:"STATUS.md", required:true, content:["implemented","specified","planned","future","not promised"]}
+OUT:final_summary{path:"agent-output-summary.md", required:false, content:["what changed","why","remaining risks"]}
+
+# -- $11: TESTS AND CHECKS ----------------------------------------------------
+
+TEST:forbidden_refs{name:"external project reference scan", method:"grep repository for known forbidden names or unrelated project identifiers", expected:"zero matches"}
+TEST:status_words{name:"status vocabulary scan", method:"features must include current/specification/planned/future where relevant", expected:"no ambiguous capability claims"}
+TEST:readme_opening{name:"30 second reader test", method:"first 40 lines of README must explain Skill-first identity", expected:"clear without reading docs"}
+TEST:roundtrip_language{name:"reversibility language scan", method:"each occurrence of reversible/reversibility must specify structural/contextual or deny textual", expected:"no generic 100% reversible claims"}
+TEST:benchmark_language{name:"metrics scan", method:"numeric performance claims must be labeled measured/target/expected/illustrative", expected:"no unsupported measured claims"}
+TEST:cli_language{name:"CLI command scan", method:"all cortex command examples must be current or planned", expected:"no phantom availability"}
+TEST:mcp_language{name:"MCP scan", method:"mcp docs must begin with future design status", expected:"unmissable"}
+TEST:template_safety{name:"example safety", method:"placeholder and template notices present in AGENT/brain examples", expected:"no fake real state"}
+TEST:cross_doc_consistency{name:"term consistency", method:"compare README, SKILL, ROADMAP, STATUS", expected:"same phase model and definitions"}
+
+# -- $12: PROPOSED README OPENING --------------------------------------------
+
+REW:readme_opening_en{target:"README.md", mode:"replace_top", text:"CODEC-CORTEX is a universal memory Skill and contextual memory protocol for LLM/SLM agents. It helps agents organize persistent memory as structured operational context: identity, focus, objective, working state, rules, sessions, lessons, knowledge and references. Its native .cortex format is designed for dense model consumption, while HCORTEX provides a human-readable view for inspection, audit and correction. The deterministic codec, CLI, runtime and enterprise MCP bridge are planned phases, not assumptions of initial adoption"}
+REW:readme_opening_es{target:"README.md or Spanish docs", mode:"reference", text:"CODEC-CORTEX es un Skill universal y protocolo de memoria contextual para agentes LLM/SLM. Ayuda a organizar la memoria persistente como contexto operativo estructurado: identidad, foco, objetivo, estado de trabajo, reglas, sesiones, lecciones, conocimiento y referencias. Su formato nativo .cortex está diseñado para consumo denso por modelos, mientras HCORTEX ofrece una vista humana para inspección, auditoría y corrección. El codec determinista, CLI, runtime y MCP empresarial son fases planificadas, no requisitos de adopción inicial"}
+
+# -- $13: PROPOSED STATUS REGISTRY -------------------------------------------
+
+STAT:implemented_now{items:["repository documentation structure","README initial public entry","skill/SKILL.md specification draft","skill/SKILL.cortex dense skill draft","skill/AGENT.cortex example","skill/brain.cortex template","Spanish and English reference documents"]}
+STAT:specified{items:["cortex sections and sigils","HCORTEX concept","adoption model","parser design","verify concept","MCP handler map design"]}
+STAT:planned_next{items:["deterministic parser","AST representation","encode/decode","structural verify","HCORTEX renderer","minimal CLI","tests"]}
+STAT:future{items:["memory runtime","automatic consolidation","promotion/decay engine","enterprise MCP server","audit and governance layer"]}
+STAT:not_promised{items:["literal reconstruction of every original message","measured 85% token reduction without benchmarks","guaranteed recall improvement","production-ready enterprise MCP today","universal performance across all models"]}
+
+# -- $14: QUALITY RUBRIC ------------------------------------------------------
+
+CHK:clarity{question:"Can a new reader explain what CODEC-CORTEX is in one sentence?", pass:"yes, universal memory Skill and contextual memory protocol for LLM/SLM agents"}
+CHK:maturity{question:"Can a new reader distinguish current from planned?", pass:"yes, STATUS and README make it explicit"}
+CHK:technical_honesty{question:"Are claims backed by implementation or marked as goals?", pass:"yes"}
+CHK:layering{question:"Are Skill, .cortex, HCORTEX, codec, runtime and MCP distinct?", pass:"yes"}
+CHK:human_value{question:"Is HCORTEX clearly useful for human audit and correction?", pass:"yes"}
+CHK:model_value{question:"Is .cortex clearly useful for model context recovery?", pass:"yes"}
+CHK:adoption{question:"Can an agent use the Skill before codec exists?", pass:"yes"}
+CHK:enterprise_path{question:"Is MCP positioned as future enterprise layer?", pass:"yes"}
+CHK:no_externals{question:"Does the repo avoid unrelated project references?", pass:"yes"}
+
+# -- $15: FINAL DIRECTIVE -----------------------------------------------------
+
+RUL:agent_posture{Act as a technical editor, documentation architect and coherence guardian. Do not make the project sound bigger than it is. Make it clearer, more honest, more defensible, more adoptable and easier to implement}
+RUL:change_priority{When in doubt, preserve conceptual ambition but reduce unsupported certainty}
+RUL:canonical_order{Every major document must reinforce this order: Skill first, .cortex format, HCORTEX human view, deterministic codec, memory runtime, enterprise MCP}
+RUL:blocking_condition{If a proposed change mentions unrelated external projects, unsupported benchmarks, production readiness, current MCP availability or literal full-history reconstruction, reject or rewrite it}

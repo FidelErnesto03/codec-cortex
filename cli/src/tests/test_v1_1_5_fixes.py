@@ -152,7 +152,7 @@ def test_recover_entry_first_verify_strict_passes(tmp_path):
     with open(legacy_path, "w") as f:
         f.write(
             'IDN:package{name:"legacy"}\n'
-            'KNW:topic{topic:"x", content:"y", status:"current"}\n'
+            'KNW:topic{name:"topic", topic:"x", content:"y", status:"current"}\n'
         )
     out_path = str(tmp_path / "fixed.cortex")
     r = _run_cli(["recover", legacy_path, "--out", out_path, "--embed-aud-rsk"])

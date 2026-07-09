@@ -169,8 +169,8 @@ def test_aud_describes_glossary_reconstruction_when_it_happened():
 
     legacy = (
         'IDN:agent{name:"legacy"}\n'
-        'FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}\n'
-        'OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}\n'
+        'FCS:primary{name:"primary", what:"x", priority:"high", status:"current", survive:"min"}\n'
+        'OBJ:main{name:"main", goal:"y", status:"current", success:"z", survive:"min"}\n'
     )
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
     aud = None
@@ -180,8 +180,8 @@ def test_aud_describes_glossary_reconstruction_when_it_happened():
             break
     assert aud is not None
     event = aud.value.get("event", "")
-    assert "glossary_reconstruction" in event, (
-        f"AUD event should mention glossary_reconstruction; got: {event!r}"
+    assert "live_state_recovered_from_zero" in event, (
+        f"AUD event should mention live_state_recovered_from_zero; got: {event!r}"
     )
 
 

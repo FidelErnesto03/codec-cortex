@@ -50,7 +50,7 @@ $0: GLOSSARY
 
 
 def test_e003_unknown_sigil():
-    """Use a sigil not declared in $0 → E003 in validator."""
+    """Use a sigil not declared in $0 → I001 in validator (auto-added with needs_review)."""
     doc = build_brain()
     # Inject an entry with unknown sigil
     from cortex.core.parser import build_entry_from_value
@@ -58,7 +58,10 @@ def test_e003_unknown_sigil():
     sec.entries.append(build_entry_from_value("$2", "BOGUS", "x", "attrs", {"k": "v"}))
     diagnostics = validate(doc)
     codes = [d["code"] for d in diagnostics]
-    assert E003_UNKNOWN_SIGIL in codes
+    assert "I001_UNDECLARED_SIGIL" in codes
+    # Sigil should now be in glossary with needs_review
+    assert "BOGUS" in doc.glossary.sigils
+    assert doc.glossary.sigils["BOGUS"].needs_review is True
 
 
 def test_e005_unbalanced_braces():
