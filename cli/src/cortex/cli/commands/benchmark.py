@@ -24,9 +24,11 @@ def _candidate_roots(explicit: Optional[str] = None) -> Iterable[Path]:
     yield cwd / "benchmarks"
     for parent in cwd.parents:
         yield parent / "benchmarks"
+        yield parent / "docs" / "benchmarks"
     module_root = Path(__file__).resolve()
     for parent in module_root.parents:
         yield parent / "benchmarks"
+        yield parent / "docs" / "benchmarks"
 
 
 def resolve_root(explicit: Optional[str] = None) -> Path:
