@@ -33,8 +33,6 @@ from .ast import (
 )
 from .errors import (
     E017_UNPARSED_LINE,
-    E003_UNKNOWN_SIGIL,
-    E004_UNKNOWN_TYPE,
     E006_INVALID_ATTRS,
     CANONICAL_TYPES,
     CANONICAL_MICRO,

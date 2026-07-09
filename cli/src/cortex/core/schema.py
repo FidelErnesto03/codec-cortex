@@ -10,7 +10,7 @@ first, then falls back to canonical constants from errors.py.
 
 from __future__ import annotations
 
-from typing import Any, Dict, FrozenSet, List, Optional, Set, Tuple
+from typing import FrozenSet, Optional, Set, Tuple
 
 from .ast import Glossary
 

@@ -10,7 +10,6 @@ from cortex.core.parser import parse_cortex
 from cortex.core.errors import (
     E001_MISSING_GLOSSARY,
     E002_GLOSSARY_NOT_FIRST,
-    E003_UNKNOWN_SIGIL,
     E005_UNBALANCED_BRACES,
     E010_HCORTEX_READ_NOT_COMPILABLE,
     E011_HCORTEX_EDIT_METADATA_MISSING,
