@@ -35,7 +35,7 @@ def test_parse_and_render_docstring(tmp_path: Path):
 
 
 def test_docstring_command_outputs_text(tmp_path: Path, capsys):
-    docs_root = tmp_path / "docs" / "cortex" / "api"
+    docs_root = tmp_path / "docs" / "reference" / "api"
     docs_root.mkdir(parents=True)
     (docs_root / "canonicalize.cortex").write_text(API_DOC, encoding="utf-8")
     args = argparse.Namespace(command="canonicalize", all=False, docs_root=str(docs_root), format="text")
@@ -44,7 +44,7 @@ def test_docstring_command_outputs_text(tmp_path: Path, capsys):
 
 
 def test_main_e3_routes_docstring(tmp_path: Path, capsys):
-    docs_root = tmp_path / "docs" / "cortex" / "api"
+    docs_root = tmp_path / "docs" / "reference" / "api"
     docs_root.mkdir(parents=True)
     (docs_root / "canonicalize.cortex").write_text(API_DOC, encoding="utf-8")
     rc = main(["docstring", "canonicalize", "--docs-root", str(docs_root)])

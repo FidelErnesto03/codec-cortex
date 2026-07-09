@@ -6,7 +6,7 @@ GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
 
 $1
 IDN:command{name:"doctor",cli:"cortex doctor",status:"current",requires:"cortex 0.3.4+"}
-DESC:summary{text:"Run deep diagnostics on a CORTEX file."}
+DESC:summary{name:"summary",text:"Run deep diagnostics on a CORTEX file."}
 ARG:input{name:"input",required:"yes",description:"source file"}
 ARG:format{name:"--format",required:"no",description:"text or json"}
 ARG:strict{name:"--strict",required:"no",description:"warnings become errors"}

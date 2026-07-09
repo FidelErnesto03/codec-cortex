@@ -6,6 +6,6 @@ GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
 
 $1
 IDN:command{name:"modes",cli:"cortex --mode",status:"current",requires:"cortex 0.3.4+"}
-DESC:summary{text:"Describe CORTEX operating modes."}
+DESC:summary{name:"summary",text:"Describe CORTEX operating modes."}
 ARG:mode{name:"--mode",required:"no",description:"operating mode"}
 ARG:env{name:"CORTEX_MODE",required:"no",description:"environment value"}
