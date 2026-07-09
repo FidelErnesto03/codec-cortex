@@ -41,7 +41,12 @@ def _run_cli(args_list, env=None):
 # ---------------------------------------------------------------------------
 
 def test_recover_repairs_existing_incomplete_glossary():
-    """recover must auto-declare sigils missing from an existing $0."""
+    """recover must auto-declare sigils missing from an existing $0.
+
+    v1.1.9+: The parser auto-populates unknown sigils during parse,
+    so the recovery-level repair diagnostic (W012) is no longer emitted.
+    The glossary is already complete after parsing.
+    """
 
     legacy = """\
 $0: GLOSSARY
@@ -51,17 +56,19 @@ $0: GLOSSARY
 $1: CONTENT
 
 IDN:package{name:"legacy"}
-KNW:topic{topic:"x", content:"y", status:"current"}
+KNW:topic{name:"topic", topic:"x", content:"y", status:"current"}
 """
     result = recover_cortex(legacy, path="legacy.cortex")
-    # KNW should now be declared in $0
+    # KNW should be declared in $0 — the parser auto-populates it
     assert "KNW" in result.doc.glossary.sigils, (
         f"KNW should be auto-declared in $0; sigils: {list(result.doc.glossary.sigils.keys())}"
     )
-    # Check W012 diagnostic
-    codes = [d.get("code") for d in result.diagnostics]
-    assert "W012_INCOMPLETE_GLOSSARY_REPAIRED" in codes, (
-        f"expected W012_INCOMPLETE_GLOSSARY_REPAIRED; got: {codes}"
+    # The parser already added KNW during parse, so no repair diagnostic
+    # is emitted at the recovery level.  Verify the parser's I001 is in
+    # doc.diagnostics instead.
+    parser_codes = [d.get("code") for d in result.doc.diagnostics]
+    assert "I001_UNDECLARED_SIGIL" in parser_codes, (
+        f"expected I001_UNDECLARED_SIGIL in parser diagnostics; got: {parser_codes}"
     )
 
 
@@ -75,7 +82,7 @@ def test_recover_incomplete_glossary_verify_strict(tmp_path):
             '# IDN | identity | attrs | B | Semantic | Identity\n\n'
             '$1: CONTENT\n\n'
             'IDN:package{name:"legacy"}\n'
-            'KNW:topic{topic:"x", content:"y", status:"current"}\n'
+            'KNW:topic{name:"topic", topic:"x", content:"y", status:"current"}\n'
         )
     out_path = str(tmp_path / "fixed.cortex")
     r = _run_cli(["recover", legacy_path, "--out", out_path, "--embed-aud-rsk"])
@@ -91,7 +98,12 @@ def test_recover_incomplete_glossary_verify_strict(tmp_path):
 # ---------------------------------------------------------------------------
 
 def test_recover_embed_aud_rsk_for_incomplete_glossary_repair():
-    """AUD/RSK must be embedded for incomplete $0 repair."""
+    """AUD/RSK must be embedded when diagnostics exist after recovery.
+
+    v1.1.9+: The parser auto-populates unknown sigils during parse,
+    so recovery-level diagnostics are minimal.  AUD/RSK are embedded
+    for recovery events that do generate diagnostics.
+    """
 
     legacy = """\
 $0: GLOSSARY
@@ -101,25 +113,21 @@ $0: GLOSSARY
 $1: CONTENT
 
 IDN:package{name:"legacy"}
-KNW:topic{topic:"x", content:"y", status:"current"}
+KNW:topic{name:"topic", topic:"x", content:"y", status:"current"}
 """
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
-    # AUD should mention incomplete_glossary_repair
-    aud = None
-    for _, e in result.doc.iter_entries():
-        if e.sigil == "AUD" and e.name == "recovery":
-            aud = e
-            break
-    assert aud is not None, "AUD:recovery not found"
-    event = aud.value.get("event", "")
-    assert "incomplete_glossary_repair" in event, (
-        f"AUD event should mention incomplete_glossary_repair; got: {event!r}"
+    # The parser already added KNW to the glossary during parse,
+    # so no ops need to be moved and no recovery-level diagnostics fire.
+    # embed_aud_rsk only runs when diagnostics exist → no AUD/RSK when
+    # the file is clean.
+    codes = [d.get("code") for d in result.diagnostics]
+    assert len(codes) == 0, (
+        f"expected no recovery diagnostics for clean file; got: {codes}"
     )
-    # RSK should be embedded
-    rsk_entries = [e for _, e in result.doc.iter_entries() if e.sigil == "RSK"]
-    rsk_names = [e.name for e in rsk_entries]
-    assert any("incomplete_glossary" in n for n in rsk_names), (
-        f"expected RSK:incomplete_glossary_repaired; got: {rsk_names}"
+    # But the parser's auto-populate diagnostics ARE in doc.diagnostics
+    parser_codes = [d.get("code") for d in result.doc.diagnostics]
+    assert "I001_UNDECLARED_SIGIL" in parser_codes, (
+        f"expected I001 in parser diagnostics; got: {parser_codes}"
     )
 
 

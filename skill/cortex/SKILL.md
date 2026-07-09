@@ -55,7 +55,7 @@ $0:micro_t1{expand:structure}
 $0:enum_state{}
 
 $1
-IDN:project{name:"CODEC-CORTEX",autor:"Fidel Ernesto Lozada A.",versión del skill:"1.3.0",licencia:"MIT",versión del proyecto:"v0.4.1",repositorio:"github.com/FidelErnesto03/codec-cortex",dominio:"Protocolo de memoria contextual para agentes LLM/SLM",idioma estructural:"EN",idioma semántico:"Idioma del dominio o usuario",salida para humanos:"HCORTEX=render de memoria; CORTEX-OUT=respuesta conversacional"}
+IDN:project{name:"CODEC-CORTEX",autor:"Fidel Ernesto Lozada A.",versión del skill:"1.4.0",licencia:"MPL-2.0",versión del proyecto:"v0.4.3",repositorio:"github.com/FidelErnesto03/codec-cortex",dominio:"Protocolo de memoria contextual para agentes LLM/SLM",idioma estructural:"EN",idioma semántico:"Idioma del dominio o usuario",salida para humanos:"HCORTEX=render de memoria; CORTEX-OUT=respuesta conversacional"}
 REF:skill{path:"skill/cortex/SKILL.md",role:"Especificación canónica del protocolo (CORTEX)",formato:"CORTEX"}
 REF:brain{path:"brain.cortex",role:"Estado vivo de trabajo",formato:"CORTEX"}
 REF:entry{path:"*.cortex",role:"Paquetes de contexto transportables",formato:"CORTEX"}
@@ -114,6 +114,11 @@ $4
 !id_format{rule:"Instancias en snake_case; sigilos en MAYÚSCULAS salvo `!"}
 !micro_delimit{rule:"Microtokens se expanden solo por delimitador; NO DEBEN expandirse dentro de palabras"}
 !extend_glossary{rule:"Nuevo sigilo → registrar en $0 antes del primer uso; NO redefinir silenciosamente"}
+!decimal_sections{rule:"Secciones decimales (`$2.1`, `$3.5`) son válidas. normalize_section_id() preserva puntos."}
+!dot_entry_names{rule:"Nombres de entrada permiten puntos (`HDL:workspace.init`). Selector debe usar el nombre completo."}
+!nested_attrs_maps{rule:"parse_attrs_body() soporta mapas anidados `{...}` como valores. Claves aceptan dígito inicial."}
+!attrs_pos_fallback{rule:"Sigilo attrs-pos sin contrato en $0 → parsea como attrs body en lugar de devolver vacío. E007 solo si el valor no es dict."}
+!auto_repair_fields{rule:"atomic_write_cortex(force=True) repara E032/E034 automáticamente: rellena campos requeridos faltantes con defaults semánticos."}
 !hcortex_expand{rule:"attrs→tabla, cuerpo→bloque indentado, bloque→verbatim. Tipo desde $0, no por heurística"}
 !hcortex_source{rule:"P0/P1 attrs→columna source con SIGIL:name; falta source→WARNING"}
 !hcortex_multi{rule:"Múltiples instancias del mismo sigilo → sub-secciones `### SIGIL:name"}

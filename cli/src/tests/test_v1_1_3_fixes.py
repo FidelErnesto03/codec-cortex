@@ -61,16 +61,18 @@ def test_recover_entry_first_file_without_glossary():
 
     legacy = (
         'IDN:package{name:"legacy", kind:"package", status:"current"}\n'
-        'KNW:topic{topic:"x", content:"y", status:"current"}\n'
+        'KNW:topic{name:"topic", topic:"x", content:"y", status:"current"}\n'
     )
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
     # Glossary must be reconstructed with IDN and KNW
     assert "IDN" in result.doc.glossary.sigils, "IDN not in reconstructed glossary"
     assert "KNW" in result.doc.glossary.sigils, "KNW not in reconstructed glossary"
-    # Should have the E030_RECOVERY_INCOMPLETE diagnostic
+    # The parser auto-populates unknown sigils → entries moved from $0
     codes = [d["code"] for d in result.diagnostics]
-    assert "E030_RECOVERY_INCOMPLETE" in codes, f"expected E030, got {codes}"
-    # verify --strict must pass (no E003_UNKNOWN_SIGIL)
+    assert "I004_OPS_MOVED_FROM_ZERO" in codes, f"expected I004, got {codes}"
+    # AUD and RSK sigils are auto-declared for embedded recovery trace
+    assert "I003_SIGIL_AUTO_DECLARED" in codes, f"expected I003, got {codes}"
+    # verify --strict must pass (no I001_UNDECLARED_SIGIL / E003_UNKNOWN_SIGIL)
     diags = validate(result.doc, strict=True)
     codes = [d["code"] for d in diags if d["severity"] == "error"]
     assert "E003_UNKNOWN_SIGIL" not in codes, (
@@ -85,7 +87,7 @@ def test_recover_entry_first_file_cli_verify_strict(tmp_path):
     with open(legacy_path, "w") as f:
         f.write(
             'IDN:package{name:"legacy", kind:"package", status:"current"}\n'
-            'KNW:topic{topic:"x", content:"y", status:"current"}\n'
+            'KNW:topic{name:"topic", topic:"x", content:"y", status:"current"}\n'
         )
     out_path = str(tmp_path / "legacy.fixed.cortex")
 

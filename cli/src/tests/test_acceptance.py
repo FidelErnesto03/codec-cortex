@@ -239,7 +239,10 @@ def test_criterion_12_detects_unknown_sigil(brain_doc):
     ))
     diagnostics = validate(brain_doc)
     codes = [d.get("code") for d in diagnostics]
-    assert "E003_UNKNOWN_SIGIL" in codes, f"unknown sigil not detected: {codes}"
+    assert "I001_UNDECLARED_SIGIL" in codes, f"unknown sigil not detected: {codes}"
+    # Sigil should be auto-added to glossary with needs_review
+    assert "UNKNOWN" in brain_doc.glossary.sigils
+    assert brain_doc.glossary.sigils["UNKNOWN"].needs_review is True
 
 
 # ---------------------------------------------------------------------------

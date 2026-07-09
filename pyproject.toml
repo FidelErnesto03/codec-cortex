@@ -4,13 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "codec-cortex"
-version = "0.4.3"
-description = "CODEC-CORTEX — Universal memory Skill and contextual memory protocol for LLM/SLM agents; CLI at cli/"
+version = "0.5.0"
+description = "CODEC-CORTEX — Universal Communication Protocol for LLM/SLM Agents. Compresses agent knowledge via deterministic sigil codec with semantic learning engine (SES→LNG→KNW)."
 readme = "README.md"
 license = {text = "MPL-2.0"}
 authors = [
     {name = "Fidel Ernesto Lozada A.", email = "fidelernesto@gmail.com"},
-    {name = "alfred", email = ""},
 ]
 keywords = [
     "cortex", "codec", "llm", "agent", "memory", "compression",
@@ -33,7 +32,7 @@ dependencies = []  # Zero external dependencies
 
 [project.urls]
 Homepage = "https://github.com/FidelErnesto03/codec-cortex"
-Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/skill/SKILL.md"
+Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/docs/README.md"
 Repository = "https://github.com/FidelErnesto03/codec-cortex"
 Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
 

@@ -4,7 +4,7 @@
 <!-- CODEC-CORTEX
 internal_encoding: HCORTEX
 source_artifact: skill/hcortex/SKILL.md
-source_version: 1.3.0
+source_version: 1.4.0
 status: specification
 reversible: false
 view_schema: 0
@@ -14,7 +14,7 @@ view_coverage: 0
 <p align="center">
 <strong>CODEC-CORTEX</strong><br>
 Enterprise Skill Specification — Cognitive Memory Governance & Output Discipline
-<br><sub>SKILL_HCORTEX.md · spec 1.3.0 · project 0.4.1 · MIT</sub>
+<br><sub>SKILL_HCORTEX.md · spec 1.4.0 · project 0.4.3 · MPL-2.0</sub>
 </p>
 
 ---

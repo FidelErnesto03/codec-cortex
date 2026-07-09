@@ -39,6 +39,7 @@ from .errors import (
     CANONICAL_TYPES,
     CANONICAL_MICRO,
     GLOSSARY_RESERVED_SIGILS,
+    ALLOWED_STATUS,
 )
 from .lexer import lex
 
@@ -89,6 +90,16 @@ _CONTRACT_RE = re.compile(
     (?P<sigil>[A-Z][A-Z0-9_]*|!)
     \s*\|\s*
     (?P<fields>.+?)
+    \s*$
+    """,
+    re.VERBOSE,
+)
+
+# Status declaration inside $0:
+#   # status: active, completed, archived
+_STATUS_DECL_RE = re.compile(
+    r"""^\s*\#\s*status\s*:\s*
+    \[?(?P<statuses>[^\]]+?)\]?
     \s*$
     """,
     re.VERBOSE,
@@ -352,6 +363,11 @@ def _build_glossary_from_section(section: Section) -> Glossary:
         if entry.sigil == "GSIG":
             attrs = parse_attrs_body(entry.raw[entry.raw.find("{") + 1 : entry.raw.rfind("}")])
             sigil = attrs.get("sigil") or entry.name
+            fields_raw = attrs.get("fields")
+            if isinstance(fields_raw, str) and fields_raw:
+                fields_list = [f.strip() for f in fields_raw.replace("[", "").replace("]", "").split(",")]
+            else:
+                fields_list = None
             sd = SigilDef(
                 sigil=sigil,
                 name=attrs.get("name", sigil.lower()),
@@ -359,6 +375,7 @@ def _build_glossary_from_section(section: Section) -> Glossary:
                 risk=attrs.get("risk", "M"),
                 layer=attrs.get("layer", "Semantic"),
                 description=attrs.get("description", ""),
+                fields=fields_list,
             )
             g.add_sigil(sd)
         elif entry.sigil == "GTYP":
@@ -381,6 +398,11 @@ def _build_glossary_from_section(section: Section) -> Glossary:
 
     # Process comment-line declarations preserved in section.comments
     for line in section.comments:
+        m = _STATUS_DECL_RE.match(line)
+        if m:
+            raw = m.group("statuses")
+            g.status_custom = [s.strip() for s in raw.replace("[", "").replace("]", "").split(",")]
+            continue
         m = _GLOSSARY_DECL_RE.match(line)
         if m:
             g.add_sigil(SigilDef(
@@ -448,6 +470,75 @@ def _build_glossary_from_section(section: Section) -> Glossary:
                 g.add_micro(MicroDef(token=tok, value=val))
 
     return g
+
+
+# ---------------------------------------------------------------------------
+# Auto-population: unknown sigils / statuses / types → $0 with needs_review
+# ---------------------------------------------------------------------------
+
+def ensure_in_glossary(
+    doc: CortexDocument,
+    *,
+    sigil: Optional[str] = None,
+    entry_sigil: Optional[str] = None,
+    status: Optional[str] = None,
+    type_: Optional[str] = None,
+    definition: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Auto-populate ``$0`` with elements not declared in the glossary.
+
+    If the model provides a *definition*, the element is added with
+    ``needs_review=False``.  Otherwise it is marked ``needs_review=True``
+    so the agent can ask the Architect to define it on next consolidation.
+
+    Parameters
+    ----------
+    doc : CortexDocument
+        The document whose glossary is being extended.
+    sigil : str, optional
+        Sigil to add if missing.
+    entry_sigil : str, optional
+        Sigil from the entry that triggered the addition (for status/type).
+    status : str, optional
+        Status value to add if not canonical.
+    type_ : str, optional
+        Type value to add if not canonical or custom.
+    definition : dict, optional
+        Full definition provided by the model.
+    """
+    if sigil is not None and sigil not in doc.glossary.sigils:
+        needs_review = definition is None
+        name = definition.get("name", sigil.lower()) if definition else sigil.lower()
+        type_val = definition.get("type", "attrs") if definition else "attrs"
+        risk = definition.get("risk", "M") if definition else "M"
+        layer = definition.get("layer", "Semantic") if definition else "Semantic"
+        desc = definition.get("description", "TODO: needs_review") if definition else "TODO: needs_review"
+        fields_raw = definition.get("fields") if definition else None
+        if isinstance(fields_raw, str):
+            fields_list = [f.strip() for f in fields_raw.replace("[", "").replace("]", "").split(",")]
+        else:
+            fields_list = None
+        sd = SigilDef(
+            sigil=sigil,
+            name=name,
+            type=type_val,
+            risk=risk,
+            layer=layer,
+            description=desc,
+            fields=fields_list,
+            needs_review=needs_review,
+        )
+        doc.glossary.add_sigil(sd)
+    if status is not None and status not in ALLOWED_STATUS:
+        if doc.glossary.status_custom is None:
+            doc.glossary.status_custom = []
+        if status not in doc.glossary.status_custom:
+            doc.glossary.status_custom.append(status)
+    if type_ is not None and type_ not in CANONICAL_TYPES:
+        if doc.glossary.types_custom is None:
+            doc.glossary.types_custom = []
+        if type_ not in doc.glossary.types_custom:
+            doc.glossary.types_custom.append(type_)
 
 
 # ---------------------------------------------------------------------------
@@ -583,33 +674,34 @@ def _resolve_entry_types(doc: CortexDocument) -> None:
 
     for sec, entry in doc.iter_entries():
         if entry.sigil in GLOSSARY_RESERVED_SIGILS:
-            # Glossary declaration entry — type is "attrs" by definition
             entry.type = "attrs"
             continue
         sigil_def = doc.glossary.sigils.get(entry.sigil)
         if sigil_def is None:
+            ensure_in_glossary(doc, sigil=entry.sigil)
             doc.diagnostics.append({
-                "code": E003_UNKNOWN_SIGIL,
-                "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) is not declared in $0",
+                "code": "I001_UNDECLARED_SIGIL",
+                "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) was auto-added to $0 with needs_review",
                 "line": entry.line_start,
                 "section": sec.id,
                 "sigil": entry.sigil,
                 "entry": entry.name,
-                "severity": "error",
+                "severity": "info",
             })
-            entry.type = "attrs"  # fallback
+            entry.type = "attrs"
             continue
         entry.type = sigil_def.type
         # Validate type is known
         if entry.type not in doc.glossary.types and entry.type not in CANONICAL_TYPES:
+            ensure_in_glossary(doc, type_=entry.type)
             doc.diagnostics.append({
-                "code": E004_UNKNOWN_TYPE,
-                "message": f"type {entry.type!r} (sigil {entry.sigil!r}) is not declared in $0",
+                "code": "I002_UNDECLARED_TYPE",
+                "message": f"type {entry.type!r} (sigil {entry.sigil!r}) was auto-added to $0 with needs_review",
                 "line": entry.line_start,
                 "section": sec.id,
                 "sigil": entry.sigil,
                 "entry": entry.name,
-                "severity": "error",
+                "severity": "info",
             })
 
 

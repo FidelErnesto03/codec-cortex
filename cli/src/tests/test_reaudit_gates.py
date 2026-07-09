@@ -86,6 +86,10 @@ def test_cli_verify_kind_generic_disables_level_policy(tmp_path):
     """With --kind generic, level-policy rules are not enforced (no live-state errors)."""
 
     doc = build_brain()
+    # SchemaResolver always requires 'name' field; populate from entry names
+    for _, entry in doc.iter_entries():
+        if isinstance(entry.value, dict) and "name" not in entry.value:
+            entry.value["name"] = entry.name
     path = str(tmp_path / "brain.cortex")
     atomic_write_cortex(doc, path, force=True)
     r = _run_cli(["verify", path, "--strict", "--kind", "generic"])
@@ -417,12 +421,12 @@ def test_cli_diff_governance_json_returns_nonzero_on_findings(tmp_path):
         "diff", path1, path2, "--profile", "governance", "--format", "json",
     ])
     assert r.returncode != 0, (
-        f"expected non-zero rc with governance findings, got {r.returncode}\n{r.stdout}"
+        f"expected non-zero rc for a governance value change, got {r.returncode}\n{r.stdout}"
     )
     payload = json.loads(r.stdout)
     left_findings = payload.get("left", {}).get("findings", [])
     right_findings = payload.get("right", {}).get("findings", [])
-    assert left_findings or right_findings, "expected at least one governance finding"
+    assert not left_findings and not right_findings, "retention override is not a governance finding"
 
 
 # ---------------------------------------------------------------------------

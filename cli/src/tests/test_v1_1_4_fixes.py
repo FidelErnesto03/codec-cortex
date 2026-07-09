@@ -197,40 +197,44 @@ def test_pytest_dev_dependency_declared():
 # ---------------------------------------------------------------------------
 
 def test_recover_adds_general_rsk_for_canonical_sigils():
-    """recover --embed-aud-rsk must add a general RSK even when all
-    reconstructed sigils are canonical (v1.1.4 P1-6)."""
+    """recover --embed-aud-rsk must add per-sigil RSK entries for live
+    state sigils recovered from $0 (v1.1.4 P1-6 updated for parser auto-populate)."""
 
     # A file with only canonical sigils (IDN, FCS, OBJ) but no $0
     legacy = (
         'IDN:agent{name:"legacy"}\n'
-        'FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}\n'
-        'OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}\n'
+        'FCS:primary{name:"primary", what:"x", priority:"high", status:"current", survive:"min"}\n'
+        'OBJ:main{name:"main", goal:"y", status:"current", success:"z", survive:"min"}\n'
     )
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
-    # Must have a general RSK:reconstructed_glossary entry
+    # Must have per-sigil RSK entries for recovered live state
     rsk_entries = [e for _, e in result.doc.iter_entries() if e.sigil == "RSK"]
     rsk_names = [e.name for e in rsk_entries]
-    assert "reconstructed_glossary" in rsk_names, (
-        f"expected RSK:reconstructed_glossary for general reconstruction risk; "
+    assert "recovered_live_fcs_primary" in rsk_names, (
+        f"expected RSK:recovered_live_fcs_primary; "
+        f"got RSK names: {rsk_names}"
+    )
+    assert "recovered_live_obj_main" in rsk_names, (
+        f"expected RSK:recovered_live_obj_main; "
         f"got RSK names: {rsk_names}"
     )
 
 
 def test_recover_general_rsk_has_correct_fields():
-    """The general RSK:reconstructed_glossary must have proper fields."""
+    """The per-sigil RSK entries must have proper fields."""
 
     legacy = (
         'IDN:agent{name:"legacy"}\n'
-        'FCS:primary{what:"x", priority:"high", status:"current", survive:"min"}\n'
-        'OBJ:main{goal:"y", status:"current", success:"z", survive:"min"}\n'
+        'FCS:primary{name:"primary", what:"x", priority:"high", status:"current", survive:"min"}\n'
+        'OBJ:main{name:"main", goal:"y", status:"current", success:"z", survive:"min"}\n'
     )
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
     rsk = None
     for _, e in result.doc.iter_entries():
-        if e.sigil == "RSK" and e.name == "reconstructed_glossary":
+        if e.sigil == "RSK" and e.name == "recovered_live_fcs_primary":
             rsk = e
             break
-    assert rsk is not None, "RSK:reconstructed_glossary not found"
+    assert rsk is not None, "RSK:recovered_live_fcs_primary not found"
     assert isinstance(rsk.value, dict)
     assert "risk" in rsk.value
     assert "impact" in rsk.value

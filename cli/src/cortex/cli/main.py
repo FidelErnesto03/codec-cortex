@@ -322,6 +322,11 @@ def build_parser() -> argparse.ArgumentParser:
     sp = sub.add_parser("glossary", help="glossary CRUD")
     g_sub = sp.add_subparsers(dest="glossary_command", required=True)
 
+    gsp = g_sub.add_parser("review", help="review all glossary elements and pending definitions")
+    gsp.add_argument("input")
+    gsp.add_argument("--format", choices=["text", "json"], default="text")
+    gsp.set_defaults(func=cmd_glossary.run_review)
+
     gsp = g_sub.add_parser("list", help="list sigils in $0")
     gsp.add_argument("input")
     gsp.add_argument("--format", choices=["text", "json"], default="text")

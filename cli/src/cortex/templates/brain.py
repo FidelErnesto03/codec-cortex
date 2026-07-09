@@ -56,7 +56,7 @@ def build_brain(
     ))
     sec1.entries.append(build_entry_from_value(
         "$1", "DOM", "workspace", "attrs",
-        {"area": domain, "protocol": "CODEC-CORTEX", "artifact": "brain.cortex"},
+        {"name": "workspace", "area": domain, "protocol": "CODEC-CORTEX", "artifact": "brain.cortex"},
     ))
     doc.sections.append(sec1)
 
@@ -65,6 +65,7 @@ def build_brain(
     sec2.entries.append(build_entry_from_value(
         "$2", "FCS", "primary", "attrs",
         {
+            "name": "primary",
             "what": "current focus",
             "priority": "high",
             "status": "current",
@@ -74,6 +75,7 @@ def build_brain(
     sec2.entries.append(build_entry_from_value(
         "$2", "OBJ", "main", "attrs",
         {
+            "name": "main",
             "goal": "current objective",
             "status": "current",
             "success": "verifiable criterion",
@@ -83,6 +85,7 @@ def build_brain(
     sec2.entries.append(build_entry_from_value(
         "$2", "WRK", "state", "attrs",
         {
+            "name": "state",
             "phase": "active",
             "current": "work state",
             "blocked": False,
@@ -92,6 +95,7 @@ def build_brain(
     sec2.entries.append(build_entry_from_value(
         "$2", "STP", "next", "attrs",
         {
+            "name": "next",
             "action": "next action",
             "reason": "why",
             "owner": owner,
@@ -111,6 +115,7 @@ def build_brain(
     sec3.entries.append(build_entry_from_value(
         "$3", "CNST", "self_contained", "attrs",
         {
+            "name": "self_contained",
             "rule": "This brain.cortex carries its own minimal $0 and does not require external glossary to begin safe interpretation.",
             "severity": "blocking",
             "survive": "min",

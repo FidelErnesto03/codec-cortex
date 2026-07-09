@@ -354,7 +354,10 @@ def validate_level_policy(
                 "severity": "error",
             })
 
-    # --- CNST:blocking must have survive:min -----------------------------
+    # --- blocking protection is independent from retention ---------------
+    # ``severity:blocking`` is a non-bypassable security predicate.  It must
+    # remain protected even when the document explicitly selects a different
+    # retention level; retention is validated above and is not security.
     for sec, entry in doc.iter_entries():
         if entry.sigil != "CNST":
             continue
@@ -362,20 +365,10 @@ def validate_level_policy(
             continue
         severity = entry.value.get("severity")
         survive = entry.value.get("survive")
-        if severity == "blocking" and survive != "min":
-            findings.append({
-                "code": E026_BLOCKING_NOT_P0,
-                "message": (
-                    f"CNST:{entry.name} has severity=blocking but survive={survive!r}; "
-                    "blocking constraints MUST have survive=min (P0)"
-                ),
-                "line": entry.line_start,
-                "section": sec.id,
-                "sigil": entry.sigil,
-                "entry": entry.name,
-                "severity": "error",
-                "bypassable": False,  # v1.1.4 P0-1: governance invariant
-            })
+        if severity == "blocking":
+            # Deliberately no E026: ``blocking`` is enforced by the
+            # independent protection predicate in validator/profiles.
+            continue
 
     # --- attrs-pos arity check -------------------------------------------
     for sec, entry in doc.iter_entries():
@@ -412,13 +405,19 @@ def validate_level_policy(
     # persistir memoria semánticamente inválida por defecto.  Ahora son
     # errores no-bypassables para los sigilos críticos enumerados abajo.
     from .validator import REQUIRED_FIELDS  # local import to avoid cycle
+    from .schema import SchemaResolver
     CRITICAL_SIGILS_WITH_REQUIRED_FIELDS = frozenset(REQUIRED_FIELDS.keys())
+    resolver = SchemaResolver(doc.glossary)
     for sec, entry in doc.iter_entries():
         if entry.sigil not in CRITICAL_SIGILS_WITH_REQUIRED_FIELDS:
             continue
         if not isinstance(entry.value, dict):
             continue
-        required = REQUIRED_FIELDS[entry.sigil]
+        required = (
+            resolver.required_fields(entry.sigil)[0]
+            if resolver.has_fields(entry.sigil)
+            else REQUIRED_FIELDS[entry.sigil]
+        )
         missing = [f for f in required if f not in entry.value]
         if missing:
             findings.append({

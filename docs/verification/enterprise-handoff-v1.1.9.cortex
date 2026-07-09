@@ -1,0 +1,227 @@
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Required: this package is self-contained and does not require prior chat history.
+# This $0 is structural metadata only. It is not working memory.
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+IDN   | identity        | attrs  | B | Semantic   | Identity of this handoff package or referenced artifact
+DOM   | domain          | attrs  | B | Semantic   | Scope and operational domain
+REF   | reference       | attrs  | B | Semantic   | File, audit, tarball, spec or evidence reference
+STAT  | status          | attrs  | B | Semantic   | Status, maturity or declaration
+KNW   | knowledge       | attrs  | B | Semantic   | Stable project knowledge needed by a new agent
+CLAIM | claim           | attrs  | M | Prefrontal | Verifiable statement with evidence expectation
+LIM   | limit           | attrs  | M | Prefrontal | Explicit limitation or maturity boundary
+RSK   | risk            | attrs  | M | Prefrontal | Risk, impact, mitigation and status
+AUD   | audit           | attrs  | M | Prefrontal | Audit event, evidence, result and date
+CNST  | constraint      | attrs  | H | Prefrontal | Blocking or warning constraint
+REQ   | requirement     | attrs  | H | Prefrontal | Required change or behavior for target version
+GAP   | gap             | attrs  | H | Prefrontal | Known unresolved gap to close
+ACC   | acceptance      | attrs  | H | Prefrontal | Acceptance criterion for enterprise consolidation
+TST   | test            | bloque | H | Prefrontal | Reproducible adversarial or regression test block
+CMD   | command         | bloque | M | Semantic   | Command sequence to execute or verify
+NOTE  | note            | cuerpo | B | Semantic   | Human-oriented note or explanation
+DIAG  | diagram         | bloque | M | Visual     | Diagram or verbatim block
+
+# Types:
+# attrs  = key:value pairs inside braces.
+# cuerpo = literal text block.
+# bloque = verbatim multiline block.
+
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# ok=success fail=failure part=partial rec=recovery full=full
+# p0=critical p1=high p2=medium p3=low ent=enterprise
+
+# -- $1: PACKAGE IDENTITY --
+IDN:handoff_package{name:"codec_cortex_v1_1_9_enterprise_handoff", version:"1.0.0", status:"current", nature:"level_3_context_package"}
+DOM:scope{project:"CODEC-CORTEX", target_version:"1.1.9", purpose:"handoff to a new agent that must consolidate an enterprise-candidate CLI from v1.1.8", language:"es-neutral", owner:"Fidel Ernesto Lozada A."}
+STAT:package_kind{kind:"context_package", level:"3", lifecycle:"does not mature by itself", absorption:"must be absorbed into the receiving agent Level 2 before action", status:"current"}
+CLAIM:self_contained{statement:"This package contains a local $0, project summary, known gaps, required fixes, tests and acceptance gates for v1.1.9", evidence:"local glossary and sections $1-$12", status:"current"}
+
+# -- $2: PRIMARY REFERENCES TO DELIVER TO THE NEW AGENT --
+REF:tarball_source{path:"codec-cortex-1.1.8.tar.gz", role:"baseline implementation to patch", required:true, status:"current"}
+REF:delivery_report{path:"INFORME_DE_ENTREGA_v1.1.8.md", role:"agent delivery claims for v1.1.8", required:true, status:"current"}
+REF:last_audit{path:"CODEC_CORTEX_VERIFICACION_v1_1_8_HCORTEX.md", role:"independent executable audit identifying remaining gaps", required:true, status:"current"}
+REF:skill_canon{path:"SKILL_canon.md", role:"canonical spec inside tarball; expected v1.2.0-enterprise-candidate", required:true, status:"current"}
+REF:external_skill{path:"SKILL.md", role:"external uploaded spec may declare v1.1.0; use for normative concepts but resolve version mismatch explicitly", required:false, status:"warning"}
+REF:expected_output{path:"codec-cortex-1.1.9.tar.gz", role:"new patched release artifact to produce", required:true, status:"planned"}
+REF:expected_report{path:"INFORME_DE_ENTREGA_v1.1.9.md", role:"delivery report to produce after patch", required:true, status:"planned"}
+REF:expected_demo{path:"scripts/cortex_demo_v1_1_9.sh", role:"portable demo with real failure detection", required:true, status:"planned"}
+
+# -- $3: CORE PROJECT MODEL --
+KNW:codec_cortex_definition{topic:"CODEC-CORTEX", content:"Protocol and CLI for structured contextual memory governance for LLM/SLM agents using .cortex, HCORTEX, CORTEX-OUT and maturity-aware claims", status:"current"}
+KNW:three_levels{topic:"architecture", content:"Level 1 SKILL governs; Level 2 brain operates with live state; Level 3 packages inject context and do not mature by themselves", status:"current"}
+KNW:zero_section{topic:"$0", content:"$0 is structural local glossary metadata. It must not be interpreted as working memory, and memory entries inside $0 are non-conformant", status:"current"}
+KNW:hcortex{topic:"HCORTEX", content:"Human Markdown render of .cortex memory; must declare profile, omit $0 by default, preserve audit source where required and never replace .cortex canonical persistence", status:"current"}
+KNW:cortex_out{topic:"CORTEX-OUT", content:"Outgoing conversational policy; independent from HCORTEX, codec, AST, $0, verify and roundtrip", status:"current"}
+KNW:maturity_rule{topic:"maturity", content:"Do not claim planned/future/unverified features as current; STATUS.md and BENCHMARK.md must classify claims honestly", status:"current"}
+KNW:security_rule{topic:"secrets", content:".cortex MUST NOT store secrets in clear; secret bypass, if retained for forensics, must mark artifact non-conformant and must not be normal operational path", status:"current"}
+
+# -- $4: BASELINE STATUS FROM v1.1.8 --
+STAT:v118_baseline{version:"1.1.8", suite_claim:"217/217 tests", demo_claim:"scripts/cortex_demo_v1_1_8.sh exit 0", acceptance:"strong conditional", enterprise_stable:false, status:"current"}
+STAT:v118_positive{area:"governance", summary:"v1.1.8 fixed free recovery section selection, RSK for recovered live state, correct AUD recovery events and broad null-like sentinel blocking", status:"current"}
+STAT:v118_non_bypassable{codes:"E023,E024,E026,E029,E031,E032,E033,E034", meaning:"level separation, level2 focus, blocking survive:min, level3 live state, secrets, critical completeness, no memory in $0, empty critical fields", status:"current"}
+CLAIM:v118_usable{statement:"v1.1.8 is suitable for controlled real work and serious dogfooding", evidence:"independent audit confirmed install, suite, demo and major governance fixes", status:"current"}
+LIM:v118_not_enterprise_stable{limit:"v1.1.8 should not be declared enterprise-stable until remaining recovery and demo-quality gaps are closed and re-audited", scope:"release_maturity", status:"current"}
+
+# -- $5: OPEN GAPS TO CLOSE IN v1.1.9 --
+GAP:g1_incomplete_existing_glossary{severity:"P1", area:"recovery", summary:"recover does not repair an existing but incomplete $0", evidence:"file with $0 declaring IDN only plus KNW entry under $1 remains E003_UNKNOWN_SIGIL after recover", impact:"legacy package with partial glossary cannot be automatically made conformant", status:"open"}
+GAP:g2_demo_false_positive{severity:"P2", area:"demo", summary:"demo v1.1.8 uses a sentinel value with slash n/a in filename and can PASS because the file was never created", evidence:"shell error: null_n/a.cortex No such file or directory followed by PASS", impact:"demo can overstate correctness", status:"open"}
+GAP:g3_demo_checks_too_weak{severity:"P2", area:"demo", summary:"sentinel demo should assert expected diagnostic E034, not only non-zero return code", evidence:"current style accepts any failure cause", impact:"false positives remain possible", status:"open"}
+GAP:g4_recovery_trace_for_partial_glossary{severity:"P1", area:"auditability", summary:"when recover repairs incomplete $0, it must add AUD and RSK describing partial glossary completion", evidence:"required by recovery discipline; not yet verified in v1.1.8", impact:"repaired files can lack explicit trace of semantic intervention", status:"open"}
+
+# -- $6: REQUIRED FIXES FOR v1.1.9 --
+REQ:r1_repair_incomplete_zero{priority:"P1", target:"recover", requirement:"If $0 exists but lacks sigils used outside $0, recover must auto-declare canonical known sigils and report unknown noncanonical sigils as risk", status:"required"}
+REQ:r2_verify_after_recover{priority:"P1", target:"recover", requirement:"recover must validate the produced artifact; return rc=0 only if strict verification succeeds or only bypassable warnings remain", status:"required"}
+REQ:r3_embed_trace_for_partial_glossary{priority:"P1", target:"recover --embed-aud-rsk", requirement:"When existing $0 is repaired, insert AUD describing partial_glossary_repair and RSK describing semantic risk of inferred declarations", status:"required"}
+REQ:r4_no_section_contamination{priority:"P1", target:"recover", requirement:"Recovered payload must be placed in a truly free RECOVERED CONTENT section and must never contaminate existing sections", status:"required"}
+REQ:r5_demo_safe_filenames{priority:"P2", target:"scripts/cortex_demo_v1_1_9.sh", requirement:"Sanitize sentinel names before using them as filenames; do not use raw n/a or values containing / in filenames", status:"required"}
+REQ:r6_demo_diagnostic_assertions{priority:"P2", target:"demo", requirement:"For negative tests, assert the expected error code such as E034, E033 or E024, not only rc!=0", status:"required"}
+REQ:r7_update_documentation{priority:"P2", target:"README STATUS BENCHMARK CHANGELOG INFORME", requirement:"Update version, test counts, benchmark criteria and maturity claims without overclaiming enterprise-stable unless independent audit is clean", status:"required"}
+
+# -- $7: ENTERPRISE ACCEPTANCE CRITERIA --
+ACC:a1_fresh_install{criterion:"In a fresh venv, pip install -e .[dev] succeeds and python -m pytest src/tests/ -q passes", required:true, status:"pending"}
+ACC:a2_demo_integrity{criterion:"scripts/cortex_demo_v1_1_9.sh is portable, has exit 1 on failure, no absolute paths, no false positives and asserts expected diagnostic codes", required:true, status:"pending"}
+ACC:a3_recovery_incomplete_glossary{criterion:"recover repairs existing incomplete $0 by declaring canonical missing sigils and verify --strict passes afterward", required:true, status:"pending"}
+ACC:a4_recovery_visibility{criterion:"Recovered entries are visible in render --mode audit --profile full and not hidden in $0", required:true, status:"pending"}
+ACC:a5_recovery_trace{criterion:"AUD and RSK are embedded for glossary reconstruction, partial glossary repair, and live state moved from $0", required:true, status:"pending"}
+ACC:a6_non_bypassable_integrity{criterion:"E023,E024,E026,E029,E031,E032,E033,E034 remain non-bypassable by --force and --no-validate-write", required:true, status:"pending"}
+ACC:a7_no_secret_normalization{criterion:"Secrets cannot enter normal conformant artifacts; forensic bypass marks non_conformant_forensic_artifact and strict verify fails", required:true, status:"pending"}
+ACC:a8_hcortex_audit{criterion:"HCORTEX audit starts with Perfil, declares Mode:AUDIT, includes visible source for attrs, cuerpo and bloque, and exposes recovery content", required:true, status:"pending"}
+ACC:a9_maturity_honesty{criterion:"STATUS.md and README do not declare enterprise-stable unless all open P1/P2 demo/recovery gaps are independently closed", required:true, status:"pending"}
+ACC:a10_independent_adversarial_audit{criterion:"A new agent must run adversarial tests beyond the official suite and produce HCORTEX audit report", required:true, status:"pending"}
+
+# -- $8: ADVERSARIAL TESTS TO ADD AND RUN --
+TST:test_incomplete_existing_zero{
+# Purpose: recover must repair an existing but incomplete $0.
+# Create fixture:
+cat > /tmp/incomplete_zero.cortex <<'CORTEX'
+$0: GLOSSARY
+# IDN | identity | attrs | B | Semantic | Identity
+
+$1: CONTENT
+IDN:package{name:"legacy"}
+KNW:topic{topic:"x", content:"y", status:"current"}
+CORTEX
+
+# Expected before recover:
+cortex verify /tmp/incomplete_zero.cortex --strict
+# expected rc != 0 and E003_UNKNOWN_SIGIL for KNW
+
+# Execute:
+cortex recover /tmp/incomplete_zero.cortex --out /tmp/incomplete_zero_fixed.cortex --embed-aud-rsk
+
+# Expected after recover:
+cortex verify /tmp/incomplete_zero_fixed.cortex --strict
+# expected rc == 0
+cortex render /tmp/incomplete_zero_fixed.cortex --mode audit --profile full
+# expected IDN:package and KNW:topic visible outside $0
+# expected AUD mentions partial_glossary_repair or equivalent
+# expected RSK mentions inferred_missing_glossary or equivalent
+}
+
+TST:test_demo_sentinel_filename_safety{
+# Purpose: demo must not create filenames from raw sentinel values containing slash.
+# Required implementation:
+# - map n/a to n_a or sentinel_n_a before file creation
+# - fail immediately if fixture file cannot be created
+# - assert diagnostic E034 appears in stderr/stdout
+# Expected:
+bash scripts/cortex_demo_v1_1_9.sh
+# expected rc == 0 and no shell messages like "No such file or directory"
+# expected each sentinel test greps E034_CRITICAL_REQUIRED_FIELD_EMPTY or E034
+}
+
+TST:test_recovery_free_section_collision{
+# Purpose: recovered content must use a truly free section.
+cat > /tmp/recovery_collision.cortex <<'CORTEX'
+$0: GLOSSARY
+# IDN | identity | attrs | B | Semantic | Identity
+# CNST | constraint | attrs | H | Prefrontal | Constraint
+
+$1: EXISTING IDENTITY
+IDN:package{name:"existing"}
+
+$99: EXISTING SPECIAL
+CNST:special{rule:"must stay isolated", severity:"blocking", survive:"min"}
+
+IDN:hidden{name:"hidden"}
+KNW:topic{topic:"x", content:"y", status:"current"}
+CORTEX
+
+cortex recover /tmp/recovery_collision.cortex --out /tmp/recovery_collision_fixed.cortex --embed-aud-rsk
+# Expected: recovered payload is not appended to $1 or $99 if either exists.
+# Expected: a free section such as $2 or $100 is chosen and titled RECOVERED CONTENT.
+}
+
+TST:test_non_bypassable_regression{
+# Purpose: ensure --force and --no-validate-write cannot bypass critical invariants.
+cortex new brain --out /tmp/brain.cortex --force
+cortex delete /tmp/brain.cortex FCS:primary --force
+# expected rc != 0 and file remains valid
+cortex add /tmp/brain.cortex --section '$0' --sigil FCS --name hidden --value 'what:"x", priority:"high", status:"current", survive:"min"' --force
+# expected rc != 0 and E033
+cortex add /tmp/brain.cortex --section '$3' --sigil REF --name secret --value 'password:"abc123456"' --create-section --force
+# expected rc != 0 and E031 unless explicit unsafe forensic flag is used
+}
+
+TST:test_hcortex_audit_recovery_visibility{
+# Purpose: verify audit render is human-verifiable.
+cortex render /tmp/incomplete_zero_fixed.cortex --mode audit --profile full > /tmp/audit.md
+head -n 1 /tmp/audit.md
+# expected first line begins with: Perfil: CORTEX-FULL
+# expected Mode: AUDIT
+# expected visible source markers for recovered entries
+# expected no recovered memory hidden under $0
+}
+
+# -- $9: COMMAND SEQUENCE FOR THE NEW AGENT --
+CMD:baseline_verification{
+# Use a fresh directory and fresh venv.
+tar xzf codec-cortex-1.1.8.tar.gz
+cd cortex
+python -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev]"
+cortex --version
+python -m pytest src/tests/ -q
+bash scripts/cortex_demo_v1_1_8.sh
+}
+
+CMD:target_release_verification{
+# After implementing v1.1.9:
+python -m pytest src/tests/ -q
+bash scripts/cortex_demo_v1_1_9.sh
+cortex --version
+# expected: cortex 1.1.9
+# expected: all official tests pass
+# expected: all adversarial tests in this handoff pass
+}
+
+CMD:package_artifacts{
+# Expected final deliverables from the new agent:
+# - codec-cortex-1.1.9.tar.gz
+# - INFORME_DE_ENTREGA_v1.1.9.md
+# - CODEC_CORTEX_VERIFICACION_v1_1_9_HCORTEX.md or equivalent self-audit
+# - scripts/cortex_demo_v1_1_9.sh
+# - updated README.md STATUS.md BENCHMARK.md CHANGELOG.md
+}
+
+# -- $10: NON-NEGOTIABLE CONSTRAINTS FOR THE NEW AGENT --
+CNST:no_doc_only_acceptance{rule:"Do not accept or declare v1.1.9 complete using documentation only; execute the real package and adversarial tests", severity:"blocking", survive:"min"}
+CNST:no_overclaim{rule:"Do not call the release enterprise-stable unless all P1 recovery gaps, demo false positives, tests, benchmark and audit gates are clean", severity:"blocking", survive:"min"}
+CNST:no_hidden_memory{rule:"No memory entry may live inside $0; $0 is structural metadata only", severity:"blocking", survive:"min"}
+CNST:no_secret_normal_path{rule:"No conformant .cortex artifact may contain secrets in clear; forensic bypass must mark non_conformant_forensic_artifact", severity:"blocking", survive:"min"}
+CNST:hcortex_audit_required{rule:"Any claimed recovery fix must be verified not only by verify --strict but also by HCORTEX audit visibility", severity:"blocking", survive:"min"}
+CNST:benchmark_honesty{rule:"Measured metrics require reproducible evidence; otherwise classify as target, hypothesis or illustrative", severity:"blocking", survive:"min"}
+
+# -- $11: RISKS AND MITIGATIONS --
+RSK:partial_recovery_overclaim{risk:"A recover command may return success without truly producing a trustworthy artifact", impact:"legacy memories become silently incomplete or unverifiable", mitigation:"post-recover strict verify plus HCORTEX audit visibility and embedded AUD/RSK", status:"active", survive:"work"}
+RSK:demo_false_positive{risk:"A demo may pass because a fixture failed to be created or because any error is accepted", impact:"false confidence in enterprise readiness", mitigation:"sanitize filenames, assert expected diagnostic code and fail on fixture creation errors", status:"active", survive:"work"}
+RSK:version_canon_drift{risk:"External SKILL.md and SKILL_canon.md may show different versions", impact:"agent may cite or implement against wrong normative baseline", mitigation:"resolve canon explicitly at start; package should declare SKILL_canon.md as active spec and document any mismatch", status:"active", survive:"work"}
+RSK:enterprise_label_pressure{risk:"Strong progress may create pressure to call release enterprise-stable too early", impact:"loss of trust if later recovery/security gaps appear", mitigation:"use enterprise-candidate/current-controlled-use until independent audit is fully clean", status:"active", survive:"work"}
+
+# -- $12: RECOMMENDED VERSION DECISION --
+STAT:recommended_v119_label{version:"1.1.9", recommended_label:"enterprise-candidate", not_recommended_label:"enterprise-stable", reason:"v1.1.9 should close known v1.1.8 gaps and pass independent audit before stable branding", status:"planned"}
+CLAIM:acceptance_path{statement:"If v1.1.9 closes incomplete $0 recovery, demo false positives, diagnostic assertions, and passes an independent adversarial audit, it may be considered enterprise-candidate with high confidence", evidence:"to be produced by new agent through tests and audit report", status:"target"}
+NOTE:handoff_guidance{
+The receiving agent should treat this file as a Level 3 context package. It must not assume this package is live operational brain state. It should absorb the requirements, run the real package, patch the code, add regression tests, update documentation, produce the v1.1.9 tarball, and provide a detailed HCORTEX audit. The correct posture is constructive skepticism: passing the official suite is necessary but not sufficient.
+}

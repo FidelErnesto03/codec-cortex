@@ -626,6 +626,7 @@ def _embed_recovery_trace(
     aud_sec.entries.append(build_entry_from_value(
         "$8", "AUD", "recovery", "attrs",
         {
+            "name": "recovery",
             "event": event_str,
             "evidence": f"{len(diagnostics)} diagnostic(s) emitted",
             "result": result_str,
@@ -639,6 +640,7 @@ def _embed_recovery_trace(
         rsk_sec.entries.append(build_entry_from_value(
             "$5", "RSK", "reconstructed_glossary", "attrs",
             {
+                "name": "reconstructed_glossary",
                 "risk": "$0 glossary was missing and reconstructed from observed sigils; canonical metadata may not match original intent",
                 "impact": "medium",
                 "mitigation": "review $0 declarations and verify each sigil's name/type/risk/layer before trusting as memory",
@@ -650,6 +652,7 @@ def _embed_recovery_trace(
             rsk_sec.entries.append(build_entry_from_value(
                 "$5", "RSK", f"reconstructed_{sig.lower()}", "attrs",
                 {
+                    "name": f"reconstructed_{sig.lower()}",
                     "risk": f"sigil {sig!r} was reconstructed from usage without canonical metadata",
                     "impact": "medium",
                     "mitigation": "verify name/type/risk/layer before trusting as memory",
@@ -664,6 +667,7 @@ def _embed_recovery_trace(
         rsk_sec.entries.append(build_entry_from_value(
             "$5", "RSK", "incomplete_glossary_repaired", "attrs",
             {
+                "name": "incomplete_glossary_repaired",
                 "risk": "existing $0 glossary was incomplete and was auto-repaired from observed entry sigils",
                 "impact": "medium",
                 "mitigation": "review auto-declared sigils and confirm their name/type/risk/layer before trusting as memory",
@@ -675,6 +679,7 @@ def _embed_recovery_trace(
             rsk_sec.entries.append(build_entry_from_value(
                 "$5", "RSK", f"auto_declared_{sig.lower()}", "attrs",
                 {
+                    "name": f"auto_declared_{sig.lower()}",
                     "risk": f"sigil {sig!r} was used by entries but missing from $0; recovery auto-declared it",
                     "impact": "medium",
                     "mitigation": f"verify {sig!r} local contract before trusting recovered content",
@@ -690,6 +695,7 @@ def _embed_recovery_trace(
             rsk_sec.entries.append(build_entry_from_value(
                 "$5", "RSK", f"recovered_live_{e.sigil.lower()}_{e.name.lower()}", "attrs",
                 {
+                    "name": f"recovered_live_{e.sigil.lower()}_{e.name.lower()}",
                     "risk": f"{e.sigil}:{e.name} was recovered from $0 (structural metadata section) — operational validity unverified",
                     "impact": "high",
                     "mitigation": f"verify {e.sigil}:{e.name} represents valid operational state before trusting as active memory",
