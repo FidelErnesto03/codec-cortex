@@ -1,0 +1,6 @@
+# Multi-entry semantic fixture: DESC content as separate entries
+# instead of raw newlines within a single cuerpo value.
+# BLP-005 pattern: semantic line separation → multiple entries.
+DESC:line1{First paragraph of the description}
+DESC:line2{Second paragraph — semantically distinct}
+DESC:line3{Third paragraph, still one physical line each}
