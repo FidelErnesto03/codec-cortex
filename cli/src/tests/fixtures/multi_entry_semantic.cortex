@@ -1,6 +1,15 @@
-# Multi-entry semantic fixture: DESC content as separate entries
-# instead of raw newlines within a single cuerpo value.
-# BLP-005 pattern: semantic line separation → multiple entries.
+$0
+# -- $0: GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# DESC | description | cuerpo | B | Semantic | Text description
+#
+# Types:
+# cuerpo = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned min=minimum
+
+$1: MULTI-ENTRY EXAMPLE
 DESC:line1{First paragraph of the description}
 DESC:line2{Second paragraph — semantically distinct}
 DESC:line3{Third paragraph, still one physical line each}

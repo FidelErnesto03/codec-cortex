@@ -14,7 +14,7 @@ view_coverage: 0
 <p align="center">
 <strong>CODEC-CORTEX</strong><br>
 Enterprise Skill Specification — Cognitive Memory Governance & Output Discipline
-<br><sub>SKILL_HCORTEX.md · spec 1.4.0 · project 0.4.3 · MPL-2.0</sub>
+<br><sub>SKILL_HCORTEX.md · spec 1.4.0 · project 0.5.1 · MPL-2.0</sub>
 </p>
 
 ---
