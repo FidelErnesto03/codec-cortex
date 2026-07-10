@@ -98,7 +98,8 @@ def serialize_entry_value(value: Any, type_: str) -> str:
         # Without a contract we fall back to attrs form
         return serialize_attrs(value) if isinstance(value, dict) else ""
     if type_ == "cuerpo":
-        return str(value) if value is not None else ""
+        text = str(value) if value is not None else ""
+        return _collapse_newlines(text)
     if type_ == "bloque":
         text = str(value) if value is not None else ""
         # Ensure a leading newline if the bloque spans multiple lines
@@ -106,9 +107,23 @@ def serialize_entry_value(value: Any, type_: str) -> str:
             return "\n" + text + "\n"
         return text
     if type_ == "relación":
-        return str(value) if value is not None else ""
+        text = str(value) if value is not None else ""
+        return _collapse_newlines(text)
     # Unknown type — fallback to attrs
     return serialize_attrs(value) if isinstance(value, dict) else str(value or "")
+
+
+def _collapse_newlines(text: str) -> str:
+    """Collapse internal newlines to spaces for single-line constraint.
+
+    Preserves content by stripping blank lines and joining non-empty
+    segments with a single space.  This satisfies BLP-005 rule 5:
+    legacy multiline non-DIAG input canonicalizes without semantic loss.
+    """
+    if "\n" not in text:
+        return text
+    lines = [line.strip() for line in text.split("\n")]
+    return " ".join(line for line in lines if line)
 
 
 def serialize_entry(entry: Entry, glossary: Glossary | None = None) -> str:
@@ -121,13 +136,15 @@ def serialize_entry(entry: Entry, glossary: Glossary | None = None) -> str:
             return f"{entry.sigil}:{entry.name}{{{body}}}"
     body = serialize_entry_value(entry.value, entry.type)
     if entry.type == "bloque" and "\n" in body:
-        # Multi-line bloque: put braces on their own lines for readability
-        # Ensure body starts and ends with newline
-        if not body.startswith("\n"):
-            body = "\n" + body
-        if not body.endswith("\n"):
-            body = body + "\n"
-        return f"{entry.sigil}:{entry.name}{{{body}}}"
+        if entry.sigil == "DIAG":
+            # DIAG is the sole multiline exception — preserve verbatim
+            if not body.startswith("\n"):
+                body = "\n" + body
+            if not body.endswith("\n"):
+                body = body + "\n"
+            return f"{entry.sigil}:{entry.name}{{{body}}}"
+        # Non-DIAG bloque must be single line per BLP-005 rule 1
+        body = _collapse_newlines(body)
     return f"{entry.sigil}:{entry.name}{{{body}}}"
 
 

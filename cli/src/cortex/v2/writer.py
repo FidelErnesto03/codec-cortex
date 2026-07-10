@@ -101,18 +101,18 @@ def _serialize_entry(entry: V2Entry) -> str:
         return f'{entry.sigil}:{entry.name}{{{body}}}'
 
     if entry.entry_type == 'cuerpo':
-        return f'{entry.sigil}:{entry.name}{{{entry.value}}}'
+        return f'{entry.sigil}:{entry.name}{{{_collapse_text(entry.value)}}}'
 
     if entry.entry_type == 'bloque':
         # DIAG entries are multiline: SIGIL:name{\ncontent\n}
         # The value already contains the content between { and }
-        # We need to reproduce: SIGIL:name{\n + content + \n}
         value = entry.value
-        if '\n' in value:
+        if entry.sigil == 'DIAG' and '\n' in value:
             # Multi-line bloque: opening { on same line, content, closing } on own line
             return f'{entry.sigil}:{entry.name}{{{value}}}'
         else:
-            return f'{entry.sigil}:{entry.name}{{{value}}}'
+            # Non-DIAG or single-line bloque: enforce single line
+            return f'{entry.sigil}:{entry.name}{{{_collapse_text(value)}}}'
 
     # Default: attrs
     body = _serialize_attrs(entry.value)
@@ -200,8 +200,20 @@ def _escape_string(s: str) -> str:
 
     # In the original, escaped quotes appear as \\" inside rule strings
     # e.g. rule:"pares clave:valor o clave:\"valor\" dentro de {}"
-    result = s.replace('\\', '\\\\').replace('"', '\\"')
+    result = s.replace("\\", "\\\\").replace('"', '\\"')
     return result
+
+
+def _collapse_text(text: str) -> str:
+    """Collapse internal newlines to spaces for single-line constraint.
+
+    Used by the v2 writer to enforce BLP-005 one-physical-line rule
+    for non-DIAG entries.
+    """
+    if '\n' not in text:
+        return text
+    lines = [line.strip() for line in text.split('\n')]
+    return ' '.join(line for line in lines if line)
 
 
 # ---------------------------------------------------------------------------
