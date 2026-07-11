@@ -1,0 +1,115 @@
+$0
+# -- $0: INVENTORY GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# DOM   | domain     | attrs      | B | Semantic       | Project domain grouping
+# KNW   | knowledge  | attrs      | B | Semantic       | Inventory artifact
+# FCS   | focus      | attrs      | H | Working        | Module/component focus
+# OBJ   | objective  | attrs      | H | Working        | Purpose of component
+# WRK   | work       | attrs      | B | Working        | Execution statistics
+#
+# Types:
+# attrs = canonical type
+
+$1: PROJECT
+DOM:codec_cortex{name:"CODEC-CORTEX", version:"0.5.2", lang:"Python 3.9+", license:"MPL-2.0", lines_py:23600, modules:100, commands:29, tests:36, skills:7, docs:193, benchmarks:10}
+
+$2: CORE PARSER
+FCS:parser{module:"cortex.core.parser", purpose:"Parses .cortex source text into AST", status:"stable"}
+FCS:ast{module:"cortex.core.ast", purpose:"Canonical AST dataclasses (CortexDocument, Section, Entry, Glossary)", status:"stable"}
+FCS:writer{module:"cortex.core.writer", purpose:"Serializes AST back to canonical .cortex text", status:"stable"}
+FCS:lexer{module:"cortex.core.lexer", purpose:"Tokenizes .cortex source into lexemes", status:"stable"}
+FCS:validator{module:"cortex.core.validator", purpose:"Validates AST structure and produces diagnostics", status:"stable"}
+FCS:errors{module:"cortex.core.errors", purpose:"CortexError hierarchy and error codes", status:"stable"}
+FCS:schema{module:"cortex.core.schema", purpose:"Schema resolver for sigil field requirements", status:"stable"}
+FCS:modes{module:"cortex.core.modes", purpose:"Operation mode control (read-only/editor/admin)", status:"stable"}
+FCS:repair{module:"cortex.core.repair", purpose:"Auto-repair E032/E034 missing fields", status:"stable"}
+FCS:document_kind{module:"cortex.core.document_kind", purpose:"Classifies .cortex files by level (0-3)", status:"stable"}
+
+$3: V2 PARSER
+FCS:v2_parser{module:"cortex.v2.parser", purpose:"Parses v2 CORTEX format (markdown-wrapped)", status:"stable"}
+FCS:v2_writer{module:"cortex.v2.writer", purpose:"Serializes v2 CORTEX format", status:"stable"}
+FCS:v2_ir{module:"cortex.v2.ir", purpose:"Intermediate representation for v2", status:"stable"}
+FCS:v2_encoder{module:"cortex.v2.encoder", purpose:"v2 encoding utilities", status:"stable"}
+FCS:v2_equivalence{module:"cortex.v2.equivalence", purpose:"AST equivalence comparison for v2", status:"stable"}
+FCS:v2_diagnostics{module:"cortex.v2.diagnostics", purpose:"v2-specific diagnostic codes", status:"stable"}
+FCS:v2_view{module:"cortex.v2.view", purpose:"VIEW directive processing", status:"stable"}
+FCS:v2_view_renderer{module:"cortex.v2.view_renderer", purpose:"Renders VIEW-based output", status:"stable"}
+FCS:v2_hcortex_parser{module:"cortex.v2.hcortex_parser", purpose:"Parses HCORTEX markdown", status:"stable"}
+FCS:v2_hcortex_renderer{module:"cortex.v2.hcortex_renderer", purpose:"Renders HCORTEX markdown", status:"stable"}
+
+$4: CRUD
+FCS:mutations{module:"cortex.crud.mutations", purpose:"add_entry, update_entry, delete_entry", status:"stable"}
+FCS:selectors{module:"cortex.crud.selectors", purpose:"select_one by CORTEX selector", status:"stable"}
+FCS:transactions{module:"cortex.crud.transactions", purpose:"atomic_write_cortex with validation gate", status:"stable"}
+
+$5: CLI COMMANDS
+FCS:cli_main{module:"cortex.cli.main", purpose:"Entry point with argparse subparsers", status:"stable"}
+FCS:cli_new{module:"cortex.cli.commands.new", purpose:"Create .cortex from template", status:"stable"}
+FCS:cli_render{module:"cortex.cli.commands.render", purpose:"Render .cortex to HCORTEX", status:"stable"}
+FCS:cli_compile{module:"cortex.cli.commands.compile", purpose:"Compile HCORTEX back to .cortex", status:"stable"}
+FCS:cli_verify{module:"cortex.cli.commands.verify", purpose:"Validate .cortex files", status:"stable"}
+FCS:cli_get{module:"cortex.cli.commands.get", purpose:"Get entry by selector", status:"stable"}
+FCS:cli_list{module:"cortex.cli.commands.list", purpose:"List entries", status:"stable"}
+FCS:cli_add{module:"cortex.cli.commands.add", purpose:"Add entry", status:"stable"}
+FCS:cli_update{module:"cortex.cli.commands.update", purpose:"Update entry", status:"stable"}
+FCS:cli_delete{module:"cortex.cli.commands.delete", purpose:"Delete entry", status:"stable"}
+FCS:cli_move{module:"cortex.cli.commands.move", purpose:"Move entry between sections", status:"stable"}
+FCS:cli_glossary{module:"cortex.cli.commands.glossary", purpose:"Glossary review", status:"stable"}
+FCS:cli_micro{module:"cortex.cli.commands.micro", purpose:"Micro-token management", status:"stable"}
+FCS:cli_doctor{module:"cortex.cli.commands.doctor", purpose:"Diagnose .cortex file health", status:"stable"}
+FCS:cli_diff{module:"cortex.cli.commands.diff", purpose:"Diff two .cortex files", status:"stable"}
+FCS:cli_format{module:"cortex.cli.commands.format", purpose:"Format .cortex file", status:"stable"}
+FCS:cli_recover{module:"cortex.cli.commands.recover", purpose:"Recover damaged .cortex", status:"stable"}
+FCS:cli_diagram{module:"cortex.cli.commands.diagram", purpose:"Extract PUML diagrams", status:"stable"}
+FCS:cli_audit{module:"cortex.cli.commands.audit", purpose:"Audit logging control", status:"stable"}
+FCS:cli_benchmark{module:"cortex.cli.commands.benchmark", purpose:"Benchmark suite inspection", status:"stable"}
+FCS:cli_roundtrip{module:"cortex.cli.commands.v2_roundtrip", purpose:"v2 byte-identical roundtrip", status:"stable"}
+FCS:cli_convert{module:"cortex.cli.commands.v2_convert", purpose:"Convert v2→v1 format", status:"stable"}
+FCS:cli_roundtrip_bidir{module:"cortex.cli.commands.v2_roundtrip_bidir", purpose:"Bidirectional roundtrip", status:"stable"}
+FCS:cli_compare{module:"cortex.cli.commands.v2_compare", purpose:"Compare two .cortex files", status:"stable"}
+FCS:cli_verify_view{module:"cortex.cli.commands.v2_verify_view", purpose:"Verify VIEW coverage", status:"stable"}
+FCS:cli_explain_loss{module:"cortex.cli.commands.v2_explain_loss", purpose:"Explain roundtrip loss", status:"stable"}
+FCS:cli_canonicalize{module:"cortex.cli.commands.v2_canonicalize", purpose:"Canonicalize v2 format", status:"stable"}
+FCS:cli_inspect{module:"cortex.cli.commands.v2_inspect", purpose:"Inspect v2 document structure", status:"stable"}
+
+$6: HCORTEX
+FCS:hcortex_read_renderer{module:"cortex.hcortex.read_renderer", purpose:"HCORTEX-READ markdown renderer", status:"stable"}
+FCS:hcortex_edit_parser{module:"cortex.hcortex.edit_parser", purpose:"Parses HCORTEX-EDIT markdown", status:"stable"}
+FCS:hcortex_edit_renderer{module:"cortex.hcortex.edit_renderer", purpose:"Renders HCORTEX-EDIT markdown", status:"stable"}
+FCS:hcortex_markdown_model{module:"cortex.hcortex.markdown_model", purpose:"Markdown AST model", status:"stable"}
+FCS:hcortex_profiles{module:"cortex.hcortex.profiles", purpose:"VIEW profile management", status:"stable"}
+FCS:hcortex_recovery{module:"cortex.hcortex.recovery", purpose:"Recovery from HCORTEX", status:"stable"}
+
+$7: GLOSSARY
+FCS:glossary_model{module:"cortex.glossary.model", purpose:"Glossary dataclasses", status:"stable"}
+FCS:glossary_minimal{module:"cortex.glossary.minimal", purpose:"Minimal glossary presets", status:"stable"}
+FCS:glossary_resolver{module:"cortex.glossary.resolver", purpose:"Sigil resolution from glossary", status:"stable"}
+FCS:glossary_contracts{module:"cortex.glossary.contracts", purpose:"Attrs-pos contract handling", status:"stable"}
+
+$8: LEARNING ENGINE
+FCS:learn_index{module:"cortex.learning.index", purpose:"Learning candidate indexing", status:"stable"}
+FCS:learn_scoring{module:"cortex.learning.scoring", purpose:"Fibonacci scoring", status:"stable"}
+FCS:learn_elevation{module:"cortex.learning.elevation", purpose:"Elevation SES→LNG→KNW", status:"stable"}
+FCS:learn_policy{module:"cortex.learning.policy", purpose:"Learning policy engine", status:"stable"}
+FCS:learn_candidates{module:"cortex.learning.candidates", purpose:"Candidate detection", status:"stable"}
+FCS:learn_feedback{module:"cortex.learning.feedback", purpose:"Feedback loop", status:"stable"}
+FCS:learn_decay{module:"cortex.learning.decay", purpose:"Score decay over time", status:"stable"}
+FCS:learn_cli{module:"cortex.learning.cli", purpose:"CLI interface for learning", status:"stable"}
+FCS:learn_session{module:"cortex.learning.session", purpose:"Session-based learning", status:"stable"}
+FCS:learn_workspace{module:"cortex.learning.workspace", purpose:"Workspace-level learning", status:"stable"}
+
+$9: SECURITY
+FCS:sec_signature{module:"cortex.security.signature", purpose:"SHA-256 hash chain for .cortex integrity", status:"stable"}
+FCS:sec_scanner{module:"cortex.security.secret_scanner", purpose:"Secret scanning in .cortex values", status:"stable"}
+
+$10: TEMPLATES
+FCS:templates_brain{module:"cortex.templates.brain", purpose:"Brain.cortex template builder", status:"stable"}
+FCS:templates_skill{module:"cortex.templates.skill", purpose:"Skill.cortex template builder", status:"stable"}
+FCS:templates_package{module:"cortex.templates.package", purpose:"Package.cortex template builder", status:"stable"}
+FCS:templates_minimal{module:"cortex.templates.minimal_glossary", purpose:"Minimal glossary helper", status:"stable"}
+
+$11: STATISTICS
+WRK:coverage{lines_of_code:23600, test_count:540, test_skipped:3, coverage_pct:85.56, coverage_target:85}
+WRK:tests{pass:540, skip:3, fail:0, suite_total:540}
+WRK:commands{total:29, benchmark_added:"v0.5.1"}
+WRK:cycles{cycle_01_blps:5, cycle_02_blps:0}
