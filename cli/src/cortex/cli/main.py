@@ -78,6 +78,7 @@ from .commands import (
     recover as cmd_recover,
     diagram as cmd_diagram,
     audit as cmd_audit,
+    benchmark as cmd_benchmark,
     v2_roundtrip as cmd_v2_roundtrip,
     v2_convert as cmd_v2_convert,
     v2_roundtrip_bidir as cmd_v2_roundtrip_bidir,
@@ -515,6 +516,15 @@ def build_parser() -> argparse.ArgumentParser:
     asp = a_sub.add_parser("prune", help="delete old daily log files")
     asp.add_argument("--keep-days", type=int, default=30, help="delete logs older than N days (default: 30)")
     asp.set_defaults(func=cmd_audit.run_prune)
+
+    # ------------------------------------------------------------------
+    # benchmark  — inspect/validate benchmark suites
+    sp = sub.add_parser("benchmark", help="inspect and validate benchmark suites")
+    sp.add_argument("--root", default=None, help="benchmarks directory")
+    sp.add_argument("--suite", default=None, help="suite name, e.g. v2.1.0")
+    sp.add_argument("--list", action="store_true", help="list available benchmark suites")
+    sp.add_argument("--format", choices=["text", "json"], default="text")
+    sp.set_defaults(func=cmd_benchmark.run)
 
     # ------------------------------------------------------------------
     # roundtrip  (canonical; alias: v2-roundtrip — deprecated)
