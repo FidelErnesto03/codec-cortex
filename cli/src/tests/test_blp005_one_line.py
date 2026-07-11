@@ -12,8 +12,6 @@ Verifies the canonical serialization invariant:
 import os
 import sys
 
-import pytest
-
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(HERE, ".."))
 if SRC_DIR not in sys.path:
@@ -90,11 +88,11 @@ def test_diag_multiline_preserved():
     assert "line three" in result
     # DIAG entry must span multiple physical lines
     lines = result.split("\n")
-    diag_lines = [i for i, l in enumerate(lines) if "DIAG:test" in l]
+    diag_lines = [i for i, line in enumerate(lines) if "DIAG:test" in line]
     assert len(diag_lines) == 1  # opening line
     # Verify the entry occupies more than one line
-    assert any("line one" in l for l in lines)
-    assert any("line two" in l for l in lines)
+    assert any("line one" in line for line in lines)
+    assert any("line two" in line for line in lines)
 
 
 def test_non_diag_bloque_collapsed():
@@ -120,7 +118,7 @@ def test_non_diag_bloque_collapsed():
     result = write_cortex(doc)
     lines = result.split("\n")
     # DESC entry must be on a single physical line
-    desc_lines = [l for l in lines if "DESC:test" in l]
+    desc_lines = [line for line in lines if "DESC:test" in line]
     assert len(desc_lines) == 1
     # Newlines must be collapsed (content joined by spaces)
     assert "line one" in desc_lines[0]
@@ -147,7 +145,7 @@ def test_cuerpo_newlines_collapsed():
         ],
     )
     result = write_cortex(doc)
-    desc_lines = [l for l in result.split("\n") if "DESC:multi" in l]
+    desc_lines = [line for line in result.split("\n") if "DESC:multi" in line]
     assert len(desc_lines) == 1
     assert "paragraph one" in desc_lines[0]
     assert "paragraph two" in desc_lines[0]
@@ -175,7 +173,7 @@ def test_attrs_always_one_line():
         ],
     )
     result = write_cortex(doc)
-    wrk_lines = [l for l in result.split("\n") if "WRK:state" in l]
+    wrk_lines = [line for line in result.split("\n") if "WRK:state" in line]
     assert len(wrk_lines) == 1
     # Escaped newline \\n is OK inside attrs (it's an escape, not a physical line break)
     # The key assertion is one physical line
@@ -250,7 +248,7 @@ world
 ```"""
     doc = parse_cortex_v2(source)
     result = write_cortex_v2(doc)
-    desc_lines = [l for l in result.split("\n") if "DESC:text" in l]
+    desc_lines = [line for line in result.split("\n") if "DESC:text" in line]
     assert len(desc_lines) == 1
     assert "hello" in desc_lines[0]
     assert "world" in desc_lines[0]
