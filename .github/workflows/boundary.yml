@@ -1,0 +1,9 @@
+name: boundary
+on: [push, pull_request]
+jobs:
+  boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO Fase 1: agregar checks de dependencia inversa y secret scanning.
+      - run: echo "boundary checks placeholder"
