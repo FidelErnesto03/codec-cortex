@@ -16,7 +16,7 @@ The parser follows the algorithm in Section 6 of the spec:
 from __future__ import annotations
 
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 from . import errors
 from .ast import (
