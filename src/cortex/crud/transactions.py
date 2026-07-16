@@ -57,6 +57,7 @@ def atomic_write_cortex(
     dry_run: bool = False,
     keep_backup: bool = True,
     unsafe_allow_secret_forensics: bool = False,
+    preserve_multiline: bool = True,
 ) -> WriteResult:
     """Serialise ``doc`` and atomically write it to ``path``.
 
@@ -73,9 +74,19 @@ def atomic_write_cortex(
     v1.1.3 P0-2: ``unsafe_allow_secret_forensics=True`` allows bypassing
     ``E031_SECRET_NOT_BYPASSABLE`` for forensic recovery ONLY.  It does
     NOT bypass ``E032_CRITICAL_SIGIL_INCOMPLETE``.
+    
+    Args:
+        doc: Document to write
+        path: Target file path
+        force: Allow writing despite bypassable errors
+        dry_run: Do not actually write, just validate and report
+        keep_backup: Create .bak backup of existing file
+        unsafe_allow_secret_forensics: Allow secret bypass for recovery only
+        preserve_multiline: If True, preserve newlines verbatim (CP-03 compliance).
+                           Default True for v0.6.0+ to ensure backward compatibility.
     """
 
-    text = write_cortex(doc)
+    text = write_cortex(doc, preserve_multiline=preserve_multiline)
     # Re-parse to verify roundtrip-ability
     reparsed = parse_cortex(text, path=path)
     diagnostics = validate(reparsed)
@@ -89,7 +100,7 @@ def atomic_write_cortex(
             repair_log = repair_doc(reparsed)
             if repair_log:
                 # Re-serialize, re-parse, re-validate after repair
-                text = write_cortex(reparsed)
+                text = write_cortex(reparsed, preserve_multiline=preserve_multiline)
                 reparsed = parse_cortex(text, path=path)
                 diagnostics = validate(reparsed)
                 errors = [d for d in diagnostics if d.get("severity") == "error"]

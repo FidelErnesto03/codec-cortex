@@ -7,6 +7,7 @@ This file is the maturity registry for public claims in the repository. README, 
 
 ## Implemented Now
 
+- **v0.6.0** — Compatibility & Codec Hardening release with native v1/v2 document support, multiline preservation (CP-03), TransactionService CAS protection, session runtime isolation, feedback governance, and MPL-2.0 license clarity.
 - **v0.5.0** — Rebranded as "Universal Communication Protocol for LLM/SLM Agents".
 - **Repository documentation fully reorganized**: structured under `docs/` with reference, releases, verification, benchmarks, proposals, and archive categories.
 - **README updated** with enterprise positioning: 3-layer protocol (Syntax → Transport → Knowledge) with compression metrics.
@@ -16,7 +17,7 @@ This file is the maturity registry for public claims in the repository. README, 
 - `skill/AGENT.cortex` example identity file.
 - `skill/brain.cortex` local brain template.
 - Spanish and English reference documents under `docs/reference/`.
-- **CLI at `cli/`:** v1.1.9 with 17 commands (`new`, `render`, `compile`, `verify`, `get`, `list`, `add`, `update`, `delete`, `move`, `glossary`, `micro`, `doctor`, `diff`, `format`, `recover`, `diagram`), 222+ tests.
+- **CLI at `src/cortex/cli`:** v1.1.9+ with 17 commands (`new`, `render`, `compile`, `verify`, `get`, `list`, `add`, `update`, `delete`, `move`, `glossary`, `micro`, `doctor`, `diff`, `format`, `recover`, `diagram`), 222+ tests.
 - **Deterministic parser, verifier and HCORTEX renderer** integrated in CLI.
 - **CRUD operations:** `cortex add`, `cortex update`, `cortex delete`, `cortex list`, `cortex get`.
 - **Structural diff:** `cortex diff` with governance-aware mode.
@@ -27,6 +28,9 @@ This file is the maturity registry for public claims in the repository. README, 
 - **HCORTEX render protocol:** 5 rules, 8 steps.
 - **Auto-numbering:** BLP-003 in progress — sequential section counters for .cortex entries.
 - **All `.cortex` files validated:** pass `cortex verify --strict`.
+- **Native v1/v2 document handle:** No implicit downcasting; dialect-preserving operations.
+- **Multiline preservation:** CP-03 compliant with verbatim newline retention by default.
+- **TransactionService:** Atomic writes with expected_hash CAS, backup, validation and audit trail.
 
 ## Specification Exists
 

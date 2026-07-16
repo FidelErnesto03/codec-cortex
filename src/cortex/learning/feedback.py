@@ -1,17 +1,13 @@
-"""Feedback loop for the learning engine (v0.2.0, Fase D).
+"""Feedback loop for the learning engine (v0.6.0).
 
-Records accept/reject decisions on candidates and uses them to
-adaptively adjust per-sigil-type thresholds. The feedback cache lives
-in ``.cortex/cache/feedback.json`` (rebuildable; the engine falls back
-to the static thresholds from ``learn-policies.cortex`` when absent).
+CRITICAL CHANGE from v0.5.x:
+- Feedback is now an append-only ledger
+- Threshold adjustments are computed in-memory, NOT persisted to feedback.json
+- To change thresholds, feedback produces a policy patch proposal
+- Policy changes require explicit confirmation via CLI
+- adaptive=true default is overridden to false in migration
 
-Public API:
-
-- :func:`record_feedback` — register a decision on a candidate
-- :func:`adjust_thresholds` — recompute adjusted thresholds from history
-- :func:`load_feedback_history` — read the cache
-- :func:`save_feedback_history` — write the cache
-- :func:`acceptance_rate` — group-by-type acceptance stats
+This implements P0-007: Feedback governance.
 """
 
 from __future__ import annotations
@@ -60,12 +56,14 @@ class FeedbackHistory:
     """All recorded feedback, grouped by candidate type."""
 
     records: List[FeedbackRecord] = field(default_factory=list)
+    # CRITICAL: adjusted_thresholds is NOT persisted in v0.6.0
+    # It's computed in-memory and used to generate policy patches
     adjusted_thresholds: Dict[str, int] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
             "records": [r.to_dict() for r in self.records],
-            "adjusted_thresholds": dict(self.adjusted_thresholds),
+            # Do NOT persist adjusted_thresholds - they're transient
         }
 
     @classmethod
@@ -73,7 +71,8 @@ class FeedbackHistory:
         records = [FeedbackRecord(**r) for r in data.get("records", [])]
         return cls(
             records=records,
-            adjusted_thresholds=dict(data.get("adjusted_thresholds", {})),
+            # Ignore any persisted adjusted_thresholds from old versions
+            adjusted_thresholds={},
         )
 
 
@@ -206,8 +205,13 @@ def adjust_thresholds(
     history: FeedbackHistory,
     ps: LearningPolicySet,
 ) -> Dict[str, int]:
-    """Recompute per-candidate-type adjusted thresholds.
+    """Recompute per-candidate-type adjusted thresholds IN-MEMORY ONLY.
 
+    CRITICAL CHANGE v0.6.0:
+    - Thresholds are NOT persisted to feedback.json
+    - Results are used to generate policy patch proposals
+    - Caller must explicitly apply patches via TransactionService
+    
     Strategy (per ``learning-engine-evolution.md`` §D):
 
     - For each candidate type with >= 3 records:
@@ -221,12 +225,13 @@ def adjust_thresholds(
     The static defaults come from :class:`FibonacciThresholds`:
     ``SES→LNG`` uses ``lng``, ``LNG→KNW`` uses ``knw``, etc.
 
-    Returns the new adjusted-thresholds dict and stores it on the
-    history (so :func:`save_feedback_history` persists it).
+    Returns the new adjusted-thresholds dict (NOT persisted).
     """
 
+    # CRITICAL: In v0.6.0, adaptive defaults to False for safety
+    # Even if ps.feedback.adaptive is True, we require explicit opt-in
     if not ps.feedback.adaptive:
-        history.adjusted_thresholds = {}
+        # Return static defaults - no adjustment
         return {}
 
     fib = ps.fibonacci_thresholds
@@ -256,8 +261,57 @@ def adjust_thresholds(
         new_t = max(ps.feedback.min_threshold, min(ps.feedback.max_threshold, new_t))
         adjusted[cand_type] = new_t
 
+    # Store in-memory only (NOT persisted)
     history.adjusted_thresholds = adjusted
     return adjusted
+
+
+def create_policy_patch(
+    adjusted_thresholds: Dict[str, int],
+    ps: LearningPolicySet,
+) -> Dict[str, Any]:
+    """Create a policy patch proposal from adjusted thresholds.
+    
+    This is the NEW v0.6.0 way to change thresholds:
+    - Compute adjustments in-memory
+    - Generate a patch document
+    - User reviews and confirms via CLI
+    - Patch applied via TransactionService
+    
+    Returns a dict suitable for creating a policy mutation plan.
+    """
+    if not adjusted_thresholds:
+        return {"action": "none", "reason": "no_adjustments_needed"}
+    
+    changes = []
+    for cand_type, new_threshold in adjusted_thresholds.items():
+        # Find current threshold
+        fib = ps.fibonacci_thresholds
+        current = {
+            "SES->LNG": fib.lng,
+            "LNG->KNW": fib.knw,
+            "WRK->SES": fib.ses,
+            "RSK->CNST": fib.auto_knw,
+            "NXT->STP": fib.ses,
+        }.get(cand_type, fib.lng)
+        
+        if new_threshold != current:
+            changes.append({
+                "candidate_type": cand_type,
+                "current_threshold": current,
+                "new_threshold": new_threshold,
+                "change": new_threshold - current,
+            })
+    
+    if not changes:
+        return {"action": "none", "reason": "no_effective_changes"}
+    
+    return {
+        "action": "update_thresholds",
+        "changes": changes,
+        "requires_confirmation": True,
+        "reason": "feedback_driven_adjustment",
+    }
 
 
 # ---------------------------------------------------------------------------
