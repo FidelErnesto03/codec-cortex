@@ -115,7 +115,7 @@ def test_non_diag_bloque_collapsed():
             ]),
         ],
     )
-    result = write_cortex(doc)
+    result = write_cortex(doc, preserve_multiline=False)
     lines = result.split("\n")
     # DESC entry must be on a single physical line
     desc_lines = [line for line in lines if "DESC:test" in line]
@@ -144,7 +144,7 @@ def test_cuerpo_newlines_collapsed():
             ]),
         ],
     )
-    result = write_cortex(doc)
+    result = write_cortex(doc, preserve_multiline=False)
     desc_lines = [line for line in result.split("\n") if "DESC:multi" in line]
     assert len(desc_lines) == 1
     assert "paragraph one" in desc_lines[0]
