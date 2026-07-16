@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: 2026 Benchmark Corpus
+# SPDX-License-Identifier: MIT
+
+$0: MINIMAL LOCAL GLOSSARY
+
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN  | identity   | attrs | B | Semantic   | Actor identity
+# DOM  | domain     | attrs | B | Semantic   | Operating domain
+# CNST | constraint | attrs | H | Prefrontal  | Hard boundary
+# FCS  | focus      | attrs | H | Working     | Active attention
+# OBJ  | objective  | attrs | H | Working     | Active goal
+# WRK  | work       | attrs | M | Working     | Current state
+# STP  | step       | attrs | M | Working     | Next action
+# NXT  | next       | attrs | M | Working     | Queued action
+# AUD  | audit      | attrs | M | Prefrontal  | Verification record
+# RSK  | risk       | attrs | M | Prefrontal  | Identified risk
+# CLAIM| claim      | attrs | M | Prefrontal  | Verifiable claim
+# LIM  | limit      | attrs | M | Prefrontal  | Explicit limit
+
+$1: IDENTITY
+IDN:system{name:"grid-balancer-v3", role:"automatic generation control", vendor:"tsa-internal"}
+DOM:project{area:"climate-grid", region:"EU-continental", frequency_baseline:"50Hz"}
+
+$2: OPERATIONAL STATE
+CNST:frequency{rule:"grid frequency MUST stay in 49.8-50.2 Hz", severity:"blocking", survive:"min"}
+CNST:reserve{rule:"operating reserve MUST stay > 5% of demand", severity:"blocking", survive:"min"}
+CNST:blackout{rule:"no blackout allowed under any circumstance", severity:"blocking", survive:"min"}
+FCS:primary{what:"Balancear red ante rampa solar +12% en 15min", priority:"high", status:"current", survive:"min"}
+OBJ:balance{goal:"Mantener frecuencia en 49.95-50.05 Hz con reserva > 5%", status:"current", success:"frecuencia estable 30min consecutivos", survive:"min"}
+WRK:state{phase:"balancing", current:"freq=50.18 Hz subiendo, solar ramping, reserve=4.8%", blocked:false, survive:"work"}
+STP:next{action:"Curtail solar 8% y dispatch gas peaker 200MW", reason:"freq 50.18 cerca limite y reserve 4.8% bajo 5%", owner:"grid-balancer", status:"current", survive:"min"}
+
+$3: RISKS AND CLAIMS
+RSK:over_frequency{risk:"Sobre-produccion solar causa over-frequency > 50.2 Hz", impact:"high", mitigation:"curtail automatico si freq > 50.1 Hz", status:"current", survive:"recovery"}
+AUD:balancing_event{event:"solar ramp event", evidence:"+12% solar en 15min", result:"curtail initiated, peaker dispatched", date:"2026-06-28"}
+
+$4: CLAIMS AND LIMITS
+CLAIM:response{statement:"AGC responde en < 30s a eventos de rampa", evidence:"Q1 2026 compliance report", status:"current"}
+LIM:ramp_rate{limit:"max ramp rate 10 MW/min para gas peaker", scope:"hardware", status:"current"}
+
+$5: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:cur,fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:cur,fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:cur,fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:cur,fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:cur,fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:cur,fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:cur,fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:aud{kind:"table",target:"$3:AUD:*",reverse:"rows_to_entries",status:cur,fields:"event,evidence,result,date",title:"Audit Trail"}
+VIEW:claim{kind:"table",target:"$4:CLAIM:*",reverse:"rows_to_entries",status:cur,fields:"statement,evidence,status",title:"Claims"}
+VIEW:lim{kind:"table",target:"$4:LIM:*",reverse:"rows_to_entries",status:cur,fields:"limit,scope,status",title:"Limits"}

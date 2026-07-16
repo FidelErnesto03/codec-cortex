@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "codec-cortex"
+version = "0.5.0"
+description = "CODEC-CORTEX — Universal Communication Protocol for LLM/SLM Agents. Compresses agent knowledge via deterministic sigil codec with semantic learning engine (SES→LNG→KNW)."
+readme = "README.md"
+license = {text = "MPL-2.0"}
+authors = [
+    {name = "Fidel Ernesto Lozada A.", email = "fidelernesto@gmail.com"},
+]
+keywords = [
+    "cortex", "codec", "llm", "agent", "memory", "compression",
+    "cognitive", "protocol", "deterministic", "slm", "context",
+    "cag", "rag", "puml", "hcortex"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = []  # Zero external dependencies
+
+[project.urls]
+Homepage = "https://github.com/FidelErnesto03/codec-cortex"
+Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/docs/README.md"
+Repository = "https://github.com/FidelErnesto03/codec-cortex"
+Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/codec_cortex"]
+# CLI: see cli/pyproject.toml for the standalone CLI package.
+# Install with: pip install ./cli/

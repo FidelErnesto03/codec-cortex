@@ -1,0 +1,10 @@
+# Uses sigil BOGUS that is not declared in $0 — must produce E003.
+
+$0: GLOSSARY
+
+# IDN | identity | attrs | B | Semantic | Identity
+
+$1: IDENTITY
+
+IDN:agent{name:"x"}
+BOGUS:phantom{key:"value"}

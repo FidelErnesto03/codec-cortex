@@ -1,0 +1,33 @@
+{
+  "package": "codec-cortex",
+  "operations": {
+    "verify": {
+      "n_files": 10,
+      "total_time_s": 2.1435,
+      "throughput_files_per_s": 4.67,
+      "avg_time_per_file_ms": 214.35,
+      "peak_ram_mb": 0.06
+    },
+    "render": {
+      "n_files": 10,
+      "total_time_s": 2.1475,
+      "throughput_files_per_s": 4.66,
+      "avg_time_per_file_ms": 214.75,
+      "peak_ram_mb": 0.06
+    },
+    "verify_view": {
+      "n_files": 10,
+      "total_time_s": 2.1111,
+      "throughput_files_per_s": 4.74,
+      "avg_time_per_file_ms": 211.11,
+      "peak_ram_mb": 0.06
+    },
+    "learn_scan": {
+      "n_files": 10,
+      "total_time_s": 2.1321,
+      "throughput_files_per_s": 4.69,
+      "avg_time_per_file_ms": 213.21,
+      "peak_ram_mb": 0.06
+    }
+  }
+}

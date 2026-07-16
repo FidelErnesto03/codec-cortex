@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A.
+# SPDX-License-Identifier: MPL-2.0
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.whl
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# Environment
+.env
+.env.*
+
+# DIALECT governance (private)
+.project-control/
+
+# DIALECT project root docs (private, not part of public repo)
+../docs/
+
+# Benchmarks — generated artifacts (reproducible from scripts + PUML sources)
+benchmarks/**/*.png
+benchmarks/**/*.svg
+benchmarks/**/*.pdf
+
+# CLI backup
+cli.bak/
+
+# Personal brain/alfred files (per-agent, not part of the repo)
+brain.cortex
+brain.md
+alfred-memory.cortex
+alfred-memory.md
+
+# CLI build artifacts
+cli/dist/
+cli/src/cortex/_version.py
+
+# uv lock file (generated)
+cli/uv.lock
+*.bak
+cli/.coverage
+uv.lock

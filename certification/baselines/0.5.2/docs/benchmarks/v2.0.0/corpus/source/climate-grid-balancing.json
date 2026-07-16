@@ -1,0 +1,17 @@
+{
+  "identity": {"name": "grid-balancer-v3", "role": "automatic generation control"},
+  "domain": {"area": "climate-grid", "region": "EU-continental", "frequency_baseline": "50Hz"},
+  "constraints": [
+    {"id": "frequency", "rule": "grid frequency MUST stay in 49.8-50.2 Hz", "severity": "blocking", "survive": "min"},
+    {"id": "reserve", "rule": "operating reserve MUST stay > 5% of demand", "severity": "blocking", "survive": "min"},
+    {"id": "blackout", "rule": "no blackout allowed under any circumstance", "severity": "blocking", "survive": "min"}
+  ],
+  "focus": {"what": "Balancear red ante rampa solar +12% en 15min", "priority": "high", "status": "current", "survive": "min"},
+  "objective": {"goal": "Mantener frecuencia en 49.95-50.05 Hz con reserva > 5%", "status": "in_progress", "success": "frecuencia estable 30min consecutivos", "survive": "min"},
+  "work": {"phase": "balancing", "current": "freq=50.18 Hz subiendo, solar ramping, reserve=4.8%", "blocked": false, "survive": "work"},
+  "step": {"action": "Curtail solar 8% y dispatch gas peaker 200MW", "owner": "grid-balancer", "status": "current", "survive": "min"},
+  "risks": [{"id": "over_frequency", "risk": "Sobre-produccion solar causa over-frequency > 50.2 Hz", "impact": "high", "mitigation": "curtail automatico si freq > 50.1 Hz"}],
+  "audit": [{"event": "solar ramp event", "evidence": "+12% solar en 15min", "result": "curtail initiated, peaker dispatched", "date": "2026-06-28"}],
+  "claims": [{"id": "response", "statement": "AGC responde en < 30s a eventos de rampa", "evidence": "Q1 2026 compliance report"}],
+  "limits": [{"id": "ramp_rate", "limit": "max ramp rate 10 MW/min para gas peaker"}]
+}

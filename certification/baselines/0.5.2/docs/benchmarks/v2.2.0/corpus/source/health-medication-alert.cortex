@@ -1,0 +1,57 @@
+<!-- CODEC-CORTEX
+internal_encoding: CORTEX
+source_artifact: benchmark corpus v2.1.0
+status: specification
+-->
+
+# SPDX-FileCopyrightText: 2026 Benchmark Corpus
+# SPDX-License-Identifier: MIT
+
+$0: MINIMAL LOCAL GLOSSARY
+
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN  | identity   | attrs | B | Semantic   | Actor identity
+# DOM  | domain     | attrs | B | Semantic   | Operating domain
+# CNST | constraint | attrs | H | Prefrontal  | Hard boundary
+# FCS  | focus      | attrs | H | Working     | Active attention
+# OBJ  | objective  | attrs | H | Working     | Active goal
+# WRK  | work       | attrs | M | Working     | Current state
+# STP  | step       | attrs | M | Working     | Next action
+# NXT  | next       | attrs | M | Working     | Queued action
+# AUD  | audit      | attrs | M | Prefrontal  | Verification record
+# RSK  | risk       | attrs | M | Prefrontal  | Identified risk
+# CLAIM| claim      | attrs | M | Prefrontal  | Verifiable claim
+# LIM  | limit      | attrs | M | Prefrontal  | Explicit limit
+# REF  | reference  | attrs | B | Semantic    | Source ref
+
+$1: IDENTITY
+IDN:system{name:"cds-engine-v2", role:"clinical decision support", vendor:"internal"}
+DOM:project{area:"medication-alert", patient_pseudo_id:"p_4471", encounter:"enc_99201"}
+
+$2: OPERATIONAL STATE
+CNST:hitl{rule:"physician must confirm before action", severity:"blocking", survive:"min"}
+CNST:disclaimer{rule:"output is advisory, not diagnosis", severity:"blocking", survive:"min"}
+FCS:primary{what:"Evaluar interaccion warfarin + ibuprofen en paciente p_4471", priority:"high", status:"current", survive:"min"}
+OBJ:alert{goal:"Producir recomendacion block/monitor/allow para prescripcion", status:"current", success:"recomendacion emitida con fuente citada y disclaimer", survive:"min"}
+WRK:state{phase:"interaction check", current:"warfarin + ibuprofen detectado, severity=high", blocked:false, survive:"work"}
+STP:next{action:"Emitir alerta BLOCK con referencia a Lexicomp", reason:"interaccion aumenta riesgo sangrado", owner:"cds-engine", status:"current", survive:"min"}
+
+$3: RISKS AND AUDIT
+RSK:alarm_fatigue{risk:"Exceso de alertas BLOCK causa ignorancia clinica", impact:"medium", mitigation:"tiered severity + override workflow", status:"current", survive:"recovery"}
+AUD:check{event:"interaction check p_4471", evidence:"Lexicomp lookup warfarin+ibuprofen", result:"severity=high, recommendation=block", date:"2026-06-28"}
+
+$4: REFERENCES
+REF:lexicomp{PATH:"lexicomp://interactions/warfarin-ibuprofen", purpose:"Fuente canonica de interacciones"}
+
+$5: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:"current",fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:"current",fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:"current",fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:"current",fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:"current",fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:"current",fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:"current",fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:"current",fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:aud{kind:"table",target:"$3:AUD:*",reverse:"rows_to_entries",status:"current",fields:"event,evidence,result,date",title:"Audit Trail"}
+VIEW:ref{kind:"table",target:"$4:REF:*",reverse:"rows_to_entries",status:"current",fields:"PATH,purpose",title:"References"}

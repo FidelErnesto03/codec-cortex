@@ -1,0 +1,35 @@
+@startuml
+title Ontologia cognitiva CODEC-CORTEX — 4 cortezas
+
+skinparam rectangle {
+  BackgroundColor<<semantic>> #DBEAFE
+  BackgroundColor<<prefrontal>> #FEE2E2
+  BackgroundColor<<working>> #FEF3C7
+  BackgroundColor<<episodic>> #D1FAE5
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Corteza Semantica\nIDN, DOM, KNW, REF, TAG\n(persistencia larga)" as sem <<semantic>>
+rectangle "Corteza Prefrontal\nAXM, CNST, !, CLAIM, LIM,\nAUD, RSK (gobierno)" as pre <<prefrontal>>
+rectangle "Memoria de Trabajo\nFCS, OBJ, WRK, STP, NXT\n(estado vivo)" as wrk <<working>>
+rectangle "Memoria Episodica\nSES, LNG, DIAG\n(experiencia destilada)" as epi <<episodic>>
+
+pre -down-> wrk : gobierna accion
+sem -right-> wrk : aporta conocimiento
+wrk -down-> epi : destila experiencia
+epi -up-> sem : promueve aprendizaje
+pre -right-> sem : impone limites
+
+note right of pre
+  Niveles survive:
+  CNST:blocking -> min
+  CLAIM/LIM -> recovery
+end note
+
+note right of wrk
+  Niveles survive:
+  FCS, OBJ, STP -> min (P0)
+  WRK, NXT -> work (P1)
+end note
+@enduml

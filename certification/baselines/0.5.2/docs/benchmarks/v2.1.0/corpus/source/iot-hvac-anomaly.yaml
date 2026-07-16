@@ -1,0 +1,32 @@
+identity:
+  name: building-agent-v1
+  role: HVAC control
+domain:
+  area: iot-hvac
+  building: HQ-Tower
+  zone: floor-7-east
+constraints:
+  - id: comfort
+    rule: temperature must stay in 21-24C during occupied hours
+    severity: blocking
+    survive: min
+  - id: energy
+    rule: daily energy consumption must not exceed 150kWh
+    severity: warning
+    survive: work
+focus:
+  what: Responder a anomalia termica floor-7-east
+  status: current
+  survive: min
+objective:
+  goal: Restaurar temperatura a comfort band sin exceder 150kWh
+  status: in_progress
+  survive: min
+work:
+  phase: anomaly response
+  current: AC unit 7E-3 boosted 100%, temp=27.1C bajando
+  blocked: false
+step:
+  action: Verificar sensor calibration floor-7-east
+  status: current
+  survive: min

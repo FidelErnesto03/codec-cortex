@@ -1,0 +1,853 @@
+{
+  "baseline_path": "/home/vatrox/workspace/CODEC-CORTEX/codec-cortex/certification/baselines/0.5.2",
+  "candidate_path": "/home/vatrox/workspace/CODEC-CORTEX/codec-cortex",
+  "summary": {
+    "total": 105,
+    "compatible": 103,
+    "deprecated": 0,
+    "migrable": 0,
+    "incompatible": 2
+  },
+  "files": [
+    {
+      "rel_path": "cli/src/tests/invalid/unbalanced_braces.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:dab84e1e0a45332201fe0f83288d8ac5790f5bf657c68139cf4c32daba99ed12",
+      "hash_candidate": "sha256:dab84e1e0a45332201fe0f83288d8ac5790f5bf657c68139cf4c32daba99ed12"
+    },
+    {
+      "rel_path": "cli/src/tests/invalid/missing_glossary.cortex",
+      "status": "incompatible",
+      "detail": "baseline parse error: [E002_GLOSSARY_NOT_FIRST] first section is '$1'; $0 must come first",
+      "diff_count": 0,
+      "hash_baseline": "",
+      "hash_candidate": ""
+    },
+    {
+      "rel_path": "cli/src/tests/invalid/unknown_sigil.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ac73ff1f645817cbf6ad39e9b34ea5b7ff5b41899c15ab7c6396c1b8db268aae",
+      "hash_candidate": "sha256:ac73ff1f645817cbf6ad39e9b34ea5b7ff5b41899c15ab7c6396c1b8db268aae"
+    },
+    {
+      "rel_path": "cli/src/tests/invalid/glossary_not_first.cortex",
+      "status": "incompatible",
+      "detail": "baseline parse error: [E002_GLOSSARY_NOT_FIRST] first section is '$1'; $0 must come first",
+      "diff_count": 0,
+      "hash_baseline": "",
+      "hash_candidate": ""
+    },
+    {
+      "rel_path": "cli/src/tests/fixtures/skill.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:0a99cb40da44d8646331faeee9ec8b10a4fa1142a34019fac2da2443b1a1c33a",
+      "hash_candidate": "sha256:0a99cb40da44d8646331faeee9ec8b10a4fa1142a34019fac2da2443b1a1c33a"
+    },
+    {
+      "rel_path": "cli/src/tests/fixtures/package.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:f22701ff70fb0a0af97dadaac3217369161309b28e1503e010752f4d9204d8d1",
+      "hash_candidate": "sha256:f22701ff70fb0a0af97dadaac3217369161309b28e1503e010752f4d9204d8d1"
+    },
+    {
+      "rel_path": "cli/src/tests/fixtures/brain.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:c9a3d025b9bf20b0104068585720c953c4748c25f4b1e846cfc21da570d342fa",
+      "hash_candidate": "sha256:c9a3d025b9bf20b0104068585720c953c4748c25f4b1e846cfc21da570d342fa"
+    },
+    {
+      "rel_path": "cli/src/tests/fixtures/multi_entry_semantic.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:daafe81d47c52c30e3ebd871c826f3f331e76cdb0d1c76ee95428591c727c5d2",
+      "hash_candidate": "sha256:daafe81d47c52c30e3ebd871c826f3f331e76cdb0d1c76ee95428591c727c5d2"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/ecom-fraud-checkout/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/ecom-fraud-checkout/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/fintech-aml-kyc/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/fintech-aml-kyc/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/legal-contract-redline/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/legal-contract-redline/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/sec-incident-response/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/sec-incident-response/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/robotics-warehouse-bot/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/robotics-warehouse-bot/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/edu-adaptive-lesson/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/edu-adaptive-lesson/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/health-medication-alert/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/health-medication-alert/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/climate-grid-balancing/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/climate-grid-balancing/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/devops-k8s-rollout/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/devops-k8s-rollout/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/iot-hvac-anomaly/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b",
+      "hash_candidate": "sha256:ae3de4a148b758009bb8c1fbe7ded1cc62c8add6d10645cbd2ea3df3c78ad75b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/learning_workspaces/iot-hvac-anomaly/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/climate-grid-balancing.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:7500d42473a8bfd7688ab9ab5d936349b86139bd3b3652971de4464b5ba4cf9a",
+      "hash_candidate": "sha256:7500d42473a8bfd7688ab9ab5d936349b86139bd3b3652971de4464b5ba4cf9a"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/iot-hvac-anomaly.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:b803035228ed214e00a36d1e9656d1627960374ce452a31c813d5228dda4500b",
+      "hash_candidate": "sha256:b803035228ed214e00a36d1e9656d1627960374ce452a31c813d5228dda4500b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/legal-contract-redline.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:c1b2563c0bd6df6760f32dfcc020d0fce27d7ce9f19878cdd232549730069160",
+      "hash_candidate": "sha256:c1b2563c0bd6df6760f32dfcc020d0fce27d7ce9f19878cdd232549730069160"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/sec-incident-response.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:7ccd2c1c45808c42e3ac9b86e54720fb0501fc718dc1564c685fdf8bdcc6c192",
+      "hash_candidate": "sha256:7ccd2c1c45808c42e3ac9b86e54720fb0501fc718dc1564c685fdf8bdcc6c192"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/ecom-fraud-checkout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:2b7dd4536d9f26cac39bb73b8811b455c5c2118964105e31f2fe85bac4e570f3",
+      "hash_candidate": "sha256:2b7dd4536d9f26cac39bb73b8811b455c5c2118964105e31f2fe85bac4e570f3"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/health-medication-alert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:096852c073d8509d297838b5587a1b2d3b352b27eb831cbb67cab6b281843553",
+      "hash_candidate": "sha256:096852c073d8509d297838b5587a1b2d3b352b27eb831cbb67cab6b281843553"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/robotics-warehouse-bot.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:bb33c6043f2279ab82d5972a38c94960c49a0bc3b6173842994acbe464d45e0b",
+      "hash_candidate": "sha256:bb33c6043f2279ab82d5972a38c94960c49a0bc3b6173842994acbe464d45e0b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/edu-adaptive-lesson.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:3df78420bcaf992b335d645392139415c40bca13260bfc0e0554ecfd0e76391d",
+      "hash_candidate": "sha256:3df78420bcaf992b335d645392139415c40bca13260bfc0e0554ecfd0e76391d"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/devops-k8s-rollout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:9880c84565d0f41fcc1011b5b7377dd5670d6e5600f5c63fccacf7935bd1b790",
+      "hash_candidate": "sha256:9880c84565d0f41fcc1011b5b7377dd5670d6e5600f5c63fccacf7935bd1b790"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.2.0/corpus/source/fintech-aml-kyc.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6315095f1c17248f47e427e7c2309de6000d8928d956af5adefb20f0e148a698",
+      "hash_candidate": "sha256:6315095f1c17248f47e427e7c2309de6000d8928d956af5adefb20f0e148a698"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/climate-grid-balancing.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:f36cb8317e0d234e55186af970f080f9d8d32e838083a6750570bf96486186b9",
+      "hash_candidate": "sha256:f36cb8317e0d234e55186af970f080f9d8d32e838083a6750570bf96486186b9"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/iot-hvac-anomaly.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:dda52f62a9c0ab4c537ce0737573c67483a5cc25ec861676d7109b2e6f689cb1",
+      "hash_candidate": "sha256:dda52f62a9c0ab4c537ce0737573c67483a5cc25ec861676d7109b2e6f689cb1"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/legal-contract-redline.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ac7f2572a6aeb8e773ec6bb3f9771f6c1ad6062b97e964f0521d2c601886a284",
+      "hash_candidate": "sha256:ac7f2572a6aeb8e773ec6bb3f9771f6c1ad6062b97e964f0521d2c601886a284"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/sec-incident-response.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:1910366e1d2c681a5edceb828a6caf66bf2aaf4f07a19703472a08a5ca393ade",
+      "hash_candidate": "sha256:1910366e1d2c681a5edceb828a6caf66bf2aaf4f07a19703472a08a5ca393ade"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/ecom-fraud-checkout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:630e9d7e1d0144e0290bf327e5232bf7316248bf472f8343ecbccadbda5674a4",
+      "hash_candidate": "sha256:630e9d7e1d0144e0290bf327e5232bf7316248bf472f8343ecbccadbda5674a4"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/health-medication-alert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:5ba6b501a6fe75c6d4401849f2b88eb97389448990892cad797479123a0dc8ee",
+      "hash_candidate": "sha256:5ba6b501a6fe75c6d4401849f2b88eb97389448990892cad797479123a0dc8ee"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/robotics-warehouse-bot.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:f00a74f5c77e098a590c1c79f00bd08ea6f747976a7e00f22578412dd1670d9f",
+      "hash_candidate": "sha256:f00a74f5c77e098a590c1c79f00bd08ea6f747976a7e00f22578412dd1670d9f"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/edu-adaptive-lesson.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:0d02ffdfb86ee70ae3cc7718907212d6ff82fdaabf3d0c003be5911724244118",
+      "hash_candidate": "sha256:0d02ffdfb86ee70ae3cc7718907212d6ff82fdaabf3d0c003be5911724244118"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/devops-k8s-rollout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:398c1b7631863cd9e77b25569b3a2e2ec8000883d40b29c97eceef1b12e68e35",
+      "hash_candidate": "sha256:398c1b7631863cd9e77b25569b3a2e2ec8000883d40b29c97eceef1b12e68e35"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source_pre_header_backup/fintech-aml-kyc.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:862aef7d453a307a5cb4af91321a0f67e780b63b864262e77928f7ee631813dd",
+      "hash_candidate": "sha256:862aef7d453a307a5cb4af91321a0f67e780b63b864262e77928f7ee631813dd"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/climate-grid-balancing.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:7500d42473a8bfd7688ab9ab5d936349b86139bd3b3652971de4464b5ba4cf9a",
+      "hash_candidate": "sha256:7500d42473a8bfd7688ab9ab5d936349b86139bd3b3652971de4464b5ba4cf9a"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/iot-hvac-anomaly.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:b803035228ed214e00a36d1e9656d1627960374ce452a31c813d5228dda4500b",
+      "hash_candidate": "sha256:b803035228ed214e00a36d1e9656d1627960374ce452a31c813d5228dda4500b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/legal-contract-redline.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:c1b2563c0bd6df6760f32dfcc020d0fce27d7ce9f19878cdd232549730069160",
+      "hash_candidate": "sha256:c1b2563c0bd6df6760f32dfcc020d0fce27d7ce9f19878cdd232549730069160"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/sec-incident-response.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:7ccd2c1c45808c42e3ac9b86e54720fb0501fc718dc1564c685fdf8bdcc6c192",
+      "hash_candidate": "sha256:7ccd2c1c45808c42e3ac9b86e54720fb0501fc718dc1564c685fdf8bdcc6c192"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/ecom-fraud-checkout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:2b7dd4536d9f26cac39bb73b8811b455c5c2118964105e31f2fe85bac4e570f3",
+      "hash_candidate": "sha256:2b7dd4536d9f26cac39bb73b8811b455c5c2118964105e31f2fe85bac4e570f3"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/health-medication-alert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:096852c073d8509d297838b5587a1b2d3b352b27eb831cbb67cab6b281843553",
+      "hash_candidate": "sha256:096852c073d8509d297838b5587a1b2d3b352b27eb831cbb67cab6b281843553"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/robotics-warehouse-bot.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:bb33c6043f2279ab82d5972a38c94960c49a0bc3b6173842994acbe464d45e0b",
+      "hash_candidate": "sha256:bb33c6043f2279ab82d5972a38c94960c49a0bc3b6173842994acbe464d45e0b"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/edu-adaptive-lesson.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:3df78420bcaf992b335d645392139415c40bca13260bfc0e0554ecfd0e76391d",
+      "hash_candidate": "sha256:3df78420bcaf992b335d645392139415c40bca13260bfc0e0554ecfd0e76391d"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/devops-k8s-rollout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:9880c84565d0f41fcc1011b5b7377dd5670d6e5600f5c63fccacf7935bd1b790",
+      "hash_candidate": "sha256:9880c84565d0f41fcc1011b5b7377dd5670d6e5600f5c63fccacf7935bd1b790"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.1.0/corpus/source/fintech-aml-kyc.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6315095f1c17248f47e427e7c2309de6000d8928d956af5adefb20f0e148a698",
+      "hash_candidate": "sha256:6315095f1c17248f47e427e7c2309de6000d8928d956af5adefb20f0e148a698"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/climate-grid-balancing.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:b75b63cb59c764b352c1c0755aa8afb46e38851a6676b5842cb2749bccb53742",
+      "hash_candidate": "sha256:b75b63cb59c764b352c1c0755aa8afb46e38851a6676b5842cb2749bccb53742"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/iot-hvac-anomaly.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:4b4ad120f3062d20a5297bf5e426d59e7f16fc1ebe93d16038e1bdbb82339d13",
+      "hash_candidate": "sha256:4b4ad120f3062d20a5297bf5e426d59e7f16fc1ebe93d16038e1bdbb82339d13"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/legal-contract-redline.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:11031b4002baadf586e480f15d6d554ba9cca183e3f2854e0bcb60d2e436d921",
+      "hash_candidate": "sha256:11031b4002baadf586e480f15d6d554ba9cca183e3f2854e0bcb60d2e436d921"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/sec-incident-response.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:48af3fb798cc2bf1ef824f83d748a957cfd68b7c9b2cb4cf84b75501c5eb9afd",
+      "hash_candidate": "sha256:48af3fb798cc2bf1ef824f83d748a957cfd68b7c9b2cb4cf84b75501c5eb9afd"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/ecom-fraud-checkout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:45bcf75969a7a8029999989215acd3c44f54c0b072b6de92d5d70dd397eec163",
+      "hash_candidate": "sha256:45bcf75969a7a8029999989215acd3c44f54c0b072b6de92d5d70dd397eec163"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/health-medication-alert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:d79c2e23f0a8e56520c2116238b8ed99994c67027e9741ca9f66a22f00f57dbb",
+      "hash_candidate": "sha256:d79c2e23f0a8e56520c2116238b8ed99994c67027e9741ca9f66a22f00f57dbb"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/robotics-warehouse-bot.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:d8740c58213f668693797e13af1b01547190d8a3b0eb69892a6becaf6aad2699",
+      "hash_candidate": "sha256:d8740c58213f668693797e13af1b01547190d8a3b0eb69892a6becaf6aad2699"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/edu-adaptive-lesson.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:96f26dcb95212e74d6928ae092b62856e906e0dda5876b99eb30b67afb891bcf",
+      "hash_candidate": "sha256:96f26dcb95212e74d6928ae092b62856e906e0dda5876b99eb30b67afb891bcf"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/devops-k8s-rollout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:1be499ef0bab8d79c3d594c009213bdb5f4ca2ae72e36d16746da9a5e53c758d",
+      "hash_candidate": "sha256:1be499ef0bab8d79c3d594c009213bdb5f4ca2ae72e36d16746da9a5e53c758d"
+    },
+    {
+      "rel_path": "docs/benchmarks/v1.0.0/corpus/source/fintech-aml-kyc.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:c12c6de85c63e193ae6d14e79e25dcb4f0b37aaa57c23af2a38c67dc0676c516",
+      "hash_candidate": "sha256:c12c6de85c63e193ae6d14e79e25dcb4f0b37aaa57c23af2a38c67dc0676c516"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/climate-grid-balancing.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:b75b63cb59c764b352c1c0755aa8afb46e38851a6676b5842cb2749bccb53742",
+      "hash_candidate": "sha256:b75b63cb59c764b352c1c0755aa8afb46e38851a6676b5842cb2749bccb53742"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/iot-hvac-anomaly.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:4b4ad120f3062d20a5297bf5e426d59e7f16fc1ebe93d16038e1bdbb82339d13",
+      "hash_candidate": "sha256:4b4ad120f3062d20a5297bf5e426d59e7f16fc1ebe93d16038e1bdbb82339d13"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/legal-contract-redline.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:11031b4002baadf586e480f15d6d554ba9cca183e3f2854e0bcb60d2e436d921",
+      "hash_candidate": "sha256:11031b4002baadf586e480f15d6d554ba9cca183e3f2854e0bcb60d2e436d921"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/sec-incident-response.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:48af3fb798cc2bf1ef824f83d748a957cfd68b7c9b2cb4cf84b75501c5eb9afd",
+      "hash_candidate": "sha256:48af3fb798cc2bf1ef824f83d748a957cfd68b7c9b2cb4cf84b75501c5eb9afd"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/ecom-fraud-checkout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:45bcf75969a7a8029999989215acd3c44f54c0b072b6de92d5d70dd397eec163",
+      "hash_candidate": "sha256:45bcf75969a7a8029999989215acd3c44f54c0b072b6de92d5d70dd397eec163"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/health-medication-alert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:d79c2e23f0a8e56520c2116238b8ed99994c67027e9741ca9f66a22f00f57dbb",
+      "hash_candidate": "sha256:d79c2e23f0a8e56520c2116238b8ed99994c67027e9741ca9f66a22f00f57dbb"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/robotics-warehouse-bot.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:d8740c58213f668693797e13af1b01547190d8a3b0eb69892a6becaf6aad2699",
+      "hash_candidate": "sha256:d8740c58213f668693797e13af1b01547190d8a3b0eb69892a6becaf6aad2699"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/edu-adaptive-lesson.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:96f26dcb95212e74d6928ae092b62856e906e0dda5876b99eb30b67afb891bcf",
+      "hash_candidate": "sha256:96f26dcb95212e74d6928ae092b62856e906e0dda5876b99eb30b67afb891bcf"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/devops-k8s-rollout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:1be499ef0bab8d79c3d594c009213bdb5f4ca2ae72e36d16746da9a5e53c758d",
+      "hash_candidate": "sha256:1be499ef0bab8d79c3d594c009213bdb5f4ca2ae72e36d16746da9a5e53c758d"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source_v1_backup/fintech-aml-kyc.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:c12c6de85c63e193ae6d14e79e25dcb4f0b37aaa57c23af2a38c67dc0676c516",
+      "hash_candidate": "sha256:c12c6de85c63e193ae6d14e79e25dcb4f0b37aaa57c23af2a38c67dc0676c516"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/climate-grid-balancing.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:f36cb8317e0d234e55186af970f080f9d8d32e838083a6750570bf96486186b9",
+      "hash_candidate": "sha256:f36cb8317e0d234e55186af970f080f9d8d32e838083a6750570bf96486186b9"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/iot-hvac-anomaly.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:dda52f62a9c0ab4c537ce0737573c67483a5cc25ec861676d7109b2e6f689cb1",
+      "hash_candidate": "sha256:dda52f62a9c0ab4c537ce0737573c67483a5cc25ec861676d7109b2e6f689cb1"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/legal-contract-redline.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ac7f2572a6aeb8e773ec6bb3f9771f6c1ad6062b97e964f0521d2c601886a284",
+      "hash_candidate": "sha256:ac7f2572a6aeb8e773ec6bb3f9771f6c1ad6062b97e964f0521d2c601886a284"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/sec-incident-response.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:1910366e1d2c681a5edceb828a6caf66bf2aaf4f07a19703472a08a5ca393ade",
+      "hash_candidate": "sha256:1910366e1d2c681a5edceb828a6caf66bf2aaf4f07a19703472a08a5ca393ade"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/ecom-fraud-checkout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:630e9d7e1d0144e0290bf327e5232bf7316248bf472f8343ecbccadbda5674a4",
+      "hash_candidate": "sha256:630e9d7e1d0144e0290bf327e5232bf7316248bf472f8343ecbccadbda5674a4"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/health-medication-alert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:5ba6b501a6fe75c6d4401849f2b88eb97389448990892cad797479123a0dc8ee",
+      "hash_candidate": "sha256:5ba6b501a6fe75c6d4401849f2b88eb97389448990892cad797479123a0dc8ee"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/robotics-warehouse-bot.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:f00a74f5c77e098a590c1c79f00bd08ea6f747976a7e00f22578412dd1670d9f",
+      "hash_candidate": "sha256:f00a74f5c77e098a590c1c79f00bd08ea6f747976a7e00f22578412dd1670d9f"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/edu-adaptive-lesson.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:0d02ffdfb86ee70ae3cc7718907212d6ff82fdaabf3d0c003be5911724244118",
+      "hash_candidate": "sha256:0d02ffdfb86ee70ae3cc7718907212d6ff82fdaabf3d0c003be5911724244118"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/devops-k8s-rollout.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:398c1b7631863cd9e77b25569b3a2e2ec8000883d40b29c97eceef1b12e68e35",
+      "hash_candidate": "sha256:398c1b7631863cd9e77b25569b3a2e2ec8000883d40b29c97eceef1b12e68e35"
+    },
+    {
+      "rel_path": "docs/benchmarks/v2.0.0/corpus/source/fintech-aml-kyc.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:862aef7d453a307a5cb4af91321a0f67e780b63b864262e77928f7ee631813dd",
+      "hash_candidate": "sha256:862aef7d453a307a5cb4af91321a0f67e780b63b864262e77928f7ee631813dd"
+    },
+    {
+      "rel_path": "docs/archive/ajustes.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:8d1e7adbfbd6f153624a71a0c8d0e664011e05b9e410c3bdc743e8b0a0f95d84",
+      "hash_candidate": "sha256:8d1e7adbfbd6f153624a71a0c8d0e664011e05b9e410c3bdc743e8b0a0f95d84"
+    },
+    {
+      "rel_path": "docs/archive/result.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:ab0bcb83574475286568f0c3e0716264f0134fec0e52ab5bb4f0d1b2bb39050d",
+      "hash_candidate": "sha256:ab0bcb83574475286568f0c3e0716264f0134fec0e52ab5bb4f0d1b2bb39050d"
+    },
+    {
+      "rel_path": "docs/archive/templates/.cortex/learn-policies.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:1d7c52d08c53e6971c9a99ed23426dba26b7e3abe5a56f5cdea2345b05f30d16",
+      "hash_candidate": "sha256:1d7c52d08c53e6971c9a99ed23426dba26b7e3abe5a56f5cdea2345b05f30d16"
+    },
+    {
+      "rel_path": "docs/archive/templates/.cortex/MANIFEST.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215",
+      "hash_candidate": "sha256:6a3da653a265cb208927c33e4f1cdb5498f88065976f179c2ca4039bf8b8c215"
+    },
+    {
+      "rel_path": "docs/verification/enterprise-handoff-v1.1.9.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:f20a401bef81ae08d9b06edb37fbb2f177ed36b75d6578caa88c9f98447aa159",
+      "hash_candidate": "sha256:f20a401bef81ae08d9b06edb37fbb2f177ed36b75d6578caa88c9f98447aa159"
+    },
+    {
+      "rel_path": "docs/reference/inventory.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:9b13afb5a05c94816785ee3f931ffa42f61d6da8139657b12747ae09d0ecee02",
+      "hash_candidate": "sha256:9b13afb5a05c94816785ee3f931ffa42f61d6da8139657b12747ae09d0ecee02"
+    },
+    {
+      "rel_path": "docs/reference/SKILL.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:b5df62b63098660a0538f34016f365a985848d25c2c347d9c79a92ca320b9c9f",
+      "hash_candidate": "sha256:b5df62b63098660a0538f34016f365a985848d25c2c347d9c79a92ca320b9c9f"
+    },
+    {
+      "rel_path": "docs/reference/api/docstring.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:a6e894d2c8b2d5fcfb929f68d87091fc25cb97d48be0e6ae60becad2399545e1",
+      "hash_candidate": "sha256:a6e894d2c8b2d5fcfb929f68d87091fc25cb97d48be0e6ae60becad2399545e1"
+    },
+    {
+      "rel_path": "docs/reference/api/verify.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:0fa4502ffa6b4ea41267448eb99dfbcc88f26d107c5f520d6795979d710d7ba6",
+      "hash_candidate": "sha256:0fa4502ffa6b4ea41267448eb99dfbcc88f26d107c5f520d6795979d710d7ba6"
+    },
+    {
+      "rel_path": "docs/reference/api/benchmark.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:633fb279a0d08e19e0b7d7627198d388a2e33f08ae73e2d3cd8c8a917075f26b",
+      "hash_candidate": "sha256:633fb279a0d08e19e0b7d7627198d388a2e33f08ae73e2d3cd8c8a917075f26b"
+    },
+    {
+      "rel_path": "docs/reference/api/canonicalize.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:a447c4c4872669be07609a2da7fb70e6914ea3111c80e2fe64060968d6a622e1",
+      "hash_candidate": "sha256:a447c4c4872669be07609a2da7fb70e6914ea3111c80e2fe64060968d6a622e1"
+    },
+    {
+      "rel_path": "docs/reference/api/modes.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:03efa66aeca33cb805633f4f2a7bf69302c393468b94186711ee75c69eb31196",
+      "hash_candidate": "sha256:03efa66aeca33cb805633f4f2a7bf69302c393468b94186711ee75c69eb31196"
+    },
+    {
+      "rel_path": "docs/reference/api/doctor.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:2f0a5fcf0851022de6d42903947085722047c183f05b9f5270144670aeeb6cde",
+      "hash_candidate": "sha256:2f0a5fcf0851022de6d42903947085722047c183f05b9f5270144670aeeb6cde"
+    },
+    {
+      "rel_path": "docs/reference/api/audit.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:614b96be0014f25f2a16751ef7cafd846e9e3179b66d50f35bfff975c765eb71",
+      "hash_candidate": "sha256:614b96be0014f25f2a16751ef7cafd846e9e3179b66d50f35bfff975c765eb71"
+    },
+    {
+      "rel_path": "docs/reference/api/convert.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:2ee9ffe9854cf699b02b2966b5757cf1dd2cdf87cd96e89366adad8db5790aa8",
+      "hash_candidate": "sha256:2ee9ffe9854cf699b02b2966b5757cf1dd2cdf87cd96e89366adad8db5790aa8"
+    },
+    {
+      "rel_path": "docs/reference/api/specs/documentation-protocol.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:e796ef1df5ec3e464cbec3e6e3a282e95179fcd1d698cff04023d01a0836f324",
+      "hash_candidate": "sha256:e796ef1df5ec3e464cbec3e6e3a282e95179fcd1d698cff04023d01a0836f324"
+    },
+    {
+      "rel_path": "skill/cortex/brain.cortex",
+      "status": "compatible",
+      "detail": "structurally identical",
+      "diff_count": 0,
+      "hash_baseline": "sha256:defd65d4523e02f7a5c7a743e3e2d622a7d0653dc242674a886cdb179a1b3669",
+      "hash_candidate": "sha256:defd65d4523e02f7a5c7a743e3e2d622a7d0653dc242674a886cdb179a1b3669"
+    }
+  ]
+}

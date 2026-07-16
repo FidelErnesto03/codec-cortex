@@ -1,0 +1,49 @@
+$0: UNIVERSAL GLOSSARY
+
+# -- $0: UNIVERSAL GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs      | B | Semantic       | Skill identity
+# DOM   | domain     | attrs      | B | Semantic       | Adoption scope and context
+# AXM   | axiom      | cuerpo     | H | Prefrontal     | Non-negotiable principle
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard operational boundary
+# KNW   | knowledge  | attrs      | B | Semantic       | Protocol knowledge
+# HDL   | handler    | attrs-pos  | M | Semantic       | Operation descriptor (positional)
+# STAT  | status     | attrs      | B | Semantic       | Status or maturity declaration
+# DIAG  | diagram    | bloque     | M | Episodic/Visual | Normative diagram
+# REF   | reference  | attrs      | B | Semantic       | Source or cross-reference
+# RSK   | risk       | attrs      | M | Prefrontal     | Protocol risk and mitigation
+# AUD   | audit      | attrs      | M | Prefrontal     | Spec audit record
+# !     | rule       | attrs      | H | Prefrontal     | Mandatory compact rule
+#
+# Types:
+# attrs = key:value pairs
+# attrs-pos = positional with explicit contract
+# cuerpo = free text body
+# bloque = verbatim multiline block
+#
+# Positional contracts:
+# contract: HDL | operation | status | requires
+
+$1: IDENTITY
+
+IDN:skill{name:"codec-cortex", version:"1.0.0", status:"specification", nature:"cognitive_memory_protocol"}
+DOM:protocol{area:"LLM/SLM contextual memory", format:".cortex", memory_output:"HCORTEX", conversational_output:"CORTEX-OUT"}
+
+$2: AXIOMS
+
+AXM:level_separation{
+SKILL.cortex governs behavior and contracts. It never stores live working state.
+}
+AXM:self_contained{
+Every .cortex artifact must include a minimal $0 local glossary for safe interpretation.
+}
+
+$3: CONSTRAINTS
+
+CNST:no_live_state_in_skill{rule:"SKILL.cortex MUST NOT contain FCS/OBJ/WRK/STP/NXT as live state.", severity:"blocking", survive:"min"}
+
+$4: HANDLERS
+
+HDL:decode{decode | current | ".cortex file"}
+HDL:encode{encode | planned | "AST + glossary"}
+HDL:verify{verify | planned | "AST + AST comparator"}

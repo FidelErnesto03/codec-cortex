@@ -1,0 +1,62 @@
+@startuml
+title Arquitectura del Benchmark CODEC-CORTEX
+
+skinparam rectangle {
+  BackgroundColor<<cortex>> #EFF6FF
+  BackgroundColor<<baseline>> #F1F5F9
+  BackgroundColor<<metric>> #FEF3C7
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Corpus L2\n10 dominios x 2-3 casos\nFormatos: .cortex, raw, md, json, yaml" as corpus <<cortex>>
+
+package "Metodos bajo comparacion" {
+  rectangle "Pasivos Posicionales\nrecent_tail, head_tail,\nhead_json, head_md" as positional <<baseline>>
+  rectangle "Pasivo Semantico\nsemantic_field_pack" as semantic <<baseline>>
+  rectangle "Query-Dependent\nkeyword_retrieval (BM25)" as qd <<baseline>>
+  rectangle "CODEC-CORTEX\nCPP v1 / Adaptive / Hybrid" as cortex <<cortex>>
+  rectangle "Ablations\nno_P0, no_temporal" as ablation <<baseline>>
+}
+
+package "Escenarios (8)" {
+  rectangle "full\nreduced_window (512..4096)\nmiddle_work_adversarial" as scen1
+  rectangle "stale_state_conflict\nblocking_constraint_survival\nunsupported_claim_suppression" as scen2
+  rectangle "corrupted_memory_tolerance\nmulti_instance_sigil" as scen3
+}
+
+package "Metricas (15)" {
+  rectangle "EAS, ETC, F1, DA\nAvg CT" as m1 <<metric>>
+  rectangle "P0/P1 survival\nBCFNR, UCFPR, CFCR\nSTR, BVR" as m2 <<metric>>
+  rectangle "MRD, QDD\nEvidence Density" as m3 <<metric>>
+}
+
+corpus --> positional : texto plano
+corpus --> semantic : sigilos
+corpus --> qd : texto + query
+corpus --> cortex : .cortex (CLI render)
+corpus --> ablation : .cortex (transformado)
+
+positional --> scen1
+semantic --> scen1
+qd --> scen1
+cortex --> scen1
+ablation --> scen1
+scen1 --> scen2
+scen2 --> scen3
+
+scen3 --> m1
+scen3 --> m2
+scen3 --> m3
+
+note right of cortex
+  CLI: cortex render --profile
+  MIN/RECOVERY/WORK/FULL
+  P0-P5 priority pack
+end note
+
+note right of m3
+  MRD: vs best positional
+  QDD: vs best query-dep
+end note
+@enduml

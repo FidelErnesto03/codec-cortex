@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Benchmark Corpus
+# SPDX-License-Identifier: MIT
+
+$0: MINIMAL LOCAL GLOSSARY
+
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN  | identity   | attrs | B | Semantic   | Actor identity
+# DOM  | domain     | attrs | B | Semantic   | Operating domain
+# CNST | constraint | attrs | H | Prefrontal  | Hard boundary
+# FCS  | focus      | attrs | H | Working     | Active attention
+# OBJ  | objective  | attrs | H | Working     | Active goal
+# WRK  | work       | attrs | M | Working     | Current state
+# STP  | step       | attrs | M | Working     | Next action
+# NXT  | next       | attrs | M | Working     | Queued action
+# AUD  | audit      | attrs | M | Prefrontal  | Verification record
+# RSK  | risk       | attrs | M | Prefrontal  | Identified risk
+# CLAIM| claim      | attrs | M | Prefrontal  | Verifiable claim
+# LIM  | limit      | attrs | M | Prefrontal  | Explicit limit
+# SES  | session    | attrs | M | Episodic    | Compressed episode
+# KNW  | knowledge  | attrs | B | Semantic    | Stable knowledge
+# REF  | reference  | attrs | B | Semantic    | File/source ref
+
+$1: IDENTITY
+IDN:operator{name:"sre-oncall", role:"rollout operator", team:"platform-sre"}
+DOM:project{area:"k8s-rollout", cluster:"prod-eu-west-1", service:"payments-api"}
+
+$2: OPERATIONAL STATE
+CNST:no_downtime{rule:"rolling update must keep minAvailable=2", severity:"blocking", survive:"min"}
+CNST:registry{rule:"images only from registry.internal.corp", severity:"warning", survive:"work"}
+FCS:primary{what:"Rolling update payments-api v2.4.1 con PDB respected", priority:"high", status:"current", survive:"min"}
+OBJ:rollout{goal:"Desplegar v2.4.1 a 6 replicas sin downtime", status:"current", success:"6/6 pods ready con v2.4.1, PDB nunca violado", survive:"min"}
+WRK:state{phase:"rolling update", current:"3/6 pods en v2.4.1, 3/6 en v2.4.0", blocked:false, survive:"work"}
+STP:next{action:"kubectl rollout status deployment/payments-api --timeout=300s", reason:"verificar progresion del rollout", owner:"sre-oncall", status:"current", survive:"min"}
+
+$3: RISKS AND AUDIT
+RSK:pdb_violation{risk:"MaxSurge=1 con PDB minAvailable=2 puede causar downtime", impact:"high", mitigation:"MaxSurge=2 MaxUnavailable=0", status:"current", survive:"recovery"}
+AUD:rollout_start{event:"rollout v2.4.1 started", evidence:"kubectl rollout history", result:"3 pods updated, 0 errors", date:"2026-06-28"}
+
+$4: NEXT ACTIONS
+NXT:verify_pdb{action:"Verificar PDB status durante rollout", priority:"high", trigger:"after_30s", status:"planned", survive:"work"}
+NXT:rollback{action:"kubectl rollout undo si downtime > 30s", priority:"high", trigger:"on_failure", status:"planned", survive:"work"}
+
+$5: CLAIMS AND LIMITS
+CLAIM:strategy{statement:"MaxSurge=2 MaxUnavailable=0 respeta PDB minAvailable=2", evidence:"k8s docs + simulation", status:"current"}
+LIM:timeout{limit:"Rollout debe completar en < 300s", scope:"operacional", status:"current"}
+
+$6: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:cur,fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:cur,fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:cur,fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:cur,fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:cur,fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:cur,fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:nxt{kind:"table",target:"$4:NXT:*",reverse:"rows_to_entries",status:cur,fields:"action,priority,trigger,status,survive",title:"Next Actions"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:cur,fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:aud{kind:"table",target:"$3:AUD:*",reverse:"rows_to_entries",status:cur,fields:"event,evidence,result,date",title:"Audit Trail"}
+VIEW:claim{kind:"table",target:"$5:CLAIM:*",reverse:"rows_to_entries",status:cur,fields:"statement,evidence,status",title:"Claims"}
+VIEW:lim{kind:"table",target:"$5:LIM:*",reverse:"rows_to_entries",status:cur,fields:"limit,scope,status",title:"Limits"}

@@ -1,0 +1,13 @@
+$0
+GTYP:attrs{name:"attrs",desc:"key:value pairs"}
+GSIG:IDN{name:"identity",type:"attrs",risk:"B",layer:"Semantic",desc:"command identity"}
+GSIG:DESC{name:"description",type:"attrs",risk:"B",layer:"Semantic",desc:"description"}
+GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
+
+$1
+IDN:command{name:"convert",cli:"cortex convert",status:"current",requires:"cortex 0.3.5+"}
+DESC:summary{name:"summary",text:"Convert between CORTEX and HCORTEX."}
+ARG:input{name:"input",required:"yes",description:"source file"}
+ARG:from{name:"--from",required:"yes",description:"source format"}
+ARG:to{name:"--to",required:"yes",description:"target format"}
+ARG:out{name:"--out",required:"no",description:"output file"}

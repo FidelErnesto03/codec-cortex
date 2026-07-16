@@ -55,11 +55,13 @@ def add_learn_subparser(subparsers: argparse._SubParsersAction) -> None:
     sub = sp.add_subparsers(dest="learn_command", required=True)
 
     def _mk(name: str, help: str) -> argparse.ArgumentParser:
-        """Create a sub-action parser pre-loaded with --workspace and --json."""
+        """Create a sub-action parser pre-loaded with --workspace, --json and --output."""
         p = sub.add_parser(name, help=help)
         p.add_argument("--workspace", default=None,
                         help="workspace root (overrides learn --workspace)")
-        p.add_argument("--json", action="store_true")
+        p.add_argument("--json", action="store_true", help="shorthand for --output json")
+        p.add_argument("--output", choices=["text", "json"], default=None,
+                       help="output format (default: text)")
         return p
 
     # init
@@ -237,9 +239,13 @@ def _resolve_workspace(args) -> Workspace:
 
 def _json_active(args) -> bool:
     """Return True if either the subcommand-level ``--json`` or the
-    global ``--json`` flag is active."""
+    global ``--json``/``--output json`` flag is active."""
 
     if getattr(args, "_json_mode", False):
+        return True
+    if getattr(args, "_output_mode", None) == "json":
+        return True
+    if getattr(args, "output", None) == "json":
         return True
     return bool(getattr(args, "json", False))
 

@@ -1,0 +1,9 @@
+# $0 present but NOT first — must be rejected with E002.
+
+$1: IDENTITY
+
+IDN:agent{name:"x"}
+
+$0: GLOSSARY
+
+# IDN | identity | attrs | B | Semantic | Identity

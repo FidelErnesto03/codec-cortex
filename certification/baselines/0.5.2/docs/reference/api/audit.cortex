@@ -1,0 +1,11 @@
+$0
+GTYP:attrs{name:"attrs",desc:"key:value pairs"}
+GSIG:IDN{name:"identity",type:"attrs",risk:"B",layer:"Semantic",desc:"command identity"}
+GSIG:DESC{name:"description",type:"attrs",risk:"B",layer:"Semantic",desc:"description"}
+GSIG:ARG{name:"argument",type:"attrs",risk:"B",layer:"Semantic",desc:"argument"}
+
+$1
+IDN:command{name:"audit",cli:"cortex audit",status:"current",requires:"cortex 0.3.4+"}
+DESC:summary{name:"summary",text:"Control on-demand audit logging for CORTEX operations."}
+ARG:action{name:"action",required:"yes",description:"on off status snapshot or prune"}
+ARG:format{name:"--format",required:"no",description:"text or json"}

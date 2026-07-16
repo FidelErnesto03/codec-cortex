@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2026 Benchmark Corpus
+# SPDX-License-Identifier: MIT
+
+$0: MINIMAL LOCAL GLOSSARY
+
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN  | identity   | attrs | B | Semantic   | Actor identity
+# DOM  | domain     | attrs | B | Semantic   | Operating domain
+# CNST | constraint | attrs | H | Prefrontal  | Hard boundary
+# FCS  | focus      | attrs | H | Working     | Active attention
+# OBJ  | objective  | attrs | H | Working     | Active goal
+# WRK  | work       | attrs | M | Working     | Current state
+# STP  | step       | attrs | M | Working     | Next action
+# AUD  | audit      | attrs | M | Prefrontal  | Verification record
+# RSK  | risk       | attrs | M | Prefrontal  | Identified risk
+# CLAIM| claim      | attrs | M | Prefrontal  | Verifiable claim
+# LIM  | limit      | attrs | M | Prefrontal  | Explicit limit
+
+$1: IDENTITY
+IDN:agent{name:"wh-bot-007", role:"warehouse navigation", vendor:"internal"}
+DOM:project{area:"robotics-warehouse", facility:"DC-3", aisle:"A-12"}
+
+$2: OPERATIONAL STATE
+CNST:safety{rule:"distance to human MUST be > 1m at all times", severity:"blocking", survive:"min"}
+CNST:speed{rule:"max speed 1.5 m/s in shared zones", severity:"blocking", survive:"min"}
+CNST:battery{rule:"battery MUST stay > 20% to complete mission", severity:"warning", survive:"work"}
+FCS:primary{what:"Navegar aisle A-12 evitando peaton detectado", priority:"high", status:"current", survive:"min"}
+OBJ:deliver{goal:"Entregar SKU 9921 en dock-4 en < 90s", status:"current", success:"SKU entregado, sin colisiones, battery > 20%", survive:"min"}
+WRK:state{phase:"navigation", current:"speed 0.8 m/s, peaton a 1.4m, slowing down", blocked:false, survive:"work"}
+STP:next{action:"Reduce speed a 0.3 m/s y mantener rumbo", reason:"peaton a 1.4m aproximando limite 1m", owner:"wh-bot-007", status:"current", survive:"min"}
+
+$3: RISKS AND CLAIMS
+RSK:deadlock{risk:"Deadlock en pasillo estrecho si otro bot viene en sentido contrario", impact:"medium", mitigation:"reroute via B-12 si deadlock > 5s", status:"current", survive:"recovery"}
+CLAIM:safety_record{statement:"0 colisiones en 999 horas operativas", evidence:"telemetria Q1-Q2 2026", status:"current"}
+LIM:payload{limit:"payload max 25 kg", scope:"hardware", status:"current"}
+
+$4: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:cur,fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:cur,fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:cur,fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:cur,fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:cur,fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:cur,fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:cur,fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:cur,fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:claim{kind:"table",target:"$3:CLAIM:*",reverse:"rows_to_entries",status:cur,fields:"statement,evidence,status",title:"Claims"}
+VIEW:lim{kind:"table",target:"$3:LIM:*",reverse:"rows_to_entries",status:cur,fields:"limit,scope,status",title:"Limits"}

@@ -1,0 +1,60 @@
+@startuml
+title Arquitectura Benchmark v2.0.0 — CLI v2.4.0
+
+skinparam rectangle {
+  BackgroundColor<<cortex_v1>> #DBEAFE
+  BackgroundColor<<cortex_v2>> #EDE9FE
+  BackgroundColor<<baseline>> #F1F5F9
+  BackgroundColor<<metric>> #FEF3C7
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Corpus L2\n10 dominios (v1.0.0 reusable)\nFormatos: .cortex, raw, md, json, yaml" as corpus <<baseline>>
+
+package "Metodos v1 (CLI v1.1.9)" {
+  rectangle "Pasivos Posicionales\nrecent_tail, head_tail,\nhead_json, head_md" as positional <<baseline>>
+  rectangle "Pasivo Semantico\nsemantic_field_pack" as semantic <<baseline>>
+  rectangle "Query-Dependent\nkeyword_retrieval (BM25)" as qd <<baseline>>
+  rectangle "CODEC-CORTEX v1\nCPP v1 (render --profile)" as cortex_v1 <<cortex_v1>>
+  rectangle "Ablations\nno_P0, no_temporal" as ablation <<baseline>>
+}
+
+package "Metodos v2 NUEVOS (CLI v2.4.0)" {
+  rectangle "CODEC-CORTEX v2 PP\nv2-convert + fallback v1\n(sin VIEW -> fallback)" as cortex_v2_pp <<cortex_v2>>
+  rectangle "CODEC-CORTEX v2 Canonical\nv2-canonicalize + v2-convert\n(FALLA: sin VIEW)" as cortex_v2_canon <<cortex_v2>>
+}
+
+package "Metricas v2 NUEVAS" {
+  rectangle "VIEW_coverage\nReversibility\nBidir_equivalence\nLoss_count" as v2_metrics <<metric>>
+}
+
+corpus --> positional
+corpus --> semantic
+corpus --> qd
+corpus --> cortex_v1
+corpus --> ablation
+corpus --> cortex_v2_pp
+corpus --> cortex_v2_canon
+
+cortex_v2_pp --> v2_metrics
+cortex_v2_canon --> v2_metrics
+
+note right of cortex_v2_pp
+  v2-convert produce HCORTEX
+  vacio sin VIEW directives.
+  Fallback a v1 render --profile.
+end note
+
+note right of cortex_v2_canon
+  v2-canonicalize reescribe .cortex
+  perdiendo compatibilidad con
+  v1 render. BCFNR = 1.0.
+end note
+
+note right of v2_metrics
+  VIEW_coverage = 0% en corpus v1.0.0
+  Reversibility = 0 (sin VIEW)
+  Bidir_equiv = 0 (roundtrip falla)
+end note
+@enduml

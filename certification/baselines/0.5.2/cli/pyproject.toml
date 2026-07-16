@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codec-cortex"
+dynamic = ["version"]
+description = "CODEC-CORTEX CLI — modular deterministic processor for .cortex files"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MPL-2.0" }
+authors = [{ name = "Fidel Ernesto Lozada A." }]
+keywords = ["cortex", "codec", "memory", "cli", "llm", "agent", "cognitive"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
+]
+
+[project.urls]
+Homepage = "https://github.com/FidelErnesto03/codec-cortex"
+Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/docs/README.md"
+Repository = "https://github.com/FidelErnesto03/codec-cortex"
+Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
+
+[project.scripts]
+cortex = "cortex.cli.main_e3:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.1"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = [
+    "cortex",
+    "cortex.cli",
+    "cortex.cli.commands",
+    "cortex.core",
+    "cortex.audit",
+    "cortex.glossary",
+    "cortex.hcortex",
+    "cortex.crud",
+    "cortex.templates",
+    "cortex.security",
+    "cortex.v2",
+]
+
+[tool.setuptools.package-data]
+cortex = ["py.typed"]
+
+[tool.setuptools_scm]
+write_to = "src/cortex/_version.py"
+root = ".."
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+ignore = ["E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+pythonpath = ["src"]
+addopts = "--cov=cortex.cli.main_e3 --cov=cortex.cli.commands.docstring --cov=cortex.cli.commands.benchmark --cov-report=term-missing --cov-fail-under=85"

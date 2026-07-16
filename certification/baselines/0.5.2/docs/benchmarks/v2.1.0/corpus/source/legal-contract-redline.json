@@ -1,0 +1,16 @@
+{
+  "identity": {"name": "legal-counsel", "role": "contract reviewer", "team": "legal-ops"},
+  "domain": {"area": "legal-contract-redline", "contract_id": "ctr_2026_0417", "counterparty": "VendorX"},
+  "constraints": [
+    {"id": "liability", "rule": "liability cap must be >= 12 meses fees", "severity": "blocking", "survive": "min"},
+    {"id": "dpa", "rule": "GDPR DPA must be in place before signature", "severity": "blocking", "survive": "min"},
+    {"id": "renewal", "rule": "auto-renew clause must be < 12 meses", "severity": "warning", "survive": "work"}
+  ],
+  "focus": {"what": "Redline ctr_2026_0417 con VendorX", "priority": "high", "status": "current", "survive": "min"},
+  "objective": {"goal": "Aprobar o rechazar contrato para firma", "status": "in_progress", "success": "redline emitido con clausulas criticas verificadas", "survive": "min"},
+  "work": {"phase": "clause review", "current": "liability cap ausente, DPA pendiente, auto-renew=24meses", "blocked": true, "survive": "work"},
+  "step": {"action": "Solicitar enmienda: liability cap + DPA + auto-renew 6 meses", "owner": "legal-counsel", "status": "current", "survive": "min"},
+  "risks": [{"id": "ambiguous_clause", "risk": "Cláusula de indemnidad ambigua genera litigio futuro", "impact": "high", "mitigation": "exigir lenguaje mutuo y explicito"}],
+  "claims": [{"id": "standard", "statement": "liability cap 12 meses fees es estandar de industria SaaS", "evidence": "internal benchmark 2025"}],
+  "limits": [{"id": "timeline", "limit": "Review debe completar en < 5 dias habiles"}]
+}

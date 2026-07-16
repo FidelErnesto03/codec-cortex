@@ -1,0 +1,38 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: [--maxkb=200]
+
+  - repo: local
+    hooks:
+      - id: cortex-verify
+        name: cortex verify --strict
+        entry: cortex verify --strict
+        language: system
+        files: '\.(cortex|cortex\.md)$'
+        pass_filenames: false
+        args:
+          - ../skill/cortex/SKILL.md
+
+      - id: cortex-view-verify
+        name: cortex v2-verify-view
+        entry: cortex v2-verify-view
+        language: system
+        files: '\.(cortex|cortex\.md)$'
+        pass_filenames: false
+        args:
+          - ../skill/cortex/SKILL.md

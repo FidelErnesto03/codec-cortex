@@ -1,0 +1,56 @@
+# Dependabot configuration — keeps Python dependencies of the CLI up to date.
+# E2.1 (v0.3.4): weekly PRs for the pip ecosystem at /cli.
+# See https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+
+updates:
+  # Python dependencies for the CLI package (cli/pyproject.toml)
+  - package-ecosystem: "pip"
+    directory: "/cli"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Argentina/Cordoba"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "FidelErnesto03"
+    assignees:
+      - "FidelErnesto03"
+    labels:
+      - "dependencies"
+      - "security"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    groups:
+      # Group dev-only dependencies (pytest, ruff, build, twine, etc.)
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group production dependencies separately
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+    # Major version bumps get their own PR (higher risk)
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions dependencies (ci.yml uses actions/checkout, actions/setup-python, etc.)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "chore(ci-deps)"
+      include: "scope"

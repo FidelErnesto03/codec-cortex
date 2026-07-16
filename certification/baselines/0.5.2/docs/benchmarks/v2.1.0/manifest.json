@@ -1,0 +1,97 @@
+{
+  "benchmark_version": "2.1.0",
+  "previous_version": "1.0.0",
+  "generated_at": "2026-06-30",
+  "executor": "run_benchmark.py v2.0.0",
+  "codec_cortex_version": "0.3.2",
+  "cli_version": "0.3.2",
+  "harness_version": "2.1.0",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "linux",
+    "tokenizer_proxy": "char-based (1 token ≈ 3.5-4.0 chars depending on format)"
+  },
+  "methods": [
+    "recent_tail_raw",
+    "head_tail_raw",
+    "head_json",
+    "head_markdown_summary",
+    "semantic_field_pack",
+    "keyword_retrieval_raw",
+    "cortex_priority_pack_v1",
+    "cortex_priority_pack",
+    "cortex_canonical",
+    "cortex_ablation_no_P0",
+    "cortex_ablation_no_temporal"
+  ],
+  "scenarios": [
+    "full",
+    "reduced_window_512",
+    "reduced_window_1024",
+    "reduced_window_2048",
+    "reduced_window_4096",
+    "middle_work_adversarial",
+    "stale_state_conflict",
+    "blocking_constraint_survival",
+    "unsupported_claim_suppression",
+    "corrupted_memory_tolerance",
+    "multi_instance_sigil"
+  ],
+  "metrics": [
+    "EAS",
+    "ETC",
+    "F1",
+    "DA",
+    "Avg_CT",
+    "P0_survival",
+    "P1_survival",
+    "BCFNR",
+    "UCFPR",
+    "CFCR",
+    "STR",
+    "BVR",
+    "MRD",
+    "QDD",
+    "ED",
+    "VIEW_coverage",
+    "reversibility",
+    "bidir_equivalence",
+    "loss_count"
+  ],
+  "budgets": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "seeds": [
+    "deterministic-no-randomness"
+  ],
+  "llm_phase": "not_executed (deterministic only per protocol §11.2)",
+  "new_in_v2": {
+    "methods": [
+      "cortex_priority_pack",
+      "cortex_canonical"
+    ],
+    "metrics": [
+      "VIEW_coverage",
+      "reversibility",
+      "bidir_equivalence",
+      "loss_count"
+    ],
+    "cli_commands_used": [
+      "convert",
+      "verify-view",
+      "roundtrip-bidir",
+      "canonicalize",
+      "explain-loss"
+    ]
+  },
+  "totals": {
+    "methods": 11,
+    "scenarios": 11,
+    "cases": 10,
+    "tasks": 40,
+    "runs": 4840
+  }
+}

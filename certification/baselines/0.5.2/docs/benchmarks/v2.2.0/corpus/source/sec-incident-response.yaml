@@ -1,0 +1,37 @@
+identity:
+  name: ir-agent-v1
+  role: incident response
+  team: soc-tier2
+domain:
+  area: sec-incident
+  severity: high
+  incident_id: INC-2026-0628-003
+constraints:
+  - id: containment_sla
+    rule: containment must initiate within 15min of detection
+    severity: blocking
+    survive: min
+  - id: evidence
+    rule: forensic evidence must be preserved before any destructive action
+    severity: blocking
+    survive: min
+  - id: approval
+    rule: destructive actions require SOC lead approval
+    severity: blocking
+    survive: min
+focus:
+  what: Responder a exfiltracion credenciales INC-2026-0628-003
+  status: current
+  survive: min
+objective:
+  goal: Contener incidente preservando evidencia y rotando credenciales
+  status: in_progress
+  survive: min
+work:
+  phase: containment
+  current: host win-7E-3 marcado para aislamiento, captura memoria pendiente
+  blocked: false
+step:
+  action: Ejecutar memory dump antes de isolation
+  status: current
+  survive: min

@@ -1,0 +1,215 @@
+{
+  "version": "2.2.0",
+  "metrics": [
+    {
+      "id": "EAS",
+      "name": "Exact Answer Score",
+      "type": "binary",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "ETC",
+      "name": "Expected Term Coverage",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "F1",
+      "name": "Gold Overlap F1",
+      "type": "f1",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "DA",
+      "name": "Decision Accuracy",
+      "type": "binary",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "Avg_CT",
+      "name": "Average Context Tokens",
+      "type": "count",
+      "range": "0..inf",
+      "higher_better": false,
+      "status": "canonical"
+    },
+    {
+      "id": "P0_survival",
+      "name": "P0 Survival Rate",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "P1_survival",
+      "name": "P1 Survival Rate",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "BCFNR",
+      "name": "Blocking Constraint False Negative Rate",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": false,
+      "status": "canonical",
+      "ideal": 0
+    },
+    {
+      "id": "UCFPR",
+      "name": "Unsupported Claim False Positive Rate",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": false,
+      "status": "canonical",
+      "ideal": 0
+    },
+    {
+      "id": "CFCR",
+      "name": "Current/Future Confusion Rate",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": false,
+      "status": "canonical",
+      "ideal": 0
+    },
+    {
+      "id": "STR",
+      "name": "Source Traceability Rate",
+      "type": "binary",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "BVR",
+      "name": "Budget Violation Rate",
+      "type": "binary",
+      "range": "0..1",
+      "higher_better": false,
+      "status": "canonical",
+      "ideal": 0
+    },
+    {
+      "id": "MRD",
+      "name": "Middle Recovery Delta",
+      "type": "delta",
+      "range": "-inf..inf",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "QDD",
+      "name": "Query Dependency Delta",
+      "type": "delta",
+      "range": "-inf..inf",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "ED",
+      "name": "Evidence Density",
+      "type": "ratio",
+      "range": "0..inf",
+      "higher_better": true,
+      "status": "canonical"
+    },
+    {
+      "id": "VIEW_coverage",
+      "name": "VIEW Coverage Rate",
+      "type": "ratio",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.0.0"
+    },
+    {
+      "id": "reversibility",
+      "name": "Reversibility Rate",
+      "type": "binary",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.0.0"
+    },
+    {
+      "id": "bidir_equivalence",
+      "name": "Bidirectional Equivalence",
+      "type": "binary",
+      "range": "0..1",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.0.0"
+    },
+    {
+      "id": "loss_count",
+      "name": "Loss Explanation Count",
+      "type": "count",
+      "range": "0..inf",
+      "higher_better": false,
+      "status": "canonical",
+      "introduced_in": "2.0.0"
+    },
+    {
+      "id": "learn_candidates",
+      "name": "Learning Candidates Detected",
+      "type": "count",
+      "range": "0..inf",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.2.0",
+      "engine": "CLE v0.1.0"
+    },
+    {
+      "id": "learn_promotion_score",
+      "name": "Learning Promotion Score (avg)",
+      "type": "ratio",
+      "range": "0..inf",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.2.0",
+      "engine": "CLE v0.1.0"
+    },
+    {
+      "id": "learn_elevations",
+      "name": "Learning Elevation Candidates",
+      "type": "count",
+      "range": "0..inf",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.2.0",
+      "engine": "CLE v0.1.0"
+    },
+    {
+      "id": "learn_hotness_avg",
+      "name": "Learning Hotness Score (avg)",
+      "type": "ratio",
+      "range": "0..inf",
+      "higher_better": true,
+      "status": "canonical",
+      "introduced_in": "2.2.0",
+      "engine": "CLE v0.1.0"
+    },
+    {
+      "id": "secret_count",
+      "name": "Secrets Detected (E2)",
+      "type": "count",
+      "range": "0..inf",
+      "higher_better": false,
+      "status": "canonical",
+      "introduced_in": "2.2.0",
+      "engine": "E2 Security v0.3.4"
+    }
+  ]
+}

@@ -8,11 +8,71 @@ All notable changes to CODEC-CORTEX will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.5.0] — 2026-07-09
+## [0.6.0] — 2026-07-16
+
+### Added
+
+- **CLI `--output json` flag**: nuevo flag canónico para comandos de datos (`session`, `learn`, `repair`). Disponible como `--output json` o `--json` (backward compat). Aplica a session (8 subcomandos), learn (12+ subcomandos), repair.
+- **CLI `--output text` flag**: formato texto explícito (default). Permite `--output json` → `--output text` para scripting.
+- **README bilingüe ES/EN**: sección completa en español con resumen, cómo funciona, inicio rápido, comandos CLI y licencia. El contenido original en inglés se mantiene en la sección superior.
+- **46 nuevos tests CLI**: cobertura completa de AC-01 (`--help` en 31 comandos), AC-02 (kebab-case en todos los flags), AC-03 (`--output json` parseable en 11+ subcomandos).
+- **Matriz de certificación**: documentación formal de verificación de ACs para BLP-001~BLP-005.
+
+### Changed
+
+- **CLI flags**: `--output {text, json}` agregado al parser global y a subcomandos `cortex session` y `cortex learn`.
+- **`_json_mode` en learning CLI**: ahora reconoce `args.output`, `args._output_mode` y `args._json_mode` (triple gate para compatibilidad).
+- **`_json_mode` en session CLI**: mismo triple gate para interoperabilidad con flags globales y locales.
+- **README.md**: Enterprise Readiness actualizado con runtime sessions y global CLI flags.
+- **CHANGELOG.md**: entries v0.5.1, v0.5.2, v0.6.0a3, v0.6.0a4, v0.6.0 añadidos.
+
+### Fixed
+
+- **Global `--output json` propagation**: `main.py` stashea `_output_mode` en args para que subcomandos puedan leerlo.
+- **Session `--help` descriptions**: actualizadas para mostrar `--output` en lugar de solo `--json`.
+
+## [0.6.0a3] — 2026-07-11
+
+### Added
+
+- **M2 — Identidad y empaquetado**: distribucion PyPI con src/ layout, entry points, metadata completa.
+- **Unified distribution**: `v0.6.0a3` publicado como wheel/ sdist desde `src/` canonical.
+- **Baseline capture**: certificación R0/R1 con snapshots de estructura del proyecto.
+
+### Changed
+
+- **Structural**: reubicación de todo el código de `cli/` a `src/cortex/` (src layout estándar PyPA).
+- **Scope freeze**: M0/M1 congelan alcance para v0.6.0 release train.
+
+## [0.5.2] — 2026-07-10
+
+### Fixed
+
+- **`cortex file-validate`**: renombra entradas duplicadas aunque el parser emita E032/E034 (legacy E0 format). Anteriormente, errores de validación temprana impedían el rename automático.
+
+## [0.5.1] — 2026-07-09
+
+### Added
+
+- **BLP-005**: nueva regla de formato: una línea física por entrada no-DIAG (parser + writer adaptados).
+- **`cortex benchmark`**: registrado como comando oficial en CLI (`main.py`). Anteriormente estaba definido como módulo pero no en el parser.
+
+### Fixed
+
+- **CI pipeline**: fixture `multi_entry_semantic` corregida para ser CORTEX-válida.
+- **Ruff lint**: 8 errores residuales en `test_blp005_one_line.py` corregidos.
+
+### Changed
+
+- **Version bump**: 0.5.0 → 0.5.1.
 
 ### Added
 
 - **New project vision**: CODEC-CORTEX redefinido como "Universal Communication Protocol for LLM/SLM Agents" — un codec de compresión de conocimiento en 3 capas (Syntax → Transport → Knowledge).
+
+## [0.5.0] — 2026-07-09
+
+### Added
 - **Documented roadmap**: Fase 1 (File CODEC ✅), Fase 2 (Stream CODEC / MCP 🚧), Fase 3 (Database CODEC 🔮).
 - **CORTEX ≠ ArqUX distinction**: documentado formalmente que los niveles de documento pertenecen al framework de gobernanza, no al formato.
 - **Auto-numbering design**: BLP-003 con contador secuencial por sección para evitar duplicados de nombre en .cortex.

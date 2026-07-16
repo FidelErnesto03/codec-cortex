@@ -1,0 +1,56 @@
+@startuml
+title Panorama comparativo: CODEC-CORTEX vs alternativas
+
+skinparam rectangle {
+  BackgroundColor<<cortex>> #DBEAFE
+  BackgroundColor<<alt>> #F1F5F9
+  BackgroundColor<<hybrid>> #FEF3C7
+  BorderColor #1E40AF
+}
+skinparam shadowing false
+
+rectangle "Memoria Estructurada Determinista" as fam1 {
+  rectangle "CODEC-CORTEX\n(.cortex + HCORTEX + CLI)\nPriority pack P0-P5\nDeterministic, auditable" as cc <<cortex>>
+  rectangle "JSON-Schema Memory\nFixed schema, positional" as js <<alt>>
+  rectangle "YAML front-matter\nLightweight, structural" as ym <<alt>>
+}
+
+rectangle "Memoria Gestionada por LLM" as fam2 {
+  rectangle "MemGPT / Letta\nPaginated memory + LLM\nrecall" as mg <<alt>>
+  rectangle "LangChain Memory\nSummary/Buffer/Vector" as lc <<alt>>
+  rectangle "A-MEM (Zettelkasten)\nLinked episodic notes" as am <<alt>>
+}
+
+rectangle "Memoria Recuperada (RAG)" as fam3 {
+  rectangle "Vector RAG\nChromaDB/Pinecone +\nembedding similarity" as vr <<alt>>
+  rectangle "GraphRAG\nKnowledge graph +\nentity retrieval" as gr <<alt>>
+}
+
+rectangle "Protocolos de Contexto" as fam4 {
+  rectangle "MCP (Anthropic)\nTool/context exposure\nprotocol" as mcp <<hybrid>>
+}
+
+note right of cc
+  Objetivo: preservacion determinista
+  de evidencia operacional.
+  Sin LLM en el codec.
+end note
+
+note right of mg
+  Objetivo: memoria ilimitada
+  via paginacion LLM.
+  Requiere LLM en runtime.
+end note
+
+note right of vr
+  Objetivo: recuperacion
+  por similitud semantica.
+  Requiere embeddings.
+end note
+
+note right of mcp
+  Objetivo: exposicion
+  estandar de contexto/herramientas.
+  No define memoria estructurada.
+end note
+@enduml

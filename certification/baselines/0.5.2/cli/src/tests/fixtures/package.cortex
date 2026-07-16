@@ -1,0 +1,35 @@
+$0: MINIMAL LOCAL GLOSSARY
+
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs  | B | Semantic        | Package identity
+# DOM   | domain     | attrs  | B | Semantic        | Scope and purpose
+# KNW   | knowledge  | attrs  | B | Semantic        | Compressed knowledge
+# REF   | reference  | attrs  | B | Semantic        | Source or traceability reference
+# LIM   | limit      | attrs  | M | Prefrontal      | Explicit operational limit
+# CLAIM | claim      | attrs  | M | Prefrontal      | Verifiable assertion
+# DIAG  | diagram    | bloque | M | Episodic/Visual | Verbatim diagram block
+# STAT  | status     | attrs  | B | Semantic        | Status declaration
+#
+# Types:
+# attrs = key:value pairs
+# bloque = verbatim multiline block
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# ok=success fail=failure part=partial
+
+$1: PACKAGE IDENTITY
+
+IDN:package{name:"context_package", version:"0.1.0", status:"current"}
+DOM:scope{area:"specific domain", owner:"source", purpose:"context injection"}
+
+$2: CONTENT
+
+KNW:topic{topic:"domain concept", content:"compressed knowledge", status:"current"}
+REF:source{PATH:"source.md", purpose:"traceability"}
+
+$3: LIMITS
+
+LIM:package_lifecycle{limit:"package does not mature by itself until formally absorbed by Level 2", scope:"level_3", status:"current"}
+CLAIM:self_contained{statement:"This package includes its own minimal $0 for safe initial interpretation.", evidence:"$0 section present", status:"current"}

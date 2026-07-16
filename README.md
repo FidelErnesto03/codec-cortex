@@ -19,14 +19,16 @@
   <a href="#-how-it-works">How It Works</a> •
   <a href="#-roadmap">Roadmap</a> •
   <a href="#-quick-start">Quick Start</a> •
-  <a href="#-documentation">Documentation</a>
+  <a href="#-documentation">Documentation</a> •
+  <a href="#-project-structure">Project Structure</a> •
+  <a href="#-español">🇪🇸 Español</a>
 </p>
 
 ---
 
 ## 📋 Overview
 
-**CODEC-CORTEX is a compression protocol for agent knowledge.**  
+**CODEC-CORTEX is a compression protocol for agent knowledge.**
 
 Just as H.264 compresses video frames into a bitstream for efficient transmission, CODEC-CORTEX compresses agent state — context, lessons, objectives, working memory — into a dense sigil format that LLMs and SLMs can transmit, store, and reconstruct with minimal token overhead.
 
@@ -119,7 +121,7 @@ Phase 1: File CODEC — ✅ Active
 ┌─────────────────────────────────────────────────────────────┐
 │ • Parser (core + v2)    • Validator (E023-E034)             │
 │ • HCORTEX renderer      • Learning engine (LNG → KNW)      │
-│ • CLI (17 commands)     • 222+ tests                       │
+│ • CLI (17 commands)     • 695+ tests                       │
 │ • Auto-numbering        • .cortex persistence              │
 └─────────────────────────────────────────────────────────────┘
 
@@ -193,7 +195,7 @@ The project documentation is organized under `docs/`:
 | [`docs/releases/`](docs/releases/) | Delivery reports per version (v0.3.0 → v2.4.0) |
 | [`docs/verification/`](docs/verification/) | Audit and verification reports |
 | [`docs/benchmarks/`](docs/benchmarks/) | Performance benchmarks and analysis |
-| [`docs/proposals/`](docs/proposals/) | Strategic proposals and business plans |
+| [`docs/proposals/](docs/proposals/) | Strategic proposals and business plans |
 | [`docs/archive/`](docs/archive/) | Historical or orphan documents |
 
 Key documents:
@@ -233,10 +235,11 @@ codec-cortex/
 | Capability | Status | Details |
 |---|---|---|
 | Deterministic parser | ✅ | Zero LLM calls for parse/encode/decode/verify |
-| Full validation suite | ✅ | 200+ tests, strict mode |
-| CLI with 17 commands | ✅ | verify, render, convert, CRUD, doctor, diff, format, diagram |
+| Full validation suite | ✅ | 695+ tests, strict mode |
+| CLI with 28+ commands | ✅ | verify, render, convert, CRUD, doctor, diff, format, diagram, session, learn |
 | Learning engine | ✅ | SES → LNG → KNW elevation pipeline |
-| Auto-numbering | 🚧 | BLP-003 in progress |
+| Runtime sessions | ✅ | Session lifecycle (start → event → consolidate → close) |
+| Global CLI flags | ✅ | `--output json`, `--json`, `--mode`, `--yes`, `--version` |
 | MCP server | 🚧 | Phase 2: Stream CODEC |
 | ACP integration | 📋 | Phase 2/3 |
 | LSP language server | 📋 | Phase 3 |
@@ -258,6 +261,143 @@ The CODEC-CORTEX name, logo, visual identity and related marks are not licensed 
     Designed by <a href="https://github.com/FidelErnesto03">Fidel Ernesto Lozada A.</a>
     ·
     Systems Engineer / MSc. Management Sciences
+    ·
+    <a href="LICENSE">MPL-2.0</a>
+  </sub>
+</p>
+
+---
+
+## 🇪🇸 Español
+
+<p align="center">
+  <sub>Versión en español — <a href="#-overview">English version above</a></sub>
+</p>
+
+---
+
+### 📋 Resumen
+
+**CODEC-CORTEX es un protocolo de compresión para el conocimiento de agentes de IA.**
+
+Así como H.264 comprime frames de video en un flujo de bits para transmisión eficiente, CODEC-CORTEX comprime el estado de un agente — contexto, lecciones, objetivos, memoria de trabajo — en un formato denso de sigilos que los LLMs y SLMs pueden transmitir, almacenar y reconstruir con gasto mínimo de tokens.
+
+| Métrica | Texto plano | CODEC-CORTEX | Compresión |
+|---|---|---|---|
+| Estado de sesión | ~250 tokens | ~28 tokens | **~8×** |
+| Lección (LNG) | ~80 tokens | ~12 tokens | **~6×** |
+| Conocimiento (KNW) | ~120 tokens | ~20 tokens | **~6×** |
+| Cerebro completo | ~3,500 tokens | ~450 tokens | **~7×** |
+
+La compresión real es **semántica**. El [motor de aprendizaje](docs/reference/learning-engine-spec.md) destila múltiples lecciones específicas (LNG) en conocimiento general (KNW) — una **compresión de segundo orden** que se acumula entre sesiones.
+
+```
+           SES (Sesiones)                        ~250 tokens
+              ↓ cortex.learn
+           LNG (Lecciones)    ~8:1 compresión     ~30 tokens
+              ↓ elevate
+           KNW (Conocimiento) ~5:1 compresión      ~6 tokens
+                                         ─────────────
+                          Total:     ~40:1 compresión semántica
+```
+
+---
+
+### 🏗️ Cómo Funciona
+
+CODEC-CORTEX opera en tres capas independientes:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    PROTOCOLO CODEC-CORTEX                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Capa 3: Conocimiento (Compresión Semántica)                │
+│  ────────────────────────────────────────────               │
+│  Motor: cortex.learn / elevate                              │
+│  Transforma: muchas LNG → una KNW                           │
+│  Propósito: aprendizaje compuesto entre sesiones            │
+│                                                             │
+│  Capa 2: Transporte (MCP / Archivo / ACP)                   │
+│  ────────────────────────────────────────────               │
+│  MCP: codificación/decodificación en tiempo real            │
+│  Archivo: persistencia .cortex en disco                     │
+│  ACP: delegación entre agentes                              │
+│                                                             │
+│  Capa 1: Representación (Sintaxis de Sigilos)               │
+│  ────────────────────────────────────────────               │
+│  Sigilos: FCS, OBJ, WRK, LNG, KNW, SES...                  │
+│  Tipos: attrs, cuerpo, attrs-pos                            │
+│  Secciones: $0 a $N                                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 🚀 Inicio Rápido
+
+```bash
+pip install codec-cortex
+cortex --version
+```
+
+Requiere Python ≥ 3.9.
+
+```bash
+# Crear el cerebro de tu agente
+cp docs/reference/SKILL.cortex brain.cortex
+
+# Verificarlo
+cortex verify brain.cortex
+
+# Escribir tu enfoque
+cortex edit brain.cortex --section 2 --set "what:Mi objetivo actual"
+
+# Renderizar como legible
+cortex render brain.cortex --mode readable
+```
+
+---
+
+#### Comandos del CLI
+
+| Comando | Descripción |
+|---|---|
+| `cortex session start` | Iniciar sesión de trabajo |
+| `cortex session status` | Estado de sesión activa |
+| `cortex learn scan` | Escanear cerebro en busca de candidatos |
+| `cortex learn elevate` | Elevar lecciones a conocimiento |
+| `cortex render` | Renderizar .cortex a HCORTEX legible |
+| `cortex verify` | Validar archivo .cortex |
+| `cortex doctor` | Diagnosticar integridad del workspace |
+| `cortex --output json <comando>` | Salida JSON para integración |
+
+---
+
+### 📚 Documentación en Español
+
+| Documento | Descripción |
+|---|---|
+| [`docs/reference/SKILL.md`](docs/reference/SKILL.md) | Especificación completa del protocolo CORTEX |
+| [`docs/reference/cortex-codec-roadmap.md`](docs/reference/cortex-codec-roadmap.md) | Visión del protocolo y hoja de ruta |
+| [`docs/reference/learning-engine-spec.md`](docs/reference/learning-engine-spec.md) | Especificación del motor de aprendizaje |
+
+---
+
+### 📄 Licencia
+
+A partir de CODEC-CORTEX v0.4.0, el núcleo del proyecto se publica bajo la **Mozilla Public License 2.0 (MPL-2.0)**.
+
+Las versiones anteriores publicadas bajo licencia MIT permanecen disponibles bajo sus términos originales.
+
+---
+
+<p align="center">
+  <sub>
+    Diseñado por <a href="https://github.com/FidelErnesto03">Fidel Ernesto Lozada A.</a>
+    ·
+    Ingeniero de Sistemas / MSc. Ciencias de Gestión
     ·
     <a href="LICENSE">MPL-2.0</a>
   </sub>
