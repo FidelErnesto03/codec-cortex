@@ -1,3 +1,38 @@
+Metadata-Version: 2.4
+Name: codec-cortex
+Version: 0.6.0a2.dev0+gc36e6f3e8.d20260716
+Summary: CODEC-CORTEX — Universal Communication Protocol for LLM/SLM Agents. Compresses agent knowledge via deterministic sigil codec with semantic learning engine (SES→LNG→KNW).
+Author-email: "Fidel Ernesto Lozada A." <fidelernesto@gmail.com>
+License: MPL-2.0
+Project-URL: Homepage, https://github.com/FidelErnesto03/codec-cortex
+Project-URL: Documentation, https://github.com/FidelErnesto03/codec-cortex/blob/main/docs/README.md
+Project-URL: Repository, https://github.com/FidelErnesto03/codec-cortex
+Project-URL: Issues, https://github.com/FidelErnesto03/codec-cortex/issues
+Keywords: cortex,codec,llm,agent,memory,compression,cognitive,protocol,deterministic,slm,context,cag,rag,puml,hcortex
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS.md
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1; extra == "dev"
+Dynamic: license-file
+
 <!-- SPDX-FileCopyrightText: 2026 Fidel Ernesto Lozada A. -->
 <!-- SPDX-License-Identifier: MPL-2.0 -->
 
