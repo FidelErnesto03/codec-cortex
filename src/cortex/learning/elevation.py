@@ -19,11 +19,14 @@ can — but only with explicit user confirmation at the CLI layer.
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..core.ast import CortexDocument, Entry, normalize_section_id
 from ..core.parser import build_entry_from_value, parse_cortex
+from ..core.transactions import MutationPlan, execute_transaction
 from ..core.writer import write_cortex
 from .candidates import Candidate
 from .errors import (
@@ -335,7 +338,7 @@ def apply_patch(
       (used when the user has already confirmed at the CLI layer).
 
     Returns a dict with keys: ``mode``, ``applied``, ``diff``,
-    ``new_entry_selector``.
+    ``new_entry_selector``, and transaction provenance.
     """
 
     if patch.mode == "block":
@@ -358,50 +361,58 @@ def apply_patch(
                 LE013_DRY_RUN_REQUIRED,
                 "apply mode requires --confirm (or apply_confirmed)",
             )
-        # Mutate the AST in memory
-        target_sec = brain_doc.get_or_create_section(
-            patch.target_section, title=_section_title_for(patch.target_section),
-        )
-        # Avoid duplicate entries: if an entry with the same sigil+name
-        # already exists, replace it; otherwise append.
+        
+        # Build the new entry
+        target_sec_id = normalize_section_id(patch.target_section)
         new_entry = build_entry_from_value(
-            target_sec.id,
+            target_sec_id,
             patch.new_entry_sigil,
             patch.new_entry_name,
             "attrs",
             patch.new_entry_value,
         )
-        replaced = False
-        for i, e in enumerate(target_sec.entries):
-            if e.sigil == new_entry.sigil and e.name == new_entry.name:
-                target_sec.entries[i] = new_entry
-                replaced = True
-                break
-        if not replaced:
-            target_sec.entries.append(new_entry)
-        # Verify the mutated AST still parses
-        new_text = write_cortex(brain_doc)
-        # Re-parse to validate
-        try:
-            parse_cortex(new_text)
-        except Exception as e:
+        
+        # Create mutation plan for TransactionService
+        plan = MutationPlan(
+            operation="add",
+            section_id=target_sec_id,
+            new_entry=new_entry,
+            reason=patch.reason,
+            metadata={
+                "policy_id": patch.policy_id,
+                "promotion_score": patch.promotion_score,
+                "source_entries": list(patch.source_entries),
+                "target_layer": patch.target_layer,
+            },
+        )
+        
+        # Execute transaction with CAS, backup, and validation
+        result = execute_transaction(
+            workspace.brain_path,
+            plan,
+            create_backup=True,
+            validate_fn=lambda doc: [],  # No additional validation beyond parse
+            dry_run=False,
+        )
+        
+        if not result.success:
             raise LearningError(
                 LE008_ELEVATION_BLOCKED,
-                f"post-mutation parse failed: {e}",
+                result.error or "Transaction failed",
             )
-        # Atomic write
-        tmp = workspace.brain_path.with_suffix(workspace.brain_path.suffix + ".tmp")
-        tmp.write_text(new_text, encoding="utf-8")
-        tmp.replace(workspace.brain_path)
-        # Rebuild index
+        
+        # Rebuild index after successful transaction
         idx = rebuild_for_workspace(workspace)
+        
         return {
             "mode": mode,
             "applied": True,
             "diff": render_diff(brain_doc, patch),
             "new_entry_selector": f"{patch.new_entry_sigil}:{patch.new_entry_name}",
             "new_index_entries": len(idx.entries),
+            "transaction": result.to_dict(),
         }
+    
     raise LearningError(
         LE008_ELEVATION_BLOCKED,
         f"unknown apply mode {mode!r}",

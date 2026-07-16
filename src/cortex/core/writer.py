@@ -89,8 +89,16 @@ def serialize_attrs_pos(attrs: Dict[str, Any], contract: AttrsPosContract) -> st
     return " | ".join(parts)
 
 
-def serialize_entry_value(value: Any, type_: str) -> str:
-    """Serialise the *body* of an entry (content between braces)."""
+def serialize_entry_value(value: Any, type_: str, preserve_multiline: bool = True) -> str:
+    """Serialise the *body* of an entry (content between braces).
+    
+    Args:
+        value: The entry value to serialize
+        type_: The entry type (attrs, attrs-pos, cuerpo, bloque, relación)
+        preserve_multiline: If True, preserve newlines verbatim (CP-03 compliance).
+                           Default True for v0.6.0+ to ensure backward compatibility.
+                           If False, use legacy collapse behavior for non-DIAG.
+    """
 
     if type_ == "attrs":
         return serialize_attrs(value) if isinstance(value, dict) else ""
@@ -99,15 +107,28 @@ def serialize_entry_value(value: Any, type_: str) -> str:
         return serialize_attrs(value) if isinstance(value, dict) else ""
     if type_ == "cuerpo":
         text = str(value) if value is not None else ""
+        if preserve_multiline:
+            return text
         return _collapse_newlines(text)
     if type_ == "bloque":
         text = str(value) if value is not None else ""
-        # Ensure a leading newline if the bloque spans multiple lines
+        if preserve_multiline:
+            # Ensure proper newline boundaries for multiline blocks
+            if "\n" in text:
+                if not text.startswith("\n"):
+                    text = "\n" + text
+                if not text.endswith("\n"):
+                    text = text + "\n"
+                return text
+            return text
+        # Legacy behavior: ensure leading newline if multiline, then collapse
         if "\n" in text:
-            return "\n" + text + "\n"
+            return "\n" + _collapse_newlines(text) + "\n"
         return text
     if type_ == "relación":
         text = str(value) if value is not None else ""
+        if preserve_multiline:
+            return text
         return _collapse_newlines(text)
     # Unknown type — fallback to attrs
     return serialize_attrs(value) if isinstance(value, dict) else str(value or "")
@@ -126,16 +147,23 @@ def _collapse_newlines(text: str) -> str:
     return " ".join(line for line in lines if line)
 
 
-def serialize_entry(entry: Entry, glossary: Glossary | None = None) -> str:
-    """Serialise a single :class:`Entry` to canonical ``.cortex`` text."""
+def serialize_entry(entry: Entry, glossary: Glossary | None = None, preserve_multiline: bool = True) -> str:
+    """Serialise a single :class:`Entry` to canonical ``.cortex`` text.
+    
+    Args:
+        entry: The entry to serialize
+        glossary: Optional glossary for attrs-pos contract lookup
+        preserve_multiline: If True, preserve newlines verbatim (CP-03 compliance).
+                           Default True for v0.6.0+ to ensure backward compatibility.
+    """
 
     if entry.type == "attrs-pos" and glossary is not None:
         contract = glossary.contract_for(entry.sigil)
         if contract is not None:
             body = serialize_attrs_pos(entry.value, contract)
             return f"{entry.sigil}:{entry.name}{{{body}}}"
-    body = serialize_entry_value(entry.value, entry.type)
-    if entry.type == "bloque" and "\n" in body:
+    body = serialize_entry_value(entry.value, entry.type, preserve_multiline=preserve_multiline)
+    if entry.type == "bloque" and "\n" in body and not preserve_multiline:
         if entry.sigil == "DIAG":
             # DIAG is the sole multiline exception — preserve verbatim
             if not body.startswith("\n"):
@@ -143,7 +171,7 @@ def serialize_entry(entry: Entry, glossary: Glossary | None = None) -> str:
             if not body.endswith("\n"):
                 body = body + "\n"
             return f"{entry.sigil}:{entry.name}{{{body}}}"
-        # Non-DIAG bloque must be single line per BLP-005 rule 1
+        # Non-DIAG bloque must be single line per BLP-005 rule 1 (legacy behavior)
         body = _collapse_newlines(body)
     return f"{entry.sigil}:{entry.name}{{{body}}}"
 
@@ -225,12 +253,17 @@ CANONICAL_MICRO_ORDER = [
 # Document serialisation
 # ---------------------------------------------------------------------------
 
-def write_cortex(doc: CortexDocument) -> str:
+def write_cortex(doc: CortexDocument, preserve_multiline: bool = True) -> str:
     """Serialise a :class:`CortexDocument` to canonical ``.cortex`` text.
 
     The ``$0`` glossary section is ALWAYS regenerated from
     ``doc.glossary`` so mutations are reflected in the output.  Other
     sections preserve their comments verbatim.
+    
+    Args:
+        doc: The document to serialize
+        preserve_multiline: If True, preserve newlines verbatim in cuerpo/bloque/relación (CP-03).
+                           Default True for v0.6.0+ to ensure backward compatibility.
     """
 
     out: List[str] = []
@@ -249,7 +282,7 @@ def write_cortex(doc: CortexDocument) -> str:
         for entry in sec0.entries:
             if entry.sigil in {"GSIG", "GTYP", "GMIC", "GCON"}:
                 continue
-            out.append(serialize_entry(entry, doc.glossary))
+            out.append(serialize_entry(entry, doc.glossary, preserve_multiline=preserve_multiline))
         out.append("")
 
     # Other sections
@@ -264,7 +297,7 @@ def write_cortex(doc: CortexDocument) -> str:
             out.extend(sec.comments)
             out.append("")
         for entry in sec.entries:
-            out.append(serialize_entry(entry, doc.glossary))
+            out.append(serialize_entry(entry, doc.glossary, preserve_multiline=preserve_multiline))
         out.append("")
 
     # Trailing newline
