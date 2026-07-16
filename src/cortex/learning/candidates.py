@@ -10,7 +10,7 @@ SPEC forbids).
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 
 from ..core.ast import CortexDocument, Entry
 from .errors import LE009_CANDIDATE_NOT_FOUND, LearningError
@@ -190,8 +190,8 @@ def explain_candidate(
 
     for c in candidates:
         if c.candidate_id == candidate_id:
-            recs = [idx.entries.get(s) for s in c.source_entries]
-            recs = [r for r in recs if r is not None]
+            raw_recs = [idx.entries.get(s) for s in c.source_entries]
+            recs = cast("list[ScoreRecord]", [r for r in raw_recs if r is not None])
             return {
                 "candidate": c.to_dict(),
                 "entries": [r.to_dict() for r in recs],

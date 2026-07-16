@@ -69,7 +69,7 @@ class CortexV2Document:
                 return s
         return None
 
-    def get_entries(self, section_id: str = None, sigil: str = None) -> List[V2Entry]:
+    def get_entries(self, section_id: str | None = None, sigil: str | None = None) -> List[V2Entry]:
         result = []
         for sec in self.sections:
             if section_id and sec.id != section_id:

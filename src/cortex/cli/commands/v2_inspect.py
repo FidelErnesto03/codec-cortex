@@ -13,6 +13,8 @@ import json
 import os
 from collections import Counter
 
+from typing import Any
+
 from ...core.errors import CortexError
 from ...v2.parser import parse_cortex_v2
 from ...v2.view import parse_view_entries_from_doc, calculate_view_coverage
@@ -26,6 +28,8 @@ def run(args) -> int:
         text = f.read()
 
     is_hcortex = "internal_encoding: HCORTEX" in text
+
+    result: dict[str, Any]
 
     if is_hcortex:
         # For HCORTEX, parse and report blocks

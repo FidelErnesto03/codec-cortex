@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import os
 import sys
+from typing import Any
 
 from ...core.errors import CortexError
 from ...v2.parser import parse_cortex_v2
@@ -92,7 +93,7 @@ def run(args) -> int:
         hdoc = parse_hcortex(text, strict=strict)
         doc, enc_diags = encode_cortex_from_ast(hdoc, mode=mode)
 
-        all_diags = list(hdoc.diags) + list(enc_diags)
+        all_diags: list[Any] = list(hdoc.diags) + list(enc_diags)
         errors = [d for d in all_diags if d.severity == "error"]
         warnings = [d for d in all_diags if d.severity == "warning"]
 

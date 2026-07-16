@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Literal, Optional, overload
 
 from ...core.ast import CortexDocument
 from ...core.parser import parse_cortex
@@ -15,17 +15,36 @@ from ...core.errors import CortexError
 from ...core.validator import validate
 
 
-def load_doc(path: str) -> CortexDocument:
+@overload
+def load_doc(path: str, return_handle: Literal[False] = False) -> CortexDocument: ...
+@overload
+def load_doc(path: str, return_handle: Literal[True]) -> tuple[CortexDocument, Any]: ...
+
+
+def load_doc(path: str, return_handle: bool = False) -> CortexDocument | tuple[CortexDocument, Any]:
     """Read a .cortex file and parse it into a :class:`CortexDocument`.
 
     Handles both v1 (bare CORTEX) and v2 (markdown-wrapped with
     <!-- CODEC-CORTEX --> header) formats. For v2, uses the v2 parser
     and converts to v1 document format for compatibility with v1
     validation, CRUD, and CLI commands.
+
+    When ``return_handle=True``, returns ``(doc, DocumentHandle)``.
     """
 
     if not os.path.exists(path):
         raise CortexError("E013_NOT_FOUND", f"file not found: {path}")
+
+    if return_handle:
+        from ...core.document_handle import adapter_for
+
+        text = _read_file(path)
+        dialect = _detect_dialect(text)
+        adapter = adapter_for(dialect)
+        handle = adapter.load(path)
+        doc = handle.ast if isinstance(handle.ast, CortexDocument) else _downcast_to_v1(handle, text, path)
+        return doc, handle
+
     with open(path, "r", encoding="utf-8") as f:
         text = f.read()
 
@@ -51,7 +70,6 @@ def load_doc(path: str) -> CortexDocument:
     v2_doc = parse_cortex_v2(inner)
 
     # Convert v2 doc to v1-compatible CORTEX text directly
-    # (bypass write_cortex_v2 which outputs v2 format with wrapper/header)
     v1_parts: list[str] = []
     for sec in v2_doc.sections:
         v1_parts.append(sec.id)
@@ -77,12 +95,9 @@ def load_doc(path: str) -> CortexDocument:
         v1_parts.append("")
     v1_text = "\n".join(v1_parts)
 
-    # v1.1.3: If $0 has no entries (v2 parser didn't capture comment-based
-    # glossary declarations), inject them from the original text.
-    if not v2_doc.get_section("$0") or not v2_doc.get_section("$0").entries:
+    zero_section = v2_doc.get_section("$0")
+    if not zero_section or not zero_section.entries:
         from ...core.parser import _GLOSSARY_DECL_RE as _GD_R1, _CONTRACT_RE, _TYPE_DECL_RE, _MICRO_PAIR_RE
-        # Scan original inner text for comment-based glossary declarations
-        # These are lines like: # IDN | identity | attrs | B | Semantic | desc
         found_glossary_lines: list[str] = []
         for line in inner.split("\n"):
             stripped = line.strip()
@@ -96,9 +111,65 @@ def load_doc(path: str) -> CortexDocument:
                     elif eq_count > 1 and _MICRO_PAIR_RE.findall(stripped):
                         found_glossary_lines.append(stripped)
         if found_glossary_lines:
-            # Prepend the comment-style glossary declarations to $0
             v1_text = "$0\n" + "\n".join(found_glossary_lines) + "\n\n" + v1_text
 
+    return parse_cortex(v1_text, path=path)
+
+
+def _read_file(path: str) -> str:
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def _detect_dialect(text: str) -> Any:
+    from ...core.document_handle import Dialect
+
+    stripped = text.lstrip()
+    if stripped.startswith("```") or "<!-- CODEC-CORTEX" in text:
+        return Dialect.V2
+    first_line = stripped.split("\n", 1)[0].strip()
+    if first_line.startswith("$") or first_line.startswith("!"):
+        return Dialect.CORE
+    return Dialect.HCORTEX
+
+
+def _downcast_to_v1(handle: Any, text: str, path: str) -> CortexDocument:
+    from ...v2.parser import parse_cortex_v2
+
+    inner = text
+    if inner.startswith("```"):
+        idx = inner.find("\n")
+        if idx != -1:
+            inner = inner[idx + 1 :]
+        close_idx = inner.rfind("\n```")
+        if close_idx != -1:
+            inner = inner[:close_idx]
+
+    v2_doc = parse_cortex_v2(inner)
+    v1_parts: list[str] = []
+    for sec in v2_doc.sections:
+        v1_parts.append(sec.id)
+        for entry in sec.entries:
+            if entry.entry_type == "meta":
+                v1_parts.append(f"$0:{entry.name}{{{_serialize_attrs_v1(entry.value)}}}")
+            elif entry.entry_type == "sigil_decl":
+                sig = "!" if entry.sigil == "!" else entry.sigil
+                v1_parts.append(f"{sig}:{entry.name}{{{_serialize_attrs_v1(entry.value)}}}")
+            elif entry.entry_type == "attrs-pos" and entry.sigil == "HDL":
+                v = entry.value
+                op = v.get("operation", entry.name)
+                st = v.get("status", "")
+                req = v.get("requires", "")
+                notes = v.get("notes", "")
+                v1_parts.append(f"HDL:{entry.name}|{op}|{st}|{req}|{notes}")
+            elif entry.entry_type == "attrs":
+                v1_parts.append(f"{entry.sigil}:{entry.name}{{{_serialize_attrs_v1(entry.value)}}}")
+            elif entry.entry_type == "cuerpo":
+                v1_parts.append(f"{entry.sigil}:{entry.name}{{{entry.value}}}")
+            elif entry.entry_type == "bloque":
+                v1_parts.append(f"{entry.sigil}:{entry.name}{{{entry.value}}}")
+        v1_parts.append("")
+    v1_text = "\n".join(v1_parts)
     return parse_cortex(v1_text, path=path)
 
 

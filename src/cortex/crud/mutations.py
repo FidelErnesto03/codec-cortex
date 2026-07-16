@@ -88,6 +88,7 @@ def add_entry(
     type_ = sigil_def.type if sigil_def else "attrs"
 
     # Build value
+    v: str | Dict[str, Any]
     if isinstance(value, dict):
         v = value
     elif isinstance(value, str):

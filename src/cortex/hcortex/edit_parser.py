@@ -231,15 +231,15 @@ def _parse_attrs_table(lines: List[str], start: int) -> Tuple[dict, int]:
         cells = _split_markdown_row(line)
         if len(cells) >= 2:
             key = cells[0]
-            value = cells[1]
+            value: str | bool | int | float = cells[1]
             # Try to interpret booleans / numbers
             if value == "true":
                 value = True
             elif value == "false":
                 value = False
-            elif re.fullmatch(r"-?\d+", value):
+            elif isinstance(value, str) and re.fullmatch(r"-?\d+", value):
                 value = int(value)
-            elif re.fullmatch(r"-?\d+\.\d+", value):
+            elif isinstance(value, str) and re.fullmatch(r"-?\d+\.\d+", value):
                 value = float(value)
             out[key] = value
         i += 1

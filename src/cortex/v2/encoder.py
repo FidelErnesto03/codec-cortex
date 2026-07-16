@@ -688,36 +688,36 @@ def _kv_table_to_entries(block: HCorTEXBlock, diags: List[Diagnostic]) -> List[V
 
     # $N:SIGIL:name → single attrs entry
     if not block.target.endswith(":*") and default_sigil != "IDN":
-        attrs: Dict[str, str] = {}
+        entry_attrs: Dict[str, str] = {}
         for row in rows:
             campo = _normalize_field_name(row.get("campo", row.get("field", "")))
             valor = _sanitize_value(row.get("valor", row.get("value", "")))
             if campo:
-                attrs[campo] = valor
+                entry_attrs[campo] = valor
 
         entry = V2Entry(
             sigil=default_sigil,
             name=target_name,
             entry_type="attrs",
-            value=attrs,
+            value=entry_attrs,
             section=section_id,
         )
         return [entry]
 
     # v2.4.0: Group kv_table without Source markers — create one entry with synthetic name
-    attrs: Dict[str, str] = {}
+    section_attrs: Dict[str, str] = {}
     for row in rows:
         campo = _normalize_field_name(row.get("campo", row.get("field", "")))
         valor = _sanitize_value(row.get("valor", row.get("value", "")))
         if campo:
-            attrs[campo] = valor
+            section_attrs[campo] = valor
 
     name = _slugify(target_name) if target_name != "entry" else _synthetic_name(default_sigil, section_id, 1)
     entry = V2Entry(
         sigil=default_sigil,
         name=name,
         entry_type="attrs",
-        value=attrs,
+        value=section_attrs,
         section=section_id,
     )
     return [entry]
@@ -1010,7 +1010,7 @@ def _verbatim_to_bloque(block: HCorTEXBlock, diags: List[Diagnostic]) -> List[V2
         )
         return [entry]
 
-    entries: List[V2Entry] = []
+    fallback_entries: List[V2Entry] = []
     for i, puml_content in enumerate(matches):
         title_m = re.search(r'title\s+(.+?)(?:\n|$)', puml_content)
         if title_m:
@@ -1030,9 +1030,9 @@ def _verbatim_to_bloque(block: HCorTEXBlock, diags: List[Diagnostic]) -> List[V2
             value=content,
             section=section_id,
         )
-        entries.append(entry)
+        fallback_entries.append(entry)
 
-    return entries
+    return fallback_entries
 
 
 # ---------------------------------------------------------------------------

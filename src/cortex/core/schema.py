@@ -48,7 +48,7 @@ class SchemaResolver:
                 optional = canonical - declared
                 return (declared, optional)
         try:
-            from .errors import REQUIRED_FIELDS
+            from .errors import REQUIRED_FIELDS  # type: ignore[attr-defined]
         except ImportError:
             return (set(self.ALWAYS_REQUIRED), set())
         return (set(REQUIRED_FIELDS.get(sigil, [])) | self.ALWAYS_REQUIRED, set())

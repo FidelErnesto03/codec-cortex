@@ -89,8 +89,8 @@ class SkillIR:
     entries: List[IREntry] = field(default_factory=list)
     blocks: List[IRBlock] = field(default_factory=list)
     warnings: List[IRWarning] = field(default_factory=list)
-    # Section structure: list of (section_id, title) for HCORTEX rendering
-    section_map: List[Tuple[str, str]] = field(default_factory=list)
+    # Section structure: list of (section_id, hcortex_num, hcortex_title) for HCORTEX rendering
+    section_map: List[Tuple[str, str, str]] = field(default_factory=list)
 
     def add_entry(self, entry: V2Entry) -> IREntry:
         ir_entry = IREntry(
@@ -106,7 +106,7 @@ class SkillIR:
     def add_warning(self, code: str, message: str, severity: str = "warning") -> None:
         self.warnings.append(IRWarning(code=code, message=message, severity=severity))
 
-    def get_entries(self, sigil: str = None, section: str = None) -> List[IREntry]:
+    def get_entries(self, sigil: str | None = None, section: str | None = None) -> List[IREntry]:
         result = []
         for e in self.entries:
             if sigil and e.sigil != sigil:

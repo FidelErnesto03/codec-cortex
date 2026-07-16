@@ -123,13 +123,15 @@ def _resolve_workspace(root: Optional[str]) -> Path:
 
 def _make_service(root: Optional[str]):
     from ...runtime.session import SessionService
-    ws = _resolve_workspace(root)
+    from ...learning.workspace import Workspace
+    start = Path(root) if root else None
+    ws = Workspace.discover(start)
     return SessionService(ws)
 
 
 def _make_detector():
-    from ...runtime.session import LegacyDetector
-    return LegacyDetector()
+    from ...runtime.session import LegacyDetector  # type: ignore[attr-defined]
+    return LegacyDetector()  # type: ignore[attr-defined]
 
 
 def _json_mode(args) -> bool:
@@ -341,8 +343,8 @@ def _cmd_migrate_legacy(args) -> int:
             return 0
 
         if action in ("close", "abort"):
-            from ...crud.mutations import build_mutation_plan
-            from ...crud.transactions import apply_mutations
+            from ...crud.mutations import build_mutation_plan  # type: ignore[attr-defined]
+            from ...crud.transactions import apply_mutations  # type: ignore[attr-defined]
 
             plan = build_mutation_plan(
                 path=str(brain_path),

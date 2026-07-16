@@ -85,8 +85,8 @@ def _roundtrip_cortex_to_hcortex_to_cortex(cortex_text: str) -> int:
     recon_entry_count = sum(len(s.entries) for s in doc_reconstructed.sections)
     print(f"HCORTEX → CORTEX: {len(doc_reconstructed.sections)} sections, {recon_entry_count} entries")
     if enc_diags:
-        for d in enc_diags[:3]:
-            print(f"  [{d.severity}] {d.code}: {d.message}")
+        for enc_d in enc_diags[:3]:
+            print(f"  [{enc_d.severity}] {enc_d.code}: {enc_d.message}")
 
     # Compare AST
     ast_eq, diffs = compare_ast_equivalent(doc_orig, doc_reconstructed)
@@ -97,8 +97,8 @@ def _roundtrip_cortex_to_hcortex_to_cortex(cortex_text: str) -> int:
         return 0
     else:
         print("✗ Roundtrip NOT AST-equivalent")
-        for d in diffs[:5]:
-            print(f"  {d.kind} at {d.location}" + (f".{d.field}" if d.field else ""))
+        for d2 in diffs[:5]:
+            print(f"  {d2.kind} at {d2.location}" + (f".{d2.field}" if d2.field else ""))
         return 1
 
 
@@ -110,8 +110,8 @@ def _roundtrip_hcortex_to_cortex_to_hcortex(hcortex_text: str) -> int:
     doc, enc_diags = encode_cortex_from_ast(hdoc_orig)
     print(f"HCORTEX → CORTEX: {len(doc.sections)} sections, {sum(len(s.entries) for s in doc.sections)} entries")
     if enc_diags:
-        for d in enc_diags[:3]:
-            print(f"  [{d.severity}] {d.code}: {d.message}")
+        for enc_d in enc_diags[:3]:
+            print(f"  [{enc_d.severity}] {enc_d.code}: {enc_d.message}")
 
     # CORTEX → HCORTEX
     hcortex_regen, diags = render_hcortex(doc)
@@ -126,6 +126,6 @@ def _roundtrip_hcortex_to_cortex_to_hcortex(hcortex_text: str) -> int:
         return 0
     else:
         print("✗ Roundtrip NOT content-equivalent")
-        for d in diffs[:5]:
-            print(f"  {d.kind} at {d.location}")
+        for d2 in diffs[:5]:
+            print(f"  {d2.kind} at {d2.location}")
         return 1

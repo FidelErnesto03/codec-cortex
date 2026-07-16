@@ -318,7 +318,7 @@ def _extract_body(raw: str) -> str:
     return raw[start + 1 :]
 
 
-def _entry_body_lines(raw: str) -> Tuple[str, int, int]:
+def _entry_body_lines(raw: str) -> str:
     """Return ``(body, start_line, end_line)`` for a raw entry text.
 
     The body is the verbatim content between the outer ``{`` and ``}``,

@@ -392,9 +392,9 @@ def recover_cortex(
             recovery_sec = doc.get_or_create_section(
                 recovery_section_id, title="RECOVERED CONTENT"
             )
-            for e in ops_in_zero:
-                e.section = recovery_section_id
-                recovery_sec.entries.append(e)
+            for op in ops_in_zero:
+                op.section = recovery_section_id
+                recovery_sec.entries.append(op)
             diagnostics.append({
                 "code": "I004_OPS_MOVED_FROM_ZERO",
                 "message": (
@@ -406,8 +406,8 @@ def recover_cortex(
             })
             # v1.1.7 P1-5: add RSK when FCS/OBJ/WRK/STP/NXT are moved from $0
             moved_live = [
-                e for e in ops_in_zero
-                if e.sigil in ("FCS", "OBJ", "WRK", "STP", "NXT")
+                op for op in ops_in_zero
+                if op.sigil in ("FCS", "OBJ", "WRK", "STP", "NXT")
             ]
             if moved_live:
                 moved_live_entries = moved_live  # save for embed

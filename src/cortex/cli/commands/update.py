@@ -39,9 +39,9 @@ def _parse_set_pairs(pairs):
         elif val.lower() in ("null", "none", "nil", "undefined"):
             # v1.1.7 P0-3 + v1.1.8: convert null-like literals to None
             val = None
-        elif re.fullmatch(r"-?\d+", val):
+        elif isinstance(val, str) and re.fullmatch(r"-?\d+", val):
             val = int(val)
-        elif re.fullmatch(r"-?\d+\.\d+", val):
+        elif isinstance(val, str) and re.fullmatch(r"-?\d+\.\d+", val):
             val = float(val)
         out[key] = val
     return out

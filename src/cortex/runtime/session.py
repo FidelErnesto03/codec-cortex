@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from ..core.transactions import MutationPlan, execute_transaction
-from ..learning.errors import LearningError
+from ..learning.errors import LearningError, LE015_SESSION_NOT_RUNNING
 from ..learning.workspace import Workspace
 
 
@@ -101,7 +101,7 @@ class SessionService:
 
     def __init__(self, workspace: Workspace):
         self.workspace = workspace
-        self.runtime_dir = workspace.workspace_root / RUNTIME_DIR_NAME
+        self.runtime_dir = workspace.root / RUNTIME_DIR_NAME
         self.session_state_path = self.runtime_dir / SESSION_STATE_FILE
         self._state: Optional[SessionState] = None
 
@@ -173,8 +173,8 @@ class SessionService:
         if self._state is None:
             self._state = self.get_current_state()
             if self._state is None:
-                raise LearningError("No active session")
-        
+                raise LearningError(LE015_SESSION_NOT_RUNNING, "No active session")
+
         event = SessionEvent(
             kind=kind,
             selector=selector,
@@ -199,8 +199,8 @@ class SessionService:
         if self._state is None:
             self._state = self.get_current_state()
             if self._state is None:
-                raise LearningError("No active session")
-        
+                raise LearningError(LE015_SESSION_NOT_RUNNING, "No active session")
+
         # Create a summary of the session
         summary = {
             "session_id": self._state.session_id,
@@ -231,8 +231,8 @@ class SessionService:
         if self._state is None:
             self._state = self.get_current_state()
             if self._state is None:
-                raise LearningError("No active session")
-        
+                raise LearningError(LE015_SESSION_NOT_RUNNING, "No active session")
+
         # Verify brain hasn't changed (CAS)
         brain_content = self.workspace.brain_path.read_text(encoding="utf-8")
         import hashlib

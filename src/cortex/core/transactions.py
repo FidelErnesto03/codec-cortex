@@ -292,7 +292,7 @@ def _apply_mutation(doc: CortexDocument, plan: MutationPlan, changes: List[Dict[
     
     section = doc.get_section(plan.section_id)
     if section is None:
-        section = doc.add_section(plan.section_id, title="")
+        section = doc.get_or_create_section(plan.section_id, title="")
     
     if plan.operation == "add":
         if plan.new_entry is None:

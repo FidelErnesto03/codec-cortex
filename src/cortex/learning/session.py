@@ -453,6 +453,8 @@ def session_close(
         )
         # Reload state after consolidation
         state = load_session_state(workspace)
+        if state is None:
+            raise LearningError("LE015_SESSION_NOT_RUNNING", "session disappeared after consolidation")
 
     decay_report = None
     if run_decay:
