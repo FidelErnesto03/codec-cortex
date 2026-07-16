@@ -49,27 +49,10 @@ cortex = "cortex.cli.main_e3:main"
 dev = ["pytest>=7.0", "pytest-cov>=4.1"]
 
 [tool.setuptools]
-package-dir = {"" = "cli/src"}
-packages = [
-    "cortex",
-    "cortex.audit",
-    "cortex.cli",
-    "cortex.cli.commands",
-    "cortex.core",
-    "cortex.crud",
-    "cortex.glossary",
-    "cortex.hcortex",
-    "cortex.learning",
-    "cortex.security",
-    "cortex.templates",
-    "cortex.v2",
-]
-
-[tool.setuptools.package-data]
-cortex = ["py.typed"]
+package-dir = {"" = "src"}
 
 [tool.setuptools_scm]
-write_to = "cli/src/cortex/_version.py"
+write_to = "src/cortex/_version.py"
 root = "."
 
 [tool.ruff]
