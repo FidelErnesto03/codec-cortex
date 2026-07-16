@@ -15,13 +15,9 @@ import json
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from ..core.ast import CortexDocument
-from ..core.parser import parse_cortex
 from ..core.transactions import MutationPlan, execute_transaction
-from ..core.writer import write_cortex
 from ..learning.errors import LearningError
 from ..learning.workspace import Workspace
 
@@ -135,7 +131,7 @@ class SessionService:
         self.ensure_runtime_dir()
         
         # Load brain to get hash, but don't mutate it
-        brain_doc = self.workspace.parse_brain()
+        _ = self.workspace.parse_brain()
         brain_content = self.workspace.brain_path.read_text(encoding="utf-8")
         import hashlib
         brain_hash = hashlib.sha256(brain_content.encode("utf-8")).hexdigest()

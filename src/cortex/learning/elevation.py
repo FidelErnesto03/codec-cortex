@@ -19,15 +19,12 @@ can — but only with explicit user confirmation at the CLI layer.
 
 from __future__ import annotations
 
-import hashlib
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ..core.ast import CortexDocument, Entry, normalize_section_id
-from ..core.parser import build_entry_from_value, parse_cortex
+from ..core.parser import build_entry_from_value
 from ..core.transactions import MutationPlan, execute_transaction
-from ..core.writer import write_cortex
 from .candidates import Candidate
 from .errors import (
     LE008_ELEVATION_BLOCKED,
