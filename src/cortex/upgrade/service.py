@@ -287,7 +287,7 @@ class UpgradeService:
                     file=fs.rel_path,
                     action="remove",
                     risk="high",
-                    detail=f"parse error — manual review required",
+                    detail="parse error — manual review required",
                 ))
                 plan.summary["remove"] += 1
 
@@ -404,7 +404,6 @@ class UpgradeService:
             if target_dir is None:
                 raise ValueError("target_dir required when manifest has no target_dir")
 
-        migration_plan = plan or self._last_plan
         target_root = Path(target_dir) if target_dir else None
 
         restored = 0
