@@ -58,6 +58,12 @@ Thumbs.db
 *.env
 *.env.*
 
+# Generated version file (setuptools-scm)
+_version.py
+
+# Residual files
+=8.0
+
 # Cache directories
 .mypy_cache/
 .pytest_cache/

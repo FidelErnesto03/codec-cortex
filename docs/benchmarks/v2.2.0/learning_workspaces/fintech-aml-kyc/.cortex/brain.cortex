@@ -1,0 +1,54 @@
+<!-- CODEC-CORTEX
+internal_encoding: CORTEX
+source_artifact: benchmark corpus v2.1.0
+status: specification
+-->
+
+# SPDX-FileCopyrightText: 2026 Benchmark Corpus
+# SPDX-License-Identifier: MIT
+
+$0: MINIMAL LOCAL GLOSSARY
+
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN  | identity   | attrs | B | Semantic   | Actor identity
+# DOM  | domain     | attrs | B | Semantic   | Operating domain
+# CNST | constraint | attrs | H | Prefrontal  | Hard boundary
+# FCS  | focus      | attrs | H | Working     | Active attention
+# OBJ  | objective  | attrs | H | Working     | Active goal
+# WRK  | work       | attrs | M | Working     | Current state
+# STP  | step       | attrs | M | Working     | Next action
+# NXT  | next       | attrs | M | Working     | Queued action
+# AUD  | audit      | attrs | M | Prefrontal  | Verification record
+# RSK  | risk       | attrs | M | Prefrontal  | Identified risk
+# CLAIM| claim      | attrs | M | Prefrontal  | Verifiable claim
+# LIM  | limit      | attrs | M | Prefrontal  | Explicit limit
+
+$1: IDENTITY
+IDN:system{name:"aml-engine-v4", role:"KYC/AML screening", vendor:"internal"}
+DOM:project{area:"aml-kyc", jurisdiction:"EU", customer_id:"cust_5512"}
+
+$2: OPERATIONAL STATE
+CNST:freeze{rule:"score > 0.9 MUST freeze account pending review", severity:"blocking", survive:"min"}
+CNST:audit_log{rule:"decision rationale MUST be logged with timestamp", severity:"blocking", survive:"min"}
+FCS:primary{what:"KYC screening cust_5512 high-value onboarding", priority:"high", status:"current", survive:"min"}
+OBJ:approve{goal:"Decidir approve/review/reject para cuenta cust_5512", status:"current", success:"decision emitida con rationale y PEP check", survive:"min"}
+WRK:state{phase:"screening", current:"PEP match=true, sanctions=false, score=0.92", blocked:false, survive:"work"}
+STP:next{action:"Freeze account y escalar a compliance officer", reason:"score 0.92 > 0.9 trigger freeze", owner:"aml-engine", status:"current", survive:"min"}
+
+$3: RISKS AND CLAIMS
+RSK:false_block{risk:"Bloquear cliente legitimo con PEP match falso positivo", impact:"medium", mitigation:"manual review por compliance officer en 24h", status:"current", survive:"recovery"}
+CLAIM:pep_threshold{statement:"score > 0.9 correlaciona con risk confirmed en 88% de casos", evidence:"Q1 2026 audit interno", status:"current"}
+LIM:sla{limit:"Compliance review debe completar en < 24h", scope:"operacional", status:"current"}
+
+$4: VIEWS
+
+VIEW:idn{kind:"kv_table",target:"$1:IDN:*",reverse:"row_to_attrs",status:"current",fields:"name,role,team,vendor,area,version,type,status",title:"Identity"}
+VIEW:dom{kind:"kv_table",target:"$1:DOM:*",reverse:"row_to_attrs",status:"current",fields:"area,project,building,zone,cluster,service",title:"Domain"}
+VIEW:cnst{kind:"table",target:"$2:CNST:*",reverse:"rows_to_entries",status:"current",fields:"rule,severity,survive",title:"Constraints"}
+VIEW:fcs{kind:"kv_table",target:"$2:FCS:*",reverse:"row_to_attrs",status:"current",fields:"what,priority,status,survive",title:"Focus"}
+VIEW:obj{kind:"kv_table",target:"$2:OBJ:*",reverse:"row_to_attrs",status:"current",fields:"goal,status,success,survive",title:"Objective"}
+VIEW:wrk{kind:"kv_table",target:"$2:WRK:*",reverse:"row_to_attrs",status:"current",fields:"phase,current,blocked,survive",title:"Work State"}
+VIEW:stp{kind:"kv_table",target:"$2:STP:*",reverse:"row_to_attrs",status:"current",fields:"action,reason,owner,status,survive",title:"Next Step"}
+VIEW:rsk{kind:"callout",target:"$3:RSK:*",reverse:"callout_to_risk",status:"current",fields:"risk,impact,mitigation,status,survive",title:"Risks"}
+VIEW:claim{kind:"table",target:"$3:CLAIM:*",reverse:"rows_to_entries",status:"current",fields:"statement,evidence,status",title:"Claims"}
+VIEW:lim{kind:"table",target:"$3:LIM:*",reverse:"rows_to_entries",status:"current",fields:"limit,scope,status",title:"Limits"}

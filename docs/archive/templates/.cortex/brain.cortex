@@ -1,0 +1,29 @@
+# -- $0: GLOSSARY --
+GSIG:IDN{sigil:"IDN", name:"identity", type:"attrs", risk:"B", description:"identity descriptor"}
+GSIG:DOM{sigil:"DOM", name:"domain", type:"attrs", risk:"B", description:"workspace domain"}
+GSIG:FCS{sigil:"FCS", name:"focus", type:"attrs", risk:"H", description:"current focus"}
+GSIG:OBJ{sigil:"OBJ", name:"objective", type:"attrs", risk:"H", description:"current objective"}
+GSIG:WRK{sigil:"WRK", name:"work", type:"attrs", risk:"M", description:"work state"}
+GSIG:STP{sigil:"STP", name:"step", type:"attrs", risk:"M", description:"next step"}
+GSIG:CNST{sigil:"CNST", name:"constraint", type:"attrs", risk:"H", description:"hard rule"}
+GSIG:SES{sigil:"SES", name:"session", type:"attrs", risk:"B", description:"session memory"}
+GSIG:LNG{sigil:"LNG", name:"lesson", type:"attrs", risk:"M", description:"learned lesson"}
+GSIG:KNW{sigil:"KNW", name:"knowledge", type:"attrs", risk:"M", description:"operational knowledge"}
+GSIG:RSK{sigil:"RSK", name:"risk", type:"attrs", risk:"H", description:"risk"}
+GSIG:NXT{sigil:"NXT", name:"next", type:"attrs", risk:"M", description:"next planned action"}
+GSIG:REF{sigil:"REF", name:"reference", type:"attrs", risk:"B", description:"external reference"}
+
+# -- $1: IDENTITY --
+IDN:agent{name:"learning_engine_agent", role:"operator"}
+IDN:human{name:"human", role:"architect"}
+DOM:workspace{area:"learning", protocol:"CODEC-CORTEX", artifact:"brain.cortex"}
+
+# -- $2: ACTIVE WORK --
+FCS:primary{what:"bootstrap learning engine", priority:"high", status:"current", survive:"min"}
+OBJ:main{goal:"valid workspace with index", status:"current", success:"learn doctor returns ok", survive:"min"}
+WRK:state{phase:"bootstrap", current:"init", blocked:false, survive:"work"}
+STP:next{action:"run cortex learn doctor", reason:"validate workspace", owner:"human", status:"current", survive:"min"}
+
+# -- $3: GOVERNANCE --
+CNST:self_contained{rule:"brain.cortex carries its own minimal $0", severity:"blocking", survive:"min"}
+REF:learn_policy{path:".cortex/learn-policies.cortex", role:"external_learning_policy", required:false}
