@@ -73,10 +73,8 @@ from .commands import (
     glossary as cmd_glossary,
     micro as cmd_micro,
     doctor as cmd_doctor,
-    repair as cmd_repair,
     diff as cmd_diff,
     format as cmd_format,
-    migrate as cmd_migrate,
     recover as cmd_recover,
     diagram as cmd_diagram,
     audit as cmd_audit,
@@ -433,21 +431,6 @@ def build_parser() -> argparse.ArgumentParser:
     sp.set_defaults(func=cmd_doctor.run)
 
     # ------------------------------------------------------------------
-    # repair  (BLP-003 M7a — governance-aware repair)
-    # ------------------------------------------------------------------
-    sp = sub.add_parser("repair", help="governance-aware repair for .cortex files")
-    sp.add_argument("input")
-    sp.add_argument("--plan", action="store_true",
-                    help="show repair plan without modifying")
-    sp.add_argument("--apply", action="store_true",
-                    help="apply the repair plan")
-    sp.add_argument("--confirm", action="store_true",
-                    help="confirm repair (required for --apply)")
-    sp.add_argument("--diff", action="store_true",
-                    help="show unified diff of proposed changes")
-    sp.set_defaults(func=cmd_repair.run)
-
-    # ------------------------------------------------------------------
     # diff  (with --profile)
     # ------------------------------------------------------------------
     sp = sub.add_parser("diff", help="structural diff between two .cortex files")
@@ -469,32 +452,6 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--dry-run", action="store_true")
     sp.add_argument("--force", action="store_true")
     sp.set_defaults(func=cmd_format.run)
-
-    # ------------------------------------------------------------------
-    # migrate  (BLP-003 M7b — single-file version migration)
-    # ------------------------------------------------------------------
-    sp = sub.add_parser(
-        "migrate",
-        help="migrate a .cortex file between versions (e.g. 0.5.2 -> 0.6.0)",
-    )
-    sp.add_argument("input", help="path to .cortex file")
-    sp.add_argument(
-        "--from", dest="from_version", required=True,
-        help="source version (e.g. 0.5.2)",
-    )
-    sp.add_argument(
-        "--to", dest="to_version", required=True,
-        help="target version (e.g. 0.6.0)",
-    )
-    sp.add_argument(
-        "--dry-run", action="store_true",
-        help="analyse and report changes without writing",
-    )
-    sp.add_argument(
-        "--force", action="store_true",
-        help="apply migration despite warnings",
-    )
-    sp.set_defaults(func=cmd_migrate.run)
 
     # ------------------------------------------------------------------
     # recover  (new — audit gap H-06)
