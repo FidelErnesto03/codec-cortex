@@ -50,6 +50,7 @@ dev = ["pytest>=7.0", "pytest-cov>=4.1"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+packages = {find = {where = ["src"]}}
 
 [tool.setuptools_scm]
 write_to = "src/cortex/_version.py"
@@ -63,9 +64,9 @@ target-version = "py39"
 ignore = ["E402"]
 
 [tool.pytest.ini_options]
-testpaths = ["cli/src/tests"]
+testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-pythonpath = ["cli/src"]
+pythonpath = ["src"]
 addopts = "--cov=cortex --cov-fail-under=90"
