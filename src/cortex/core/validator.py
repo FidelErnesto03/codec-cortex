@@ -32,6 +32,7 @@ from .ast import CortexDocument, Entry
 from .errors import (
     ALLOWED_PRIORITY,
     ALLOWED_SEVERITY,
+    E003_UNKNOWN_SIGIL,
     E007_ATTRS_POS_CONTRACT_MISSING,
     E008_DUPLICATE_ENTRY,
 )
@@ -111,17 +112,36 @@ def validate(
     for sec, entry in doc.iter_entries():
         if entry.sigil in {"GSIG", "GTYP", "GMIC", "GCON"}:
             continue
-        if entry.sigil not in doc.glossary.sigils:
-            ensure_in_glossary(doc, sigil=entry.sigil)
-            findings.append({
-                "code": "I001_UNDECLARED_SIGIL",
-                "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) not declared in $0 — auto-registered with needs_review",
-                "line": entry.line_start,
-                "section": sec.id,
-                "sigil": entry.sigil,
-                "entry": entry.name,
-                "severity": "info",
-            })
+        sigil_missing = entry.sigil not in doc.glossary.sigils
+        auto_added = (
+            not sigil_missing
+            and entry.sigil in doc.glossary.sigils
+            and doc.glossary.sigils[entry.sigil].needs_review
+        )
+        if sigil_missing or (strict and auto_added):
+            if strict:
+                # M5: strict mode emits E003 for undeclared sigils,
+                # even if the parser auto-added them with needs_review
+                findings.append({
+                    "code": E003_UNKNOWN_SIGIL,
+                    "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) not declared in $0 — strict mode rejects undeclared sigils",
+                    "line": entry.line_start,
+                    "section": sec.id,
+                    "sigil": entry.sigil,
+                    "entry": entry.name,
+                    "severity": "error",
+                })
+            else:
+                ensure_in_glossary(doc, sigil=entry.sigil)
+                findings.append({
+                    "code": "I001_UNDECLARED_SIGIL",
+                    "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) not declared in $0 — auto-registered with needs_review",
+                    "line": entry.line_start,
+                    "section": sec.id,
+                    "sigil": entry.sigil,
+                    "entry": entry.name,
+                    "severity": "info",
+                })
             continue
         sd = doc.glossary.sigils[entry.sigil]
         if sd.type not in resolver_types:
@@ -267,6 +287,40 @@ def validate(
         deduped.append(f)
 
     return deduped
+
+
+def validate_sigils_strict(doc: CortexDocument) -> List[Dict]:
+    """Return E003 diagnostics for every entry whose sigil is not in $0.
+
+    Unlike the normal ``validate()`` path (which auto-registers unknown
+    sigils with needs_review), this function only *reports* — it never
+    mutates the glossary.  It is the core of ``verify --strict`` for
+    undeclared sigil detection (M5 / T-7).
+
+    Returns a list of diagnostic dicts, one per offending entry.
+    """
+
+    findings: List[Dict] = []
+    for sec, entry in doc.iter_entries():
+        if entry.sigil in {"GSIG", "GTYP", "GMIC", "GCON"}:
+            continue
+        sigil_missing = entry.sigil not in doc.glossary.sigils
+        auto_added = (
+            not sigil_missing
+            and entry.sigil in doc.glossary.sigils
+            and doc.glossary.sigils[entry.sigil].needs_review
+        )
+        if sigil_missing or auto_added:
+            findings.append({
+                "code": E003_UNKNOWN_SIGIL,
+                "message": f"sigil {entry.sigil!r} (entry {entry.name!r}) not declared in $0",
+                "line": entry.line_start,
+                "section": sec.id,
+                "sigil": entry.sigil,
+                "entry": entry.name,
+                "severity": "error",
+            })
+    return findings
 
 
 def is_valid(
