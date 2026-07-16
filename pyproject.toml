@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "codec-cortex"
-version = "0.5.0"
+dynamic = ["version"]
 description = "CODEC-CORTEX — Universal Communication Protocol for LLM/SLM Agents. Compresses agent knowledge via deterministic sigil codec with semantic learning engine (SES→LNG→KNW)."
 readme = "README.md"
 license = {text = "MPL-2.0"}
@@ -18,16 +18,22 @@ keywords = [
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
+    "Environment :: Console",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 dependencies = []  # Zero external dependencies
 
 [project.urls]
@@ -36,7 +42,47 @@ Documentation = "https://github.com/FidelErnesto03/codec-cortex/blob/main/docs/R
 Repository = "https://github.com/FidelErnesto03/codec-cortex"
 Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/codec_cortex"]
-# CLI: see cli/pyproject.toml for the standalone CLI package.
-# Install with: pip install ./cli/
+[project.scripts]
+cortex = "cortex.cli.main_e3:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.1"]
+
+[tool.setuptools]
+package-dir = {"" = "cli/src"}
+packages = [
+    "cortex",
+    "cortex.audit",
+    "cortex.cli",
+    "cortex.cli.commands",
+    "cortex.core",
+    "cortex.crud",
+    "cortex.glossary",
+    "cortex.hcortex",
+    "cortex.learning",
+    "cortex.security",
+    "cortex.templates",
+    "cortex.v2",
+]
+
+[tool.setuptools.package-data]
+cortex = ["py.typed"]
+
+[tool.setuptools_scm]
+write_to = "cli/src/cortex/_version.py"
+root = "."
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+ignore = ["E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["cli/src/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+pythonpath = ["cli/src"]
+addopts = "--cov=cortex --cov-fail-under=90"
