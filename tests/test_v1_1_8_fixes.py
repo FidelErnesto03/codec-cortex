@@ -180,8 +180,8 @@ def test_aud_describes_glossary_reconstruction_when_it_happened():
             break
     assert aud is not None
     event = aud.value.get("event", "")
-    assert "live_state_recovered_from_zero" in event, (
-        f"AUD event should mention live_state_recovered_from_zero; got: {event!r}"
+    assert "glossary_reconstruction" in event, (
+        f"AUD event should mention glossary_reconstruction; got: {event!r}"
     )
 
 

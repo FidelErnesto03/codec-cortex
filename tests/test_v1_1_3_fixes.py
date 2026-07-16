@@ -67,9 +67,9 @@ def test_recover_entry_first_file_without_glossary():
     # Glossary must be reconstructed with IDN and KNW
     assert "IDN" in result.doc.glossary.sigils, "IDN not in reconstructed glossary"
     assert "KNW" in result.doc.glossary.sigils, "KNW not in reconstructed glossary"
-    # The parser auto-populates unknown sigils → entries moved from $0
+    # Glossary auto-populated by parser → reconstruction triggers E030
     codes = [d["code"] for d in result.diagnostics]
-    assert "I004_OPS_MOVED_FROM_ZERO" in codes, f"expected I004, got {codes}"
+    assert "E030_RECOVERY_INCOMPLETE" in codes, f"expected E030, got {codes}"
     # AUD and RSK sigils are auto-declared for embedded recovery trace
     assert "I003_SIGIL_AUTO_DECLARED" in codes, f"expected I003, got {codes}"
     # verify --strict must pass (no I001_UNDECLARED_SIGIL / E003_UNKNOWN_SIGIL)

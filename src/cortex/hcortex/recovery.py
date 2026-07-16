@@ -315,6 +315,21 @@ def recover_cortex(
                 "severity": "warning",
             })
             doc = _reconstruct_glossary(clean_text, path)
+        elif observed_sigils and all(
+            sd.needs_review for sd in doc.glossary.sigils.values()
+        ):
+            # Glossary was auto-populated by parser's ensure_in_glossary
+            # (needs_review=True), not from a proper $0 declaration.
+            # Reconstruct proper $0 with canonical sigil definitions.
+            diagnostics.append({
+                "code": E030_RECOVERY_INCOMPLETE,
+                "message": (
+                    f"glossary sigils were auto-populated by parser, not declared in $0; "
+                    f"{len(observed_sigils)} sigil(s) need proper declaration — attempting reconstruction"
+                ),
+                "severity": "warning",
+            })
+            doc = _reconstruct_glossary(clean_text, path)
     except CortexError as e:
         # If it's a missing-glossary error, try to reconstruct $0
         if e.code in ("E001_MISSING_GLOSSARY", "E002_GLOSSARY_NOT_FIRST"):
@@ -786,6 +801,12 @@ def _reconstruct_glossary(text: str, path: str) -> CortexDocument:
         )
 
     doc = parse_cortex(synthetic, path=path)
+    # After re-parse, the parser creates new SigilDef instances with
+    # needs_review=True because it reads glossary comments as plain
+    # comments, not as GSIG declarations.  We already validated these
+    # sigils via canonical_lookup above, so mark them as reviewed.
+    for sd in doc.glossary.sigils.values():
+        sd.needs_review = False
     doc.meta["reconstructed_glossary"] = True
     doc.meta["reconstructed_sigils"] = reconstructed_sigils
     return doc

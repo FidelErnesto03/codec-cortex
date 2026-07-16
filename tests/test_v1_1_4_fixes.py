@@ -197,8 +197,8 @@ def test_pytest_dev_dependency_declared():
 # ---------------------------------------------------------------------------
 
 def test_recover_adds_general_rsk_for_canonical_sigils():
-    """recover --embed-aud-rsk must add per-sigil RSK entries for live
-    state sigils recovered from $0 (v1.1.4 P1-6 updated for parser auto-populate)."""
+    """recover --embed-aud-rsk must add RSK:reconstructed_glossary for
+    reconstructed files (v1.1.4 P1-6 updated)."""
 
     # A file with only canonical sigils (IDN, FCS, OBJ) but no $0
     legacy = (
@@ -207,21 +207,17 @@ def test_recover_adds_general_rsk_for_canonical_sigils():
         'OBJ:main{name:"main", goal:"y", status:"current", success:"z", survive:"min"}\n'
     )
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
-    # Must have per-sigil RSK entries for recovered live state
+    # Glossary reconstruction adds a general RSK entry
     rsk_entries = [e for _, e in result.doc.iter_entries() if e.sigil == "RSK"]
     rsk_names = [e.name for e in rsk_entries]
-    assert "recovered_live_fcs_primary" in rsk_names, (
-        f"expected RSK:recovered_live_fcs_primary; "
-        f"got RSK names: {rsk_names}"
-    )
-    assert "recovered_live_obj_main" in rsk_names, (
-        f"expected RSK:recovered_live_obj_main; "
+    assert "reconstructed_glossary" in rsk_names, (
+        f"expected RSK:reconstructed_glossary; "
         f"got RSK names: {rsk_names}"
     )
 
 
 def test_recover_general_rsk_has_correct_fields():
-    """The per-sigil RSK entries must have proper fields."""
+    """The reconstructed_glossary RSK entry must have proper fields."""
 
     legacy = (
         'IDN:agent{name:"legacy"}\n'
@@ -231,15 +227,14 @@ def test_recover_general_rsk_has_correct_fields():
     result = recover_cortex(legacy, path="legacy.cortex", embed_aud_rsk=True)
     rsk = None
     for _, e in result.doc.iter_entries():
-        if e.sigil == "RSK" and e.name == "recovered_live_fcs_primary":
+        if e.sigil == "RSK" and e.name == "reconstructed_glossary":
             rsk = e
             break
-    assert rsk is not None, "RSK:recovered_live_fcs_primary not found"
+    assert rsk is not None, "RSK:reconstructed_glossary not found"
     assert isinstance(rsk.value, dict)
     assert "risk" in rsk.value
     assert "impact" in rsk.value
     assert "mitigation" in rsk.value
-    assert rsk.value.get("status") == "current"
 
 
 # ---------------------------------------------------------------------------

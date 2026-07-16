@@ -578,8 +578,7 @@ class TestV02CLI:
         d = json.loads(r.stdout)
         assert d["active"] is True
         r = self._run(
-            "session", "close", "--workspace", str(tmp_path),
-            "--input", "i", "--output", "o", "--outcome", "k", "--no-decay", "--json",
+            "session", "close", "--workspace", str(tmp_path), "--json",
         )
         assert r.returncode == 0, r.stderr
         d = json.loads(r.stdout)

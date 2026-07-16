@@ -165,13 +165,12 @@ def _emit(payload: Any, json_mode: bool) -> None:
 def _cmd_start(args) -> int:
     try:
         svc = _make_service(args.workspace)
-        session = svc.start()
+        session = svc.start_session()
         _emit({
             "status": "started",
             "started": True,
-            "session_id": session.id,
-            "created_at": session.created_at,
-            "workspace": session.workspace,
+            "session_id": session.session_id,
+            "start": session.start,
         }, _json_mode(args))
         return 0
     except RuntimeError as e:
@@ -182,15 +181,20 @@ def _cmd_start(args) -> int:
 def _cmd_status(args) -> int:
     try:
         svc = _make_service(args.workspace)
-        session = svc.status()
+        session = svc.get_current_state()
+        if session is None:
+            _emit({
+                "active": False,
+                "message": "no active session",
+            }, _json_mode(args))
+            return 0
         _emit({
             "status": "ok",
-            "active": session.status == "active",
-            "session_id": session.id,
+            "active": session.status == "running",
+            "session_id": session.session_id,
             "session_status": session.status,
-            "created_at": session.created_at,
+            "start": session.start,
             "events_count": len(session.events),
-            "has_patch": session.patch is not None,
         }, _json_mode(args))
         return 0
     except RuntimeError as e:
@@ -201,19 +205,15 @@ def _cmd_status(args) -> int:
 def _cmd_event(args) -> int:
     try:
         svc = _make_service(args.workspace)
-        payload_raw = getattr(args, "payload", None)
-        payload = None
-        if payload_raw:
-            payload = json.loads(payload_raw)
-        evt = svc.event(kind=args.kind, payload=payload)
+        selector = getattr(args, "selector", "")
+        detail = getattr(args, "payload", "") or ""
+        svc.record_event(kind=args.kind, selector=selector, detail=detail)
         _emit({
             "status": "recorded",
-            "event_id": evt.id,
-            "kind": evt.kind,
-            "timestamp": evt.timestamp,
+            "kind": args.kind,
         }, _json_mode(args))
         return 0
-    except (RuntimeError, json.JSONDecodeError) as e:
+    except RuntimeError as e:
         print(f"error: {e}", file=sys.stderr)
         return 1
 
@@ -224,9 +224,8 @@ def _cmd_consolidate(args) -> int:
         patch = svc.consolidate()
         _emit({
             "status": "consolidated",
-            "brain_hash": patch.brain_hash,
-            "mutations_count": len(patch.mutations),
-            "created_at": patch.created_at,
+            "summary": patch.get("summary", {}),
+            "dry_run": patch.get("dry_run", False),
         }, _json_mode(args))
         return 0
     except RuntimeError as e:
@@ -237,7 +236,7 @@ def _cmd_consolidate(args) -> int:
 def _cmd_close(args) -> int:
     try:
         svc = _make_service(args.workspace)
-        result = svc.close()
+        result = svc.close_session()
         if result.get("status") == "conflict":
             _emit({
                 "status": "conflict",
@@ -259,7 +258,7 @@ def _cmd_close(args) -> int:
 def _cmd_abort(args) -> int:
     try:
         svc = _make_service(args.workspace)
-        result = svc.abort()
+        result = svc.abort_session()
         _emit(result, _json_mode(args))
         return 0
     except RuntimeError as e:

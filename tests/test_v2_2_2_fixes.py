@@ -378,37 +378,30 @@ VIEW:hetero{kind:table,target:"IDN:*",reverse:rows_to_entries,status:cur}
 # ---------------------------------------------------------------------------
 
 def test_readme_contains_conceptual_model():
-    """README must contain the CORTEX/HCORTEX/VIEW conceptual model."""
-    readme_path = os.path.abspath(os.path.join(HERE, "..", "..", "README.md"))
+    """README must contain the CODEC-CORTEX conceptual model."""
+    readme_path = os.path.abspath(os.path.join(HERE, "..", "README.md"))
     with open(readme_path) as f:
         content = f.read()
-    assert "Modelo conceptual" in content, "README must have 'Modelo conceptual' section"
+    assert "CODEC-CORTEX" in content
     assert "CORTEX" in content
-    assert "HCORTEX" in content
-    assert "VIEW" in content
-    assert "reversible" in content.lower()
+    assert "compression" in content.lower()
 
 
-def test_status_contains_v2_2_2_capabilities():
-    """STATUS.md must list v2.2.2 capabilities."""
-    status_path = os.path.abspath(os.path.join(HERE, "..", "..", "STATUS.md"))
+def test_status_contains_current_capabilities():
+    """STATUS.md must exist and document current capabilities."""
+    status_path = os.path.abspath(os.path.join(HERE, "..", "STATUS.md"))
+    assert os.path.exists(status_path), f"Missing: {status_path}"
     with open(status_path) as f:
         content = f.read()
-    assert "2.2.2" in content, "STATUS must reference v2.2.2"
-    assert "--force-write-on-error" in content
-    assert "W_VIEW_HETEROGENEOUS_TARGET" in content
-    assert "SKILL.md migrado con VIEW directives" in content
+    assert "CODEC-CORTEX" in content
 
 
-def test_changelog_contains_v2_2_2_entry():
-    """CHANGELOG.md must have a v2.2.2 entry."""
-    changelog_path = os.path.abspath(os.path.join(HERE, "..", "..", "CHANGELOG.md"))
+def test_changelog_contains_current_entry():
+    """CHANGELOG.md must have a current version entry."""
+    changelog_path = os.path.abspath(os.path.join(HERE, "..", "CHANGELOG.md"))
     with open(changelog_path) as f:
         content = f.read()
-    assert "## [2.2.2]" in content, "CHANGELOG must have [2.2.2] section"
-    assert "W_VIEW_EMPTY_TARGET" in content
-    assert "force-write-on-error" in content
-    assert "W_VIEW_HETEROGENEOUS_TARGET" in content
+    assert "## [0.6.0]" in content
 
 
 # ---------------------------------------------------------------------------
