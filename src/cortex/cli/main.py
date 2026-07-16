@@ -81,7 +81,6 @@ from .commands import (
     diagram as cmd_diagram,
     audit as cmd_audit,
     benchmark as cmd_benchmark,
-    session as cmd_session,
     v2_roundtrip as cmd_v2_roundtrip,
     v2_convert as cmd_v2_convert,
     v2_roundtrip_bidir as cmd_v2_roundtrip_bidir,
