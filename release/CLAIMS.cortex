@@ -1,0 +1,34 @@
+; CLAIMS.cortex — Functional claims without verification evidence
+; BLP-001 M0 freeze — baseline at 232fa6f
+
+$0:claims{
+  date:"2026-07-16",
+  base:"232fa6f",
+  note:"Claims marked pending have no automated verification"
+}
+
+CLAIM:C-001{
+  claim:"CORTEX v2 parser parses all valid .cortex files",
+  evidence:"pending — existing test suite covers core scenarios",
+  risk:"edge cases in locally-declared sigils may fail"
+}
+CLAIM:C-002{
+  claim:"HCORTES renderer produces valid markdown from any valid .cortex",
+  evidence:"pending — roundtrip tests exist for common cases",
+  risk:"unicode and special characters in values may break rendering"
+}
+CLAIM:C-003{
+  claim:"Learning engine (SES->LNG->KNW) is deterministic",
+  evidence:"pending — requires controlled input/output test",
+  risk:"not all learning pathways are tested for determinism"
+}
+CLAIM:C-004{
+  claim:"TransactionService prevents direct canonical writes",
+  evidence:"pending — enforcement not fully verified",
+  risk:"some write paths may bypass TransactionService"
+}
+CLAIM:C-005{
+  claim:"CLI interface is stable for all documented commands",
+  evidence:"pending — integration tests cover subset of commands",
+  risk:"edge commands (cortex.diagram, cortex.benchmark) may have issues"
+}

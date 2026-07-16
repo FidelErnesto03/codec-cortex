@@ -1,0 +1,60 @@
+; COMPATIBILITY.cortex — v0.5.2 → v0.6.0 mapping
+; BLP-001 M0 freeze — 232fa6f
+
+$0:compatibility{
+  from:"v0.5.2",
+  to:"v0.6.0a2.dev0",
+  commit_from:"97c5f23",
+  commit_to:"232fa6f",
+  date:"2026-07-16"
+}
+
+MAP:M-001{
+  component:"Parser",
+  v052:"cortex/core/parser.py (v1 grammar)",
+  v060:"cortex/core/parser.py + cortex/v2/parser.py",
+  breaking:false,
+  notes:"v2 parser added alongside v1; v1 parser unchanged"
+}
+MAP:M-002{
+  component:"Schema",
+  v052:"cortex/core/schema.py",
+  v060:"cortex/core/schema.py + cortex/v2/schema.py",
+  breaking:false,
+  notes:"v2 schema extends, does not replace"
+}
+MAP:M-003{
+  component:"Writer",
+  v052:"cortex/core/writer.py",
+  v060:"cortex/core/writer.py (modified)",
+  breaking:false,
+  notes:"writer.py differs between cli/src/ and src/ — need to verify delta"
+}
+MAP:M-004{
+  component:"Transactions",
+  v052:"cortex/crud/transactions.py (optional)",
+  v060:"cortex/crud/transactions.py + cortex/core/transactions.py",
+  breaking:true,
+  notes:"TransactionService now mandatory for canonical writes; dual files need consolidation"
+}
+MAP:M-005{
+  component:"CLI",
+  v052:"cortex/cli/main.py",
+  v060:"cortex/cli/main_e3.py",
+  breaking:false,
+  notes:"e3 entry point adds commands but maintains backward compat"
+}
+MAP:M-006{
+  component:"Learning",
+  v052:"cortex/learning/ (basic SES→LNG→KNW)",
+  v060:"cortex/learning/ (enhanced with elevation.py, feedback.py)",
+  breaking:false,
+  notes:"learning pipeline enhanced, not replaced"
+}
+MAP:M-007{
+  component:"Packaging",
+  v052:"setup.py based, v0.5.2 tag",
+  v060:"pyproject.toml + setuptools-scm, no tag yet",
+  breaking:true,
+  notes:"v0.6.0a3 tag required for installable release"
+}

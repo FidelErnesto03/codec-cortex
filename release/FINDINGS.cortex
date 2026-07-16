@@ -1,0 +1,52 @@
+; FINDINGS.cortex — Known issues at v0.6.0a2 baseline
+; BLP-001 M0 freeze — 232fa6f
+
+$0:findings{
+  date:"2026-07-16",
+  base:"232fa6f",
+  total:6,
+  blocking:2
+}
+
+FINDING:F-001{
+  severity:"blocking",
+  area:"source_tree",
+  title:"Dual source tree: cli/src/cortex/ and src/cortex/",
+  detail:"cli/src/cortex/ (101 files) and src/cortex/ (104 files) contain diverging copies. core/writer.py and crud/transactions.py differ between trees. runtime/ module only exists in src/cortex/. This prevents deterministic packaging.",
+  mitigation:"BLP-001 M1 — eliminate cli/src/cortex/, consolidate to src/cortex/"
+}
+FINDING:F-002{
+  severity:"blocking",
+  area:"packaging",
+  title:"No v0.6.0 tag and egg-info versioned",
+  detail:"_version.py says 0.6.0a2.dev0 but no git tag exists. src/codec_cortex.egg-info/ is tracked in git, causing build artifacts in version control.",
+  mitigation:"BLP-001 M2 — setuptools-scm, tag v0.6.0a3, .gitignore egg-info"
+}
+FINDING:F-003{
+  severity:"medium",
+  area:"testing",
+  title:"Test configuration points to legacy path",
+  detail:"pyproject.toml testpaths='cli/src/tests/' references a v0.5.2-era directory. Tests actually live in src/tests/.",
+  mitigation:"BLP-001 M1 — update pyproject.toml testpaths and pythonpath"
+}
+FINDING:F-004{
+  severity:"low",
+  area:"cleanliness",
+  title:"Residual files in working tree",
+  detail:".coverage and =8.0 files present in root. These are generated artifacts that should be ignored or removed.",
+  mitigation:"BLP-001 M1 — remove and gitignore"
+}
+FINDING:F-005{
+  severity:"medium",
+  area:"code_quality",
+  title:"Potential sys.path injections in source",
+  detail:"Some modules may contain sys.path.append() for local development, which breaks when installed as a package.",
+  mitigation:"BLP-001 M1 — grep and remove sys.path injections"
+}
+FINDING:F-006{
+  severity:"low",
+  area:"docs",
+  title:"CLI documentation in cli/ directory",
+  detail:"cli/ directory contains README, CHANGELOG, and documentation files that overlap with root-level docs/. Need consolidation.",
+  mitigation:"Post-M2 cleanup — out of BLP-001 scope"
+}

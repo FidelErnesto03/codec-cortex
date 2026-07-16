@@ -1,0 +1,42 @@
+; STATUS.cortex — CODEC-CORTEX v0.6.0a2 baseline
+; Created: 2026-07-16 as part of BLP-001 M0 freeze
+; Base commit: 232fa6f (main)
+
+$0:status{
+  version:"0.6.0a2.dev0",
+  commit:"232fa6f",
+  branch:"main",
+  phase:"pre-freeze",
+  date:"2026-07-16"
+}
+
+$1:source_tree{
+  primary:"src/cortex/ (104 files, canonical v0.6.0)",
+  legacy:"cli/src/cortex/ (101 files, v0.5.2-derived)",
+  tests:"src/tests/ (34 test files)",
+  conflicts:"2 files differ: core/writer.py, crud/transactions.py",
+  missing_from_primary:"runtime/ present in primary only",
+  extra_in_legacy:"__pycache__ directories only"
+}
+
+$2:packaging{
+  metadata:"pyproject.toml -> setuptools, version=dynamic(setuptools-scm)",
+  build:"python -m build produces wheel+sdist",
+  entry_point:"cortex = cortex.cli.main_e3:main",
+  dependencies:"zero external"
+}
+
+$3:test_status{
+  total_files:34,
+  config:"pyproject.toml testpaths points to cli/src/tests/ (may be stale)",
+  coverage_threshold:"90% (configured, may fail with new layout)"
+}
+
+$4:issues{
+  dual_source:"cli/src/cortex/ and src/cortex/ coexist — 101 vs 104 files",
+  egginfo_versioned:"src/codec_cortex.egg-info/ tracked in git",
+  residual_files:[".coverage", "=8.0"],
+  version_inconsistency:"_version.py generated but no v0.6.0 tag exists",
+  pyproject_testpath:"testpaths=cli/src/tests/ references legacy location",
+  syspath_injections:"potential manual sys.path modifications in src/cortex/"
+}
