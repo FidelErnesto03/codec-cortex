@@ -1,0 +1,59 @@
+$0
+
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Required: every .cortex artifact must be locally self-contained.
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs      | B | Semantic       | Identity descriptor
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable knowledge / thresholds
+# GTE   | gate       | attrs      | H | Prefrontal     | Mutation gate
+# POL   | policy     | attrs      | M | Prefrontal     | Learning policy
+# PRT   | protected  | attrs      | H | Prefrontal     | Protected targets
+# THR   | threshold  | attrs      | M | Prefrontal     | Learning thresholds
+#
+# Types:
+# bloque = canonical type
+# attrs-pos = canonical type
+# attrs = canonical type
+# cuerpo = canonical type
+# relación = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$1: IDENTITY
+
+IDN:learn_policies{name:"arqux_default", version:"0.1.0", target:".arqux/brain.cortex"}
+
+$2: SCORING
+
+THR:golden_fibonacci{observed:1, repeated:2, pattern:3, candidate:5, ask_user:8, strong_candidate:13, critical:21}
+
+$3: PROTECTED TARGETS
+
+PRT:critical_sigils{items:"IDN|AXM|CNST:blocking|CLAIM|LIM", mutation:"explicit_user_confirmation"}
+
+$4: CANDIDATE-DRIVEN LEARNING
+
+POL:candidate_detection{source:"brain", scan_sigils:"WRK|SES|LNG|RSK|NXT|CLAIM|LIM", action:"score", algorithm:"golden_fibonacci_v1"}
+POL:candidate_elevation{source:"SES|LNG", target:"LNG|KNW", when:"promotion_score>=8", action:"propose", requires:"user_confirmation"}
+
+$5: POLICY-DRIVEN LEARNING
+
+POL:auto_ses_to_lng{source:"SES", target:"LNG", when:"promotion_score>=8|user_validated=true", action:"apply", requires:"policy_authorized"}
+POL:auto_lng_to_knw{source:"LNG", target:"KNW", when:"promotion_score>=13|user_validated=true|risk_weight>=8", action:"apply", requires:"admin_policy"}
+
+$6: GATES
+
+GTE:default_mutation{action:"mutate_brain", default:"dry_run_first"}
+GTE:critical_mutation{targets:"IDN|AXM|CNST:blocking|CLAIM|LIM|KNW", default:"block_unless_admin_policy"}
+
+$7: CONFIGURABLE THRESHOLDS
+
+KNW:fibonacci_thresholds{topic:"fibonacci", content:"{ses:1, lng:3, knw:8, auto_knw:13}", status:"current"}
+KNW:cooling{topic:"cooling", content:"{half_life_days:7, min_score_to_survive:1}", status:"current"}
+KNW:detection{topic:"detection", content:"{same_sigil_in_window:3, window_hours:72, cross_session:true}", status:"current"}
+KNW:feedback{topic:"feedback", content:"{adaptive:true, adjustment_rate:0.1, min_threshold:1, max_threshold:20}", status:"current"}
+KNW:protected_patterns{topic:"protected_patterns", content:"{patterns:'CNST:*|!:*|FCS:*|OBJ:*'}", status:"current"}

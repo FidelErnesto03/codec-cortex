@@ -1,0 +1,16 @@
+# Gitleaks configuration for CODEC-CORTEX
+# Allowlist by EXACT fingerprint only (no path/regex/generic suppression).
+# Fingerprints correspond to adjudicated false-positives documented in
+# docs/transition/GITLEAKS_ADJUDICATION.md
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Exact-fingerprint allowlist for adjudicated false positives only"
+fingerprints = [
+  "6e8513ecec3a614f6289c994f59cd5003916ea16:certification/baselines/0.5.2/cli/src/tests/test_audit_gates.py:aws-access-token:445",
+  "e6a28a90bbdd934dcf65833c6518ef56873f8be3:cli/src/tests/test_audit_gates.py:aws-access-token:444",
+  "2cf6d28729219ec978520852920f0d8a06e47cb2:skill/brain.cortex:generic-api-key:51",
+  "2cf6d28729219ec978520852920f0d8a06e47cb2:skill/brain.cortex:generic-api-key:115",
+]

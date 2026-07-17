@@ -1,0 +1,99 @@
+$0
+
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Required: every .cortex artifact must be locally self-contained.
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# ARQX  | artifact   | attrs      | B | Semantic       | ArqUX artifact metadata
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+#
+# Types:
+# attrs-pos = canonical type
+# bloque = canonical type
+# relación = canonical type
+# cuerpo = canonical type
+# attrs = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:"2", name:"brain", usage:"state", kind:"native"}
+
+$1: IDENTITY
+
+IDN:governor{level:"2", project:"CODEC-CORTEX", path:"/home/vatrox/workspace/CODEC-CORTEX", governor:"alfred", created:"2026-07-17T00:30:00Z", reset:"2026-07-17T00:30:00Z", note:"Gobierno reiniciado desde CYCLE-01 tras reordenamiento de repositorio local y migracion de gobernanza a motor ArqUX."}
+
+$2: FOCUS
+
+FCS:current{what:"Próximo BLP o cierre de ciclo", priority:"medium", status:"current", survive:"work", updated:"2026-07-17T00:46:41Z", event:"blueprint.complete"}
+
+$3: OBJECTIVES
+
+OBJ:standard{goal:"Convertir CORTEX/HCORTEX en codec estandar determinista para SLM/LLM", status:"current", success:"CORTEX Standard 1.0 + CODEC-CORTEX Reference Implementation 1.0", source:"CCX-CORE-PROJECT-PLAN-001", survive:"work"}
+OBJ:f0_fork{goal:"Fase 0 — Seguridad, congelacion y fork limpio", status:"done", success:"Cero secretos en historial; v0.6.x congelado en codec-cortex-legacy; repos limpios; dependency direction aprobada", survive:"work"}
+OBJ:f1_constitution{goal:"Fase 1 — Constitucion del estandar", status:"done", success:"CHARTER/CONSTITUTION/GOVERNANCE/TERMINOLOGY versionados con hashes; Gate F1 ejecutado", survive:"work"}
+
+$4: SESSIONS
+
+SES:alfred{input:"Reinicio de gobierno CODEC-CORTEX", output:"CYCLE-01 abierto, repo en raiz, gobernanza via ArqUX", role:"governor", outcome:"active", date:"2026-07-17"}
+
+$5: HANDOFFS
+
+
+$6: PULSE
+
+AUD:E_0100{event:"E-0100", evidence:"Reordenamiento local: repo codec-cortex promovido a raiz CODEC-CORTEX/; carpetas de trabajo movidas a UTILS/codec-cortex-local-extras/; .arqux copiado a legacy. Gobierno reiniciado: ciclos C01-C05 historicos borrados de raiz, CYCLE-01 creado y abierto.", task:"-", kind:"artifact", agent:"alfred", result:"Repo principal en /home/vatrox/workspace/CODEC-CORTEX con .git, .arqux/, standard/, governance/. Mirror local como origin intacto.", date:"2026-07-17"}
+AUD:E_0101{event:"E-0101", evidence:"Gobernanza migrada a ArqUX: eliminado RFC-PROCESS.md (mecanismo CEP/RFC); GOVERNANCE.md reescrito para operar cambio normativo via Blueprints del proyecto CODEC-CORTEX en .arqux/. Constitution/Charter/Terminology actualizados sin referencias CEP. SHA256SUMS recalculado.", task:"-", kind:"artifact", agent:"alfred", result:"Commit c351994 en rama agent/f0-corrective-closeout. Estándar autónomo; ArqUX es motor operativo, no autoridad normativa.", date:"2026-07-17"}
+AUD:E_0102{event:"E-0102", evidence:"CYCLE-01 poblado desde CCX-CORE-PROJECT-PLAN-001: Fase 0 (seguridad/fork) + Fase 1 (constitucion). Objetivos CYC-OBJ-1..5, directrices P1-P10, puntos de control CP-01..03. Estado open, sin BLPs aun.", task:"-", kind:"cycle_open", agent:"alfred", result:"CYCLE-01 abierto en /home/vatrox/workspace/CODEC-CORTEX/.arqux/cycles/CYCLE-01.", date:"2026-07-17"}
+KNW:sync_run{name:"sync_run", value:"1", updated:"2026-07-17T00:36:53Z", topic:"metrics", content:"metric sync_run=1", status:"current"}
+AUD:E_0103_0001{event:"E-0103", evidence:"Contexto asegurado para CODEC-CORTEX: brain.cortex valid=true (13 secciones, 22 entries); CYCLE-01 abierto sin BLPs; repo en raiz con gobierno ArqUX; constitucion migrada (sin RFC/CEP); meta-brain sincronizado via entry.update; issue BUG-003 registrado en ARQUX sobre sync.reconcile/sync.run.", task:"-", kind:"session", agent:"alfred", result:"Checkpoint de sesion 2026-07-17: reordenamiento local completado, gobierno reiniciado con CYCLE-01 basado en CCX-CORE-PROJECT-PLAN-001, gobernanza via Blueprints ArqUX. Pendiente: crear BLPs de Fase 0/Fase 1 y ejecutar Gate F1.", date:"2026-07-17"}
+AUD:E_0104{date:"2026-07-17T00:46:41Z", event:"E-0104", task:"BLP-001", kind:"blueprint_lifecycle", agent:"alfred", result:"[blueprint.complete] BLP BLP-001 completed — Fase 0 y Fase 1 del CCX-CORE-PROJECT-PLAN-001 declaradas completas. Verificación en repo raíz /home/vatrox/workspace/CODEC-CORTEX: AC-01 OK (v0.6.x congelado en UTILS/codec-cortex-legacy/codec-cortex-legacy/.git, fuera de Clean-Root); AC-02 OK (.gitleaks.toml presente); AC-03 OK (sha256sum -c standard/SHA256SUMS.txt → 5/5 coinciden); AC-04 OK (RFC-PROCESS.md eliminado, GOVERNANCE.md v0.2.0 motor ArqUX); AC-05 OK (CYCLE-01 abierto). Reordenamiento local: repo promovido a raíz, extras en UTILS/codec-cortex-local-extras/, mirror local como origin. Commit de constitución c351994 en rama agent/f0-corrective-closeout.", evidence:"[blueprint.complete] BLP BLP-001 completed — Fase 0 y Fase 1 del CCX-CORE-PROJECT-PLAN-001 declaradas completas. Verificación en repo raíz /home/vatrox/workspace/CODEC-CORTEX: AC-01 OK (v0.6.x congelado en UTILS/codec-cortex-legacy/codec-cortex-legacy/.git, fuera de Clean-Root); AC-02 OK (.gitleaks.toml presente); AC-03 OK (sha256sum -c standard/SHA256SUMS.txt → 5/5 coinciden); AC-04 OK (RFC-PROCESS.md eliminado, GOVERNANCE.md v0.2.0 motor ArqUX); AC-05 OK (CYCLE-01 abierto). Reordenamiento local: repo promovido a raíz, extras en UTILS/codec-cortex-local-extras/, mirror local como origin. Commit de constitución c351994 en rama agent/f0-corrective-closeout."}
+KNW:blueprints_done{name:"blueprints_done", value:"1", updated:"2026-07-17T00:46:41Z", topic:"metrics", content:"metric blueprints_done=1", status:"current"}
+AUD:E_0105{date:"2026-07-17T00:46:57Z", event:"E-0105", task:"-", kind:"checkpoint", agent:"alfred", result:"cortex.checkpoint ok fcs=CYCLE-01 obj:F0/F1 completadas vía BLP-0 obj=", evidence:"cortex.checkpoint ok fcs=CYCLE-01 obj:F0/F1 completadas vía BLP-0 obj="}
+AUD:E_0106{date:"2026-07-17T00:47:56Z", event:"E-0106", task:"-", kind:"checkpoint", agent:"alfred", result:"cortex.checkpoint ok fcs=CYCLE-01 obj:CYCLE-01 permanece abierto  obj=", evidence:"cortex.checkpoint ok fcs=CYCLE-01 obj:CYCLE-01 permanece abierto  obj="}
+
+$7: LESSONS
+
+LNG:no_direct_edit{type:"behavioral", cause:"Gobernanza ArqUX prohíbe edicion directa de archivos .cortex", lesson:"Usar handlers ArqUX (cycle.create/close, blueprint.*, cortex.*) para modificar estado de gobierno; no editar MANIFEST/brain manualmente salvo comando explicito del Arquitecto.", prevention:"Siempre vía handler; solo editar brain.cortex cuando el Arquitecto lo autorice para sincronizar realidad."}
+LNG:mirror_is_origin{type:"contextual", cause:"origin de codec-cortex apunta a codec-cortex.phase0.mirror.git local, no a GitHub", lesson:"No mover el mirror al legacy: romperia el remote. El push real a GitHub requiere repuntar origin a FidelErnesto03/codec-cortex.", prevention:"Al reordenar, conservar codec-cortex.phase0.mirror.git en su sitio."}
+LNG:cep_retired{type:"process", cause:"Arquitecto decidio reemplazo total de RFC/CEP por motor ArqUX", lesson:"El cambio normativo de CORTEX se modela como Blueprint ArqUX, no como CEP. GOVERNANCE.md declara ArqUX como motor de gobernanza operativa.", prevention:"Al referenciar proceso de cambio, usar Blueprints, no CEP."}
+
+$8: ACTIVE_CONTEXT
+
+WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-001 completed and approved", blocked:"no", survive:"work", updated:"2026-07-17T00:46:41Z", event:"blueprint.complete", fcs:"CYCLE-01 obj:CYCLE-01 permanece abierto hasta completar 11 fases del plan (F0->F10); BLP-001 cierra F0/F1 tasks:BLP-001 done; F2 pendiente state:open-until-plan-complete", obj:"", tasks:"", state:"active", last_turn:"2026-07-17T00:47:56Z"}
+
+$9: RISKS
+
+RSK:secret_history{risk:"high", survive:"work", impact:"high", likelihood:"medium", mitigation:"Secret scanning ejecutado en Clean-Root; recovery codes rotados; monitor con .gitleaks.toml. Pendiente cierre formal CP-01.", status:"current"}
+RSK:scope_creep{risk:"medium", survive:"work", impact:"medium", likelihood:"medium", mitigation:"CYCLE-01 limita explicitamente Fases 2-11 fuera de alcance. BLPs deben mapear a CYC-OBJ-1..5.", status:"current"}
+RSK:mirror_remote{risk:"medium", survive:"work", impact:"medium", likelihood:"low", mitigation:"origin apunta a mirror local; sincronizacion GitHub pendiente de repuntar remote.", status:"current"}
+
+$10: KNOWLEDGE
+
+KNW:architecture{topic:"arquitectura_codec", content:"CODEC-CORTEX es exclusivamente un codec determinista (parser, encoder, decoder, validator, canonicalizer). NO runtime/learning/sesiones/memoria/gobierno/MCP/ArqUX. Arquitectura: Contexto estructurado -> CORTEX (canonico) <-> CODEC-CORTEX <-> HCORTEX. Sistemas externos (ArqUX, Agent Profile, Learning, Runtime, adaptadores MCP/ACP/LSP) consumen CORTEX como estandar externo. Dependency direction: standard -> codec-cortex -> profiles/tools -> runtime/learning/ArqUX.", status:"current"}
+KNW:repos{topic:"repositorios", content:"Raiz: /home/vatrox/workspace/CODEC-CORTEX (repo git, .arqux/ gobierno, standard/, governance/, conformance/, implementations/, profiles/, security/, tooling/, docs/). codec-cortex-legacy/ = repo v0.6.x congelado (historical-experimental). codec-cortex.phase0.mirror.git/ = mirror local (origin). UTILS/codec-cortex-local-extras/ = carpetas de trabajo fuera del repo + copia legacy de .arqux con ciclos C01-C05.", status:"current"}
+KNW:constitution{topic:"constitucion", content:"Estandar autónomo con 4 documentos: CORTEX-CHARTER.md, CORTEX-CONSTITUTION.md (Art.21 lista ArqUX y brain/workspace governance como prohibidos en nucleo), GOVERNANCE.md (motor ArqUX, sin CEP), TERMINOLOGY.md. Principios P1-P10. Gobierno operativo via Blueprints ArqUX en .arqux/ del proyecto.", status:"current"}
+
+$11: CONCURRENCY
+
+ERR:concurrency{version:"5", last_writer:"alfred", updated:"2026-07-17T00:30:00Z"}
