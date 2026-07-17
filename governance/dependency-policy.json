@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "description": "Dependency and path boundary policy for CODEC-CORTEX monorepo. Enforces unidirectional dependency: standard -> implementations -> (nothing upward). Core must not import implementations, profiles, or runtime; implementations must not import other implementations.",
+  "forbidden_imports": [
+    {"from": "standard", "to": "implementations", "reason": "Core standard must not depend on implementations"},
+    {"from": "standard", "to": "profiles", "reason": "Core standard must not depend on profiles"},
+    {"from": "implementations", "to": "standard_runtime", "reason": "Implementations must not depend on runtime if separated"},
+    {"from": "any", "to": "skill", "reason": "No code may import agent skill definitions"}
+  ],
+  "forbidden_paths": [
+    "standard/**/implementations/**",
+    "standard/**/profiles/**",
+    "implementations/python/standard/**"
+  ],
+  "allowed_direction": "standard -> implementations -> profiles",
+  "enforcement": "block_push"
+}

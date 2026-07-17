@@ -1,9 +1,17 @@
 name: boundary
-on: [push, pull_request]
+on:
+  push:
+    branches: [main, "agent/**"]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
 jobs:
   boundary:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # TODO Fase 1: agregar checks de dependencia inversa y secret scanning.
-      - run: echo "boundary checks placeholder"
+      - name: Run boundary checker
+        run: python tooling/ci/check_boundaries.py --policy governance/dependency-policy.json --root .
+      - name: Run boundary unit tests
+        run: python tooling/ci/tests/test_boundaries.py
