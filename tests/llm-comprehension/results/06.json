@@ -1,0 +1,38 @@
+{
+  "model": "GLM",
+  "platform": "Zhipu AI",
+  "date": "2024-05-20",
+  "total_tokens": 850,
+  "tasks": [
+    {
+      "id": "ID.1",
+      "answer": "GLM, Zhipu AI"
+    },
+    {
+      "id": "T3.1",
+      "answer": "850"
+    },
+    {
+      "id": "T3.2",
+      "answer": "language models for machine language a is CORTEX"
+    },
+    {
+      "id": "T3.3",
+      "answer": "nombre: metric, tipo: attrs, peso: H, campos: name:text|value:text, foco: value, schema: table, desc: Metrica auto-declarada por el modelo"
+    },
+    {
+      "id": "T3.4",
+      "answer": "1: IDENTIDAD, 2: INSTRUCCIONES, 3: TAREAS, 4: FORMATO DE RESPUESTA, 5: METRICAS"
+    },
+    {
+      "id": "T3.5",
+      "answer": "El sigilo FMT. Sus campos son: field (texto, nombre del campo), type (tipo de dato) y required (booleano, indica si es obligatorio)."
+    },
+    {
+      "id": "T3.6",
+      "answer": "7"
+    }
+  ],
+  "comprehension_self_assessment": 5,
+  "notes": "CORTEX 0.1 procesado directamente sin herramientas externas. Se utilizan terminos como sigilo, seccion y glosario. Se cuentan 7 tareas TST en el documento (ID.1 mas T3.1 a T3.6), aunque la metrica golden sugiera 6."
+}

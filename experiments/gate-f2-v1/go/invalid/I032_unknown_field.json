@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I005_UNKNOWN_FIELD\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 5,\n      \"column\": 1\n    },\n    \"message\": \"Campo 'extra' desconocido.\"\n  }\n]\n", "exit_code": 1}

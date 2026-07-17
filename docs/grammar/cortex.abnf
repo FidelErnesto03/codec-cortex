@@ -1,0 +1,79 @@
+; CORTEX 0.1 — normative lexical/surface grammar (ABNF, RFC 5234 style)
+; UTF-8 decoding and contextual constraints are specified in cortex-0.1.md.
+; Payload interpretation is two-pass and depends on the symbol declarations in $0.
+
+cortex-document = *layout glossary-section *section *layout
+
+glossary-section = glossary-header line-end *glossary-item
+glossary-header  = "$0"
+glossary-item    = blank-line / comment-line / (glossary-decl line-end)
+glossary-decl    = meta-decl / symbol-decl
+meta-decl        = "$0:" name attrs-payload
+symbol-decl      = symbol-ref ":" name attrs-payload
+
+section          = section-header line-end *section-item
+section-header   = "$" positive-integer [":" 1*(SP / HTAB) section-title]
+section-item     = blank-line / comment-line / idea
+
+idea             = (braced-idea line-end) / (pipe-idea line-end) / multiline-idea
+braced-idea      = idea-head attrs-payload
+pipe-idea        = idea-head "|" pipe-cell *("|" pipe-cell)
+multiline-idea   = idea-head "{" line-end *body-record "}" [line-end]
+body-record      = body-line line-end
+idea-head        = symbol-ref ":" name
+
+symbol-ref       = [namespace "::"] sigil
+namespace        = lower-alpha *(lower-alpha / DIGIT / "_" / "." / "-")
+sigil            = "!" / (upper-alpha *15(upper-alpha / DIGIT / "_"))
+name             = (ALPHA / "_") *63(ALPHA / DIGIT / "_" / "." / "-")
+key              = (lower-alpha / "_") *63(lower-alpha / DIGIT / "_" / "-")
+
+attrs-payload    = "{" [attr-pair *("," attr-pair)] "}"
+attr-pair        = key ":" scalar
+
+scalar           = string / decimal / integer / boolean / null / list / atom
+scalar-no-list   = string / decimal / integer / boolean / null / atom
+list             = "[" [scalar-no-list *("," scalar-no-list)] "]"
+
+string           = DQUOTE *string-unit DQUOTE
+string-unit      = string-safe / escape
+string-safe      = %x20-21 / %x23-5B / %x5D-7E / UTF8-non-ascii
+escape           = "\" (DQUOTE / "\" / "n" / "r" / "t" / "b" / "f" /
+                   ("u" 4HEXDIG))
+
+integer          = ["-"] ("0" / (nonzero-digit *DIGIT))
+decimal          = ["-"] ("0" / (nonzero-digit *DIGIT)) "." 1*DIGIT
+boolean          = "true" / "false"
+null             = "null"
+
+atom             = ["$" positive-integer ":"] (ALPHA / "_")
+                   *(ALPHA / DIGIT / "_" / "." / "/" / ":" / "@" /
+                     "+" / "%" / "$" / "-")
+
+pipe-cell        = string / *pipe-safe
+pipe-safe        = %x20-7B / %x7D-7E / UTF8-non-ascii
+                 ; excludes "|" (%x7C), CR and LF
+
+body-line        = *body-char
+body-char        = HTAB / %x20-7E / UTF8-non-ascii
+                 ; a record whose complete trimmed content is "}" closes the body
+
+section-title    = 1*(HTAB / %x20-7E / UTF8-non-ascii)
+comment-line     = *WSP "#" *(HTAB / %x20-7E / UTF8-non-ascii) line-end
+blank-line       = *WSP line-end
+layout           = blank-line / comment-line
+line-end         = LF / end-of-input
+
+UTF8-non-ascii   = <a valid UTF-8 sequence encoding U+0080..U+10FFFF,
+                    excluding forbidden control characters>
+end-of-input      = <the zero-length sequence at end of input>
+
+upper-alpha      = %x41-5A
+lower-alpha      = %x61-7A
+nonzero-digit    = %x31-39
+positive-integer = nonzero-digit *DIGIT
+
+; The following requirements are semantic constraints and are not duplicated
+; in ABNF: unique $0, mandatory format declaration, local sigil declaration,
+; shape/delimiter compatibility, contract validation, focus materialization,
+; unique local address, flat lists and extension interpretation status.

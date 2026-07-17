@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+KNW:k{type:attrs,weight:B,fields:"a:text|b:text",focus:a,desc:"K"}
+$1
+KNW:x{a:"A",b:"B"}

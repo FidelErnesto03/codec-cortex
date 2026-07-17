@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I002_DUPLICATE_IDEA_ADDRESS\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 6,\n      \"column\": 1\n    },\n    \"message\": \"Addr dup: $1:KNW:x.\"\n  }\n]\n", "exit_code": 1}

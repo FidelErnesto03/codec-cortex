@@ -1,0 +1,32 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"todo|done"}
+$0:micro_t{expand:todo}
+$0:namespace_agent{id:agent,version:1.0,required:true,desc:"Agent"}
+$0:extension_view{namespace:agent,id:view,version:1.0,required:false,desc:"View"}
+$0:meta{a:1,z:"é"}
+ACT:Acción{type:attrs,weight:H,fields:"topic:text|status:%state?|tags:list?",focus:topic,desc:"Acción",open:true}
+BLK:Bloque{type:bloque,weight:B,desc:"Bloque"}
+POS:Posicional{type:attrs-pos,weight:M,pos:"topic:text|count:integer",focus:topic,desc:"Pos"}
+REL:Relación{type:relacion,weight:H,pos:"from:atom|type:atom|to:atom",focus:type,desc:"Rel"}
+TXT:Texto{type:cuerpo,weight:B,desc:"Texto"}
+agent::NST:Namespaced{type:attrs,weight:M,fields:"content:text",focus:content,desc:"NS"}
+$1: Datos
+ACT:first{topic:"hola mundo",status:todo,tags:[a,"b c",1,true,null],extra:"é"}
+$2: Posicional
+POS:p1|texto seguro|2
+$3: Cuerpo
+TXT:t1{
+línea uno
+línea dos
+}
+$4: Bloque
+BLK:b1{
+@startuml
+A -> B
+@enduml
+}
+$5: Relaciones
+REL:r1|a|links|b
+$6: Namespace
+agent::NST:n1{content:"contenido"}

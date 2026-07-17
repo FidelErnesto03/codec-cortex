@@ -1,0 +1,7 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+DIAG:diagram{type:bloque,weight:B,desc:"Bloque verbatim"}
+$1
+DIAG:verbatim{
+Café permanece verbatim.
+}

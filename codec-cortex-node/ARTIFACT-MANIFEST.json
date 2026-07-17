@@ -1,0 +1,102 @@
+{
+  "artifact": "codec-cortex-node",
+  "version": "0.1.0",
+  "manifest_scope": "all package files except this manifest",
+  "files": [
+    {
+      "path": "LICENSE",
+      "size": 209,
+      "sha256": "e1bb1991c789f5e3ea8765cce5da1ab06cdce9c65afc4f1a94d2985fabf32f7d"
+    },
+    {
+      "path": "NOTICE.md",
+      "size": 568,
+      "sha256": "6b6a25e3a9f772c5cf2af5ae811ed15d06a43fb2059e783a151d6c8ff4dd753e"
+    },
+    {
+      "path": "PARITY-REPORT.json",
+      "size": 1160,
+      "sha256": "5726a175b19c3064ebe3e96c08f411df1dd9bd58f5986754d21663c29380daf1"
+    },
+    {
+      "path": "README.md",
+      "size": 3439,
+      "sha256": "56bfc037f805dfff385709bb307f07bf58b7fdb7b6e81b5ad3f120441784d450"
+    },
+    {
+      "path": "bin/codec-cortex-node.js",
+      "size": 5243,
+      "sha256": "bd1874b6222923bc7e85e07c03820343f6607285d75887a6cb287d3c427b02e4"
+    },
+    {
+      "path": "examples/full.canonical.cortex",
+      "size": 1329,
+      "sha256": "e42b611c4c9a3c2fc314b13222ab58be5619f6cc22d2eda0cb421d4781ba3586"
+    },
+    {
+      "path": "examples/full.cortex",
+      "size": 1325,
+      "sha256": "a69572444e6216e353c6606d8005a1de95d3ba9635a181aec176f8dabc7608a9"
+    },
+    {
+      "path": "examples/full.hash.txt",
+      "size": 72,
+      "sha256": "99fcdb2095473ef09f52c713c2c98273c9cc8681229c0314c8dec455fe39fbd4"
+    },
+    {
+      "path": "examples/full.hcortex.md",
+      "size": 1656,
+      "sha256": "400224647532db59941fce89475a108cc1c7b7503a45b2917bc14d06724ad3c4"
+    },
+    {
+      "path": "examples/full.roundtrip.cortex",
+      "size": 1330,
+      "sha256": "495f14b2d3654741259336ec9dda3f81462e89b6fd18bf4e22bad592844a2b8b"
+    },
+    {
+      "path": "package.json",
+      "size": 1034,
+      "sha256": "a6964296d0780297f8d67511151cdaaa1d2494e4e436575c19d186fc3caaae09"
+    },
+    {
+      "path": "src/c14n.js",
+      "size": 11620,
+      "sha256": "6b58ab4a5af6f658155117f99d86f068c8877ae6ab519fbd82f3da485e33f05e"
+    },
+    {
+      "path": "src/harness.js",
+      "size": 9934,
+      "sha256": "bacb8151485bb70027d748030a634be186814f3a2fb750685c6687415a8b47e7"
+    },
+    {
+      "path": "src/hcortex.js",
+      "size": 19886,
+      "sha256": "f8c85f26885a71008f64929aa976e72d3912d3d3c7cfd893535474e7c742dd46"
+    },
+    {
+      "path": "src/index.js",
+      "size": 286,
+      "sha256": "feeda979eaa99d65147d1d20f527d0c2250fd7c5c5d8f0ee6f9df1c65f2534a5"
+    },
+    {
+      "path": "src/parser.js",
+      "size": 18318,
+      "sha256": "698fb332fddcd76efb8f7e5345681aeb03757ba14fa3ec9a6c482874b36e5dfc"
+    },
+    {
+      "path": "src/scalars.js",
+      "size": 9733,
+      "sha256": "42d97e03e4b27be8c7fc8eed78bfc2b797e72f42d2ca5dc54e04dabc14996631"
+    },
+    {
+      "path": "test/core.test.js",
+      "size": 4206,
+      "sha256": "740510c8c2b9c4484959a6114203fc5c4d448ce114281dbe6011797b44a00f9a"
+    },
+    {
+      "path": "test/harness.test.js",
+      "size": 2785,
+      "sha256": "1aedb512fc4ebbf06fec7757088aea77c9c27da748ba728a360516cdaa836f7d"
+    }
+  ]
+}

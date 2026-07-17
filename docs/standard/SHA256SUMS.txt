@@ -1,0 +1,4 @@
+cb74347b27aacf9efc04425894de0a09b689f20b310fb21070b2adac083dba92  docs/standard/hcortex-0.1.md
+ccfa300e769b9ffea9449e28a70253157229f5234f3d1321f009e2ea141b3ffa  docs/standard/CORTEX-SPEC-0.1.md
+08eb80da876ff841ac7ee1d9c9aa14d90651c52bd085c4b629430f430b62772e  docs/standard/GATE-F2.md
+4015183eb4dfedab2bf0904bb72ddef6a57c837b27eac7b98b10f529882edf18  docs/standard/F4-CHARTER.md

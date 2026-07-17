@@ -1,0 +1,4 @@
+$0
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
+$1
+KNW:x{topic:"x",content:"y"}

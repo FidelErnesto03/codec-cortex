@@ -1,0 +1,14 @@
+{
+  "canonicalization": "C14N-0.1",
+  "inputSha256": "d063b9ff830783c6da50733657b9ad45166bfd8974ad1493094b2b21ed6903a8",
+  "canonicalSha256": "7d6cc1cc5f0392dfa0b36d9ec0b6d737b629f11c59bcfb60fe43de947264dba9",
+  "canonicalHash": "sha256:03ea644e28824d46dc7d743bbf2209a63f1e803acd75137cb2d5bb8890d197e0",
+  "changed": true,
+  "structuralLoss": false,
+  "losses": [],
+  "sourceFidelityChanges": [
+    "attribute-order-normalized",
+    "source-form-normalized"
+  ],
+  "diagnostics": []
+}

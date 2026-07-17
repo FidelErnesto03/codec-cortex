@@ -1,0 +1,57 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "precise",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "MET",
+          "value": [
+            [
+              "value",
+              {
+                "kind": "decimal",
+                "value": "0.750"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Decimal exacto",
+      "fields": [
+        {
+          "name": "value",
+          "optional": false,
+          "type": "dec"
+        }
+      ],
+      "focus": "value",
+      "label": "metric",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "MET",
+      "weight": "B"
+    }
+  ]
+}

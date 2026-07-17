@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"L002_INVALID_NAME\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"Nombre 'bad name' inv\u00e1lido.\"\n  }\n]\n", "exit_code": 1}

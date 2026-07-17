@@ -1,0 +1,9 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8}
+D:diagram{type:bloque,weight:H,desc:"Diagram"}
+$4: Diagram
+D:d{
+@startuml
+A -> B
+@enduml
+}

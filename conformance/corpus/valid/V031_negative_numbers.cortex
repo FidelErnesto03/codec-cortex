@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+MET:metric{type:attrs,weight:B,fields:"name:text|delta:int|ratio:dec",focus:name,desc:"Métrica"}
+$1
+MET:change{name:"Cambio",delta:-3,ratio:-0.25}

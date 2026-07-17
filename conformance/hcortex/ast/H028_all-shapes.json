@@ -1,0 +1,236 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "k",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Todos"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Cobertura de shapes."
+              }
+            ]
+          ]
+        },
+        {
+          "name": "p",
+          "namespace": null,
+          "shape": "attrs-pos",
+          "symbol": "HDL",
+          "value": [
+            {
+              "kind": "string",
+              "value": "renderizar"
+            },
+            {
+              "kind": "atom",
+              "value": "current"
+            },
+            {
+              "kind": "string",
+              "value": "AST"
+            }
+          ]
+        },
+        {
+          "name": "t",
+          "namespace": null,
+          "shape": "cuerpo",
+          "symbol": "TXT",
+          "value": "Texto humano."
+        },
+        {
+          "name": "b",
+          "namespace": null,
+          "shape": "bloque",
+          "symbol": "DIAG",
+          "value": {
+            "media_type": "text/plain",
+            "text": "verbatim"
+          }
+        },
+        {
+          "name": "r",
+          "namespace": null,
+          "shape": "relacion",
+          "symbol": "REL",
+          "value": [
+            {
+              "kind": "atom",
+              "value": "$1:KNW:k"
+            },
+            {
+              "kind": "atom",
+              "value": "supports"
+            },
+            {
+              "kind": "atom",
+              "value": "$1:TXT:t"
+            }
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Bloque verbatim",
+      "fields": [],
+      "focus": null,
+      "label": "diagram",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "bloque",
+      "symbol": "DIAG",
+      "weight": "B"
+    },
+    {
+      "desc": "Procedimiento compacto",
+      "fields": [],
+      "focus": "action",
+      "label": "procedure",
+      "namespace": null,
+      "open": false,
+      "pos": [
+        {
+          "name": "action",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "target",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "constraint",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "shape": "attrs-pos",
+      "symbol": "HDL",
+      "weight": "M"
+    },
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    },
+    {
+      "desc": "Relación dirigida",
+      "fields": [],
+      "focus": "predicate",
+      "label": "relation",
+      "namespace": null,
+      "open": false,
+      "pos": [
+        {
+          "name": "source",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "predicate",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "target",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "qualifier",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "shape": "relacion",
+      "symbol": "REL",
+      "weight": "M"
+    },
+    {
+      "desc": "Texto semántico",
+      "fields": [],
+      "focus": null,
+      "label": "text",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "cuerpo",
+      "symbol": "TXT",
+      "weight": "B"
+    }
+  ]
+}

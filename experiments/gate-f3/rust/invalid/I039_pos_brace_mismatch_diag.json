@@ -1,0 +1,1 @@
+{"code":"I004_SHAPE_DELIMITER_MISMATCH","severity":"error","span":{"line":5,"column":1},"message":"Delimitador no coincide con shape attrs-pos. Usar pipes."}

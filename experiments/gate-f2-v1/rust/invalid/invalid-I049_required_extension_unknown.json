@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "X002_REQUIRED_EXTENSION_UNSUPPORTED"
+  ],
+  "primary": {
+    "code": "X002_REQUIRED_EXTENSION_UNSUPPORTED",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Extensión requerida no soportada: trace::provenance@0.1."
+  }
+}

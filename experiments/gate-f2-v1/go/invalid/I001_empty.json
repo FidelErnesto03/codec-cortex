@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"S001_EMPTY_DOCUMENT\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 1,\n      \"column\": 1\n    },\n    \"message\": \"Documento vac\u00edo.\"\n  }\n]\n", "exit_code": 1}

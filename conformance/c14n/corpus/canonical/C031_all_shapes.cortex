@@ -1,0 +1,15 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+ATT:a{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Attrs"}
+BLK:b{type:bloque,weight:B,desc:"Bloque"}
+POS:p{type:attrs-pos,weight:B,pos:"content:text|status:atom",focus:content,desc:"Positional"}
+REL:r{type:relacion,weight:B,pos:"source:atom|predicate:atom|target:atom",focus:predicate,desc:"Relación"}
+TXT:t{type:cuerpo,weight:B,desc:"Cuerpo"}
+$1
+ATT:a{content:"A"}
+POS:p|B|current
+TXT:t{C}
+BLK:b{
+D
+}
+REL:r|A|links|B

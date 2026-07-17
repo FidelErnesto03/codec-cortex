@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "S006_INVALID_ATTRS"
+  ],
+  "primary": {
+    "code": "S006_INVALID_ATTRS",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Atributos inválidos: unclosed string or list"
+  }
+}

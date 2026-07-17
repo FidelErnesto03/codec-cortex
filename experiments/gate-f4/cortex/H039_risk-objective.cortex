@@ -1,0 +1,8 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked|done"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|metric:text?",focus:goal,desc:"Objetivo explícito"}
+RSK:risk{type:attrs,weight:H,fields:"risk:text|impact:text|status:%state",focus:risk,desc:"Riesgo explícito"}
+$1
+OBJ:gate{goal:"100% roundtrip estructural.",status:current,metric:"40/40"}
+RSK:view{risk:"VIEW contamina el canon.",impact:"Pérdida de reversibilidad.",status:blocked}

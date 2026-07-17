@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+SET:s{type:attrs,weight:B,fields:"items:list",focus:items,desc:"Conjunto"}
+$1
+SET:x{items:[denso,portable,"texto humano",3,true]}

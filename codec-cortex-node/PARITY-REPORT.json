@@ -1,0 +1,38 @@
+{
+  "implementation": "codec-cortex-node",
+  "version": "0.1.0",
+  "reference": {
+    "artifact": "codec_cortex.tar(3).gz",
+    "sha256": "47640ad335bc8f422d346c3f962b12e5e7b317b06080560d1b25070eb54259b2",
+    "language": "Python 3"
+  },
+  "target": {
+    "language": "Node.js",
+    "runtime_tested": "v22.16.0",
+    "minimum_runtime": ">=18",
+    "external_runtime_dependencies": 0
+  },
+  "differential_validation": {
+    "valid_and_invalid_cases": 20,
+    "exact_matches": 20,
+    "compared": [
+      "canonical CORTEX bytes",
+      "raw and post-canonical HCORTEX bytes",
+      "HCORTEX reverse canonicalization",
+      "C14N domain hash",
+      "diagnostic codes",
+      "diagnostic locations",
+      "diagnostic messages"
+    ]
+  },
+  "node_test_suite": {
+    "tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "includes_synthetic_f3_f4_pass": true
+  },
+  "limitations": [
+    "The supplied Python archive did not contain the official F3/F4 corpus or manifests, so those external corpus files could not be executed directly.",
+    "The package preserves the behavior and scope of the supplied reference rather than extending the standard beyond it."
+  ]
+}

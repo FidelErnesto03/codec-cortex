@@ -1,0 +1,32 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es,type:doc}
+$0:sigils{declared:"EQUIPO,OBJ,PRIN,LESS,RIES,STAT"}
+
+$1: EQUIPO DE INGENIEROS
+EQUIPO:miembro{nombre:"Elena Karpenko",rol:"Arquitecta de núcleo",especialidad:"planificación de procesos y memoria",experiencia:"12 años"}
+EQUIPO:miembro{nombre:"David Chen",rol:"Ingeniero de sistemas",especialidad:"controladores y HAL",experiencia:"8 años"}
+EQUIPO:miembro{nombre:"Aisha Okafor",rol:"Diseñadora de seguridad",especialidad:"cifrado y aislamiento de procesos",experiencia:"6 años"}
+EQUIPO:miembro{nombre:"Marco Vázquez",rol:"Ingeniero de red y E/S",especialidad:"pilas de red y sistemas de archivos",experiencia:"7 años"}
+
+$2: OBJETIVOS DEL PROYECTO
+OBJ:item{id:"O1",desc:"Lograr arranque completo del núcleo en menos de 2 segundos en hardware de referencia",estado:"95% — pendiente optimización de inicialización de PCIe",prioridad:"alta"}
+OBJ:item{id:"O2",desc:"Soportar aislamiento de procesos con zona de memoria protegida por hardware",estado:"70% — prototipo funcional en QEMU, falta integración con MMU",prioridad:"crítica"}
+OBJ:item{id:"O3",desc:"Diseñar interfaz de control unificada para administración de recursos",estado:"40% — especificación API definida, implementación parcial",prioridad:"media"}
+
+$3: PRINCIPIO NO NEGOCIABLE
+PRIN:fundamento{nombre:"Cero abstracciones gratuitas",desc:"Toda capa de abstracción debe justificar su costo en latencia o memoria con una ganancia medible en seguridad, mantenibilidad o portabilidad. No se permiten envolturas genéricas sin análisis de rendimiento.",aplica:"núcleo, controladores, IPC",sancion:"requiere revisión de comité técnico"}
+
+$4: LECCIONES APRENDIDAS
+LESS:leccion{id:"L1",titulo:"El diseño temprano de la interfaz de interrupciones condiciona todo",desc:"Nuestra primera propuesta de IRQ compartida parecía elegante, pero al simular carga real descubrimos contención inaceptable. Rediseñamos a IRQ por núcleo con afiliación de procesos. La lección: las decisiones de interrupciones deben validarse con perfiles de carga antes de fijar el resto del scheduler.",impacto:"evitó retraso de 3 meses en fase de integración"}
+LESS:leccion{id:"L2",titulo:"La documentación de invariantes de estado salva vidas",desc:"Durante el diseño de la memoria compartida entre procesos, documentar formalmente las invariantes (ej. 'ninguna región mapeada puede tener dos propietarios con escritura') nos permitió detectar un error sutil en el protocolo de paso de mensajes. La lección: mantener un registro vivo de invariantes, no solo código.",impacto:"previno fallos de seguridad críticos en modo usuario"}
+
+$5: RIESGOS IDENTIFICADOS
+RIES:item{id:"R1",desc:"Fragmentación de memoria en el asignador de bloques pequeños bajo carga sostenida",impacto:"alto",probabilidad:"media",mitigacion:"implementar asignador por niveles con compactación periódica",monitoreo:"métrica de tasa de fallos de asignación"}
+RIES:item{id:"R2",desc:"Desviación en tiempos de respuesta del planificador ante procesos de E/S intensiva",impacto:"medio",probabilidad:"alta",mitigacion:"añadir heurística de prioridad dinámica basada en cuota de E/S",monitoreo:"percentil 99 de latencia de planificación"}
+RIES:item{id:"R3",desc:"Posible fuga de información en el caché de traducciones de direcciones compartido",impacto:"crítico",probabilidad:"baja",mitigacion:"limpiar TLB en cada cambio de contexto de dominio de seguridad",monitoreo:"auditoría de estado de TLB post-cambio"}
+
+$6: ESTADO DE HITO ACTUAL
+STAT:hito{nombre:"Revisión de arquitectura",completado:"2026-06-01",entregable:"documento de diseño detallado",aprobado:"sí"}
+STAT:hito{nombre:"Prototipo de núcleo en QEMU",completado:"2026-06-30",entregable:"binario booteable con consola serial",aprobado:"sí"}
+STAT:hito{nombre:"Sistema de archivos mínimo",completado:"2026-07-15",entregable:"montaje de ramfs y operaciones básicas",aprobado:"parcial — pendiente pruebas de concurrencia"}
+STAT:hito{nombre:"Controladores de red",completado:"pendiente",entregable:"controlador para NIC virtual",aprobado:"no aplica"}

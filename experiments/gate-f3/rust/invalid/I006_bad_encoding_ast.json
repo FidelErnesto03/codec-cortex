@@ -1,0 +1,67 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-16",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-16",
+            "lexeme": "UTF-16"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-16",
+              "lexeme": "UTF-16"
+            }
+          }
+        ],
+        "sourceLine": 2
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": []
+  },
+  "sections": []
+}

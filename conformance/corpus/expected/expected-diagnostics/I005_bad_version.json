@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G007_UNSUPPORTED_VERSION"
+  ],
+  "primary": {
+    "code": "G007_UNSUPPORTED_VERSION",
+    "severity": "error",
+    "span": {
+      "line": 2,
+      "column": 1
+    },
+    "message": "cortex debe ser 0.1."
+  }
+}

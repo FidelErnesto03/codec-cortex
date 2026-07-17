@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8}
+REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom",focus:predicate,desc:"Relación"}
+$1
+REL:x|a|links

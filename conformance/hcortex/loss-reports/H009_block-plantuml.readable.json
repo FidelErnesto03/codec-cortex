@@ -1,0 +1,48 @@
+{
+  "case": "H009",
+  "losses": [
+    {
+      "action": "Conservar CORTEX o HCORTEX-CANONICAL.",
+      "category": "structure",
+      "code": "L410_GLOSSARY_COLLAPSED",
+      "detail": "El glosario completo no se emite en READABLE.",
+      "path": "/$0",
+      "recoverability": "from-source-only",
+      "severity": "loss"
+    },
+    {
+      "action": "No compilar READABLE como canon.",
+      "category": "identity",
+      "code": "L411_MACHINE_METADATA_REMOVED",
+      "detail": "Se omite metadata de reconstrucción.",
+      "path": "/sections/*/ideas/*",
+      "recoverability": "from-source-only",
+      "severity": "loss"
+    }
+  ],
+  "mode": "readable",
+  "operation": "render",
+  "preserved": [
+    "human-content",
+    "section-sequence",
+    "idea-sequence"
+  ],
+  "reversible": false,
+  "schema_version": "0.1",
+  "source_format": "cortex-0.1",
+  "source_sha256": "a138566f0e48018806275c08e2ab464da87f6a60260729d458f611c0852cb975",
+  "structural_equivalence": false,
+  "target_format": "hcortex-0.1",
+  "target_sha256": "255329b2fad018783b4bedc699a1ba545a802da26d22677a0312d0043e622b94",
+  "warnings": [
+    {
+      "action": "Usar CANONICAL para roundtrip.",
+      "category": "lexeme",
+      "code": "W412_DISPLAY_NORMALIZED",
+      "detail": "Valores se muestran para lectura, no como lexemas canónicos.",
+      "path": "/sections/*",
+      "recoverability": "not-applicable",
+      "severity": "warning"
+    }
+  ]
+}

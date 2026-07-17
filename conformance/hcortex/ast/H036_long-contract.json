@@ -1,0 +1,105 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "f4",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "AUD",
+          "value": [
+            [
+              "finding",
+              {
+                "kind": "string",
+                "value": "Roundtrip incompleto."
+              }
+            ],
+            [
+              "severity",
+              {
+                "kind": "atom",
+                "value": "blocker"
+              }
+            ],
+            [
+              "evidence",
+              {
+                "kind": "string",
+                "value": "vector H036"
+              }
+            ],
+            [
+              "owner",
+              {
+                "kind": "string",
+                "value": "implementación"
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "current"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Hallazgo auditable",
+      "fields": [
+        {
+          "name": "finding",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "severity",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "evidence",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "owner",
+          "optional": true,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "atom"
+        }
+      ],
+      "focus": "finding",
+      "label": "audit",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "AUD",
+      "weight": "H"
+    }
+  ]
+}

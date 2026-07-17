@@ -1,0 +1,46 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "flow",
+          "namespace": null,
+          "shape": "bloque",
+          "symbol": "DIAG",
+          "value": {
+            "media_type": "text/x-plantuml",
+            "text": "@startuml\nparser --> AST\n@enduml"
+          }
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Bloque verbatim",
+      "fields": [],
+      "focus": null,
+      "label": "diagram",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "bloque",
+      "symbol": "DIAG",
+      "weight": "B"
+    }
+  ]
+}

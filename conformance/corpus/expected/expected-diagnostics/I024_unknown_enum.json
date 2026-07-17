@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G026_UNKNOWN_ENUM_REFERENCE"
+  ],
+  "primary": {
+    "code": "G026_UNKNOWN_ENUM_REFERENCE",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Enum no declarado: %state."
+  }
+}

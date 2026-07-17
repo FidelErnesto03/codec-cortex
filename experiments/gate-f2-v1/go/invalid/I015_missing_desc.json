@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G020_SYMBOL_DESCRIPTION_REQUIRED\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"'KNW' sin desc.\"\n  }\n]\n", "exit_code": 1}

@@ -1,0 +1,669 @@
+{
+  "version": "0.1",
+  "valid": [
+    {
+      "id": "V001_minimal_attrs",
+      "source": "valid/V001_minimal_attrs.cortex",
+      "expectedAst": "expected-ast/V001_minimal_attrs.json"
+    },
+    {
+      "id": "V002_attrs_optional",
+      "source": "valid/V002_attrs_optional.cortex",
+      "expectedAst": "expected-ast/V002_attrs_optional.json"
+    },
+    {
+      "id": "V003_attrs_complete",
+      "source": "valid/V003_attrs_complete.cortex",
+      "expectedAst": "expected-ast/V003_attrs_complete.json"
+    },
+    {
+      "id": "V004_multiple_sigils",
+      "source": "valid/V004_multiple_sigils.cortex",
+      "expectedAst": "expected-ast/V004_multiple_sigils.json"
+    },
+    {
+      "id": "V005_microtoken_attrs",
+      "source": "valid/V005_microtoken_attrs.cortex",
+      "expectedAst": "expected-ast/V005_microtoken_attrs.json"
+    },
+    {
+      "id": "V006_microtoken_positional",
+      "source": "valid/V006_microtoken_positional.cortex",
+      "expectedAst": "expected-ast/V006_microtoken_positional.json"
+    },
+    {
+      "id": "V007_attrs_pos_text_cells",
+      "source": "valid/V007_attrs_pos_text_cells.cortex",
+      "expectedAst": "expected-ast/V007_attrs_pos_text_cells.json"
+    },
+    {
+      "id": "V008_relation",
+      "source": "valid/V008_relation.cortex",
+      "expectedAst": "expected-ast/V008_relation.json"
+    },
+    {
+      "id": "V009_relation_selectors",
+      "source": "valid/V009_relation_selectors.cortex",
+      "expectedAst": "expected-ast/V009_relation_selectors.json"
+    },
+    {
+      "id": "V010_cuerpo_one_line",
+      "source": "valid/V010_cuerpo_one_line.cortex",
+      "expectedAst": "expected-ast/V010_cuerpo_one_line.json"
+    },
+    {
+      "id": "V011_cuerpo_multiline",
+      "source": "valid/V011_cuerpo_multiline.cortex",
+      "expectedAst": "expected-ast/V011_cuerpo_multiline.json"
+    },
+    {
+      "id": "V012_bloque",
+      "source": "valid/V012_bloque.cortex",
+      "expectedAst": "expected-ast/V012_bloque.json"
+    },
+    {
+      "id": "V013_block_internal_braces",
+      "source": "valid/V013_block_internal_braces.cortex",
+      "expectedAst": "expected-ast/V013_block_internal_braces.json"
+    },
+    {
+      "id": "V014_lists",
+      "source": "valid/V014_lists.cortex",
+      "expectedAst": "expected-ast/V014_lists.json"
+    },
+    {
+      "id": "V015_scalar_types",
+      "source": "valid/V015_scalar_types.cortex",
+      "expectedAst": "expected-ast/V015_scalar_types.json"
+    },
+    {
+      "id": "V016_escaped_string",
+      "source": "valid/V016_escaped_string.cortex",
+      "expectedAst": "expected-ast/V016_escaped_string.json"
+    },
+    {
+      "id": "V017_unicode",
+      "source": "valid/V017_unicode.cortex",
+      "expectedAst": "expected-ast/V017_unicode.json"
+    },
+    {
+      "id": "V018_comments",
+      "source": "valid/V018_comments.cortex",
+      "expectedAst": "expected-ast/V018_comments.json"
+    },
+    {
+      "id": "V019_section_titles",
+      "source": "valid/V019_section_titles.cortex",
+      "expectedAst": "expected-ast/V019_section_titles.json"
+    },
+    {
+      "id": "V020_namespace_metadata",
+      "source": "valid/V020_namespace_metadata.cortex",
+      "expectedAst": "expected-ast/V020_namespace_metadata.json"
+    },
+    {
+      "id": "V021_qualified_sigil",
+      "source": "valid/V021_qualified_sigil.cortex",
+      "expectedAst": "expected-ast/V021_qualified_sigil.json"
+    },
+    {
+      "id": "V022_optional_extension",
+      "source": "valid/V022_optional_extension.cortex",
+      "expectedAst": "expected-ast/V022_optional_extension.json"
+    },
+    {
+      "id": "V023_open_contract",
+      "source": "valid/V023_open_contract.cortex",
+      "expectedAst": "expected-ast/V023_open_contract.json"
+    },
+    {
+      "id": "V024_bang_sigil",
+      "source": "valid/V024_bang_sigil.cortex",
+      "expectedAst": "expected-ast/V024_bang_sigil.json"
+    },
+    {
+      "id": "V025_url_quoted",
+      "source": "valid/V025_url_quoted.cortex",
+      "expectedAst": "expected-ast/V025_url_quoted.json"
+    },
+    {
+      "id": "V026_selector_atom",
+      "source": "valid/V026_selector_atom.cortex",
+      "expectedAst": "expected-ast/V026_selector_atom.json"
+    },
+    {
+      "id": "V027_original_skill_style",
+      "source": "valid/V027_original_skill_style.cortex",
+      "expectedAst": "expected-ast/V027_original_skill_style.json"
+    },
+    {
+      "id": "V028_full_portable_glossary",
+      "source": "valid/V028_full_portable_glossary.cortex",
+      "expectedAst": "expected-ast/V028_full_portable_glossary.json"
+    },
+    {
+      "id": "V029_body_empty_lines",
+      "source": "valid/V029_body_empty_lines.cortex",
+      "expectedAst": "expected-ast/V029_body_empty_lines.json"
+    },
+    {
+      "id": "V030_empty_list",
+      "source": "valid/V030_empty_list.cortex",
+      "expectedAst": "expected-ast/V030_empty_list.json"
+    },
+    {
+      "id": "V031_negative_numbers",
+      "source": "valid/V031_negative_numbers.cortex",
+      "expectedAst": "expected-ast/V031_negative_numbers.json"
+    },
+    {
+      "id": "V032_optional_positional_omitted",
+      "source": "valid/V032_optional_positional_omitted.cortex",
+      "expectedAst": "expected-ast/V032_optional_positional_omitted.json"
+    },
+    {
+      "id": "V033_relation_optional_evidence_omitted",
+      "source": "valid/V033_relation_optional_evidence_omitted.cortex",
+      "expectedAst": "expected-ast/V033_relation_optional_evidence_omitted.json"
+    },
+    {
+      "id": "V034_multiple_sections_same_name",
+      "source": "valid/V034_multiple_sections_same_name.cortex",
+      "expectedAst": "expected-ast/V034_multiple_sections_same_name.json"
+    },
+    {
+      "id": "V035_atom_paths",
+      "source": "valid/V035_atom_paths.cortex",
+      "expectedAst": "expected-ast/V035_atom_paths.json"
+    },
+    {
+      "id": "V036_all_shapes",
+      "source": "valid/V036_all_shapes.cortex",
+      "expectedAst": "expected-ast/V036_all_shapes.json"
+    },
+    {
+      "id": "V037_namespace_qualified_and_local",
+      "source": "valid/V037_namespace_qualified_and_local.cortex",
+      "expectedAst": "expected-ast/V037_namespace_qualified_and_local.json"
+    },
+    {
+      "id": "V038_format_extra_metadata",
+      "source": "valid/V038_format_extra_metadata.cortex",
+      "expectedAst": "expected-ast/V038_format_extra_metadata.json"
+    },
+    {
+      "id": "V039_meta_type_decls_legacy_evolution",
+      "source": "valid/V039_meta_type_decls_legacy_evolution.cortex",
+      "expectedAst": "expected-ast/V039_meta_type_decls_legacy_evolution.json"
+    },
+    {
+      "id": "V040_dense_skill_excerpt",
+      "source": "valid/V040_dense_skill_excerpt.cortex",
+      "expectedAst": "expected-ast/V040_dense_skill_excerpt.json"
+    }
+  ],
+  "invalid": [
+    {
+      "id": "I001_empty",
+      "source": "invalid/I001_empty.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I001_empty.json",
+      "requiredCodes": [
+        "S001_EMPTY_DOCUMENT"
+      ]
+    },
+    {
+      "id": "I002_missing_glossary",
+      "source": "invalid/I002_missing_glossary.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I002_missing_glossary.json",
+      "requiredCodes": [
+        "G001_GLOSSARY_MISSING_OR_NOT_FIRST"
+      ]
+    },
+    {
+      "id": "I003_content_before_glossary",
+      "source": "invalid/I003_content_before_glossary.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I003_content_before_glossary.json",
+      "requiredCodes": [
+        "G001_GLOSSARY_MISSING_OR_NOT_FIRST"
+      ],
+      "required": true
+    },
+    {
+      "id": "I004_missing_format",
+      "source": "invalid/I004_missing_format.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I004_missing_format.json",
+      "requiredCodes": [
+        "G010_FORMAT_REQUIRED"
+      ],
+      "required": true
+    },
+    {
+      "id": "I005_bad_version",
+      "source": "invalid/I005_bad_version.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I005_bad_version.json",
+      "requiredCodes": [
+        "G007_UNSUPPORTED_VERSION"
+      ]
+    },
+    {
+      "id": "I006_bad_encoding",
+      "source": "invalid/I006_bad_encoding.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I006_bad_encoding.json",
+      "requiredCodes": [
+        "G011_ENCODING_REQUIRED"
+      ]
+    },
+    {
+      "id": "I007_duplicate_format",
+      "source": "invalid/I007_duplicate_format.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I007_duplicate_format.json",
+      "requiredCodes": [
+        "G006_DUPLICATE_FORMAT"
+      ]
+    },
+    {
+      "id": "I008_duplicate_section",
+      "source": "invalid/I008_duplicate_section.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I008_duplicate_section.json",
+      "requiredCodes": [
+        "S002_DUPLICATE_SECTION"
+      ]
+    },
+    {
+      "id": "I009_glossary_reopened",
+      "source": "invalid/I009_glossary_reopened.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I009_glossary_reopened.json",
+      "requiredCodes": [
+        "G002_GLOSSARY_REOPENED"
+      ]
+    },
+    {
+      "id": "I010_multiline_glossary",
+      "source": "invalid/I010_multiline_glossary.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I010_multiline_glossary.json",
+      "requiredCodes": [
+        "G003_MULTILINE_GLOSSARY_DECLARATION"
+      ]
+    },
+    {
+      "id": "I011_symbol_missing_type",
+      "source": "invalid/I011_symbol_missing_type.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I011_symbol_missing_type.json",
+      "requiredCodes": [
+        "G016_SYMBOL_TYPE_REQUIRED"
+      ]
+    },
+    {
+      "id": "I012_unknown_shape",
+      "source": "invalid/I012_unknown_shape.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I012_unknown_shape.json",
+      "requiredCodes": [
+        "G017_UNKNOWN_SHAPE"
+      ]
+    },
+    {
+      "id": "I013_missing_weight",
+      "source": "invalid/I013_missing_weight.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I013_missing_weight.json",
+      "requiredCodes": [
+        "G018_SYMBOL_WEIGHT_REQUIRED"
+      ]
+    },
+    {
+      "id": "I014_bad_weight",
+      "source": "invalid/I014_bad_weight.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I014_bad_weight.json",
+      "requiredCodes": [
+        "G019_INVALID_WEIGHT"
+      ]
+    },
+    {
+      "id": "I015_missing_desc",
+      "source": "invalid/I015_missing_desc.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I015_missing_desc.json",
+      "requiredCodes": [
+        "G020_SYMBOL_DESCRIPTION_REQUIRED"
+      ]
+    },
+    {
+      "id": "I016_attrs_missing_contract",
+      "source": "invalid/I016_attrs_missing_contract.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I016_attrs_missing_contract.json",
+      "requiredCodes": [
+        "G021_ATTRS_CONTRACT_REQUIRED"
+      ]
+    },
+    {
+      "id": "I017_pos_missing_contract",
+      "source": "invalid/I017_pos_missing_contract.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I017_pos_missing_contract.json",
+      "requiredCodes": [
+        "G022_POSITIONAL_CONTRACT_REQUIRED"
+      ]
+    },
+    {
+      "id": "I018_relation_short_contract",
+      "source": "invalid/I018_relation_short_contract.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I018_relation_short_contract.json",
+      "requiredCodes": [
+        "G023_RELATION_CONTRACT_TOO_SHORT"
+      ]
+    },
+    {
+      "id": "I019_focus_missing",
+      "source": "invalid/I019_focus_missing.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I019_focus_missing.json",
+      "requiredCodes": [
+        "G024_FOCUS_REQUIRED"
+      ]
+    },
+    {
+      "id": "I020_focus_unknown",
+      "source": "invalid/I020_focus_unknown.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I020_focus_unknown.json",
+      "requiredCodes": [
+        "G025_UNKNOWN_FOCUS_FIELD"
+      ]
+    },
+    {
+      "id": "I021_bad_contract",
+      "source": "invalid/I021_bad_contract.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I021_bad_contract.json",
+      "requiredCodes": [
+        "G008_INVALID_CONTRACT"
+      ],
+      "required": true
+    },
+    {
+      "id": "I022_duplicate_contract_field",
+      "source": "invalid/I022_duplicate_contract_field.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I022_duplicate_contract_field.json",
+      "requiredCodes": [
+        "G009_DUPLICATE_CONTRACT_FIELD"
+      ]
+    },
+    {
+      "id": "I023_unknown_field_type",
+      "source": "invalid/I023_unknown_field_type.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I023_unknown_field_type.json",
+      "requiredCodes": [
+        "G027_UNKNOWN_FIELD_TYPE"
+      ]
+    },
+    {
+      "id": "I024_unknown_enum",
+      "source": "invalid/I024_unknown_enum.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I024_unknown_enum.json",
+      "requiredCodes": [
+        "G026_UNKNOWN_ENUM_REFERENCE"
+      ]
+    },
+    {
+      "id": "I025_bad_enum",
+      "source": "invalid/I025_bad_enum.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I025_bad_enum.json",
+      "requiredCodes": [
+        "G014_INVALID_ENUM"
+      ]
+    },
+    {
+      "id": "I026_duplicate_enum",
+      "source": "invalid/I026_duplicate_enum.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I026_duplicate_enum.json",
+      "requiredCodes": [
+        "G015_DUPLICATE_ENUM"
+      ]
+    },
+    {
+      "id": "I027_bad_micro",
+      "source": "invalid/I027_bad_micro.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I027_bad_micro.json",
+      "requiredCodes": [
+        "L002_INVALID_NAME"
+      ]
+    },
+    {
+      "id": "I028_duplicate_micro",
+      "source": "invalid/I028_duplicate_micro.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I028_duplicate_micro.json",
+      "requiredCodes": [
+        "G013_DUPLICATE_MICRO"
+      ]
+    },
+    {
+      "id": "I029_duplicate_symbol",
+      "source": "invalid/I029_duplicate_symbol.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I029_duplicate_symbol.json",
+      "requiredCodes": [
+        "G005_DUPLICATE_SYMBOL"
+      ]
+    },
+    {
+      "id": "I030_undeclared_symbol",
+      "source": "invalid/I030_undeclared_symbol.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I030_undeclared_symbol.json",
+      "requiredCodes": [
+        "I001_UNDECLARED_SYMBOL"
+      ]
+    },
+    {
+      "id": "I031_duplicate_address",
+      "source": "invalid/I031_duplicate_address.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I031_duplicate_address.json",
+      "requiredCodes": [
+        "I002_DUPLICATE_IDEA_ADDRESS"
+      ]
+    },
+    {
+      "id": "I032_unknown_field",
+      "source": "invalid/I032_unknown_field.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I032_unknown_field.json",
+      "requiredCodes": [
+        "I005_UNKNOWN_FIELD"
+      ]
+    },
+    {
+      "id": "I033_duplicate_field",
+      "source": "invalid/I033_duplicate_field.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I033_duplicate_field.json",
+      "requiredCodes": [
+        "I006_DUPLICATE_FIELD"
+      ]
+    },
+    {
+      "id": "I034_field_order",
+      "source": "invalid/I034_field_order.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I034_field_order.json",
+      "requiredCodes": [
+        "I007_FIELD_ORDER"
+      ]
+    },
+    {
+      "id": "I035_required_missing",
+      "source": "invalid/I035_required_missing.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I035_required_missing.json",
+      "requiredCodes": [
+        "I008_REQUIRED_FIELD_MISSING"
+      ]
+    },
+    {
+      "id": "I036_type_mismatch",
+      "source": "invalid/I036_type_mismatch.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I036_type_mismatch.json",
+      "requiredCodes": [
+        "I009_FIELD_TYPE_MISMATCH"
+      ],
+      "required": true
+    },
+    {
+      "id": "I037_enum_violation",
+      "source": "invalid/I037_enum_violation.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I037_enum_violation.json",
+      "requiredCodes": [
+        "I010_ENUM_VIOLATION"
+      ]
+    },
+    {
+      "id": "I038_attrs_pipe_mismatch",
+      "source": "invalid/I038_attrs_pipe_mismatch.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I038_attrs_pipe_mismatch.json",
+      "requiredCodes": [
+        "I004_SHAPE_DELIMITER_MISMATCH"
+      ]
+    },
+    {
+      "id": "I039_pos_brace_mismatch",
+      "source": "invalid/I039_pos_brace_mismatch.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I039_pos_brace_mismatch.json",
+      "requiredCodes": [
+        "I004_SHAPE_DELIMITER_MISMATCH"
+      ]
+    },
+    {
+      "id": "I040_pos_short",
+      "source": "invalid/I040_pos_short.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I040_pos_short.json",
+      "requiredCodes": [
+        "I012_POSITIONAL_ARITY"
+      ]
+    },
+    {
+      "id": "I041_pos_long",
+      "source": "invalid/I041_pos_long.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I041_pos_long.json",
+      "requiredCodes": [
+        "I012_POSITIONAL_ARITY"
+      ]
+    },
+    {
+      "id": "I042_relation_arity",
+      "source": "invalid/I042_relation_arity.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I042_relation_arity.json",
+      "requiredCodes": [
+        "I013_RELATION_ARITY"
+      ]
+    },
+    {
+      "id": "I043_attrs_multiline",
+      "source": "invalid/I043_attrs_multiline.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I043_attrs_multiline.json",
+      "requiredCodes": [
+        "I003_ATTRS_MUST_BE_ONE_LINE"
+      ]
+    },
+    {
+      "id": "I044_body_unclosed",
+      "source": "invalid/I044_body_unclosed.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I044_body_unclosed.json",
+      "requiredCodes": [
+        "I014_UNCLOSED_BODY"
+      ]
+    },
+    {
+      "id": "I045_invalid_string",
+      "source": "invalid/I045_invalid_string.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I045_invalid_string.json",
+      "requiredCodes": [
+        "S006_INVALID_ATTRS"
+      ]
+    },
+    {
+      "id": "I046_unquoted_attrs_text",
+      "source": "invalid/I046_unquoted_attrs_text.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I046_unquoted_attrs_text.json",
+      "requiredCodes": [
+        "L010_INVALID_ATOM"
+      ]
+    },
+    {
+      "id": "I047_nested_list",
+      "source": "invalid/I047_nested_list.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I047_nested_list.json",
+      "requiredCodes": [
+        "L008_NESTED_LIST"
+      ]
+    },
+    {
+      "id": "I048_empty_focus",
+      "source": "invalid/I048_empty_focus.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I048_empty_focus.json",
+      "requiredCodes": [
+        "I016_EMPTY_FOCUS"
+      ]
+    },
+    {
+      "id": "I049_required_extension_unknown",
+      "source": "invalid/I049_required_extension_unknown.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I049_required_extension_unknown.json",
+      "requiredCodes": [
+        "X002_REQUIRED_EXTENSION_UNSUPPORTED"
+      ]
+    },
+    {
+      "id": "I050_invalid_extension",
+      "source": "invalid/I050_invalid_extension.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I050_invalid_extension.json",
+      "requiredCodes": [
+        "X001_INVALID_EXTENSION_DECLARATION"
+      ],
+      "required": true
+    },
+    {
+      "id": "I051_invalid_symbol",
+      "source": "invalid/I051_invalid_symbol.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I051_invalid_symbol.json",
+      "requiredCodes": [
+        "L001_INVALID_SYMBOL"
+      ]
+    },
+    {
+      "id": "I052_invalid_name",
+      "source": "invalid/I052_invalid_name.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I052_invalid_name.json",
+      "requiredCodes": [
+        "L002_INVALID_NAME"
+      ]
+    },
+    {
+      "id": "I053_invalid_key",
+      "source": "invalid/I053_invalid_key.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I053_invalid_key.json",
+      "requiredCodes": [
+        "L003_INVALID_KEY"
+      ]
+    },
+    {
+      "id": "I054_invalid_list",
+      "source": "invalid/I054_invalid_list.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I054_invalid_list.json",
+      "requiredCodes": [
+        "S006_INVALID_ATTRS"
+      ]
+    },
+    {
+      "id": "I055_duplicate_qualified_symbol",
+      "source": "invalid/I055_duplicate_qualified_symbol.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I055_duplicate_qualified_symbol.json",
+      "requiredCodes": [
+        "G028_DUPLICATE_QUALIFIED_SYMBOL"
+      ],
+      "required": true
+    },
+    {
+      "id": "I056_bom_forbidden",
+      "source": "invalid/I056_bom_forbidden.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I056_bom_forbidden.json",
+      "requiredCodes": [
+        "U001_BOM_FORBIDDEN"
+      ]
+    },
+    {
+      "id": "I057_control_character",
+      "source": "invalid/I057_control_character.cortex",
+      "expectedDiagnostics": "expected-diagnostics/I057_control_character.json",
+      "requiredCodes": [
+        "U002_CONTROL_CHARACTER"
+      ]
+    }
+  ]
+}

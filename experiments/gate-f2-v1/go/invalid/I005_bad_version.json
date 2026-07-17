@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G007_UNSUPPORTED_VERSION\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 2,\n      \"column\": 1\n    },\n    \"message\": \"Versi\u00f3n '0.2'.\"\n  }\n]\n", "exit_code": 1}

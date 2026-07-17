@@ -1,0 +1,32 @@
+$0
+$0:format{language:es,encoding:UTF-8,cortex:0.1}
+$0:enum_state{values:"open|closed"}
+$0:micro_done{expand:closed}
+$0:namespace_agent{id:agent,version:1.0,required:true,desc:"Agente"}
+$0:extension_demo{namespace:agent,id:demo,version:0.1,required:false,desc:"Demo"}
+$0:author{role:architect,name:"Fidel"}
+TASK:tarea{desc:"Tarea",open:true,focus:content,fields:"content:text|status:%state?|count:integer?|tags:any?",weight:M,type:attrs}
+POS:pos{desc:"Pos",focus:left,pos:"left:text|right:text|flag:boolean?",weight:B,type:attrs-pos}
+BODY:body{desc:"Body",weight:H,type:cuerpo}
+BLK:block{desc:"Block",weight:H,type:bloque}
+REL:relation{desc:"Rel",focus:verb,pos:"from:atom|verb:atom|to:atom",weight:M,type:relacion}
+agent::NOTE:nota{type:attrs,weight:B,fields:"text:text",focus:text,desc:"Nota"}
+$1: Atributos
+TASK:a{status:done,tags:[alpha,"beta gamma",3],content:"hola mundo",count:-0,extra:z}
+$2: Posicional
+POS:p|izquierda simple|derecha|true
+$3: Prosa
+BODY:b{
+primera línea
+segunda línea
+}
+$4: Diagrama
+BLK:d{
+@startuml
+A -> B
+@enduml
+}
+$5: Relación
+REL:r|source|depends|target
+$6: Namespace
+agent::NOTE:n{text:"nota estable"}

@@ -1,0 +1,31 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"active|done|blocked"}
+$0:micro_q{expand:active}
+$0:namespace_agent{id:"urn:cortex:agent",version:0.1,required:false,desc:"Agent vocabulary"}
+$0:extension_trace{namespace:agent,id:trace,version:1.0,required:false,desc:"Trace extension"}
+$0:document{owner:"CODEC-CORTEX",purpose:"reference"}
+BLK:Block{type:bloque,weight:B,desc:"Verbatim block"}
+OBJ:Object{type:attrs,weight:H,fields:"topic:text|count:integer|status:%state?|tags:list?",focus:topic,desc:"Structured object",open:true}
+POS:Position{type:attrs-pos,weight:M,pos:"title:text|priority:atom|score:decimal",focus:title,desc:"Positional object"}
+REL:Relation{type:relacion,weight:M,pos:"from:atom|kind:atom|to:atom",focus:kind,desc:"Typed relation"}
+TXT:Text{type:cuerpo,weight:B,desc:"Semantic prose"}
+agent::ACT:Action{type:attrs,weight:H,fields:"name:text|enabled:boolean",focus:name,desc:"Namespaced action"}
+$1: Attributes
+OBJ:first{topic:"Café",count:0,status:active,tags:[a,"b c"],extra:z}
+agent::ACT:run{name:"Deploy",enabled:true}
+$2: Positional
+POS:rank|A useful title|high|1.50
+$3: Relations
+REL:edge|first|depends|second
+$4: Prose
+TXT:note{
+Line one.
+Line two with café.
+}
+$5: Diagram
+BLK:flow{
+@startuml
+A -> B
+@enduml
+}

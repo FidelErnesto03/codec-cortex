@@ -1,0 +1,40 @@
+{
+  "date": "2026-07-17",
+  "source_archive": {
+    "name": "codec_cortex.tar(2).gz",
+    "sha256": "47640ad335bc8f422d346c3f962b12e5e7b317b06080560d1b25070eb54259b2"
+  },
+  "syntax": {
+    "status": "PASS"
+  },
+  "quick_python_golden_test": {
+    "status": "PASS",
+    "seconds": 9.30
+  },
+  "integral_fixture": {
+    "canonical_bytes": "MATCH",
+    "hcortex_render_bytes": "MATCH",
+    "hcortex_compile_bytes": "MATCH"
+  },
+  "phase4": {
+    "status": "PASS",
+    "roundtrip": "5/5",
+    "idempotence": "5/5",
+    "invalid_diagnostics": "2/2",
+    "view_dependencies": 0
+  },
+  "phase3_runner_subset": {
+    "status": "PASS",
+    "golden": "1/1",
+    "idempotence": "1/1",
+    "note": "Fixed inherited gate status remains FAIL for subsets because it requires 38/40 and 40/40."
+  },
+  "isolated_install": {
+    "status": "PASS"
+  },
+  "phase3_exhaustive": {
+    "status": "NOT_COMPLETED_IN_BUILD_ENVIRONMENT",
+    "corpus_cases": 40,
+    "reason": "Process-load instability from Bash+jq; corpus and runner included."
+  }
+}

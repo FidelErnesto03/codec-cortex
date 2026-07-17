@@ -1,0 +1,9 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+FCS:focus{type:attrs,weight:H,fields:"what:text|status:atom",focus:what,desc:"Foco"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|success:text",focus:goal,desc:"Objetivo"}
+CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:atom",focus:rule,desc:"Restricción"}
+$1: Contexto
+FCS:primary{what:"Formalizar canonicalización.",status:current}
+OBJ:f3{goal:"Producir bytes estables.",success:"Idempotencia total."}
+CNST:neutral{rule:"No importar perfiles ni runtime.",severity:blocking}

@@ -1,0 +1,5 @@
+{
+  "case": "I402_bad_version",
+  "required_code": "H401",
+  "severity": "error"
+}

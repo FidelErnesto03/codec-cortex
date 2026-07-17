@@ -1,0 +1,27 @@
+{
+  "case": "VIEW-001",
+  "losses": [
+    {
+      "action": "Conservar la fuente canónica.",
+      "category": "presentation",
+      "code": "L415_VIEW_PROJECTION",
+      "detail": "La vista agrupa y omite estructura para presentación.",
+      "path": "/sections",
+      "recoverability": "from-source-only",
+      "severity": "loss"
+    }
+  ],
+  "mode": "view",
+  "operation": "project",
+  "preserved": [
+    "selected-human-content"
+  ],
+  "reversible": false,
+  "schema_version": "0.1",
+  "source_format": "cortex-0.1",
+  "source_sha256": "45246d661f8a2495efc8c10c47ab2e49be083f84c87e884d2cdacf1783772276",
+  "structural_equivalence": false,
+  "target_format": "markdown-view",
+  "target_sha256": "eefe82bf3a05699dde4a581e7de569416b646383f3a7ea294b4a856ae9db9465",
+  "warnings": []
+}

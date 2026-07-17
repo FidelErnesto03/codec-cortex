@@ -1,0 +1,1 @@
+{"code":"G003_MULTILINE_GLOSSARY_DECLARATION","severity":"error","span":{"line":3,"column":1},"message":"Declaración de $0 ocupa varias líneas. Compactar a una línea."}

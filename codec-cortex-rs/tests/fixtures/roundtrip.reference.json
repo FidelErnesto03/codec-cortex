@@ -1,0 +1,8 @@
+{
+  "source_sha256": "f301fbc052f9467dfbce4f48cb22dc1e5cc462bafa04123b8470da89f2b04116",
+  "canonical_sha256": "fbee0b99e464dfee332c2e6ed21f60b28c7f46764e66dc05b6efa243bf649c58",
+  "hcortex_sha256": "35ed3d5381050ca31a775ecd62b0e16406a02b61b8d91e1e851102ca80556242",
+  "roundtrip_sha256": "fbee0b99e464dfee332c2e6ed21f60b28c7f46764e66dc05b6efa243bf649c58",
+  "roundtrip_equal": true,
+  "diagnostics": []
+}

@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "S001_EMPTY_DOCUMENT"
+  ],
+  "primary": {
+    "code": "S001_EMPTY_DOCUMENT",
+    "severity": "error",
+    "span": {
+      "line": 1,
+      "column": 1
+    },
+    "message": "Documento vacío."
+  }
+}

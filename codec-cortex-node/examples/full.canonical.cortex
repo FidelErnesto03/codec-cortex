@@ -1,0 +1,33 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"open|closed|blocked"}
+$0:micro_ok{expand:accepted}
+$0:namespace_agent{id:"urn:cortex:agent",version:1.0,required:true,desc:"Agente"}
+$0:extension_trace{namespace:agent,id:trace,version:1.0,required:false,desc:"Trazas"}
+$0:zeta{a:"á",b:2}
+ATT:Attribute{type:attrs,weight:H,fields:"topic:text|content:text|status:%state?|count:integer?|tags:list?",focus:content,desc:"Atributos",open:true}
+BLK:Block{type:bloque,weight:M,desc:"Bloque"}
+POS:Position{type:attrs-pos,weight:M,pos:"topic:text|content:text|enabled:boolean?",focus:content,desc:"Posicional"}
+REL:Relation{type:relacion,weight:H,pos:"source:text|verb:text|target:text",focus:target,desc:"Relación"}
+TXT:Text{type:cuerpo,weight:B,desc:"Texto"}
+agent::NS:Namespaced{type:attrs,weight:B,fields:"value:text",focus:value,desc:"Con namespace"}
+$1: Atributos
+ATT:first{topic:demo,content:"Texto principal",status:open,count:0,tags:[alpha,"beta gamma",2,true,null]}
+ATT:second{topic:unicode,content:"Café",status:accepted}
+agent::NS:qualified{value:"valor"}
+$2: Posicionales
+POS:p1|tema|contenido libre|true
+POS:p2|"con | barra"|" texto "|false
+$3: Relaciones
+REL:r1|origen|depende_de|destino
+$4: Prosa
+TXT:t1{
+Línea uno
+Línea dos con á
+}
+$5: Diagrama
+BLK:b1{
+@startuml
+Alice -> Bob: hola
+@enduml
+}

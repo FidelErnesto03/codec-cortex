@@ -1,0 +1,5 @@
+/bin/*
+!/bin/.gitkeep
+/rev-report.json
+*.tmp
+.DS_Store

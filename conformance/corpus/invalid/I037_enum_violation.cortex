@@ -1,0 +1,6 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8}
+$0:enum_state{values:"current|planned"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state",focus:goal,desc:"Objetivo"}
+$1
+OBJ:x{goal:"x",status:done}

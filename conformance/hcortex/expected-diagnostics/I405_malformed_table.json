@@ -1,0 +1,5 @@
+{
+  "case": "I405_malformed_table",
+  "required_code": "H411",
+  "severity": "error"
+}

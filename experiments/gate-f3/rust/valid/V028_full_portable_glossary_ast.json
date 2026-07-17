@@ -1,0 +1,533 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "enum_state",
+        "attributes": [],
+        "sourceLine": 3
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "enum_severity",
+        "attributes": [],
+        "sourceLine": 4
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "micro_cur",
+        "attributes": [],
+        "sourceLine": 5
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "micro_blk",
+        "attributes": [],
+        "sourceLine": 6
+      }
+    ],
+    "enums": [
+      {
+        "node": "EnumDeclaration",
+        "name": "state",
+        "values": [
+          "current",
+          "planned",
+          "blocked",
+          "done"
+        ],
+        "sourceLine": 3
+      },
+      {
+        "node": "EnumDeclaration",
+        "name": "severity",
+        "values": [
+          "info",
+          "warning",
+          "blocking"
+        ],
+        "sourceLine": 4
+      }
+    ],
+    "micros": [
+      {
+        "node": "MicroDeclaration",
+        "token": "cur",
+        "expand": "current",
+        "sourceLine": 5
+      },
+      {
+        "node": "MicroDeclaration",
+        "token": "blk",
+        "expand": "blocked",
+        "sourceLine": 6
+      }
+    ],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "OBJ",
+        "namespace": null,
+        "qualified": "OBJ",
+        "label": "objective",
+        "shape": "attrs",
+        "weight": "H",
+        "focus": "goal",
+        "description": "Objetivo",
+        "open": false,
+        "contract": [
+          {
+            "name": "goal",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "status",
+            "type": "%state",
+            "required": true
+          },
+          {
+            "name": "evidence",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "H",
+              "lexeme": "H"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "goal:text|status:%state|evidence:text?",
+              "lexeme": "\"goal:text|status:%state|evidence:text?\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "goal",
+              "lexeme": "goal"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Objetivo",
+              "lexeme": "\"Objetivo\""
+            }
+          }
+        ],
+        "sourceLine": 7
+      },
+      {
+        "node": "SymbolDefinition",
+        "surface": "RSK",
+        "namespace": null,
+        "qualified": "RSK",
+        "label": "risk",
+        "shape": "attrs",
+        "weight": "M",
+        "focus": "risk",
+        "description": "Riesgo y mitigación",
+        "open": false,
+        "contract": [
+          {
+            "name": "risk",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "impact",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "mitigation",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "status",
+            "type": "%state",
+            "required": true
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "M",
+              "lexeme": "M"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "risk:text|impact:text|mitigation:text|status:%state",
+              "lexeme": "\"risk:text|impact:text|mitigation:text|status:%state\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "risk",
+              "lexeme": "risk"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Riesgo y mitigación",
+              "lexeme": "\"Riesgo y mitigación\""
+            }
+          }
+        ],
+        "sourceLine": 8
+      },
+      {
+        "node": "SymbolDefinition",
+        "surface": "CNST",
+        "namespace": null,
+        "qualified": "CNST",
+        "label": "constraint",
+        "shape": "attrs",
+        "weight": "H",
+        "focus": "rule",
+        "description": "Restricción",
+        "open": false,
+        "contract": [
+          {
+            "name": "rule",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "severity",
+            "type": "%severity",
+            "required": true
+          },
+          {
+            "name": "evidence",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "H",
+              "lexeme": "H"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "rule:text|severity:%severity|evidence:text?",
+              "lexeme": "\"rule:text|severity:%severity|evidence:text?\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "rule",
+              "lexeme": "rule"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Restricción",
+              "lexeme": "\"Restricción\""
+            }
+          }
+        ],
+        "sourceLine": 9
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": "Contexto",
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:OBJ:phase2",
+          "section": 1,
+          "symbol": "OBJ",
+          "qualifiedSymbol": "OBJ",
+          "name": "phase2",
+          "function": {
+            "label": "objective",
+            "weight": "H",
+            "focus": "goal"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "goal",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Definir CORTEX Draft 0.1 real.",
+                  "lexeme": "\"Definir CORTEX Draft 0.1 real.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "status",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "cur",
+                  "lexeme": "cur"
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "evidence",
+                "value": {
+                  "node": "StringValue",
+                  "value": "entregables F2",
+                  "lexeme": "\"entregables F2\""
+                }
+              }
+            ]
+          },
+          "sourceLine": 11
+        },
+        {
+          "node": "Idea",
+          "address": "$1:RSK:drift",
+          "section": 1,
+          "symbol": "RSK",
+          "qualifiedSymbol": "RSK",
+          "name": "drift",
+          "function": {
+            "label": "risk",
+            "weight": "M",
+            "focus": "risk"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "risk",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Convertir CORTEX en un formato genérico.",
+                  "lexeme": "\"Convertir CORTEX en un formato genérico.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "impact",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Pérdida de identidad y densidad.",
+                  "lexeme": "\"Pérdida de identidad y densidad.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "mitigation",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Mantener sigilos, glosario y línea ideática.",
+                  "lexeme": "\"Mantener sigilos, glosario y línea ideática.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "status",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "blk",
+                  "lexeme": "blk"
+                }
+              }
+            ]
+          },
+          "sourceLine": 12
+        },
+        {
+          "node": "Idea",
+          "address": "$1:CNST:portable",
+          "section": 1,
+          "symbol": "CNST",
+          "qualifiedSymbol": "CNST",
+          "name": "portable",
+          "function": {
+            "label": "constraint",
+            "weight": "H",
+            "focus": "rule"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "rule",
+                "value": {
+                  "node": "StringValue",
+                  "value": "El documento transporta el vocabulario necesario.",
+                  "lexeme": "\"El documento transporta el vocabulario necesario.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "severity",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "blocking",
+                  "lexeme": "blocking"
+                }
+              }
+            ]
+          },
+          "sourceLine": 13
+        }
+      ]
+    }
+  ]
+}

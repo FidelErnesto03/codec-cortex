@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+LST:list{type:attrs,weight:B,fields:"items:list",focus:items,desc:"Lista mixta"}
+$1
+LST:mixed{items:["texto humano",atom,3,1.20,false,null]}

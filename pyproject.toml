@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codec-cortex"
+version = "0.1.0"
+description = "CODEC-CORTEX: A deterministic, auditable, reversible structured-context codec for SLM/LLM and agents — the Pandoc of structured AI context."
+readme = "README.md"
+license = "CC0-1.0"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["cortex", "codec", "llm", "slm", "context", "structured", "hcortex"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/nous/hermes-agent"
+Repository = "https://github.com/nous/hermes-agent"
+
+[project.scripts]
+cortex = "codec_cortex.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["codec_cortex*"]

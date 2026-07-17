@@ -1,0 +1,4 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8}
+$0:enum_state{values:"current|planned"}
+$0:enum_state{values:"current|planned"}

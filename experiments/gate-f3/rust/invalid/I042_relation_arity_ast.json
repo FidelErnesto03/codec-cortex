@@ -1,0 +1,202 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          }
+        ],
+        "sourceLine": 2
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "REL",
+        "namespace": null,
+        "qualified": "REL",
+        "label": "relation",
+        "shape": "relacion",
+        "weight": "M",
+        "focus": "predicate",
+        "description": "Relación",
+        "open": false,
+        "contract": [
+          {
+            "name": "source",
+            "type": "atom",
+            "required": true
+          },
+          {
+            "name": "predicate",
+            "type": "atom",
+            "required": true
+          },
+          {
+            "name": "target",
+            "type": "atom",
+            "required": true
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "relacion",
+              "lexeme": "relacion"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "M",
+              "lexeme": "M"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "pos",
+            "value": {
+              "node": "StringValue",
+              "value": "source:atom|predicate:atom|target:atom",
+              "lexeme": "\"source:atom|predicate:atom|target:atom\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "predicate",
+              "lexeme": "predicate"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Relación",
+              "lexeme": "\"Relación\""
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": null,
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:REL:x",
+          "section": 1,
+          "symbol": "REL",
+          "qualifiedSymbol": "REL",
+          "name": "x",
+          "function": {
+            "label": "relation",
+            "weight": "M",
+            "focus": "predicate"
+          },
+          "shape": "relacion",
+          "payload": {
+            "node": "RelationPayload",
+            "node": "RelationPayload",
+            "cells": [
+              {
+                "node": "AtomValue",
+                "value": "a",
+                "lexeme": "a"
+              },
+              {
+                "node": "AtomValue",
+                "value": "links",
+                "lexeme": "links"
+              }
+            ],
+            "bound": [
+              {
+                "field": "source",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "a",
+                  "lexeme": "a"
+                }
+              },
+              {
+                "field": "predicate",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "links",
+                  "lexeme": "links"
+                }
+              }
+            ]
+          },
+          "sourceLine": 5
+        }
+      ]
+    }
+  ]
+}

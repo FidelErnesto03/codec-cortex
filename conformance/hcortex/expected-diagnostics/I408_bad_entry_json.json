@@ -1,0 +1,5 @@
+{
+  "case": "I408_bad_entry_json",
+  "required_code": "H431",
+  "severity": "error"
+}

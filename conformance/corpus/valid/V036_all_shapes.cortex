@@ -1,0 +1,16 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state",focus:content,desc:"Conocimiento"}
+HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:%state",focus:operation,desc:"Operación"}
+TXT:statement{type:cuerpo,weight:B,desc:"Texto"}
+CODE:code{type:bloque,weight:M,desc:"Bloque"}
+REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom",focus:predicate,desc:"Relación"}
+$1
+KNW:one{topic:"Idea",content:"Una línea comunica una idea.",status:current}
+HDL:parse|convertir texto a AST|current
+TXT:explain{Texto humano breve.}
+CODE:sample{
+print("cortex")
+}
+REL:flow|source|becomes|target

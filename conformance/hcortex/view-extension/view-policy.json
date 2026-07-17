@@ -1,0 +1,7 @@
+{
+  "view_version": "0.1",
+  "source": "../cortex/H039_risk-objective.cortex",
+  "operation": "group-by-symbol",
+  "output": "derived-view.md",
+  "explicit": true
+}

@@ -1,0 +1,8 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:namespace_envx{id:envx,version:1.0,required:false}
+envx::SD:deployment_request{type:attrs,weight:H,fields:"goal:text|status:atom",focus:goal,desc:"Solicitud de despliegue"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
+$1
+KNW:context{topic:"Gobierno",content:"CORTEX no gobierna al consumidor."}
+envx::SD:prod{goal:"Desplegar versión aprobada.",status:planned}

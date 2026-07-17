@@ -1,0 +1,272 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "IDN",
+        "namespace": "",
+        "qualified": "IDN",
+        "label": "identity",
+        "shape": "attrs",
+        "weight": "B",
+        "focus": "name",
+        "description": "Identidad",
+        "open": false,
+        "contract": [
+          {
+            "name": "name",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "version",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "status",
+            "type": "atom",
+            "required": true
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "B",
+              "lexeme": "B"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "name:text|version:text|status:atom",
+              "lexeme": "\"name:text|version:text|status:atom\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "name",
+              "lexeme": "name"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Identidad",
+              "lexeme": "\"Identidad\""
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": "Identidad",
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:IDN:codec",
+          "section": 1,
+          "symbol": "IDN",
+          "qualifiedSymbol": "IDN",
+          "name": "codec",
+          "function": {
+            "label": "identity",
+            "weight": "B",
+            "focus": "name"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "name",
+                "value": {
+                  "node": "StringValue",
+                  "value": "CORTEX",
+                  "lexeme": "\"CORTEX\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "version",
+                "value": {
+                  "node": "StringValue",
+                  "value": "0.1",
+                  "lexeme": "\"0.1\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "status",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "draft",
+                  "lexeme": "draft"
+                }
+              }
+            ]
+          },
+          "sourceLine": 4
+        }
+      ]
+    },
+    {
+      "node": "Section",
+      "id": 2,
+      "title": "Alcance",
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$2:IDN:scope",
+          "section": 2,
+          "symbol": "IDN",
+          "qualifiedSymbol": "IDN",
+          "name": "scope",
+          "function": {
+            "label": "identity",
+            "weight": "B",
+            "focus": "name"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "name",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Contexto estructurado",
+                  "lexeme": "\"Contexto estructurado\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "version",
+                "value": {
+                  "node": "StringValue",
+                  "value": "0.1",
+                  "lexeme": "\"0.1\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "status",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "current",
+                  "lexeme": "current"
+                }
+              }
+            ]
+          },
+          "sourceLine": 6
+        }
+      ]
+    }
+  ]
+}

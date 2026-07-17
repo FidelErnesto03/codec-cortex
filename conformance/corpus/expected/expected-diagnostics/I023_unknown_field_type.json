@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G027_UNKNOWN_FIELD_TYPE"
+  ],
+  "primary": {
+    "code": "G027_UNKNOWN_FIELD_TYPE",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Tipo de campo desconocido: object."
+  }
+}

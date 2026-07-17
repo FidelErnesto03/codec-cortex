@@ -1,0 +1,16 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {"node":"FormatDeclaration","cortex":"0.1","encoding":"UTF-8","attributes":[{"node":"AttrPair","key":"cortex","value":{"node":"DecimalValue","value":"0.1","lexeme":"0.1"}},{"node":"AttrPair","key":"encoding","value":{"node":"AtomValue","value":"UTF-8","lexeme":"UTF-8"}},{"node":"AttrPair","key":"language","value":{"node":"AtomValue","value":"es","lexeme":"es"}}],"sourceLine":2},
+    "meta": [{"node":"MetaDeclaration","name":"format","attributes":[{"node":"AttrPair","key":"cortex","value":{"node":"DecimalValue","value":"0.1","lexeme":"0.1"}},{"node":"AttrPair","key":"encoding","value":{"node":"AtomValue","value":"UTF-8","lexeme":"UTF-8"}},{"node":"AttrPair","key":"language","value":{"node":"AtomValue","value":"es","lexeme":"es"}}],"sourceLine":2}],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [{"node":"SymbolDefinition","surface":"META","namespace":null,"qualified":"META","label":"metadata","shape":"attrs","weight":"B","focus":"subject","description":"Metadata extensible","open":true,"contract":[{"name":"subject","type":"text","required":true}],"attributes":[{"node":"AttrPair","key":"type","value":{"node":"AtomValue","value":"attrs","lexeme":"attrs"}},{"node":"AttrPair","key":"weight","value":{"node":"AtomValue","value":"B","lexeme":"B"}},{"node":"AttrPair","key":"fields","value":{"node":"StringValue","value":"subject:text","lexeme":"\"subject:text\""}},{"node":"AttrPair","key":"focus","value":{"node":"AtomValue","value":"subject","lexeme":"subject"}},{"node":"AttrPair","key":"desc","value":{"node":"StringValue","value":"Metadata extensible","lexeme":"\"Metadata extensible\""}},{"node":"AttrPair","key":"open","value":{"node":"BooleanValue","value":true,"lexeme":"true"}}],"sourceLine":3}]
+  },
+  "sections": [{"node":"Section","id":1,"title":null,"ideas":[{"node":"Idea","address":"$1:META:item","section":1,"symbol":"META","qualifiedSymbol":"META","name":"item","function":{"label":"metadata","weight":"B","focus":"subject"},"shape":"attrs","payload":{"node":"AttrsPayload","pairs":[{"node":"AttrPair","key":"subject","value":{"node":"StringValue","value":"Ejemplo","lexeme":"\"Ejemplo\""}},{"node":"AttrPair","key":"custom","value":{"node":"StringValue","value":"preservado","lexeme":"\"preservado\""}},{"node":"AttrPair","key":"priority","value":{"node":"AtomValue","value":"high","lexeme":"high"}}]},"sourceLine":5}]}]
+}

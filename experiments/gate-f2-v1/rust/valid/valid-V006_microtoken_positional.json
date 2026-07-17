@@ -1,0 +1,301 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "micro_cur",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "expand",
+            "value": {
+              "node": "AtomValue",
+              "value": "current",
+              "lexeme": "current"
+            }
+          }
+        ],
+        "sourceLine": 3
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "enum_state",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "values",
+            "value": {
+              "node": "StringValue",
+              "value": "current|planned",
+              "lexeme": "\"current|planned\""
+            }
+          }
+        ],
+        "sourceLine": 4
+      }
+    ],
+    "enums": [
+      {
+        "node": "EnumDeclaration",
+        "name": "state",
+        "values": [
+          "current",
+          "planned"
+        ],
+        "sourceLine": 4
+      }
+    ],
+    "micros": [
+      {
+        "node": "MicroDeclaration",
+        "token": "cur",
+        "expand": "current",
+        "sourceLine": 3
+      }
+    ],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "HDL",
+        "namespace": null,
+        "qualified": "HDL",
+        "label": "handler",
+        "shape": "attrs-pos",
+        "weight": "M",
+        "focus": "operation",
+        "description": "Operación determinista",
+        "open": false,
+        "contract": [
+          {
+            "name": "operation",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "status",
+            "type": "%state",
+            "required": true
+          },
+          {
+            "name": "requires",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "notes",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs-pos",
+              "lexeme": "attrs-pos"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "M",
+              "lexeme": "M"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "pos",
+            "value": {
+              "node": "StringValue",
+              "value": "operation:text|status:%state|requires:text|notes:text?",
+              "lexeme": "\"operation:text|status:%state|requires:text|notes:text?\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "operation",
+              "lexeme": "operation"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Operación determinista",
+              "lexeme": "\"Operación determinista\""
+            }
+          }
+        ],
+        "sourceLine": 5
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": null,
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:HDL:verify",
+          "section": 1,
+          "symbol": "HDL",
+          "qualifiedSymbol": "HDL",
+          "name": "verify",
+          "function": {
+            "label": "handler",
+            "weight": "M",
+            "focus": "operation"
+          },
+          "shape": "attrs-pos",
+          "payload": {
+            "node": "PositionalPayload",
+            "cells": [
+              {
+                "node": "StringValue",
+                "value": "validar el documento",
+                "lexeme": "validar el documento"
+              },
+              {
+                "node": "AtomValue",
+                "value": "current",
+                "lexeme": "cur",
+                "micro": "cur"
+              },
+              {
+                "node": "StringValue",
+                "value": "archivo .cortex",
+                "lexeme": "archivo .cortex"
+              },
+              {
+                "node": "StringValue",
+                "value": "sin inferencia",
+                "lexeme": "sin inferencia"
+              }
+            ],
+            "bound": [
+              {
+                "field": "operation",
+                "value": {
+                  "node": "StringValue",
+                  "value": "validar el documento",
+                  "lexeme": "validar el documento"
+                }
+              },
+              {
+                "field": "status",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "current",
+                  "lexeme": "cur",
+                  "micro": "cur"
+                }
+              },
+              {
+                "field": "requires",
+                "value": {
+                  "node": "StringValue",
+                  "value": "archivo .cortex",
+                  "lexeme": "archivo .cortex"
+                }
+              },
+              {
+                "field": "notes",
+                "value": {
+                  "node": "StringValue",
+                  "value": "sin inferencia",
+                  "lexeme": "sin inferencia"
+                }
+              }
+            ]
+          },
+          "sourceLine": 7
+        }
+      ]
+    }
+  ]
+}

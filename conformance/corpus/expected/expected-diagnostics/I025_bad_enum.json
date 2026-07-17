@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G014_INVALID_ENUM"
+  ],
+  "primary": {
+    "code": "G014_INVALID_ENUM",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Valores de enum inválidos o duplicados."
+  }
+}

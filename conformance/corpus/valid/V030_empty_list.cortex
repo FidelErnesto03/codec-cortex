@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+TAG:classification{type:attrs,weight:B,fields:"topic:text|values:list",focus:topic,desc:"Clasificación"}
+$1
+TAG:none{topic:"Sin etiquetas",values:[]}

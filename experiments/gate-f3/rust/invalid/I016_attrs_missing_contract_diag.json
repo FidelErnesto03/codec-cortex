@@ -1,0 +1,2 @@
+{"code":"G021_ATTRS_CONTRACT_REQUIRED","severity":"error","span":{"line":3,"column":1},"message":"Attrs sin fields: KNW."}
+{"code":"G025_UNKNOWN_FOCUS_FIELD","severity":"error","span":{"line":3,"column":1},"message":"Focus no existe en contrato: content."}

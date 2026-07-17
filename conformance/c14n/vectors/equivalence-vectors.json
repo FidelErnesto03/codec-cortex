@@ -1,0 +1,349 @@
+{
+  "canonicalization": "C14N-0.1",
+  "vectors": [
+    {
+      "id": "E001_comments",
+      "left": "corpus/equivalence/left/E001_comments.cortex",
+      "right": "corpus/equivalence/right/E001_comments.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "Los comentarios no pertenecen al AST semántico."
+    },
+    {
+      "id": "E002_blank_lines",
+      "left": "corpus/equivalence/left/E002_blank_lines.cortex",
+      "right": "corpus/equivalence/right/E002_blank_lines.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "Las líneas vacías son trivia de fuente."
+    },
+    {
+      "id": "E003_crlf",
+      "left": "corpus/equivalence/left/E003_crlf.cortex",
+      "right": "corpus/equivalence/right/E003_crlf.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "CRLF se normaliza a LF."
+    },
+    {
+      "id": "E004_unicode_nfc",
+      "left": "corpus/equivalence/left/E004_unicode_nfc.cortex",
+      "right": "corpus/equivalence/right/E004_unicode_nfc.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "NFD y NFC producen el mismo texto lógico."
+    },
+    {
+      "id": "E005_decimal",
+      "left": "corpus/equivalence/left/E005_decimal.cortex",
+      "right": "corpus/equivalence/right/E005_decimal.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "Decimales exactos equivalentes tienen una forma única."
+    },
+    {
+      "id": "E006_string_escape",
+      "left": "corpus/equivalence/left/E006_string_escape.cortex",
+      "right": "corpus/equivalence/right/E006_string_escape.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "Escapes alternativos de la misma string no cambian estructura."
+    },
+    {
+      "id": "E007_microtoken",
+      "left": "corpus/equivalence/left/E007_microtoken.cortex",
+      "right": "corpus/equivalence/right/E007_microtoken.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "El uso del microtoken y su expansión declarada son equivalentes."
+    },
+    {
+      "id": "E008_meta_order",
+      "left": "corpus/equivalence/left/E008_meta_order.cortex",
+      "right": "corpus/equivalence/right/E008_meta_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "El orden del glosario normalizable no altera la estructura canónica."
+    },
+    {
+      "id": "E009_symbol_order",
+      "left": "corpus/equivalence/left/E009_symbol_order.cortex",
+      "right": "corpus/equivalence/right/E009_symbol_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "Las declaraciones de sigilo se ordenan por identidad cualificada."
+    },
+    {
+      "id": "E010_extension_attr_order",
+      "left": "corpus/equivalence/left/E010_extension_attr_order.cortex",
+      "right": "corpus/equivalence/right/E010_extension_attr_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      },
+      "reason": "Los atributos de meta-declaración tienen orden canónico."
+    },
+    {
+      "id": "E011_section_order",
+      "left": "corpus/equivalence/left/E011_section_order.cortex",
+      "right": "corpus/equivalence/right/E011_section_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El orden de secciones es significativo."
+    },
+    {
+      "id": "E012_idea_order",
+      "left": "corpus/equivalence/left/E012_idea_order.cortex",
+      "right": "corpus/equivalence/right/E012_idea_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El orden de Ideas es significativo."
+    },
+    {
+      "id": "E013_list_order",
+      "left": "corpus/equivalence/left/E013_list_order.cortex",
+      "right": "corpus/equivalence/right/E013_list_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El orden de listas es significativo."
+    },
+    {
+      "id": "E014_positional_order",
+      "left": "corpus/equivalence/left/E014_positional_order.cortex",
+      "right": "corpus/equivalence/right/E014_positional_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "Las posiciones contractuales son significativas."
+    },
+    {
+      "id": "E015_section_title",
+      "left": "corpus/equivalence/left/E015_section_title.cortex",
+      "right": "corpus/equivalence/right/E015_section_title.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El título de sección forma parte de la estructura."
+    },
+    {
+      "id": "E016_body_spacing",
+      "left": "corpus/equivalence/left/E016_body_spacing.cortex",
+      "right": "corpus/equivalence/right/E016_body_spacing.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El contenido del cuerpo es semántico."
+    },
+    {
+      "id": "E017_micro_declaration_presence",
+      "left": "corpus/equivalence/left/E017_micro_declaration_presence.cortex",
+      "right": "corpus/equivalence/right/E017_micro_declaration_presence.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El glosario declarado forma parte del documento portable."
+    },
+    {
+      "id": "E018_namespace",
+      "left": "corpus/equivalence/left/E018_namespace.cortex",
+      "right": "corpus/equivalence/right/E018_namespace.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El namespace participa en identidad."
+    },
+    {
+      "id": "E019_weight",
+      "left": "corpus/equivalence/left/E019_weight.cortex",
+      "right": "corpus/equivalence/right/E019_weight.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El peso funcional declarado modifica la función ideática."
+    },
+    {
+      "id": "E020_focus",
+      "left": "corpus/equivalence/left/E020_focus.cortex",
+      "right": "corpus/equivalence/right/E020_focus.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El foco es parte del contrato reproducible."
+    },
+    {
+      "id": "E021_description",
+      "left": "corpus/equivalence/left/E021_description.cortex",
+      "right": "corpus/equivalence/right/E021_description.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "La descripción local necesaria para portabilidad participa en estructura."
+    },
+    {
+      "id": "E022_shape",
+      "left": "corpus/equivalence/left/E022_shape.cortex",
+      "right": "corpus/equivalence/right/E022_shape.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "Shapes distintos no son equivalentes aunque el texto se parezca."
+    },
+    {
+      "id": "E023_relation_direction",
+      "left": "corpus/equivalence/left/E023_relation_direction.cortex",
+      "right": "corpus/equivalence/right/E023_relation_direction.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "La dirección relacional es significativa."
+    },
+    {
+      "id": "E024_name_identity",
+      "left": "corpus/equivalence/left/E024_name_identity.cortex",
+      "right": "corpus/equivalence/right/E024_name_identity.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      },
+      "reason": "El nombre local participa en la dirección de la Idea."
+    },
+    {
+      "id": "E025_attrs_contract_order",
+      "left": "corpus/equivalence/left/E025_attrs_contract_order.cortex",
+      "right": "corpus/equivalence/right/E025_attrs_contract_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      }
+    },
+    {
+      "id": "E026_glossary_order",
+      "left": "corpus/equivalence/left/E026_glossary_order.cortex",
+      "right": "corpus/equivalence/right/E026_glossary_order.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      }
+    },
+    {
+      "id": "E027_decimal_precision",
+      "left": "corpus/equivalence/left/E027_decimal_precision.cortex",
+      "right": "corpus/equivalence/right/E027_decimal_precision.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      }
+    },
+    {
+      "id": "E028_cuerpo_boundary_newline",
+      "left": "corpus/equivalence/left/E028_cuerpo_boundary_newline.cortex",
+      "right": "corpus/equivalence/right/E028_cuerpo_boundary_newline.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      }
+    },
+    {
+      "id": "E029_cuerpo_extra_blank",
+      "left": "corpus/equivalence/left/E029_cuerpo_extra_blank.cortex",
+      "right": "corpus/equivalence/right/E029_cuerpo_extra_blank.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      }
+    },
+    {
+      "id": "E030_bloque_nfc_nfd",
+      "left": "corpus/equivalence/left/E030_bloque_nfc_nfd.cortex",
+      "right": "corpus/equivalence/right/E030_bloque_nfc_nfd.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": false,
+        "canonicalEquivalent": false
+      }
+    },
+    {
+      "id": "E031_microtoken_positional",
+      "left": "corpus/equivalence/left/E031_microtoken_positional.cortex",
+      "right": "corpus/equivalence/right/E031_microtoken_positional.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      }
+    },
+    {
+      "id": "E032_nonfocus_text_quote",
+      "left": "corpus/equivalence/left/E032_nonfocus_text_quote.cortex",
+      "right": "corpus/equivalence/right/E032_nonfocus_text_quote.cortex",
+      "expected": {
+        "byteIdentical": false,
+        "structuralEquivalent": true,
+        "canonicalEquivalent": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "model": "Google Gemini",
+  "platform": "Google AI",
+  "date": "2024-05-24",
+  "total_tokens": 850,
+  "tasks": [
+    {
+      "id": "ID.1",
+      "answer": "Google Gemini 1.5 Pro, plataforma Google AI / Vertex AI."
+    },
+    {
+      "id": "T3.1",
+      "answer": "850"
+    },
+    {
+      "id": "T3.2",
+      "answer": "language models for machine language a is CORTEX"
+    },
+    {
+      "id": "T3.3",
+      "answer": "nombre: MTR:metric, tipo: attrs, peso: H, campos: name:text|value:text, foco: value, schema: table"
+    },
+    {
+      "id": "T3.4",
+      "answer": "$1: IDENTIDAD, $2: INSTRUCCIONES, $3: TAREAS, $4: FORMATO DE RESPUESTA, $5: METRICAS"
+    },
+    {
+      "id": "T3.5",
+      "answer": "FMT. Sus campos son: field (texto), type (%type) y required (%bool)."
+    },
+    {
+      "id": "T3.6",
+      "answer": "6"
+    }
+  ],
+  "comprehension_self_assessment": 5,
+  "notes": "Archivo en formato CORTEX 0.1 procesado directamente. Se leyeron las instrucciones del glosario $0, las secciones y se aplicaron las metricas auto-declaradas (MTR) para asegurar la precision de las sigilos TST."
+}

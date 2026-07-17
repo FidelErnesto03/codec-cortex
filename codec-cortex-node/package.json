@@ -1,0 +1,45 @@
+{
+  "name": "codec-cortex-node",
+  "version": "0.1.0",
+  "description": "Implementación Node.js funcionalmente equivalente de CORTEX 0.1, C14N-0.1 y HCORTEX-0.1",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./scalars": "./src/scalars.js",
+    "./parser": "./src/parser.js",
+    "./c14n": "./src/c14n.js",
+    "./hcortex": "./src/hcortex.js",
+    "./harness": "./src/harness.js"
+  },
+  "bin": {
+    "codec-cortex-node": "./bin/codec-cortex-node.js",
+    "cortex-node": "./bin/codec-cortex-node.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check src/*.js && node --check bin/*.js",
+    "conformance": "node ./bin/codec-cortex-node.js test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "cortex",
+    "hcortex",
+    "canonicalization",
+    "codec",
+    "llm",
+    "slm"
+  ],
+  "license": "UNLICENSED",
+  "files": [
+    "src",
+    "bin",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "PARITY-REPORT.json",
+    "ARTIFACT-MANIFEST.json",
+    "examples"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [
+    {
+      "config": {
+        "preserve": "opaque"
+      },
+      "id": "annotation",
+      "namespace": "example.optional",
+      "required": false,
+      "version": "0.1"
+    }
+  ],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "extension",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Extensión"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Se preserva sin ejecutar."
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    }
+  ]
+}

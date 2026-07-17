@@ -1,0 +1,56 @@
+{
+  "findings": [
+    {
+      "count": 1,
+      "items": [
+        {
+          "error": "manifest not found: --hcortex/manifest.json",
+          "stage": "exception"
+        }
+      ],
+      "phase": "F3"
+    },
+    {
+      "count": 1,
+      "items": [
+        {
+          "error": "manifest not found: conformance/hcortex/cortex/H001_minimal-attrs.cortex/manifest.json",
+          "stage": "exception"
+        }
+      ],
+      "phase": "F4"
+    }
+  ],
+  "phase3": {
+    "failures": [
+      {
+        "error": "manifest not found: --hcortex/manifest.json",
+        "stage": "exception"
+      }
+    ],
+    "golden_pass": 0,
+    "idempotence_pass": 0,
+    "status": "FAIL",
+    "total": 0
+  },
+  "phase4": {
+    "failures": [
+      {
+        "error": "manifest not found: conformance/hcortex/cortex/H001_minimal-attrs.cortex/manifest.json",
+        "stage": "exception"
+      }
+    ],
+    "idempotence_pass": 0,
+    "invalid_diag_pass": 0,
+    "roundtrip_pass": 0,
+    "status": "FAIL",
+    "view_dependencies": 0
+  },
+  "reviewer": {
+    "completed_at": "2026-07-17T21:32:51.530395002Z",
+    "language": "Go 1.23",
+    "name": "independent-go-reviewer",
+    "started_at": "2026-07-17T21:32:51.530335147Z"
+  },
+  "verdict": "FAIL"
+}

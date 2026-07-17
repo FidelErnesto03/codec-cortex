@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"L008_NESTED_LIST\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 5,\n      \"column\": 1\n    },\n    \"message\": \"Lista anidada.\"\n  }\n]\n", "exit_code": 1}

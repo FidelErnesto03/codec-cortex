@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G008_INVALID_CONTRACT"
+  ],
+  "primary": {
+    "code": "G008_INVALID_CONTRACT",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Contrato vacío o con campo vacío."
+  }
+}

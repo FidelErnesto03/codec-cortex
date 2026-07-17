@@ -1,0 +1,7 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+IDN:identity{type:attrs,weight:B,fields:"name:text|version:text|status:atom",focus:name,desc:"Identidad"}
+$1: Identidad
+IDN:codec{name:"CORTEX",version:"0.1",status:draft}
+$2: Alcance
+IDN:scope{name:"Contexto estructurado",version:"0.1",status:current}

@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I008_REQUIRED_FIELD_MISSING"
+  ],
+  "primary": {
+    "code": "I008_REQUIRED_FIELD_MISSING",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Falta campo requerido: content."
+  }
+}

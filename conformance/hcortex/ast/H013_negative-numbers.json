@@ -1,0 +1,69 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "negative",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "NUM",
+          "value": [
+            [
+              "delta",
+              {
+                "kind": "integer",
+                "value": "-12"
+              }
+            ],
+            [
+              "ratio",
+              {
+                "kind": "decimal",
+                "value": "-0.25"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Números negativos",
+      "fields": [
+        {
+          "name": "delta",
+          "optional": false,
+          "type": "int"
+        },
+        {
+          "name": "ratio",
+          "optional": false,
+          "type": "dec"
+        }
+      ],
+      "focus": "delta",
+      "label": "numbers",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "NUM",
+      "weight": "B"
+    }
+  ]
+}

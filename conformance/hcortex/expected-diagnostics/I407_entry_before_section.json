@@ -1,0 +1,5 @@
+{
+  "case": "I407_entry_before_section",
+  "required_code": "H420",
+  "severity": "error"
+}

@@ -1,0 +1,218 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "MET",
+        "namespace": null,
+        "qualified": "MET",
+        "label": "metric",
+        "shape": "attrs",
+        "weight": "B",
+        "focus": "name",
+        "description": "Métrica",
+        "open": false,
+        "contract": [
+          {
+            "name": "name",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "delta",
+            "type": "int",
+            "required": true
+          },
+          {
+            "name": "ratio",
+            "type": "dec",
+            "required": true
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "B",
+              "lexeme": "B"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "name:text|delta:int|ratio:dec",
+              "lexeme": "\"name:text|delta:int|ratio:dec\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "name",
+              "lexeme": "name"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Métrica",
+              "lexeme": "\"Métrica\""
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": null,
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:MET:change",
+          "section": 1,
+          "symbol": "MET",
+          "qualifiedSymbol": "MET",
+          "name": "change",
+          "function": {
+            "label": "metric",
+            "weight": "B",
+            "focus": "name"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "name",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Cambio",
+                  "lexeme": "\"Cambio\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "delta",
+                "value": {
+                  "node": "IntegerValue",
+                  "value": "-3",
+                  "lexeme": "-3"
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "ratio",
+                "value": {
+                  "node": "DecimalValue",
+                  "value": "-0.25",
+                  "lexeme": "-0.25"
+                }
+              }
+            ]
+          },
+          "sourceLine": 5
+        }
+      ]
+    }
+  ]
+}

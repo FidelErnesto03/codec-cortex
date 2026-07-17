@@ -1,0 +1,7 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
+$1
+KNW:item{topic:"Uno",content:"Idea en sección uno."}
+$2
+KNW:item{topic:"Dos",content:"Idea en sección dos."}

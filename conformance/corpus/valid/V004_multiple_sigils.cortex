@@ -1,0 +1,8 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|evidence:text?",focus:goal,desc:"Objetivo verificable"}
+CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:atom|evidence:text?",focus:rule,desc:"Restricción no negociable"}
+$1: Dirección
+OBJ:f2{goal:"Definir CORTEX Draft 0.1 real.",status:current}
+CNST:no_external_profile{rule:"El documento no depende de un perfil externo para comprenderse.",severity:blocking,evidence:"glosario local"}

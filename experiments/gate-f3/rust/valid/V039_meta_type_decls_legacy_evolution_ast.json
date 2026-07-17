@@ -1,0 +1,230 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "type_decls",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "values",
+            "value": {
+              "node": "StringValue",
+              "value": "attrs|attrs-pos|cuerpo|bloque|relacion",
+              "lexeme": "\"attrs|attrs-pos|cuerpo|bloque|relacion\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "note",
+            "value": {
+              "node": "StringValue",
+              "value": "declaración informativa preservada",
+              "lexeme": "\"declaración informativa preservada\""
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "KNW",
+        "namespace": null,
+        "qualified": "KNW",
+        "label": "knowledge",
+        "shape": "attrs",
+        "weight": "B",
+        "focus": "content",
+        "description": "Conocimiento",
+        "open": false,
+        "contract": [
+          {
+            "name": "topic",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "required": true
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "B",
+              "lexeme": "B"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "topic:text|content:text",
+              "lexeme": "\"topic:text|content:text\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "content",
+              "lexeme": "content"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Conocimiento",
+              "lexeme": "\"Conocimiento\""
+            }
+          }
+        ],
+        "sourceLine": 4
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": null,
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:KNW:types",
+          "section": 1,
+          "symbol": "KNW",
+          "qualifiedSymbol": "KNW",
+          "name": "types",
+          "function": {
+            "label": "knowledge",
+            "weight": "B",
+            "focus": "content"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "topic",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Tipos",
+                  "lexeme": "\"Tipos\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "content",
+                "value": {
+                  "node": "StringValue",
+                  "value": "El conjunto fundamental permanece pequeño.",
+                  "lexeme": "\"El conjunto fundamental permanece pequeño.\""
+                }
+              }
+            ]
+          },
+          "sourceLine": 6
+        }
+      ]
+    }
+  ]
+}

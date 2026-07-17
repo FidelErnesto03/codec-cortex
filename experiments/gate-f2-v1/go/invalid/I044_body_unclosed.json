@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I014_UNCLOSED_BODY\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 5,\n      \"column\": 1\n    },\n    \"message\": \"Cuerpo/bloque sin cerrar.\"\n  }\n]\n", "exit_code": 1}

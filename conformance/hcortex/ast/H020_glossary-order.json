@@ -1,0 +1,174 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "goal",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "OBJ",
+          "value": [
+            [
+              "goal",
+              {
+                "kind": "string",
+                "value": "Orden canónico."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "current"
+              }
+            ]
+          ]
+        },
+        {
+          "name": "ambiguity",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "RSK",
+          "value": [
+            [
+              "risk",
+              {
+                "kind": "string",
+                "value": "Orden variable."
+              }
+            ],
+            [
+              "impact",
+              {
+                "kind": "string",
+                "value": "Hash distinto."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "blocked"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    },
+    {
+      "desc": "Objetivo explícito",
+      "fields": [
+        {
+          "name": "goal",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "metric",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "goal",
+      "label": "objective",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "OBJ",
+      "weight": "H"
+    },
+    {
+      "desc": "Riesgo explícito",
+      "fields": [
+        {
+          "name": "risk",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "impact",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        }
+      ],
+      "focus": "risk",
+      "label": "risk",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "RSK",
+      "weight": "H"
+    }
+  ]
+}

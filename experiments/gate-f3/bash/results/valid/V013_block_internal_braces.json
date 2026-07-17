@@ -1,0 +1,16 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {"node":"FormatDeclaration","cortex":"0.1","encoding":"UTF-8","attributes":[{"node":"AttrPair","key":"cortex","value":{"node":"DecimalValue","value":"0.1","lexeme":"0.1"}},{"node":"AttrPair","key":"encoding","value":{"node":"AtomValue","value":"UTF-8","lexeme":"UTF-8"}},{"node":"AttrPair","key":"language","value":{"node":"AtomValue","value":"es","lexeme":"es"}}],"sourceLine":2},
+    "meta": [{"node":"MetaDeclaration","name":"format","attributes":[{"node":"AttrPair","key":"cortex","value":{"node":"DecimalValue","value":"0.1","lexeme":"0.1"}},{"node":"AttrPair","key":"encoding","value":{"node":"AtomValue","value":"UTF-8","lexeme":"UTF-8"}},{"node":"AttrPair","key":"language","value":{"node":"AtomValue","value":"es","lexeme":"es"}}],"sourceLine":2}],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [{"node":"SymbolDefinition","surface":"CODE","namespace":null,"qualified":"CODE","label":"code","shape":"bloque","weight":"M","focus":"body","description":"Código verbatim","open":false,"contract":[],"attributes":[{"node":"AttrPair","key":"type","value":{"node":"AtomValue","value":"bloque","lexeme":"bloque"}},{"node":"AttrPair","key":"weight","value":{"node":"AtomValue","value":"M","lexeme":"M"}},{"node":"AttrPair","key":"desc","value":{"node":"StringValue","value":"Código verbatim","lexeme":"\"Código verbatim\""}}],"sourceLine":3}]
+  },
+  "sections": [{"node":"Section","id":1,"title":null,"ideas":[{"node":"Idea","address":"$1:sample::CODE:5","section":1,"symbol":"CODE","qualifiedSymbol":"sample::CODE","name":"5","function":{"label":"CODE","weight":"B","focus":"body"},"shape":"","payload":bloque,"sourceLine":{"node":"BlockPayload","text":"function f() { return {ok: true}; }"}}]}]
+}

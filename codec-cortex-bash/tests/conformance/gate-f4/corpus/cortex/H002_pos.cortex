@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8}
+P:pair{type:attrs-pos,weight:B,pos:"left:text|right:text",focus:left,desc:"Pair"}
+$2: Pos
+P:p|left side|right

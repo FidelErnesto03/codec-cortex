@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cortex.example/spec/0.1/ast-schema.json",
+  "title": "CORTEX 0.1 Idea AST",
+  "type": "object",
+  "$ref": "#/$defs/Document",
+  "$defs": {
+    "SourceLine": {"type": "integer", "minimum": 1},
+    "Scalar": {
+      "oneOf": [
+        {"$ref": "#/$defs/StringValue"},
+        {"$ref": "#/$defs/AtomValue"},
+        {"$ref": "#/$defs/IntegerValue"},
+        {"$ref": "#/$defs/DecimalValue"},
+        {"$ref": "#/$defs/BooleanValue"},
+        {"$ref": "#/$defs/NullValue"},
+        {"$ref": "#/$defs/ListValue"}
+      ]
+    },
+    "StringValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "value", "lexeme"],
+      "properties": {
+        "node": {"const": "StringValue"},
+        "value": {"type": "string"},
+        "lexeme": {"type": "string"}
+      }
+    },
+    "AtomValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "value", "lexeme"],
+      "properties": {
+        "node": {"const": "AtomValue"},
+        "value": {"type": "string", "minLength": 1},
+        "lexeme": {"type": "string", "minLength": 1},
+        "micro": {"type": "string", "minLength": 1}
+      }
+    },
+    "IntegerValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "value", "lexeme"],
+      "properties": {
+        "node": {"const": "IntegerValue"},
+        "value": {"type": "string", "pattern": "^-?(0|[1-9][0-9]*)$"},
+        "lexeme": {"type": "string"}
+      }
+    },
+    "DecimalValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "value", "lexeme"],
+      "properties": {
+        "node": {"const": "DecimalValue"},
+        "value": {"type": "string", "pattern": "^-?(0|[1-9][0-9]*)\\.[0-9]+$"},
+        "lexeme": {"type": "string"}
+      }
+    },
+    "BooleanValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "value", "lexeme"],
+      "properties": {
+        "node": {"const": "BooleanValue"},
+        "value": {"type": "boolean"},
+        "lexeme": {"enum": ["true", "false", "TRUE", "FALSE", "True", "False"]}
+      }
+    },
+    "NullValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "value", "lexeme"],
+      "properties": {
+        "node": {"const": "NullValue"},
+        "value": {"type": "null"},
+        "lexeme": {"type": "string"}
+      }
+    },
+    "ListValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "items", "lexeme"],
+      "properties": {
+        "node": {"const": "ListValue"},
+        "items": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {"$ref": "#/$defs/StringValue"},
+              {"$ref": "#/$defs/AtomValue"},
+              {"$ref": "#/$defs/IntegerValue"},
+              {"$ref": "#/$defs/DecimalValue"},
+              {"$ref": "#/$defs/BooleanValue"},
+              {"$ref": "#/$defs/NullValue"}
+            ]
+          }
+        },
+        "lexeme": {"type": "string"}
+      }
+    },
+    "AttrPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "key", "value"],
+      "properties": {
+        "node": {"const": "AttrPair"},
+        "key": {"type": "string", "pattern": "^[a-z_][a-z0-9_-]{0,63}$"},
+        "value": {"$ref": "#/$defs/Scalar"}
+      }
+    },
+    "ContractField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "required"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z_][a-z0-9_-]*$"},
+        "type": {"type": "string", "pattern": "^%?[a-z_][a-z0-9_-]*$"},
+        "required": {"type": "boolean"}
+      }
+    },
+    "FormatDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "cortex", "encoding", "attributes", "sourceLine"],
+      "properties": {
+        "node": {"const": "FormatDeclaration"},
+        "cortex": {"const": "0.1"},
+        "encoding": {"const": "UTF-8"},
+        "attributes": {"type": "array", "items": {"$ref": "#/$defs/AttrPair"}},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "MetaDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "name", "attributes", "sourceLine"],
+      "properties": {
+        "node": {"const": "MetaDeclaration"},
+        "name": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,63}$"},
+        "attributes": {"type": "array", "items": {"$ref": "#/$defs/AttrPair"}},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "EnumDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "name", "values", "sourceLine"],
+      "properties": {
+        "node": {"const": "EnumDeclaration"},
+        "name": {"type": "string"},
+        "values": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "MicroDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "token", "expand", "sourceLine"],
+      "properties": {
+        "node": {"const": "MicroDeclaration"},
+        "token": {"type": "string", "minLength": 1},
+        "expand": {"type": "string", "minLength": 1},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "NamespaceDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "alias", "id", "version", "attributes", "sourceLine"],
+      "properties": {
+        "node": {"const": "NamespaceDeclaration"},
+        "alias": {"type": "string"},
+        "id": {"type": "string"},
+        "version": {"type": ["string", "null"]},
+        "attributes": {"type": "array", "items": {"$ref": "#/$defs/AttrPair"}},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "ExtensionDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "name", "namespace", "id", "version", "required", "attributes", "sourceLine"],
+      "properties": {
+        "node": {"const": "ExtensionDeclaration"},
+        "name": {"type": "string"},
+        "namespace": {"type": "string", "minLength": 1},
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "required": {"type": "boolean"},
+        "attributes": {"type": "array", "items": {"$ref": "#/$defs/AttrPair"}},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "SymbolDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "surface", "namespace", "qualified", "label", "shape", "weight", "focus", "description", "open", "contract", "attributes", "sourceLine"],
+      "properties": {
+        "node": {"const": "SymbolDefinition"},
+        "surface": {"type": "string", "pattern": "^(?:[a-z][a-z0-9_.-]*::)?(?:!|[A-Z][A-Z0-9_]{0,15})$"},
+        "namespace": {"type": ["string", "null"]},
+        "qualified": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1},
+        "shape": {"enum": ["attrs", "attrs-pos", "cuerpo", "bloque", "relacion"]},
+        "weight": {"enum": ["B", "M", "H"]},
+        "focus": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "open": {"type": "boolean"},
+        "contract": {"type": "array", "items": {"$ref": "#/$defs/ContractField"}},
+        "attributes": {"type": "array", "items": {"$ref": "#/$defs/AttrPair"}},
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "Glossary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "format", "meta", "enums", "micros", "namespaces", "extensions", "symbols"],
+      "properties": {
+        "node": {"const": "Glossary"},
+        "format": {"$ref": "#/$defs/FormatDeclaration"},
+        "meta": {"type": "array", "items": {"$ref": "#/$defs/MetaDeclaration"}},
+        "enums": {"type": "array", "items": {"$ref": "#/$defs/EnumDeclaration"}},
+        "micros": {"type": "array", "items": {"$ref": "#/$defs/MicroDeclaration"}},
+        "namespaces": {"type": "array", "items": {"$ref": "#/$defs/NamespaceDeclaration"}},
+        "extensions": {"type": "array", "items": {"$ref": "#/$defs/ExtensionDeclaration"}},
+        "symbols": {"type": "array", "items": {"$ref": "#/$defs/SymbolDefinition"}}
+      }
+    },
+    "AttrsPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "pairs"],
+      "properties": {
+        "node": {"const": "AttrsPayload"},
+        "pairs": {"type": "array", "items": {"$ref": "#/$defs/AttrPair"}}
+      }
+    },
+    "BoundValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "value"],
+      "properties": {
+        "field": {"type": "string"},
+        "value": {"$ref": "#/$defs/Scalar"}
+      }
+    },
+    "PositionalPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "cells", "bound"],
+      "properties": {
+        "node": {"const": "PositionalPayload"},
+        "cells": {"type": "array", "items": {"$ref": "#/$defs/Scalar"}},
+        "bound": {"type": "array", "items": {"$ref": "#/$defs/BoundValue"}}
+      }
+    },
+    "RelationPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "cells", "bound"],
+      "properties": {
+        "node": {"const": "RelationPayload"},
+        "cells": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/Scalar"}},
+        "bound": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/BoundValue"}}
+      }
+    },
+    "TextPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "text"],
+      "properties": {
+        "node": {"const": "TextPayload"},
+        "text": {"type": "string"}
+      }
+    },
+    "BlockPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "text"],
+      "properties": {
+        "node": {"const": "BlockPayload"},
+        "text": {"type": "string"}
+      }
+    },
+    "Idea": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "address", "section", "symbol", "qualifiedSymbol", "name", "function", "shape", "payload", "sourceLine"],
+      "properties": {
+        "node": {"const": "Idea"},
+        "address": {"type": "string", "pattern": "^\\$[1-9][0-9]*:.+:.+$"},
+        "section": {"type": "integer", "minimum": 1},
+        "symbol": {"type": "string"},
+        "qualifiedSymbol": {"type": "string"},
+        "name": {"type": "string"},
+        "function": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["label", "weight", "focus"],
+          "properties": {
+            "label": {"type": "string"},
+            "weight": {"enum": ["B", "M", "H"]},
+            "focus": {"type": "string"}
+          }
+        },
+        "shape": {"enum": ["attrs", "attrs-pos", "cuerpo", "bloque", "relacion"]},
+        "payload": {
+          "oneOf": [
+            {"$ref": "#/$defs/AttrsPayload"},
+            {"$ref": "#/$defs/PositionalPayload"},
+            {"$ref": "#/$defs/RelationPayload"},
+            {"$ref": "#/$defs/TextPayload"},
+            {"$ref": "#/$defs/BlockPayload"}
+          ]
+        },
+        "sourceLine": {"$ref": "#/$defs/SourceLine"}
+      }
+    },
+    "Section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "id", "title", "ideas"],
+      "properties": {
+        "node": {"const": "Section"},
+        "id": {"type": "integer", "minimum": 1},
+        "title": {"type": ["string", "null"]},
+        "ideas": {"type": "array", "items": {"$ref": "#/$defs/Idea"}}
+      }
+    },
+    "Document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "cortexVersion", "encoding", "glossary", "sections"],
+      "properties": {
+        "node": {"const": "Document"},
+        "cortexVersion": {"const": "0.1"},
+        "encoding": {"const": "UTF-8"},
+        "glossary": {"$ref": "#/$defs/Glossary"},
+        "sections": {"type": "array", "items": {"$ref": "#/$defs/Section"}}
+      }
+    }
+  }
+}

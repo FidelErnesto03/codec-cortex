@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "L010_INVALID_ATOM"
+  ],
+  "primary": {
+    "code": "L010_INVALID_ATOM",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Átomo inválido o texto sin comillas: 'texto con espacios'."
+  }
+}

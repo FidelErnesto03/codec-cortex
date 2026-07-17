@@ -1,0 +1,23 @@
+$0:format{cortex:0.1,encoding:UTF-8,language:es,type:doc}
+ING:miembro{type:attrs,fields:"nombre:text|rol:text|especialidad:text",focus:rol}
+OBJ:meta{type:attrs,fields:"descripcion:text|estado:text",focus:estado}
+PRI:regla{type:attrs,fields:"enunciado:text|razon:text",focus:enunciado}
+LEC:aprendizaje{type:attrs,fields:"evento:text|conclusion:text",focus:conclusion}
+RSK:peligro{type:attrs,fields:"descripcion:text|impacto:text|mitigacion:text",focus:impacto}
+$1: EQUIPO
+ING:miembro{nombre:"Elena Rivas",rol:"Lead Kernel Dev",especialidad:"Microkernel"}
+ING:miembro{nombre:"Carlos Mendoza",rol:"Security Architect",especialidad:"Criptografia"}
+ING:miembro{nombre:"Sofia Chen",rol:"Driver Engineer",especialidad:"Hardware Abstraction"}
+ING:miembro{nombre:"Liam O'Connor",rol:"UI/UX Systems",especialidad:"Compositor Wayland"}
+$2: OBJETIVOS
+OBJ:meta{descripcion:"Implementar el microkernel base con IPC optimizado",estado:"En progreso"}
+OBJ:meta{descripcion:"Desarrollar el subsistema de seguridad de capacidad",estado:"Completado"}
+OBJ:meta{descripcion:"Crear el primer set de drivers para arquitectura ARM64",estado:"Pendiente"}
+$3: PRINCIPIO
+PRI:regla{enunciado:"Ningun modulo de usuario puede acceder a memoria fisica directa",razon:"Garantiza aislamiento total y previene vulnerabilidades de escalada de privilegios"}
+$4: LECCIONES
+LEC:aprendizaje{evento:"Cuellos de botella en IPC sincrono durante pruebas de carga",conclusion:"Migrar a un modelo de mensajeria asincrono con buffers en espacio de usuario"}
+LEC:aprendizaje{evento:"Complejidad excesiva en el primer diseno del gestor de memoria",conclusion:"Simplificar a un asignador de paginas de orden fijo para la fase inicial"}
+$5: RIESGOS
+RSK:peligro{descripcion:"Retraso en la entrega de hardware de prueba ARM64",impacto:"Alto",mitigacion:"Usar emuladores QEMU con perfiles de rendimiento calibrados"}
+RSK:peligro{descripcion:"Fatiga del equipo por complejidad del microkernel",impacto:"Medio",mitigacion:"Rotacion de tareas y sesiones semanales de refactorizacion"}

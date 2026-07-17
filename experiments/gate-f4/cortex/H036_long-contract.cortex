@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+AUD:audit{type:attrs,weight:H,fields:"finding:text|severity:atom|evidence:text|owner:text?|status:atom",focus:finding,desc:"Hallazgo auditable"}
+$1
+AUD:f4{finding:"Roundtrip incompleto.",severity:blocker,evidence:"vector H036",owner:"implementación",status:current}

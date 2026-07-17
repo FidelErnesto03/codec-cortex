@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G001_GLOSSARY_MISSING_OR_NOT_FIRST"
+  ],
+  "primary": {
+    "code": "G001_GLOSSARY_MISSING_OR_NOT_FIRST",
+    "severity": "error",
+    "span": {
+      "line": 1,
+      "column": 1
+    },
+    "message": "$0 debe ser la primera sección."
+  }
+}

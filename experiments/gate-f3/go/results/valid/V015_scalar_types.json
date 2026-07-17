@@ -1,0 +1,246 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "DAT",
+        "namespace": "",
+        "qualified": "DAT",
+        "label": "data",
+        "shape": "attrs",
+        "weight": "B",
+        "focus": "name",
+        "description": "Datos tipados",
+        "open": false,
+        "contract": [
+          {
+            "name": "name",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "count",
+            "type": "int",
+            "required": true
+          },
+          {
+            "name": "ratio",
+            "type": "dec",
+            "required": true
+          },
+          {
+            "name": "enabled",
+            "type": "bool",
+            "required": true
+          },
+          {
+            "name": "missing",
+            "type": "null",
+            "required": true
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "B",
+              "lexeme": "B"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "name:text|count:int|ratio:dec|enabled:bool|missing:null",
+              "lexeme": "\"name:text|count:int|ratio:dec|enabled:bool|missing:null\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "name",
+              "lexeme": "name"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Datos tipados",
+              "lexeme": "\"Datos tipados\""
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": "",
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:DAT:sample",
+          "section": 1,
+          "symbol": "DAT",
+          "qualifiedSymbol": "DAT",
+          "name": "sample",
+          "function": {
+            "label": "data",
+            "weight": "B",
+            "focus": "name"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "name",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Caso",
+                  "lexeme": "\"Caso\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "count",
+                "value": {
+                  "node": "IntegerValue",
+                  "value": "3",
+                  "lexeme": "3"
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "ratio",
+                "value": {
+                  "node": "DecimalValue",
+                  "value": "0.75",
+                  "lexeme": "0.75"
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "enabled",
+                "value": {
+                  "node": "BooleanValue",
+                  "value": true,
+                  "lexeme": "true"
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "missing",
+                "value": {
+                  "node": "NullValue",
+                  "value": null,
+                  "lexeme": "null"
+                }
+              }
+            ]
+          },
+          "sourceLine": 4
+        }
+      ]
+    }
+  ]
+}

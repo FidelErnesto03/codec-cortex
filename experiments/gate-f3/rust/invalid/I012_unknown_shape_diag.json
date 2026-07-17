@@ -1,0 +1,2 @@
+{"code":"G017_UNKNOWN_SHAPE","severity":"error","span":{"line":3,"column":1},"message":"Shape desconocido: object."}
+{"code":"G024_FOCUS_REQUIRED","severity":"error","span":{"line":3,"column":1},"message":"Shape estructurado sin focus: KNW."}

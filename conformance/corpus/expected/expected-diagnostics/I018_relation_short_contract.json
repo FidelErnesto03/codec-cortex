@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G023_RELATION_CONTRACT_TOO_SHORT"
+  ],
+  "primary": {
+    "code": "G023_RELATION_CONTRACT_TOO_SHORT",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Una relación requiere al menos source|predicate|target."
+  }
+}

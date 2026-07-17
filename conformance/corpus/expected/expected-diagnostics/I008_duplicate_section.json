@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "S002_DUPLICATE_SECTION"
+  ],
+  "primary": {
+    "code": "S002_DUPLICATE_SECTION",
+    "severity": "error",
+    "span": {
+      "line": 4,
+      "column": 1
+    },
+    "message": "Sección duplicada: $1."
+  }
+}

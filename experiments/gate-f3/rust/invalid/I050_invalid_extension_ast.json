@@ -1,0 +1,112 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          }
+        ],
+        "sourceLine": 2
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "extension_trace",
+        "attributes": [],
+        "sourceLine": 3
+      }
+    ],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [
+      {
+        "node": "ExtensionDeclaration",
+        "name": "trace",
+        "namespace": "trace",
+        "id": "provenance",
+        "version": "",
+        "required": false,
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "namespace",
+            "value": {
+              "node": "AtomValue",
+              "value": "trace",
+              "lexeme": "trace"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "id",
+            "value": {
+              "node": "AtomValue",
+              "value": "provenance",
+              "lexeme": "provenance"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "version",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ],
+    "symbols": []
+  },
+  "sections": []
+}

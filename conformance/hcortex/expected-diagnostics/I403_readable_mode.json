@@ -1,0 +1,5 @@
+{
+  "case": "I403_readable_mode",
+  "required_code": "H402",
+  "severity": "error"
+}

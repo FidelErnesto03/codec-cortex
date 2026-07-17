@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G019_INVALID_WEIGHT\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"Weight 'X'.\"\n  }\n]\n", "exit_code": 1}

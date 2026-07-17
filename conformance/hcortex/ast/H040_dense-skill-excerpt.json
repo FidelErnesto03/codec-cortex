@@ -1,0 +1,265 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "intent",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "OBJ",
+          "value": [
+            [
+              "goal",
+              {
+                "kind": "string",
+                "value": "Transformar contexto sin pérdida."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "current"
+              }
+            ]
+          ]
+        },
+        {
+          "name": "step1",
+          "namespace": null,
+          "shape": "attrs-pos",
+          "symbol": "HDL",
+          "value": [
+            {
+              "kind": "string",
+              "value": "parsear CORTEX"
+            },
+            {
+              "kind": "atom",
+              "value": "done"
+            },
+            {
+              "kind": "string",
+              "value": "AST"
+            }
+          ]
+        },
+        {
+          "name": "step2",
+          "namespace": null,
+          "shape": "attrs-pos",
+          "symbol": "HDL",
+          "value": [
+            {
+              "kind": "string",
+              "value": "renderizar HCORTEX"
+            },
+            {
+              "kind": "atom",
+              "value": "done"
+            },
+            {
+              "kind": "string",
+              "value": "Markdown canónico"
+            }
+          ]
+        },
+        {
+          "name": "invariant",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Reversibilidad"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "compile(render(AST)) produce el mismo AST."
+              }
+            ]
+          ]
+        },
+        {
+          "name": "proof",
+          "namespace": null,
+          "shape": "relacion",
+          "symbol": "REL",
+          "value": [
+            {
+              "kind": "atom",
+              "value": "$1:HDL:step1"
+            },
+            {
+              "kind": "atom",
+              "value": "precedes"
+            },
+            {
+              "kind": "atom",
+              "value": "$1:HDL:step2"
+            }
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Procedimiento compacto",
+      "fields": [],
+      "focus": "action",
+      "label": "procedure",
+      "namespace": null,
+      "open": false,
+      "pos": [
+        {
+          "name": "action",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "target",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "constraint",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "shape": "attrs-pos",
+      "symbol": "HDL",
+      "weight": "M"
+    },
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    },
+    {
+      "desc": "Objetivo explícito",
+      "fields": [
+        {
+          "name": "goal",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "metric",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "goal",
+      "label": "objective",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "OBJ",
+      "weight": "H"
+    },
+    {
+      "desc": "Relación dirigida",
+      "fields": [],
+      "focus": "predicate",
+      "label": "relation",
+      "namespace": null,
+      "open": false,
+      "pos": [
+        {
+          "name": "source",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "predicate",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "target",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "qualifier",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "shape": "relacion",
+      "symbol": "REL",
+      "weight": "M"
+    }
+  ]
+}

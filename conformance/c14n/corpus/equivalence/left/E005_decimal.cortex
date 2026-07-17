@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+NUM:n{type:attrs,weight:B,fields:"value:dec",focus:value,desc:"Decimal"}
+$1
+NUM:d{value:1.2300}

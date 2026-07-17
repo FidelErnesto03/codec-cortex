@@ -1,0 +1,71 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "extra",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "META",
+          "value": [
+            [
+              "value",
+              {
+                "kind": "string",
+                "value": "base"
+              }
+            ],
+            [
+              "alpha",
+              {
+                "kind": "atom",
+                "value": "a"
+              }
+            ],
+            [
+              "zeta",
+              {
+                "kind": "atom",
+                "value": "z"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Atributos abiertos",
+      "fields": [
+        {
+          "name": "value",
+          "optional": false,
+          "type": "text"
+        }
+      ],
+      "focus": "value",
+      "label": "metadata",
+      "namespace": null,
+      "open": true,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "META",
+      "weight": "B"
+    }
+  ]
+}

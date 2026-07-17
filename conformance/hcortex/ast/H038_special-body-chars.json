@@ -1,0 +1,43 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "symbols",
+          "namespace": null,
+          "shape": "cuerpo",
+          "symbol": "TXT",
+          "value": "Markdown **no se interpreta** como estructura CORTEX.\n| tabla | texto |"
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Texto semántico",
+      "fields": [],
+      "focus": null,
+      "label": "text",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "cuerpo",
+      "symbol": "TXT",
+      "weight": "B"
+    }
+  ]
+}

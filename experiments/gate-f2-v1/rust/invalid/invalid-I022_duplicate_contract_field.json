@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G009_DUPLICATE_CONTRACT_FIELD"
+  ],
+  "primary": {
+    "code": "G009_DUPLICATE_CONTRACT_FIELD",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Campo repetido en contrato: topic."
+  }
+}

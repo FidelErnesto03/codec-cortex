@@ -1,0 +1,9 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+DIAG:diagram{type:bloque,weight:M,desc:"Contenido verbatim"}
+$1
+DIAG:flow{
+@startuml
+parser --> AST
+@enduml
+}

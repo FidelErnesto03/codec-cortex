@@ -1,0 +1,133 @@
+(* CORTEX 0.1 — normative surface grammar (EBNF)
+   Semantic resolution is two-pass: $0 is parsed first, then idea payloads are
+   interpreted according to each locally declared symbol shape. *)
+
+document          = spacing, glossary, { section }, spacing, EOF ;
+
+glossary          = glossary-header, line-end,
+                    { blank-line | comment-line | glossary-declaration } ;
+
+glossary-header   = "$0" ;
+
+glossary-declaration
+                  = meta-declaration, line-end
+                  | symbol-declaration, line-end ;
+
+meta-declaration  = "$0", ":", name, attrs-payload ;
+
+symbol-declaration
+                  = symbol-ref, ":", name, attrs-payload ;
+
+section           = section-header, line-end,
+                    { blank-line | comment-line | idea } ;
+
+section-header    = "$", positive-integer,
+                    [ ":", horizontal-space, section-title ] ;
+
+idea              = braced-idea, line-end
+                  | pipe-idea, line-end
+                  | multiline-idea ;
+
+braced-idea       = idea-head, attrs-payload ;
+
+pipe-idea         = idea-head, "|", pipe-cell,
+                    { "|", pipe-cell } ;
+
+multiline-idea    = idea-head, "{", line-end,
+                    { body-line, line-end },
+                    "}" ;
+
+idea-head         = symbol-ref, ":", name ;
+
+symbol-ref        = [ namespace, "::" ], sigil ;
+
+namespace         = lower-alpha, { lower-alpha | digit | "_" | "." | "-" } ;
+
+sigil             = "!"
+                  | upper-alpha, { upper-alpha | digit | "_" } ;
+
+name              = alpha | "_",
+                    { alpha | digit | "_" | "." | "-" } ;
+
+attrs-payload     = "{", [ attr-pair, { ",", attr-pair } ], "}" ;
+
+attr-pair         = key, ":", scalar ;
+
+key               = lower-alpha | "_",
+                    { lower-alpha | digit | "_" | "-" } ;
+
+scalar            = string
+                  | decimal
+                  | integer
+                  | boolean
+                  | null
+                  | list
+                  | atom ;
+
+list              = "[", [ scalar-no-list, { ",", scalar-no-list } ], "]" ;
+
+scalar-no-list    = string | decimal | integer | boolean | null | atom ;
+
+string            = '"', { string-char | escape }, '"' ;
+
+escape            = "\\", ( '"' | "\\" | "n" | "r" | "t" | "b" | "f"
+                    | "u", hex, hex, hex, hex ) ;
+
+integer           = [ "-" ], ( "0" | nonzero-digit, { digit } ) ;
+
+decimal           = [ "-" ], ( "0" | nonzero-digit, { digit } ),
+                    ".", digit, { digit } ;
+
+boolean           = "true" | "false" ;
+
+null              = "null" ;
+
+atom              = [ "$", positive-integer, ":" ],
+                    ( alpha | "_" ),
+                    { alpha | digit | "_" | "." | "/" | ":" | "@"
+                    | "+" | "%" | "$" | "-" } ;
+
+pipe-cell         = quoted-pipe-cell | raw-pipe-cell ;
+
+quoted-pipe-cell  = string ;
+
+raw-pipe-cell     = { pipe-char } ;
+
+pipe-char         = ? any Unicode scalar except "|", CR and LF ? ;
+
+body-line         = ? any Unicode scalar sequence except a line exactly "}" ? ;
+
+section-title     = ? any Unicode scalar sequence except CR and LF ? ;
+
+comment-line      = horizontal-space, "#",
+                    ? any Unicode scalar sequence except CR and LF ?, line-end ;
+
+blank-line        = horizontal-space, line-end ;
+
+spacing           = { blank-line | comment-line } ;
+
+line-end          = LF | EOF ;
+
+horizontal-space  = { " " | TAB } ;
+
+alpha             = upper-alpha | lower-alpha ;
+upper-alpha       = "A" … "Z" ;
+lower-alpha       = "a" … "z" ;
+digit             = "0" … "9" ;
+nonzero-digit     = "1" … "9" ;
+positive-integer  = nonzero-digit, { digit } ;
+hex               = digit | "A" … "F" | "a" … "f" ;
+
+(* Contextual constraints, normative but not expressible in context-free EBNF:
+
+1. $0 MUST be first and unique.
+2. $0:format{cortex:0.1,encoding:UTF-8,...} MUST occur exactly once.
+3. Every non-meta sigil used outside $0 MUST be declared in $0.
+4. A declaration with type=attrs uses braced-idea on one physical line.
+5. type=attrs-pos and type=relacion use pipe-idea on one physical line.
+6. type=cuerpo and type=bloque use braced-idea or multiline-idea.
+7. attrs fields and attrs-pos cells MUST satisfy the local contract.
+8. The local address $section:symbol:name MUST be unique.
+9. Comments are not part of the semantic AST.
+10. Lists are flat in CORTEX 0.1.
+*)

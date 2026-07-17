@@ -1,0 +1,1 @@
+{"code":"I013_RELATION_ARITY","severity":"error","span":{"line":5,"column":1},"message":"Relación incompleta o excedida. Cumplir contrato. Esperadas >=3, obtenidas 2."}

@@ -1,0 +1,168 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "parser",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Parser"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Analiza CORTEX."
+              }
+            ]
+          ]
+        },
+        {
+          "name": "ast",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "AST"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Preserva Ideas."
+              }
+            ]
+          ]
+        },
+        {
+          "name": "parser_ast",
+          "namespace": null,
+          "shape": "relacion",
+          "symbol": "REL",
+          "value": [
+            {
+              "kind": "atom",
+              "value": "$1:KNW:parser"
+            },
+            {
+              "kind": "atom",
+              "value": "produces"
+            },
+            {
+              "kind": "atom",
+              "value": "$1:KNW:ast"
+            },
+            {
+              "kind": "string",
+              "value": "deterministic"
+            }
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    },
+    {
+      "desc": "Relación dirigida",
+      "fields": [],
+      "focus": "predicate",
+      "label": "relation",
+      "namespace": null,
+      "open": false,
+      "pos": [
+        {
+          "name": "source",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "predicate",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "target",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "qualifier",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "shape": "relacion",
+      "symbol": "REL",
+      "weight": "M"
+    }
+  ]
+}

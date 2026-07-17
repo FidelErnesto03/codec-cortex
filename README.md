@@ -1,33 +1,49 @@
 # CODEC-CORTEX
 
-Representación canónica, compacta y autocontenida de contexto para agentes IA.
+Implementación de referencia del estándar CORTEX — un codec ideático lineal para contexto estructurado de SLM/LLM.
 
-Este repositorio es el estándar abierto y su implementación de referencia.
-CODEC-CORTEX es un **codec determinista** (parse, encode, decode, canonicalize,
-validate, to/from HCORTEX). No es un runtime, motor de aprendizaje, ni framework
-de gobierno. Esos sistemas consumen CORTEX como estándar externo.
+## Estructura del repositorio
 
-## Estado
+```
+docs/
+├── standard/       → Especificación normativa CORTEX 0.1 (spec, glossary, errors, GATE-F2, F3-CHARTER)
+├── grammar/        → Gramáticas formales ABNF + EBNF
+├── schemas/        → Schemas JSON del AST y diagnostics
+├── spec/           → Symlinks a standard/ (para validadores)
+└── review/         → Reportes de revisión, hallazgos y documentos de diseño
 
-- Fase: 0 completada (raíz limpia, legacy congelado).
-- Estándar: en constitución (ver `governance/`).
-- Línea experimental v0.6.x: preservada en rama `legacy/v0.6.x` (inmutable).
+experiments/
+├── gate-f2-v1/     → Mini Gate F2 (BLP-003) — experimento pre-correcciones
+└── gate-f2-v2/     → Mini Gate F2 v2 (BLP-005) — experimento post-correcciones
 
-## Dominios
+conformance/        → Corpus de prueba (40 válidos + 57 inválidos + golden outputs)
+examples/           → Symlinks a conformance/ (para validadores)
 
-| Directorio | Autoridad | Descripción |
+tools/              → Validadores (validate_phase2.py, cortex01_validator.py, compare_all.py)
+governance/         → GOVERNADANCE.md del estándar + ADRs
+profiles/           → Perfiles oficiales del estándar
+security/           → Documentación de seguridad
+tooling/            → Herramientas del ecosistema
+```
+
+## Estado del estándar
+
+**CORTEX 0.1 — DRAFT-REAL-001** · Status: `draft-for-independent-implementation`
+
+| Fase | Estado | BLP |
 |---|---|---|
-| `standard/` | normativa | Especificación, gramática, schemas |
-| `implementations/python/` | derivada | Implementación de referencia (placeholder en F0) |
-| `profles/` | extensión | Perfiles opcionales (desacoplados) |
-| `conformance/` | evidencia | Corpus y manifest de conformidad |
-| `tooling/` | dev-only | Herramientas, no importadas por el Core |
-| `governance/` | gobernanza | Charter, RFC, ADR, versionado, dependencias |
-| `security/` | seguridad | Security policy, threat model |
-| `docs/` | informativo | Documentación y transición |
+| F0 — Seguridad y fork | ✅ Done | BLP-001 |
+| F1 — Constitución | ✅ Done | BLP-001 |
+| F2 — Modelo abstracto y gramática | ✅ Done | BLP-002 |
+| F2 correcciones (comillas, atom, glossary-valid) | ✅ Done | BLP-004 |
+| Mini Gate F2 (implementabilidad) | ✅ Done | BLP-003 + BLP-005 |
+| F3 — Canonicalización | ⬜ Pendiente | — |
 
-## Dependencias
+Experimentación: Rust 39/40 (97.5%), Go 33/40, Bash 30/40. 0 defectos de especificación.
 
-Unidireccionales: `standard → implementations → profiles/external consumers`.
-El Core nunca importa learning, runtime, sesiones, ArqUX ni vocabularios cognitivos.
-Ver `governance/DEPENDENCY_POLICY.md`.
+## Lectura recomendada
+
+1. `docs/standard/CORTEX-SPEC-0.1.md` — La especificación
+2. `docs/standard/F3-CHARTER.md` — Guía para Fase 3
+3. `experiments/gate-f2-v2/README.md` — Resultados del último experimento
+4. `docs/review/GATE-F2-V2-REPORT.md` — Reporte detallado

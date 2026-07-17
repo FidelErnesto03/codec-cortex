@@ -1,0 +1,39 @@
+{
+  "canonical": [
+    {
+      "id": "H001",
+      "title": "attrs",
+      "roundtrip_cortex_sha256": "7a09b2802327623c101f7e129b78b3159e9813bb7ab7bc0cdb4f6da6ab59e66d"
+    },
+    {
+      "id": "H002",
+      "title": "pos",
+      "roundtrip_cortex_sha256": "932da6108fcdbb6735131a1d0c13b5f0514d4cadc63615c0c50a02b87936e9dc"
+    },
+    {
+      "id": "H003",
+      "title": "body",
+      "roundtrip_cortex_sha256": "94ff75af9473d13d004974c810b45747eadc4ec56357a1627ca8278b07665192"
+    },
+    {
+      "id": "H004",
+      "title": "block",
+      "roundtrip_cortex_sha256": "0a059e647f908b94bae2d518798bdd682d49d87c1d16c52fd021c96796596ad2"
+    },
+    {
+      "id": "H005",
+      "title": "relation",
+      "roundtrip_cortex_sha256": "4264b04648338e3dcdd6201a3f694e54aad160edb52ce91dc0bfca1481ff64c9"
+    }
+  ],
+  "invalid": [
+    {
+      "id": "H400",
+      "expected_diagnostic": "H400"
+    },
+    {
+      "id": "H490",
+      "expected_diagnostic": "H490"
+    }
+  ]
+}

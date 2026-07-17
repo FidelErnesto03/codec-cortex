@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G010_FORMAT_REQUIRED"
+  ],
+  "primary": {
+    "code": "G010_FORMAT_REQUIRED",
+    "severity": "error",
+    "span": {
+      "line": 2,
+      "column": 1
+    },
+    "message": "$0:format es obligatorio."
+  }
+}

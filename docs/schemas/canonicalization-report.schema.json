@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cortex.example/schema/canonicalization-report-0.1.json",
+  "title": "CORTEX C14N-0.1 report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "canonicalization",
+    "inputSha256",
+    "canonicalSha256",
+    "canonicalHash",
+    "changed",
+    "structuralLoss",
+    "losses",
+    "sourceFidelityChanges",
+    "diagnostics"
+  ],
+  "properties": {
+    "canonicalization": {
+      "const": "C14N-0.1"
+    },
+    "inputSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "canonicalSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "canonicalHash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "changed": {
+      "type": "boolean"
+    },
+    "structuralLoss": {
+      "const": false
+    },
+    "sourceFidelityChanges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "losses": {
+      "type": "array",
+      "maxItems": 0,
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

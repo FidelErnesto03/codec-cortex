@@ -1,0 +1,111 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "first",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Primero"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "El orden es significativo."
+              }
+            ]
+          ]
+        },
+        {
+          "name": "second",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Segundo"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Se conserva después."
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    }
+  ]
+}

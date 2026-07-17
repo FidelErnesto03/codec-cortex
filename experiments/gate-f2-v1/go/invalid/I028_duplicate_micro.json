@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G013_DUPLICATE_MICRO\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 4,\n      \"column\": 1\n    },\n    \"message\": \"Micro 'cur' duplicado.\"\n  }\n]\n", "exit_code": 1}

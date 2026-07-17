@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+!:rule{type:attrs,weight:H,fields:"rule:text|evidence:text?",focus:rule,desc:"Regla obligatoria"}
+$1
+!:one_idea{rule:"Una línea comunica una idea principal.",evidence:"axioma CORTEX"}

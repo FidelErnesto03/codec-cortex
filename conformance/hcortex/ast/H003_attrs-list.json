@@ -1,0 +1,82 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "principles",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "TAG",
+          "value": [
+            [
+              "name",
+              {
+                "kind": "string",
+                "value": "Principios"
+              }
+            ],
+            [
+              "items",
+              {
+                "items": [
+                  {
+                    "kind": "atom",
+                    "value": "portable"
+                  },
+                  {
+                    "kind": "atom",
+                    "value": "denso"
+                  },
+                  {
+                    "kind": "atom",
+                    "value": "compacto"
+                  }
+                ],
+                "kind": "list"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Lista plana",
+      "fields": [
+        {
+          "name": "name",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "items",
+          "optional": false,
+          "type": "list"
+        }
+      ],
+      "focus": "items",
+      "label": "tagset",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "TAG",
+      "weight": "B"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I007_FIELD_ORDER"
+  ],
+  "primary": {
+    "code": "I007_FIELD_ORDER",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Los campos no siguen el contrato declarado."
+  }
+}

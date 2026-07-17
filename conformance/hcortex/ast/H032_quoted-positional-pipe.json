@@ -1,0 +1,87 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "pipe",
+          "namespace": null,
+          "shape": "attrs-pos",
+          "symbol": "HDL",
+          "value": [
+            {
+              "kind": "string",
+              "value": "usar A|B"
+            },
+            {
+              "kind": "atom",
+              "value": "planned"
+            },
+            {
+              "kind": "string",
+              "value": "destino"
+            }
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Procedimiento compacto",
+      "fields": [],
+      "focus": "action",
+      "label": "procedure",
+      "namespace": null,
+      "open": false,
+      "pos": [
+        {
+          "name": "action",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "target",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "constraint",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "shape": "attrs-pos",
+      "symbol": "HDL",
+      "weight": "M"
+    }
+  ]
+}

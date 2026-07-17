@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I004_SHAPE_DELIMITER_MISMATCH\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 5,\n      \"column\": 1\n    },\n    \"message\": \"Se esperaba {.\"\n  }\n]\n", "exit_code": 1}

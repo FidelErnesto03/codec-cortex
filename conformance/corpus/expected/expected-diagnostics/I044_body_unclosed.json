@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I014_UNCLOSED_BODY"
+  ],
+  "primary": {
+    "code": "I014_UNCLOSED_BODY",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "cuerpo requiere cierre } en línea propia."
+  }
+}

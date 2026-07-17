@@ -1,0 +1,5 @@
+$0
+$0:format{encoding:UTF-8,cortex:0.1}
+T:item{desc:"Item",focus:text,fields:"text:text|n:integer?",weight:B,type:attrs}
+$1: Case 25
+T:a{n:-0,text:"value 25"}

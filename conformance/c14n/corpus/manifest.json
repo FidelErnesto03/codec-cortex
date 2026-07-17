@@ -1,0 +1,246 @@
+{
+  "canonicalization": "C14N-0.1",
+  "upstream": "CORTEX-SPEC-0.1-DRAFT-REAL-001",
+  "cases": [
+    {
+      "id": "C001_minimal_attrs",
+      "input": "corpus/input/C001_minimal_attrs.cortex",
+      "canonical": "corpus/canonical/C001_minimal_attrs.cortex",
+      "report": "corpus/reports/C001_minimal_attrs.report.json"
+    },
+    {
+      "id": "C002_comments_blank_crlf",
+      "input": "corpus/input/C002_comments_blank_crlf.cortex",
+      "canonical": "corpus/canonical/C002_comments_blank_crlf.cortex",
+      "report": "corpus/reports/C002_comments_blank_crlf.report.json"
+    },
+    {
+      "id": "C003_format_attribute_order",
+      "input": "corpus/input/C003_format_attribute_order.cortex",
+      "canonical": "corpus/canonical/C003_format_attribute_order.cortex",
+      "report": "corpus/reports/C003_format_attribute_order.report.json"
+    },
+    {
+      "id": "C004_glossary_order",
+      "input": "corpus/input/C004_glossary_order.cortex",
+      "canonical": "corpus/canonical/C004_glossary_order.cortex",
+      "report": "corpus/reports/C004_glossary_order.report.json"
+    },
+    {
+      "id": "C005_open_attrs_extras",
+      "input": "corpus/input/C005_open_attrs_extras.cortex",
+      "canonical": "corpus/canonical/C005_open_attrs_extras.cortex",
+      "report": "corpus/reports/C005_open_attrs_extras.report.json"
+    },
+    {
+      "id": "C006_unicode_nfc",
+      "input": "corpus/input/C006_unicode_nfc.cortex",
+      "canonical": "corpus/canonical/C006_unicode_nfc.cortex",
+      "report": "corpus/reports/C006_unicode_nfc.report.json"
+    },
+    {
+      "id": "C007_string_escapes",
+      "input": "corpus/input/C007_string_escapes.cortex",
+      "canonical": "corpus/canonical/C007_string_escapes.cortex",
+      "report": "corpus/reports/C007_string_escapes.report.json"
+    },
+    {
+      "id": "C008_integer",
+      "input": "corpus/input/C008_integer.cortex",
+      "canonical": "corpus/canonical/C008_integer.cortex",
+      "report": "corpus/reports/C008_integer.report.json"
+    },
+    {
+      "id": "C009_decimal_normalization",
+      "input": "corpus/input/C009_decimal_normalization.cortex",
+      "canonical": "corpus/canonical/C009_decimal_normalization.cortex",
+      "report": "corpus/reports/C009_decimal_normalization.report.json"
+    },
+    {
+      "id": "C010_microtoken_expansion",
+      "input": "corpus/input/C010_microtoken_expansion.cortex",
+      "canonical": "corpus/canonical/C010_microtoken_expansion.cortex",
+      "report": "corpus/reports/C010_microtoken_expansion.report.json"
+    },
+    {
+      "id": "C011_positional_text",
+      "input": "corpus/input/C011_positional_text.cortex",
+      "canonical": "corpus/canonical/C011_positional_text.cortex",
+      "report": "corpus/reports/C011_positional_text.report.json"
+    },
+    {
+      "id": "C012_positional_quoted_pipe",
+      "input": "corpus/input/C012_positional_quoted_pipe.cortex",
+      "canonical": "corpus/canonical/C012_positional_quoted_pipe.cortex",
+      "report": "corpus/reports/C012_positional_quoted_pipe.report.json"
+    },
+    {
+      "id": "C013_positional_optional",
+      "input": "corpus/input/C013_positional_optional.cortex",
+      "canonical": "corpus/canonical/C013_positional_optional.cortex",
+      "report": "corpus/reports/C013_positional_optional.report.json"
+    },
+    {
+      "id": "C014_cuerpo_short",
+      "input": "corpus/input/C014_cuerpo_short.cortex",
+      "canonical": "corpus/canonical/C014_cuerpo_short.cortex",
+      "report": "corpus/reports/C014_cuerpo_short.report.json"
+    },
+    {
+      "id": "C015_cuerpo_multiline",
+      "input": "corpus/input/C015_cuerpo_multiline.cortex",
+      "canonical": "corpus/canonical/C015_cuerpo_multiline.cortex",
+      "report": "corpus/reports/C015_cuerpo_multiline.report.json"
+    },
+    {
+      "id": "C016_bloque",
+      "input": "corpus/input/C016_bloque.cortex",
+      "canonical": "corpus/canonical/C016_bloque.cortex",
+      "report": "corpus/reports/C016_bloque.report.json"
+    },
+    {
+      "id": "C017_relacion",
+      "input": "corpus/input/C017_relacion.cortex",
+      "canonical": "corpus/canonical/C017_relacion.cortex",
+      "report": "corpus/reports/C017_relacion.report.json"
+    },
+    {
+      "id": "C018_enum",
+      "input": "corpus/input/C018_enum.cortex",
+      "canonical": "corpus/canonical/C018_enum.cortex",
+      "report": "corpus/reports/C018_enum.report.json"
+    },
+    {
+      "id": "C019_namespace_local",
+      "input": "corpus/input/C019_namespace_local.cortex",
+      "canonical": "corpus/canonical/C019_namespace_local.cortex",
+      "report": "corpus/reports/C019_namespace_local.report.json"
+    },
+    {
+      "id": "C020_namespace_qualified",
+      "input": "corpus/input/C020_namespace_qualified.cortex",
+      "canonical": "corpus/canonical/C020_namespace_qualified.cortex",
+      "report": "corpus/reports/C020_namespace_qualified.report.json"
+    },
+    {
+      "id": "C021_optional_extension",
+      "input": "corpus/input/C021_optional_extension.cortex",
+      "canonical": "corpus/canonical/C021_optional_extension.cortex",
+      "report": "corpus/reports/C021_optional_extension.report.json"
+    },
+    {
+      "id": "C022_custom_meta",
+      "input": "corpus/input/C022_custom_meta.cortex",
+      "canonical": "corpus/canonical/C022_custom_meta.cortex",
+      "report": "corpus/reports/C022_custom_meta.report.json"
+    },
+    {
+      "id": "C023_exclamation_sigil",
+      "input": "corpus/input/C023_exclamation_sigil.cortex",
+      "canonical": "corpus/canonical/C023_exclamation_sigil.cortex",
+      "report": "corpus/reports/C023_exclamation_sigil.report.json"
+    },
+    {
+      "id": "C024_flat_list",
+      "input": "corpus/input/C024_flat_list.cortex",
+      "canonical": "corpus/canonical/C024_flat_list.cortex",
+      "report": "corpus/reports/C024_flat_list.report.json"
+    },
+    {
+      "id": "C025_scalar_mix",
+      "input": "corpus/input/C025_scalar_mix.cortex",
+      "canonical": "corpus/canonical/C025_scalar_mix.cortex",
+      "report": "corpus/reports/C025_scalar_mix.report.json"
+    },
+    {
+      "id": "C026_section_order",
+      "input": "corpus/input/C026_section_order.cortex",
+      "canonical": "corpus/canonical/C026_section_order.cortex",
+      "report": "corpus/reports/C026_section_order.report.json"
+    },
+    {
+      "id": "C027_same_name_sections",
+      "input": "corpus/input/C027_same_name_sections.cortex",
+      "canonical": "corpus/canonical/C027_same_name_sections.cortex",
+      "report": "corpus/reports/C027_same_name_sections.report.json"
+    },
+    {
+      "id": "C028_comment_only_source_change",
+      "input": "corpus/input/C028_comment_only_source_change.cortex",
+      "canonical": "corpus/canonical/C028_comment_only_source_change.cortex",
+      "report": "corpus/reports/C028_comment_only_source_change.report.json"
+    },
+    {
+      "id": "C029_section_title_spacing",
+      "input": "corpus/input/C029_section_title_spacing.cortex",
+      "canonical": "corpus/canonical/C029_section_title_spacing.cortex",
+      "report": "corpus/reports/C029_section_title_spacing.report.json"
+    },
+    {
+      "id": "C030_dense_skill_excerpt",
+      "input": "corpus/input/C030_dense_skill_excerpt.cortex",
+      "canonical": "corpus/canonical/C030_dense_skill_excerpt.cortex",
+      "report": "corpus/reports/C030_dense_skill_excerpt.report.json"
+    },
+    {
+      "id": "C031_all_shapes",
+      "input": "corpus/input/C031_all_shapes.cortex",
+      "canonical": "corpus/canonical/C031_all_shapes.cortex",
+      "report": "corpus/reports/C031_all_shapes.report.json"
+    },
+    {
+      "id": "C032_neutral_unknown_domain",
+      "input": "corpus/input/C032_neutral_unknown_domain.cortex",
+      "canonical": "corpus/canonical/C032_neutral_unknown_domain.cortex",
+      "report": "corpus/reports/C032_neutral_unknown_domain.report.json"
+    },
+    {
+      "id": "C033_glossary_permutation",
+      "input": "corpus/input/C033_glossary_permutation.cortex",
+      "canonical": "corpus/canonical/C033_glossary_permutation.cortex",
+      "report": "corpus/reports/C033_glossary_permutation.report.json"
+    },
+    {
+      "id": "C034_attrs_contract_order",
+      "input": "corpus/input/C034_attrs_contract_order.cortex",
+      "canonical": "corpus/canonical/C034_attrs_contract_order.cortex",
+      "report": "corpus/reports/C034_attrs_contract_order.report.json"
+    },
+    {
+      "id": "C035_decimal_precision_preserved",
+      "input": "corpus/input/C035_decimal_precision_preserved.cortex",
+      "canonical": "corpus/canonical/C035_decimal_precision_preserved.cortex",
+      "report": "corpus/reports/C035_decimal_precision_preserved.report.json"
+    },
+    {
+      "id": "C036_cuerpo_boundary_newline",
+      "input": "corpus/input/C036_cuerpo_boundary_newline.cortex",
+      "canonical": "corpus/canonical/C036_cuerpo_boundary_newline.cortex",
+      "report": "corpus/reports/C036_cuerpo_boundary_newline.report.json"
+    },
+    {
+      "id": "C037_cuerpo_extra_blank_lines",
+      "input": "corpus/input/C037_cuerpo_extra_blank_lines.cortex",
+      "canonical": "corpus/canonical/C037_cuerpo_extra_blank_lines.cortex",
+      "report": "corpus/reports/C037_cuerpo_extra_blank_lines.report.json"
+    },
+    {
+      "id": "C038_bloque_unicode_verbatim",
+      "input": "corpus/input/C038_bloque_unicode_verbatim.cortex",
+      "canonical": "corpus/canonical/C038_bloque_unicode_verbatim.cortex",
+      "report": "corpus/reports/C038_bloque_unicode_verbatim.report.json"
+    },
+    {
+      "id": "C039_bloque_whitespace_verbatim",
+      "input": "corpus/input/C039_bloque_whitespace_verbatim.cortex",
+      "canonical": "corpus/canonical/C039_bloque_whitespace_verbatim.cortex",
+      "report": "corpus/reports/C039_bloque_whitespace_verbatim.report.json"
+    },
+    {
+      "id": "C040_microtoken_positional",
+      "input": "corpus/input/C040_microtoken_positional.cortex",
+      "canonical": "corpus/canonical/C040_microtoken_positional.cortex",
+      "report": "corpus/reports/C040_microtoken_positional.report.json"
+    }
+  ]
+}

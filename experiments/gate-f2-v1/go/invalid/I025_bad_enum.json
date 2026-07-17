@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G014_INVALID_ENUM\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"Enum 'state' value dup: current.\"\n  }\n]\n", "exit_code": 1}

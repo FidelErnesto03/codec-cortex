@@ -1,0 +1,6 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8}
+$0:extension_trace{namespace:trace,id:provenance,version:0.1,required:true}
+AUD:audit{type:attrs,weight:M,fields:"event:text|evidence:text",focus:event,desc:"Auditoría"}
+$1
+AUD:x{event:"x",evidence:"y"}

@@ -1,0 +1,5 @@
+{
+  "case": "I415_hidden_ast_copy",
+  "required_code": "H481",
+  "severity": "error"
+}

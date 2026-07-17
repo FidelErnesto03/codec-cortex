@@ -1,0 +1,24 @@
+$0:format{cortex:0.1,encoding:UTF-8,language:es,type:doc}
+ING:ingeniero{type:attrs,fields:"id:text|rol:text|experiencia:text",focus:rol,schema:table,desc:"Miembro del equipo de AetherOS"}
+OBJ:objetivo{type:attrs,fields:"id:text|desc:text|estado:text",focus:desc,schema:table,desc:"Meta del proyecto AetherOS"}
+PRN:principio{type:attrs,fields:"id:text|desc:text|prioridad:text",focus:desc,schema:prose,desc:"Regla inquebrantable de diseño"}
+LEC:leccion{type:attrs,fields:"id:text|fase:text|desc:text",focus:desc,schema:prose,desc:"Aprendizaje del proyecto"}
+RIES:riesgo{type:attrs,fields:"id:text|desc:text|impacto:text",focus:desc,schema:table,desc:"Amenaza potencial"}
+$1: EQUIPO DE INGENIERIA
+ING:ingeniero{id:"ing1",rol:"Arquitecto Principal",experiencia:"10 años"}
+ING:ingeniero{id:"ing2",rol:"Ingeniera de Kernel",experiencia:"7 años"}
+ING:ingeniero{id:"ing3",rol:"Ingeniero de Sistemas de Archivos",experiencia:"5 años"}
+ING:ingeniero{id:"ing4",rol:"Especialista en Seguridad",experiencia:"8 años"}
+$2: OBJETIVOS DEL PROYECTO
+OBJ:objetivo{id:"obj1",desc:"Crear un microkernel asíncrono funcional",estado:"En progreso"}
+OBJ:objetivo{id:"obj2",desc:"Implementar un sistema de archivos distribuido",estado:"Planificado"}
+OBJ:objetivo{id:"obj3",desc:"Diseñar un modelo de seguridad basado en capacidades",estado:"Finalizado"}
+$3: PRINCIPIO NO NEGOCIABLE DE DISEÑO
+PRN:principio{id:"prn1",desc:"El aislamiento de procesos es absoluto y no puede ser vulnerado por optimizaciones de rendimiento",prioridad:"Crítica"}
+$4: LECCIONES APRENDIDAS
+LEC:leccion{id:"lec1",fase:"Diseño",desc:"La abstracción temprana del hardware ahorra semanas de refactorización"}
+LEC:leccion{id:"lec2",fase:"Diseño",desc:"Las pruebas de concurrencia deben definirse antes de escribir el planificador"}
+$5: RIESGOS IDENTIFICADOS
+RIES:riesgo{id:"riesgo1",desc:"Latencia en la comunicación entre procesos",impacto:"Medio"}
+RIES:riesgo{id:"riesgo2",desc:"Vulnerabilidades de día cero en dependencias de terceros",impacto:"Alto"}
+RIES:riesgo{id:"riesgo3",desc:"Burnout del equipo por plazos ajustados",impacto:"Bajo"}

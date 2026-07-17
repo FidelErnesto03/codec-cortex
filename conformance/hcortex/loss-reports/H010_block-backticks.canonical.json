@@ -1,0 +1,27 @@
+{
+  "case": "H010",
+  "losses": [],
+  "mode": "canonical",
+  "operation": "render",
+  "preserved": [
+    "document-format",
+    "local-glossary",
+    "section-order",
+    "idea-order",
+    "identity",
+    "shape",
+    "contract",
+    "scalar-kind",
+    "decimal-precision",
+    "unicode",
+    "verbatim-block"
+  ],
+  "reversible": true,
+  "schema_version": "0.1",
+  "source_format": "cortex-0.1",
+  "source_sha256": "ace915724580b85291023bb7790d0f947de9f7ce89aacca0e14c863aed9c3046",
+  "structural_equivalence": true,
+  "target_format": "hcortex-0.1",
+  "target_sha256": "7e70166837b477e6bfd7db4ed72563156aaec1d3f28c5c761b04aab7be9a7319",
+  "warnings": []
+}

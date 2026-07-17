@@ -1,0 +1,522 @@
+{
+  "files": {
+    "H001_minimal-attrs": {
+      "ok": true,
+      "original_length": 309,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:codec --> | CORTEX | Codec ideático lineal. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:codec{topic:CORTEX,content:\"Codec ideático lineal.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H002_attrs-optional": {
+      "ok": true,
+      "original_length": 371,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:determinism --> | Determinismo | Misma entrada produce igual estructura. | current | Fase 3 |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:determinism{topic:Determinismo,content:\"Misma entrada produce igual estructura.\",status:current,evidence:\"Fase 3\"}",
+      "match": true,
+      "differences": []
+    },
+    "H003_attrs-list": {
+      "ok": true,
+      "original_length": 212,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTAG:tagset{type:attrs,weight:B,fields:\"name:text|items:list\",focus:items,desc:\"Lista plana\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- TAG:principles --> | Principios | [portable,denso,compacto] |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTAG:tagset{type:attrs,weight:B,fields:\"name:text|items:list\",focus:items,desc:\"Lista plana\"}\n$1\nTAG:principles{name:Principios,items:[portable,denso,compacto]}",
+      "match": true,
+      "differences": []
+    },
+    "H004_unicode-nfc": {
+      "ok": true,
+      "original_length": 322,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:unicode --> | Unicode | Información canónica en español. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:unicode{topic:Unicode,content:\"Información canónica en español.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H005_positional-basic": {
+      "ok": true,
+      "original_length": 305,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- HDL:verify --> | validar estructura | current | archivo .cortex |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\n$1\nHDL:verify|validar estructura|current|archivo .cortex",
+      "match": true,
+      "differences": []
+    },
+    "H006_relation-basic": {
+      "ok": true,
+      "original_length": 550,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:parser --> | Parser | Analiza CORTEX. |\n<!-- KNW:ast --> | AST | Preserva Ideas. |\n<!-- REL:parser_ast --> | $1:KNW:parser | produces | $1:KNW:ast | deterministic |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\n$1\nKNW:parser{topic:Parser,content:\"Analiza CORTEX.\"}\nKNW:ast{topic:AST,content:\"Preserva Ideas.\"}\nREL:parser_ast|$1:KNW:parser|produces|$1:KNW:ast|deterministic",
+      "match": true,
+      "differences": []
+    },
+    "H007_cuerpo-short": {
+      "ok": true,
+      "original_length": 161,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n-->\n\n## §1\n\n<!-- prose:1 -->\n<!-- TXT:purpose -->\nCORTEX comunica una idea estructurada.\n<!-- /prose:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n$1\nTXT:purpose{CORTEX comunica una idea estructurada.}",
+      "match": true,
+      "differences": []
+    },
+    "H008_cuerpo-multiline": {
+      "ok": false,
+      "original_length": 202,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n-->\n\n## §1\n\n<!-- prose:1 -->\n<!-- TXT:purpose -->\n<!-- /prose:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n$1\nTXT:purpose{\n\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "CORTEX elimina conectores repetitivos.",
+          "compiled": "}"
+        },
+        {
+          "line": 7,
+          "original": "La estructura conserva el significado.",
+          "compiled": "<missing>"
+        },
+        {
+          "line": 8,
+          "original": "}",
+          "compiled": "<missing>"
+        }
+      ]
+    },
+    "H009_block-plantuml": {
+      "ok": false,
+      "original_length": 159,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\n-->\n\n## §1\n\n<!-- diagram:1 -->\n<!-- DIAG:flow -->\n```puml\n{\n```\n<!-- /diagram:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\n$1\nDIAG:flow{\n{\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "@startuml",
+          "compiled": "{"
+        },
+        {
+          "line": 7,
+          "original": "parser --> AST",
+          "compiled": "}"
+        },
+        {
+          "line": 8,
+          "original": "@enduml",
+          "compiled": "<missing>"
+        },
+        {
+          "line": 9,
+          "original": "}",
+          "compiled": "<missing>"
+        }
+      ]
+    },
+    "H010_block-backticks": {
+      "ok": false,
+      "original_length": 152,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\n-->\n\n## §1\n\n<!-- diagram:1 -->\n<!-- DIAG:markdown -->\n```puml\n{\n```\n<!-- /diagram:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\n$1\nDIAG:markdown{\n{\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "```text",
+          "compiled": "{"
+        },
+        {
+          "line": 7,
+          "original": "contenido",
+          "compiled": "}"
+        },
+        {
+          "line": 8,
+          "original": "```",
+          "compiled": "<missing>"
+        },
+        {
+          "line": 9,
+          "original": "}",
+          "compiled": "<missing>"
+        }
+      ]
+    },
+    "H011_scalar-kinds": {
+      "ok": false,
+      "original_length": 258,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDAT:data{type:attrs,weight:B,fields:\"text:text|atom:atom|int:int|dec:dec|flag:bool|none:null\",focus:text,desc:\"Cobertura escalar\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- DAT:all --> | valor | current | -3 | 0.750 | true | null |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDAT:data{type:attrs,weight:B,fields:\"text:text|atom:atom|int:int|dec:dec|flag:bool|none:null\",focus:text,desc:\"Cobertura escalar\"}\n$1\nDAT:all{text:valor,atom:current,int:-3,dec:0.750,flag:true,none:null}",
+      "match": false,
+      "differences": [
+        {
+          "line": 5,
+          "original": "DAT:all{text:\"valor\",atom:current,int:-3,dec:0.750,flag:true,none:null}",
+          "compiled": "DAT:all{text:valor,atom:current,int:-3,dec:0.750,flag:true,none:null}"
+        }
+      ]
+    },
+    "H012_decimal-precision": {
+      "ok": true,
+      "original_length": 165,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nMET:metric{type:attrs,weight:B,fields:\"value:dec\",focus:value,desc:\"Decimal exacto\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- MET:precise --> | 0.750 |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nMET:metric{type:attrs,weight:B,fields:\"value:dec\",focus:value,desc:\"Decimal exacto\"}\n$1\nMET:precise{value:0.750}",
+      "match": true,
+      "differences": []
+    },
+    "H013_negative-numbers": {
+      "ok": true,
+      "original_length": 190,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nNUM:numbers{type:attrs,weight:B,fields:\"delta:int|ratio:dec\",focus:delta,desc:\"Números negativos\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- NUM:negative --> | -12 | -0.25 |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nNUM:numbers{type:attrs,weight:B,fields:\"delta:int|ratio:dec\",focus:delta,desc:\"Números negativos\"}\n$1\nNUM:negative{delta:-12,ratio:-0.25}",
+      "match": true,
+      "differences": []
+    },
+    "H014_escapes": {
+      "ok": false,
+      "original_length": 324,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:quotes --> | Comillas | Texto con \\\"comillas\\\" y \\\\ barra. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:quotes{topic:Comillas,content:\"Texto con \\\\\\\"comillas\\\\\\\" y \\\\\\\\ barra.\"}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "KNW:quotes{topic:Comillas,content:\"Texto con \\\"comillas\\\" y \\\\ barra.\"}",
+          "compiled": "KNW:quotes{topic:Comillas,content:\"Texto con \\\\\\\"comillas\\\\\\\" y \\\\\\\\ barra.\"}"
+        }
+      ]
+    },
+    "H015_microtoken-declaration": {
+      "ok": true,
+      "original_length": 362,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\n$0:micro_cur{expand:current}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:micro --> | Microtoken | El valor lógico se expande. | current |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\n$0:micro_cur{expand:current}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:micro{topic:Microtoken,content:\"El valor lógico se expande.\",status:current}",
+      "match": true,
+      "differences": []
+    },
+    "H016_namespace": {
+      "ok": false,
+      "original_length": 310,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:namespace_agent{uri:\"urn:cortex:agent\",version:\"0.1\"}\nagent::KNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text\",focus:content,desc:\"Conocimiento namespaced\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- agent::KNW:codec --> | Namespace | El símbolo conserva su namespace. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:namespace_agent{uri:\"urn:cortex:agent\",version:\"0.1\"}\nagent::KNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text\",focus:content,desc:\"Conocimiento namespaced\"}\n$1\nagent::KNW:codec{f1:Namespace,f2:\"El símbolo conserva su namespace.\"}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "agent::KNW:codec{topic:Namespace,content:\"El símbolo conserva su namespace.\"}",
+          "compiled": "agent::KNW:codec{f1:Namespace,f2:\"El símbolo conserva su namespace.\"}"
+        }
+      ]
+    },
+    "H017_section-title": {
+      "ok": true,
+      "original_length": 285,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\n-->\n\n## §1: Fase 4\n\n<!-- table:1 -->\n<!-- OBJ:phase4 --> | Definir HCORTEX. | current |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\n$1: Fase 4\nOBJ:phase4{goal:\"Definir HCORTEX.\",status:current}",
+      "match": true,
+      "differences": []
+    },
+    "H018_multiple-sections": {
+      "ok": true,
+      "original_length": 505,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\n-->\n\n## §1: Objetivos\n\n<!-- table:1 -->\n<!-- OBJ:goal --> | Cerrar roundtrip. | current |\n<!-- /table:1 -->\n\n## §2: Evidencia\n\n<!-- table:2 -->\n<!-- KNW:evidence --> | Evidencia | Corpus verificable. |\n<!-- /table:2 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\n$1: Objetivos\nOBJ:goal{goal:\"Cerrar roundtrip.\",status:current}\n$2: Evidencia\nKNW:evidence{topic:Evidencia,content:\"Corpus verificable.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H019_idea-order": {
+      "ok": true,
+      "original_length": 371,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:first --> | Primero | El orden es significativo. |\n<!-- KNW:second --> | Segundo | Se conserva después. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:first{topic:Primero,content:\"El orden es significativo.\"}\nKNW:second{topic:Segundo,content:\"Se conserva después.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H020_glossary-order": {
+      "ok": true,
+      "original_length": 605,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\nRSK:risk{type:attrs,weight:H,fields:\"risk:text|impact:text|status:%state\",focus:risk,desc:\"Riesgo explícito\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- OBJ:goal --> | Orden canónico. | current |\n<!-- RSK:ambiguity --> | Orden variable. | Hash distinto. | blocked |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\nRSK:risk{type:attrs,weight:H,fields:\"risk:text|impact:text|status:%state\",focus:risk,desc:\"Riesgo explícito\"}\n$1\nOBJ:goal{goal:\"Orden canónico.\",status:current}\nRSK:ambiguity{risk:\"Orden variable.\",impact:\"Hash distinto.\",status:blocked}",
+      "match": true,
+      "differences": []
+    },
+    "H021_optional-extension": {
+      "ok": false,
+      "original_length": 449,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\n$0:extension_annotation{namespace:example.optional,id:annotation,version:0.1,required:false,config:\"{\\\"preserve\\\":\\\"opaque\\\"}\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:extension --> | Extensión | Se preserva sin ejecutar. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\n$0:extension_annotation{namespace:example.optional,id:annotation,version:0.1,required:false,config:\"{\\\"preserve\\\":\\\"opaque\\\"}\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:extension{topic:Extensión,content:\"Se preserva sin ejecutar.\"}",
+      "match": false,
+      "differences": [
+        {
+          "line": 7,
+          "original": "KNW:extension{topic:\"Extensión\",content:\"Se preserva sin ejecutar.\"}",
+          "compiled": "KNW:extension{topic:Extensión,content:\"Se preserva sin ejecutar.\"}"
+        }
+      ]
+    },
+    "H022_required-extension": {
+      "ok": true,
+      "original_length": 466,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\n$0:extension_seal{namespace:example.security,id:seal,version:1.0,required:true,config:\"{\\\"algorithm\\\":\\\"sha256\\\"}\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:extension --> | Extensión requerida | Bloquea interpretación si no está soportada. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\n$0:extension_seal{namespace:example.security,id:seal,version:1.0,required:true,config:\"{\\\"algorithm\\\":\\\"sha256\\\"}\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:extension{topic:\"Extensión requerida\",content:\"Bloquea interpretación si no está soportada.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H023_open-attrs": {
+      "ok": false,
+      "original_length": 198,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nMETA:metadata{type:attrs,weight:B,fields:\"value:text\",focus:value,open:true,desc:\"Atributos abiertos\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- META:extra --> | base | a | z |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nMETA:metadata{type:attrs,weight:B,fields:\"value:text\",focus:value,open:true,desc:\"Atributos abiertos\"}\n$1\nMETA:extra{value:base,f2:a,f3:z}",
+      "match": false,
+      "differences": [
+        {
+          "line": 5,
+          "original": "META:extra{value:\"base\",alpha:a,zeta:z}",
+          "compiled": "META:extra{value:base,f2:a,f3:z}"
+        }
+      ]
+    },
+    "H024_optional-omitted": {
+      "ok": true,
+      "original_length": 283,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- OBJ:simple --> | No repetir opcionales. | planned |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\n$1\nOBJ:simple{goal:\"No repetir opcionales.\",status:planned}",
+      "match": true,
+      "differences": []
+    },
+    "H025_body-empty": {
+      "ok": false,
+      "original_length": 121,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n-->\n\n## §1\n\n<!-- prose:1 -->\n<!-- TXT:empty -->\n<!-- /prose:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n$1\nTXT:empty{\n\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 5,
+          "original": "TXT:empty{}",
+          "compiled": "TXT:empty{"
+        },
+        {
+          "line": 6,
+          "original": "<missing>",
+          "compiled": "}"
+        }
+      ]
+    },
+    "H026_body-blank-lines": {
+      "ok": false,
+      "original_length": 155,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n-->\n\n## §1\n\n<!-- prose:1 -->\n<!-- TXT:spacing -->\n<!-- /prose:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n$1\nTXT:spacing{\n\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "Primera línea.",
+          "compiled": "}"
+        },
+        {
+          "line": 7,
+          "original": "Tercera línea.",
+          "compiled": "<missing>"
+        },
+        {
+          "line": 8,
+          "original": "}",
+          "compiled": "<missing>"
+        }
+      ]
+    },
+    "H027_block-unicode-composition": {
+      "ok": false,
+      "original_length": 156,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\n-->\n\n## §1\n\n<!-- diagram:1 -->\n<!-- DIAG:verbatim -->\n```puml\n{\n```\n<!-- /diagram:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\n$1\nDIAG:verbatim{\n{\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "Café permanece verbatim.",
+          "compiled": "{"
+        }
+      ]
+    },
+    "H028_all-shapes": {
+      "ok": false,
+      "original_length": 798,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:k --> | Todos | Cobertura de shapes. |\n<!-- HDL:p --> | renderizar | current | AST |\n<!-- TXT:t -->\n<!-- DIAG:b -->\n<!-- REL:r --> | $1:KNW:k | supports | $1:TXT:t |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nDIAG:diagram{type:bloque,weight:B,desc:\"Bloque verbatim\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n$1\nKNW:k{topic:Todos,content:\"Cobertura de shapes.\"}\nHDL:p|renderizar|current|AST\nTXT:t{}\nDIAG:b{}\nREL:r|$1:KNW:k|supports|$1:TXT:t",
+      "match": false,
+      "differences": [
+        {
+          "line": 12,
+          "original": "TXT:t{Texto humano.}",
+          "compiled": "TXT:t{}"
+        },
+        {
+          "line": 13,
+          "original": "DIAG:b{",
+          "compiled": "DIAG:b{}"
+        },
+        {
+          "line": 14,
+          "original": "verbatim",
+          "compiled": "REL:r|$1:KNW:k|supports|$1:TXT:t"
+        },
+        {
+          "line": 15,
+          "original": "}",
+          "compiled": "<missing>"
+        },
+        {
+          "line": 16,
+          "original": "REL:r|$1:KNW:k|supports|$1:TXT:t",
+          "compiled": "<missing>"
+        }
+      ]
+    },
+    "H029_neutral-domain": {
+      "ok": true,
+      "original_length": 233,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nBIO:observation{type:attrs,weight:B,fields:\"species:text|observation:text\",focus:observation,desc:\"Dominio neutral\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- BIO:sample --> | Aves | Migración estacional. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nBIO:observation{type:attrs,weight:B,fields:\"species:text|observation:text\",focus:observation,desc:\"Dominio neutral\"}\n$1\nBIO:sample{species:Aves,observation:\"Migración estacional.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H030_cross-section-reference": {
+      "ok": true,
+      "original_length": 531,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:parser --> | Parser | Produce AST. |\n<!-- /table:1 -->\n\n## §2\n\n<!-- table:2 -->\n<!-- KNW:ast --> | AST | Modelo ideático. |\n<!-- REL:link --> | $1:KNW:parser | produces | $2:KNW:ast |\n<!-- /table:2 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\n$1\nKNW:parser{topic:Parser,content:\"Produce AST.\"}\n$2\nKNW:ast{topic:AST,content:\"Modelo ideático.\"}\nREL:link|$1:KNW:parser|produces|$2:KNW:ast",
+      "match": true,
+      "differences": []
+    },
+    "H031_list-mixed": {
+      "ok": true,
+      "original_length": 193,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nLST:list{type:attrs,weight:B,fields:\"items:list\",focus:items,desc:\"Lista mixta\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- LST:mixed --> | [\"texto humano\",atom,3,1.20,false,null] |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nLST:list{type:attrs,weight:B,fields:\"items:list\",focus:items,desc:\"Lista mixta\"}\n$1\nLST:mixed{items:[\"texto humano\",atom,3,1.20,false,null]}",
+      "match": true,
+      "differences": []
+    },
+    "H032_quoted-positional-pipe": {
+      "ok": false,
+      "original_length": 287,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- HDL:pipe --> | usar A|B | planned | destino |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\n$1\nHDL:pipe|usar A|B|planned|destino",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "HDL:pipe|\"usar A|B\"|planned|destino",
+          "compiled": "HDL:pipe|usar A|B|planned|destino"
+        }
+      ]
+    },
+    "H033_format-extra": {
+      "ok": true,
+      "original_length": 331,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es,profile:neutral}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:format --> | Formato | Metadata extra preservada. |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es,profile:neutral}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:format{topic:Formato,content:\"Metadata extra preservada.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H034_multiple-namespaces": {
+      "ok": false,
+      "original_length": 431,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:namespace_agent{uri:\"urn:agent\",version:\"0.1\"}\n$0:namespace_project{uri:\"urn:project\",version:\"0.1\"}\nagent::KNW:knowledge{type:attrs,weight:B,fields:\"content:text\",focus:content,desc:\"Agent knowledge\"}\nproject::KNW:knowledge{type:attrs,weight:B,fields:\"content:text\",focus:content,desc:\"Project knowledge\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- agent::KNW:a --> | Agente |\n<!-- project::KNW:p --> | Proyecto |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:namespace_agent{uri:\"urn:agent\",version:\"0.1\"}\n$0:namespace_project{uri:\"urn:project\",version:\"0.1\"}\nagent::KNW:knowledge{type:attrs,weight:B,fields:\"content:text\",focus:content,desc:\"Agent knowledge\"}\nproject::KNW:knowledge{type:attrs,weight:B,fields:\"content:text\",focus:content,desc:\"Project knowledge\"}\n$1\nagent::KNW:a{f1:Agente}\nproject::KNW:p{f1:Proyecto}",
+      "match": false,
+      "differences": [
+        {
+          "line": 8,
+          "original": "agent::KNW:a{content:\"Agente\"}",
+          "compiled": "agent::KNW:a{f1:Agente}"
+        },
+        {
+          "line": 9,
+          "original": "project::KNW:p{content:\"Proyecto\"}",
+          "compiled": "project::KNW:p{f1:Proyecto}"
+        }
+      ]
+    },
+    "H035_unicode-emoji": {
+      "ok": true,
+      "original_length": 309,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:emoji --> | Unicode | Contexto verificado ✅ |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:emoji{topic:Unicode,content:\"Contexto verificado ✅\"}",
+      "match": true,
+      "differences": []
+    },
+    "H036_long-contract": {
+      "ok": false,
+      "original_length": 318,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nAUD:audit{type:attrs,weight:H,fields:\"finding:text|severity:atom|evidence:text|owner:text?|status:atom\",focus:finding,desc:\"Hallazgo auditable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- AUD:f4 --> | Roundtrip incompleto. | blocker | vector H036 | implementación | current |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nAUD:audit{type:attrs,weight:H,fields:\"finding:text|severity:atom|evidence:text|owner:text?|status:atom\",focus:finding,desc:\"Hallazgo auditable\"}\n$1\nAUD:f4{finding:\"Roundtrip incompleto.\",severity:blocker,evidence:\"vector H036\",owner:implementación,status:current}",
+      "match": false,
+      "differences": [
+        {
+          "line": 5,
+          "original": "AUD:f4{finding:\"Roundtrip incompleto.\",severity:blocker,evidence:\"vector H036\",owner:\"implementación\",status:current}",
+          "compiled": "AUD:f4{finding:\"Roundtrip incompleto.\",severity:blocker,evidence:\"vector H036\",owner:implementación,status:current}"
+        }
+      ]
+    },
+    "H037_same-name-different-section": {
+      "ok": true,
+      "original_length": 349,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- KNW:same --> | Uno | Primera sección. |\n<!-- /table:1 -->\n\n## §2\n\n<!-- table:2 -->\n<!-- KNW:same --> | Dos | Segunda sección. |\n<!-- /table:2 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\n$1\nKNW:same{topic:Uno,content:\"Primera sección.\"}\n$2\nKNW:same{topic:Dos,content:\"Segunda sección.\"}",
+      "match": true,
+      "differences": []
+    },
+    "H038_special-body-chars": {
+      "ok": false,
+      "original_length": 196,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n-->\n\n## §1\n\n<!-- prose:1 -->\n<!-- TXT:symbols -->\n<!-- /prose:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\nTXT:text{type:cuerpo,weight:B,desc:\"Texto semántico\"}\n$1\nTXT:symbols{\n\n}",
+      "match": false,
+      "differences": [
+        {
+          "line": 6,
+          "original": "Markdown **no se interpreta** como estructura CORTEX.",
+          "compiled": "}"
+        },
+        {
+          "line": 7,
+          "original": "| tabla | texto |",
+          "compiled": "<missing>"
+        },
+        {
+          "line": 8,
+          "original": "}",
+          "compiled": "<missing>"
+        }
+      ]
+    },
+    "H039_risk-objective": {
+      "ok": false,
+      "original_length": 504,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\nRSK:risk{type:attrs,weight:H,fields:\"risk:text|impact:text|status:%state\",focus:risk,desc:\"Riesgo explícito\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- OBJ:gate --> | 100% roundtrip estructural. | current | 40/40 |\n<!-- RSK:view --> | VIEW contamina el canon. | Pérdida de reversibilidad. | blocked |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\nRSK:risk{type:attrs,weight:H,fields:\"risk:text|impact:text|status:%state\",focus:risk,desc:\"Riesgo explícito\"}\n$1\nOBJ:gate{goal:\"100% roundtrip estructural.\",status:current,metric:40/40}\nRSK:view{risk:\"VIEW contamina el canon.\",impact:\"Pérdida de reversibilidad.\",status:blocked}",
+      "match": false,
+      "differences": [
+        {
+          "line": 7,
+          "original": "OBJ:gate{goal:\"100% roundtrip estructural.\",status:current,metric:\"40/40\"}",
+          "compiled": "OBJ:gate{goal:\"100% roundtrip estructural.\",status:current,metric:40/40}"
+        }
+      ]
+    },
+    "H040_dense-skill-excerpt": {
+      "ok": true,
+      "original_length": 940,
+      "rendered": "<!-- HCORTEX v=0.1 t=canonical -->\n\n<!-- glossary\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\n-->\n\n## §1\n\n<!-- table:1 -->\n<!-- OBJ:intent --> | Transformar contexto sin pérdida. | current |\n<!-- HDL:step1 --> | parsear CORTEX | done | AST |\n<!-- HDL:step2 --> | renderizar HCORTEX | done | Markdown canónico |\n<!-- KNW:invariant --> | Reversibilidad | compile(render(AST)) produce el mismo AST. |\n<!-- REL:proof --> | $1:HDL:step1 | precedes | $1:HDL:step2 |\n<!-- /table:1 -->\n",
+      "compiled": "$0\n$0:format{cortex:0.1,encoding:UTF-8,language:es}\n$0:enum_state{values:\"current|planned|blocked|done\"}\nHDL:procedure{type:attrs-pos,weight:M,pos:\"action:text|status:%state|target:text|constraint:text?\",focus:action,desc:\"Procedimiento compacto\"}\nKNW:knowledge{type:attrs,weight:B,fields:\"topic:text|content:text|status:%state?|evidence:text?\",focus:content,desc:\"Conocimiento verificable\"}\nOBJ:objective{type:attrs,weight:H,fields:\"goal:text|status:%state|metric:text?\",focus:goal,desc:\"Objetivo explícito\"}\nREL:relation{type:relacion,weight:M,pos:\"source:atom|predicate:atom|target:atom|qualifier:text?\",focus:predicate,desc:\"Relación dirigida\"}\n$1\nOBJ:intent{goal:\"Transformar contexto sin pérdida.\",status:current}\nHDL:step1|parsear CORTEX|done|AST\nHDL:step2|renderizar HCORTEX|done|Markdown canónico\nKNW:invariant{topic:Reversibilidad,content:\"compile(render(AST)) produce el mismo AST.\"}\nREL:proof|$1:HDL:step1|precedes|$1:HDL:step2",
+      "match": true,
+      "differences": []
+    }
+  },
+  "summary": {
+    "total": 40,
+    "passed": 23,
+    "failed": 17,
+    "errors": 0
+  }
+}

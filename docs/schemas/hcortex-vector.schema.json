@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cortex.dev/schema/hcortex/vector/0.1",
+  "title": "HCORTEX 0.1 roundtrip vector set",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "hcortex_version", "cortex_version", "count", "vectors"],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "hcortex_version": {"const": "0.1"},
+    "cortex_version": {"const": "0.1"},
+    "count": {"type": "integer", "minimum": 1},
+    "vectors": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/vector"}
+    }
+  },
+  "$defs": {
+    "path": {"type": "string", "pattern": "^(?!/)(?!.*\\.\\.).+$"},
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "vector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "title", "cortex", "hcortex_canonical", "hcortex_readable", "ast",
+        "canonical_loss_report", "readable_loss_report", "cortex_sha256",
+        "hcortex_sha256", "roundtrip_cortex_sha256", "expected"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^H[0-9]{3}$"},
+        "title": {"type": "string", "minLength": 1},
+        "cortex": {"$ref": "#/$defs/path"},
+        "hcortex_canonical": {"$ref": "#/$defs/path"},
+        "hcortex_readable": {"$ref": "#/$defs/path"},
+        "ast": {"$ref": "#/$defs/path"},
+        "canonical_loss_report": {"$ref": "#/$defs/path"},
+        "readable_loss_report": {"$ref": "#/$defs/path"},
+        "cortex_sha256": {"$ref": "#/$defs/hash"},
+        "hcortex_sha256": {"$ref": "#/$defs/hash"},
+        "roundtrip_cortex_sha256": {"$ref": "#/$defs/hash"},
+        "expected": {"const": "pass"}
+      }
+    }
+  }
+}

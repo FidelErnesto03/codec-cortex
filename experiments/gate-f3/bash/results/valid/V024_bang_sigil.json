@@ -1,0 +1,16 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {"node":"FormatDeclaration","cortex":"0.1","encoding":"UTF-8","attributes":[{"node":"AttrPair","key":"cortex","value":{"node":"DecimalValue","value":"0.1","lexeme":"0.1"}},{"node":"AttrPair","key":"encoding","value":{"node":"AtomValue","value":"UTF-8","lexeme":"UTF-8"}},{"node":"AttrPair","key":"language","value":{"node":"AtomValue","value":"es","lexeme":"es"}}],"sourceLine":2},
+    "meta": [{"node":"MetaDeclaration","name":"format","attributes":[{"node":"AttrPair","key":"cortex","value":{"node":"DecimalValue","value":"0.1","lexeme":"0.1"}},{"node":"AttrPair","key":"encoding","value":{"node":"AtomValue","value":"UTF-8","lexeme":"UTF-8"}},{"node":"AttrPair","key":"language","value":{"node":"AtomValue","value":"es","lexeme":"es"}}],"sourceLine":2}],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [{"node":"SymbolDefinition","surface":"!","namespace":null,"qualified":"!","label":"rule","shape":"attrs","weight":"H","focus":"rule","description":"Regla obligatoria","open":false,"contract":[{"name":"rule","type":"text","required":true},{"name":"evidence","type":"text","required":false}],"attributes":[{"node":"AttrPair","key":"type","value":{"node":"AtomValue","value":"attrs","lexeme":"attrs"}},{"node":"AttrPair","key":"weight","value":{"node":"AtomValue","value":"H","lexeme":"H"}},{"node":"AttrPair","key":"fields","value":{"node":"StringValue","value":"rule:text|evidence:text?","lexeme":"\"rule:text|evidence:text?\""}},{"node":"AttrPair","key":"focus","value":{"node":"AtomValue","value":"rule","lexeme":"rule"}},{"node":"AttrPair","key":"desc","value":{"node":"StringValue","value":"Regla obligatoria","lexeme":"\"Regla obligatoria\""}}],"sourceLine":3}]
+  },
+  "sections": [{"node":"Section","id":1,"title":null,"ideas":[{"node":"Idea","address":"$1:!:one_idea","section":1,"symbol":"!","qualifiedSymbol":"!","name":"one_idea","function":{"label":"rule","weight":"H","focus":"rule"},"shape":"attrs","payload":{"node":"AttrsPayload","pairs":[{"node":"AttrPair","key":"rule","value":{"node":"StringValue","value":"Una línea comunica una idea principal.","lexeme":"\"Una línea comunica una idea principal.\""}},{"node":"AttrPair","key":"evidence","value":{"node":"StringValue","value":"axioma CORTEX","lexeme":"\"axioma CORTEX\""}}]},"sourceLine":5}]}]
+}

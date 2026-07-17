@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I006_DUPLICATE_FIELD"
+  ],
+  "primary": {
+    "code": "I006_DUPLICATE_FIELD",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Campo duplicado: topic."
+  }
+}

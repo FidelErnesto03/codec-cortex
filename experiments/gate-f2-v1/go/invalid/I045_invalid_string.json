@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"L005_INVALID_STRING\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 5,\n      \"column\": 1\n    },\n    \"message\": \"String sin cerrar.\"\n  }\n]\n", "exit_code": 1}

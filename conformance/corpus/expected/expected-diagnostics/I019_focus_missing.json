@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G024_FOCUS_REQUIRED"
+  ],
+  "primary": {
+    "code": "G024_FOCUS_REQUIRED",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "KNW requiere focus."
+  }
+}

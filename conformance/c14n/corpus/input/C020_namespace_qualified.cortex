@@ -1,0 +1,6 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:namespace_agent{id:agent,version:0.1,required:false}
+agent::FCS:f{type:attrs,weight:H,fields:"what:text",focus:what,desc:"Foco"}
+$1
+agent::FCS:primary{what:"Formalizar CORTEX"}

@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I016_EMPTY_FOCUS"
+  ],
+  "primary": {
+    "code": "I016_EMPTY_FOCUS",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "El foco ideático no puede estar vacío."
+  }
+}

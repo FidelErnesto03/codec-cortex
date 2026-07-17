@@ -1,0 +1,1 @@
+{"code":"G005_DUPLICATE_SYMBOL","severity":"error","span":{"line":4,"column":1},"message":"Mismo sigilo declarado dos veces: FCS. Consolidar contrato o renombrar alias."}

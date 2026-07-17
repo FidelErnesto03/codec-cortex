@@ -1,0 +1,8 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom",focus:predicate,desc:"Relación dirigida explícita"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
+$1
+KNW:parser{topic:"Parser",content:"Transforma texto en AST."}
+KNW:ast{topic:"AST",content:"Modelo estructural."}
+REL:parser_ast|KNW:parser|produces|KNW:ast

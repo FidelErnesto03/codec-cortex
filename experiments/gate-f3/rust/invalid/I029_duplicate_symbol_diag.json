@@ -1,0 +1,2 @@
+{"code":"G028_DUPLICATE_QUALIFIED_SYMBOL","severity":"error","span":{"line":4,"column":1},"message":"Namespace + sigilo declarados más de una vez: KNW."}
+{"code":"G005_DUPLICATE_SYMBOL","severity":"error","span":{"line":4,"column":1},"message":"Mismo sigilo declarado dos veces: KNW. Consolidar contrato o renombrar alias."}

@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G027_UNKNOWN_FIELD_TYPE\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"Tipo 'object'.\"\n  }\n]\n", "exit_code": 1}

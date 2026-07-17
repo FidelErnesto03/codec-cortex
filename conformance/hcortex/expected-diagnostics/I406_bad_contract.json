@@ -1,0 +1,5 @@
+{
+  "case": "I406_bad_contract",
+  "required_code": "H414",
+  "severity": "error"
+}

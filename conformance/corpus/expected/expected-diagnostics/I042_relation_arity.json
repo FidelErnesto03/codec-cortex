@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I013_RELATION_ARITY"
+  ],
+  "primary": {
+    "code": "I013_RELATION_ARITY",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Aridad 2 incompatible con contrato de 3 campos."
+  }
+}

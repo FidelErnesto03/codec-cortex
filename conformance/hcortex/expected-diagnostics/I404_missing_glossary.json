@@ -1,0 +1,5 @@
+{
+  "case": "I404_missing_glossary",
+  "required_code": "H410",
+  "severity": "error"
+}

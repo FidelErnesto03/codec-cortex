@@ -1,0 +1,5 @@
+{
+  "case": "I401_missing_header",
+  "required_code": "H400",
+  "severity": "error"
+}

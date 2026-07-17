@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G017_UNKNOWN_SHAPE\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"Shape 'object'.\"\n  }\n]\n", "exit_code": 1}

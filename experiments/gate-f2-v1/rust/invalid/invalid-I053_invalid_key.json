@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "L003_INVALID_KEY"
+  ],
+  "primary": {
+    "code": "L003_INVALID_KEY",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Clave inválida: 'Bad'."
+  }
+}

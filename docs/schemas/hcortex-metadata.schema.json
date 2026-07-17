@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cortex.dev/schema/hcortex/metadata/0.1",
+  "title": "HCORTEX 0.1 canonical metadata records",
+  "oneOf": [
+    {"$ref": "#/$defs/document"},
+    {"$ref": "#/$defs/entry"}
+  ],
+  "$defs": {
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "hcortex", "mode", "cortex", "encoding"],
+      "properties": {
+        "kind": {"const": "document"},
+        "hcortex": {"const": "0.1"},
+        "mode": {"const": "canonical"},
+        "cortex": {"const": "0.1"},
+        "encoding": {"const": "UTF-8"}
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "section", "namespace", "symbol", "name", "shape"],
+      "properties": {
+        "kind": {"const": "entry"},
+        "section": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+        "namespace": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^[a-z][a-z0-9_.-]*$"}
+          ]
+        },
+        "symbol": {"type": "string", "pattern": "^(?:!|[A-Z][A-Z0-9_]{0,15})$"},
+        "name": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,63}$"},
+        "shape": {"enum": ["attrs", "attrs-pos", "cuerpo", "bloque", "relacion"]},
+        "media_type": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"shape": {"const": "bloque"}}},
+          "then": {"required": ["media_type"]},
+          "else": {"not": {"required": ["media_type"]}}
+        }
+      ]
+    }
+  }
+}

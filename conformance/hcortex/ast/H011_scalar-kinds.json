@@ -1,0 +1,117 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "all",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "DAT",
+          "value": [
+            [
+              "text",
+              {
+                "kind": "string",
+                "value": "valor"
+              }
+            ],
+            [
+              "atom",
+              {
+                "kind": "atom",
+                "value": "current"
+              }
+            ],
+            [
+              "int",
+              {
+                "kind": "integer",
+                "value": "-3"
+              }
+            ],
+            [
+              "dec",
+              {
+                "kind": "decimal",
+                "value": "0.750"
+              }
+            ],
+            [
+              "flag",
+              {
+                "kind": "boolean",
+                "value": true
+              }
+            ],
+            [
+              "none",
+              {
+                "kind": "null",
+                "value": null
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Cobertura escalar",
+      "fields": [
+        {
+          "name": "text",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "atom",
+          "optional": false,
+          "type": "atom"
+        },
+        {
+          "name": "int",
+          "optional": false,
+          "type": "int"
+        },
+        {
+          "name": "dec",
+          "optional": false,
+          "type": "dec"
+        },
+        {
+          "name": "flag",
+          "optional": false,
+          "type": "bool"
+        },
+        {
+          "name": "none",
+          "optional": false,
+          "type": "null"
+        }
+      ],
+      "focus": "text",
+      "label": "data",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "DAT",
+      "weight": "B"
+    }
+  ]
+}

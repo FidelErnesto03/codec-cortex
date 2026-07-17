@@ -1,0 +1,7 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"a|b"}
+$0:micro_a{expand:a}
+KNW:k{type:attrs,weight:B,fields:"content:text",focus:content,desc:"K"}
+$1
+KNW:x{content:"A"}

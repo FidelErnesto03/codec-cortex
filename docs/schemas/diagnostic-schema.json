@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cortex.example/spec/0.1/diagnostic-schema.json",
+  "title": "CORTEX 0.1 Diagnostic",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["code", "severity", "span", "message"],
+  "properties": {
+    "code": {"type": "string", "pattern": "^[A-Z][0-9]{3}_[A-Z0-9_]+$"},
+    "severity": {"enum": ["error", "warning", "info"]},
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["line", "column"],
+      "properties": {
+        "line": {"type": "integer", "minimum": 1},
+        "column": {"type": "integer", "minimum": 1}
+      }
+    },
+    "message": {"type": "string", "minLength": 1}
+  }
+}

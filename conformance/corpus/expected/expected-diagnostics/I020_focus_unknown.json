@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G025_UNKNOWN_FOCUS_FIELD"
+  ],
+  "primary": {
+    "code": "G025_UNKNOWN_FOCUS_FIELD",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "focus 'value' no existe en el contrato."
+  }
+}

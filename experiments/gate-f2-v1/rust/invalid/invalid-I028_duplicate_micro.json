@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G013_DUPLICATE_MICRO"
+  ],
+  "primary": {
+    "code": "G013_DUPLICATE_MICRO",
+    "severity": "error",
+    "span": {
+      "line": 4,
+      "column": 1
+    },
+    "message": "Microtoken duplicado: cur."
+  }
+}

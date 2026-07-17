@@ -1,0 +1,8 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+TXT:text{type:cuerpo,weight:B,desc:"Texto semántico"}
+$1
+TXT:symbols{
+Markdown **no se interpreta** como estructura CORTEX.
+| tabla | texto |
+}

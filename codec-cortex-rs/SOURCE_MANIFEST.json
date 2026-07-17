@@ -1,0 +1,27 @@
+{
+  "schema": "codec-cortex-rs-source-manifest/1",
+  "generated_at": "2026-07-17",
+  "source": {
+    "archive": "codec_cortex.tar.gz",
+    "sha256": "47640ad335bc8f422d346c3f962b12e5e7b317b06080560d1b25070eb54259b2",
+    "language": "Python",
+    "modules": [
+      "codec_cortex/__init__.py",
+      "codec_cortex/__main__.py",
+      "codec_cortex/scalars.py",
+      "codec_cortex/parser.py",
+      "codec_cortex/c14n.py",
+      "codec_cortex/hcortex.py",
+      "codec_cortex/harness.py"
+    ]
+  },
+  "target": {
+    "name": "codec-cortex-rs",
+    "crate": "codec-cortex",
+    "version": "0.1.0",
+    "language": "Rust 2021",
+    "toolchain_policy": "stable; MSRV pendiente de certificación"
+  },
+  "classification": "derived-functional-port",
+  "independent_implementation": false
+}

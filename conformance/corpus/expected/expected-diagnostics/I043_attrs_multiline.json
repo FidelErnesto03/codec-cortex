@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I003_ATTRS_MUST_BE_ONE_LINE"
+  ],
+  "primary": {
+    "code": "I003_ATTRS_MUST_BE_ONE_LINE",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "attrs debe ocupar una línea física."
+  }
+}

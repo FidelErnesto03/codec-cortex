@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -o pipefail
+SELF_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+for CCX_LIB in "${CODEC_CORTEX_LIB:-}" "$SELF_DIR/../lib/codec-cortex.sh" "$SELF_DIR/../lib/codec-cortex/codec-cortex.sh" "/usr/local/lib/codec-cortex/codec-cortex.sh" "/usr/lib/codec-cortex/codec-cortex.sh"; do
+  [[ -n $CCX_LIB && -f $CCX_LIB ]] && { source "$CCX_LIB"; break; }
+done
+[[ ${CCX_VERSION:-} ]] || { printf 'codec-cortex: library not found
+' >&2; exit 69; }
+trap ccx_tmp_cleanup EXIT INT TERM
+ccx_require_runtime || exit $?
+
+usage() {
+  cat <<'EOF'
+CODEC-CORTEX Bash 0.1.0
+
+Usage:
+  codec-cortex parse [FILE|-]
+  codec-cortex validate [FILE|-]
+  codec-cortex canonicalize|format|encode [FILE|-]
+  codec-cortex to-hcortex [FILE|-]
+  codec-cortex from-hcortex|decode [FILE|-]
+  codec-cortex parse-hcortex [FILE|-]
+  codec-cortex inspect [FILE|-]
+  codec-cortex sha256 [FILE|-]
+  codec-cortex c14n-hash [FILE|-]
+  codec-cortex phase3 C14N_DIR
+  codec-cortex phase4 HCORTEX_DIR
+  codec-cortex test C14N_DIR HCORTEX_DIR [REPORT.json]
+  codec-cortex version
+EOF
+}
+
+prepare_input() {
+  local src=${1:--}
+  ccx_tmp_init || return
+  if [[ $src == - ]]; then CCX_INPUT="$CCX_TMP_ROOT/stdin.$RANDOM"; cat >"$CCX_INPUT"
+  else [[ -f $src ]] || { printf 'codec-cortex: file not found: %s\n' "$src" >&2; return 66; }; CCX_INPUT=$src; fi
+}
+
+cmd=${1:-help}; shift || true
+case $cmd in
+  help|-h|--help) usage ;;
+  version|--version) printf 'codec-cortex-bash %s\n' "$CCX_VERSION" ;;
+  parse)
+    prepare_input "${1:--}" || exit $?; ccx_tmp_init; ast="$CCX_TMP_ROOT/ast.json"
+    ccx_parse_cortex_file "$CCX_INPUT" "$ast" || exit $?; jq . "$ast" ;;
+  validate)
+    prepare_input "${1:--}" || exit $?; ccx_tmp_init; ast="$CCX_TMP_ROOT/ast.json"
+    ccx_parse_cortex_file "$CCX_INPUT" "$ast" || exit $?; printf 'VALID CORTEX 0.1\n' ;;
+  canonicalize|format|encode)
+    prepare_input "${1:--}" || exit $?; ccx_canonicalize_file "$CCX_INPUT" ;;
+  to-hcortex)
+    prepare_input "${1:--}" || exit $?; ccx_render_hcortex_file "$CCX_INPUT" ;;
+  from-hcortex|decode)
+    prepare_input "${1:--}" || exit $?; ccx_from_hcortex_file "$CCX_INPUT" ;;
+  parse-hcortex)
+    prepare_input "${1:--}" || exit $?; ccx_tmp_init; ast="$CCX_TMP_ROOT/hast.json"; diag="$CCX_TMP_ROOT/diag.json"
+    ccx_compile_hcortex_file "$CCX_INPUT" "$ast" "$diag" || exit $?
+    jq -n --slurpfile ast "$ast" --slurpfile d "$diag" '{document:$ast[0],diagnostics:$d[0]}' ;;
+  inspect)
+    prepare_input "${1:--}" || exit $?; ccx_tmp_init; ast="$CCX_TMP_ROOT/ast.json"
+    ccx_parse_cortex_file "$CCX_INPUT" "$ast" || exit $?
+    jq '{version:.cortex_version,encoding:.encoding,glossary:{enums:(.glossary.enums|length),micros:(.glossary.micros|length),namespaces:(.glossary.namespaces|length),extensions:(.glossary.extensions|length),symbols:(.glossary.symbols|length)},sections:[.sections[]|{id,title,ideas:(.ideas|length)}],total_ideas:([.sections[].ideas[]]|length)}' "$ast" ;;
+  sha256)
+    prepare_input "${1:--}" || exit $?; ccx_sha256_file "$CCX_INPUT" ;;
+  c14n-hash)
+    prepare_input "${1:--}" || exit $?; ccx_c14n_hash_file "$CCX_INPUT" ;;
+  phase3)
+    [[ $# -ge 1 ]] || { usage >&2; exit 64; }; ccx_run_phase3 "$1" | jq . ;;
+  phase4)
+    [[ $# -ge 1 ]] || { usage >&2; exit 64; }; ccx_run_phase4 "$1" | jq . ;;
+  test)
+    [[ $# -ge 2 ]] || { usage >&2; exit 64; }; report=$(ccx_run_all_tests "$1" "$2") || exit $?; printf '%s\n' "$report" | jq .
+    if [[ -n ${3:-} ]]; then printf '%s\n' "$report" | jq . >"$3"; fi
+    [[ $(jq -r '.verdict' <<<"$report") == FAIL ]] && exit 1 || exit 0 ;;
+  *)
+    # Compatibility with Python entry point: two directory arguments imply full review.
+    if [[ -d $cmd && $# -ge 1 && -d $1 ]]; then report=$(ccx_run_all_tests "$cmd" "$1"); printf '%s\n' "$report" | jq .; [[ $(jq -r '.verdict' <<<"$report") == FAIL ]] && exit 1 || exit 0
+    else printf 'codec-cortex: unknown command: %s\n' "$cmd" >&2; usage >&2; exit 64; fi ;;
+esac

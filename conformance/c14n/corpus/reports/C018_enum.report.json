@@ -1,0 +1,11 @@
+{
+  "canonicalization": "C14N-0.1",
+  "inputSha256": "6ef9bc6f51cd7d707a3486c9f0bb77fa8da37e946e2e2fdd2fb40ada3c419535",
+  "canonicalSha256": "6ef9bc6f51cd7d707a3486c9f0bb77fa8da37e946e2e2fdd2fb40ada3c419535",
+  "canonicalHash": "sha256:17473c7b2faedf478fad983e5df0a959c0c27b21a3d2625d142a8a76f260b551",
+  "changed": false,
+  "structuralLoss": false,
+  "losses": [],
+  "sourceFidelityChanges": [],
+  "diagnostics": []
+}

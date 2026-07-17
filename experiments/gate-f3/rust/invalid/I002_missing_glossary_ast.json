@@ -1,0 +1,29 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [],
+      "sourceLine": 0
+    },
+    "meta": [],
+    "enums": [],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": []
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": null,
+      "ideas": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<!-- HCORTEX v=0.1 t=canonical -->
+
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8}
+R:rel{type:relacion,weight:M,pos:"from:atom|verb:atom|to:atom",focus:verb,desc:"Rel"}
+-->
+
+## §5: Relation
+
+<!-- table:5 -->
+<!-- R:r --> | source | depends | target |
+<!-- /table:5 -->
+

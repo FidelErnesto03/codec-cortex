@@ -1,0 +1,145 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "goal",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "OBJ",
+          "value": [
+            [
+              "goal",
+              {
+                "kind": "string",
+                "value": "Cerrar roundtrip."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "current"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": "Objetivos"
+    },
+    {
+      "id": "2",
+      "ideas": [
+        {
+          "name": "evidence",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "topic",
+              {
+                "kind": "string",
+                "value": "Evidencia"
+              }
+            ],
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Corpus verificable."
+              }
+            ]
+          ]
+        }
+      ],
+      "title": "Evidencia"
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Conocimiento verificable",
+      "fields": [
+        {
+          "name": "topic",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "type": "%state"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    },
+    {
+      "desc": "Objetivo explícito",
+      "fields": [
+        {
+          "name": "goal",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "metric",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "goal",
+      "label": "objective",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "OBJ",
+      "weight": "H"
+    }
+  ]
+}

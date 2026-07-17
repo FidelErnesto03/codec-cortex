@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G015_DUPLICATE_ENUM"
+  ],
+  "primary": {
+    "code": "G015_DUPLICATE_ENUM",
+    "severity": "error",
+    "span": {
+      "line": 4,
+      "column": 1
+    },
+    "message": "Enum duplicado: state."
+  }
+}

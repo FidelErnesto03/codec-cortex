@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"X002_REQUIRED_EXTENSION_UNSUPPORTED\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 3,\n      \"column\": 1\n    },\n    \"message\": \"Ext requerida 'provenance' no soportada.\"\n  }\n]\n", "exit_code": 1}

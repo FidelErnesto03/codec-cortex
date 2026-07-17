@@ -1,0 +1,6 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:extension_trace{required:false,version:0.1,id:provenance,namespace:trace,desc:"Procedencia opcional",x-note:"opaco"}
+AUD:a{type:attrs,weight:B,fields:"event:text",focus:event,desc:"Auditoría",source:"local"}
+$1
+AUD:x{event:"Preservar extensión"}

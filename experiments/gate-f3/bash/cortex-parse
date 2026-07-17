@@ -1,0 +1,403 @@
+#!/bin/bash
+# CORTEX 0.1 Parser — Pure Bash
+# Usage: cortex-parse [file]  →  AST JSON on stdout, diagnostics on stderr
+set -eo pipefail
+
+main() {
+[ -n "${1:-}" ] && [ ! -f "$1" ] && { echo "File not found: $1" >&2; exit 1; }
+
+HAS_ERR=0
+emit() { echo "$1: $4 (line $2)" >&2; HAS_ERR=1; }
+
+# Declare associative arrays for glossary state
+declare -A SYM_D SYM_SH SYM_WT SYM_FOC SYM_OP SYM_CT SYM_POS SYM_LB SYM_NS
+declare -A ENUMS MICROS MEXP
+declare -A IDEAS  # address -> 1 (dedup)
+SEC_JSON="" SEC_SEP=""
+SYM_LIST="" SYM_SEP=""
+META_LIST="" META_SEP=""
+ENUM_LIST="" ENUM_SEP=""
+MICRO_LIST="" MICRO_SEP=""
+NS_LIST="" NS_SEP=""
+EXT_LIST="" EXT_SEP=""
+
+json_esc() { local s="$1"; s="${s//\\/\\\\}"; s="${s//\"/\\\"}"; s="${s//$'\n'/\\n}"; s="${s//$'\r'/\\r}"; s="${s//$'\t'/\\t}"; printf '%s' "$s"; }
+
+# Find first colon NOT inside quotes
+colpos() {
+    local s="$1" i c q=0
+    for ((i=0; i<${#s}; i++)); do
+        c="${s:$i:1}"; [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; continue; }
+        [ "$c" = '"' ] && q=1
+        [ "$c" = ':' ] && { echo $i; return; }
+    done; echo -1
+}
+
+parse_val() {
+    local v="$1"
+    [ "$v" = "null" ] && { echo '{"node":"NullValue","value":null,"lexeme":"null"}'; return; }
+    [ "$v" = "true" ] || [ "$v" = "false" ] && { echo "{\"node\":\"BooleanValue\",\"value\":$v,\"lexeme\":\"$v\"}"; return; }
+    [ "${v:0:1}" = '"' ] && {
+        local inner="${v:1:${#v}-2}" res="" i c
+        for ((i=0; i<${#inner}; i++)); do
+            c="${inner:$i:1}"
+            [ "$c" = '\\' ] && i=$((i+1)) && c="${inner:$i:1}" && case "$c" in
+                n) res+=$'\n';; r) res+=$'\r';; t) res+=$'\t';; b) res+=$'\b';; f) res+=$'\f';; '\\') res+='\\';; '"') res+='"';; 
+                u) res+="\\u${inner:$((i+1)):4}"; i=$((i+4));; *) res+="$c";;
+            esac || res+="$c"
+        done
+        echo "{\"node\":\"StringValue\",\"value\":\"$(json_esc "$res")\",\"lexeme\":\"$(json_esc "$v")\"}"; return
+    }
+    [ "${v:0:1}" = "[" ] && {
+        local inner="${v:1:${#v}-2}" items="" sep="" i c cur="" q=0 d=0
+        for ((i=0; i<${#inner}; i++)); do
+            c="${inner:$i:1}"
+            [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; cur+="$c"; continue; }
+            [ "$c" = '"' ] && q=1
+            [ "$c" = "[" ] && d=$((d+1))
+            [ "$c" = "]" ] && d=$((d-1))
+            if [ "$c" = "," ] && [ $d -eq 0 ]; then
+                cur="${cur## }"; cur="${cur%% }"
+                items+="$sep$(parse_val "$cur")"; sep=","; cur=""
+            else cur+="$c"; fi
+        done
+        cur="${cur## }"; cur="${cur%% }"; [ -n "$cur" ] && items+="$sep$(parse_val "$cur")"
+        echo "{\"node\":\"ListValue\",\"items\":[$items],\"lexeme\":\"$(json_esc "$v")\"}"; return
+    }
+    [[ "$v" =~ ^-?(0|[1-9][0-9]*)$ ]] && { echo "{\"node\":\"IntegerValue\",\"value\":\"$v\",\"lexeme\":\"$v\"}"; return; }
+    [[ "$v" =~ ^-?(0|[1-9][0-9]*)\.[0-9]+$ ]] && { echo "{\"node\":\"DecimalValue\",\"value\":\"$v\",\"lexeme\":\"$v\"}"; return; }
+    local rv="$v"; [ -n "${MEXP[$v]:-}" ] && rv="${MEXP[$v]}"
+    echo "{\"node\":\"AtomValue\",\"value\":\"$(json_esc "$rv")\",\"lexeme\":\"$(json_esc "$v")\"}"
+}
+
+# Parse attrs payload: {k:v,k:v}
+parse_attrs() {
+    local inner="$1" ln="$2" res='{"node":"AttrsPayload","pairs":[' sep="" i c cur="" q=0 d=0
+    inner="${inner:1:${#inner}-2}"; inner="${inner## }"; inner="${inner%% }"
+    [ -z "$inner" ] && { echo "$res]}"; return; }
+    for ((i=0; i<${#inner}; i++)); do
+        c="${inner:$i:1}"
+        [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; cur+="$c"; continue; }
+        [ "$c" = '"' ] && q=1
+        [ "$c" = "[" ] && d=$((d+1))
+        [ "$c" = "]" ] && d=$((d-1))
+        if [ "$c" = "," ] && [ $d -eq 0 ]; then
+            cur="${cur## }"; cur="${cur%% }"
+            local cp; cp=$(colpos "$cur")
+            [ "$cp" -le 0 ] && { emit "S006_INVALID_ATTRS" "$ln" 1 "Invalid attr pair"; cur=""; continue; }
+            local k="${cur:0:$cp}"; k="${k## }"; k="${k%% }"
+            local v="${cur:$((cp+1))}"; v="${v## }"; v="${v%% }"
+            res+="$sep{\"node\":\"AttrPair\",\"key\":\"$(json_esc "$k")\",\"value\":$(parse_val "$v")}"
+            sep=","; cur=""
+        else cur+="$c"; fi
+    done
+    cur="${cur## }"; cur="${cur%% }"
+    if [ -n "$cur" ]; then
+        cp=$(colpos "$cur")
+        [ "$cp" -gt 0 ] && { k="${cur:0:$cp}"; k="${k## }"; k="${k%% }"; v="${cur:$((cp+1))}"; v="${v## }"; v="${v%% }"; res+="$sep{\"node\":\"AttrPair\",\"key\":\"$(json_esc "$k")\",\"value\":$(parse_val "$v")}"; }
+    fi
+    echo "$res]}"
+}
+
+# Parse contract string "a:text|b?|c"
+parse_ct() {
+    local s="$1"; [ -z "$s" ] && { echo "[]"; return; }
+    local res="[" sep="" IFS='|'
+    for f in $s; do f="${f## }"; f="${f%% }"; local rq="true"
+        [[ "$f" == *\? ]] && { rq="false"; f="${f:0:${#f}-1}"; }
+        local fn="$f" ft="any"; [[ "$f" == *:* ]] && { fn="${f%%:*}"; ft="${f#*:}"; }
+        fn="${fn## }"; fn="${fn%% }"; ft="${ft## }"; ft="${ft%% }"
+        res+="$sep{\"name\":\"$fn\",\"type\":\"$ft\",\"required\":$rq}"; sep=","
+    done; echo "$res]"
+}
+
+# Build symbol definition and add to list
+add_sym() {
+    local sig="$1" ns="$2" lb="$3" at="$4" ln="$5"
+    local sk="${ns:+${ns}::}${sig}" sh="cuerpo" wt="B" fc="body" ds="" op="false" ct="" ps="" sn="$ns"
+    local -a prs; local n=0 cur="" q=0
+    for ((i=0; i<${#at}; i++)); do
+        c="${at:$i:1}"; [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; cur+="$c"; continue; }
+        [ "$c" = '"' ] && q=1
+        if [ "$c" = "," ]; then prs[$n]="$cur"; n=$((n+1)); cur=""; else cur+="$c"; fi
+    done
+    [ -n "$cur" ] && prs[$n]="$cur" && n=$((n+1))
+
+    local ht=0 hw=0 hd=0 hf=0
+    for ((i=0; i<n; i++)); do
+        local p="${prs[$i]}" cp; cp=$(colpos "$p")
+        [ "$cp" -le 0 ] && continue
+        local k="${p:0:$cp}"; k="${k## }"; k="${k%% }"
+        local v="${p:$((cp+1))}"; v="${v## }"; v="${v%% }"; v="${v#\"}"; v="${v%\"}"
+        case "$k" in
+            type) sh="$v"; ht=1;; weight) wt="$v"; hw=1;; focus) fc="$v";;
+            desc) ds="$v"; hd=1;; open) op="$v";; fields) ct="$v"; hf=1;; pos) ps="$v"; hf=1;; namespace) sn="$v";;
+        esac
+    done
+    SYM_D["$sk"]="$ds"; SYM_SH["$sk"]="$sh"; SYM_WT["$sk"]="$wt"; SYM_FOC["$sk"]="$fc"
+    SYM_OP["$sk"]="$op"; SYM_CT["$sk"]="$ct"; SYM_POS["$sk"]="$ps"; SYM_LB["$sk"]="$lb"; SYM_NS["$sk"]="$ns"
+
+    local sf="${ns:+${ns}::}${sig}" njs="null"; [ -n "$ns" ] && njs="\"$ns\""
+    local ov="false"; [ "$op" = "true" ] && ov="true"
+    local cj; cj=$(parse_ct "${ct:-$ps}")
+    [ "$ht" -eq 0 ] && emit "G016_SYMBOL_TYPE_REQUIRED" "$ln" 1 "$sf sin type."
+    [ "$hw" -eq 0 ] && emit "G018_SYMBOL_WEIGHT_REQUIRED" "$ln" 1 "$sf sin weight."
+    [ "$hd" -eq 0 ] && emit "G020_SYMBOL_DESCRIPTION_REQUIRED" "$ln" 1 "$sf sin desc."
+    [ "$sh" = "attrs" ] && [ -z "$ct" ] && emit "G021_ATTRS_CONTRACT_REQUIRED" "$ln" 1 "$sf sin fields."
+    { [ "$sh" = "attrs-pos" ] || [ "$sh" = "relacion" ]; } && [ -z "$ps" ] && emit "G022_POSITIONAL_CONTRACT_REQUIRED" "$ln" 1 "$sf sin pos."
+    [ "$sh" = "relacion" ] && [ -n "$ps" ] && { local nf=0; IFS='|' read -ra pf <<< "$ps"; nf=${#pf[@]}; [ $nf -lt 3 ] && emit "G023_RELATION_CONTRACT_TOO_SHORT" "$ln" 1 "$sf <3 campos."; }
+    [ "$wt" != "B" ] && [ "$wt" != "M" ] && [ "$wt" != "H" ] && emit "G019_INVALID_WEIGHT" "$ln" 1 "Peso $wt."
+    [ "$sh" != "attrs" ] && [ "$sh" != "attrs-pos" ] && [ "$sh" != "cuerpo" ] && [ "$sh" != "bloque" ] && [ "$sh" != "relacion" ] && emit "G017_UNKNOWN_SHAPE" "$ln" 1 "Shape $sh."
+    { [ "$sh" = "attrs" ] || [ "$sh" = "attrs-pos" ] || [ "$sh" = "relacion" ]; } && [ -z "$fc" ] && emit "G024_FOCUS_REQUIRED" "$ln" 1 "$sf sin focus."
+
+    # Build attr pairs list
+    local al="[" sa=""
+    for ((i=0; i<n; i++)); do
+        local p="${prs[$i]}" cp; cp=$(colpos "$p")
+        [ "$cp" -le 0 ] && continue
+        local k="${p:0:$cp}"; k="${k## }"; k="${k%% }"; v="${p:$((cp+1))}"; v="${v## }"; v="${v%% }"
+        al+="$sa{\"node\":\"AttrPair\",\"key\":\"$k\",\"value\":$(parse_val "$v")}"; sa=","
+    done; al+="]"
+
+    SYM_LIST+="$SYM_SEP{\"node\":\"SymbolDefinition\",\"surface\":\"$sf\",\"namespace\":$njs,\"qualified\":\"$sf\",\"label\":\"$(json_esc "$lb")\",\"shape\":\"$sh\",\"weight\":\"$wt\",\"focus\":\"$(json_esc "$fc")\",\"description\":\"$(json_esc "$ds")\",\"open\":$ov,\"contract\":$cj,\"attributes\":$al,\"sourceLine\":$ln}"
+    SYM_SEP=","
+}
+
+emit_idea() {
+    local sec="$1" sig="$2" ns="$3" nm="$4" ln="$5" pj="$6" sh="$7"
+    local sk="${ns:+${ns}::}$sig" addr="\$$sec:${ns:+${ns}::}$sig:$nm"
+    local lb="${SYM_LB[$sk]:-$sig}" wt="${SYM_WT[$sk]:-B}" fc="${SYM_FOC[$sk]:-body}"
+    local idea="{\"node\":\"Idea\",\"address\":\"$addr\",\"section\":$sec,\"symbol\":\"$sig\",\"qualifiedSymbol\":\"${ns:+${ns}::}$sig\",\"name\":\"$(json_esc "$nm")\",\"function\":{\"label\":\"$(json_esc "$lb")\",\"weight\":\"$wt\",\"focus\":\"$(json_esc "$fc")\"},\"shape\":\"$sh\",\"payload\":$pj,\"sourceLine\":$ln}"
+    SEC_JSON+="$SEC_SEP{\"node\":\"Section\",\"id\":$sec,\"title\":null,\"ideas\":[$idea]}"
+    SEC_SEP=","
+}
+
+# ============================== MAIN LOOP ===================================
+ln=0 GS=0 IG=0 CS=0 IM=0 ML="" MNS="" MS="" MN="" MLN=0 MB=0
+# Use process substitution to avoid subshell issues
+while IFS= read -r line || [ -n "$line" ]; do
+    ln=$((ln+1))
+    line="${line%$'\r'}"
+
+    # BOM
+    [ $ln -eq 1 ] && [[ "$line" == $'\xEF\xBB\xBF'* ]] && { emit "U001_BOM_FORBIDDEN" "$ln" 1 "BOM"; line="${line#$'\xEF\xBB\xBF'}"; }
+    [ $ln -eq 1 ] && [ -z "$line" ] && { emit "S001_EMPTY_DOCUMENT" "$ln" 1 "Vacío"; break; }
+
+    # Multiline
+    [ $IM -eq 1 ] && {
+        [[ "$line" =~ ^[[:space:]]*\}[[:space:]]*$ ]] && {
+            local t="${ML%$'\n'}"
+            local nt; [ $MB -eq 1 ] && nt="BlockPayload" || nt="TextPayload"
+            local pj="{\"node\":\"$nt\",\"text\":\"$(json_esc "$t")\"}"
+            local sh; [ $MB -eq 1 ] && sh="bloque" || sh="cuerpo"
+            emit_idea "$MS" "$MNS" "$MN" "$MLN" "$pj" "$sh"
+            IM=0; ML=""; continue
+        }
+        [ -n "$ML" ] && ML+=$'\n'; ML+="$line"; continue
+    }
+
+    [[ "$line" =~ ^[[:space:]]*$ || "$line" =~ ^[[:space:]]*# ]] && continue
+
+    # First content check
+    [ $GS -eq 0 ] && ! [[ "$line" =~ ^\$0[[:space:]]*$ ]] && { emit "G001_GLOSSARY_MISSING_OR_NOT_FIRST" "$ln" 1 "Expected \$0"; break; }
+
+    # $0 header
+    [[ "$line" =~ ^\$0[[:space:]]*$ ]] && { [ $GS -eq 1 ] && emit "G002_GLOSSARY_REOPENED" "$ln" 1 "\$0 reopened"; GS=1; IG=1; continue; }
+
+    # --- GLOSSARY ---
+    [ $IG -eq 1 ] && {
+        # Section transition
+        [[ "$line" =~ ^\$[1-9][0-9]*([[:space:]]*:.*)?$ ]] && {
+            IG=0
+            [[ "$line" =~ ^\$([1-9][0-9]*) ]] && CS="${BASH_REMATCH[1]}"
+            continue
+        }
+
+        # $0:name{...}
+        if [[ "$line" =~ ^\$0:([a-zA-Z_][a-zA-Z0-9_.-]*)\{(.*)\}$ ]]; then
+            local mn="${BASH_REMATCH[1]}" ma="${BASH_REMATCH[2]}"
+            case "$mn" in
+                format)
+                    local fl="" fs=""
+                    # Split by comma, find k:v
+                    local -a fap; local nf=0 cur="" q=0
+                    for ((i=0; i<${#ma}; i++)); do
+                        c="${ma:$i:1}"
+                        [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; cur+="$c"; continue; }
+                        [ "$c" = '"' ] && q=1
+                        if [ "$c" = "," ]; then fap[$nf]="$cur"; nf=$((nf+1)); cur=""; else cur+="$c"; fi
+                    done; [ -n "$cur" ] && fap[$nf]="$cur" && nf=$((nf+1))
+                    for ((fi=0; fi<nf; fi++)); do
+                        local fp="${fap[$fi]}" cp; cp=$(colpos "$fp")
+                        [ "$cp" -le 0 ] && continue
+                        local fk="${fp:0:$cp}"; fk="${fk## }"; fk="${fk%% }"
+                        local fv="${fp:$((cp+1))}"; fv="${fv## }"; fv="${fv%% }"
+                        local fvu="${fv#\"}"; fvu="${fvu%\"}"
+                        [ "$fk" = "cortex" ] && [ "$fvu" != "0.1" ] && emit "G007_UNSUPPORTED_VERSION" "$ln" 1 "Version $fvu"
+                        [ "$fk" = "encoding" ] && [ "$fvu" != "UTF-8" ] && emit "G011_ENCODING_REQUIRED" "$ln" 1 "Encoding $fvu"
+                        fl+="$fs{\"node\":\"AttrPair\",\"key\":\"$fk\",\"value\":$(parse_val "$fv")}"; fs=","
+                    done
+                    FMT="{\"node\":\"FormatDeclaration\",\"cortex\":\"0.1\",\"encoding\":\"UTF-8\",\"attributes\":[$fl],\"sourceLine\":$ln}"
+                    META_LIST+="$META_SEP{\"node\":\"MetaDeclaration\",\"name\":\"format\",\"attributes\":[$fl],\"sourceLine\":$ln}"; META_SEP=","
+                    ;;
+                enum_*)
+                    local en="${mn#enum_}" ev=""
+                    [[ "$ma" =~ values:(.*) ]] && { ev="${BASH_REMATCH[1]}"; ev="${ev#\"}"; ev="${ev%\"}"; ev="${ev## }"; ev="${ev%% }"; }
+                    [ -z "$ev" ] && { emit "G014_INVALID_ENUM" "$ln" 1 "Enum $en inválido."; continue; }
+                    [ -n "${ENUMS[$en]:-}" ] && emit "G015_DUPLICATE_ENUM" "$ln" 1 "Enum $en duplicado."
+                    ENUMS["$en"]="$ev"
+                    local eve="[" es=""
+                    IFS='|' read -ra earr <<< "$ev"
+                    for evi in "${earr[@]}"; do evi="${evi## }"; evi="${evi%% }"; eve+="$es\"$evi\""; es=","; done
+                    ENUM_LIST+="$ENUM_SEP{\"node\":\"EnumDeclaration\",\"name\":\"$en\",\"values\":$eve],\"sourceLine\":$ln}"; ENUM_SEP=","
+                    ;;
+                micro_*)
+                    local mt="${mn#micro_}" mx=""
+                    [[ "$ma" =~ expand:(.*) ]] && { mx="${BASH_REMATCH[1]}"; mx="${mx#\"}"; mx="${mx%\"}"; mx="${mx## }"; mx="${mx%% }"; }
+                    [ -z "$mx" ] && { emit "G012_INVALID_MICRO" "$ln" 1 "Micro $mt sin expansión."; continue; }
+                    [ -n "${MICROS[$mt]:-}" ] && emit "G013_DUPLICATE_MICRO" "$ln" 1 "Micro $mt duplicado."
+                    MICROS["$mt"]="$mx"; MEXP["$mt"]="$mx"
+                    MICRO_LIST+="$MICRO_SEP{\"node\":\"MicroDeclaration\",\"token\":\"$mt\",\"expand\":\"$mx\",\"sourceLine\":$ln}"; MICRO_SEP=","
+                    ;;
+                namespace_*)
+                    local nl="${mn#namespace_}" nid="" nvr="" nqr="false"
+                    local -a nsp; local nn=0 cur="" q=0
+                    for ((i=0; i<${#ma}; i++)); do
+                        c="${ma:$i:1}"; [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; cur+="$c"; continue; }
+                        [ "$c" = '"' ] && q=1
+                        if [ "$c" = "," ]; then nsp[$nn]="$cur"; nn=$((nn+1)); cur=""; else cur+="$c"; fi
+                    done; [ -n "$cur" ] && nsp[$nn]="$cur" && nn=$((nn+1))
+                    for ((ni=0; ni<nn; ni++)); do
+                        local np="${nsp[$ni]}" cp; cp=$(colpos "$np")
+                        [ "$cp" -le 0 ] && continue
+                        local nk="${np:0:$cp}"; nk="${nk## }"; nk="${nk%% }"
+                        local nv="${np:$((cp+1))}"; nv="${nv## }"; nv="${nv%% }"; nv="${nv#\"}"; nv="${nv%\"}"
+                        case "$nk" in id) nid="$nv" ;; version) nvr="$nv" ;; required) nqr="$nv" ;; esac
+                    done
+                    local nvj="null"; [ -n "$nvr" ] && nvj="\"$nvr\""
+                    NS_LIST+="$NS_SEP{\"node\":\"NamespaceDeclaration\",\"alias\":\"$nl\",\"id\":\"$nid\",\"version\":$nvj,\"attributes\":[],\"sourceLine\":$ln}"; NS_SEP=","
+                    ;;
+                extension_*)
+                    local xn="${mn#extension_}"
+                    local xns="" xid="" xvr="" xqr="false"
+                    local -a xsp; local xn2=0 cur2="" q=0
+                    for ((i=0; i<${#ma}; i++)); do
+                        c="${ma:$i:1}"; [ "$q" -eq 1 ] && { [ "$c" = '\\' ] && i=$((i+1)); [ "$c" = '"' ] && q=0; cur2+="$c"; continue; }
+                        [ "$c" = '"' ] && q=1
+                        if [ "$c" = "," ]; then xsp[$xn2]="$cur2"; xn2=$((xn2+1)); cur2=""; else cur2+="$c"; fi
+                    done; [ -n "$cur2" ] && xsp[$xn2]="$cur2" && xn2=$((xn2+1))
+                    for ((ei=0; ei<xn2; ei++)); do
+                        local ep="${xsp[$ei]}" cp; cp=$(colpos "$ep")
+                        [ "$cp" -le 0 ] && continue
+                        local ek="${ep:0:$cp}"; ek="${ek## }"; ek="${ek%% }"
+                        local ev="${ep:$((cp+1))}"; ev="${ev## }"; ev="${ev%% }"; ev="${ev#\"}"; ev="${ev%\"}"
+                        case "$ek" in namespace) xns="$ev" ;; id) xid="$ev" ;; version) xvr="$ev" ;; required) xqr="$ev" ;; esac
+                    done
+                    EXT_LIST+="$EXT_SEP{\"node\":\"ExtensionDeclaration\",\"name\":\"$xn\",\"namespace\":\"$xns\",\"id\":\"$xid\",\"version\":\"$xvr\",\"required\":$xqr,\"attributes\":[],\"sourceLine\":$ln}"
+                    EXT_SEP=","; [ "$xqr" = "true" ] && emit "X002_REQUIRED_EXTENSION_UNSUPPORTED" "$ln" 1 "Ext $xns/$xid"
+                    ;;
+                *) META_LIST+="$META_SEP{\"node\":\"MetaDeclaration\",\"name\":\"$mn\",\"attributes\":[],\"sourceLine\":$ln}"; META_SEP="," ;;
+            esac
+            continue
+        fi
+
+        # SIGIL:name{...}
+        if [[ "$line" =~ ^([A-Z][A-Z0-9_]{0,15}):([a-zA-Z_][a-zA-Z0-9_.-]*)\{(.*)\}$ ]]; then
+            [ -n "${SYM_D[${BASH_REMATCH[1]}]:-}" ] && emit "G005_DUPLICATE_SYMBOL" "$ln" 1 "Duplicado ${BASH_REMATCH[1]}"
+            add_sym "${BASH_REMATCH[1]}" "" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}" "$ln"; continue
+        fi
+        # !:name{...}
+        if [[ "$line" =~ ^!:([a-zA-Z_][a-zA-Z0-9_.-]*)\{(.*)\}$ ]]; then
+            [ -n "${SYM_D["!"]:-}" ] && emit "G005_DUPLICATE_SYMBOL" "$ln" 1 "Duplicado !"
+            add_sym "!" "" "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "$ln"; continue
+        fi
+        # ns::SIGIL:name{...}
+        if [[ "$line" =~ ^([a-z][a-z0-9_.-]*)::(!|[A-Z][A-Z0-9_]{0,15}):([a-zA-Z_][a-zA-Z0-9_.-]*)\{(.*)\}$ ]]; then
+            local qk="${BASH_REMATCH[1]}::${BASH_REMATCH[2]}"
+            [ -n "${SYM_D[$qk]:-}" ] && emit "G005_DUPLICATE_SYMBOL" "$ln" 1 "Duplicado $qk"
+            add_sym "${BASH_REMATCH[2]}" "${BASH_REMATCH[1]}" "${BASH_REMATCH[3]}" "${BASH_REMATCH[4]}" "$ln"; continue
+        fi
+        continue
+    }
+
+    # --- IDEAS ---
+    [ $CS -eq 0 ] && { emit "S005_CONTENT_OUTSIDE_SECTION" "$ln" 1 "Fuera de sección"; continue; }
+
+    # Match idea head
+    if [[ "$line" =~ ^(([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]{0,15}):([a-zA-Z_][a-zA-Z0-9_.-]*)(.*)$ ]]; then
+        local ins="${BASH_REMATCH[2]:-}" isig="${BASH_REMATCH[3]}" inam="${BASH_REMATCH[4]}" irest="${BASH_REMATCH[5]}"
+        irest="${irest## }"
+        local isk="${ins:+${ins}::}$isig"
+        [ -z "${SYM_D[$isk]:-}" ] && { emit "I001_UNDECLARED_SYMBOL" "$ln" 1 "$isk no declarado."; continue; }
+        local ish="${SYM_SH[$isk]:-cuerpo}"
+
+        if [[ "$irest" == \{* ]]; then
+            local bd=0
+            for ((ci=0; ci<${#irest}; ci++)); do
+                local cc="${irest:$ci:1}"; [ "$cc" = "{" ] && bd=$((bd+1)); [ "$cc" = "}" ] && bd=$((bd-1))
+            done
+            if [ $bd -eq 0 ] && [ ${#irest} -gt 1 ]; then
+                # Inline
+                if [ "$ish" = "attrs" ]; then pj=$(parse_attrs "$irest" "$ln")
+                elif [ "$ish" = "cuerpo" ]; then pj=$(parse_inline_body "$irest" 0)
+                elif [ "$ish" = "bloque" ]; then pj=$(parse_inline_body "$irest" 1)
+                elif [ "$ish" = "attrs-pos" ] || [ "$ish" = "relacion" ]; then emit "I004_SHAPE_DELIMITER_MISMATCH" "$ln" 1 "Pipe esperado."; pj=$(parse_attrs "$irest" "$ln")
+                else pj=$(parse_attrs "$irest" "$ln"); fi
+                emit_idea "$CS" "$isig" "$ins" "$inam" "$ln" "$pj" "$ish"
+            elif [ $bd -gt 0 ]; then
+                IM=1; MNS="$isig"; MN="$inam"; MS="$CS"; MLN="$ln"; MB=0; [ "$ish" = "bloque" ] && MB=1
+                local bp=0
+                for ((ci=0; ci<${#irest}; ci++)); do [ "${irest:$ci:1}" = "{" ] && { bp=$ci; break; }; done
+                local ab="${irest:$((bp+1))}"; ab="${ab## }"; ML="$ab"
+            else
+                emit_idea "$CS" "$isig" "$ins" "$inam" "$ln" '{"node":"AttrsPayload","pairs":[]}' "$ish"
+            fi
+        elif [[ "$irest" == \|* ]]; then
+            [ "$ish" != "attrs-pos" ] && [ "$ish" != "relacion" ] && emit "I004_SHAPE_DELIMITER_MISMATCH" "$ln" 1 "Braces esperados."
+            local ir=0; [ "$ish" = "relacion" ] && ir=1
+            # Parse pipe
+            local raw="${irest:1}" -a cells; local nc=0 cur=""
+            for ((i=0; i<${#raw}; i++)); do
+                c="${raw:$i:1}"; [ "$c" = "|" ] && { cells[$nc]="$cur"; nc=$((nc+1)); cur=""; } || cur+="$c"
+            done; cells[$nc]="$cur"; nc=$((nc+1))
+            local nt; [ $ir -eq 1 ] && nt="RelationPayload" || nt="PositionalPayload"
+            pj="{\"node\":\"$nt\",\"cells\":["; local sep=""
+            for ((i=0; i<nc; i++)); do local cv="${cells[$i]}"; cv="${cv## }"; cv="${cv%% }"; pj+="$sep$(parse_val "$cv")"; sep=","; done
+            pj+="],\"bound\":[]}"
+            emit_idea "$CS" "$isig" "$ins" "$inam" "$ln" "$pj" "$ish"
+        else
+            emit "S003_INVALID_IDEA_HEAD" "$ln" 1 "Sin payload."
+        fi
+    else
+        emit "S005_CONTENT_OUTSIDE_SECTION" "$ln" 1 "No reconocido."
+    fi
+done < <(cat "${1:-/dev/stdin}" 2>/dev/null; echo)
+
+# Ensure format
+: "${FMT:={\"node\":\"FormatDeclaration\",\"cortex\":\"0.1\",\"encoding\":\"UTF-8\",\"attributes\":[],\"sourceLine\":1}}"
+
+# Output
+cat << ENDJSON
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": $FMT,
+    "meta": [$META_LIST],
+    "enums": [$ENUM_LIST],
+    "micros": [$MICRO_LIST],
+    "namespaces": [$NS_LIST],
+    "extensions": [$EXT_LIST],
+    "symbols": [$SYM_LIST]
+  },
+  "sections": [$SEC_JSON]
+}
+ENDJSON
+
+[ "$HAS_ERR" -eq 1 ] && exit 1
+exit 0
+}
+
+main "$@"

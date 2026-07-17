@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I009_FIELD_TYPE_MISMATCH"
+  ],
+  "primary": {
+    "code": "I009_FIELD_TYPE_MISMATCH",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Valor incompatible en count: requiere int."
+  }
+}

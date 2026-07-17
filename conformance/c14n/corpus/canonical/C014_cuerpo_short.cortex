@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+TXT:t{type:cuerpo,weight:B,desc:"Texto"}
+$1
+TXT:purpose{Una idea principal por línea.}

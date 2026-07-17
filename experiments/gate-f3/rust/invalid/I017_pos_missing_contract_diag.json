@@ -1,0 +1,2 @@
+{"code":"G022_POSITIONAL_CONTRACT_REQUIRED","severity":"error","span":{"line":3,"column":1},"message":"Attrs-pos sin pos: HDL."}
+{"code":"G025_UNKNOWN_FOCUS_FIELD","severity":"error","span":{"line":3,"column":1},"message":"Focus no existe en contrato: operation."}

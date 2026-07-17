@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "L008_NESTED_LIST"
+  ],
+  "primary": {
+    "code": "L008_NESTED_LIST",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Las listas anidadas no pertenecen a CORTEX 0.1."
+  }
+}

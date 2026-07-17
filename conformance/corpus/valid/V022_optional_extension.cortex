@@ -1,0 +1,6 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:extension_trace{namespace:trace,id:provenance,version:0.1,required:false,desc:"Procedencia opcional"}
+AUD:audit{type:attrs,weight:M,fields:"event:text|evidence:text|result:atom",focus:event,desc:"Evidencia",namespace:trace}
+$1
+AUD:parse{event:"Parseo",evidence:"AST esperado",result:success}

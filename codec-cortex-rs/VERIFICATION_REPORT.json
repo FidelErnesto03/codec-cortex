@@ -1,0 +1,142 @@
+{
+  "schema": "codec-cortex-rs-verification/1",
+  "generated_at": "2026-07-17",
+  "classification": "derived-functional-port",
+  "source": {
+    "archive": "codec_cortex.tar.gz",
+    "sha256": "47640ad335bc8f422d346c3f962b12e5e7b317b06080560d1b25070eb54259b2",
+    "python_modules": [
+      {
+        "file": "codec_cortex/__init__.py",
+        "sha256": "c4ce6ab7310fbd35d414798be74381b5e0783f8f9611f3f72cca0e7d965553c9"
+      },
+      {
+        "file": "codec_cortex/__main__.py",
+        "sha256": "d044ac4a25a7820fc626450929a79bf11f982bfdace5ffce2f0084fa0c222f97"
+      },
+      {
+        "file": "codec_cortex/c14n.py",
+        "sha256": "fc23d90096bd2c6a0e7b5a5d3b926d53069bf714acf9a6e2c047c2092494c3bd"
+      },
+      {
+        "file": "codec_cortex/harness.py",
+        "sha256": "aa20aed019470955bc060a442a9e3e82d59b5506334892a62c27e094a73be362"
+      },
+      {
+        "file": "codec_cortex/hcortex.py",
+        "sha256": "79ce8e4c1daa941a60036968f6e686921c50fd196c6ba7c5dfbdc78e79a85ba6"
+      },
+      {
+        "file": "codec_cortex/parser.py",
+        "sha256": "8075d38783370933aa9b1c7973767cc778fdf6b98ae3529fc05c1d22cdc47ad2"
+      },
+      {
+        "file": "codec_cortex/scalars.py",
+        "sha256": "e365c8b46d1c0abea29b05ee293f9590ff7bf70b3a03024fe3a13713783eb0f7"
+      }
+    ]
+  },
+  "checks": {
+    "rust_tree_sitter_syntax": {
+      "passed": true,
+      "files": [
+        {
+          "file": "src/c14n.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/error.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/harness.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/hcortex.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/lib.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/main.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/model.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/parser.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "src/scalars.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "tests/api_contract.rs",
+          "syntax_ok": true
+        },
+        {
+          "file": "tests/reference_parity.rs",
+          "syntax_ok": true
+        }
+      ]
+    },
+    "json_parse": {
+      "passed": true,
+      "files": [
+        "SOURCE_MANIFEST.json",
+        "examples/full.reference.json",
+        "tests/fixtures/roundtrip.reference.json"
+      ]
+    },
+    "yaml_parse": {
+      "passed": true,
+      "files": [
+        ".github/workflows/ci.yml"
+      ]
+    },
+    "python_reference_parity": {
+      "passed": true,
+      "vectors": [
+        {
+          "fixture": "tests/fixtures/roundtrip.cortex",
+          "canonical_match": true,
+          "canonical_sha256": "fbee0b99e464dfee332c2e6ed21f60b28c7f46764e66dc05b6efa243bf649c58",
+          "hcortex_match": true,
+          "hcortex_sha256": "35ed3d5381050ca31a775ecd62b0e16406a02b61b8d91e1e851102ca80556242"
+        },
+        {
+          "fixture": "examples/full.cortex",
+          "canonical_match": true,
+          "canonical_sha256": "5aedd77d33143b6dac705c657c14d02176ad4c5fbd49d6abf44f60bb78bf3c6f",
+          "hcortex_match": true,
+          "hcortex_sha256": "193b930711f39d8e96c8799cee9c8b8c47b6882307e0f681c57301b61b6368dd"
+        }
+      ]
+    },
+    "hcortex_roundtrip": {
+      "reversible_fixture_equal": true,
+      "full_fixture_equal": false,
+      "known_inherited_loss": "open attrs not declared in fields; fixture loses extra:z"
+    },
+    "secret_scan": {
+      "passed": true,
+      "hits": []
+    },
+    "cargo_test": {
+      "executed": false,
+      "reason": "No installed Rust toolchain; rustup could not download one because outbound DNS was unavailable in this environment."
+    }
+  },
+  "release_assertions": {
+    "claims_compiled_locally": false,
+    "claims_gate_f7_independence": false,
+    "ci_included": true,
+    "publish_enabled": false
+  }
+}

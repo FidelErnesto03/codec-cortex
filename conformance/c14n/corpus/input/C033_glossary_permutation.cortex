@@ -1,0 +1,9 @@
+$0
+$0:format{language:es,encoding:UTF-8,cortex:0.1}
+ZED:z{desc:"Segunda",focus:content,fields:"content:text",weight:B,type:attrs}
+$0:micro_cur{expand:current}
+$0:enum_state{values:"current|planned"}
+AAA:a{desc:"Primera",focus:content,fields:"content:text",weight:B,type:attrs}
+$1
+AAA:first{content:"A"}
+ZED:second{content:"Z"}

@@ -1,0 +1,13 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked|done"}
+HDL:procedure{type:attrs-pos,weight:M,pos:"action:text|status:%state|target:text|constraint:text?",focus:action,desc:"Procedimiento compacto"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|metric:text?",focus:goal,desc:"Objetivo explícito"}
+REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom|qualifier:text?",focus:predicate,desc:"Relación dirigida"}
+$1
+OBJ:intent{goal:"Transformar contexto sin pérdida.",status:current}
+HDL:step1|parsear CORTEX|done|AST
+HDL:step2|renderizar HCORTEX|done|Markdown canónico
+KNW:invariant{topic:Reversibilidad,content:"compile(render(AST)) produce el mismo AST."}
+REL:proof|$1:HDL:step1|precedes|$1:HDL:step2

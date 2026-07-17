@@ -1,0 +1,42 @@
+{
+  "pass": 33,
+  "fail": 7,
+  "details": [
+    {
+      "case": "C006_unicode_nfc",
+      "go_len": 128,
+      "golden_len": 131
+    },
+    {
+      "case": "C007_string_escapes",
+      "go_len": 155,
+      "golden_len": 161
+    },
+    {
+      "case": "C011_positional_text",
+      "go_len": 188,
+      "golden_len": 206
+    },
+    {
+      "case": "C014_cuerpo_short",
+      "go_len": 133,
+      "golden_len": 140
+    },
+    {
+      "case": "C017_relacion",
+      "go_len": 222,
+      "golden_len": 228
+    },
+    {
+      "case": "C031_all_shapes",
+      "go_len": 471,
+      "golden_len": 488
+    },
+    {
+      "case": "C037_cuerpo_extra_blank_lines",
+      "go_len": 96,
+      "golden_len": 115
+    }
+  ],
+  "total": 40
+}

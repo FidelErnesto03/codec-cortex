@@ -1,0 +1,2 @@
+PASS: parser, C14N, HCORTEX render/compile and diagnostics match Python goldens.
+Measured build-environment runtime: 9.30 seconds.

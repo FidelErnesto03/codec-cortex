@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+META:metadata{type:attrs,weight:B,fields:"subject:text",focus:subject,desc:"Metadata extensible",open:true}
+$1
+META:item{subject:"Ejemplo",custom:"preservado",priority:high}

@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G011_ENCODING_REQUIRED"
+  ],
+  "primary": {
+    "code": "G011_ENCODING_REQUIRED",
+    "severity": "error",
+    "span": {
+      "line": 2,
+      "column": 1
+    },
+    "message": "encoding debe ser UTF-8."
+  }
+}

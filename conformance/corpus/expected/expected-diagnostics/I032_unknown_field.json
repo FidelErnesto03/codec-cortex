@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I005_UNKNOWN_FIELD"
+  ],
+  "primary": {
+    "code": "I005_UNKNOWN_FIELD",
+    "severity": "error",
+    "span": {
+      "line": 5,
+      "column": 1
+    },
+    "message": "Campo no declarado: extra."
+  }
+}

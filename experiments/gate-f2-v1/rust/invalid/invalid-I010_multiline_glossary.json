@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G003_MULTILINE_GLOSSARY_DECLARATION"
+  ],
+  "primary": {
+    "code": "G003_MULTILINE_GLOSSARY_DECLARATION",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Las declaraciones de $0 deben ocupar una línea."
+  }
+}

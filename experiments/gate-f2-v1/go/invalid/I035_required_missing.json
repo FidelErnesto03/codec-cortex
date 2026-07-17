@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I008_REQUIRED_FIELD_MISSING\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 5,\n      \"column\": 1\n    },\n    \"message\": \"Falta campo 'content'.\"\n  }\n]\n", "exit_code": 1}

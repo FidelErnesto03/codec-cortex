@@ -1,0 +1,84 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "simple",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "OBJ",
+          "value": [
+            [
+              "goal",
+              {
+                "kind": "string",
+                "value": "No repetir opcionales."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "planned"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Objetivo explícito",
+      "fields": [
+        {
+          "name": "goal",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "metric",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "goal",
+      "label": "objective",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "OBJ",
+      "weight": "H"
+    }
+  ]
+}

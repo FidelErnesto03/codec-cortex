@@ -1,0 +1,360 @@
+{
+  "node": "Document",
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "glossary": {
+    "node": "Glossary",
+    "format": {
+      "node": "FormatDeclaration",
+      "cortex": "0.1",
+      "encoding": "UTF-8",
+      "attributes": [
+        {
+          "node": "AttrPair",
+          "key": "cortex",
+          "value": {
+            "node": "DecimalValue",
+            "value": "0.1",
+            "lexeme": "0.1"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "encoding",
+          "value": {
+            "node": "AtomValue",
+            "value": "UTF-8",
+            "lexeme": "UTF-8"
+          }
+        },
+        {
+          "node": "AttrPair",
+          "key": "language",
+          "value": {
+            "node": "AtomValue",
+            "value": "es",
+            "lexeme": "es"
+          }
+        }
+      ],
+      "sourceLine": 2
+    },
+    "meta": [
+      {
+        "node": "MetaDeclaration",
+        "name": "format",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "cortex",
+            "value": {
+              "node": "DecimalValue",
+              "value": "0.1",
+              "lexeme": "0.1"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "encoding",
+            "value": {
+              "node": "AtomValue",
+              "value": "UTF-8",
+              "lexeme": "UTF-8"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "language",
+            "value": {
+              "node": "AtomValue",
+              "value": "es",
+              "lexeme": "es"
+            }
+          }
+        ],
+        "sourceLine": 2
+      },
+      {
+        "node": "MetaDeclaration",
+        "name": "enum_state",
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "values",
+            "value": {
+              "node": "StringValue",
+              "value": "current|planned|blocked",
+              "lexeme": "\"current|planned|blocked\""
+            }
+          }
+        ],
+        "sourceLine": 3
+      }
+    ],
+    "enums": [
+      {
+        "node": "EnumDeclaration",
+        "name": "state",
+        "values": [
+          "current",
+          "planned",
+          "blocked"
+        ],
+        "sourceLine": 3
+      }
+    ],
+    "micros": [],
+    "namespaces": [],
+    "extensions": [],
+    "symbols": [
+      {
+        "node": "SymbolDefinition",
+        "surface": "OBJ",
+        "namespace": null,
+        "qualified": "OBJ",
+        "label": "objective",
+        "shape": "attrs",
+        "weight": "H",
+        "focus": "goal",
+        "description": "Objetivo verificable",
+        "open": false,
+        "contract": [
+          {
+            "name": "goal",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "status",
+            "type": "%state",
+            "required": true
+          },
+          {
+            "name": "evidence",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "H",
+              "lexeme": "H"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "goal:text|status:%state|evidence:text?",
+              "lexeme": "\"goal:text|status:%state|evidence:text?\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "goal",
+              "lexeme": "goal"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Objetivo verificable",
+              "lexeme": "\"Objetivo verificable\""
+            }
+          }
+        ],
+        "sourceLine": 4
+      },
+      {
+        "node": "SymbolDefinition",
+        "surface": "CNST",
+        "namespace": null,
+        "qualified": "CNST",
+        "label": "constraint",
+        "shape": "attrs",
+        "weight": "H",
+        "focus": "rule",
+        "description": "Restricción no negociable",
+        "open": false,
+        "contract": [
+          {
+            "name": "rule",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "severity",
+            "type": "atom",
+            "required": true
+          },
+          {
+            "name": "evidence",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "attributes": [
+          {
+            "node": "AttrPair",
+            "key": "type",
+            "value": {
+              "node": "AtomValue",
+              "value": "attrs",
+              "lexeme": "attrs"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "weight",
+            "value": {
+              "node": "AtomValue",
+              "value": "H",
+              "lexeme": "H"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "fields",
+            "value": {
+              "node": "StringValue",
+              "value": "rule:text|severity:atom|evidence:text?",
+              "lexeme": "\"rule:text|severity:atom|evidence:text?\""
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "focus",
+            "value": {
+              "node": "AtomValue",
+              "value": "rule",
+              "lexeme": "rule"
+            }
+          },
+          {
+            "node": "AttrPair",
+            "key": "desc",
+            "value": {
+              "node": "StringValue",
+              "value": "Restricción no negociable",
+              "lexeme": "\"Restricción no negociable\""
+            }
+          }
+        ],
+        "sourceLine": 5
+      }
+    ]
+  },
+  "sections": [
+    {
+      "node": "Section",
+      "id": 1,
+      "title": "Dirección",
+      "ideas": [
+        {
+          "node": "Idea",
+          "address": "$1:OBJ:f2",
+          "section": 1,
+          "symbol": "OBJ",
+          "qualifiedSymbol": "OBJ",
+          "name": "f2",
+          "function": {
+            "label": "objective",
+            "weight": "H",
+            "focus": "goal"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "goal",
+                "value": {
+                  "node": "StringValue",
+                  "value": "Definir CORTEX Draft 0.1 real.",
+                  "lexeme": "\"Definir CORTEX Draft 0.1 real.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "status",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "current",
+                  "lexeme": "current"
+                }
+              }
+            ]
+          },
+          "sourceLine": 7
+        },
+        {
+          "node": "Idea",
+          "address": "$1:CNST:no_external_profile",
+          "section": 1,
+          "symbol": "CNST",
+          "qualifiedSymbol": "CNST",
+          "name": "no_external_profile",
+          "function": {
+            "label": "constraint",
+            "weight": "H",
+            "focus": "rule"
+          },
+          "shape": "attrs",
+          "payload": {
+            "node": "AttrsPayload",
+            "pairs": [
+              {
+                "node": "AttrPair",
+                "key": "rule",
+                "value": {
+                  "node": "StringValue",
+                  "value": "El documento no depende de un perfil externo para comprenderse.",
+                  "lexeme": "\"El documento no depende de un perfil externo para comprenderse.\""
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "severity",
+                "value": {
+                  "node": "AtomValue",
+                  "value": "blocking",
+                  "lexeme": "blocking"
+                }
+              },
+              {
+                "node": "AttrPair",
+                "key": "evidence",
+                "value": {
+                  "node": "StringValue",
+                  "value": "glosario local",
+                  "lexeme": "\"glosario local\""
+                }
+              }
+            ]
+          },
+          "sourceLine": 8
+        }
+      ]
+    }
+  ]
+}

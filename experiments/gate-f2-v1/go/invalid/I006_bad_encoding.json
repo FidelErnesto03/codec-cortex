@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"G011_ENCODING_REQUIRED\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 2,\n      \"column\": 1\n    },\n    \"message\": \"Encoding 'UTF-16'.\"\n  }\n]\n", "exit_code": 1}

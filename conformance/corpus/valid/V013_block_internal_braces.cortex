@@ -1,0 +1,7 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+CODE:code{type:bloque,weight:M,desc:"Código verbatim"}
+$1
+CODE:sample{
+function f() { return {ok: true}; }
+}

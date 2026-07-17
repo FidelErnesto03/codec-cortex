@@ -1,0 +1,4 @@
+{"code":"I003_ATTRS_MUST_BE_ONE_LINE","severity":"error","span":{"line":5,"column":1},"message":"Attrs distribuido en varias líneas. Compactar la Idea."}
+{"code":"L001_INVALID_SYMBOL","severity":"error","span":{"line":6,"column":1},"message":"Sigilo inválido: topic."}
+{"code":"L001_INVALID_SYMBOL","severity":"error","span":{"line":7,"column":1},"message":"Sigilo inválido: content."}
+{"code":"S003_INVALID_IDEA_HEAD","severity":"error","span":{"line":8,"column":1},"message":"Falta SIGIL:nombre válido en: }."}

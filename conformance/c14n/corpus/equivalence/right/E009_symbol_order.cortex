@@ -1,0 +1,7 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+AAA:a{focus:value,fields:"value:text",desc:"A",type:attrs,weight:B}
+ZZZ:z{desc:"Z",focus:value,fields:"value:text",weight:B,type:attrs}
+$1
+AAA:a{value:"A"}
+ZZZ:z{value:"Z"}

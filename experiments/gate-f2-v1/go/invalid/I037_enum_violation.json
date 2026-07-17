@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I010_ENUM_VIOLATION\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 6,\n      \"column\": 1\n    },\n    \"message\": \"'done' no en enum state.\"\n  }\n]\n", "exit_code": 1}

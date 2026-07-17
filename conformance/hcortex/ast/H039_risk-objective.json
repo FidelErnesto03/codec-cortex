@@ -1,0 +1,148 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [
+    {
+      "name": "state",
+      "values": [
+        "current",
+        "planned",
+        "blocked",
+        "done"
+      ]
+    }
+  ],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "gate",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "OBJ",
+          "value": [
+            [
+              "goal",
+              {
+                "kind": "string",
+                "value": "100% roundtrip estructural."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "current"
+              }
+            ],
+            [
+              "metric",
+              {
+                "kind": "string",
+                "value": "40/40"
+              }
+            ]
+          ]
+        },
+        {
+          "name": "view",
+          "namespace": null,
+          "shape": "attrs",
+          "symbol": "RSK",
+          "value": [
+            [
+              "risk",
+              {
+                "kind": "string",
+                "value": "VIEW contamina el canon."
+              }
+            ],
+            [
+              "impact",
+              {
+                "kind": "string",
+                "value": "Pérdida de reversibilidad."
+              }
+            ],
+            [
+              "status",
+              {
+                "kind": "atom",
+                "value": "blocked"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Objetivo explícito",
+      "fields": [
+        {
+          "name": "goal",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        },
+        {
+          "name": "metric",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "focus": "goal",
+      "label": "objective",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "OBJ",
+      "weight": "H"
+    },
+    {
+      "desc": "Riesgo explícito",
+      "fields": [
+        {
+          "name": "risk",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "impact",
+          "optional": false,
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "%state"
+        }
+      ],
+      "focus": "risk",
+      "label": "risk",
+      "namespace": null,
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "RSK",
+      "weight": "H"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "G019_INVALID_WEIGHT"
+  ],
+  "primary": {
+    "code": "G019_INVALID_WEIGHT",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Peso inválido: X."
+  }
+}

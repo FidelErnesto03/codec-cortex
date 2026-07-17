@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+BIO:observation{type:attrs,weight:B,fields:"species:text|observation:text",focus:observation,desc:"Dominio neutral"}
+$1
+BIO:sample{species:Aves,observation:"Migración estacional."}

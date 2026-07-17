@@ -107,7 +107,17 @@ Hitos, revisiones y puntos de validación. La ejecución se detiene en cada punt
 
 | BLP ID | Título | Estado | Prioridad | Objetivo | Gobernador |
 |---|---|---|---|---|---|
-| BLP-001 | Fase 0 + Fase 1 completadas | ready | high | CYC-OBJ-2/CYC-OBJ-3 | alfred |
+| BLP-001 | Fase 0 + Fase 1 completadas | done | high | CYC-OBJ-2/CYC-OBJ-3 | alfred |
+| BLP-002 | Fase 2 — Integracion CORTEX 0.1 REAL | done | high | CYC-OBJ-3 | alfred |
+| BLP-003 | Mini Gate F2 — 3 agentes + orden CORTEX | done | high | CYC-OBJ-5 | alfred |
+| BLP-004 | Correccion spec: comillas, atom, glossary-valid | done | high | CYC-OBJ-3 | alfred |
+| BLP-005 | Mini Gate F2 v2 — Post correcciones | done | high | CYC-OBJ-5 | alfred |
+| BLP-006 | Fase 3 — Integracion canonicalizacion C14N-0.1 | done | high | CYC-OBJ-3 | alfred |
+| BLP-007 | CE-2 — Implementacion Rust C14N-0.1 | done | high | CYC-OBJ-3 | alfred |
+| BLP-008 | Fase 4 — Integracion HCORTEX Draft 0.1 | done | high | CYC-OBJ-3 | alfred |
+| BLP-009 | Correccion bugs alta prioridad — REV F3+F4 | done | high | CYC-OBJ-3 | alfred |
+| BLP-010 | Redefinicion HCORTEX — esquemas explicitos | done | high | CYC-OBJ-3 | alfred |
+| BLP-011 | Transformer HCORTEX bidireccional + roundtrip | done | high | CYC-OBJ-3 | alfred |
 
 
 ## §7: Estado y Métricas

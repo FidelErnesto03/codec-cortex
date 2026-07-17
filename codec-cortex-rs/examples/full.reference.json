@@ -1,0 +1,21 @@
+{
+  "source_sha256": "158f627a1d0ae78ef5c825acfabd0ee45ba358e0aaf9ad92352a117138384f90",
+  "canonical_sha256": "5aedd77d33143b6dac705c657c14d02176ad4c5fbd49d6abf44f60bb78bf3c6f",
+  "hcortex_sha256": "193b930711f39d8e96c8799cee9c8b8c47b6882307e0f681c57301b61b6368dd",
+  "roundtrip_sha256": "093e5d0b028dd721a6f3c03fe7447b1d377780853d4b42225b89b89c8a0cc51f",
+  "roundtrip_equal": false,
+  "diagnostics": [],
+  "known_loss": [
+    "--- ",
+    "+++ ",
+    "@@ -12,7 +12,7 @@",
+    " TXT:Text{type:cuerpo,weight:B,desc:\"Semantic prose\"}",
+    " agent::ACT:Action{type:attrs,weight:H,fields:\"name:text|enabled:boolean\",focus:name,desc:\"Namespaced action\"}",
+    " $1: Attributes",
+    "-OBJ:first{topic:\"Café\",count:0,status:active,tags:[a,\"b c\"],extra:z}",
+    "+OBJ:first{topic:\"Café\",count:0,status:active,tags:[a,\"b c\"]}",
+    " agent::ACT:run{name:\"Deploy\",enabled:true}",
+    " $2: Positional",
+    " POS:rank|A useful title|high|1.50"
+  ]
+}

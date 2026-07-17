@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "I001_UNDECLARED_SYMBOL"
+  ],
+  "primary": {
+    "code": "I001_UNDECLARED_SYMBOL",
+    "severity": "error",
+    "span": {
+      "line": 4,
+      "column": 1
+    },
+    "message": "Sigilo no declarado en $0: KNW."
+  }
+}

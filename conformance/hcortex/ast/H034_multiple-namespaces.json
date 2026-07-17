@@ -1,0 +1,101 @@
+{
+  "cortexVersion": "0.1",
+  "encoding": "UTF-8",
+  "enums": [],
+  "extensions": [],
+  "format": {
+    "cortex": "0.1",
+    "encoding": "UTF-8",
+    "language": "es"
+  },
+  "microtokens": [],
+  "namespaces": [
+    {
+      "name": "agent",
+      "uri": "urn:agent",
+      "version": "0.1"
+    },
+    {
+      "name": "project",
+      "uri": "urn:project",
+      "version": "0.1"
+    }
+  ],
+  "node": "Document",
+  "sections": [
+    {
+      "id": "1",
+      "ideas": [
+        {
+          "name": "a",
+          "namespace": "agent",
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Agente"
+              }
+            ]
+          ]
+        },
+        {
+          "name": "p",
+          "namespace": "project",
+          "shape": "attrs",
+          "symbol": "KNW",
+          "value": [
+            [
+              "content",
+              {
+                "kind": "string",
+                "value": "Proyecto"
+              }
+            ]
+          ]
+        }
+      ],
+      "title": null
+    }
+  ],
+  "symbols": [
+    {
+      "desc": "Agent knowledge",
+      "fields": [
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": "agent",
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    },
+    {
+      "desc": "Project knowledge",
+      "fields": [
+        {
+          "name": "content",
+          "optional": false,
+          "type": "text"
+        }
+      ],
+      "focus": "content",
+      "label": "knowledge",
+      "namespace": "project",
+      "open": false,
+      "pos": [],
+      "shape": "attrs",
+      "symbol": "KNW",
+      "weight": "B"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "implementation": "node-independent-experimental",
+  "canonicalCases": 40,
+  "goldenPass": 40,
+  "idempotencePass": 40,
+  "equivalenceVectors": 32,
+  "equivalencePass": 32,
+  "failures": [],
+  "status": "PASS"
+}

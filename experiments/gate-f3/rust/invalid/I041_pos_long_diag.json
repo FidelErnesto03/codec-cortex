@@ -1,0 +1,1 @@
+{"code":"I012_POSITIONAL_ARITY","severity":"error","span":{"line":5,"column":1},"message":"Cells incompatibles con contrato. Esperadas entre 2 y 2, obtenidas 3."}

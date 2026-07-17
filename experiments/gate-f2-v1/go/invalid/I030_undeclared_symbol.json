@@ -1,0 +1,1 @@
+{"stderr": "[\n  {\n    \"code\": \"I001_UNDECLARED_SYMBOL\",\n    \"severity\": \"error\",\n    \"span\": {\n      \"line\": 4,\n      \"column\": 1\n    },\n    \"message\": \"S\u00edmbolo 'KNW' no declarado.\"\n  }\n]\n", "exit_code": 1}

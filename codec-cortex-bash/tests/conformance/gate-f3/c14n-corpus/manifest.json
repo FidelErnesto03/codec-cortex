@@ -1,0 +1,204 @@
+{
+  "cases": [
+    {
+      "id": "C001",
+      "input": "inputs/C001.cortex",
+      "canonical": "canonical/C001.cortex"
+    },
+    {
+      "id": "C002",
+      "input": "inputs/C002.cortex",
+      "canonical": "canonical/C002.cortex"
+    },
+    {
+      "id": "C003",
+      "input": "inputs/C003.cortex",
+      "canonical": "canonical/C003.cortex"
+    },
+    {
+      "id": "C004",
+      "input": "inputs/C004.cortex",
+      "canonical": "canonical/C004.cortex"
+    },
+    {
+      "id": "C005",
+      "input": "inputs/C005.cortex",
+      "canonical": "canonical/C005.cortex"
+    },
+    {
+      "id": "C006",
+      "input": "inputs/C006.cortex",
+      "canonical": "canonical/C006.cortex"
+    },
+    {
+      "id": "C007",
+      "input": "inputs/C007.cortex",
+      "canonical": "canonical/C007.cortex"
+    },
+    {
+      "id": "C008",
+      "input": "inputs/C008.cortex",
+      "canonical": "canonical/C008.cortex"
+    },
+    {
+      "id": "C009",
+      "input": "inputs/C009.cortex",
+      "canonical": "canonical/C009.cortex"
+    },
+    {
+      "id": "C010",
+      "input": "inputs/C010.cortex",
+      "canonical": "canonical/C010.cortex"
+    },
+    {
+      "id": "C011",
+      "input": "inputs/C011.cortex",
+      "canonical": "canonical/C011.cortex"
+    },
+    {
+      "id": "C012",
+      "input": "inputs/C012.cortex",
+      "canonical": "canonical/C012.cortex"
+    },
+    {
+      "id": "C013",
+      "input": "inputs/C013.cortex",
+      "canonical": "canonical/C013.cortex"
+    },
+    {
+      "id": "C014",
+      "input": "inputs/C014.cortex",
+      "canonical": "canonical/C014.cortex"
+    },
+    {
+      "id": "C015",
+      "input": "inputs/C015.cortex",
+      "canonical": "canonical/C015.cortex"
+    },
+    {
+      "id": "C016",
+      "input": "inputs/C016.cortex",
+      "canonical": "canonical/C016.cortex"
+    },
+    {
+      "id": "C017",
+      "input": "inputs/C017.cortex",
+      "canonical": "canonical/C017.cortex"
+    },
+    {
+      "id": "C018",
+      "input": "inputs/C018.cortex",
+      "canonical": "canonical/C018.cortex"
+    },
+    {
+      "id": "C019",
+      "input": "inputs/C019.cortex",
+      "canonical": "canonical/C019.cortex"
+    },
+    {
+      "id": "C020",
+      "input": "inputs/C020.cortex",
+      "canonical": "canonical/C020.cortex"
+    },
+    {
+      "id": "C021",
+      "input": "inputs/C021.cortex",
+      "canonical": "canonical/C021.cortex"
+    },
+    {
+      "id": "C022",
+      "input": "inputs/C022.cortex",
+      "canonical": "canonical/C022.cortex"
+    },
+    {
+      "id": "C023",
+      "input": "inputs/C023.cortex",
+      "canonical": "canonical/C023.cortex"
+    },
+    {
+      "id": "C024",
+      "input": "inputs/C024.cortex",
+      "canonical": "canonical/C024.cortex"
+    },
+    {
+      "id": "C025",
+      "input": "inputs/C025.cortex",
+      "canonical": "canonical/C025.cortex"
+    },
+    {
+      "id": "C026",
+      "input": "inputs/C026.cortex",
+      "canonical": "canonical/C026.cortex"
+    },
+    {
+      "id": "C027",
+      "input": "inputs/C027.cortex",
+      "canonical": "canonical/C027.cortex"
+    },
+    {
+      "id": "C028",
+      "input": "inputs/C028.cortex",
+      "canonical": "canonical/C028.cortex"
+    },
+    {
+      "id": "C029",
+      "input": "inputs/C029.cortex",
+      "canonical": "canonical/C029.cortex"
+    },
+    {
+      "id": "C030",
+      "input": "inputs/C030.cortex",
+      "canonical": "canonical/C030.cortex"
+    },
+    {
+      "id": "C031",
+      "input": "inputs/C031.cortex",
+      "canonical": "canonical/C031.cortex"
+    },
+    {
+      "id": "C032",
+      "input": "inputs/C032.cortex",
+      "canonical": "canonical/C032.cortex"
+    },
+    {
+      "id": "C033",
+      "input": "inputs/C033.cortex",
+      "canonical": "canonical/C033.cortex"
+    },
+    {
+      "id": "C034",
+      "input": "inputs/C034.cortex",
+      "canonical": "canonical/C034.cortex"
+    },
+    {
+      "id": "C035",
+      "input": "inputs/C035.cortex",
+      "canonical": "canonical/C035.cortex"
+    },
+    {
+      "id": "C036",
+      "input": "inputs/C036.cortex",
+      "canonical": "canonical/C036.cortex"
+    },
+    {
+      "id": "C037",
+      "input": "inputs/C037.cortex",
+      "canonical": "canonical/C037.cortex"
+    },
+    {
+      "id": "C038",
+      "input": "inputs/C038.cortex",
+      "canonical": "canonical/C038.cortex"
+    },
+    {
+      "id": "C039",
+      "input": "inputs/C039.cortex",
+      "canonical": "canonical/C039.cortex"
+    },
+    {
+      "id": "C040",
+      "input": "inputs/C040.cortex",
+      "canonical": "canonical/C040.cortex"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:namespace_agent{uri:"urn:agent",version:"0.1"}
+$0:namespace_project{uri:"urn:project",version:"0.1"}
+agent::KNW:knowledge{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Agent knowledge"}
+project::KNW:knowledge{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Project knowledge"}
+$1
+agent::KNW:a{content:"Agente"}
+project::KNW:p{content:"Proyecto"}

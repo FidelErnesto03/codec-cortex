@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "X001_INVALID_EXTENSION_DECLARATION"
+  ],
+  "primary": {
+    "code": "X001_INVALID_EXTENSION_DECLARATION",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Extensión requiere namespace,id,version,required."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cortex.dev/schema/hcortex/loss-report/0.1",
+  "title": "HCORTEX 0.1 transformation loss report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "case", "operation", "source_format", "target_format",
+    "mode", "reversible", "structural_equivalence", "source_sha256",
+    "target_sha256", "losses", "warnings", "preserved"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "case": {"type": "string", "minLength": 1},
+    "operation": {"enum": ["render", "compile", "edit", "project"]},
+    "source_format": {"type": "string", "minLength": 1},
+    "target_format": {"type": "string", "minLength": 1},
+    "mode": {"enum": ["canonical", "readable", "view"]},
+    "reversible": {"type": "boolean"},
+    "structural_equivalence": {"type": "boolean"},
+    "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "losses": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/finding"}
+    },
+    "warnings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/finding"}
+    },
+    "preserved": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "category", "path", "detail", "recoverability", "action"],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[LWE][0-9]{3}_[A-Z0-9_]+$"},
+        "severity": {"enum": ["loss", "warning", "error"]},
+        "category": {"enum": ["structure", "identity", "order", "type", "lexeme", "extension", "presentation", "verbatim", "metadata"]},
+        "path": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1},
+        "recoverability": {"enum": ["fully-recoverable", "from-source-only", "manual-review", "irrecoverable", "not-applicable"]},
+        "action": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "case": "I412_bad_attrs_index",
+  "required_code": "H441",
+  "severity": "error"
+}

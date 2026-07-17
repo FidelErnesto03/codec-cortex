@@ -1,0 +1,49 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install package
+        run: pip install -e .
+      - name: Smoke test — import
+        run: python -c "from codec_cortex.parser import parse_cortex; print('✅ import OK')"
+      - name: Smoke test — C14N
+        run: |
+          python -c "
+          from codec_cortex.parser import parse_cortex
+          from codec_cortex.c14n import canonicalize
+          doc = parse_cortex(open('conformance/c14n/corpus/input/C001_minimal_attrs.cortex').read())
+          canon = canonicalize(doc).encode()
+          golden = open('conformance/c14n/corpus/canonical/C001_minimal_attrs.cortex','rb').read()
+          assert canon == golden, 'C14N mismatch!'
+          print('✅ C14N match')
+          "
+
+  pypi-publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: pypi
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build package
+        run: pip install build && python -m build
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

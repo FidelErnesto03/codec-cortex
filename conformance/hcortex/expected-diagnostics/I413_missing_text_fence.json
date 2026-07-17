@@ -1,0 +1,5 @@
+{
+  "case": "I413_missing_text_fence",
+  "required_code": "H460",
+  "severity": "error"
+}

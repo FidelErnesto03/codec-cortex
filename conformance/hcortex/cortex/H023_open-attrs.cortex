@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+META:metadata{type:attrs,weight:B,fields:"value:text",focus:value,open:true,desc:"Atributos abiertos"}
+$1
+META:extra{value:"base",alpha:a,zeta:z}

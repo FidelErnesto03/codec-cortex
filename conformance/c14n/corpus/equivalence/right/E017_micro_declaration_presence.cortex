@@ -1,0 +1,5 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+KNW:k{type:attrs,weight:B,fields:"content:text|status:atom",focus:content,desc:"Conocimiento"}
+$1
+KNW:x{content:"Activo",status:current}

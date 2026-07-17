@@ -1,0 +1,14 @@
+{
+  "requiredCodes": [
+    "L002_INVALID_NAME"
+  ],
+  "primary": {
+    "code": "L002_INVALID_NAME",
+    "severity": "error",
+    "span": {
+      "line": 3,
+      "column": 1
+    },
+    "message": "Nombre inválido: 'bad name'."
+  }
+}
