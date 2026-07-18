@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 DAT:data{type:attrs,weight:B,fields:"name:text|count:int|ratio:dec|enabled:bool|missing:null",focus:name,desc:"Datos tipados"}
-$1
+$1:DATA
 DAT:sample{name:"Caso",count:3,ratio:0.75,enabled:true,missing:null}

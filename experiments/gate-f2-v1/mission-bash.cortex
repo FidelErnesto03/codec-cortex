@@ -1,4 +1,4 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:en}
 MSN:mission{type:attrs,weight:H,fields:"id:text|objective:text|lang:text",focus:objective,desc:"Mission specification for parser agents"}
 CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:atom",focus:rule,desc:"Non-negotiable execution constraint"}
@@ -7,14 +7,14 @@ TASK:step{type:attrs-pos,weight:M,pos:"step:text|action:text|output:text",focus:
 CRIT:criterion{type:attrs,weight:H,fields:"id:text|desc:text|target:atom",focus:desc,desc:"Acceptance criterion"}
 NOTE:note{type:cuerpo,weight:B,focus:body,desc:"Explanatory note"}
 
-$1: MISSION
+$1: MISSION:DATA
 MSN:gate_f2_mini{id:"BLP-003",objective:"Implement a partial CORTEX 0.1 parser in your assigned language using ONLY the normative artifacts provided. The parser must accept valid .cortex files, reject invalid ones, and produce AST JSON conforming to the schema.",lang:"Bash"}
 CNST:no_python{rule:"Do NOT read, copy, or reference the Python reference parser (cortex01_validator.py). Your implementation must be independent.",severity:blocking}
 CNST:normative_only{rule:"Use ONLY the following files to implement your parser: CORTEX-SPEC-0.1.md, cortex.ebnf, ast-schema.json, examples/manifest.json, and the corpus in examples/valid/ and examples/invalid/.",severity:blocking}
 CNST:ast_format{rule:"Your parser MUST output AST JSON that conforms to the ast-schema.json schema. Use stdout for JSON output. Use stderr for diagnostics and error messages.",severity:blocking}
 CNST:no_network{rule:"No network access allowed. All dependencies must be available locally or standard library.",severity:blocking}
 
-$2: ARTIFACTS
+$2: ARTIFACTS:DATA
 SPEC:spec{path:"CORTEX-SPEC-0.1.md",desc:"Normative specification — 34 sections defining the CORTEX 0.1 ideatic codec"}
 SPEC:grammar{path:"cortex.ebnf",desc:"Formal EBNF grammar of the CORTEX surface syntax"}
 SPEC:schema{path:"ast-schema.json",desc:"JSON Schema (2020-12) for the canonical AST representation"}
@@ -23,19 +23,19 @@ SPEC:corpus_valid{path:"examples/valid/",desc:"40 valid .cortex files with expec
 SPEC:corpus_invalid{path:"examples/invalid/",desc:"57 invalid .cortex files with required diagnostic codes"}
 SPEC:errors{path:"spec/errors.md",desc:"Diagnostic catalog — codes, severities, and messages"}
 
-$3: STEPS
+$3: STEPS:DATA
 TASK:step1|implement parser|Write a CORTEX 0.1 parser in Bash that implements the grammar from CORTEX-SPEC-0.1.md and cortex.ebnf. Must handle: $0 bootstrap, glossary resolution, all 5 shapes (attrs, attrs-pos, cuerpo, bloque, relacion), contracts, enums, microtokens, namespaces, extensions, and AST output.|parser binary/script
 TASK:step2|run valid cases|Execute your parser against each of the 40 valid .cortex files. Output AST JSON for each case to stdout.|40 JSON files
 TASK:step3|run invalid cases|Execute your parser against each of the 57 invalid .cortex files. Output diagnostic codes (the required set from manifest.json) to stdout for rejected cases. The parser must reject (non-zero exit) and emit the correct required diagnostic code(s).|57 diagnostic results
 TASK:step4|output repository|Save all outputs into a directory named after your language (e.g. rust/, go/, bash/). Include: your parser binary/script, 40 AST JSON files (valid-XXX.json), and 57 diagnostic result files (invalid-XXX.json).|organized results directory
 
-$4: CRITERIA
+$4: CRITERIA:DATA
 CRIT:C01{id:"C01",desc:"Parser accepts >= 36/40 valid cases (90%) and produces valid AST JSON conforming to schema",target:pct90}
 CRIT:C02{id:"C02",desc:"Parser rejects >= 51/57 invalid cases (90%) with correct required diagnostic codes",target:pct90}
 CRIT:C03{id:"C03",desc:"Parser does NOT import or reference Python code from the reference implementation",target:zero}
 CRIT:C04{id:"C04",desc:"All output JSON is syntactically valid and parsable by json.loads()",target:all}
 
-$5: NOTES
+$5: NOTES:DATA
 NOTE:success{The goal is NOT 100%. If you get stuck on a particular case, report which one and why. Every blocker is valuable feedback for the specification.}
 NOTE:timebox{If you can't implement the full grammar, implement a subset: $0 bootstrap, attrs shape, attrs-pos shape, and basic validation. Better a working subset than a broken complete.}
 NOTE:generic{You are a generic agent — no specific identity. Your output goes to a comparison matrix where 4 parsers (Python + Rust + Go + Bash) compete. Be honest, not proud.}

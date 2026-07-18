@@ -1,4 +1,4 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es,type:document}
 ENG:engineer{type:attrs,fields:"name:text|role:text",focus:role,desc:"Miembro del equipo de ingenieria"}
 OBJ:objective{type:attrs,fields:"desc:text|status:text",focus:desc,desc:"Objetivo del proyecto AetherOS"}
@@ -6,24 +6,24 @@ PRN:principle{type:attrs,fields:"desc:text|enforcement:text",focus:desc,desc:"Pr
 LSN:lesson{type:attrs,fields:"desc:text|phase:text",focus:desc,desc:"Leccion aprendida del diseño"}
 RSK:risk{type:attrs,fields:"desc:text|impact:text",focus:desc,desc:"Riesgo identificado del proyecto"}
 
-$1: EQUIPO DE INGENIERIA
+$1: EQUIPO DE INGENIERIA:DATA
 ENG:eng_1{name:"Valeria Rios",role:"Arquitecta de Kernel Core"}
 ENG:eng_2{name:"Marcos Soler",role:"Especialista en Subsistema de Memoria"}
 ENG:eng_3{name:"Diana Castro",role:"Ingeniera de Seguridad Zero-Trust"}
 ENG:eng_4{name:"Hugo Blanco",role:"Lider de Abstraccion de Hardware"}
 
-$2: OBJETIVOS DEL PROYECTO
+$2: OBJETIVOS DEL PROYECTO:DATA
 OBJ:obj_1{desc:"Alcanzar un tiempo de arranque frio inferior a 1.5 segundos",status:"En progreso"}
 OBJ:obj_2{desc:"Implementar aislamiento total de procesos en el espacio de usuario",status:"Diseño completado"}
 OBJ:obj_3{desc:"Mantener la latencia de IPC por debajo de 50 microsegundos",status:"Pendiente de validacion"}
 
-$3: PRINCIPIO DE DISEÑO NO NEGOCIABLE
+$3: PRINCIPIO DE DISEÑO NO NEGOCIABLE:DATA
 PRN:prin_1{desc:"Seguridad por defecto en todas las capas del sistema operativo",enforcement:"Estricto"}
 
-$4: LECCIONES APRENDIDAS DE LA FASE DE DISEÑO
+$4: LECCIONES APRENDIDAS DE LA FASE DE DISEÑO:DATA
 LSN:less_1{desc:"La sincronizacion de hilos tradicional genera cuellos de botella inaceptables en arquitecturas de microkernel puro",phase:"Fase de Diseño Arquitectonico"}
 LSN:less_2{desc:"Es necesario acoplar la gestion de energia directamente al planificador de tareas para optimizar el consumo",phase:"Fase de Diseño de Subsistemas"}
 
-$5: RIESGOS IDENTIFICADOS
+$5: RIESGOS IDENTIFICADOS:CORE
 RSK:risk_1{desc:"Incompatibilidad de drivers con arquitecturas de hardware legacy",impact:"Alto"}
 RSK:risk_2{desc:"Sobrecarga de memoria RAM debido a la duplicacion de tablas de paginacion aisladas",impact:"Critico"}

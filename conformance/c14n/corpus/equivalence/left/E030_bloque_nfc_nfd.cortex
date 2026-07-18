@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 BLK:b{type:bloque,weight:B,desc:"Bloque"}
-$1
+$1:DATA
 BLK:x{
 é
 }

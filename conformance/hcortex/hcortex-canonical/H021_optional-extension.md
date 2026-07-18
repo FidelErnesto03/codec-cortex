@@ -1,6 +1,7 @@
 <!-- HCORTEX v=0.1 t=canonical -->
 
 <!-- glossary
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 $0:extension_annotation{namespace:example.optional,id:annotation,version:0.1,required:false,config:"{\"preserve\":\"opaque\"}"}
@@ -9,7 +10,7 @@ KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?
 
 ## §1: Sección 1
 
-<!-- table:1 -->
+<!-- table:1 capa:KNOW -->
 <!-- KNW:extension --> | "Extensión" | "Se preserva sin ejecutar." |
 <!-- /table:1 -->
 

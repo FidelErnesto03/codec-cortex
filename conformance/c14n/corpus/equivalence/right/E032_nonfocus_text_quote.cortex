@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 REC:r{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Registro"}
-$1
+$1:DATA
 REC:x{topic:CORTEX,content:"Idea"}

@@ -26,9 +26,10 @@ class FormatDecl {
 }
 
 class MetaDecl {
-  constructor({ name, attrs, sourceLine = 1, source_line } = {}) {
+  constructor({ name, attrs, capa = null, sourceLine = 1, source_line } = {}) {
     this.name = name;
     this.attrs = attrs;
+    this.capa = capa;
     this.source_line = source_line ?? sourceLine;
   }
 }
@@ -118,15 +119,16 @@ class Idea {
 }
 
 class Section {
-  constructor({ id, title = null, ideas = [] } = {}) {
+  constructor({ id, title = null, ideas = [], capa = null } = {}) {
     this.id = id;
     this.title = title;
     this.ideas = ideas;
+    this.capa = capa;
   }
 }
 
 class Glossary {
-  constructor({ format = null, meta = [], enums = [], micros = [], namespaces = [], extensions = [], symbols = [] } = {}) {
+  constructor({ format = null, meta = [], enums = [], micros = [], namespaces = [], extensions = [], symbols = [], capa = null } = {}) {
     this.format = format;
     this.meta = meta;
     this.enums = enums;
@@ -134,6 +136,7 @@ class Glossary {
     this.namespaces = namespaces;
     this.extensions = extensions;
     this.symbols = symbols;
+    this.capa = capa;
   }
 }
 
@@ -229,6 +232,28 @@ function parseCortex(source) {
       continue;
     }
 
+    // $0:CAPA — start glossary with capa
+    let m0 = /^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$/.exec(stripped);
+    if (m0) {
+      if (inGlossary) throw new ParseError('G002_GLOSSARY_REOPENED', '$0 reopened', lineNo);
+      inGlossary = true;
+      doc.glossary.capa = m0[1];
+      i += 1;
+      continue;
+    }
+
+    // $N:CAPA — section with capa but no title (N>=1)
+    let mn = /^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$/.exec(stripped);
+    if (mn) {
+      const sid = Number.parseInt(mn[1], 10);
+      const capa = mn[2];
+      currentSection = new Section({ id: sid, title: null, ideas: [], capa });
+      doc.sections.push(currentSection);
+      inGlossary = false;
+      i += 1;
+      continue;
+    }
+
     let match = /^\$([0-9]+)(?:\s+(.*))?$/.exec(stripped);
     if (match && !stripped.startsWith('$0:')) {
       const sid = Number.parseInt(match[1], 10);
@@ -239,8 +264,16 @@ function parseCortex(source) {
         continue;
       }
       const titleRaw = match[2];
-      const title = titleRaw !== undefined ? titleRaw.trim() : null;
-      currentSection = new Section({ id: sid, title, ideas: [] });
+      let title = titleRaw !== undefined ? titleRaw.trim() : null;
+      let capa = null;
+      if (title) {
+        const cm = title.match(/:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)\s*$/);
+        if (cm) {
+          capa = cm[1];
+          title = title.slice(0, cm.index).trim();
+        }
+      }
+      currentSection = new Section({ id: sid, title, ideas: [], capa });
       doc.sections.push(currentSection);
       inGlossary = false;
       i += 1;
@@ -250,8 +283,14 @@ function parseCortex(source) {
     match = /^\$([1-9][0-9]*):\s+(.*)$/.exec(stripped);
     if (match) {
       const sid = Number.parseInt(match[1], 10);
-      const title = match[2].trim();
-      currentSection = new Section({ id: sid, title, ideas: [] });
+      let title = match[2].trim();
+      let capa = null;
+      const cm = title.match(/:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)\s*$/);
+      if (cm) {
+        capa = cm[1];
+        title = title.slice(0, cm.index).trim();
+      }
+      currentSection = new Section({ id: sid, title, ideas: [], capa });
       doc.sections.push(currentSection);
       inGlossary = false;
       i += 1;
@@ -294,17 +333,44 @@ function isGlossaryDeclLine(source) {
   return /^(?:[a-z][a-z0-9_.-]*::)?(?:!|[A-Z][A-Z0-9_]*):/.test(source);
 }
 
+function findMatchingBrace(line, openIdx) {
+  let depth = 0;
+  let inString = false;
+  for (let i = openIdx; i < line.length; i++) {
+    const c = line[i];
+    if (inString) {
+      if (c === '\\') { i += 1; continue; }
+      if (c === '"') inString = false;
+    } else if (c === '"') {
+      inString = true;
+    } else if (c === '{') {
+      depth++;
+    } else if (c === '}') {
+      depth--;
+      if (depth === 0) return i;
+    }
+  }
+  return -1;
+}
+
 function parseGlossaryDeclaration(line, doc, lineNo) {
   const braceIndex = line.indexOf('{');
   if (braceIndex < 0) {
     throw new ParseError('G004_GLOSSARY_DECLARATION_MUST_BE_ATTRS', `Glossary declaration must use attrs: ${pythonRepr(line)}`, lineNo);
   }
   let head = line.slice(0, braceIndex).trim();
-  const payloadString = line.slice(braceIndex);
   if (head.startsWith('$0:')) {
+    const closeBrace = findMatchingBrace(line, braceIndex);
+    if (closeBrace < 0) throw new ParseError('L008_UNCLOSED_BRACE', 'Missing closing } in meta declaration', lineNo);
+    const attrsString = line.slice(braceIndex, closeBrace + 1);
+    const rest = line.slice(closeBrace + 1).trim();
+    const attrs = parseAttrsPayload(attrsString, lineNo);
     const name = head.slice(3);
-    const attrs = parseAttrsPayload(payloadString, lineNo);
-    addMetaDeclaration(name, attrs, doc, lineNo);
+    let capa = null;
+    if (rest && /^:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$/.test(rest)) {
+      capa = rest.slice(1);
+    }
+    addMetaDeclaration(name, attrs, capa, doc, lineNo);
     return;
   }
   const match = /^(?:([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):(.+)$/.exec(head);
@@ -312,7 +378,7 @@ function parseGlossaryDeclaration(line, doc, lineNo) {
   const namespace = match[1] ?? null;
   const sigil = match[2];
   const label = match[3];
-  const attrs = parseAttrsPayload(payloadString, lineNo);
+  const attrs = parseAttrsPayload(line.slice(braceIndex), lineNo);
   doc.glossary.symbols.push(buildSymbolDef(namespace, sigil, label, attrs, lineNo));
 }
 
@@ -322,7 +388,7 @@ function pairsToMap(pairs) {
   return map;
 }
 
-function addMetaDeclaration(name, attrs, doc, lineNo) {
+function addMetaDeclaration(name, attrs, capa, doc, lineNo) {
   if (name === 'format') {
     if (doc.glossary.format !== null) throw new ParseError('G006_DUPLICATE_FORMAT', 'Duplicate $0:format', lineNo);
     const attrMap = pairsToMap(attrs);
@@ -363,7 +429,7 @@ function addMetaDeclaration(name, attrs, doc, lineNo) {
     return;
   }
 
-  doc.glossary.meta.push(new MetaDecl({ name, attrs, sourceLine: lineNo }));
+  doc.glossary.meta.push(new MetaDecl({ name, attrs, capa, sourceLine: lineNo }));
 }
 
 function buildSymbolDef(namespace, sigil, label, attrs, lineNo) {
@@ -491,6 +557,12 @@ function parsePipeCells(source, lineNo) {
   return cells;
 }
 
+function resolveCapa(section) {
+  if (section.capa !== null && section.capa !== undefined) return section.capa;
+  if (section.id >= 2) return 'DATA';
+  return null;
+}
+
 function classifyRawCell(raw, lineNo) { // eslint-disable-line no-unused-vars
   if (INT_RE.test(raw)) {
     const value = raw === '-0' ? '0' : raw;
@@ -537,4 +609,6 @@ module.exports = {
   _parse_pipe_cells: parsePipeCells,
   classifyRawCell,
   _classify_raw_cell: classifyRawCell,
+  resolveCapa,
+  resolve_capa: resolveCapa,
 };

@@ -1,0 +1,50 @@
+{
+  "reviewer": {
+    "name": "independent-bash-reviewer",
+    "language": "Bash 4.3+",
+    "started_at": "2026-07-18T14:55:57Z",
+    "completed_at": "2026-07-18T14:56:18Z"
+  },
+  "phase3": {
+    "golden_pass": 40,
+    "idempotence_pass": 40,
+    "total": 40,
+    "failures": [],
+    "status": "PASS"
+  },
+  "phase4": {
+    "roundtrip_pass": 5,
+    "idempotence_pass": 5,
+    "invalid_diag_pass": 2,
+    "view_dependencies": 0,
+    "failures": [],
+    "status": "PASS"
+  },
+  "findings": null,
+  "verdict": "PASS"
+}
+{
+  "reviewer": {
+    "name": "independent-bash-reviewer",
+    "language": "Bash 4.3+",
+    "started_at": "2026-07-18T14:55:57Z",
+    "completed_at": "2026-07-18T14:56:18Z"
+  },
+  "phase3": {
+    "golden_pass": 40,
+    "idempotence_pass": 40,
+    "total": 40,
+    "failures": [],
+    "status": "PASS"
+  },
+  "phase4": {
+    "roundtrip_pass": 5,
+    "idempotence_pass": 5,
+    "invalid_diag_pass": 2,
+    "view_dependencies": 0,
+    "failures": [],
+    "status": "PASS"
+  },
+  "findings": null,
+  "verdict": "PASS"
+}

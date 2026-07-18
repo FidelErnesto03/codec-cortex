@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:text|requires:text|notes:text?",focus:operation,desc:"Operación determinista"}
-$1
+$1:DATA
 HDL:render|convertir CORTEX a HCORTEX|current|entrada CORTEX válida|preservar estructura

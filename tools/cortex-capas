@@ -1,0 +1,214 @@
+#!/usr/bin/env python3
+"""
+cortex-capas — Auto-asigna capas de profundidad cortical a archivos .cortex.
+
+USO:
+  cortex-capas <archivo.cortex>         # un archivo
+  cortex-capas --dir <directorio>        # todos los .cortex bajo un dir
+  cortex-capas --all                     # todo el proyecto (desde .)
+  cortex-capas --dry-run <archivo>       # solo mostrar lo que haría
+
+CAPAS: KERNEL → CORE → KNOW → DATA → FLOW → CACHE
+
+Reglas de auto-asignación:
+  $0                    → KERNEL (siempre, inamovible)
+  Secciones con AXM/LIM → CORE   (reglas, restricciones, alertas)
+  Secciones con LNG/SKL → KNOW   (lecciones, skills, conocimiento)
+  Secciones con WRK/TSK/FCS → FLOW  (sesión activa, trabajo en curso)
+  Secciones con PULSE/HND/SES → CACHE (transitorio, handoff)
+  Secciones con PRJ/RSK/DEC → CORE  (proyectos, riesgos, decisiones)
+  Resto                  → DATA   (datos de referencia consultables)
+"""
+
+import re
+import os
+import sys
+import argparse
+from pathlib import Path
+
+# ---- Heurísticas de auto-asignación ----
+# Cada tupla: (set_de_sigilos, capa)
+# Se evalúa en orden: primera coincidencia gana.
+
+SIGIL_TO_CAPA = [
+    # CACHE: transitorio, handoff, pulse
+    ({'PULSE', 'HND', 'SES', 'HANDOFF', 'EVT'}, 'CACHE'),
+    # FLOW: sesión activa, trabajo en curso
+    ({'WRK', 'TSK', 'FCS', 'TST', 'CTX', 'GEN'}, 'FLOW'),
+    # KNOW: lecciones, skills, conocimiento procesado
+    ({'LNG', 'SKL', 'KNW', 'IDN', 'DESC'}, 'KNOW'),
+    # CORE: reglas, restricciones, riesgos, decisiones, métricas
+    ({'AXM', 'LIM', 'RUL', 'RSK', 'DEC', 'OBJ', 'PRJ', 'DEP', 'REG', 'TIE', 'WK', 'MTR', 'FMT', 'VAL'}, 'CORE'),
+]
+
+CAPAS_VALIDAS = {'KERNEL', 'CORE', 'KNOW', 'DATA', 'FLOW', 'CACHE'}
+
+SECTION_RE = re.compile(r'^(\$)(\d+(?:\.\d+)?)(:\s*.+)?$')
+META_RE = re.compile(r'^\$0:(?:format|enum_|micro_|namespace_|extension_)')
+SIGIL_RE = re.compile(r'^([A-Z][A-Z0-9]{1,5}):')
+
+
+def detect_sigils_in_section(lines, start_idx):
+    """Detecta sigilos usados en una sección (desde start_idx hasta el próximo $N)."""
+    sigils = set()
+    for i in range(start_idx + 1, len(lines)):
+        line = lines[i].strip()
+        if SECTION_RE.match(line):
+            break
+        m = SIGIL_RE.match(line)
+        if m:
+            sigils.add(m.group(1))
+    return sigils
+
+
+def auto_capa(section_num, sigils, title):
+    """Determina la capa automática basada en sigilos detectados."""
+    if section_num == 0:
+        return 'KERNEL'
+
+    for sigil_set, capa in SIGIL_TO_CAPA:
+        if sigils & sigil_set:
+            return capa
+
+    return 'DATA'
+
+
+def apply_capas(content, dry_run=False):
+    """Aplica capas a un contenido .cortex. Retorna (nuevo_contenido, cambios)."""
+    lines = content.split('\n')
+    changes = []
+
+    # Primera pasada: detectar secciones y sus sigilos
+    sections = []
+    for i, line in enumerate(lines):
+        m = SECTION_RE.match(line)
+        if m and not META_RE.match(line):
+            section_str = m.group(2)
+            sec_num = int(section_str) if '.' not in section_str else float(section_str)
+            sigils = detect_sigils_in_section(lines, i)
+            title = m.group(3) if m.group(3) else ''
+            sections.append({
+                'idx': i,
+                'num': sec_num,
+                'str': section_str,
+                'title': title,
+                'sigils': sigils,
+                'line': line,
+            })
+
+    # Segunda pasada: asignar capas
+    new_lines = list(lines)
+    offset = 0
+    for sec in sections:
+        idx = sec['idx'] + offset
+        line = new_lines[idx]
+        sec_num = sec['num']
+        title = sec['title']
+        sigils = sec['sigils']
+
+        # ¿Ya tiene capa?
+        if re.search(r':(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)\s*$', line):
+            continue
+
+        capa = auto_capa(sec_num, sigils, title)
+
+        if sec['title']:
+            new_line = f"${sec['str']}{sec['title']}:{capa}"
+        else:
+            new_line = f"${sec['str']}:{capa}"
+
+        changes.append({
+            'section': sec['str'],
+            'title': sec['title'].strip(),
+            'sigils': sigils,
+            'capa': capa,
+            'old': line,
+            'new': new_line,
+        })
+
+        if not dry_run:
+            new_lines[idx] = new_line
+
+    return '\n'.join(new_lines), changes
+
+
+def process_file(filepath, dry_run=False):
+    """Procesa un archivo .cortex."""
+    if not os.path.exists(filepath):
+        return None, f"NOT_FOUND: {filepath}"
+
+    with open(filepath, 'r') as f:
+        original = f.read()
+
+    new_content, changes = apply_capas(original, dry_run)
+
+    if not changes:
+        return 0, f"OK (sin cambios)"
+
+    if not dry_run:
+        with open(filepath, 'w') as f:
+            f.write(new_content)
+
+    return len(changes), changes
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Auto-asigna capas de profundidad cortical a archivos .cortex'
+    )
+    parser.add_argument('target', nargs='?', help='Archivo .cortex')
+    parser.add_argument('--dir', help='Directorio (recursivo)')
+    parser.add_argument('--all', action='store_true', help='Todo el proyecto')
+    parser.add_argument('--dry-run', action='store_true', help='Solo mostrar cambios')
+    args = parser.parse_args()
+
+    if not args.target and not args.dir and not args.all:
+        parser.print_help()
+        sys.exit(1)
+
+    files = []
+    if args.all:
+        base = Path.cwd()
+    elif args.dir:
+        base = Path(args.dir)
+    else:
+        base = Path(args.target)
+        if base.is_file():
+            files = [str(base)]
+            base = None
+
+    if base and not files:
+        for ext in ('*.cortex', '*.md'):
+            files.extend(str(p) for p in base.rglob(ext))
+        files = sorted(set(files))
+
+    total_files = 0
+    total_sections = 0
+
+    for fpath in files:
+        result = process_file(fpath, dry_run=args.dry_run)
+        if result is None:
+            continue
+        count, detail = result
+        total_files += 1
+
+        if isinstance(detail, list):
+            total_sections += count
+            if args.dry_run:
+                print(f"\n📄 {fpath} ({count} secciones)")
+                for ch in detail:
+                    sigil_str = ','.join(ch['sigils']) if ch['sigils'] else '∅'
+                    print(f"  ${ch['section']} → {ch['capa']:6s} | sigilos: {sigil_str}")
+            else:
+                print(f"✅ {fpath}: {count} secciones → capa")
+        else:
+            if 'sin cambios' not in detail:
+                print(f"  {detail}")
+
+    print(f"\n📊 {total_files} archivos | {total_sections} secciones actualizadas")
+    if args.dry_run:
+        print("⚠️  Modo dry-run — no se modificó nada.")
+
+
+if __name__ == '__main__':
+    main()

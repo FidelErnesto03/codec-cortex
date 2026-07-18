@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 AAA:a{type:attrs,weight:B,fields:"value:text",focus:value,desc:"A"}
 ZZZ:z{type:attrs,weight:B,fields:"value:text",focus:value,desc:"Z"}
-$1
+$1:DATA
 AAA:a{value:"A"}
 ZZZ:z{value:"Z"}

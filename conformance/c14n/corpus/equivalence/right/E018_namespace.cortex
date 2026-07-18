@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:namespace_agent{id:other,version:0.1,required:false}
 other::FCS:f{type:attrs,weight:H,fields:"what:text",focus:what,desc:"Foco"}
-$1
+$1:DATA
 other::FCS:primary{what:"Formalizar CORTEX"}

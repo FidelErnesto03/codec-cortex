@@ -23,7 +23,7 @@
 |---|---|
 | Comienza con `$0` | Crítico |
 | Declara ≥3 sigilos en `$0` con `type` y `fields` | Crítico |
-| Usa `$N: TITULO` para secciones | Crítico |
+| Usa `$N: TITULO` para secciones (`:CAPA` opcional) | Crítico |
 | Pasa validación del parser Python sin errores | Crítico |
 | ≥5 secciones, ≥8 ideas | Alto |
 | Contiene los 5 elementos pedidos | Crítico |

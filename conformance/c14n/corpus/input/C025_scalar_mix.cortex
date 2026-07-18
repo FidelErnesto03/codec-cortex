@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 DAT:d{type:attrs,weight:B,fields:"a:any|b:any|c:any|d:any|e:any|f:any",focus:a,desc:"Datos"}
-$1
+$1:DATA
 DAT:x{a:"texto",b:atom,c:-2,d:0.500,e:false,f:null}

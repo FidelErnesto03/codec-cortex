@@ -51,20 +51,20 @@ fn inherited_open_attrs_projection_is_explicitly_pinned() {
     let (compiled, diagnostics) = compile_hcortex(&rendered);
     assert!(diagnostics.is_empty());
     let roundtrip = canonicalize(&compiled.unwrap());
-    assert_ne!(roundtrip, FULL_CANONICAL);
+    assert_eq!(roundtrip, FULL_CANONICAL);
     assert!(FULL_CANONICAL.contains("extra:z"));
-    assert!(!roundtrip.contains("extra:z"));
+    assert!(roundtrip.contains("extra:z"));
 }
 
 #[test]
 fn reference_hash_vectors_are_stable() {
     assert_eq!(
         sha256_bytes(ROUNDTRIP_CANONICAL.as_bytes()),
-        "fbee0b99e464dfee332c2e6ed21f60b28c7f46764e66dc05b6efa243bf649c58"
+        "1dcf138c379166f665338d8b57e7d8e063b2c4d078d51de7599ef791698a054e"
     );
     assert_eq!(
         sha256_bytes(ROUNDTRIP_HCORTEX.as_bytes()),
-        "35ed3d5381050ca31a775ecd62b0e16406a02b61b8d91e1e851102ca80556242"
+        "49883171732ad638611f3f8a4e61d36eac2a0e81df74f0440d7d23df41009130"
     );
 }
 

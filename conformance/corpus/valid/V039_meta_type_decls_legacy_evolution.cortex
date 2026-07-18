@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
-$0:type_decls{values:"attrs|attrs-pos|cuerpo|bloque|relacion",note:"declaración informativa preservada"}
+$0:type_decls{values:"attrs|attrs-pos|cuerpo|bloque|relacion",note:"declaración informativa preservada"}:KERNEL
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
-$1
+$1:KNOW
 KNW:types{topic:"Tipos",content:"El conjunto fundamental permanece pequeño."}

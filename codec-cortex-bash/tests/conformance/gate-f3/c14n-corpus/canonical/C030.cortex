@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8}
 T:item{type:attrs,weight:B,fields:"text:text|n:integer?",focus:text,desc:"Item"}
-$1: Case 30
+$1: Case 30:DATA
 T:a{text:"value 30",n:0}

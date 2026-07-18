@@ -1,6 +1,7 @@
 <!-- HCORTEX v=0.1 t=canonical -->
 
 <!-- glossary
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:namespace_agent{uri:"urn:agent",version:"0.1"}
 $0:namespace_project{uri:"urn:project",version:"0.1"}
@@ -10,7 +11,7 @@ project::KNW:knowledge{type:attrs,weight:B,fields:"content:text",focus:content,d
 
 ## §1: Sección 1
 
-<!-- table:1 -->
+<!-- table:1 capa:DATA -->
 <!-- agent::KNW:a --> | "Agente" |
 <!-- project::KNW:p --> | "Proyecto" |
 <!-- /table:1 -->

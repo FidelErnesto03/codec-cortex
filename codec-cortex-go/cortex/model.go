@@ -49,6 +49,7 @@ type MetaDecl struct {
 	Name       string `json:"name"`
 	Attrs      []Attr `json:"attrs"`
 	SourceLine int    `json:"source_line"`
+	Capa       string `json:"capa,omitempty"`
 }
 
 type EnumDecl struct {
@@ -129,10 +130,12 @@ func (i Idea) Address() string {
 type Section struct {
 	ID    int     `json:"id"`
 	Title *string `json:"title"`
+	Capa  string  `json:"capa"`
 	Ideas []Idea  `json:"ideas"`
 }
 
 type Glossary struct {
+	Capa       string          `json:"capa"`
 	Format     *FormatDecl     `json:"format,omitempty"`
 	Meta       []MetaDecl      `json:"meta"`
 	Enums      []EnumDecl      `json:"enums"`

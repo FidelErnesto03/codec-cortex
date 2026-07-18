@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 
-$1: HANDOFF
+$1: HANDOFF:DATA
 
 HOF:handoff{from:"alfred", to:"jarvis
 summary:Heimdall aprobo release v0.6.0 con salvedad. Hay 3 puntos que solventar: (1) F401 unused import session as cmd_session en main.py", project:"CODEC-CORTEX", summary:"", blps:"", tasks:""}

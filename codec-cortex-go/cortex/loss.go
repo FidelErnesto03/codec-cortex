@@ -44,7 +44,7 @@ func ExplainHCORTEXLoss(doc *Document) []LossDiagnostic {
 		if sec.Title == nil {
 			out = append(out, LossDiagnostic{Code: "HLOSS004_UNTITLED_SECTION", Severity: "warning", Message: "renderer synthesizes a section title, changing the structural form on roundtrip", Address: fmt.Sprintf("$%d", sec.ID)})
 		}
-		schema := determineSectionSchema(sec)
+        schema := determineSectionSchema(sec, doc)
 		for _, idea := range sec.Ideas {
 			sym := doc.FindSymbol(idea.Namespace, idea.Symbol)
 			if schema == "table" && idea.Shape == "attrs" && sym != nil {

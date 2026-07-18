@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:namespace_agent{uri:"urn:cortex:agent",version:"0.1"}
 agent::KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento namespaced"}
-$1
+$1:DATA
 agent::KNW:codec{topic:Namespace,content:"El símbolo conserva su namespace."}

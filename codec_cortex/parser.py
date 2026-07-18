@@ -32,6 +32,7 @@ class FormatDecl:
 class MetaDecl:
     name: str
     attrs: List[Tuple[str, Scalar]]
+    capa: Optional[str] = None
     source_line: int = 1
 
 
@@ -113,6 +114,7 @@ class Section:
     id: int
     title: Optional[str]
     ideas: List[Idea]
+    capa: Optional[str] = None  # KERNEL|CORE|KNOW|DATA|FLOW|CACHE
 
 
 @dataclass
@@ -124,6 +126,7 @@ class Glossary:
     namespaces: List[NamespaceDecl] = field(default_factory=list)
     extensions: List[ExtensionDecl] = field(default_factory=list)
     symbols: List[SymbolDef] = field(default_factory=list)
+    capa: Optional[str] = None  # $0 capa (KERNEL), populated when parser sees $0:CAPA
 
 
 @dataclass
@@ -132,6 +135,20 @@ class Document:
     encoding: str = "UTF-8"
     glossary: Glossary = field(default_factory=Glossary)
     sections: List[Section] = field(default_factory=list)
+
+
+def resolve_capa(section: Section) -> Optional[str]:
+    """Return the effective capa for a section.
+
+    - $0 is always KERNEL (handled via glossary.capa)
+    - $1 returns its explicit capa or None
+    - $N (N>=2) returns its explicit capa, or 'DATA' as default for legacy sections
+    """
+    if section.capa is not None:
+        return section.capa
+    if section.id >= 2:
+        return "DATA"
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -217,7 +234,36 @@ def parse_cortex(source: str) -> Document:
 
         # Section header? Only `$0` (bare) starts the glossary. `$N` (N>=1) starts a section.
         # `$0:name{...}` is a meta-declaration handled below.
+        # Supports optional :CAPA suffix on section headers ($1: Title:CAPA, $0: Title:KERNEL).
+        # Also handles `$0:CAPA` (no title, just capa).
         m = re.match(r"^\$([0-9]+)(?:\s+(.*))?$", stripped)
+        m0 = re.match(r"^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$", stripped)
+        if m0:
+            # $0:CAPA — start glossary
+            if in_glossary:
+                raise ParseError("G002_GLOSSARY_REOPENED", "$0 reopened", line_no)
+            in_glossary = True
+            doc.glossary.capa = m0.group(1)
+            i += 1
+            continue
+        # $0: Title or $0: Title:CAPA
+        m0t = re.match(r"^\$0:\s+(.*)$", stripped)
+        if m0t and not re.match(r"^\$0:\s*(?:format|enum_|micro_|namespace_|extension_)", stripped):
+            if in_glossary:
+                raise ParseError("G002_GLOSSARY_REOPENED", "$0 reopened", line_no)
+            in_glossary = True
+            i += 1
+            continue
+        # $N:CAPA — section with capa but no title (N>=1)
+        mn = re.match(r"^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$", stripped)
+        if mn:
+            sid = int(mn.group(1))
+            capa = mn.group(2)
+            current_section = Section(id=sid, title=None, ideas=[], capa=capa)
+            doc.sections.append(current_section)
+            in_glossary = False
+            i += 1
+            continue
         if m and not stripped.startswith("$0:"):
             sid = int(m.group(1))
             if sid == 0:
@@ -230,18 +276,30 @@ def parse_cortex(source: str) -> Document:
             # Regular section
             title_raw = m.group(2)
             title = title_raw.strip() if title_raw is not None else None
-            current_section = Section(id=sid, title=title, ideas=[])
+            capa = None
+            if title:
+                cm = re.search(r':(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)\s*$', title)
+                if cm:
+                    capa = cm.group(1)
+                    title = title[:cm.start()].strip()
+            current_section = Section(id=sid, title=title, ideas=[], capa=capa)
             doc.sections.append(current_section)
             in_glossary = False  # exit glossary mode
             i += 1
             continue
 
         # Section header with title: `$N: title` (requires space after :)
+        # Supports optional :CAPA suffix: `$N: title:CAPA`
         m = re.match(r"^\$([1-9][0-9]*):\s+(.*)$", stripped)
         if m:
             sid = int(m.group(1))
             title = m.group(2).strip()
-            current_section = Section(id=sid, title=title, ideas=[])
+            capa = None
+            cm = re.search(r':(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)\s*$', title)
+            if cm:
+                capa = cm.group(1)
+                title = title[:cm.start()].strip()
+            current_section = Section(id=sid, title=title, ideas=[], capa=capa)
             doc.sections.append(current_section)
             in_glossary = False  # exit glossary mode
             i += 1
@@ -290,13 +348,20 @@ def _parse_glossary_declaration(line: str, doc: Document, line_no: int):
     if brace_idx < 0:
         raise ParseError("G004_GLOSSARY_DECLARATION_MUST_BE_ATTRS",
                          f"Glossary declaration must use attrs: {line!r}", line_no)
+    close_idx = _find_matching_brace(line, brace_idx)
     head = line[:brace_idx]
-    payload_str = line[brace_idx:]
+    payload_str = line[brace_idx:close_idx + 1]
+    tail = line[close_idx + 1:].strip()
+    capa = None
+    if tail:
+        cm = re.match(r"^:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$", tail)
+        if cm:
+            capa = cm.group(1)
     head = head.strip()
     if head.startswith("$0:"):
         name = head[3:]
         attrs = parse_attrs_payload(payload_str, line_no)
-        _add_meta_declaration(name, attrs, doc, line_no)
+        _add_meta_declaration(name, attrs, doc, line_no, capa=capa)
     else:
         # Sigil declaration
         m = re.match(r"^(?:([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):(.+)$", head)
@@ -310,7 +375,21 @@ def _parse_glossary_declaration(line: str, doc: Document, line_no: int):
         doc.glossary.symbols.append(sym)
 
 
-def _add_meta_declaration(name: str, attrs: List[Tuple[str, Scalar]], doc: Document, line_no: int):
+def _find_matching_brace(line: str, brace_idx: int) -> int:
+    depth = 0
+    i = brace_idx
+    while i < len(line):
+        if line[i] == '{':
+            depth += 1
+        elif line[i] == '}':
+            depth -= 1
+            if depth == 0:
+                return i
+        i += 1
+    raise ParseError("S006_INVALID_ATTRS", "Unclosed {", 1, 1)
+
+
+def _add_meta_declaration(name: str, attrs: List[Tuple[str, Scalar]], doc: Document, line_no: int, capa: Optional[str] = None):
     if name == "format":
         if doc.glossary.format is not None:
             raise ParseError("G006_DUPLICATE_FORMAT", "Duplicate $0:format", line_no)
@@ -357,7 +436,7 @@ def _add_meta_declaration(name: str, attrs: List[Tuple[str, Scalar]], doc: Docum
         return
 
     # Other meta-declaration
-    doc.glossary.meta.append(MetaDecl(name=name, attrs=attrs, source_line=line_no))
+    doc.glossary.meta.append(MetaDecl(name=name, attrs=attrs, capa=capa, source_line=line_no))
 
 
 def _build_symbol_def(ns: Optional[str], sigil: str, label: str,

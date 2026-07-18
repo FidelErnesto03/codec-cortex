@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 REC:r{type:attrs,weight:B,fields:"first:text|message:text|status:atom",focus:message,desc:"Registro"}
-$1
+$1:DATA
 REC:x{status:current,message:"Mensaje principal",first:"alpha"}

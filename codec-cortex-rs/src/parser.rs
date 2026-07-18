@@ -10,6 +10,18 @@ use crate::scalars::{
     StringCursor,
 };
 
+fn capa_glossary_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$").unwrap())
+}
+fn capa_section_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$").unwrap())
+}
+fn capa_suffix_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r":(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)\s*$").unwrap())
+}
 fn section_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
     RE.get_or_init(|| Regex::new(r"^\$([0-9]+)(?:\s+(.*))?$").unwrap())
@@ -17,6 +29,15 @@ fn section_re() -> &'static Regex {
 fn titled_section_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
     RE.get_or_init(|| Regex::new(r"^\$([1-9][0-9]*):\s+(.*)$").unwrap())
+}
+
+fn extract_capa(title: &str) -> (String, Option<String>) {
+    if let Some(caps) = capa_suffix_re().captures(title) {
+        let m = caps.get(0).unwrap();
+        (title[..m.start()].trim().to_string(), Some(caps[1].to_string()))
+    } else {
+        (title.to_string(), None)
+    }
 }
 fn glossary_idea_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
@@ -83,32 +104,66 @@ pub fn parse_cortex(source: &str) -> Result<Document, ParseError> {
         let stripped = raw.trim();
         if stripped.is_empty() || stripped.starts_with('#') { i += 1; continue; }
 
-        if let Some(caps) = section_re().captures(stripped) {
-            if !stripped.starts_with("$0:") {
-                let sid: u64 = caps[1].parse().unwrap();
-                if sid == 0 {
-                    if in_glossary { return Err(ParseError::at("G002_GLOSSARY_REOPENED", "$0 reopened", line_no, 0)); }
-                    in_glossary = true;
-                    current_section = None;
-                } else {
-                    let title = caps.get(2).map(|m| m.as_str().trim().to_string());
-                    doc.sections.push(Section { id: sid, title, ideas: Vec::new() });
-                    current_section = Some(doc.sections.len() - 1);
-                    in_glossary = false;
-                }
-                i += 1;
-                continue;
-            }
+        // $0:CAPA — bare glossary capa
+        if let Some(caps) = capa_glossary_re().captures(stripped) {
+            if in_glossary { return Err(ParseError::at("G002_GLOSSARY_REOPENED", "$0 reopened", line_no, 0)); }
+            in_glossary = true;
+            current_section = None;
+            doc.glossary.capa = Some(caps[1].to_string());
+            i += 1;
+            continue;
         }
 
-        if let Some(caps) = titled_section_re().captures(stripped) {
+        // $N:CAPA — section with capa, no title
+        if let Some(caps) = capa_section_re().captures(stripped) {
             let sid: u64 = caps[1].parse().unwrap();
-            let title = caps[2].trim().to_string();
-            doc.sections.push(Section { id: sid, title: Some(title), ideas: Vec::new() });
+            let capa = Some(caps[2].to_string());
+            doc.sections.push(Section { id: sid, title: None, ideas: Vec::new(), capa });
             current_section = Some(doc.sections.len() - 1);
             in_glossary = false;
             i += 1;
             continue;
+        }
+
+        // Titled section: $N: title (:CAPA optional)
+        if let Some(caps) = titled_section_re().captures(stripped) {
+            let sid: u64 = caps[1].parse().unwrap();
+            let raw_title = caps[2].trim().to_string();
+            let (title, capa) = extract_capa(&raw_title);
+            doc.sections.push(Section { id: sid, title: Some(title), ideas: Vec::new(), capa });
+            current_section = Some(doc.sections.len() - 1);
+            in_glossary = false;
+            i += 1;
+            continue;
+        }
+
+        // Section header ($N or $N rest). $0: prefixed lines fall through to glossary handler.
+        if let Some(caps) = section_re().captures(stripped) {
+            let sid: u64 = caps[1].parse().unwrap();
+            if sid == 0 && !stripped.starts_with("$0:") {
+                // Bare $0 — start glossary
+                if in_glossary { return Err(ParseError::at("G002_GLOSSARY_REOPENED", "$0 reopened", line_no, 0)); }
+                in_glossary = true;
+                current_section = None;
+                i += 1;
+                continue;
+            }
+            if sid != 0 {
+                let raw_title = caps.get(2).map(|m| m.as_str().trim().to_string());
+                let (title, capa) = match raw_title {
+                    Some(t) => {
+                        let (t, c) = extract_capa(&t);
+                        (Some(t), c)
+                    }
+                    None => (None, None),
+                };
+                doc.sections.push(Section { id: sid, title, ideas: Vec::new(), capa });
+                current_section = Some(doc.sections.len() - 1);
+                in_glossary = false;
+                i += 1;
+                continue;
+            }
+            // sid == 0 and starts with "$0:" — fall through to glossary handler
         }
 
         if in_glossary {
@@ -142,6 +197,20 @@ pub fn parse_cortex(source: &str) -> Result<Document, ParseError> {
 
 fn is_glossary_decl_line(s: &str) -> bool { glossary_idea_re().is_match(s) }
 
+pub(crate) fn extract_trailing_capa(line: &str) -> Option<String> {
+    // Find last } and check for :CAPA after it
+    if let Some(close_idx) = line.rfind('}') {
+        let trailing = &line[close_idx + 1..].trim();
+        if let Some(capa) = trailing.strip_prefix(':') {
+            let capa = capa.trim();
+            if matches!(capa, "KERNEL" | "CORE" | "KNOW" | "DATA" | "FLOW" | "CACHE") {
+                return Some(capa.to_string());
+            }
+        }
+    }
+    None
+}
+
 fn parse_glossary_declaration(line: &str, doc: &mut Document, line_no: usize) -> Result<(), ParseError> {
     if !line.starts_with("$0:") && !is_glossary_decl_line(line) {
         return Err(ParseError::at(
@@ -158,9 +227,10 @@ fn parse_glossary_declaration(line: &str, doc: &mut Document, line_no: usize) ->
         0,
     ))?;
     let head = line[..brace_idx].trim();
-    let attrs = parse_attrs_payload(&line[brace_idx..], line_no)?;
+    let capa = extract_trailing_capa(line);
+    let attrs = parse_attrs_payload(line[brace_idx..].trim_end(), line_no)?;
     if let Some(name) = head.strip_prefix("$0:") {
-        add_meta_declaration(name, attrs, doc, line_no)
+        add_meta_declaration(name, attrs, doc, line_no, capa)
     } else {
         let caps = symbol_head_re().captures(head).ok_or_else(|| ParseError::at(
             "L001_INVALID_SYMBOL", format!("Invalid sigil declaration head: {head:?}"), line_no, 0))?;
@@ -177,7 +247,7 @@ fn attrs_map(attrs: &Attrs) -> HashMap<&str, &Scalar> {
     attrs.iter().map(|(k, v)| (k.as_str(), v)).collect()
 }
 
-fn add_meta_declaration(name: &str, attrs: Attrs, doc: &mut Document, line_no: usize) -> Result<(), ParseError> {
+fn add_meta_declaration(name: &str, attrs: Attrs, doc: &mut Document, line_no: usize, capa: Option<String>) -> Result<(), ParseError> {
     if name == "format" {
         if doc.glossary.format.is_some() { return Err(ParseError::at("G006_DUPLICATE_FORMAT", "Duplicate $0:format", line_no, 0)); }
         let map = attrs_map(&attrs);
@@ -214,7 +284,7 @@ fn add_meta_declaration(name: &str, attrs: Attrs, doc: &mut Document, line_no: u
         doc.glossary.extensions.push(ExtensionDecl { name: ext_name.to_string(), attrs, source_line: line_no });
         return Ok(());
     }
-    doc.glossary.meta.push(MetaDecl { name: name.to_string(), attrs, source_line: line_no });
+    doc.glossary.meta.push(MetaDecl { name: name.to_string(), attrs, source_line: line_no, capa });
     Ok(())
 }
 

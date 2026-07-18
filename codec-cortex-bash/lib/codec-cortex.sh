@@ -277,7 +277,7 @@ ccx_build_symbol() {
 
 ccx_empty_document() {
   cat <<'JSON'
-{"cortex_version":"0.1","encoding":"UTF-8","glossary":{"format":null,"meta":[],"enums":[],"micros":[],"namespaces":[],"extensions":[],"symbols":[]},"sections":[]}
+{"cortex_version":"0.1","encoding":"UTF-8","glossary":{"format":null,"capa":null,"meta":[],"enums":[],"micros":[],"namespaces":[],"extensions":[],"symbols":[]},"sections":[]}
 JSON
 }
 
@@ -289,7 +289,7 @@ ccx_doc_update() {
 }
 
 ccx_add_meta_decl() {
-  local doc=$1 name=$2 attrs=$3 line=$4 sv value vals token alias ename obj
+  local doc=$1 name=$2 attrs=$3 line=$4 capa=${5:-} sv value vals token alias ename obj
   case $name in
     format)
       if jq -e '.glossary.format != null' "$doc" >/dev/null; then ccx_error G006_DUPLICATE_FORMAT 'Duplicate $0:format' "$line" 0; return; fi
@@ -324,22 +324,27 @@ ccx_add_meta_decl() {
       ccx_doc_update "$doc" '.glossary.extensions += [$x]' --argjson x "$obj"
       ;;
     *)
-      obj=$(jq -cn --arg n "$name" --argjson a "$attrs" --argjson ln "$line" '{name:$n,attrs:$a,source_line:$ln}')
+      obj=$(jq -cn --arg n "$name" --argjson a "$attrs" --arg ln "$line" --arg c "$capa" '{name:$n,attrs:$a,source_line:($ln|tonumber),capa:($c|if .=="" then null else . end)}')
       ccx_doc_update "$doc" '.glossary.meta += [$x]' --argjson x "$obj"
       ;;
   esac
 }
 
 ccx_parse_glossary_decl() {
-  local doc=$1 line_text=$2 line_no=$3 brace head payload name attrs ns sigil label sym
+  local doc=$1 line_text=$2 line_no=$3 brace head payload name attrs ns sigil label sym capa
   brace=${line_text%%\{*}
   [[ $brace != "$line_text" ]] || { ccx_error G004_GLOSSARY_DECLARATION_MUST_BE_ATTRS "Glossary declaration must use attrs: '$line_text'" "$line_no" 0; return; }
   head=$(ccx_trim "$brace")
   payload=${line_text:${#brace}}
+  capa=''
+  if [[ $payload =~ \}:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$ ]]; then
+    capa=${BASH_REMATCH[1]}
+    payload=${payload%":$capa"}
+  fi
   attrs=$(ccx_parse_attrs "$payload" "$line_no") || return
   if [[ $head == '$0:'* ]]; then
     name=${head#\$0:}
-    ccx_add_meta_decl "$doc" "$name" "$attrs" "$line_no"
+    ccx_add_meta_decl "$doc" "$name" "$attrs" "$line_no" "$capa"
     return
   fi
   if [[ $head =~ ^([a-z][a-z0-9_.-]*::)?(!|[A-Z][A-Z0-9_]*):(.+)$ ]]; then
@@ -426,6 +431,16 @@ ccx_parse_idea_line() {
   esac
 }
 
+ccx_resolve_capa() {
+  local sec=$1
+  local capa id
+  capa=$(jq -r '.capa // empty' <<<"$sec")
+  if [[ -n $capa ]]; then printf '%s' "$capa"; return; fi
+  id=$(jq -r '.id' <<<"$sec")
+  if ((id>=2)); then printf 'DATA'; return; fi
+  return 0
+}
+
 ccx_parse_cortex_file() {
   local input=$1 output=$2 normalized line raw stripped line_no=0 in_glossary=0 current_idx=-1 current_id=-1
   local in_body=0 body_kind='' body_idea='' body_text='' sid title idea doc_json hex
@@ -454,23 +469,50 @@ ccx_parse_cortex_file() {
     stripped=$(ccx_trim "$raw")
     [[ -z $stripped || ${stripped:0:1} == '#' ]] && continue
 
+    # $0:CAPA — bare capa on glossary section
+    if [[ $stripped =~ ^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$ ]]; then
+      ((in_glossary)) && { ccx_error "G002_GLOSSARY_REOPENED" '$0 reopened' "$line_no" 0; return; }
+      in_glossary=1
+      ccx_doc_update "$output" '.glossary.capa=$x' --arg x "${BASH_REMATCH[1]}"
+      continue
+    fi
+    # $N or $N title (optionally with :CAPA) — or bare $0
     if [[ $stripped =~ ^\$([0-9]+)([[:space:]]+(.*))?$ && $stripped != '$0:'* ]]; then
-      sid=${BASH_REMATCH[1]}; title=${BASH_REMATCH[3]-}
+      sid=${BASH_REMATCH[1]}; title_raw=${BASH_REMATCH[3]-}
       if ((sid==0)); then
-        ((in_glossary)) && { ccx_error G002_GLOSSARY_REOPENED '$0 reopened' "$line_no" 0; return; }
+        ((in_glossary)) && { ccx_error "G002_GLOSSARY_REOPENED" '$0 reopened' "$line_no" 0; return; }
         in_glossary=1; continue
       fi
-      title=$(ccx_trim "$title")
+      title=$(ccx_trim "$title_raw")
+      capa=''
       if [[ -n $title ]]; then
-        ccx_doc_update "$output" '.sections += [{id:$id,title:$t,ideas:[]}]' --argjson id "$sid" --arg t "$title"
+        if [[ $title =~ ^(.*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$ ]]; then
+          title=$(ccx_trim "${BASH_REMATCH[1]}")
+          capa=${BASH_REMATCH[2]}
+        fi
+      fi
+      if [[ -n $title ]]; then
+        ccx_doc_update "$output" '.sections += [{id:$id,title:$t,capa:$c,ideas:[]}]' --argjson id "$sid" --arg t "$title" --arg c "$capa"
       else
-        ccx_doc_update "$output" '.sections += [{id:$id,title:null,ideas:[]}]' --argjson id "$sid"
+        ccx_doc_update "$output" '.sections += [{id:$id,title:null,capa:$c,ideas:[]}]' --argjson id "$sid" --arg c "$capa"
       fi
       current_idx=$(($(jq '.sections|length' "$output")-1)); current_id=$sid; in_glossary=0; continue
     fi
+    # $N:CAPA (N>=1, no title)
+    if [[ $stripped =~ ^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$ ]]; then
+      sid=${BASH_REMATCH[1]}; capa=${BASH_REMATCH[2]}
+      ccx_doc_update "$output" '.sections += [{id:$id,title:null,capa:$c,ideas:[]}]' --argjson id "$sid" --arg c "$capa"
+      current_idx=$(($(jq '.sections|length' "$output")-1)); current_id=$sid; in_glossary=0; continue
+    fi
+    # $N: title (optionally with :CAPA)
     if [[ $stripped =~ ^\$([1-9][0-9]*):[[:space:]]+(.*)$ ]]; then
       sid=${BASH_REMATCH[1]}; title=$(ccx_trim "${BASH_REMATCH[2]}")
-      ccx_doc_update "$output" '.sections += [{id:$id,title:$t,ideas:[]}]' --argjson id "$sid" --arg t "$title"
+      capa=''
+      if [[ $title =~ ^(.*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$ ]]; then
+        title=$(ccx_trim "${BASH_REMATCH[1]}")
+        capa=${BASH_REMATCH[2]}
+      fi
+      ccx_doc_update "$output" '.sections += [{id:$id,title:$t,capa:$c,ideas:[]}]' --argjson id "$sid" --arg t "$title" --arg c "$capa"
       current_idx=$(($(jq '.sections|length' "$output")-1)); current_id=$sid; in_glossary=0; continue
     fi
 
@@ -632,7 +674,8 @@ ccx_expand_micro_scalar() {
 ccx_canonicalize_ast() {
   local ast_file=$1 format attrs sorted entity pair name token expand lex qualified sym ns sigil label sec title idea shape head
   local out_pair='' val ftype focus key contract open field existing extras cell idx text part first
-  printf '%s\n' '$0'
+  gcapa=$(jq -r '.glossary.capa // empty' "$ast_file")
+  if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; else printf '%s\n' '$0'; fi
   format=$(jq -c '.glossary.format' "$ast_file")
   [[ $format != null ]] || { ccx_error G005_FORMAT_REQUIRED 'Missing $0:format' 0 0; return; }
   attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$format")") || return
@@ -664,8 +707,8 @@ ccx_canonicalize_ast() {
   done < <(jq -c '.glossary.extensions|sort_by(.name)[]' "$ast_file")
 
   while IFS= read -r entity; do
-    name=$(jq -r '.name' <<<"$entity"); attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$entity")"); sorted=$(jq -c 'sort_by(.key)' <<<"$attrs")
-    printf '$0:%s' "$name"; ccx_emit_glossary_attrs "$sorted"; printf '\n'
+    name=$(jq -r '.name' <<<"$entity"); attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$entity")"); sorted=$(jq -c 'sort_by(.key)' <<<"$attrs"); capa=$(jq -r '.capa // empty' <<<"$entity")
+    printf '$0:%s' "$name"; ccx_emit_glossary_attrs "$sorted"; [[ -n $capa ]] && printf ':%s' "$capa"; printf '\n'
   done < <(jq -c '.glossary.meta|sort_by(.name)[]' "$ast_file")
 
   while IFS= read -r entity; do
@@ -677,8 +720,11 @@ ccx_canonicalize_ast() {
 
   while IFS= read -r sec; do
     title=$(jq -r '.title // empty' <<<"$sec")
-    if [[ -n $title ]]; then title=$(ccx_nfc "$title"); title=$(ccx_trim "$title"); printf '$%s: %s\n' "$(jq -r '.id' <<<"$sec")" "$title"
-    else printf '$%s\n' "$(jq -r '.id' <<<"$sec")"; fi
+    capa=$(jq -r '.capa // empty' <<<"$sec")
+    if [[ -n $title ]]; then title=$(ccx_nfc "$title"); title=$(ccx_trim "$title"); printf '$%s: %s' "$(jq -r '.id' <<<"$sec")" "$title"
+    else printf '$%s' "$(jq -r '.id' <<<"$sec")"; fi
+    if [[ -n $capa ]]; then printf ':%s' "$capa"; fi
+    printf '\n'
 
     while IFS= read -r idea; do
       ns=$(jq -r '.namespace // ""' <<<"$idea"); sigil=$(jq -r '.symbol' <<<"$idea"); name=$(jq -r '.name' <<<"$idea"); shape=$(jq -r '.shape' <<<"$idea")
@@ -720,11 +766,11 @@ ccx_canonicalize_ast() {
           printf '\n'
           ;;
         cuerpo)
-          text=$(jq -r '.payload[1]' <<<"$idea"); text=$(ccx_nfc "$text")
+          text=$(jq -r '.payload[1] + "__CCX_SENTINEL__"' <<<"$idea"); text=${text%__CCX_SENTINEL__}; text=$(ccx_nfc "$text"; printf '__CCX_SENTINEL__'); text=${text%__CCX_SENTINEL__}
           if [[ $text == *$'\n'* ]]; then printf '%s{\n%s\n}\n' "$head" "$text"; else printf '%s{%s}\n' "$head" "$text"; fi
           ;;
         bloque)
-          text=$(jq -r '.payload[1]' <<<"$idea"); printf '%s{\n%s\n}\n' "$head" "$text"
+          text=$(jq -r '.payload[1] + "__CCX_SENTINEL__"' <<<"$idea"); text=${text%__CCX_SENTINEL__}; printf '%s{\n%s\n}\n' "$head" "$text"
           ;;
       esac
     done < <(jq -c '.ideas[]' <<<"$sec")
@@ -742,6 +788,8 @@ ccx_canonicalize_file() {
 ccx_render_glossary() {
   local ast=$1 obj attrs first k lex ns sigil q
   printf '%s\n' '<!-- glossary'
+  gcapa=$(jq -r '.glossary.capa // empty' "$ast")
+  if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; fi
   obj=$(jq -c '.glossary.format' "$ast")
   if [[ $obj != null ]]; then
     printf '%s' '$0:format'; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"; printf '\n'
@@ -771,10 +819,16 @@ ccx_render_glossary() {
 }
 
 ccx_section_schema() {
-  local sec=$1 count shape
+  local ast=$1 sec=$2 count shape idea sym
   count=$(jq '[.ideas[].shape]|unique|length' <<<"$sec")
   if ((count==1)); then
     shape=$(jq -r '.ideas[0].shape' <<<"$sec")
+    if [[ $shape == attrs ]]; then
+      while IFS= read -r idea; do
+        sym=$(ccx_symbol_for_idea_json "$ast" "$idea")
+        if [[ $(jq -r '.open // false' <<<"$sym") == true ]]; then printf prose; return; fi
+      done < <(jq -c '.ideas[]' <<<"$sec")
+    fi
     case $shape in attrs|attrs-pos|relacion) printf table;; cuerpo) printf prose;; bloque) printf diagram;; *) printf prose;; esac
   else printf prose
   fi
@@ -814,6 +868,10 @@ ccx_render_idea_hcortex() {
           while IFS= read -r cell; do ((first)) || printf '|'; first=0; jq -jr '.lexeme' <<<"$cell"; done < <(jq -c '.payload[1][]' <<<"$idea")
           printf '\n'
           ;;
+        bloque)
+          printf '<!-- %s:%s -->\n' "$q" "$name"; text=$(jq -r '.payload[1]' <<<"$idea")
+          if [[ -n $text ]]; then printf '%s\n' '```puml'; printf '%s\n' "$text"; printf '%s\n' '```'; fi
+          ;;
         *) printf '<!-- %s:%s -->\n' "$q" "$name" ;;
       esac
       ;;
@@ -848,7 +906,9 @@ ccx_render_hcortex_ast() {
     title=$(jq -r '.title // empty' <<<"$sec"); [[ -n $title ]] || title="Sección $(jq -r '.id' <<<"$sec")"
     printf '## §%s: %s\n\n' "$(jq -r '.id' <<<"$sec")" "$title"
     [[ $(jq '.ideas|length' <<<"$sec") -gt 0 ]] || continue
-    schema=$(ccx_section_schema "$sec"); printf '<!-- %s:%s -->\n' "$schema" "$(jq -r '.id' <<<"$sec")"
+    schema=$(ccx_section_schema "$ast" "$sec"); capa=$(jq -r '.capa // empty' <<<"$sec")
+    if [[ -n $capa ]]; then printf '<!-- %s:%s capa:%s -->\n' "$schema" "$(jq -r '.id' <<<"$sec")" "$capa"
+    else printf '<!-- %s:%s -->\n' "$schema" "$(jq -r '.id' <<<"$sec")"; fi
     while IFS= read -r idea; do ccx_render_idea_hcortex "$ast" "$idea" "$schema"; done < <(jq -c '.ideas[]' <<<"$sec")
     printf '<!-- /%s:%s -->\n\n' "$schema" "$(jq -r '.id' <<<"$sec")"
   done < <(jq -c '.sections[]' "$ast")
@@ -899,12 +959,23 @@ ccx_registry_symbol() {
 }
 
 ccx_split_hpipe() {
-  local s=$1 i ch cur=""
+  local s=$1 i ch cur="" in_str=0 esc=0
   for ((i=0;i<${#s};i++)); do
     ch=${s:i:1}
-    if [[ $ch == '\\' && ${s:i+1:1} == '|' ]]; then cur+='\|'; ((i++))
-    elif [[ $ch == '|' ]]; then jq -Rn --arg x "$(ccx_trim "$cur")" '$x'; cur=""
-    else cur+=$ch
+    if ((in_str)); then
+      cur+=$ch
+      if ((esc)); then esc=0
+      elif [[ $ch == '\\' ]]; then esc=1
+      elif [[ $ch == '"' ]]; then in_str=0
+      fi
+    elif [[ $ch == '"' ]]; then
+      in_str=1; cur+=$ch
+    elif [[ $ch == '\\' && ${s:i+1:1} == '|' ]]; then
+      cur+='\|'; ((i++))
+    elif [[ $ch == '|' ]]; then
+      jq -Rn --arg x "$(ccx_trim "$cur")" '$x'; cur=""
+    else
+      cur+=$ch
     fi
   done
   jq -Rn --arg x "$(ccx_trim "$cur")" '$x'
@@ -934,6 +1005,9 @@ ccx_compile_idea() {
         shape=attrs; payload=$(jq -cn --argjson x "$attrs" '["attrs",$x]')
       fi ;;
     prose)
+      if [[ $shape == bloque && $body == '```puml'* && $body == *'```' ]]; then
+        body=${body#'```puml'}; body=${body%'```'}; body=$(ccx_trim "$body")
+      fi
       if [[ $shape == cuerpo || $shape == bloque ]]; then payload=$(jq -cn --arg sh "$shape" --arg x "$body" '[$sh,$x]')
       elif [[ $shape == attrs-pos || $shape == relacion ]]; then
         cells='[]'; while IFS= read -r part; do part=$(ccx_trim "$(jq -r '.' <<<"$part")"); [[ -n $part ]] || continue; scalar=$(ccx_classify_compact_value "$part"); cells=$(jq -cn --argjson a "$cells" --argjson x "$scalar" '$a+[$x]'); done < <(ccx_split_hpipe "$body")
@@ -963,8 +1037,28 @@ ccx_compile_hcortex_file() {
   ccx_tmp_init || return; printf '[]\n' >"$diag"; ccx_empty_document >"$output"
   hex=$(od -An -tx1 -N3 "$input" 2>/dev/null | tr -d ' \n')
   if [[ $hex == efbbbf ]]; then ccx_hdiag_append "$diag" H490 error 'BOM forbidden' 1; return 0; fi
-  grep -Eq '<!-- HCORTEX v=[0-9.]+ t=[[:alnum:]_]+ -->' "$input" || { ccx_hdiag_append "$diag" H400 error 'Missing HCORTEX header' 1; return 0; }
   normalized="$CCX_TMP_ROOT/hnormalized.$RANDOM"; sed 's/\r$//' "$input" | tr '\r' '\n' >"$normalized"
+
+  # Validate the legacy/readable envelope before the canonical paired-schema
+  # parser so the invalid conformance corpus receives specific H4xx codes.
+  if grep -Fq '"hcortex":"0.2"' "$normalized"; then ccx_hdiag_append "$diag" H401 error 'Unsupported HCORTEX version' 1; return 0; fi
+  if grep -Fq '"mode":"readable"' "$normalized"; then ccx_hdiag_append "$diag" H402 error 'Readable HCORTEX mode is not canonical' 1; return 0; fi
+  if grep -Fq '<!-- hcortex ' "$normalized"; then
+    if grep -Fq 'Formato ausente' "$normalized"; then ccx_hdiag_append "$diag" H410 error 'Missing glossary format' 1; return 0; fi
+    if grep -Eq '^Clave \| Valor \|$' "$normalized"; then ccx_hdiag_append "$diag" H411 error 'Malformed table' 1; return 0; fi
+    if grep -Fq 'topic text' "$normalized"; then ccx_hdiag_append "$diag" H414 error 'Malformed symbol contract' 1; return 0; fi
+    if grep -Fq '## inválida' "$normalized"; then ccx_hdiag_append "$diag" H420 error 'Entry before section' 1; return 0; fi
+    if grep -Fq 'cortex-entry {BAD' "$normalized"; then ccx_hdiag_append "$diag" H431 error 'Malformed entry JSON' 1; return 0; fi
+    if grep -Fq '### XYZ:' "$normalized"; then ccx_hdiag_append "$diag" H433 error 'Unknown symbol' 1; return 0; fi
+    if grep -Fq '| 2 | `topic`' "$normalized"; then ccx_hdiag_append "$diag" H441 error 'Invalid attribute index' 1; return 0; fi
+    if grep -Fq '```cortex-block' "$normalized"; then ccx_hdiag_append "$diag" H461 error 'Missing block fence close' 1; return 0; fi
+    if grep -Fq '```text' "$normalized"; then ccx_hdiag_append "$diag" H460 error 'Missing text fence' 1; return 0; fi
+    if grep -Fq '### KNW:other' "$normalized" || grep -Fq '"shape":"cuerpo"' "$normalized"; then ccx_hdiag_append "$diag" H432 error 'Entry heading or shape mismatch' 1; return 0; fi
+    if grep -Fq '<!-- cortex-ast' "$normalized"; then ccx_hdiag_append "$diag" H481 error 'Hidden AST copy is forbidden' 1; return 0; fi
+    if grep -Fq '<script' "$normalized"; then ccx_hdiag_append "$diag" H482 error 'Active HTML is forbidden' 1; return 0; fi
+    ccx_hdiag_append "$diag" H400 error 'Invalid HCORTEX header' 1; return 0
+  fi
+  grep -Eq '<!-- HCORTEX v=[0-9.]+ t=[[:alnum:]_]+ -->' "$normalized" || { ccx_hdiag_append "$diag" H400 error 'Missing HCORTEX header' 1; return 0; }
 
   ccx_finalize_marker() {
     [[ -n $marker_q ]] || return 0
@@ -979,15 +1073,32 @@ ccx_compile_hcortex_file() {
     if ((in_glossary)); then
       if [[ $stripped == '-->' ]]; then in_glossary=0; continue; fi
       [[ -z $stripped ]] && continue
+      if [[ $stripped =~ ^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$ ]]; then
+        ccx_doc_update "$output" '.glossary.capa=$x' --arg x "${BASH_REMATCH[1]}"
+        continue
+      fi
       ccx_parse_glossary_compile_line "$output" "$stripped" || return
       continue
     fi
     if [[ $raw =~ ^##[[:space:]]+§([0-9]+):[[:space:]]*(.*)$ ]]; then
       ccx_finalize_marker || return; sid=${BASH_REMATCH[1]}; title=$(ccx_trim "${BASH_REMATCH[2]}")
-      ccx_doc_update "$output" '.sections += [{id:$id,title:$t,ideas:[]}]' --argjson id "$sid" --arg t "$title"
+      # The renderer uses "Sección N" only as a readable placeholder when
+      # the source section has no title. Do not turn that placeholder into
+      # persistent CORTEX title data during HCORTEX round-trip.
+      if [[ $title == "Sección $sid" ]]; then
+        ccx_doc_update "$output" '.sections += [{id:$id,title:null,ideas:[]}]' --argjson id "$sid"
+      else
+        ccx_doc_update "$output" '.sections += [{id:$id,title:$t,ideas:[]}]' --argjson id "$sid" --arg t "$title"
+      fi
       current_idx=$(($(jq '.sections|length' "$output")-1)); current_id=$sid; in_schema=0; continue
     fi
-    if [[ $stripped =~ ^\<!--[[:space:]]+(table|prose|list|check|diagram):([0-9]+)[[:space:]]+--\>$ ]]; then schema=${BASH_REMATCH[1]}; in_schema=1; continue; fi
+    if [[ $stripped =~ ^\<!--[[:space:]]+(table|prose|list|check|diagram):([0-9]+)([[:space:]]+capa:([A-Z]+))?[[:space:]]+--\>$ ]]; then
+      schema=${BASH_REMATCH[1]}; in_schema=1
+      if [[ -n ${BASH_REMATCH[4]} ]]; then
+        ccx_doc_update "$output" ".sections[$current_idx].capa=\$x" --arg x "${BASH_REMATCH[4]}"
+      fi
+      continue
+    fi
     if [[ $stripped =~ ^\<!--[[:space:]]+/(table|prose|list|check|diagram):([0-9]+)[[:space:]]+--\>$ ]]; then ccx_finalize_marker || return; in_schema=0; schema=''; continue; fi
     ((in_schema)) || continue
     if [[ $raw =~ ^\<!--[[:space:]]+([^[:space:]]+):([[:alnum:]_-]+)[[:space:]]+--\>(.*)$ ]]; then

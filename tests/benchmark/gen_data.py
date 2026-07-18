@@ -67,7 +67,7 @@ lines = []
 # --- FORMAT 1: CORTEX ---
 lines.append("### §C — CORTEX 0.1")
 lines.append("```cortex")
-lines.append("$0")
+lines.append("$0: NEXUSCORP KB:KERNEL")
 lines.append("$0:format{cortex:0.1,encoding:UTF-8,language:es,type:knowledge}")
 lines.append("TEA:member{type:attrs,weight:H,fields:\"id:text|nombre:text|rol:text|proyectos:text|seniority:number|contacto:text\",focus:nombre,schema:table,desc:\"Miembro del equipo\"}")
 lines.append("PRJ:project{type:attrs,weight:H,fields:\"id:text|nombre:text|deadline:text|estado:text|responsable:text|presupuesto:number|criticidad:text\",focus:nombre,schema:table,desc:\"Proyecto\"}")
@@ -78,13 +78,13 @@ lines.append("INC:incident{type:attrs,weight:H,fields:\"id:text|fecha:text|sever
 lines.append("PRV:provider{type:attrs,weight:H,fields:\"id:text|nombre:text|servicio:text|contrato:text|costo_mensual:number|contacto:text\",focus:nombre,schema:table,desc:\"Proveedor\"}")
 
 for cat, items in [
-    ("$1: EQUIPO", DATA["team"]),
-    ("$2: PROYECTOS", DATA["projects"]),
-    ("$3: DEPENDENCIAS", DATA["dependencies"]),
-    ("$4: RIESGOS", DATA["risks"]),
-    ("$5: DECISIONES", DATA["decisions"]),
-    ("$6: INCIDENTES", DATA["incidents"]),
-    ("$7: PROVEEDORES", DATA["providers"]),
+    ("$1: EQUIPO:DATA", DATA["team"]),
+    ("$2: PROYECTOS:DATA", DATA["projects"]),
+    ("$3: DEPENDENCIAS:DATA", DATA["dependencies"]),
+    ("$4: RIESGOS:DATA", DATA["risks"]),
+    ("$5: DECISIONES:DATA", DATA["decisions"]),
+    ("$6: INCIDENTES:DATA", DATA["incidents"]),
+    ("$7: PROVEEDORES:DATA", DATA["providers"]),
 ]:
     lines.append(cat)
     for item in items:

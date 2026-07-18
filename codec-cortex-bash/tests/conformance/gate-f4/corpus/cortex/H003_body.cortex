@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8}
 B:body{type:cuerpo,weight:H,desc:"Body"}
-$3: Body
+$3: Body:DATA
 B:b{
 first
 second

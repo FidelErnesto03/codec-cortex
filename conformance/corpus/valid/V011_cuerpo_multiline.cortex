@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 TXT:statement{type:cuerpo,weight:B,desc:"Prosa semántica"}
-$1
+$1:DATA
 TXT:purpose{
 CORTEX elimina conectores repetitivos.
 La estructura conserva el significado necesario.

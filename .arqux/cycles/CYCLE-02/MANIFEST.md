@@ -2,18 +2,19 @@
 cycle_id: "CYCLE-02"
 name: "Hardening"
 project_ref: "CODEC-CORTEX"
-status: "draft"
+status: "closed"
 governor: "alfred"
 created_at: "2026-07-17T23:41:12Z"
-quality_gates@: {
-  has_clear_purpose: true,
-  has_explicit_scope: true,
-  has_measurable_objectives: true,
-  has_operational_guidelines: true,
-  has_control_points: true,
-  aligns_with_project: true,
-}
+quality_gates@: "{"
+has_clear_purpose: "true,"
+has_explicit_scope: "true,"
+has_measurable_objectives: "true,"
+has_operational_guidelines: "true,"
+has_control_points: "true,"
+aligns_with_project: "true,"
+closed_at: "2026-07-18T14:57:04Z"
 ---
+
 
 # Manifiesto: CYCLE-02 — Hardening
 

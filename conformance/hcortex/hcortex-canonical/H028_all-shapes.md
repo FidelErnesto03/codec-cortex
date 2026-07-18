@@ -1,6 +1,7 @@
 <!-- HCORTEX v=0.1 t=canonical -->
 
 <!-- glossary
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 DIAG:diagram{type:bloque,weight:B,desc:"Bloque verbatim"}
@@ -12,7 +13,7 @@ TXT:text{type:cuerpo,weight:B,desc:"Texto semántico"}
 
 ## §1: Sección 1
 
-<!-- prose:1 -->
+<!-- prose:1 capa:KNOW -->
 <!-- KNW:k --> topic:Todos,content:"Cobertura de shapes."
 <!-- HDL:p --> renderizar|current|AST
 <!-- TXT:t -->

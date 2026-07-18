@@ -11,7 +11,7 @@
       "hcortex_sha256": "a21256b6fddbc997e6ae7f356b66a63aa936bb12b77bde793a32722acbc8c489",
       "id": "H001",
       "readable_loss_report": "corpus/loss-reports/H001_minimal-attrs.readable.json",
-      "roundtrip_cortex_sha256": "53d0a11a91a2e8b8a942a0407e5087663b7cbddce5ef2a001c18ade08fe973c6",
+      "roundtrip_cortex_sha256": "909b1bbec1acec5d92c419aff9f6d14a5de5ac2269f3f88634885bfbdbe89df8",
       "title": "minimal-attrs"
     },
     {
@@ -25,7 +25,7 @@
       "hcortex_sha256": "b7cec936ebd5d51a5cccee95450cf28a991c3b2fb70d9a1ad074848cbf73986a",
       "id": "H002",
       "readable_loss_report": "corpus/loss-reports/H002_attrs-optional.readable.json",
-      "roundtrip_cortex_sha256": "6dc9b162ddbfd0e8a5a615b67ea2432bb978c315890c52836396f0f89dbb7e5a",
+      "roundtrip_cortex_sha256": "e421d0113101c1ab0e45d3f2fe41be69874b7a6fe578fab566b82c568b9f3b3e",
       "title": "attrs-optional"
     },
     {
@@ -39,7 +39,7 @@
       "hcortex_sha256": "30328264030e0672aefd95ed52de12e3ec2f27b73e619fb99192e6dff31559f9",
       "id": "H003",
       "readable_loss_report": "corpus/loss-reports/H003_attrs-list.readable.json",
-      "roundtrip_cortex_sha256": "471a54b28fcdbf599ce9e51ceb7eab2680b2c9146c8af40750fdd0b1f2365ebc",
+      "roundtrip_cortex_sha256": "02545c0bf52b60231ec33bd0e468fef6ff5f739ef9d8c68e32dab77319d6e9f8",
       "title": "attrs-list"
     },
     {
@@ -53,7 +53,7 @@
       "hcortex_sha256": "eba8a4e680412c0da18382f0b2bca122f7c746abe2098aee52f6640d5ff53e38",
       "id": "H004",
       "readable_loss_report": "corpus/loss-reports/H004_unicode-nfc.readable.json",
-      "roundtrip_cortex_sha256": "ce55f268a8bcd33cfd3d0adda4053f36318181e04a620c11782128bdec4f7c09",
+      "roundtrip_cortex_sha256": "36d7c5a2b0077f3cb01f7e6a6fffaee788ec318357f5090772aff0d2a876501c",
       "title": "unicode-nfc"
     },
     {
@@ -67,7 +67,7 @@
       "hcortex_sha256": "872f902a21549f7e69294309f59c8cb127c726c3ac0dfd00b074ef3ce2a9f96c",
       "id": "H005",
       "readable_loss_report": "corpus/loss-reports/H005_positional-basic.readable.json",
-      "roundtrip_cortex_sha256": "853403d8c8b03b0bb8661e1164d82d21c682f8613dcf4b27e341c00c39362148",
+      "roundtrip_cortex_sha256": "164c32aa06ab4c61be5563c0511a79ee9b8a9510b875498521968610218649df",
       "title": "positional-basic"
     },
     {
@@ -81,7 +81,7 @@
       "hcortex_sha256": "080a64cc688768d28e8ef6df2c3ba7df42842315463699c65a80b7db7719be95",
       "id": "H006",
       "readable_loss_report": "corpus/loss-reports/H006_relation-basic.readable.json",
-      "roundtrip_cortex_sha256": "50c54f8664e5d468960bf782140cdfc69276f25e8505ceb2699ade74045a55d8",
+      "roundtrip_cortex_sha256": "a14343eff17720fa69397dfc66d90e28628c9fa1e0ee7a1455020cfcf6ae1fc5",
       "title": "relation-basic"
     },
     {
@@ -95,7 +95,7 @@
       "hcortex_sha256": "7005b67937cd48af047f5768acf9a492e616e8b6a84a28375119bdde42de518a",
       "id": "H007",
       "readable_loss_report": "corpus/loss-reports/H007_cuerpo-short.readable.json",
-      "roundtrip_cortex_sha256": "83a017f0ab0d8af4321d8ba9eb7e7b6a0cce18eab822f4c55399a1da0be1a1aa",
+      "roundtrip_cortex_sha256": "0c1418b5c21d843b4afd620ad5ee42567ad262b1e8bea8a968929390a647d10f",
       "title": "cuerpo-short"
     },
     {
@@ -109,7 +109,7 @@
       "hcortex_sha256": "64c37ae0e94d88a28d166c08921d2aedf70cd8d213d33b0fb8f57bb5f73a793e",
       "id": "H008",
       "readable_loss_report": "corpus/loss-reports/H008_cuerpo-multiline.readable.json",
-      "roundtrip_cortex_sha256": "395dc44ca2a2068bf6334a713833a6efdb2c308739e4e637fe3d79d4e7242722",
+      "roundtrip_cortex_sha256": "1fe27bda94a07b58847c6e7e0a556ade5efdb0443bf2c49dfcd7538d39580749",
       "title": "cuerpo-multiline"
     },
     {
@@ -123,7 +123,7 @@
       "hcortex_sha256": "f97e777f69e61e6b02084ace8dc59f721bf4cf0311020976d035acfc42354e48",
       "id": "H009",
       "readable_loss_report": "corpus/loss-reports/H009_block-plantuml.readable.json",
-      "roundtrip_cortex_sha256": "a138566f0e48018806275c08e2ab464da87f6a60260729d458f611c0852cb975",
+      "roundtrip_cortex_sha256": "062b6b4d0d6ddb7ce815ac793cbcc82dc4dfd81d9e056c5cc88addeeb2c83ad5",
       "title": "block-plantuml"
     },
     {
@@ -137,7 +137,7 @@
       "hcortex_sha256": "7e70166837b477e6bfd7db4ed72563156aaec1d3f28c5c761b04aab7be9a7319",
       "id": "H010",
       "readable_loss_report": "corpus/loss-reports/H010_block-backticks.readable.json",
-      "roundtrip_cortex_sha256": "ace915724580b85291023bb7790d0f947de9f7ce89aacca0e14c863aed9c3046",
+      "roundtrip_cortex_sha256": "09ed36b454d10aabd7f9a634e0127c0a110db4e5c422a67f0a6eafa65eac5ddf",
       "title": "block-backticks"
     },
     {
@@ -151,7 +151,7 @@
       "hcortex_sha256": "90ec3020c4549a1343cd5ebea80537372bd23085be4d686588a0ee0164c8dead",
       "id": "H011",
       "readable_loss_report": "corpus/loss-reports/H011_scalar-kinds.readable.json",
-      "roundtrip_cortex_sha256": "b3deb34a5fe86b248f2aac9b5c2f9cda1cd1bc5bea8b667b51128698b0f85302",
+      "roundtrip_cortex_sha256": "bc7ee429685386be434d9f0709933057bc7e3a517ba77e43afe597078bc01b83",
       "title": "scalar-kinds"
     },
     {
@@ -165,7 +165,7 @@
       "hcortex_sha256": "5a75660becb1f61ebd31c22e0d9cb2fbbc4d40bd72dbfb89223959ce40fa61a9",
       "id": "H012",
       "readable_loss_report": "corpus/loss-reports/H012_decimal-precision.readable.json",
-      "roundtrip_cortex_sha256": "21ccb18615caf33e27e9e46b407604a0004e4ed62d588b332c7f45f7000abf67",
+      "roundtrip_cortex_sha256": "ea5e39d4c444e1cd10063869f7196101a4c29c5c011db2b18b2876644e7f49e7",
       "title": "decimal-precision"
     },
     {
@@ -179,7 +179,7 @@
       "hcortex_sha256": "18cd91b2c3cded3d19b83e5bba742f7fc0468fd97d618838cd0a14f1f1bc67c9",
       "id": "H013",
       "readable_loss_report": "corpus/loss-reports/H013_negative-numbers.readable.json",
-      "roundtrip_cortex_sha256": "29ffe5d74c69b22147bdb6971fd3676a68be60a7ab91f5c7f04eab8ba4b4f149",
+      "roundtrip_cortex_sha256": "10832ca205bf1555244cc0fc685038cc05e4ce7b6aab5a7b0267376967bfa5ca",
       "title": "negative-numbers"
     },
     {
@@ -193,7 +193,7 @@
       "hcortex_sha256": "65297c8ec563a88c17504df454647bc7495efa83cdf374f450a799e1b1ab47fd",
       "id": "H014",
       "readable_loss_report": "corpus/loss-reports/H014_escapes.readable.json",
-      "roundtrip_cortex_sha256": "404e97ed5ccfd10a01383c23029c5fe14db740fe5fc770158dd803074586f1d3",
+      "roundtrip_cortex_sha256": "ce4fd4a80a8839536f190a02525f2dd0bfaa70d3e9a72395394c03f2c13e6b0c",
       "title": "escapes"
     },
     {
@@ -207,7 +207,7 @@
       "hcortex_sha256": "84c861c2f20c2f057eb7544e07e0c7efeb7ff47932f88d3c2660c42cd48059e9",
       "id": "H015",
       "readable_loss_report": "corpus/loss-reports/H015_microtoken-declaration.readable.json",
-      "roundtrip_cortex_sha256": "ad68e6ccf3e52bc8677e9d9cc7e5b395228c71105c13dfe9e841b9baefb18735",
+      "roundtrip_cortex_sha256": "ae8b7fceb6132572c75971b07f1085d11e0f5b040f8014d500b74ada9a65a0d2",
       "title": "microtoken-declaration"
     },
     {
@@ -221,7 +221,7 @@
       "hcortex_sha256": "2e6f107206571bae3cae4df9fef422f25107410ad8e74e143c240bd4d967a11f",
       "id": "H016",
       "readable_loss_report": "corpus/loss-reports/H016_namespace.readable.json",
-      "roundtrip_cortex_sha256": "5bdb83127bdcfea31327172a454c1ab5ce01e72f014e30e1f2e73a73dcfcce07",
+      "roundtrip_cortex_sha256": "b5dd3880b46a89f01f82c27915b810e0fd6e6fdc71b00ac688e125f2f44b8f55",
       "title": "namespace"
     },
     {
@@ -235,7 +235,7 @@
       "hcortex_sha256": "d88a3a8164f085b2865985457f0152ddc6e577c28aa3d9f0526b686664f444a5",
       "id": "H017",
       "readable_loss_report": "corpus/loss-reports/H017_section-title.readable.json",
-      "roundtrip_cortex_sha256": "d476c36c78fbf1feb95a23ab2bbbd8df1947593aab41018fb7e73e7a1b1fafac",
+      "roundtrip_cortex_sha256": "031720168f33548171751a7a64d6077b27d17a6405aaa513d0c4a38b006a15c1",
       "title": "section-title"
     },
     {
@@ -249,7 +249,7 @@
       "hcortex_sha256": "c1e3ef5137ea24ab010bc6e682da218446dd6a2978d7dac57d03aa688f8f75d5",
       "id": "H018",
       "readable_loss_report": "corpus/loss-reports/H018_multiple-sections.readable.json",
-      "roundtrip_cortex_sha256": "a9eef55681cabf8e7320b184452cb992842e7bcf2c32b449d0db0b9565e692ad",
+      "roundtrip_cortex_sha256": "b110df7130bc7ea82c2e12ffcaa893dbaebf5786a181cd7332e4e5737d50ca68",
       "title": "multiple-sections"
     },
     {
@@ -263,7 +263,7 @@
       "hcortex_sha256": "41270a1d2c036463ed1854f6a8dad63ef5370840e54709b309b4b5a3a14efa93",
       "id": "H019",
       "readable_loss_report": "corpus/loss-reports/H019_idea-order.readable.json",
-      "roundtrip_cortex_sha256": "ab26cfce21f4d63da081644e86d287a659efb04ea2b83d37d5e9b4cd1ea38a5a",
+      "roundtrip_cortex_sha256": "df5a5d57783bacff1e0eb75d86eedf98e43b9f99f59a7b7fd225a44eaf7b4334",
       "title": "idea-order"
     },
     {
@@ -277,7 +277,7 @@
       "hcortex_sha256": "a76a2b6db3b745a9ab0f3babd376ae917c31356b72de49dbe83f8dafe28d72a3",
       "id": "H020",
       "readable_loss_report": "corpus/loss-reports/H020_glossary-order.readable.json",
-      "roundtrip_cortex_sha256": "daac26c1bd48fdb2f935f88ef54ce4f022cc5b96958430fb3aae10aaf07ba86e",
+      "roundtrip_cortex_sha256": "d9bdd82fd8fb8b8b6e9ecf0b13d81211a6efb7e51d74b4451f035beeee28ed2b",
       "title": "glossary-order"
     },
     {
@@ -291,7 +291,7 @@
       "hcortex_sha256": "f38265627b8496aa7424cfbb40eaa6dee9db5749894a843f31951f99963ff6b1",
       "id": "H021",
       "readable_loss_report": "corpus/loss-reports/H021_optional-extension.readable.json",
-      "roundtrip_cortex_sha256": "57b4cc079ba57af2d7a753e3ddca98965f63379d4a0f4763808a514b8584964f",
+      "roundtrip_cortex_sha256": "394216769f2b7678ddb305e575def3dc53d254876547a372bbbe0d27b14982cf",
       "title": "optional-extension"
     },
     {
@@ -305,7 +305,7 @@
       "hcortex_sha256": "62f054e8d4bef136834d5cd260ed236f21af20afe578c338249503e55e91d684",
       "id": "H022",
       "readable_loss_report": "corpus/loss-reports/H022_required-extension.readable.json",
-      "roundtrip_cortex_sha256": "1f536a272032d4bcaa602153eb229fd72a5e518ad65f77c31dc00d1fbd18f3d3",
+      "roundtrip_cortex_sha256": "720adaf0a8ee166b664dcf5b8b7e8e176143f826aaef43106e9ee69b5f58178d",
       "title": "required-extension"
     },
     {
@@ -319,7 +319,7 @@
       "hcortex_sha256": "b3f6dbc61253ad26d3dff614e7305669fc19b09a8a0053ceb00ccc8f2c6e289f",
       "id": "H023",
       "readable_loss_report": "corpus/loss-reports/H023_open-attrs.readable.json",
-      "roundtrip_cortex_sha256": "259e506c43e4be24defa9203508e93dedb05fd97b0e3790115774723bcede053",
+      "roundtrip_cortex_sha256": "122ec43aca07f95a796a026ddc6e029114ac4d2ac456cc13652b5b708978aba8",
       "title": "open-attrs"
     },
     {
@@ -333,7 +333,7 @@
       "hcortex_sha256": "373f3ac2adbf195496173664fed6545ec1cd001efb3365b7537fc2fd0d3b4f75",
       "id": "H024",
       "readable_loss_report": "corpus/loss-reports/H024_optional-omitted.readable.json",
-      "roundtrip_cortex_sha256": "b488762a8fde3094275d97cd99293f11ea5c28589421b57d0533344f3723b18b",
+      "roundtrip_cortex_sha256": "bd980e0f9a3aba67a26885c72f184d05dc3c82d06bfc16cdc01b5e8dd7ccd0f4",
       "title": "optional-omitted"
     },
     {
@@ -347,7 +347,7 @@
       "hcortex_sha256": "1c7b6c50956a03f600fd5ef5909e93ae9440c9a57dfe8a7c02926308ee64239c",
       "id": "H025",
       "readable_loss_report": "corpus/loss-reports/H025_body-empty.readable.json",
-      "roundtrip_cortex_sha256": "2df2eea9c8522c7956bcda74cfbfece626214dffbe98637fa1775fa01afe912d",
+      "roundtrip_cortex_sha256": "19932963806cccf59b72bc4e01d608dfc300e4510542bd8b2acf1da924128e76",
       "title": "body-empty"
     },
     {
@@ -361,7 +361,7 @@
       "hcortex_sha256": "dc222a399cdd4cc26a9c2cac5867c2dcb7e54a78da131563ab8325c0d716ad89",
       "id": "H026",
       "readable_loss_report": "corpus/loss-reports/H026_body-blank-lines.readable.json",
-      "roundtrip_cortex_sha256": "862eafc6c255a44c818cae6ee633ffaf3de9c2735bce6a06073bd1f14df9776c",
+      "roundtrip_cortex_sha256": "07a04e4081de17cdd2cdfdb8e2cc4dd2e118615c762d72e80859015098d8f332",
       "title": "body-blank-lines"
     },
     {
@@ -375,7 +375,7 @@
       "hcortex_sha256": "c320511f12fff7f778e356b6e5281e22c6c2f5f36e5859f2ac59f336c2539373",
       "id": "H027",
       "readable_loss_report": "corpus/loss-reports/H027_block-unicode-composition.readable.json",
-      "roundtrip_cortex_sha256": "1c90eaecdd21b1124ce9313a315e4f8be8f4747e4b72f03fab0d2f90595d2eed",
+      "roundtrip_cortex_sha256": "407e99ca2531c38f3613118c2e09bb8f7fe115a131c0327aef9a45f166bfa728",
       "title": "block-unicode-composition"
     },
     {
@@ -389,7 +389,7 @@
       "hcortex_sha256": "88d43092b5f15c19956dfabac758cad7954c6732b29408864108f494d9c47896",
       "id": "H028",
       "readable_loss_report": "corpus/loss-reports/H028_all-shapes.readable.json",
-      "roundtrip_cortex_sha256": "dd3233c504695e3186c52c2a34b9751d431821760d4c50db650e045db132582d",
+      "roundtrip_cortex_sha256": "887fdb9908afec126f114b6753e271afb893470bb986f13273b53a7a5090bf34",
       "title": "all-shapes"
     },
     {
@@ -403,7 +403,7 @@
       "hcortex_sha256": "35f1640fa4e5beee186c2de31aeb5a7e9668a0c612ac570f7d149812207e062a",
       "id": "H029",
       "readable_loss_report": "corpus/loss-reports/H029_neutral-domain.readable.json",
-      "roundtrip_cortex_sha256": "3cbe86f8a9f10c6a31ac9e05af8ed6e155042223f8f4c42049e1d5a1d872b369",
+      "roundtrip_cortex_sha256": "9391f2828d06a2ed89e3f085aff4c42522bc287ed90107459b9fef0953122833",
       "title": "neutral-domain"
     },
     {
@@ -417,7 +417,7 @@
       "hcortex_sha256": "2515bb4ba908f0bf2f9f2691522349e1c24a206d355bc5914d2a94cdf8213f57",
       "id": "H030",
       "readable_loss_report": "corpus/loss-reports/H030_cross-section-reference.readable.json",
-      "roundtrip_cortex_sha256": "c7b9943d33c781bcc21e49236fcd6af8207d687ca2f057eeca717d3fce94bcc7",
+      "roundtrip_cortex_sha256": "cb151f4f8add02fcfab4b1a6b8ab3342bf8c5ad858adb5bf0878af8482c3be38",
       "title": "cross-section-reference"
     },
     {
@@ -431,7 +431,7 @@
       "hcortex_sha256": "9dde480f25ee29e05245e328c58ef005698d697e2f68456227c49642c051b900",
       "id": "H031",
       "readable_loss_report": "corpus/loss-reports/H031_list-mixed.readable.json",
-      "roundtrip_cortex_sha256": "9d78ae2849b62ff6b1a27768e0737016225e31f70d5d79e96c16ec11d8fbb951",
+      "roundtrip_cortex_sha256": "cedb3a26fe5e45314d0a3b6f8f9ef4ab508c9872edc8572c626cc87483ff691a",
       "title": "list-mixed"
     },
     {
@@ -445,7 +445,7 @@
       "hcortex_sha256": "92419eb8b964e4eb5c0c9fac291ee3163bc97bd17850dbdd3e98faa79b12dc6f",
       "id": "H032",
       "readable_loss_report": "corpus/loss-reports/H032_quoted-positional-pipe.readable.json",
-      "roundtrip_cortex_sha256": "0b01dbf89c3dbbcbb0d1fbd1f502faf9e394becec76263fd242a29bc3da57276",
+      "roundtrip_cortex_sha256": "717123e0ab4665c2f3c4751822c1d146ce6c711032b807bc37d25a05facdfa70",
       "title": "quoted-positional-pipe"
     },
     {
@@ -459,7 +459,7 @@
       "hcortex_sha256": "832d2f336b711ec543787911aab827a92c3852fde9cc474ef8d7301eb9ec3375",
       "id": "H033",
       "readable_loss_report": "corpus/loss-reports/H033_format-extra.readable.json",
-      "roundtrip_cortex_sha256": "2157058f0444e7799d67a4094c7937ee3efbd0fbbc8fcf285cabcf57be483270",
+      "roundtrip_cortex_sha256": "a797014fb61515c89bac67b90e8e2925b23a52f7a9af6fc4aaf1ec1d37a81a97",
       "title": "format-extra"
     },
     {
@@ -473,7 +473,7 @@
       "hcortex_sha256": "01fbf82ce3eef5225393fe138ad5bf84fb4efba7aa386fa78ccbe238e8a2fbc8",
       "id": "H034",
       "readable_loss_report": "corpus/loss-reports/H034_multiple-namespaces.readable.json",
-      "roundtrip_cortex_sha256": "d1534cbb0efb3aad399a199d2399442da244feb03e6c3202e265441446c08a14",
+      "roundtrip_cortex_sha256": "0cbd44e92efea0d5a9ebae38cc43eff342cae39b52afaa09227eb49fb96fc32f",
       "title": "multiple-namespaces"
     },
     {
@@ -487,7 +487,7 @@
       "hcortex_sha256": "d1803d8c69f42a2632f1b68d1bbdfc79237edd83882258bdff31090958e17be1",
       "id": "H035",
       "readable_loss_report": "corpus/loss-reports/H035_unicode-emoji.readable.json",
-      "roundtrip_cortex_sha256": "c6ee715a9f1b44a2dd1cd88799c7f26db2be4ffeb921c4e7f4ad12f8f6a872a0",
+      "roundtrip_cortex_sha256": "b1ca657a4297d03eb5a9a17c6405ba6cb8938908a68f2a9b332ce86f3ce88842",
       "title": "unicode-emoji"
     },
     {
@@ -501,7 +501,7 @@
       "hcortex_sha256": "da59c97e163c9c63092fc115ccf2956121c35c3d8f9a07c727e9d70ba98a4ba5",
       "id": "H036",
       "readable_loss_report": "corpus/loss-reports/H036_long-contract.readable.json",
-      "roundtrip_cortex_sha256": "8da235b557d131a856579af2ad050811e07cf1ecb8c051ba396161b003393983",
+      "roundtrip_cortex_sha256": "62c90eb19d60613941b2df020239a342997aefc620103ab9a7ff00841698b2fd",
       "title": "long-contract"
     },
     {
@@ -515,7 +515,7 @@
       "hcortex_sha256": "01bba75eeed1a2cdb16afb9d30ec2721267f5c374d6b4cc1612da8685ee2a574",
       "id": "H037",
       "readable_loss_report": "corpus/loss-reports/H037_same-name-different-section.readable.json",
-      "roundtrip_cortex_sha256": "d2edec38c8d653e2f8ca202b3f11829d45ea1570b7d5e8277fa5edea0a2497f4",
+      "roundtrip_cortex_sha256": "bc82ad1ab9503d34ac8b1bfed65c3fa2aa2e697e05d0505b6ad06f934bb3576f",
       "title": "same-name-different-section"
     },
     {
@@ -529,7 +529,7 @@
       "hcortex_sha256": "e821255f0e6e46cac799fb30f2356d47337cd2808fa8185fd775e23eadfc19ff",
       "id": "H038",
       "readable_loss_report": "corpus/loss-reports/H038_special-body-chars.readable.json",
-      "roundtrip_cortex_sha256": "71fbf7b4c4389780eae56cf5ec6a6ad457700bae86a3fac852c3ec7ad6249548",
+      "roundtrip_cortex_sha256": "5fd83c0ab8042ef57f6dcb18876e41de9c77869f10a99fd3317b2d223712937b",
       "title": "special-body-chars"
     },
     {
@@ -543,7 +543,7 @@
       "hcortex_sha256": "aeabf3708d6bdce3970b4c6179bc3d2d0dd1eb4c06f090cf55aabea917592128",
       "id": "H039",
       "readable_loss_report": "corpus/loss-reports/H039_risk-objective.readable.json",
-      "roundtrip_cortex_sha256": "45246d661f8a2495efc8c10c47ab2e49be083f84c87e884d2cdacf1783772276",
+      "roundtrip_cortex_sha256": "7894e9fabb6246a241840f1ae28cbe423c8fec364641b6050ca0507f128ca51b",
       "title": "risk-objective"
     },
     {
@@ -557,7 +557,7 @@
       "hcortex_sha256": "926fcd759a5ea82f030bad0bbda8920b84d17fde300f76a289861c5830ee5694",
       "id": "H040",
       "readable_loss_report": "corpus/loss-reports/H040_dense-skill-excerpt.readable.json",
-      "roundtrip_cortex_sha256": "cac6794793ca602481a8f14a637a92834f58bc0e13b780d245e4c71a0a9ede23",
+      "roundtrip_cortex_sha256": "2f71222b00022cac95c7a5e21e1e3eb389451b5d97555fe5ac1a3ae189e834f3",
       "title": "dense-skill-excerpt"
     }
   ],

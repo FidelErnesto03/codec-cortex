@@ -28,7 +28,7 @@ Cambios:
 Experimental:
 
 ```cortex
-$0:contract_hdl{pos:"operation|status|requires|notes"}
+$0:contract_hdl{pos:"operation|status|requires|notes"}:KERNEL
 HDL:version|reportar versión|current|ninguno|cortex --version
 ```
 
@@ -66,8 +66,8 @@ Los contratos los referencian como `%state`.
 Forma canónica de Draft:
 
 ```cortex
-$2
-$2: Conocimiento
+$2:DATA
+$2: Conocimiento:DATA
 ```
 
 La forma histórica `2` sin `$` queda como legacy, no como sintaxis 0.1.

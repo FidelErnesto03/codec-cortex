@@ -180,7 +180,11 @@ pub fn canonicalize_in_place(doc: &mut Document) -> String {
     normalize_document(doc);
     expand_microtokens(doc);
 
-    let mut lines = vec!["$0".to_string()];
+    let mut lines = if let Some(capa) = &doc.glossary.capa {
+        vec![format!("$0:{capa}")]
+    } else {
+        vec!["$0".to_string()]
+    };
     let format = doc.glossary.format.as_ref().expect("CORTEX canonicalization requires $0:format");
     lines.push(format!("$0:format{}", emit_glossary_attrs(&sort_keys_canonical(&format.attrs, FORMAT_KEY_ORDER))));
 
@@ -217,7 +221,8 @@ pub fn canonicalize_in_place(doc: &mut Document) -> String {
     for item in meta {
         let mut attrs = item.attrs.clone();
         attrs.sort_by(|(a, _), (b, _)| to_nfc(a).as_bytes().cmp(to_nfc(b).as_bytes()));
-        lines.push(format!("$0:{}{}", item.name, emit_glossary_attrs(&attrs)));
+        let suffix = item.capa.as_ref().map(|c| format!(":{c}")).unwrap_or_default();
+        lines.push(format!("$0:{}{}{}", item.name, emit_glossary_attrs(&attrs), suffix));
     }
 
     let mut symbols = doc.glossary.symbols.clone();
@@ -231,8 +236,21 @@ pub fn canonicalize_in_place(doc: &mut Document) -> String {
     let symbol_lookup: HashMap<(Option<String>, String), SymbolDef> = doc.glossary.symbols.iter().cloned().map(|s| ((s.namespace.clone(), s.sigil.clone()), s)).collect();
     for section in &doc.sections {
         match &section.title {
-            Some(title) => lines.push(format!("${}: {}", section.id, title.trim())),
-            None => lines.push(format!("${}", section.id)),
+            Some(title) => {
+                let title = title.trim();
+                if let Some(capa) = &section.capa {
+                    lines.push(format!("${}: {title}:{capa}", section.id));
+                } else {
+                    lines.push(format!("${}: {title}", section.id));
+                }
+            }
+            None => {
+                if let Some(capa) = &section.capa {
+                    lines.push(format!("${}:{capa}", section.id));
+                } else {
+                    lines.push(format!("${}", section.id));
+                }
+            }
         }
         for idea in &section.ideas {
             let symbol = symbol_lookup.get(&(idea.namespace.clone(), idea.symbol.clone()))

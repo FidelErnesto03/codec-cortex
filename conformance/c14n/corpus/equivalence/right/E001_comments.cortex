@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
-$1
+$1:KNOW
 # x
 KNW:codec{topic:"CORTEX",content:"Codec ideático lineal."}

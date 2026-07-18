@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 DEP:dependency{type:attrs,weight:M,fields:"component:atom|status:atom",focus:component,desc:"Dependencia"}
-$1
+$1:CORE
 DEP:parser{component:cortex.core/parser,status:current}

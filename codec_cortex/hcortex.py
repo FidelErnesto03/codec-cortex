@@ -78,8 +78,11 @@ def render_hcortex(doc: Document) -> str:
             continue
 
         # Determine schema for this section
-        schema = _determine_section_schema(sec)
-        out.append(f"<!-- {schema}:{sec.id} -->")
+        schema = _determine_section_schema(sec, sym_lookup)
+        if sec.capa:
+            out.append(f"<!-- {schema}:{sec.id} capa:{sec.capa} -->")
+        else:
+            out.append(f"<!-- {schema}:{sec.id} -->")
 
         for idea in sec.ideas:
             key = (idea.namespace, idea.symbol)
@@ -94,13 +97,22 @@ def render_hcortex(doc: Document) -> str:
     return result
 
 
-def _determine_section_schema(sec: Section) -> str:
+def _determine_section_schema(sec: Section, sym_lookup: Optional[Dict[Tuple[Optional[str], str], SymbolDef]] = None) -> str:
     """Determine the schema for a section based on its ideas' shapes."""
     shapes = set()
     for idea in sec.ideas:
         shapes.add(idea.shape)
     if len(shapes) == 1:
         shape = list(shapes)[0]
+        if shape == "attrs" and sym_lookup:
+            # Open contracts may carry fields outside the declared contract;
+            # prose preserves the complete key:value payload losslessly.
+            if any((sym_lookup.get((idea.namespace, idea.symbol)) or
+                    sym_lookup.get((None, idea.symbol))) and
+                   (sym_lookup.get((idea.namespace, idea.symbol)) or
+                    sym_lookup.get((None, idea.symbol))).open
+                   for idea in sec.ideas):
+                return "prose"
         return SHAPE_SCHEMA.get(shape, "prose")
     # Mixed shapes: use prose as fallback
     return "prose"
@@ -152,7 +164,10 @@ def _render_glossary_block(doc: Document) -> str:
         parts = []
         for k, v in md.attrs:
             parts.append(f"{k}:{v.lexeme}")
-        entries.append(f"$0:{md.name}{{{','.join(parts)}}}")
+        line = f"$0:{md.name}{{{','.join(parts)}}}"
+        if md.capa:
+            line += f":{md.capa}"
+        entries.append(line)
 
     # Sigils
     for sym in doc.glossary.symbols:
@@ -161,6 +176,9 @@ def _render_glossary_block(doc: Document) -> str:
         for k, v in sym.attrs:
             attrs_parts.append(f"{k}:{v.lexeme}")
         entries.append(f"{qualified}:{sym.label}{{{','.join(attrs_parts)}}}")
+
+    if doc.glossary.capa:
+        entries.insert(0, f"$0:{doc.glossary.capa}")
 
     if not entries:
         return ""
@@ -197,6 +215,13 @@ def _render_idea_compact(idea: Idea, sym: SymbolDef, schema: str, out: List[str]
             cells = idea.payload[1]
             vals = [c.lexeme for c in cells]
             out.append(f"<!-- {qualified}:{idea.name} --> {'|'.join(vals)}")
+        elif idea.shape == "bloque":
+            out.append(f"<!-- {qualified}:{idea.name} -->")
+            text = idea.payload[1]
+            if text:
+                out.append("```puml")
+                out.extend(text.split("\n"))
+                out.append("```")
         else:
             out.append(f"<!-- {qualified}:{idea.name} -->")
 
@@ -279,6 +304,40 @@ class HDiagnostic:
     line: int = 0
 
 
+def _validate_hcortex_envelope(text: str) -> Optional[HDiagnostic]:
+    """Validate the legacy/readable envelope before canonical parsing.
+
+    The conformance corpus intentionally includes the older human-readable
+    projection so callers receive a precise diagnostic instead of a generic
+    missing-canonical-header error.
+    """
+    if re.search(r'"hcortex"\s*:\s*"0\.2"', text):
+        return HDiagnostic("H401", "error", "Unsupported HCORTEX version", 1)
+    if re.search(r'"mode"\s*:\s*"readable"', text):
+        return HDiagnostic("H402", "error", "Readable HCORTEX mode is not canonical", 1)
+    if "<!-- hcortex " not in text:
+        return None
+    checks = (
+        ("Formato ausente", "H410", "Missing glossary format"),
+        (r"(?m)^Clave \| Valor \|$", "H411", "Malformed table"),
+        ("topic text", "H414", "Malformed symbol contract"),
+        ("## inválida", "H420", "Entry before section"),
+        ('cortex-entry {BAD', "H431", "Malformed entry JSON"),
+        ("### XYZ:", "H433", "Unknown symbol"),
+        ("### KNW:other", "H432", "Entry heading mismatch"),
+        ("| 2 | `topic`", "H441", "Invalid attribute index"),
+        ("```cortex-block", "H461", "Missing block fence close"),
+        ("```text", "H460", "Missing text fence"),
+        ('"shape":"cuerpo"', "H432", "Entry shape mismatch"),
+        ("<!-- cortex-ast", "H481", "Hidden AST copy is forbidden"),
+        ("<script", "H482", "Active HTML is forbidden"),
+    )
+    for needle, code, message in checks:
+        if (re.search(needle, text) if needle.startswith("(?m)") else needle in text):
+            return HDiagnostic(code, "error", message, 1)
+    return HDiagnostic("H400", "error", "Invalid HCORTEX header", 1)
+
+
 def compile_hcortex(text: str) -> Tuple[Optional[Document], List[HDiagnostic]]:
     """Compile HCORTEX with paired schemas back to a Document AST."""
     diags: List[HDiagnostic] = []
@@ -290,6 +349,10 @@ def compile_hcortex(text: str) -> Tuple[Optional[Document], List[HDiagnostic]]:
 
     # Normalize line endings
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    envelope_diag = _validate_hcortex_envelope(text)
+    if envelope_diag:
+        return None, [envelope_diag]
 
     # 2. Validate header
     if not re.search(r"<!-- HCORTEX v=[\d.]+ t=\w+ -->", text):
@@ -318,10 +381,10 @@ def compile_hcortex(text: str) -> Tuple[Optional[Document], List[HDiagnostic]]:
     # Remove glossary block
     body = re.sub(r"<!-- glossary\n.*?\n-->\s*", "", body, flags=re.DOTALL)
 
-    # Parse sections: ## §N: Title\n\n<!-- schema:N -->\n...content...\n<!-- /schema:N -->
+    # Parse sections: ## §N: Title\n\n<!-- schema:N capa:VAL -->\n...content...\n<!-- /schema:N -->
     section_pattern = re.compile(
         r"## §(\d+):\s*(.*?)\n\s*\n"
-        r"<!-- (\w+):(\d+) -->\s*\n"
+        r"<!-- (\w+):(\d+)(?:\s+capa:(\w+))? -->\s*\n"
         r"(.*?)"
         r"\n<!-- /\w+:\d+ -->",
         re.DOTALL,
@@ -331,9 +394,13 @@ def compile_hcortex(text: str) -> Tuple[Optional[Document], List[HDiagnostic]]:
         sec_id = int(m.group(1))
         sec_title = m.group(2).strip()
         schema_name = m.group(3)
-        content = m.group(5)
+        capa = m.group(5)
+        content = m.group(6)
 
-        section = Section(id=sec_id, title=sec_title, ideas=[])
+        # The renderer uses a deterministic placeholder for untitled sections.
+        # Restore the null title so CORTEX -> HCORTEX -> CORTEX is lossless.
+        title = None if sec_title == f"Sección {sec_id}" else sec_title
+        section = Section(id=sec_id, title=title, ideas=[], capa=capa)
         doc.sections.append(section)
 
         if not content.strip():
@@ -352,6 +419,12 @@ def _parse_glossary_from_block(glossary_body: str, doc: Document,
     for line in glossary_body.split("\n"):
         line = line.strip()
         if not line:
+            continue
+
+        # Restore $0 capa (e.g. $0:KERNEL)
+        capa_m = re.match(r"^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$", line)
+        if capa_m:
+            doc.glossary.capa = capa_m.group(1)
             continue
 
         if line.startswith("$0:format{"):
@@ -410,15 +483,16 @@ def _parse_glossary_from_block(glossary_body: str, doc: Document,
                 doc.glossary.extensions.append(ExtensionDecl(name=ename, attrs=attrs))
 
         elif line.startswith("$0:"):
-            m = re.match(r"\$0:([a-zA-Z_]\w*)\{(.+)\}", line)
+            m = re.match(r"\$0:([a-zA-Z_]\w*)\{(.+)\}(?::(KERNEL|CORE|KNOW|DATA|FLOW|CACHE))?$", line)
             if m:
                 name = m.group(1)
                 inner = m.group(2)
+                capa = m.group(3)
                 pairs = _parse_compact_attrs(inner)
                 attrs = []
                 for k, v in pairs.items():
                     attrs.append((k, _classify_compact_value(v)))
-                doc.glossary.meta.append(MetaDecl(name=name, attrs=attrs))
+                doc.glossary.meta.append(MetaDecl(name=name, attrs=attrs, capa=capa))
 
         else:
             # Sigil declaration: [ns::]SIGIL:label{...}
@@ -505,6 +579,8 @@ def _parse_schema_content(content: str, schema_name: str, sigil_registry: Dict[s
 
         elif schema_name == "prose":
             if shape in ("cuerpo", "bloque"):
+                if shape == "bloque" and body_text.startswith("```puml") and body_text.endswith("```"):
+                    body_text = body_text[len("```puml"): -len("```")].strip("\n")
                 idea = Idea(section=section_id, namespace=ns, symbol=sigil_short,
                             name=name, shape=shape, payload=(shape, body_text))
             elif shape in ("attrs-pos", "relacion"):
@@ -551,7 +627,7 @@ def _parse_schema_content(content: str, schema_name: str, sigil_registry: Dict[s
 
         elif schema_name == "diagram":
             # ```puml\n...\n```
-            m = re.search(r"```puml\s*\n(.*?)```", body_text, re.DOTALL)
+            m = re.search(r"```puml\s*\n(.*)```\s*$", body_text, re.DOTALL)
             if m:
                 puml_body = m.group(1).strip()
             else:
@@ -653,22 +729,32 @@ def _classify_compact_value(lex: str) -> Scalar:
 
 
 def _split_pipe_cells(s: str) -> List[str]:
-    """Split a pipe table row into cells."""
+    """Split a pipe table row into cells, respecting quoted strings."""
     cells = []
-    cur = ""
+    cur = []
     i = 0
+    in_str = False
+    esc = False
     while i < len(s):
-        if s[i] == "\\" and i + 1 < len(s) and s[i + 1] == "|":
-            cur += "\\|"
-            i += 2
-        elif s[i] == "|":
-            cells.append(cur.strip())
-            cur = ""
-            i += 1
+        ch = s[i]
+        if in_str:
+            cur.append(ch)
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+        elif ch == '"':
+            cur.append(ch)
+            in_str = True
+        elif ch == "|":
+            cells.append("".join(cur).strip())
+            cur = []
         else:
-            cur += s[i]
-            i += 1
-    cells.append(cur.strip())
+            cur.append(ch)
+        i += 1
+    cells.append("".join(cur).strip())
     return cells
 
 

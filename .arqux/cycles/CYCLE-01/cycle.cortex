@@ -1,4 +1,4 @@
-$0
+$0:KERNEL
 
 # -- $0: MINIMAL LOCAL GLOSSARY --
 # Required: every .cortex artifact must be locally self-contained.
@@ -27,10 +27,10 @@ $0
 # Micro-glossary:
 
 
-$19: ARQUX METADATA
+$19: ARQUX METADATA:DATA
 
 ARQX:artifact{level:2, name:"cycle", usage:"state", kind:"native"}
 
-$1: CYCLE
+$1: CYCLE:FLOW
 
 WRK:cycle{id:"CYCLE-01", name:"?", status:"closed", created:"", description:""}

@@ -208,7 +208,10 @@ def _symbol_canonical(s: SymbolDef) -> str:
 def _meta_canonical(m) -> str:
     """Canonical other meta-declaration."""
     sorted_attrs = sorted(m.attrs, key=lambda kv: utf8_bytes(to_nfc(kv[0])))
-    return f"$0:{m.name}" + _emit_meta_attrs(sorted_attrs)
+    base = f"$0:{m.name}" + _emit_meta_attrs(sorted_attrs)
+    if m.capa:
+        base += f":{m.capa}"
+    return base
 
 
 def _idea_canonical(idea: Idea, sym: SymbolDef) -> str:
@@ -308,7 +311,10 @@ def canonicalize(doc: Document) -> str:
 
     # 3. Build the canonical output
     lines: List[str] = []
-    lines.append("$0")
+    if doc.glossary.capa:
+        lines.append(f"$0:{doc.glossary.capa}")
+    else:
+        lines.append("$0")
     # format first
     lines.append(_format_canonical(doc.glossary.format))
     # enums by name UTF-8 NFC
@@ -342,10 +348,16 @@ def canonicalize(doc: Document) -> str:
         sym_lookup[key] = s
     for sec in doc.sections:
         if sec.title is None:
-            lines.append(f"${sec.id}")
+            if sec.capa:
+                lines.append(f"${sec.id}:{sec.capa}")
+            else:
+                lines.append(f"${sec.id}")
         else:
             title = sec.title.strip()
-            lines.append(f"${sec.id}: {title}")
+            if sec.capa:
+                lines.append(f"${sec.id}: {title}:{sec.capa}")
+            else:
+                lines.append(f"${sec.id}: {title}")
         for idea in sec.ideas:
             key = (idea.namespace, idea.symbol)
             sym = sym_lookup.get(key)

@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 $0:extension_annotation{namespace:example.optional,id:annotation,version:0.1,required:false,config:"{\"preserve\":\"opaque\"}"}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
-$1
+$1:DATA
 KNW:extension{topic:"Extensión",content:"Se preserva sin ejecutar."}

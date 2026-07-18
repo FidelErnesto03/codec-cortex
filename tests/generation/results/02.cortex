@@ -1,4 +1,4 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es,type:document}
 PRJ:project{type:attrs,fields:"nombre:text|fase:text|equipo_total:number|fuente:text",focus:nombre}
 ENG:engineer{type:attrs,fields:"nombre:text|rol:text|responsabilidad:text",focus:rol}
@@ -6,23 +6,23 @@ OBJ:objective{type:attrs,fields:"nombre:text|estado:text|avance:number|criterio:
 PRN:principle{type:attrs,fields:"nombre:text|regla:text|justificacion:text",focus:regla}
 LES:lesson{type:attrs,fields:"nombre:text|aprendizaje:text|aplicacion:text",focus:aprendizaje}
 RSK:risk{type:attrs,fields:"nombre:text|impacto:text|probabilidad:text|mitigacion:text",focus:impacto}
-$1: PROYECTO
+$1: PROYECTO:DATA
 PRJ:aetheros{nombre:"AetherOS",fase:"Diseño completado",equipo_total:4,fuente:""}
-$2: EQUIPO
+$2: EQUIPO:DATA
 ENG:arquitecta_sistemas{nombre:"Elena Vargas",rol:"Arquitecta de sistemas",responsabilidad:"Definir la arquitectura del núcleo, los límites entre componentes y las decisiones técnicas transversales"}
 ENG:ingeniero_kernel{nombre:"Marco Silva",rol:"Ingeniero de kernel",responsabilidad:"Implementar planificación, memoria, concurrencia y mecanismos de aislamiento"}
 ENG:ingeniera_plataforma{nombre:"Lucía Rojas",rol:"Ingeniera de plataforma",responsabilidad:"Construir servicios del sistema, controladores, herramientas de desarrollo e integración"}
 ENG:ingeniero_seguridad{nombre:"Daniel Ortega",rol:"Ingeniero de seguridad y confiabilidad",responsabilidad:"Diseñar el modelo de permisos, verificar amenazas y establecer pruebas de resiliencia"}
-$3: OBJETIVOS
+$3: OBJETIVOS:CORE
 OBJ:nucleo_minimo{nombre:"Construir un núcleo mínimo ejecutable",estado:"En preparación",avance:20,criterio:"Arranque reproducible, planificación básica y gestión inicial de memoria"}
 OBJ:aislamiento_capacidades{nombre:"Implementar aislamiento basado en capacidades",estado:"Diseño validado",avance:35,criterio:"Ningún componente accede a recursos sin una capacidad explícita y revocable"}
 OBJ:plataforma_observable{nombre:"Crear una plataforma observable y depurable",estado:"Prototipo conceptual",avance:15,criterio:"Trazas estructuradas, métricas del sistema y diagnóstico de fallos desde el arranque"}
-$4: PRINCIPIO NO NEGOCIABLE
+$4: PRINCIPIO NO NEGOCIABLE:DATA
 PRN:minimo_privilegio{nombre:"Mínimo privilegio verificable",regla:"Todo componente debe operar únicamente con los permisos indispensables y ninguna autoridad será implícita",justificacion:"Reduce la superficie de ataque, limita la propagación de fallos y permite auditar cada acceso"}
-$5: LECCIONES APRENDIDAS
+$5: LECCIONES APRENDIDAS:DATA
 LES:interfaces_antes_que_componentes{nombre:"Diseñar primero los contratos",aprendizaje:"Las interfaces ambiguas generaron más riesgo que la complejidad interna de los componentes",aplicacion:"Definir contratos versionados, invariantes y casos de fallo antes de implementar cada servicio"}
 LES:fallos_como_requisito{nombre:"Modelar los fallos desde el inicio",aprendizaje:"Los escenarios de recuperación no pueden añadirse al final sin alterar la arquitectura",aplicacion:"Incluir reinicio, degradación, aislamiento y observabilidad en los criterios de aceptación"}
-$6: RIESGOS
+$6: RIESGOS:CORE
 RSK:complejidad_kernel{nombre:"Crecimiento prematuro del kernel",impacto:"Alto",probabilidad:"Media",mitigacion:"Aplicar límites estrictos al alcance y mover servicios no esenciales al espacio de usuario"}
 RSK:ecosistema_controladores{nombre:"Cobertura insuficiente de controladores",impacto:"Alto",probabilidad:"Alta",mitigacion:"Priorizar una plataforma de referencia y definir una interfaz estable para controladores"}
 RSK:sobrecarga_seguridad{nombre:"Sobrecarga del modelo de capacidades",impacto:"Medio",probabilidad:"Media",mitigacion:"Medir rutas críticas, almacenar capacidades eficientemente y optimizar solo con evidencia"}

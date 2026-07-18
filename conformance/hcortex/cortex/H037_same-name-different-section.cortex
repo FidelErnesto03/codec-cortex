@@ -1,8 +1,8 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
-$1
+$1:KNOW
 KNW:same{topic:Uno,content:"Primera sección."}
-$2
+$2:KNOW
 KNW:same{topic:Dos,content:"Segunda sección."}

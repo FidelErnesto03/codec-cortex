@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8}
 D:diagram{type:bloque,weight:H,desc:"Diagram"}
-$4: Diagram
+$4: Diagram:DATA
 D:d{
 @startuml
 A -> B

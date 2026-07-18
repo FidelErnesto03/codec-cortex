@@ -264,10 +264,10 @@ Un documento contiene exactamente:
 Ejemplo mínimo:
 
 ```cortex
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento verificable"}
-$1
+$1:KNOW
 KNW:codec{topic:"CORTEX",content:"Codec ideático lineal."}
 ```
 
@@ -294,7 +294,7 @@ KNW:codec{topic:"CORTEX",content:"Codec ideático lineal."}
 Dentro de `$0` existen dos formas:
 
 ```text
-$0:nombre{...}          meta-declaración
+$0:nombre{...}          meta-declaración:KERNEL
 SIGIL:etiqueta{...}     declaración de función ideática
 ```
 
@@ -685,7 +685,7 @@ current
 blocking
 cortex.core/parser
 KNW:ast
-$2:OBJ:release
+$2:OBJ:release:DATA
 ```
 
 Los atoms no adquieren significado global. Su semántica proviene del contrato, enum, microtoken o contenido local.
@@ -735,8 +735,8 @@ Las listas son ordenadas y planas. CORTEX 0.1 no permite listas anidadas ni mapa
 Forma:
 
 ```text
-$1
-$2: Título humano opcional
+$1:DATA
+$2: Título humano opcional:DATA
 ```
 
 Para evitar colisión con meta-declaraciones, un título requiere al menos un espacio después de `:`.
@@ -763,7 +763,7 @@ $section:symbol:name
 Ejemplo:
 
 ```text
-$2:KNW:determinism
+$2:KNW:determinism:KNOW
 ```
 
 Debe ser única dentro del documento.
@@ -782,7 +782,7 @@ Un selector puede aparecer como atom:
 
 ```text
 KNW:ast
-$2:KNW:ast
+$2:KNW:ast:DATA
 ```
 
 Fase 2 preserva el valor. La resolución avanzada y los selectores con wildcard pertenecen a tooling o especificaciones posteriores.
@@ -821,7 +821,7 @@ Cuando sea necesario, el sigilo superficial puede ser calificado:
 
 ```cortex
 agent::FCS:focus{type:attrs,weight:H,fields:"what:text",focus:what,desc:"Foco"}
-$1
+$1:DATA
 agent::FCS:primary{what:"Objetivo"}
 ```
 
@@ -1032,7 +1032,7 @@ Los valores específicos son implementation-defined durante Draft 0.1 y no puede
 CORTEX 0.1 preserva el ADN superficial del formato original:
 
 ```text
-$0
+$0:KERNEL
 SIGIL:meaning{...}
 $N
 SIGIL:name{...}

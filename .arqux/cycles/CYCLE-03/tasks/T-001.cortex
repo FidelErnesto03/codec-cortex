@@ -1,0 +1,65 @@
+$0
+
+# -- $0: MINIMAL LOCAL GLOSSARY --
+# Required: every .cortex artifact must be locally self-contained.
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# ARQX  | artifact   | attrs      | B | Semantic       | ArqUX artifact metadata
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+#
+# Types:
+#
+# Micro-glossary:
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-001", usage:"state", kind:"native"}
+
+$1: TASK
+
+WRK:task{id:"T-001", status:"open", governor:"alfred", assignee:"alfred", priority:"high", complexity:"standard", cycle:"CYCLE-03", created:"2026-07-18T16:12:00Z", updated:"2026-07-18T16:12:00Z"}
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Remediar BLP-003: aplicar capa :CAPA a todas las secciones $N: sin capa en los 14 archivos de alcance del proyecto CODEC-CORTEX, para alcanzar cobertura ≥90% (actual 48.7%)."}
+
+$3: PRECONDITIONS
+
+CNST:pre1{text:"CYCLE-03 abierto"}
+CNST:pre2{text:"BLP-003 auditada por Heimdall: evidencia falsa, cobertura real 48.7%"}
+CNST:pre3{text:"Matriz de asignación de capa §8 disponible"}
+
+$4: PROCEDURE
+
+STP:step1{action:"Fase2: leer cada archivo y listar $N: TITULO sin :CAPA"}
+STP:step2{action:"Fase3: reemplazar por $N: TITULO:CAPA segun matriz ($0->KERNEL)"}
+STP:step3{action:"Fase5: validar por archivo (grep conteo pre==post; cortex verify --strict 0 errores)"}
+STP:step4{action:"Fase6: medir cobertura global >=90%; si discrepa git checkout -- ."}
+
+$5: ACCEPTANCE
+
+CLAIM:ac1{criterion:"AC1: 100% secciones $N: en alcance tienen :CAPA"}
+CLAIM:ac2{criterion:"AC2: $0 de todo .cortex tiene :KERNEL"}
+CLAIM:ac3{criterion:"AC3: cortex verify --strict 0 errores nuevos"}
+CLAIM:ac4{criterion:"AC4: cobertura proyecto >=90%"}
+
+$6: BLOCKERS
+
+BLK:b1{condition:"Edicion directa de .arqux/ prohibida (usar handlers)", action:"HALT_AND_REPORT"}
+BLK:b2{condition:"No commit/push sin autorizacion del Arquitecto", action:"HALT_AND_REPORT"}

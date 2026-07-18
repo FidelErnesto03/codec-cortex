@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 # comment
 $0:format{language:es,encoding:UTF-8,cortex:0.1}
 $0:micro_x{expand:done}
 T:item{type:attrs,weight:B,fields:"text:text|state:atom?",focus:text,desc:"Item"}
-$5: Micro
+$5: Micro:DATA
 T:m{state:x,text:"task 29"}

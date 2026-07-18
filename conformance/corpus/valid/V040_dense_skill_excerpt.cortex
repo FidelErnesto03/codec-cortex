@@ -1,4 +1,4 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|future|blocked"}
 $0:enum_severity{values:"info|warning|blocking"}
@@ -6,8 +6,8 @@ $0:micro_cur{expand:current}
 IDN:identity{type:attrs,weight:B,fields:"name:text|version:text|status:%state",focus:name,desc:"Identidad"}
 CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:%severity|evidence:text?",focus:rule,desc:"Restricción"}
 HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:%state|requires:text|notes:text?",focus:operation,desc:"Operación"}
-$1
+$1:KNOW
 IDN:skill{name:"CODEC-CORTEX",version:"0.1",status:cur}
 CNST:line{rule:"Una línea expresa una idea principal.",severity:blocking,evidence:"canon ideático"}
-$2
+$2:DATA
 HDL:validate|validar estructura y contrato|cur|documento CORTEX|diagnósticos deterministas

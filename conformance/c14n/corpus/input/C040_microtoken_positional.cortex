@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:micro_cur{expand:current}
 POS:p{type:attrs-pos,weight:B,pos:"content:text|status:atom",focus:content,desc:"Posicional"}
-$1
+$1:DATA
 POS:x|Activo|cur

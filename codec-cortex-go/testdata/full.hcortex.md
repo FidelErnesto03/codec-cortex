@@ -1,6 +1,7 @@
 <!-- HCORTEX v=0.1 t=canonical -->
 
 <!-- glossary
+$0:KERNEL
 $0:format{language:es,encoding:UTF-8,cortex:0.1}
 $0:enum_state{values:"todo|done"}
 $0:micro_t{expand:todo}
@@ -17,19 +18,19 @@ agent::NST:Namespaced{desc:"NS",focus:content,fields:"content:text",weight:M,typ
 
 ## §1: Datos
 
-<!-- table:1 -->
-<!-- ACT:first --> | "hola mundo" | todo | [a,"b c",1,true,null] |
-<!-- /table:1 -->
+<!-- prose:1 capa:DATA -->
+<!-- ACT:first --> status:todo,topic:"hola mundo",extra:"é",tags:[a,"b c",1,true,null]
+<!-- /prose:1 -->
 
 ## §2: Posicional
 
-<!-- table:2 -->
+<!-- table:2 capa:DATA -->
 <!-- POS:p1 --> | "texto seguro" | 2 |
 <!-- /table:2 -->
 
 ## §3: Cuerpo
 
-<!-- prose:3 -->
+<!-- prose:3 capa:DATA -->
 <!-- TXT:t1 -->
 línea uno
 línea dos
@@ -37,7 +38,7 @@ línea dos
 
 ## §4: Bloque
 
-<!-- diagram:4 -->
+<!-- diagram:4 capa:DATA -->
 <!-- BLK:b1 -->
 ```puml
 @startuml
@@ -48,13 +49,13 @@ A -> B
 
 ## §5: Relaciones
 
-<!-- table:5 -->
+<!-- table:5 capa:DATA -->
 <!-- REL:r1 --> | a | links | b |
 <!-- /table:5 -->
 
 ## §6: Namespace
 
-<!-- table:6 -->
+<!-- table:6 capa:DATA -->
 <!-- agent::NST:n1 --> | "contenido" |
 <!-- /table:6 -->
 

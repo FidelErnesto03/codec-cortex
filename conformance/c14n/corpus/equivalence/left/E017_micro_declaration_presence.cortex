@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:micro_cur{expand:current}
 KNW:k{type:attrs,weight:B,fields:"content:text|status:atom",focus:content,desc:"Conocimiento"}
-$1
+$1:KNOW
 KNW:x{content:"Activo",status:cur}

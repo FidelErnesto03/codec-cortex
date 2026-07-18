@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:micro_cur{expand:current}
 $0:enum_state{values:"current|planned"}
 HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:%state|requires:text|notes:text?",focus:operation,desc:"Operación determinista"}
-$1
+$1:DATA
 HDL:verify|validar el documento|cur|archivo .cortex|sin inferencia

@@ -65,11 +65,11 @@ Todos continúan siendo expresables en un glosario o perfil externo.
 El siguiente documento es CORTEX 0.1 válido sin que el Core conozca el dominio:
 
 ```cortex
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:atom",focus:content,desc:"Conocimiento"}
 CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:atom",focus:rule,desc:"Restricción"}
-$1
+$1:KNOW
 KNW:codec{topic:"CORTEX",content:"Codec ideático lineal.",status:current}
 CNST:portable{rule:"El documento transporta su vocabulario.",severity:blocking}
 ```

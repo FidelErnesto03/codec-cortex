@@ -2,5 +2,5 @@ $0
 $0:format{cortex:0.1,encoding:UTF-8}
 FCS:focus{type:attrs,weight:H,fields:"what:text",focus:what,desc:"Foco",namespace:agent}
 agent::FCS:focus2{type:attrs,weight:H,fields:"what:text",focus:what,desc:"Foco dos"}
-$1
+$1:FLOW
 FCS:a{what:"x"}

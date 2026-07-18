@@ -34,8 +34,13 @@ func RenderHCORTEX(doc *Document) (string, error) {
 		if len(sec.Ideas) == 0 {
 			continue
 		}
-		schema := determineSectionSchema(sec)
-		out = append(out, fmt.Sprintf("<!-- %s:%d -->", schema, sec.ID))
+        schema := determineSectionSchema(sec, doc)
+		capa := resolveCapa(sec)
+		if capa != "" {
+			out = append(out, fmt.Sprintf("<!-- %s:%d capa:%s -->", schema, sec.ID, capa))
+		} else {
+			out = append(out, fmt.Sprintf("<!-- %s:%d -->", schema, sec.ID))
+		}
 		for _, idea := range sec.Ideas {
 			sym := doc.FindSymbol(idea.Namespace, idea.Symbol)
 			if sym == nil {
@@ -48,13 +53,20 @@ func RenderHCORTEX(doc *Document) (string, error) {
 	return strings.Join(out, "\n") + "\n", nil
 }
 
-func determineSectionSchema(sec Section) string {
+func determineSectionSchema(sec Section, doc *Document) string {
 	m := map[string]bool{}
 	for _, i := range sec.Ideas {
 		m[i.Shape] = true
 	}
 	if len(m) == 1 {
 		for sh := range m {
+			if sh == "attrs" && doc != nil {
+				for _, idea := range sec.Ideas {
+					if sym := doc.FindSymbol(idea.Namespace, idea.Symbol); sym != nil && sym.Open {
+						return "prose"
+					}
+				}
+			}
 			if s, ok := shapeSchema[sh]; ok {
 				return s
 			}
@@ -65,6 +77,9 @@ func determineSectionSchema(sec Section) string {
 
 func renderGlossaryBlock(doc *Document) string {
 	entries := []string{}
+	if doc.Glossary.Capa != "" {
+		entries = append(entries, "$0:"+doc.Glossary.Capa)
+	}
 	if f := doc.Glossary.Format; f != nil {
 		parts := make([]string, len(f.Attrs))
 		for i, a := range f.Attrs {
@@ -126,6 +141,13 @@ func renderIdeaCompact(idea Idea, sym *SymbolDef, schema string, out *[]string) 
 				parts[i] = c.Lexeme
 			}
 			*out = append(*out, fmt.Sprintf("<!-- %s:%s --> %s", q, idea.Name, strings.Join(parts, "|")))
+		case "bloque":
+			*out = append(*out, fmt.Sprintf("<!-- %s:%s -->", q, idea.Name))
+			if idea.Body != "" {
+				*out = append(*out, "```puml")
+				*out = append(*out, strings.Split(idea.Body, "\n")...)
+				*out = append(*out, "```")
+			}
 		default:
 			*out = append(*out, fmt.Sprintf("<!-- %s:%s -->", q, idea.Name))
 		}
@@ -205,9 +227,44 @@ func extractIdeaValues(idea Idea, sym *SymbolDef) []string {
 
 var hcHeaderRE = regexp.MustCompile(`<!-- HCORTEX v=[\d.]+ t=\w+ -->`)
 var sectionHeadingRE = regexp.MustCompile(`^## §(\d+):\s*(.*)$`)
-var schemaOpenRE = regexp.MustCompile(`^<!-- (\w+):(\d+) -->$`)
+var schemaOpenRE = regexp.MustCompile(`^<!-- (\w+):(\d+)(?:\s+capa:(\w+))? -->$`)
 var schemaCloseRE = regexp.MustCompile(`^<!-- /\w+:\d+ -->$`)
 var markerRE = regexp.MustCompile(`<!-- ([!]?[_A-Za-z0-9:]+):([_A-Za-z0-9-]+) -->`)
+
+func validateHCORTEXEnvelope(text string) *HDiagnostic {
+	if strings.Contains(text, `"hcortex":"0.2"`) {
+		return &HDiagnostic{Code: "H401", Severity: "error", Message: "Unsupported HCORTEX version", Line: 1}
+	}
+	if strings.Contains(text, `"mode":"readable"`) {
+		return &HDiagnostic{Code: "H402", Severity: "error", Message: "Readable HCORTEX mode is not canonical", Line: 1}
+	}
+	if !strings.Contains(text, "<!-- hcortex ") {
+		return nil
+	}
+	checks := []struct{ needle, code, message string }{
+		{"Formato ausente", "H410", "Missing glossary format"},
+		{"topic text", "H414", "Malformed symbol contract"},
+		{"## inválida", "H420", "Entry before section"},
+		{"cortex-entry {BAD", "H431", "Malformed entry JSON"},
+		{"### XYZ:", "H433", "Unknown symbol"},
+		{"### KNW:other", "H432", "Entry heading mismatch"},
+		{"| 2 | `topic`", "H441", "Invalid attribute index"},
+		{"```cortex-block", "H461", "Missing block fence close"},
+		{"```text", "H460", "Missing text fence"},
+		{`"shape":"cuerpo"`, "H432", "Entry shape mismatch"},
+		{"<!-- cortex-ast", "H481", "Hidden AST copy is forbidden"},
+		{"<script", "H482", "Active HTML is forbidden"},
+	}
+	for _, check := range checks {
+		if strings.Contains(text, check.needle) {
+			return &HDiagnostic{Code: check.code, Severity: "error", Message: check.message, Line: 1}
+		}
+	}
+	if regexp.MustCompile(`(?m)^Clave \| Valor \|$`).MatchString(text) {
+		return &HDiagnostic{Code: "H411", Severity: "error", Message: "Malformed table", Line: 1}
+	}
+	return &HDiagnostic{Code: "H400", Severity: "error", Message: "Invalid HCORTEX header", Line: 1}
+}
 
 func CompileHCORTEX(text string) (*Document, []HDiagnostic) {
 	diags := []HDiagnostic{}
@@ -215,6 +272,9 @@ func CompileHCORTEX(text string) (*Document, []HDiagnostic) {
 		return nil, []HDiagnostic{{Code: "H490", Severity: "error", Message: "BOM forbidden", Line: 1}}
 	}
 	text = normalizeLineEndings(text)
+	if diag := validateHCORTEXEnvelope(text); diag != nil {
+		return nil, []HDiagnostic{*diag}
+	}
 	if !hcHeaderRE.MatchString(text) {
 		return nil, []HDiagnostic{{Code: "H400", Severity: "error", Message: "Missing HCORTEX header", Line: 1}}
 	}
@@ -266,6 +326,10 @@ func CompileHCORTEX(text string) (*Document, []HDiagnostic) {
 			continue
 		}
 		schema := om[1]
+		capa := ""
+		if len(om) > 3 {
+			capa = om[3]
+		}
 		contentStart := j + 1
 		k := contentStart
 		for k < len(lines) && !schemaCloseRE.MatchString(strings.TrimSpace(lines[k])) {
@@ -276,7 +340,11 @@ func CompileHCORTEX(text string) (*Document, []HDiagnostic) {
 		}
 		content := strings.Join(lines[contentStart:k], "\n")
 		t := title
-		sec := Section{ID: sid, Title: &t}
+		var sectionTitle *string
+		if t != fmt.Sprintf("Sección %d", sid) {
+			sectionTitle = &t
+		}
+		sec := Section{ID: sid, Title: sectionTitle, Capa: capa}
 		if strings.TrimSpace(content) != "" {
 			sec.Ideas = parseSchemaContent(content, schema, registry, sid, &diags)
 		}
@@ -297,6 +365,10 @@ func parseGlossaryFromBlock(body string, doc *Document, registry map[string]sigi
 	for _, raw := range strings.Split(body, "\n") {
 		line := strings.TrimSpace(raw)
 		if line == "" {
+			continue
+		}
+		if capaM := glossaryCapaRE.FindStringSubmatch(line); capaM != nil {
+			doc.Glossary.Capa = capaM[1]
 			continue
 		}
 		switch {
@@ -404,7 +476,7 @@ func parseSchemaContent(content, schema string, registry map[string]sigilInfo, s
 	ideas := []Idea{}
 	listRE := regexp.MustCompile(`-\s+\*\*(.*?)\*\*`)
 	checkRE := regexp.MustCompile(`-\s+\[[ x]\]\s+(.*)`)
-	diagramRE := regexp.MustCompile("(?s)```puml\\s*\\n(.*?)```")
+	diagramRE := regexp.MustCompile("(?s)```puml\\s*\\n(.*)```")
 
 	for idx, loc := range locs {
 		sigil := content[loc[2]:loc[3]]
@@ -454,6 +526,10 @@ func parseSchemaContent(content, schema string, registry map[string]sigilInfo, s
 
 		case "prose":
 			if shape == "cuerpo" || shape == "bloque" {
+				if shape == "bloque" && strings.HasPrefix(body, "```puml") && strings.HasSuffix(body, "```") {
+					body = strings.TrimSuffix(strings.TrimPrefix(body, "```puml"), "```")
+					body = strings.Trim(body, "\n")
+				}
 				idea.Body = body
 			} else if shape == "attrs-pos" || shape == "relacion" {
 				for _, cell := range strings.Split(body, "|") {
@@ -532,6 +608,7 @@ func parseCompactAttrs(s string) []rawAttr {
 			var b strings.Builder
 			for i < len(s) {
 				if s[i] == '\\' && i+1 < len(s) {
+					b.WriteByte('\\')
 					b.WriteByte(s[i+1])
 					i += 2
 				} else if s[i] == '"' {
@@ -621,8 +698,23 @@ func classifyCompactValue(lex string) Scalar {
 func splitPipeCells(s string) []string {
 	out := []string{}
 	var b strings.Builder
+	inString, escaped := false, false
 	for i := 0; i < len(s); {
-		if s[i] == '\\' && i+1 < len(s) && s[i+1] == '|' {
+		if inString {
+			b.WriteByte(s[i])
+			if escaped {
+				escaped = false
+			} else if s[i] == '\\' {
+				escaped = true
+			} else if s[i] == '"' {
+				inString = false
+			}
+			i++
+		} else if s[i] == '"' {
+			b.WriteByte(s[i])
+			inString = true
+			i++
+		} else if s[i] == '\\' && i+1 < len(s) && s[i+1] == '|' {
 			b.WriteString(`\|`)
 			i += 2
 		} else if s[i] == '|' {

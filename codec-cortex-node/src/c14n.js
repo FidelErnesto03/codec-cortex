@@ -168,7 +168,8 @@ function symbolCanonical(symbol) {
 
 function metaCanonical(meta) {
   const attrs = [...meta.attrs].sort((a, b) => compareUtf8(a[0], b[0]));
-  return `$0:${meta.name}${emitMetaAttrs(attrs)}`;
+  const suffix = meta.capa ? `:${meta.capa}` : '';
+  return `$0:${meta.name}${emitMetaAttrs(attrs)}${suffix}`;
 }
 
 function ideaCanonical(idea, symbol) {
@@ -245,7 +246,7 @@ function canonicalize(doc) {
 
   expandMicrotokens(doc);
 
-  const lines = ['$0'];
+  const lines = [doc.glossary.capa ? `$0:${doc.glossary.capa}` : '$0'];
   lines.push(formatCanonical(doc.glossary.format));
 
   const enums = [...doc.glossary.enums].sort((a, b) => compareUtf8(a.name, b.name));
@@ -283,8 +284,13 @@ function canonicalize(doc) {
   const symbolLookup = new Map();
   for (const symbol of doc.glossary.symbols) symbolLookup.set(`${symbol.namespace ?? ''}\u0000${symbol.sigil}`, symbol);
   for (const section of doc.sections) {
-    if (section.title === null || section.title === undefined) lines.push(`$${section.id}`);
-    else lines.push(`$${section.id}: ${section.title.trim()}`);
+    if (section.title === null || section.title === undefined) {
+      if (section.capa) lines.push(`$${section.id}:${section.capa}`);
+      else lines.push(`$${section.id}`);
+    } else {
+      if (section.capa) lines.push(`$${section.id}: ${section.title.trim()}:${section.capa}`);
+      else lines.push(`$${section.id}: ${section.title.trim()}`);
+    }
     for (const idea of section.ideas) {
       let symbol = symbolLookup.get(`${idea.namespace ?? ''}\u0000${idea.symbol}`);
       if (!symbol) symbol = symbolLookup.get(`\u0000${idea.symbol}`);

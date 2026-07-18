@@ -14,6 +14,7 @@ Este glosario define únicamente los elementos necesarios para que `$0` pueda de
 | `$0` | glosario local, primero y único |
 | `$N` | sección ordinaria con entero positivo |
 | `$N: Título` | sección ordinaria con título organizativo |
+| `$N: Título:CAPA` | sección con capa de profundidad cortical (KERNEL\|CORE\|KNOW\|DATA\|FLOW\|CACHE) |
 
 ## 3. Meta-declaraciones
 

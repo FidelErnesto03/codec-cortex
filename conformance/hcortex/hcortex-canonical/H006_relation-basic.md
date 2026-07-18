@@ -1,6 +1,7 @@
 <!-- HCORTEX v=0.1 t=canonical -->
 
 <!-- glossary
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
@@ -9,7 +10,7 @@ REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom|
 
 ## §1: Sección 1
 
-<!-- prose:1 -->
+<!-- prose:1 capa:KNOW -->
 <!-- KNW:parser --> topic:Parser,content:"Analiza CORTEX."
 <!-- KNW:ast --> topic:AST,content:"Preserva Ideas."
 <!-- REL:parser_ast --> $1:KNW:parser|produces|$1:KNW:ast|deterministic

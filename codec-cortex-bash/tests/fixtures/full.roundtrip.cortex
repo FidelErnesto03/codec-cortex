@@ -1,32 +1,32 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"open|closed"}
 $0:micro_done{expand:closed}
 $0:namespace_agent{id:agent,version:1.0,required:true,desc:"Agente"}
 $0:extension_demo{namespace:agent,id:demo,version:0.1,required:false,desc:"Demo"}
-$0:author{name:"Fidel",role:architect}
+$0:author{name:"Fidel",role:architect}:KERNEL
 BLK:block{type:bloque,weight:H,desc:"Block"}
 BODY:body{type:cuerpo,weight:H,desc:"Body"}
 POS:pos{type:attrs-pos,weight:B,pos:"left:text|right:text|flag:boolean?",focus:left,desc:"Pos"}
 REL:relation{type:relacion,weight:M,pos:"from:atom|verb:atom|to:atom",focus:verb,desc:"Rel"}
 TASK:tarea{type:attrs,weight:M,fields:"content:text|status:%state?|count:integer?|tags:any?",focus:content,desc:"Tarea",open:true}
 agent::NOTE:nota{type:attrs,weight:B,fields:"text:text",focus:text,desc:"Nota"}
-$1: Atributos
+$1: Atributos:DATA
 TASK:a{content:"hola mundo",status:closed,count:0,tags:[alpha,"beta gamma",3]}
-$2: Posicional
+$2: Posicional:DATA
 POS:p|izquierda simple|derecha|true
-$3: Prosa
+$3: Prosa:DATA
 BODY:b{
 primera línea
 segunda línea
 }
-$4: Diagrama
+$4: Diagrama:DATA
 BLK:d{
 @startuml
 A -> B
 @enduml
 }
-$5: Relación
+$5: Relación:DATA
 REL:r|source|depends|target
-$6: Namespace
+$6: Namespace:DATA
 agent::NOTE:n{text:"nota estable"}

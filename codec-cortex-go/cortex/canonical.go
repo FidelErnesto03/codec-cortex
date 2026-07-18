@@ -269,7 +269,12 @@ func Canonicalize(doc *Document) (string, error) {
 	}
 	expandMicrotokens(doc)
 
-	lines := []string{"$0"}
+	lines := []string{}
+	if doc.Glossary.Capa != "" {
+		lines = append(lines, "$0:"+doc.Glossary.Capa)
+	} else {
+		lines = append(lines, "$0")
+	}
 	lines = append(lines, "$0:format"+emitGlossaryAttrs(sortKeysCanonical(doc.Glossary.Format.Attrs, formatKeyOrder)))
 	enums := append([]EnumDecl(nil), doc.Glossary.Enums...)
 	sort.SliceStable(enums, func(i, j int) bool { return ToNFC(enums[i].Name) < ToNFC(enums[j].Name) })
@@ -301,7 +306,11 @@ func Canonicalize(doc *Document) (string, error) {
 	for _, m := range meta {
 		a := append([]Attr(nil), m.Attrs...)
 		sort.SliceStable(a, func(i, j int) bool { return ToNFC(a[i].Key) < ToNFC(a[j].Key) })
-		lines = append(lines, "$0:"+m.Name+emitGlossaryAttrs(a))
+		suffix := ""
+		if m.Capa != "" {
+			suffix = ":" + m.Capa
+		}
+		lines = append(lines, "$0:"+m.Name+emitGlossaryAttrs(a)+suffix)
 	}
 	syms := append([]SymbolDef(nil), doc.Glossary.Symbols...)
 	sort.SliceStable(syms, func(i, j int) bool {
@@ -319,10 +328,20 @@ func Canonicalize(doc *Document) (string, error) {
 	}
 
 	for _, sec := range doc.Sections {
+		capa := resolveCapa(sec)
 		if sec.Title == nil {
-			lines = append(lines, fmt.Sprintf("$%d", sec.ID))
+			if capa != "" {
+				lines = append(lines, fmt.Sprintf("$%d:%s", sec.ID, capa))
+			} else {
+				lines = append(lines, fmt.Sprintf("$%d", sec.ID))
+			}
 		} else {
-			lines = append(lines, fmt.Sprintf("$%d: %s", sec.ID, strings.TrimSpace(*sec.Title)))
+			title := strings.TrimSpace(*sec.Title)
+			if capa != "" {
+				lines = append(lines, fmt.Sprintf("$%d: %s:%s", sec.ID, title, capa))
+			} else {
+				lines = append(lines, fmt.Sprintf("$%d: %s", sec.ID, title))
+			}
 		}
 		for _, idea := range sec.Ideas {
 			line, err := ideaCanonical(idea, doc.FindSymbol(idea.Namespace, idea.Symbol))

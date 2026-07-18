@@ -36,12 +36,24 @@ fn glossary_re() -> &'static Regex {
 fn section_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
     RE.get_or_init(|| Regex::new(
-        r"(?s)## §(\d+):\s*(.*?)\n\s*\n<!-- (\w+):(\d+) -->\s*\n(.*?)\n<!-- /\w+:\d+ -->"
+        r"(?s)## §(\d+):\s*(.*?)\n\s*\n<!-- (\w+):(\d+)(?:\s+capa:(\w+))? -->\s*\n(.*?)\n<!-- /\w+:\d+ -->"
     ).unwrap())
 }
 fn marker_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
     RE.get_or_init(|| Regex::new(r"<!-- ([!]?\w+(?:::\w+)?):([\w_-]+) -->").unwrap())
+}
+fn list_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"^-\s+\*\*(.*?)\*\*").unwrap())
+}
+fn check_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"^-\s+\[[ x]\]\s+(.*)").unwrap())
+}
+fn diagram_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"(?s)```puml\s*\n(.*)```").unwrap())
 }
 fn glossary_symbol_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
@@ -57,7 +69,7 @@ fn schema_for_shape(shape: &str) -> &'static str {
     }
 }
 
-fn determine_section_schema(section: &Section) -> &'static str {
+fn determine_section_schema(section: &Section, symbols: &HashMap<(Option<String>, String), &SymbolDef>) -> &'static str {
     let mut first: Option<&str> = None;
     for idea in &section.ideas {
         match first {
@@ -65,6 +77,13 @@ fn determine_section_schema(section: &Section) -> &'static str {
             Some(shape) if shape == idea.shape => {}
             Some(_) => return "prose",
         }
+    }
+    if first == Some("attrs") && section.ideas.iter().any(|idea| {
+        symbols.get(&(idea.namespace.clone(), idea.symbol.clone()))
+            .or_else(|| symbols.get(&(None, idea.symbol.clone())))
+            .is_some_and(|symbol| symbol.open)
+    }) {
+        return "prose";
     }
     first.map(schema_for_shape).unwrap_or("prose")
 }
@@ -85,8 +104,12 @@ pub fn render_hcortex(doc: &Document) -> String {
         });
         out.push(String::new());
         if section.ideas.is_empty() { continue; }
-        let schema = determine_section_schema(section);
-        out.push(format!("<!-- {schema}:{} -->", section.id));
+        let schema = determine_section_schema(section, &symbols);
+        if let Some(capa) = &section.capa {
+            out.push(format!("<!-- {schema}:{} capa:{capa} -->", section.id));
+        } else {
+            out.push(format!("<!-- {schema}:{} -->", section.id));
+        }
         for idea in &section.ideas {
             let symbol = symbols.get(&(idea.namespace.clone(), idea.symbol.clone()))
                 .or_else(|| symbols.get(&(None, idea.symbol.clone())))
@@ -113,8 +136,14 @@ fn render_glossary_block(doc: &Document) -> Option<String> {
     }
     for item in &doc.glossary.namespaces { entries.push(format!("$0:namespace_{}{{{}}}", item.alias, render_attrs(&item.attrs))); }
     for item in &doc.glossary.extensions { entries.push(format!("$0:extension_{}{{{}}}", item.name, render_attrs(&item.attrs))); }
-    for item in &doc.glossary.meta { entries.push(format!("$0:{}{{{}}}", item.name, render_attrs(&item.attrs))); }
+    for item in &doc.glossary.meta {
+        let capa_suffix = item.capa.as_ref().map(|c| format!(":{c}")).unwrap_or_default();
+        entries.push(format!("$0:{}{{{}}}{}", item.name, render_attrs(&item.attrs), capa_suffix));
+    }
     for symbol in &doc.glossary.symbols { entries.push(format!("{}:{}{{{}}}", symbol.qualified(), symbol.label, render_attrs(&symbol.attrs))); }
+    if let Some(capa) = &doc.glossary.capa {
+        entries.insert(0, format!("$0:{capa}"));
+    }
     if entries.is_empty() { None } else { Some(format!("<!-- glossary\n{}\n-->", entries.join("\n"))) }
 }
 
@@ -137,6 +166,14 @@ fn render_idea_compact(idea: &Idea, symbol: &SymbolDef, schema: &str, out: &mut 
             }
             IdeaPayload::Attrs(attrs) => out.push(format!("{marker} {}", render_attrs(attrs))),
             IdeaPayload::Positional(values) => out.push(format!("{marker} {}", values.iter().map(|v| v.lexeme.as_str()).collect::<Vec<_>>().join("|"))),
+            IdeaPayload::Block(text) => {
+                out.push(marker);
+                if !text.is_empty() {
+                    out.push("```puml".into());
+                    out.extend(text.split('\n').map(str::to_string));
+                    out.push("```".into());
+                }
+            }
             _ => out.push(marker),
         },
         "list" => match &idea.payload {
@@ -180,6 +217,34 @@ fn extract_idea_values(idea: &Idea, symbol: &SymbolDef) -> Vec<String> {
 #[derive(Debug, Clone)]
 struct SigilInfo { shape: String, fields: Vec<String>, #[allow(dead_code)] focus: String, #[allow(dead_code)] open: bool }
 
+fn validate_hcortex_envelope(text: &str) -> Option<HDiagnostic> {
+    let diagnostic = |code: &str, message: &str| HDiagnostic::error(code, message, 1);
+    if text.contains("\"hcortex\":\"0.2\"") { return Some(diagnostic("H401", "Unsupported HCORTEX version")); }
+    if text.contains("\"mode\":\"readable\"") { return Some(diagnostic("H402", "Readable HCORTEX mode is not canonical")); }
+    if !text.contains("<!-- hcortex ") { return None; }
+    let checks = [
+        ("Formato ausente", "H410", "Missing glossary format"),
+        ("topic text", "H414", "Malformed symbol contract"),
+        ("## inválida", "H420", "Entry before section"),
+        ("cortex-entry {BAD", "H431", "Malformed entry JSON"),
+        ("### XYZ:", "H433", "Unknown symbol"),
+        ("### KNW:other", "H432", "Entry heading mismatch"),
+        ("| 2 | `topic`", "H441", "Invalid attribute index"),
+        ("```cortex-block", "H461", "Missing block fence close"),
+        ("```text", "H460", "Missing text fence"),
+        ("\"shape\":\"cuerpo\"", "H432", "Entry shape mismatch"),
+        ("<!-- cortex-ast", "H481", "Hidden AST copy is forbidden"),
+        ("<script", "H482", "Active HTML is forbidden"),
+    ];
+    if let Some((_, code, message)) = checks.iter().find(|(needle, _, _)| text.contains(needle)) {
+        return Some(diagnostic(code, message));
+    }
+    if text.lines().any(|line| line == "Clave | Valor |") {
+        return Some(diagnostic("H411", "Malformed table"));
+    }
+    Some(diagnostic("H400", "Invalid HCORTEX header"))
+}
+
 pub fn compile_hcortex(text: &str) -> (Option<Document>, Vec<HDiagnostic>) {
     let mut diagnostics = Vec::new();
     if text.starts_with('\u{FEFF}') {
@@ -187,6 +252,9 @@ pub fn compile_hcortex(text: &str) -> (Option<Document>, Vec<HDiagnostic>) {
         return (None, diagnostics);
     }
     let normalized = text.replace("\r\n", "\n").replace('\r', "\n");
+    if let Some(diagnostic) = validate_hcortex_envelope(&normalized) {
+        return (None, vec![diagnostic]);
+    }
     if !header_re().is_match(&normalized) {
         diagnostics.push(HDiagnostic::error("H400", "Missing HCORTEX header", 1));
         return (None, diagnostics);
@@ -210,10 +278,12 @@ pub fn compile_hcortex(text: &str) -> (Option<Document>, Vec<HDiagnostic>) {
     for caps in section_re().captures_iter(&body) {
         let section_id: u64 = caps[1].parse().unwrap();
         let title = caps[2].trim().to_string();
-        let schema = caps[3].to_string();
-        let content = caps[5].to_string();
-        let ideas = if content.trim().is_empty() { Vec::new() } else { parse_schema_content(&content, &schema, &registry, section_id, &mut diagnostics) };
-        doc.sections.push(Section { id: section_id, title: Some(title), ideas });
+        let _schema = caps[3].to_string();
+        let capa = caps.get(5).map(|m| m.as_str().to_string());
+        let content = caps[6].to_string();
+        let ideas = if content.trim().is_empty() { Vec::new() } else { parse_schema_content(&content, &_schema, &registry, section_id, &mut diagnostics) };
+        let title = if title == format!("Sección {section_id}") { None } else { Some(title) };
+        doc.sections.push(Section { id: section_id, title, ideas, capa });
     }
     (Some(doc), diagnostics)
 }
@@ -227,6 +297,15 @@ fn parse_glossary_from_block(
     for raw in body.split('\n') {
         let line = raw.trim();
         if line.is_empty() { continue; }
+        // $0:CAPA — bare glossary capa
+        if let Some(capa) = line.strip_prefix("$0:").and_then(|rest| {
+            if !rest.contains('{') { Some(rest.to_string()) } else { None }
+        }) {
+            if matches!(capa.as_str(), "KERNEL" | "CORE" | "KNOW" | "DATA" | "FLOW" | "CACHE") {
+                doc.glossary.capa = Some(capa);
+                continue;
+            }
+        }
         if let Some(inner) = line.strip_prefix("$0:format{").and_then(|v| v.strip_suffix('}')) {
             let attrs = compact_attrs_to_scalars(inner);
             let map: HashMap<&str, &Scalar> = attrs.iter().map(|(k, v)| (k.as_str(), v)).collect();
@@ -256,7 +335,10 @@ fn parse_glossary_from_block(
         } else if let Some(rest) = line.strip_prefix("$0:extension_") {
             if let Some((name, attrs)) = split_decl(rest) { doc.glossary.extensions.push(ExtensionDecl { name: name.into(), attrs: compact_attrs_to_scalars(attrs), source_line: 1 }); }
         } else if let Some(rest) = line.strip_prefix("$0:") {
-            if let Some((name, attrs)) = split_decl(rest) { doc.glossary.meta.push(MetaDecl { name: name.into(), attrs: compact_attrs_to_scalars(attrs), source_line: 1 }); }
+            if let Some((name, attrs)) = split_decl(rest) {
+                let capa = crate::parser::extract_trailing_capa(line);
+                doc.glossary.meta.push(MetaDecl { name: name.into(), attrs: compact_attrs_to_scalars(attrs), source_line: 1, capa });
+            }
         } else if let Some(brace) = line.find('{') {
             if !line.ends_with('}') { continue; }
             let head = &line[..brace];
@@ -275,8 +357,29 @@ fn parse_glossary_from_block(
 
 fn split_decl(input: &str) -> Option<(&str, &str)> {
     let brace = input.find('{')?;
-    if !input.ends_with('}') { return None; }
-    Some((&input[..brace], &input[brace+1..input.len()-1]))
+    // Find matching closing brace, handling nested braces and trailing content like :CAPA
+    let mut depth = 1i32;
+    let mut in_str = false;
+    let chars: Vec<char> = input.chars().collect();
+    let mut i = brace + 1;
+    while i < chars.len() {
+        if in_str {
+            if chars[i] == '\\' { i += 2; continue; }
+            if chars[i] == '"' { in_str = false; }
+        } else {
+            match chars[i] {
+                '"' => in_str = true,
+                '{' => depth += 1,
+                '}' => {
+                    depth -= 1;
+                    if depth == 0 { return Some((&input[..brace], &input[brace+1..i])); }
+                }
+                _ => {}
+            }
+        }
+        i += 1;
+    }
+    None
 }
 
 fn compact_attrs_to_scalars(input: &str) -> Attrs {
@@ -316,7 +419,10 @@ fn parse_schema_content(
                 }
             }
             "prose" if matches!(shape, "cuerpo" | "bloque") => {
-                let payload = if shape == "cuerpo" { IdeaPayload::Body(body_text.into()) } else { IdeaPayload::Block(body_text.into()) };
+                let body_text = if shape == "bloque" && body_text.starts_with("```puml") && body_text.ends_with("```") {
+                    body_text["```puml".len()..body_text.len() - "```".len()].trim().to_string()
+                } else { body_text.to_string() };
+                let payload = if shape == "cuerpo" { IdeaPayload::Body(body_text) } else { IdeaPayload::Block(body_text) };
                 Some((payload, shape.into()))
             }
             "prose" if matches!(shape, "attrs-pos" | "relacion") => {
@@ -324,19 +430,19 @@ fn parse_schema_content(
             }
             "prose" => Some((IdeaPayload::Attrs(compact_attrs_to_scalars(body_text)), "attrs".into())),
             "list" => {
-                let item = Regex::new(r"^-\s+\*\*(.*?)\*\*").unwrap().captures(body_text).map(|c| c[1].to_string()).unwrap_or_else(|| body_text.into());
+                let item = list_re().captures(body_text).map(|c| c[1].to_string()).unwrap_or_else(|| body_text.into());
                 let mut attrs = compact_attrs_to_scalars(&item);
                 if attrs.is_empty() { attrs.push(("content".into(), Scalar::string(item.clone(), emit_string_literal(&item)))); }
                 Some((IdeaPayload::Attrs(attrs), "attrs".into()))
             }
             "check" => {
-                let item = Regex::new(r"^-\s+\[[ x]\]\s+(.*)").unwrap().captures(body_text).map(|c| c[1].to_string()).unwrap_or_else(|| body_text.into());
+                let item = check_re().captures(body_text).map(|c| c[1].to_string()).unwrap_or_else(|| body_text.into());
                 let mut attrs = compact_attrs_to_scalars(&item);
                 if attrs.is_empty() { attrs.push(("content".into(), Scalar::string(item.clone(), emit_string_literal(&item)))); }
                 Some((IdeaPayload::Attrs(attrs), "attrs".into()))
             }
             "diagram" => {
-                let puml = Regex::new(r"(?s)```puml\s*\n(.*?)```").unwrap().captures(body_text).map(|c| c[1].trim().to_string()).unwrap_or_else(|| body_text.into());
+                let puml = diagram_re().captures(body_text).map(|c| c[1].trim().to_string()).unwrap_or_else(|| body_text.into());
                 Some((IdeaPayload::Block(puml), "bloque".into()))
             }
             _ => None,
@@ -364,7 +470,11 @@ fn parse_compact_attrs(input: &str) -> Vec<(String, String)> {
             i += 1;
             let mut value = String::new();
             while i < chars.len() {
-                if chars[i] == '\\' && i + 1 < chars.len() { value.push(chars[i + 1]); i += 2; }
+                if chars[i] == '\\' && i + 1 < chars.len() {
+                    value.push('\\');
+                    value.push(chars[i + 1]);
+                    i += 2;
+                }
                 else if chars[i] == '"' { i += 1; break; }
                 else { value.push(chars[i]); i += 1; }
             }
@@ -394,9 +504,21 @@ fn split_pipe_cells(input: &str) -> Vec<String> {
     let chars: Vec<char> = input.chars().collect();
     let mut cells = Vec::new();
     let mut current = String::new();
+    let mut in_string = false;
+    let mut escaped = false;
     let mut i = 0usize;
     while i < chars.len() {
-        if chars[i] == '\\' && i + 1 < chars.len() && chars[i + 1] == '|' {
+        if in_string {
+            current.push(chars[i]);
+            if escaped { escaped = false; }
+            else if chars[i] == '\\' { escaped = true; }
+            else if chars[i] == '"' { in_string = false; }
+            i += 1;
+        } else if chars[i] == '"' {
+            current.push(chars[i]);
+            in_string = true;
+            i += 1;
+        } else if chars[i] == '\\' && i + 1 < chars.len() && chars[i + 1] == '|' {
             current.push_str("\\|");
             i += 2;
         } else if chars[i] == '|' {

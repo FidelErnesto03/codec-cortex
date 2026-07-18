@@ -10,6 +10,9 @@ import (
 var (
 	sectionBareRE  = regexp.MustCompile(`^\$([0-9]+)([ \t]+(.*))?$`)
 	sectionColonRE = regexp.MustCompile(`^\$([1-9][0-9]*):[ \t]+(.*)$`)
+	glossaryCapaRE = regexp.MustCompile(`^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$`)
+	sectionCapaRE  = regexp.MustCompile(`^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$`)
+	capaSuffixRE   = regexp.MustCompile(`:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$`)
 	glossaryDeclRE = regexp.MustCompile(`^(([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):`)
 	symbolHeadRE   = regexp.MustCompile(`^(([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):(.+)$`)
 	ideaHeadRE     = regexp.MustCompile(`^(([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):([^\{\|\}\s]+)`)
@@ -80,6 +83,21 @@ func ParseCortex(source string) (*Document, error) {
 			continue
 		}
 
+		if m0 := glossaryCapaRE.FindStringSubmatch(stripped); m0 != nil {
+			if inGlossary {
+				return nil, &ParseError{Code: "G002_GLOSSARY_REOPENED", Message: "$0 reopened", Line: lineNo}
+			}
+			inGlossary = true
+			doc.Glossary.Capa = m0[1]
+			continue
+		}
+		if m := sectionCapaRE.FindStringSubmatch(stripped); m != nil {
+			sid, _ := strconv.Atoi(m[1])
+			doc.Sections = append(doc.Sections, Section{ID: sid, Capa: m[2]})
+			currentSection = len(doc.Sections) - 1
+			inGlossary = false
+			continue
+		}
 		if m := sectionBareRE.FindStringSubmatch(stripped); m != nil && !strings.HasPrefix(stripped, "$0:") {
 			sid, _ := strconv.Atoi(m[1])
 			if sid == 0 {
@@ -102,7 +120,12 @@ func ParseCortex(source string) (*Document, error) {
 		if m := sectionColonRE.FindStringSubmatch(stripped); m != nil {
 			sid, _ := strconv.Atoi(m[1])
 			t := strings.TrimSpace(m[2])
-			doc.Sections = append(doc.Sections, Section{ID: sid, Title: &t})
+			capa := ""
+			if loc := capaSuffixRE.FindStringSubmatch(t); loc != nil {
+				capa = loc[1]
+				t = strings.TrimSpace(t[:len(t)-len(loc[0])])
+			}
+			doc.Sections = append(doc.Sections, Section{ID: sid, Title: &t, Capa: capa})
 			currentSection = len(doc.Sections) - 1
 			inGlossary = false
 			continue
@@ -141,6 +164,16 @@ func ParseCortex(source string) (*Document, error) {
 	return doc, nil
 }
 
+func resolveCapa(sec Section) string {
+	if sec.Capa != "" {
+		return sec.Capa
+	}
+	if sec.ID >= 2 {
+		return "DATA"
+	}
+	return ""
+}
+
 func isGlossaryDeclLine(s string) bool { return glossaryDeclRE.MatchString(s) }
 
 func parseGlossaryDeclaration(line string, doc *Document, lineNo int) error {
@@ -149,12 +182,18 @@ func parseGlossaryDeclaration(line string, doc *Document, lineNo int) error {
 		return &ParseError{Code: "G004_GLOSSARY_DECLARATION_MUST_BE_ATTRS", Message: fmt.Sprintf("Glossary declaration must use attrs: %q", line), Line: lineNo}
 	}
 	head := strings.TrimSpace(line[:brace])
-	attrs, err := ParseAttrsPayload(line[brace:], lineNo)
+	trailing := strings.TrimSpace(line[brace:])
+	capa := ""
+	if loc := capaSuffixRE.FindStringSubmatch(trailing); loc != nil {
+		capa = loc[1]
+		trailing = strings.TrimSpace(trailing[:len(trailing)-len(loc[0])])
+	}
+	attrs, err := ParseAttrsPayload(trailing, lineNo)
 	if err != nil {
 		return err
 	}
 	if strings.HasPrefix(head, "$0:") {
-		return addMetaDeclaration(head[3:], attrs, doc, lineNo)
+		return addMetaDeclaration(head[3:], attrs, capa, doc, lineNo)
 	}
 	m := symbolHeadRE.FindStringSubmatch(head)
 	if m == nil {
@@ -178,7 +217,7 @@ func scalarStringValue(s Scalar) string {
 	}
 }
 
-func addMetaDeclaration(name string, attrs []Attr, doc *Document, lineNo int) error {
+func addMetaDeclaration(name string, attrs []Attr, capa string, doc *Document, lineNo int) error {
 	if name == "format" {
 		if doc.Glossary.Format != nil {
 			return &ParseError{Code: "G006_DUPLICATE_FORMAT", Message: "Duplicate $0:format", Line: lineNo}
@@ -225,7 +264,7 @@ func addMetaDeclaration(name string, attrs []Attr, doc *Document, lineNo int) er
 		doc.Glossary.Extensions = append(doc.Glossary.Extensions, ExtensionDecl{Name: name[10:], Attrs: attrs, SourceLine: lineNo})
 		return nil
 	}
-	doc.Glossary.Meta = append(doc.Glossary.Meta, MetaDecl{Name: name, Attrs: attrs, SourceLine: lineNo})
+	doc.Glossary.Meta = append(doc.Glossary.Meta, MetaDecl{Name: name, Attrs: attrs, SourceLine: lineNo, Capa: capa})
 	return nil
 }
 

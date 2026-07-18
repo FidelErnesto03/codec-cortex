@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:text|requires:text|notes:text?",focus:operation,desc:"Operación"}
-$1
+$1:DATA
 HDL:verify|validar|current|archivo

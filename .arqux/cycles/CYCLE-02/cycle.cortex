@@ -29,8 +29,8 @@ $0
 
 $19: ARQUX METADATA
 
-ARQX:artifact{level:2, name:"CYCLE-02", usage:"state", kind:"native"}
+ARQX:artifact{level:2, name:"cycle", usage:"state", kind:"native"}
 
 $1: CYCLE
 
-WRK:cycle{id:"CYCLE-02", name:"CYCLE-02", status:"draft", created:"2026-07-17T23:41:12Z", description:"Implementar transformadores CORTEX↔HCORTEX con schemas emparejados, cerrar revision externa REV, publicar releases oficiales (PyPI + GitHub), y definir roadmap para extensiones post-v0.1 bajo la nueva vision del codec ideatico."}
+WRK:cycle{id:"CYCLE-02", name:"?", status:"closed", created:"", description:""}

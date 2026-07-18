@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 KNW:k{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Conocimiento"}
-$1
+$1:KNOW
 KNW:item{content:"A"}
-$2
+$2:KNOW
 KNW:item{content:"B"}

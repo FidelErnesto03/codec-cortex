@@ -23,15 +23,15 @@ OBJ:mi_objetivo{goal:"Aprender CORTEX.",status:current}
 Todo documento CORTEX tiene 3 partes:
 
 1. **$0** — Glosario (declara los sigilos que se usaran)
-2. **$N: TITULO** — Secciones (agrupan ideas por contexto)
+2. **$N: TITULO** — Secciones (agrupan ideas por contexto, opcionalmente con capa de profundidad: `$N: TITULO:CAPA`)
 3. **Las ideas** — Cada una en su linea
 
 ```cortex
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 TAR:task{type:attrs,fields:"desc:text|estado:%state",focus:desc,schema:table}
 
-$1: TAREAS
+$1: TAREAS:DATA
 TAR:comprar{desc:"Comprar pan",estado:pendiente}
 TAR:llamar{desc:"Llamar al medico",estado:hecho}
 ```

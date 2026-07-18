@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 TAG:tagset{type:attrs,weight:B,fields:"name:text|items:list",focus:items,desc:"Lista plana"}
-$1
+$1:DATA
 TAG:principles{name:Principios,items:[portable,denso,compacto]}

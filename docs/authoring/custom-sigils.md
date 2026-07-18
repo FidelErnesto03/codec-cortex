@@ -69,18 +69,18 @@ $0:enum_estado{values:"pendiente|leyendo|terminado"}
 Declaración:
 
 ```cortex
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_prioridad{values:"baja|media|alta|critica"}
 RECETA:plato{type:attrs,weight:M,fields:"nombre:text|dificultad:%prioridad|tiempo:number|calorias:number",focus:nombre,schema:table,desc:"Plato de cocina"}
 PASO:instruccion{type:attrs-pos,weight:H,fields:"orden:number|desc:text|duracion:number",pos:"0|1|2",focus:desc,schema:list,desc:"Paso de preparacion"}
 NOTA:comentario{type:cuerpo,weight:M,schema:prose,desc:"Nota libre sobre la receta"}
 
-$1: PLATOS
+$1: PLATOS:DATA
 RECETA:paella{nombre:"Paella valenciana",dificultad:alta,tiempo:60,calorias:480}
 RECETA:tortilla{nombre:"Tortilla de patatas",dificultad:media,tiempo:30,calorias:320}
 
-$2: PASOS
+$2: PASOS:DATA
 NOTA:comentario{Para la paella, lo importante es el socarrat.}
 ```
 
@@ -91,3 +91,28 @@ NOTA:comentario{Para la paella, lo importante es el socarrat.}
 3. **focus debe coincidir con un campo de fields** exactamente
 4. **Los enums se declaran antes** de usarlos en fields
 5. **5 values tiene un sigilo:** type, weight, fields, focus, schema (desc opcional)
+
+## Capas de profundidad cortical
+
+Cada sección `$N: TITULO` puede incluir opcionalmente una capa que define su
+resiliencia en la ventana de contexto:
+
+```cortex
+$N: TITULO:CAPA
+```
+
+| Capa    | Significado                                      | Resiliencia  |
+|---------|--------------------------------------------------|-------------|
+| KERNEL  | Esencia funcional. Identidad. Inamovible.        | Nunca       |
+| CORE    | Reglas, restricciones (LIM), alertas.            | Muy alta    |
+| KNOW    | Conocimiento procesado (skills, lecciones LNG).   | Alta        |
+| DATA    | Datos de referencia consultable.                  | Media       |
+| FLOW    | Sesión activa, WRK:current, tareas en curso.      | Media-baja  |
+| CACHE   | Transitorio (handoff, PULSE, SES).               | Baja        |
+
+**Reglas:**
+1. KERNEL es obligatorio: `$0` siempre es KERNEL
+2. KERNEL solo se asigna a `$0` y secciones que definan identidad funcional
+3. Las demás capas son opcionales, se usan solo donde aplica
+4. Orden de evicción bajo presión de contexto: CACHE → FLOW → DATA → KNOW → CORE → KERNEL
+5. KERNEL nunca se compacta ni se evicciona

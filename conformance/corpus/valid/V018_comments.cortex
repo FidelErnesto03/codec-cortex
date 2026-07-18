@@ -1,8 +1,8 @@
 # comentario antes del documento
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 # comentario dentro de $0
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento"}
-$1
+$1:KNOW
 # comentario organizativo
 KNW:comment{topic:"Comentarios",content:"No alteran el AST semántico."}

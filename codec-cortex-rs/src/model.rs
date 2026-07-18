@@ -84,7 +84,7 @@ impl Default for FormatDecl {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct MetaDecl { pub name: String, pub attrs: Attrs, pub source_line: usize }
+pub struct MetaDecl { pub name: String, pub attrs: Attrs, pub source_line: usize, pub capa: Option<String> }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EnumDecl { pub name: String, pub values: Vec<String>, pub source_line: usize }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -149,7 +149,19 @@ impl Idea {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Section { pub id: u64, pub title: Option<String>, pub ideas: Vec<Idea> }
+pub struct Section { pub id: u64, pub title: Option<String>, pub ideas: Vec<Idea>, pub capa: Option<String> }
+
+impl Section {
+    pub fn resolve_capa(&self) -> Option<&str> {
+        if self.capa.is_some() {
+            return self.capa.as_deref();
+        }
+        if self.id >= 2 {
+            return Some("DATA");
+        }
+        None
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct Glossary {
@@ -160,6 +172,7 @@ pub struct Glossary {
     pub namespaces: Vec<NamespaceDecl>,
     pub extensions: Vec<ExtensionDecl>,
     pub symbols: Vec<SymbolDef>,
+    pub capa: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

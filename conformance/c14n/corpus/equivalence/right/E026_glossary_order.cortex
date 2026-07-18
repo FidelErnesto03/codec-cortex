@@ -1,9 +1,9 @@
-$0
+$0:KERNEL
 $0:format{encoding:UTF-8,cortex:0.1,language:es}
 $0:enum_state{values:"current|planned"}
 $0:micro_cur{expand:current}
 AAA:a{type:attrs,weight:B,fields:"content:text",focus:content,desc:"A"}
 ZED:z{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Z"}
-$1
+$1:DATA
 AAA:a{content:"A"}
 ZED:z{content:"Z"}

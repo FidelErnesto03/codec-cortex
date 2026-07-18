@@ -1,5 +1,5 @@
 $0
 $0:format{cortex:0.1,encoding:UTF-8}
 TAG:classification{type:attrs,weight:B,fields:"topic:text|values:list",focus:topic,desc:"x"}
-$1
+$1:DATA
 TAG:x{topic:"x",values:[a,b}

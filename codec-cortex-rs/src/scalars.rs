@@ -4,7 +4,7 @@ use regex::Regex;
 use unicode_normalization::UnicodeNormalization;
 
 use crate::error::ParseError;
-use crate::model::{Scalar, ScalarValue};
+use crate::model::Scalar;
 
 fn atom_re() -> &'static Regex {
     static RE: OnceLock<Regex> = OnceLock::new();
@@ -112,7 +112,6 @@ impl StringCursor {
     pub fn new(s: &str, line: usize, col: usize) -> Self {
         Self { chars: s.chars().collect(), i: 0, line, col }
     }
-    pub fn eof(&self) -> bool { self.i >= self.chars.len() }
     pub fn peek(&self) -> Option<char> { self.chars.get(self.i).copied() }
     pub fn next(&mut self) -> Option<char> {
         let c = self.peek()?;
@@ -236,10 +235,6 @@ pub(crate) fn parse_attrs_payload(s: &str, start_line: usize) -> Result<Vec<(Str
             other => return Err(ParseError::at("S006_INVALID_ATTRS", format!("Expected , or }} got {other:?}"), cur.line, cur.col)),
         }
     }
-    skip_inline_ws(&mut cur);
-    if !cur.eof() {
-        return Err(ParseError::at("S006_INVALID_ATTRS", "Trailing content after attrs payload", cur.line, cur.col));
-    }
     Ok(pairs)
 }
 
@@ -300,6 +295,7 @@ pub(crate) fn split_comma_top(s: &str) -> Vec<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::ScalarValue;
 
     #[test]
     fn string_roundtrip() {

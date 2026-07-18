@@ -1,6 +1,7 @@
 <!-- HCORTEX v=0.1 t=canonical -->
 
 <!-- glossary
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 HDL:procedure{type:attrs-pos,weight:M,pos:"action:text|status:%state|target:text|constraint:text?",focus:action,desc:"Procedimiento compacto"}
@@ -11,7 +12,7 @@ REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom|
 
 ## §1: Sección 1
 
-<!-- prose:1 -->
+<!-- prose:1 capa:KNOW -->
 <!-- OBJ:intent --> goal:"Transformar contexto sin pérdida.",status:current
 <!-- HDL:step1 --> "parsear CORTEX"|done|AST
 <!-- HDL:step2 --> "renderizar HCORTEX"|done|"Markdown canónico"

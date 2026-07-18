@@ -8,10 +8,10 @@
 ## Formato 1: CORTEX 0.1
 
 ```
-$0
+$0: NEXUSCORP KB:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,entity:NexusCorp,domain:infraestructura-cloud}
 
-$N: EQUIPO (8 miembros)
+$1: EQUIPO (8 miembros):DATA
 EQP:Elena_Vargas{rol:"Arquitecta Cloud",proyectos:["Nebula","Horizon"],seniority:12,activo:true}
 EQP:Marco_Silva{rol:"SRE Lead",proyectos:["Nebula"],seniority:9,activo:true}
 EQP:Lucía_Rojas{rol:"Platform Engineer",proyectos:["Horizon","Aegis"],seniority:7,activo:true}
@@ -21,14 +21,14 @@ EQP:Chen_Wei{rol:"Network Architect",proyectos:["Horizon"],seniority:14,activo:t
 EQP:Sofía_Márquez{rol:"DevOps Lead",proyectos:["Nebula","Aegis","Phoenix"],seniority:8,activo:true}
 EQP:Liam_O'Connor{rol:"Backend Engineer",proyectos:["Aegis"],seniority:4,activo:true}
 
-$N: PROYECTOS (5)
+$2: PROYECTOS (5):DATA
 PRJ:Nebula{id:"T01",deadline:"2026-09-15",presupuesto:850000,prioridad:"alta",estado:"activo"}
 PRJ:Horizon{id:"T03",deadline:"2026-08-01",presupuesto:420000,prioridad:"media",estado:"activo"}
 PRJ:Aegis{id:"T07",deadline:"2027-01-10",presupuesto:1200000,prioridad:"crítica",estado:"activo"}
 PRJ:Phoenix{id:"T04",deadline:"2026-10-30",presupuesto:670000,prioridad:"alta",estado:"activo"}
 PRJ:Atlas{id:"T06",deadline:"2026-07-30",presupuesto:300000,prioridad:"baja",estado:"activo"}
 
-$N: DEPENDENCIAS (7)
+$3: DEPENDENCIAS (7):DATA
 DEP:D01{origen:"Horizon",destino:"Nebula",tipo:"bloqueante",desc:"Horizon bloquea a Nebula"}
 DEP:D02{origen:"Nebula",destino:"Aegis",tipo:"dependencia",desc:"Nebula depende de Aegis"}
 DEP:D03{origen:"Phoenix",destino:"Aegis",tipo:"dependencia",desc:"Phoenix depende de Aegis"}
@@ -37,7 +37,7 @@ DEP:D05{origen:"Atlas",destino:"Horizon",tipo:"legado",desc:"Atlas depende de Ho
 DEP:D06{origen:"Nebula",destino:"Phoenix",tipo:"dependencia",desc:"Nebula depende de Phoenix"}
 DEP:D07{origen:"Horizon",destino:"Aegis",tipo:"bloqueante",desc:"Horizon bloquea a Aegis"}
 
-$N: RIESGOS (6)
+$4: RIESGOS (6):DATA
 RSK:R01{desc:"Fuga de datos en API Gateway",impacto:"crítico",proyectos:["Horizon","Nebula"],proveedor:"CloudShield",probabilidad:0.35}
 RSK:R02{desc:"Incumplimiento de deadline de Nebula",impacto:"alto",proyectos:["Nebula"],proveedor:"N/A",probabilidad:0.60}
 RSK:R03{desc:"Rotación de Sofía Márquez",impacto:"alto",proyectos:["Aegis","Nebula","Phoenix"],proveedor:"N/A",probabilidad:0.45}
@@ -45,20 +45,20 @@ RSK:R04{desc:"Zero-day en motor de eventos",impacto:"crítico",proyectos:["Nebul
 RSK:R05{desc:"Sobrecoste de DataVault",impacto:"medio",proyectos:["Aegis"],proveedor:"DataVault",probabilidad:0.55}
 RSK:R06{desc:"Incumplimiento de compliance en Phoenix",impacto:"alto",proyectos:["Phoenix"],proveedor:"ComplianceAudit",probabilidad:0.40}
 
-$N: DECISIONES DE ARQUITECTURA (5)
+$5: DECISIONES DE ARQUITECTURA (5):DATA
 DEC:AR01{desc:"Adopción de Kubernetes como plataforma de orquestación",trimestre:"T01",proyectos:["Nebula","Horizon","Aegis"],post_incidente:"N/A"}
 DEC:AR02{desc:"Migración a OAuth2 para autenticación de servicios",trimestre:"T04",proyectos:["Aegis","Phoenix"],post_incidente:"I-004"}
 DEC:AR03{desc:"Arquitectura de motor de eventos desacoplado",trimestre:"T01",proyectos:["Nebula","Phoenix"],post_incidente:"I-002"}
 DEC:AR04{desc:"Rotación automática de secretos cada 72h",trimestre:"T04",proyectos:["Nebula","Horizon","Aegis","Phoenix","Atlas"],post_incidente:"R01,R04"}
 DEC:AR05{desc:"Redundancia geográfica de DataVault",trimestre:"T07",proyectos:["Aegis"],post_incidente:"R05"}
 
-$N: INCIDENTES (4)
+$6: INCIDENTES (4):DATA
 INC:I-001{desc:"Latencia crítica en API Gateway de Horizon",fecha:"2026-06-15",severidad:"alta",proveedor:"CloudShield",estado:"resuelto",duracion_h:4.5}
 INC:I-002{desc:"Pérdida de eventos en el bus de Nebula",fecha:"2026-06-22",severidad:"media",proveedor:"StreamCore",estado:"resuelto",duracion_h:2.0}
 INC:I-003{desc:"Caducidad de certificado TLS en Atlas",fecha:"2026-07-01",severidad:"baja",proveedor:"CloudShield",estado:"resuelto",duracion_h:1.0}
 INC:I-004{desc:"Fuga de tokens de acceso en Aegis",fecha:"2026-07-10",severidad:"crítica",proveedor:"ComplianceAudit",estado:"no_resuelto",duracion_h:0.0}
 
-$N: PROVEEDORES (5)
+$7: PROVEEDORES (5):DATA
 PRV:CloudShield{servicio:"WAF + API Gateway",costo_mensual:15000,proyectos:["Horizon","Nebula"],sla:"99.99%"}
 PRV:StreamCore{servicio:"Event Bus",costo_mensual:8200,proyectos:["Nebula","Phoenix"],sla:"99.95%"}
 PRV:DataVault{servicio:"S3 Storage",costo_mensual:23000,proyectos:["Aegis"],sla:"99.99%"}

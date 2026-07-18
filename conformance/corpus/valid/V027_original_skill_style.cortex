@@ -1,8 +1,8 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|future"}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state|evidence:text?",focus:content,desc:"Conocimiento operativo verificable"}
 CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:atom|evidence:text?",focus:rule,desc:"Restricción no negociable"}
-$1
+$1:KNOW
 KNW:cortex{topic:"CORTEX",content:"Representación densa nativa y fuente canónica.",status:current,evidence:"parser y AST"}
 CNST:no_llm{rule:"El codec no depende de inferencia probabilística.",severity:blocking,evidence:"diseño determinista"}

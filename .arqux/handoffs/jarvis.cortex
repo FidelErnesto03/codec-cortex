@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 
-$1: HANDOFF
+$1: HANDOFF:DATA
 
 HOF:handoff{from:"alfred", to:"jarvis", project:"CODEC-CORTEX", summary:"BLP-004 (Runtime v0.6.0b2) completado y cerrado por el Arquitecto. SessionService implementado con 8 subcomandos CLI", blps:"", tasks:""}

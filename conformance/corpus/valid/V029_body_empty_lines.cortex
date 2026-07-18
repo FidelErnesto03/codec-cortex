@@ -1,7 +1,7 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 TXT:statement{type:cuerpo,weight:B,desc:"Texto semántico"}
-$1
+$1:DATA
 TXT:paragraph{
 Primera idea.
 

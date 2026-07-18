@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 REL:r{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom|evidence:text?",focus:predicate,desc:"Relación"}
-$1
+$1:DATA
 REL:parser_ast|AST|produces|parser|contrato local

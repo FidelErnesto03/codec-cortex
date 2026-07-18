@@ -51,10 +51,10 @@ $0:format{cortex:0.1,encoding:UTF-8,language:es,type:doc}
 ING:ingeniero{type:attrs,fields:"id:text|rol:text|experiencia:text",focus:rol,...}
 OBJ:objetivo{type:attrs,fields:"id:text|desc:text|estado:text",focus:desc,...}
 ...
-$1: EQUIPO DE INGENIERIA
+$1: EQUIPO DE INGENIERIA:DATA
 ING:ingeniero{id:"ing1",rol:"Arquitecto Principal",experiencia:"10 años"}
 ...
-$3: PRINCIPIO NO NEGOCIABLE DE DISEÑO
+$3: PRINCIPIO NO NEGOCIABLE DE DISEÑO:CORE
 PRN:principio{id:"prn1",desc:"El aislamiento de procesos es absoluto...",prioridad:"Crítica"}
 ```
 
@@ -67,7 +67,7 @@ RSK:deadlock{nombre:"Interbloqueos en IPC",impacto:"alto",probabilidad:"media",m
 
 ### 05 — Enfoque creativo con `$0:sigils`
 ```cortex
-$0:sigils{declared:"EQUIPO,OBJ,PRIN,LESS,RIES,STAT"}
+$0:sigils{declared:"EQUIPO,OBJ,PRIN,LESS,RIES,STAT"}:KERNEL
 PRIN:fundamento{nombre:"Cero abstracciones gratuitas",desc:"Toda capa de abstracción debe justificar su costo..."}
 ```
 

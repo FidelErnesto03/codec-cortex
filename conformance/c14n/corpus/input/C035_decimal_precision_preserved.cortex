@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 NUM:n{type:attrs,weight:B,fields:"value:dec",focus:value,desc:"Decimal exacto"}
-$1
+$1:DATA
 NUM:d{value:0.750}

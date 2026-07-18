@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|done"}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state|evidence:text?",focus:content,desc:"Conocimiento verificable"}
-$1
+$1:KNOW
 KNW:determinism{topic:"Determinismo",content:"Misma entrada produce igual estructura.",status:current,evidence:"corpus V003"}

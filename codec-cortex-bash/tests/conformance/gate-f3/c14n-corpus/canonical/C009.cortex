@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:micro_x{expand:done}
 T:item{type:attrs,weight:B,fields:"text:text|state:atom?",focus:text,desc:"Item"}
-$5: Micro
+$5: Micro:DATA
 T:m{text:"task 9",state:done}

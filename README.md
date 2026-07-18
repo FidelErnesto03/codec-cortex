@@ -24,10 +24,10 @@ Así se ve un HCORTEX (humano):
 Ese HCORTEX se compila a CORTEX (que la IA entiende):
 
 ```cortex
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 OBJ:task{type:attrs,weight:H,fields:"goal:text|status:%state",focus:goal,schema:table,desc:"Tarea"}
-$1
+$1:CORE
 OBJ:meta{goal:"Aprender HCORTEX",status:current}
 OBJ:gate{goal:"Escribir documentacion",status:planned}
 ```

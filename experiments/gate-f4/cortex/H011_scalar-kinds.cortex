@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 DAT:data{type:attrs,weight:B,fields:"text:text|atom:atom|int:int|dec:dec|flag:bool|none:null",focus:text,desc:"Cobertura escalar"}
-$1
+$1:DATA
 DAT:all{text:"valor",atom:current,int:-3,dec:0.750,flag:true,none:null}

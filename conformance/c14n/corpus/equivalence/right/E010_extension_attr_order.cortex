@@ -1,6 +1,6 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:extension_trace{namespace:trace,id:provenance,version:0.1,required:false,desc:"Procedencia opcional",x-note:"opaco"}
 AUD:a{type:attrs,weight:B,fields:"event:text",focus:event,desc:"Auditoría",source:"local"}
-$1
+$1:DATA
 AUD:x{event:"Preservar extensión"}

@@ -105,7 +105,7 @@ func TestDiagnostics(t *testing.T) {
 
 func TestCanonicalHash(t *testing.T) {
 	got := CanonicalHash([]byte(readFixture(t, "full.canonical.cortex")))
-	const want = "sha256:bb4ee2f9b99ec50bcab724a1022e14f72ad40e39914993c41c052a7544e6297d"
+	const want = "sha256:6e99f262135750e7202be3ba3faf3dfda12e077735122c719b83c9f5a19a2698"
 	if got != want {
 		t.Fatalf("hash mismatch: got %s want %s", got, want)
 	}
@@ -169,13 +169,7 @@ func TestExplainHCORTEXLoss(t *testing.T) {
 		t.Fatal(err)
 	}
 	diags := ExplainHCORTEXLoss(doc)
-	found := false
-	for _, d := range diags {
-		if d.Code == "HLOSS001_OPEN_EXTRA_FIELD" {
-			found = true
-		}
-	}
-	if !found {
-		t.Fatalf("expected inherited open-extra loss diagnostic: %#v", diags)
+	if len(diags) != 0 {
+		t.Fatalf("unexpected HCORTEX loss diagnostics after lossless open-attrs rendering: %#v", diags)
 	}
 }

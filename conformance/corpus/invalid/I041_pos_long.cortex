@@ -1,5 +1,5 @@
 $0
 $0:format{cortex:0.1,encoding:UTF-8}
 HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:text",focus:operation,desc:"Operación"}
-$1
+$1:DATA
 HDL:x|operation|current|extra

@@ -1,17 +1,17 @@
-$0
+$0: BENCHMARK HEADER:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es,type:benchmark}
 TST:task{type:attrs,weight:H,fields:"id:text|question:text|type:%qtype|requires:text",focus:question,schema:table,desc:"Pregunta del benchmark"}
 FMT:format{type:attrs,weight:H,fields:"name:text|chars:number|tokens:number|precision:text",focus:name,schema:table,desc:"Resultado por formato"}
 MTR:metric{type:attrs,weight:H,fields:"name:text|format:text|value:text",focus:value,schema:table,desc:"Metrica"}
 CTX:context{type:cuerpo,weight:M,schema:prose,desc:"Contexto del escenario"}
-$1: ESCENARIO
+$1: ESCENARIO:FLOW
 CTX:context{Eres el agente de operaciones de "NexusCorp", una empresa de infraestructura cloud con 200 empleados. Tu knowledge base contiene información estructurada sobre: equipo (8 miembros), proyectos activos (5), dependencias entre proyectos (7), riesgos identificados (6), decisiones de arquitectura (5), incidentes recientes (4), y proveedores (5). Esta información está duplicada en 6 formatos distintos. Tu tarea es responder 8 preguntas usando CADA formato, y comparar cuál fue más eficiente.}
-$2: PROTOCOLO
+$2: PROTOCOLO:FLOW
 TST:task{id:"PROTO-1",question:"Lee TODA la información en §4 (los 6 formatos). Contiene los mismos datos — 40 entradas en total — presentadas en CORTEX, JSON, YAML, Markdown, texto plano y XML.",type:instruccion,requires:"§4"}
 TST:task{id:"PROTO-2",question:"Responde las 8 preguntas de §5. Para CADA pregunta, debes responderla 6 VECES — una por cada formato. Es decir, 48 respuestas en total.",type:instruccion,requires:"§5"}
 TST:task{id:"PROTO-3",question:"Para cada pregunta-formato, anota: ¿fue posible responder? (sí/no), ¿cuántos tokens del prompt inspeccionaste mentalmente para encontrar la respuesta? (estima), y la respuesta extraída.",type:instruccion,requires:"§5"}
 TST:task{id:"PROTO-4",question:"Al finalizar, emite un reporte en el formato de §6: una tabla comparativa con los 6 formatos × 8 preguntas + métricas agregadas.",type:instruccion,requires:"§6"}
-$3: PREGUNTAS DE ALTO ESTRÉS
+$3: PREGUNTAS DE ALTO ESTRÉS:FLOW
 TST:task{id:"Q1",question:"¿Quién es el responsable del proyecto 'Nebula' y cuál es su fecha límite?",type:simple,requires:"una sección"}
 TST:task{id:"Q2",question:"¿Qué riesgos afectan al proyecto con deadline más cercano? Lista todos.",type:multi-seccion,requires:"dos secciones"}
 TST:task{id:"Q3",question:"¿Qué proveedor fue responsable del incidente I-004 y qué decisión arquitectónica se tomó como consecuencia?",type:multi-hop,requires:"tres secciones"}
@@ -20,7 +20,7 @@ TST:task{id:"Q5",question:"¿Qué riesgo tiene el nivel de impacto más alto (cr
 TST:task{id:"Q6",question:"Del incidente más reciente: ¿qué dependencia entre proyectos se vio afectada y qué decisión se tomó para mitigarlo?",type:causal,requires:"tres secciones"}
 TST:task{id:"Q7",question:"¿Hay algún riesgo que afecte a MÚLTIPLES proyectos simultáneamente? Si es así, ¿qué proyectos y qué proveedores están en la cadena de impacto?",type:transversal,requires:"cuatro secciones"}
 TST:task{id:"Q8",question:"Basado en TODA la información disponible, ¿cuál es el proyecto en mayor peligro? Justifica tu respuesta citando riesgos, dependencias, incidentes y decisiones que lo afectan.",type:sintesis,requires:"cinco secciones"}
-$4: DATOS — Mismos 40 items en 6 formatos
+$4: DATOS — Mismos 40 items en 6 formatos:DATA
 # §4: DATOS — Mismos 40 items en 6 formatos
 
 > **NexusCorp Knowledge Base** — 8 team + 5 projects + 7 dependencies + 6 risks + 5 decisions + 4 incidents + 5 providers = **40 items total**
@@ -31,10 +31,10 @@ $4: DATOS — Mismos 40 items en 6 formatos
 ## Formato 1: CORTEX 0.1
 
 ```
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,entity:NexusCorp,domain:infraestructura-cloud}
 
-$N: EQUIPO (8 miembros)
+$1: EQUIPO (8 miembros):DATA
 EQP:Elena_Vargas{rol:"Arquitecta Cloud",proyectos:["Nebula","Horizon"],seniority:12,activo:true}
 EQP:Marco_Silva{rol:"SRE Lead",proyectos:["Nebula"],seniority:9,activo:true}
 EQP:Lucía_Rojas{rol:"Platform Engineer",proyectos:["Horizon","Aegis"],seniority:7,activo:true}
@@ -44,14 +44,14 @@ EQP:Chen_Wei{rol:"Network Architect",proyectos:["Horizon"],seniority:14,activo:t
 EQP:Sofía_Márquez{rol:"DevOps Lead",proyectos:["Nebula","Aegis","Phoenix"],seniority:8,activo:true}
 EQP:Liam_O'Connor{rol:"Backend Engineer",proyectos:["Aegis"],seniority:4,activo:true}
 
-$N: PROYECTOS (5)
+$2: PROYECTOS (5):DATA
 PRJ:Nebula{id:"T01",deadline:"2026-09-15",presupuesto:850000,prioridad:"alta",estado:"activo"}
 PRJ:Horizon{id:"T03",deadline:"2026-08-01",presupuesto:420000,prioridad:"media",estado:"activo"}
 PRJ:Aegis{id:"T07",deadline:"2027-01-10",presupuesto:1200000,prioridad:"crítica",estado:"activo"}
 PRJ:Phoenix{id:"T04",deadline:"2026-10-30",presupuesto:670000,prioridad:"alta",estado:"activo"}
 PRJ:Atlas{id:"T06",deadline:"2026-07-30",presupuesto:300000,prioridad:"baja",estado:"activo"}
 
-$N: DEPENDENCIAS (7)
+$3: DEPENDENCIAS (7):DATA
 DEP:D01{origen:"Horizon",destino:"Nebula",tipo:"bloqueante",desc:"Horizon bloquea a Nebula"}
 DEP:D02{origen:"Nebula",destino:"Aegis",tipo:"dependencia",desc:"Nebula depende de Aegis"}
 DEP:D03{origen:"Phoenix",destino:"Aegis",tipo:"dependencia",desc:"Phoenix depende de Aegis"}
@@ -60,7 +60,7 @@ DEP:D05{origen:"Atlas",destino:"Horizon",tipo:"legado",desc:"Atlas depende de Ho
 DEP:D06{origen:"Nebula",destino:"Phoenix",tipo:"dependencia",desc:"Nebula depende de Phoenix"}
 DEP:D07{origen:"Horizon",destino:"Aegis",tipo:"bloqueante",desc:"Horizon bloquea a Aegis"}
 
-$N: RIESGOS (6)
+$4: RIESGOS (6):DATA
 RSK:R01{desc:"Fuga de datos en API Gateway",impacto:"crítico",proyectos:["Horizon","Nebula"],proveedor:"CloudShield",probabilidad:0.35}
 RSK:R02{desc:"Incumplimiento de deadline de Nebula",impacto:"alto",proyectos:["Nebula"],proveedor:"N/A",probabilidad:0.60}
 RSK:R03{desc:"Rotación de Sofía Márquez",impacto:"alto",proyectos:["Aegis","Nebula","Phoenix"],proveedor:"N/A",probabilidad:0.45}
@@ -68,20 +68,20 @@ RSK:R04{desc:"Zero-day en motor de eventos",impacto:"crítico",proyectos:["Nebul
 RSK:R05{desc:"Sobrecoste de DataVault",impacto:"medio",proyectos:["Aegis"],proveedor:"DataVault",probabilidad:0.55}
 RSK:R06{desc:"Incumplimiento de compliance en Phoenix",impacto:"alto",proyectos:["Phoenix"],proveedor:"ComplianceAudit",probabilidad:0.40}
 
-$N: DECISIONES DE ARQUITECTURA (5)
+$5: DECISIONES DE ARQUITECTURA (5):DATA
 DEC:AR01{desc:"Adopción de Kubernetes como plataforma de orquestación",trimestre:"T01",proyectos:["Nebula","Horizon","Aegis"],post_incidente:"N/A"}
 DEC:AR02{desc:"Migración a OAuth2 para autenticación de servicios",trimestre:"T04",proyectos:["Aegis","Phoenix"],post_incidente:"I-004"}
 DEC:AR03{desc:"Arquitectura de motor de eventos desacoplado",trimestre:"T01",proyectos:["Nebula","Phoenix"],post_incidente:"I-002"}
 DEC:AR04{desc:"Rotación automática de secretos cada 72h",trimestre:"T04",proyectos:["Nebula","Horizon","Aegis","Phoenix","Atlas"],post_incidente:"R01,R04"}
 DEC:AR05{desc:"Redundancia geográfica de DataVault",trimestre:"T07",proyectos:["Aegis"],post_incidente:"R05"}
 
-$N: INCIDENTES (4)
+$6: INCIDENTES (4):DATA
 INC:I-001{desc:"Latencia crítica en API Gateway de Horizon",fecha:"2026-06-15",severidad:"alta",proveedor:"CloudShield",estado:"resuelto",duracion_h:4.5}
 INC:I-002{desc:"Pérdida de eventos en el bus de Nebula",fecha:"2026-06-22",severidad:"media",proveedor:"StreamCore",estado:"resuelto",duracion_h:2.0}
 INC:I-003{desc:"Caducidad de certificado TLS en Atlas",fecha:"2026-07-01",severidad:"baja",proveedor:"CloudShield",estado:"resuelto",duracion_h:1.0}
 INC:I-004{desc:"Fuga de tokens de acceso en Aegis",fecha:"2026-07-10",severidad:"crítica",proveedor:"ComplianceAudit",estado:"no_resuelto",duracion_h:0.0}
 
-$N: PROVEEDORES (5)
+$7: PROVEEDORES (5):DATA
 PRV:CloudShield{servicio:"WAF + API Gateway",costo_mensual:15000,proyectos:["Horizon","Nebula"],sla:"99.99%"}
 PRV:StreamCore{servicio:"Event Bus",costo_mensual:8200,proyectos:["Nebula","Phoenix"],sla:"99.95%"}
 PRV:DataVault{servicio:"S3 Storage",costo_mensual:23000,proyectos:["Aegis"],sla:"99.99%"}

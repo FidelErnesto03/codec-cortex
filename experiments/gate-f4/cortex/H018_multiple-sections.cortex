@@ -1,9 +1,9 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
 OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|metric:text?",focus:goal,desc:"Objetivo explícito"}
-$1: Objetivos
+$1: Objetivos:DATA
 OBJ:goal{goal:"Cerrar roundtrip.",status:current}
-$2: Evidencia
+$2: Evidencia:DATA
 KNW:evidence{topic:Evidencia,content:"Corpus verificable."}

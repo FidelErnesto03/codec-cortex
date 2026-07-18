@@ -1,5 +1,5 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 QXZ:function{type:attrs,weight:M,fields:"premise:text|claim:text|confidence:dec",focus:claim,desc:"Función local desconocida para el Core"}
-$7: Dominio externo
+$7: Dominio externo:DATA
 QXZ:item{premise:"P",claim:"Q",confidence:0.80}

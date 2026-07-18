@@ -6,7 +6,7 @@ $0:enum_state{values:"open|closed"}
 $0:micro_done{expand:closed}
 $0:namespace_agent{id:agent,version:1.0,required:true,desc:"Agente"}
 $0:extension_demo{namespace:agent,id:demo,version:0.1,required:false,desc:"Demo"}
-$0:author{role:architect,name:"Fidel"}
+$0:author{role:architect,name:"Fidel"}:KERNEL
 TASK:tarea{desc:"Tarea",open:true,focus:content,fields:"content:text|status:%state?|count:integer?|tags:any?",weight:M,type:attrs}
 POS:pos{desc:"Pos",focus:left,pos:"left:text|right:text|flag:boolean?",weight:B,type:attrs-pos}
 BODY:body{desc:"Body",weight:H,type:cuerpo}

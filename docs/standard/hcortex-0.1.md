@@ -131,20 +131,22 @@ A --> B
 
 ## 5. Secciones
 
-Las secciones de CORTEX (`$N: Título`) se convierten en headings markdown:
+Las secciones de CORTEX (`$N: Título`) se convierten en headings markdown. Las capas de profundidad cortical (`$N: Título:CAPA`) se preservan como metadata renderizable:
 
 ```cortex
-$1: IDENTIDAD
+$1: IDENTIDAD:CORE
 AXM:alfred{...}
 ```
 
 ```markdown
-## §1: IDENTIDAD
+## §1: IDENTIDAD [CORE]
 
 <!-- table:1 -->
 | alfred | steward |
 <!-- /table:1 -->
 ```
+
+La capa se preserva en el roundtrip: el compilador extrae `[CAPA]` del heading y lo restaura como `$N: Título:CAPA`.
 
 Las subsecciones (§N.M) son válidas y pueden tener su propio schema.
 
@@ -169,7 +171,7 @@ El roundtrip CORTEX ↔ HCORTEX es determinista porque los schemas están declar
 
 ```text
 CORTEX:
-$1: Objetivos
+$1: Objetivos:CORE
 OBJ:f2{goal:"Formalizar.",status:current}
 
     ↓ render
@@ -183,7 +185,7 @@ HCORTEX:
     ↓ compile
 
 CORTEX:
-$1: Objetivos
+$1: Objetivos:CORE
 OBJ:f2{goal:"Formalizar.",status:current}
 ```
 

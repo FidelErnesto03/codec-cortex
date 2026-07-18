@@ -1,4 +1,4 @@
-$0
+$0:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,language:es}
 $0:enum_state{values:"current|planned|blocked|done"}
 $0:enum_severity{values:"info|warning|blocking"}
@@ -7,7 +7,7 @@ $0:micro_blk{expand:blocked}
 OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|evidence:text?",focus:goal,desc:"Objetivo"}
 RSK:risk{type:attrs,weight:M,fields:"risk:text|impact:text|mitigation:text|status:%state",focus:risk,desc:"Riesgo y mitigación"}
 CNST:constraint{type:attrs,weight:H,fields:"rule:text|severity:%severity|evidence:text?",focus:rule,desc:"Restricción"}
-$1: Contexto
+$1: Contexto:CORE
 OBJ:phase2{goal:"Definir CORTEX Draft 0.1 real.",status:cur,evidence:"entregables F2"}
 RSK:drift{risk:"Convertir CORTEX en un formato genérico.",impact:"Pérdida de identidad y densidad.",mitigation:"Mantener sigilos, glosario y línea ideática.",status:blk}
 CNST:portable{rule:"El documento transporta el vocabulario necesario.",severity:blocking}

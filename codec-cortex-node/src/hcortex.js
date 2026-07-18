@@ -24,6 +24,7 @@ const {
   Section,
   Idea,
   buildSymbolDef,
+  resolveCapa,
 } = require('./parser');
 
 const SHAPE_SCHEMA = {
@@ -53,8 +54,10 @@ function renderHcortex(doc) {
     out.push('');
     if (!section.ideas.length) continue;
 
-    const schema = determineSectionSchema(section);
-    out.push(`<!-- ${schema}:${section.id} -->`);
+    const schema = determineSectionSchema(section, symbolLookup);
+    const capa = resolveCapa(section);
+    if (capa) out.push(`<!-- ${schema}:${section.id} capa:${capa} -->`);
+    else out.push(`<!-- ${schema}:${section.id} -->`);
     for (const idea of section.ideas) {
       const symbol = symbolLookup.get(`${idea.namespace ?? ''}\u0000${idea.symbol}`)
         || symbolLookup.get(`\u0000${idea.symbol}`);
@@ -67,9 +70,17 @@ function renderHcortex(doc) {
   return `${out.join('\n')}\n`;
 }
 
-function determineSectionSchema(section) {
+function determineSectionSchema(section, symbolLookup = null) {
   const shapes = new Set(section.ideas.map((idea) => idea.shape));
-  if (shapes.size === 1) return SHAPE_SCHEMA[[...shapes][0]] || 'prose';
+  if (shapes.size === 1) {
+    const shape = [...shapes][0];
+    if (shape === 'attrs' && symbolLookup && section.ideas.some((idea) => {
+      const symbol = symbolLookup.get(`${idea.namespace ?? ''}\u0000${idea.symbol}`)
+        || symbolLookup.get(`\u0000${idea.symbol}`);
+      return symbol?.open === true;
+    })) return 'prose';
+    return SHAPE_SCHEMA[shape] || 'prose';
+  }
   return 'prose';
 }
 
@@ -94,12 +105,14 @@ function renderGlossaryBlock(doc) {
     entries.push(`$0:extension_${extension.name}{${extension.attrs.map(([key, value]) => `${key}:${value.lexeme}`).join(',')}}`);
   }
   for (const meta of doc.glossary.meta) {
-    entries.push(`$0:${meta.name}{${meta.attrs.map(([key, value]) => `${key}:${value.lexeme}`).join(',')}}`);
+    const suffix = meta.capa ? `:${meta.capa}` : '';
+    entries.push(`$0:${meta.name}{${meta.attrs.map(([key, value]) => `${key}:${value.lexeme}`).join(',')}}${suffix}`);
   }
   for (const symbol of doc.glossary.symbols) {
     const qualified = symbol.namespace ? `${symbol.namespace}::${symbol.sigil}` : symbol.sigil;
     entries.push(`${qualified}:${symbol.label}{${symbol.attrs.map(([key, value]) => `${key}:${value.lexeme}`).join(',')}}`);
   }
+  if (doc.glossary.capa) entries.unshift(`$0:${doc.glossary.capa}`);
   if (!entries.length) return '';
   return `<!-- glossary\n${entries.join('\n')}\n-->`;
 }
@@ -118,6 +131,10 @@ function renderIdeaCompact(idea, symbol, schema, out) {
       out.push(`<!-- ${qualified}:${idea.name} --> ${idea.payload[1].map(([key, value]) => `${key}:${value.lexeme}`).join(',')}`);
     } else if (idea.shape === 'attrs-pos' || idea.shape === 'relacion') {
       out.push(`<!-- ${qualified}:${idea.name} --> ${idea.payload[1].map((cell) => cell.lexeme).join('|')}`);
+    } else if (idea.shape === 'bloque') {
+      out.push(`<!-- ${qualified}:${idea.name} -->`);
+      const text = idea.payload[1];
+      if (text) out.push('```puml', ...text.split('\n'), '```');
     } else {
       out.push(`<!-- ${qualified}:${idea.name} -->`);
     }
@@ -175,6 +192,31 @@ class HDiagnostic {
   }
 }
 
+function validateHcortexEnvelope(text) {
+  if (/"hcortex"\s*:\s*"0\.2"/.test(text)) return new HDiagnostic('H401', 'error', 'Unsupported HCORTEX version', 1);
+  if (/"mode"\s*:\s*"readable"/.test(text)) return new HDiagnostic('H402', 'error', 'Readable HCORTEX mode is not canonical', 1);
+  if (!text.includes('<!-- hcortex ')) return null;
+  const checks = [
+    ['Formato ausente', 'H410', 'Missing glossary format'],
+    [/^Clave \| Valor \|$/m, 'H411', 'Malformed table'],
+    ['topic text', 'H414', 'Malformed symbol contract'],
+    ['## inválida', 'H420', 'Entry before section'],
+    ['cortex-entry {BAD', 'H431', 'Malformed entry JSON'],
+    ['### XYZ:', 'H433', 'Unknown symbol'],
+    ['### KNW:other', 'H432', 'Entry heading mismatch'],
+    ['| 2 | `topic`', 'H441', 'Invalid attribute index'],
+    ['```cortex-block', 'H461', 'Missing block fence close'],
+    ['```text', 'H460', 'Missing text fence'],
+    ['"shape":"cuerpo"', 'H432', 'Entry shape mismatch'],
+    ['<!-- cortex-ast', 'H481', 'Hidden AST copy is forbidden'],
+    ['<script', 'H482', 'Active HTML is forbidden'],
+  ];
+  for (const [needle, code, message] of checks) {
+    if ((needle instanceof RegExp ? needle.test(text) : text.includes(needle))) return new HDiagnostic(code, 'error', message, 1);
+  }
+  return new HDiagnostic('H400', 'error', 'Invalid HCORTEX header', 1);
+}
+
 function compileHcortex(text) {
   text = String(text);
   const diagnostics = [];
@@ -183,6 +225,8 @@ function compileHcortex(text) {
     return [null, diagnostics];
   }
   text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const envelopeDiagnostic = validateHcortexEnvelope(text);
+  if (envelopeDiagnostic) return [null, [envelopeDiagnostic]];
   if (!/<!-- HCORTEX v=[\d.]+ t=\w+ -->/.test(text)) {
     diagnostics.push(new HDiagnostic('H400', 'error', 'Missing HCORTEX header', 1));
     return [null, diagnostics];
@@ -207,13 +251,15 @@ function compileHcortex(text) {
 
   let body = text.replace(/<!-- HCORTEX v=[\d.]+ t=\w+ -->\s*/, '');
   body = body.replace(/<!-- glossary\n.*?\n-->\s*/s, '');
-  const sectionPattern = /## §(\d+):\s*(.*?)\n\s*\n<!-- (\w+):(\d+) -->\s*\n(.*?)\n<!-- \/\w+:\d+ -->/gs;
+  const sectionPattern = /## §(\d+):\s*(.*?)\n\s*\n<!-- (\w+):(\d+)(?:\s+capa:(\w+))? -->\s*\n(.*?)\n<!-- \/\w+:\d+ -->/gs;
   for (const match of body.matchAll(sectionPattern)) {
     const sectionId = Number.parseInt(match[1], 10);
     const sectionTitle = match[2].trim();
     const schemaName = match[3];
-    const content = match[5];
-    const section = new Section({ id: sectionId, title: sectionTitle, ideas: [] });
+    const capa = match[5] || null;
+    const content = match[6];
+    const title = sectionTitle === `Sección ${sectionId}` ? null : sectionTitle;
+    const section = new Section({ id: sectionId, title, ideas: [], capa });
     doc.sections.push(section);
     if (!content.trim()) continue;
     section.ideas.push(...parseSchemaContent(content, schemaName, sigilRegistry, sectionId, diagnostics));
@@ -258,6 +304,8 @@ function parseGlossaryFromBlock(glossaryBody, doc, sigilRegistry, diagnostics) {
         const attrs = [...parseCompactAttrs(match[2])].map(([key, value]) => [key, classifyCompactValue(value)]);
         doc.glossary.extensions.push(new ExtensionDecl({ name: match[1], attrs }));
       }
+    } else if (/^\$0:(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$/.test(line)) {
+      doc.glossary.capa = line.slice(3);
     } else if (line.startsWith('$0:')) {
       const match = /^\$0:([a-zA-Z_]\w*)\{(.+)\}$/.exec(line);
       if (match) {
@@ -294,7 +342,7 @@ function parseSchemaContent(content, schemaName, sigilRegistry, sectionId, diagn
   for (const match of content.matchAll(markerPattern)) {
     const sigil = match[1];
     const name = match[2];
-    const bodyText = match[3].trim();
+    let bodyText = match[3].trim();
     const lower = sigil.toLowerCase();
     const sigilClean = lower.includes('::') ? lower.split('::').at(-1) : lower;
     const sigilInfo = sigilRegistry.get(sigilClean) || {};
@@ -324,6 +372,9 @@ function parseSchemaContent(content, schemaName, sigilRegistry, sectionId, diagn
       }
     } else if (schemaName === 'prose') {
       if (shape === 'cuerpo' || shape === 'bloque') {
+        if (shape === 'bloque' && bodyText.startsWith('```puml') && bodyText.endsWith('```')) {
+          bodyText = bodyText.slice('```puml'.length, -'```'.length).trim();
+        }
         ideas.push(new Idea({ section: sectionId, namespace, symbol: sigilShort, name, shape, payload: [shape, bodyText] }));
       } else if (shape === 'attrs-pos' || shape === 'relacion') {
         const cells = bodyText.split('|').map((cell) => cell.trim()).filter(Boolean);
@@ -345,7 +396,7 @@ function parseSchemaContent(content, schemaName, sigilRegistry, sectionId, diagn
       if (!pairs.length) pairs = [['content', new Scalar('string', item, emitStringLiteral(item))]];
       ideas.push(new Idea({ section: sectionId, namespace, symbol: sigilShort, name, shape: 'attrs', payload: ['attrs', pairs] }));
     } else if (schemaName === 'diagram') {
-      const pumlMatch = /```puml\s*\n(.*?)```/s.exec(bodyText);
+      const pumlMatch = /```puml\s*\n(.*)```$/s.exec(bodyText);
       const pumlBody = pumlMatch ? pumlMatch[1].trim() : (bodyText || '');
       ideas.push(new Idea({ section: sectionId, namespace, symbol: sigilShort, name, shape: 'bloque', payload: ['bloque', pumlBody] }));
     }
@@ -404,7 +455,12 @@ function parseCompactAttrs(source) {
 function classifyCompactValue(lexeme) {
   const lex = String(lexeme).trim();
   if (lex.startsWith('"') && lex.endsWith('"')) {
-    const value = parseStringLiteral(lex.slice(1, -1));
+    let value;
+    try {
+      value = parseStringLiteral(lex.slice(1, -1));
+    } catch (_e) {
+      value = lex.slice(1, -1);
+    }
     return new Scalar('string', value, emitStringLiteral(value));
   }
   if (lex.startsWith('[') && lex.endsWith(']')) {
@@ -428,10 +484,22 @@ function classifyCompactValue(lexeme) {
 function splitPipeCells(source) {
   const cells = [];
   let current = '';
+  let inString = false;
+  let escaped = false;
   let i = 0;
   const s = String(source);
   while (i < s.length) {
-    if (s[i] === '\\' && i + 1 < s.length && s[i + 1] === '|') {
+    if (inString) {
+      current += s[i];
+      if (escaped) escaped = false;
+      else if (s[i] === '\\') escaped = true;
+      else if (s[i] === '"') inString = false;
+      i += 1;
+    } else if (s[i] === '"') {
+      current += s[i];
+      inString = true;
+      i += 1;
+    } else if (s[i] === '\\' && i + 1 < s.length && s[i + 1] === '|') {
       current += '\\|';
       i += 2;
     } else if (s[i] === '|') {
