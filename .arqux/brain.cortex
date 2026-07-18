@@ -82,6 +82,7 @@ AUD:E_0020{date:"2026-07-18T16:48:59Z", event:"E-0020", task:"BLP-004", kind:"bl
 AUD:E_0021{date:"2026-07-18T16:49:07Z", event:"E-0021", task:"-", kind:"checkpoint", agent:"alfred", result:"cortex.checkpoint ok fcs= obj=", evidence:"cortex.checkpoint ok fcs= obj="}
 AUD:E_0022{date:"2026-07-18T16:49:14Z", event:"E-0022", task:"-", kind:"checkpoint", agent:"alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX CYCLE-02 BLP-004;obj:comple obj=", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX CYCLE-02 BLP-004;obj:comple obj="}
 AUD:E_0023{date:"2026-07-18T16:49:23Z", event:"E-0023", task:"-", kind:"checkpoint", agent:"alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX-CYCLE-02-BLP-004;obj:BLP-00 obj=", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX-CYCLE-02-BLP-004;obj:BLP-00 obj="}
+AUD:E_0024{date:"2026-07-18T17:07:15Z", event:"E-0024", task:"-", kind:"checkpoint", agent:"alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX-CYCLE-02-BLP-004;obj:publis obj=", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX-CYCLE-02-BLP-004;obj:publis obj="}
 
 $7: LESSONS:KNOW
 
@@ -89,7 +90,7 @@ LNG:___2026_07_18t14{type:"contextual", cause:"not_specified", lesson:"- [2026-0
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-004 completed and approved", blocked:"no", survive:"work", fcs:"CODEC-CORTEX-CYCLE-02-BLP-004;obj:BLP-004-complete;tasks:diagnostics-conformance-governance;state:complete", obj:"", tasks:"", state:"active", last_turn:"2026-07-18T16:49:23Z", updated:"2026-07-18T16:48:59Z", event:"blueprint.complete"}
+WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-004 completed and approved", blocked:"no", survive:"work", fcs:"CODEC-CORTEX-CYCLE-02-BLP-004;obj:published-complete;tasks:commit-push-main;state:complete", obj:"", tasks:"", state:"active", last_turn:"2026-07-18T17:07:15Z", updated:"2026-07-18T16:48:59Z", event:"blueprint.complete"}
 
 $9: RISKS:CORE
 
