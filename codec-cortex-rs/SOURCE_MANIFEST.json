@@ -18,7 +18,7 @@
   "target": {
     "name": "codec-cortex-rs",
     "crate": "codec-cortex",
-    "version": "0.1.0",
+    "version": "1.0.0-rc.1",
     "language": "Rust 2021",
     "toolchain_policy": "stable; MSRV pendiente de certificación"
   },

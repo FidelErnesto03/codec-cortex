@@ -3,7 +3,7 @@ $0:format{cortex:0.1,encoding:UTF-8,language:es,type:skill}
 RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,schema:prose,desc:"Regla del formato CORTEX"}
 GEN:generate{type:cuerpo,weight:H,schema:prose,desc:"Instruccion de generacion"}
 $1: IDENTIDAD
-RUL:rule{id:"que-es",rule:"CODEC-CORTEX es un codec ideatico reversible. La IA lee y escribe CORTEX. El humano lee HCORTEX.",detail:"version 0.1 CC0-1.0"}
+RUL:rule{id:"que-es",rule:"CODEC-CORTEX es un codec ideatico reversible. La IA lee y escribe CORTEX. El humano lee HCORTEX.",detail:"version 1.0.0-rc.1 CC0-1.0"}
 $2: SINTAXIS DE CORTEX
 RUL:rule{id:"gramatica",rule:"3 partes: $0 glosario, $N: TITULO secciones, SIGILO:nombre{atributos} ideas.",detail:"Cada idea en su linea. Siguiente $N inicia nueva seccion."}
 RUL:rule{id:"formato",rule:"$0:format{cortex:0.1,encoding:UTF-8,language:es} en linea 2.",detail:"type opcional para metadato."}

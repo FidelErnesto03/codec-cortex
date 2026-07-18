@@ -26,7 +26,7 @@ Endurecer CODEC-CORTEX para su publicación. CYCLE-01 definió el formato y demo
 **Dentro:**
 - Robustecer parser Python a 40/40
 - Documentación pública para adopción externa
-- Publicar release v0.1.0 en PyPI y GitHub
+- Publicar release v1.0.0-rc.1 en PyPI y GitHub
 
 **Fuera:**
 - Nuevas features (VIEW, Fase 5)
@@ -37,7 +37,7 @@ Endurecer CODEC-CORTEX para su publicación. CYCLE-01 definió el formato y demo
 
 - [ ] **CYC-OBJ-1:** Parser Python alcanza 40/40 en corpus F4
 - [ ] **CYC-OBJ-2:** Documentación pública lista para adopción externa
-- [ ] **CYC-OBJ-3:** Release v0.1.0 publicado en PyPI y GitHub
+- [ ] **CYC-OBJ-3:** Release v1.0.0-rc.1 publicado en PyPI y GitHub
 
 ## §4: Directrices
 
@@ -59,7 +59,7 @@ Endurecer CODEC-CORTEX para su publicación. CYCLE-01 definió el formato y demo
 |---|---|---|---|---|---|
 | BLP-001 | Parser Python 40/40 | draft | high | CYC-OBJ-1 | alfred |
 | BLP-002 | Documentación pública | pending | high | CYC-OBJ-2 | alfred |
-| BLP-003 | Publicar release v0.1.0 | pending | high | CYC-OBJ-3 | alfred |
+| BLP-003 | Publicar release v1.0.0-rc.1 | pending | high | CYC-OBJ-3 | alfred |
 
 ## §7: Reglas del Ciclo
 

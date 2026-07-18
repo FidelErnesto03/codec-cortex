@@ -11,7 +11,7 @@ Modules:
 - harness: Test harness for F3 and F4 gates
 """
 
-__version__ = "0.1.0"
+__version__ = "1.0.0-rc.1"
 
 from .scalars import Scalar, ParseError, to_nfc, utf8_bytes, emit_string_literal, parse_string_literal
 from .parser import (

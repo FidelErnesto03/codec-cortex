@@ -1,6 +1,6 @@
 {
   "implementation": "codec-cortex-node",
-  "version": "0.1.0",
+  "version": "1.0.0-rc.1",
   "reference": {
     "artifact": "codec_cortex.tar(3).gz",
     "sha256": "47640ad335bc8f422d346c3f962b12e5e7b317b06080560d1b25070eb54259b2",

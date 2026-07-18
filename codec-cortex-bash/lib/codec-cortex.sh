@@ -5,7 +5,7 @@
 set -o pipefail
 
 CCX_LIB_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-CCX_VERSION="0.1.0"
+CCX_VERSION="1.0.0-rc.1"
 CCX_TMP_ROOT=""
 CCX_LAST_ERROR_CODE=""
 CCX_LAST_ERROR_MESSAGE=""

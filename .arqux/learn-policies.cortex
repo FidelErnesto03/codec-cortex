@@ -25,7 +25,7 @@ $0
 
 $1: IDENTITY
 
-IDN:learn_policies{name:"arqux_default", version:"0.1.0", target:".arqux/brain.cortex"}
+IDN:learn_policies{name:"arqux_default", version:"1.0.0-rc.1", target:".arqux/brain.cortex"}
 
 $2: SCORING
 

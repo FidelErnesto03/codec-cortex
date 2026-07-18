@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "codec-cortex"
-version = "0.1.0"
+version = "1.0.0-rc.1"
 description = "CODEC-CORTEX: A deterministic, auditable, reversible structured-context codec for SLM/LLM and agents — the Pandoc of structured AI context."
 readme = "README.md"
 license = "CC0-1.0"

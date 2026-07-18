@@ -1,6 +1,6 @@
 [package]
 name = "codec-cortex"
-version = "0.1.0"
+version = "1.0.0-rc.1"
 edition = "2021"
 publish = false
 description = "Functional Rust port of CORTEX 0.1, C14N-0.1 and HCORTEX-0.1"

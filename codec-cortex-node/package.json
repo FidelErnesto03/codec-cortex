@@ -1,7 +1,7 @@
 {
   "name": "codec-cortex-node",
-  "version": "0.1.0",
-  "description": "Implementación Node.js funcionalmente equivalente de CORTEX 0.1, C14N-0.1 y HCORTEX-0.1",
+  "version": "1.0.0-rc.1",
+  "description": "Implementaci\u00f3n Node.js funcionalmente equivalente de CORTEX 0.1, C14N-0.1 y HCORTEX-0.1",
   "main": "src/index.js",
   "exports": {
     ".": "./src/index.js",
