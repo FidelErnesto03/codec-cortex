@@ -1,47 +1,16 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+DIAG:diagram{type:bloque,weight:B,desc:"Bloque verbatim"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
-
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `DIAG` | `diagram` | `bloque` | `B` | `—` | `$body` | `false` | Bloque verbatim |
-
----
-
-## $1
-
-<!-- cortex-entry {"media_type":"text/plain","name":"verbatim","namespace":null,"section":"1","shape":"bloque","symbol":"DIAG"} -->
-### DIAG:verbatim · diagram
-
-```cortex-block
+<!-- diagram:1 -->
+<!-- DIAG:verbatim -->
+```puml
 Café permanece verbatim.
 ```
+<!-- /diagram:1 -->
+

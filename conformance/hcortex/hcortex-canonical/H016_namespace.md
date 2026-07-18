@@ -1,48 +1,14 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:namespace_agent{uri:"urn:cortex:agent",version:"0.1"}
+agent::KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Conocimiento namespaced"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
+<!-- table:1 -->
+<!-- agent::KNW:codec --> | Namespace | "El símbolo conserva su namespace." |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `agent` | `urn:cortex:agent` | `0.1` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `agent` | `KNW` | `knowledge` | `attrs` | `B` | `topic:text\|content:text` | `content` | `false` | Conocimiento namespaced |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"codec","namespace":"agent","section":"1","shape":"attrs","symbol":"KNW"} -->
-### agent::KNW:codec · knowledge
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `topic` | `Namespace` |
-| 2 | `content` | `"El símbolo conserva su namespace."` |

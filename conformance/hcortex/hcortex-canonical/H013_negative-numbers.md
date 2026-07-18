@@ -1,48 +1,13 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+NUM:numbers{type:attrs,weight:B,fields:"delta:int|ratio:dec",focus:delta,desc:"Números negativos"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
+<!-- table:1 -->
+<!-- NUM:negative --> | -12 | -0.25 |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `NUM` | `numbers` | `attrs` | `B` | `delta:int\|ratio:dec` | `delta` | `false` | Números negativos |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"negative","namespace":null,"section":"1","shape":"attrs","symbol":"NUM"} -->
-### NUM:negative · numbers
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `delta` | `-12` |
-| 2 | `ratio` | `-0.25` |

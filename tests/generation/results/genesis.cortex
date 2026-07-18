@@ -1,0 +1,1117 @@
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es,type:corpus}
+
+# ============================================
+# GLOSARIO - SIGLAS PARA EL GÉNESIS
+# ============================================
+
+GEN:versiculo{type:cuerpo,weight:H,fields:"id:text|capitulo:number|verso:number|texto:text",focus:texto,schema:prose,desc:"Texto del versículo bíblico"}
+
+GEN:resumen{type:cuerpo,weight:M,fields:"capitulo:number|titulo:text|esencia:text",focus:esencia,schema:prose,desc:"Resumen temático del capítulo"}
+
+GEN:evento{type:attrs,weight:H,fields:"nombre:text|capitulo:number|dia:number|accion:text|resultado:text",focus:nombre,schema:table,desc:"Evento mayor en la narrativa"}
+
+GEN:personaje{type:attrs,weight:H,fields:"nombre:text|edad:number|vida:number|descendencia:text|muerte:number",focus:nombre,schema:table,desc:"Personaje con datos biográficos"}
+
+GEN:genealogia{type:attrs-pos,weight:M,fields:"padre:text|hijo:text|generacion:number|edad_padre:number",pos:"0|1|2|3",focus:hijo,schema:list,desc:"Linea genealogica con edades"}
+
+GEN:relacion{type:relacion,weight:M,fields:"origen:text|destino:text|tipo:text|capitulo:number",focus:tipo,schema:diagram,desc:"Relación entre personajes o elementos"}
+
+GEN:pacto{type:attrs,weight:H,fields:"nombre:text|partes:text|condicion:text|promesa:text|capitulo:number",focus:nombre,schema:table,desc:"Pacto o alianza divina"}
+
+GEN:profecia{type:cuerpo,weight:H,fields:"nombre:text|capitulo:number|destinatario:text|texto:text",focus:texto,schema:prose,desc:"Profecía o bendición"}
+
+GEN:lugar{type:attrs,weight:M,fields:"nombre:text|tipo:text|significado:text|capitulo:number",focus:nombre,schema:table,desc:"Lugar geográfico importante"}
+
+GEN:medida{type:attrs-pos,weight:B,fields:"valor:number|unidad:text|contexto:text",focus:valor,schema:list,desc:"Medidas, edades, distancias"}
+
+# ============================================
+# MICROTOKENS Y ENUMS
+# ============================================
+
+$0:enum_dia{values:1|2|3|4|5|6|7}
+$0:enum_relacion{values:padre|hijo|esposo|hermano|siervo|creador|bendice|maldice|pacta}
+$0:enum_tipo_lugar{values:ciudad|pozo|monte|valle|rio|mar|altar|tienda}
+$0:enum_pacto{values:noe|abraham|isaac|jacob|david}
+
+# ============================================
+# CAPÍTULO 1: LA CREACIÓN
+# ============================================
+
+$1: LA CREACIÓN DEL MUNDO
+
+GEN:resumen{capitulo:1,titulo:"Los siete días",esencia:"Dios crea los cielos, la tierra y todo lo que existe en seis días, y descansa el séptimo."}
+
+GEN:evento{nombre:"Creación de la luz",capitulo:1,dia:1,accion:"Dijo Dios: Sea la luz",resultado:"Separó la luz de las tinieblas"}
+GEN:evento{nombre:"Creación del firmamento",capitulo:1,dia:2,accion:"Dijo Dios: Haya un firmamento",resultado:"Separó las aguas de las aguas"}
+GEN:evento{nombre:"Creación de tierra y vegetación",capitulo:1,dia:3,accion:"Dijo Dios: Produzca la tierra",resultado:"Vegetación con semilla"}
+GEN:evento{nombre:"Creación de lumbreras",capitulo:1,dia:4,accion:"Dijo Dios: Haya lumbreras",resultado:"Sol, luna y estrellas"}
+GEN:evento{nombre:"Creación de animales acuáticos y aves",capitulo:1,dia:5,accion:"Dijo Dios: Produzcan las aguas",resultado:"Peces y aves según su especie"}
+GEN:evento{nombre:"Creación de animales terrestres y hombre",capitulo:1,dia:6,accion:"Dijo Dios: Hagamos al hombre",resultado:"Hombre y mujer a imagen de Dios"}
+GEN:evento{nombre:"Día de reposo",capitulo:1,dia:7,accion:"Dios reposó",resultado:"Bendijo y santificó el séptimo día"}
+
+GEN:versiculo{id:"1.1",capitulo:1,verso:1,texto:"En el principio creó Dios los cielos y la tierra."}
+GEN:versiculo{id:"1.26",capitulo:1,verso:26,texto:"Entonces dijo Dios: Hagamos al hombre a nuestra imagen, conforme a nuestra semejanza..."}
+GEN:versiculo{id:"1.27",capitulo:1,verso:27,texto:"Y creó Dios al hombre a su imagen, a imagen de Dios lo creó; varón y hembra los creó."}
+
+GEN:relacion{origen:"Dios"|destino:"Luz"|tipo:"crea"|capitulo:1}
+GEN:relacion{origen:"Dios"|destino:"Hombre"|tipo:"crea"|capitulo:1}
+GEN:relacion{origen:"Dios"|destino:"Mujer"|tipo:"crea"|capitulo:1}
+
+# ============================================
+# CAPÍTULO 2: EL HUERTO DEL EDÉN
+# ============================================
+
+$2: EL HUERTO DEL EDÉN
+
+GEN:resumen{capitulo:2,titulo:"La creación del hombre y la mujer",esencia:"Dios forma al hombre del polvo, planta el huerto del Edén, y crea a la mujer como ayuda idónea."}
+
+GEN:evento{nombre:"Formación del hombre",capitulo:2,dia:null,accion:"Dios formó al hombre del polvo de la tierra",resultado:"Hombre con aliento de vida"}
+GEN:evento{nombre:"Huerto del Edén",capitulo:2,dia:null,accion:"Dios plantó un huerto en Edén",resultado:"Huerto con árboles y ríos"}
+GEN:evento{nombre:"Formación de la mujer",capitulo:2,dia:null,accion:"Dios hizo una mujer de la costilla",resultado:"Mujer como ayuda idónea"}
+
+GEN:lugar{nombre:"Edén",tipo:"huerto",significado:"Delicia",capitulo:2}
+GEN:lugar{nombre:"Pishón",tipo:"rio",significado:"El que fluye",capitulo:2}
+GEN:lugar{nombre:"Guihón",tipo:"rio",significado:"Torrente",capitulo:2}
+GEN:lugar{nombre:"Tigris",tipo:"rio",significado:"Rápido",capitulo:2}
+GEN:lugar{nombre:"Éufrates",tipo:"rio",significado:"Fructífero",capitulo:2}
+
+GEN:personaje{nombre:"Adán",edad:null,vida:930,descendencia:"Caín, Abel, Set",muerte:null}
+
+GEN:versiculo{id:"2.7",capitulo:2,verso:7,texto:"Entonces Jehová Dios formó al hombre del polvo de la tierra, y sopló en su nariz aliento de vida, y fue el hombre un alma viviente."}
+GEN:versiculo{id:"2.18",capitulo:2,verso:18,texto:"Y dijo Jehová Dios: No es bueno que el hombre esté solo; le haré ayuda idónea para él."}
+GEN:versiculo{id:"2.24",capitulo:2,verso:24,texto:"Por tanto, dejará el hombre a su padre y a su madre, y se unirá a su mujer, y serán una sola carne."}
+
+GEN:relacion{origen:"Dios"|destino:"Adán"|tipo:"creador"|capitulo:2}
+GEN:relacion{origen:"Dios"|destino:"Eva"|tipo:"creador"|capitulo:2}
+GEN:relacion{origen:"Adán"|destino:"Eva"|tipo:"esposo"|capitulo:2}
+
+# ============================================
+# CAPÍTULO 3: LA CAÍDA
+# ============================================
+
+$3: LA CAÍDA DEL HOMBRE
+
+GEN:resumen{capitulo:3,titulo:"El pecado y sus consecuencias",esencia:"La serpiente tienta a Eva, Adán y Eva comen del fruto prohibido, son expulsados del Edén."}
+
+GEN:evento{nombre:"Tentación",capitulo:3,dia:null,accion:"La serpiente engaña a Eva",resultado:"Eva come del fruto y da a Adán"}
+GEN:evento{nombre:"Desobediencia",capitulo:3,dia:null,accion:"Adán y Eva comen del fruto prohibido",resultado:"Se abren los ojos y conocen el bien y el mal"}
+GEN:evento{nombre:"Juicio",capitulo:3,dia:null,accion:"Dios juzga a la serpiente, Eva y Adán",resultado:"Maldición y expulsión del Edén"}
+GEN:evento{nombre:"Expulsión",capitulo:3,dia:null,accion:"Dios los echa del huerto",resultado:"Querubines y espada ardiente"}
+
+GEN:personaje{nombre:"Adán",edad:null,vida:930,descendencia:"Caín, Abel, Set",muerte:null}
+GEN:personaje{nombre:"Eva",edad:null,vida:null,descendencia:"Caín, Abel, Set",muerte:null}
+GEN:personaje{nombre:"Serpiente",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:profecia{nombre:"Enemistad",capitulo:3,destinatario:"Serpiente",texto:"Pondré enemistad entre ti y la mujer, y entre tu simiente y la suya; esta te herirá en la cabeza, y tú le herirás en el calcañar."}
+
+GEN:versiculo{id:"3.1",capitulo:3,verso:1,texto:"Pero la serpiente era astuta, más que todos los animales del campo que Jehová Dios había hecho..."}
+GEN:versiculo{id:"3.15",capitulo:3,verso:15,texto:"Y pondré enemistad entre ti y la mujer, y entre tu simiente y la suya; esta te herirá en la cabeza, y tú le herirás en el calcañar."}
+GEN:versiculo{id:"3.19",capitulo:3,verso:19,texto:"Con el sudor de tu rostro comerás el pan hasta que vuelvas a la tierra, porque de ella fuiste tomado; pues polvo eres, y al polvo volverás."}
+
+GEN:relacion{origen:"Serpiente"|destino:"Eva"|tipo:"engaña"|capitulo:3}
+GEN:relacion{origen:"Eva"|destino:"Adán"|tipo:"da"|capitulo:3}
+GEN:relacion{origen:"Dios"|destino:"Adán"|tipo:"maldice"|capitulo:3}
+GEN:relacion{origen:"Dios"|destino:"Eva"|tipo:"maldice"|capitulo:3}
+GEN:relacion{origen:"Dios"|destino:"Serpiente"|tipo:"maldice"|capitulo:3}
+
+# ============================================
+# CAPÍTULO 4: CAÍN Y ABEL
+# ============================================
+
+$4: CAÍN Y ABEL
+
+GEN:resumen{capitulo:4,titulo:"El primer asesinato",esencia:"Caín mata a su hermano Abel por celos, es maldecido y se convierte en errante."}
+
+GEN:evento{nombre:"Ofrenda rechazada",capitulo:4,dia:null,accion:"Caín ofrece frutos, Abel ofrece primogénitos",resultado:"Dios acepta la de Abel y rechaza la de Caín"}
+GEN:evento{nombre:"Asesinato",capitulo:4,dia:null,accion:"Caín mata a Abel en el campo",resultado:"La sangre de Abel clama desde la tierra"}
+GEN:evento{nombre:"Maldición de Caín",capitulo:4,dia:null,accion:"Dios maldice a Caín",resultado:"Caín es errante y fugitivo"}
+GEN:evento{nombre:"Marca de Caín",capitulo:4,dia:null,accion:"Dios pone una marca a Caín",resultado:"Protección para que no lo maten"}
+
+GEN:personaje{nombre:"Caín",edad:null,vida:null,descendencia:"Enoch",muerte:null}
+GEN:personaje{nombre:"Abel",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Adán",edad:null,vida:930,descendencia:"Caín, Abel, Set",muerte:null}
+GEN:personaje{nombre:"Eva",edad:null,vida:null,descendencia:"Caín, Abel, Set",muerte:null}
+
+GEN:versiculo{id:"4.3",capitulo:4,verso:3,texto:"Y aconteció andando el tiempo, que Caín trajo del fruto de la tierra una ofrenda a Jehová."}
+GEN:versiculo{id:"4.4",capitulo:4,verso:4,texto:"Y Abel trajo también de los primogénitos de sus ovejas, y de la grosura de ellas. Y Jehová miró con agrado a Abel y a su ofrenda."}
+GEN:versiculo{id:"4.8",capitulo:4,verso:8,texto:"Y dijo Caín a su hermano Abel: Salgamos al campo. Y aconteció que estando ellos en el campo, Caín se levantó contra su hermano Abel, y lo mató."}
+GEN:versiculo{id:"4.10",capitulo:4,verso:10,texto:"Y Dios le dijo: ¿Qué has hecho? La voz de la sangre de tu hermano clama a mí desde la tierra."}
+
+GEN:relacion{origen:"Caín"|destino:"Abel"|tipo:"hermano"|capitulo:4}
+GEN:relacion{origen:"Caín"|destino:"Abel"|tipo:"mata"|capitulo:4}
+GEN:relacion{origen:"Dios"|destino:"Caín"|tipo:"maldice"|capitulo:4}
+
+# ============================================
+# CAPÍTULO 5: GENEALOGÍA DE ADÁN A NOÉ
+# ============================================
+
+$5: GENEALOGÍA DE ADÁN A NOÉ
+
+GEN:resumen{capitulo:5,titulo:"Las generaciones desde Adán",esencia:"Genealogía desde Adán hasta Noé, con las edades de los patriarcas."}
+
+GEN:personaje{nombre:"Adán",edad:130,vida:930,descendencia:"Set",muerte:930}
+GEN:personaje{nombre:"Set",edad:105,vida:912,descendencia:"Enós",muerte:912}
+GEN:personaje{nombre:"Enós",edad:90,vida:905,descendencia:"Cainán",muerte:905}
+GEN:personaje{nombre:"Cainán",edad:70,vida:910,descendencia:"Mahalaleel",muerte:910}
+GEN:personaje{nombre:"Mahalaleel",edad:65,vida:895,descendencia:"Jared",muerte:895}
+GEN:personaje{nombre:"Jared",edad:162,vida:962,descendencia:"Enoch",muerte:962}
+GEN:personaje{nombre:"Enoch",edad:65,vida:365,descendencia:"Matusalén",muerte:null}
+GEN:personaje{nombre:"Matusalén",edad:187,vida:969,descendencia:"Lamec",muerte:969}
+GEN:personaje{nombre:"Lamec",edad:182,vida:777,descendencia:"Noé",muerte:777}
+GEN:personaje{nombre:"Noé",edad:500,vida:950,descendencia:"Sem, Cam, Jafet",muerte:950}
+
+GEN:genealogia{padre:"Adán"|hijo:"Set"|generacion:1|edad_padre:130}
+GEN:genealogia{padre:"Set"|hijo:"Enós"|generacion:2|edad_padre:105}
+GEN:genealogia{padre:"Enós"|hijo:"Cainán"|generacion:3|edad_padre:90}
+GEN:genealogia{padre:"Cainán"|hijo:"Mahalaleel"|generacion:4|edad_padre:70}
+GEN:genealogia{padre:"Mahalaleel"|hijo:"Jared"|generacion:5|edad_padre:65}
+GEN:genealogia{padre:"Jared"|hijo:"Enoch"|generacion:6|edad_padre:162}
+GEN:genealogia{padre:"Enoch"|hijo:"Matusalén"|generacion:7|edad_padre:65}
+GEN:genealogia{padre:"Matusalén"|hijo:"Lamec"|generacion:8|edad_padre:187}
+GEN:genealogia{padre:"Lamec"|hijo:"Noé"|generacion:9|edad_padre:182}
+
+GEN:versiculo{id:"5.24",capitulo:5,verso:24,texto:"Caminó, pues, Enoc con Dios, y desapareció, porque le llevó Dios."}
+
+# ============================================
+# CAPÍTULO 6: LA MALDAD Y EL DILUVIO
+# ============================================
+
+$6: LA MALDAD Y EL DILUVIO
+
+GEN:resumen{capitulo:6,titulo:"La corrupción de la humanidad",esencia:"La maldad humana es grande, Dios decide enviar el diluvio, pero halla gracia en Noé."}
+
+GEN:evento{nombre:"Corrupción de la tierra",capitulo:6,dia:null,accion:"Los hijos de Dios tomaron mujeres",resultado:"Nefilim y maldad creciente"}
+GEN:evento{nombre:"Decisión del diluvio",capitulo:6,dia:null,accion:"Dios se arrepiente de haber hecho al hombre",resultado:"Dios decide destruir toda carne"}
+GEN:evento{nombre:"Construcción del arca",capitulo:6,dia:null,accion:"Dios ordena a Noé construir un arca",resultado:"Noé obedece y construye el arca"}
+
+GEN:personaje{nombre:"Noé",edad:600,vida:950,descendencia:"Sem, Cam, Jafet",muerte:950}
+
+GEN:pacto{nombre:"Noé",partes:"Dios y Noé",condicion:"Construir el arca",promesa:"Preservación del diluvio",capitulo:6}
+
+GEN:versiculo{id:"6.5",capitulo:6,verso:5,texto:"Y vio Jehová que la maldad de los hombres era mucha en la tierra, y que todo designio de los pensamientos del corazón de ellos era de continuo solamente el mal."}
+GEN:versiculo{id:"6.8",capitulo:6,verso:8,texto:"Pero Noé halló gracia ante los ojos de Jehová."}
+GEN:versiculo{id:"6.9",capitulo:6,verso:9,texto:"Estas son las generaciones de Noé: varón justo y perfecto era Noé en sus generaciones; con Dios caminó Noé."}
+GEN:versiculo{id:"6.14",capitulo:6,verso:14,texto:"Hazte un arca de madera de gofer; harás aposentos en el arca, y la calafatearás con brea por dentro y por fuera."}
+
+GEN:relacion{origen:"Dios"|destino:"Noé"|tipo:"gracia"|capitulo:6}
+GEN:relacion{origen:"Dios"|destino:"Humanidad"|tipo:"maldice"|capitulo:6}
+
+# ============================================
+# CAPÍTULO 7: EL DILUVIO
+# ============================================
+
+$7: EL DILUVIO
+
+GEN:resumen{capitulo:7,titulo:"El juicio de las aguas",esencia:"Noé y los animales entran en el arca, y el diluvio cubre toda la tierra."}
+
+GEN:evento{nombre:"Entrada al arca",capitulo:7,dia:null,accion:"Noé, su familia y los animales entran",resultado:"Jehová cierra la puerta"}
+GEN:evento{nombre:"Lluvia y cataclismo",capitulo:7,dia:null,accion:"Lluvia 40 días y 40 noches",resultado:"Agua cubre toda la tierra"}
+GEN:evento{nombre:"Destrucción",capitulo:7,dia:null,accion:"Muere todo ser viviente",resultado:"Solo Noé y los que están con él en el arca sobreviven"}
+
+GEN:medida{valor:40|unidad:"días"|contexto:"lluvia"}
+GEN:medida{valor:150|unidad:"días"|contexto:"dominaron las aguas sobre la tierra"}
+
+GEN:versiculo{id:"7.1",capitulo:7,verso:1,texto:"Y Jehová dijo a Noé: Entra tú y toda tu casa en el arca; porque a ti he visto justo delante de mí en esta generación."}
+GEN:versiculo{id:"7.11",capitulo:7,verso:11,texto:"El año seiscientos de la vida de Noé, en el mes segundo, a los diecisiete días del mes, aquel día fueron rotas todas las fuentes del gran abismo, y las cataratas de los cielos fueron abiertas."}
+GEN:versiculo{id:"7.23",capitulo:7,verso:23,texto:"Y fue destruido todo ser que existía sobre la faz de la tierra..."}
+
+GEN:relacion{origen:"Dios"|destino:"Noé"|tipo:"guarda"|capitulo:7}
+
+# ============================================
+# CAPÍTULO 8: EL RETIRO DE LAS AGUAS
+# ============================================
+
+$8: EL RETIRO DE LAS AGUAS
+
+GEN:resumen{capitulo:8,titulo:"El nuevo comienzo",esencia:"Las aguas se retiran, Noé envía un cuervo y una paloma, y la tierra vuelve a estar seca."}
+
+GEN:evento{nombre:"Envío de la paloma",capitulo:8,dia:null,accion:"Noé envía una paloma",resultado:"Vuelve con rama de olivo"}
+GEN:evento{nombre:"Salida del arca",capitulo:8,dia:null,accion:"Dios ordena salir del arca",resultado:"Noé construye un altar y ofrece sacrificio"}
+
+GEN:versiculo{id:"8.11",capitulo:8,verso:11,texto:"Y la paloma volvió a él a la hora de la tarde; y he aquí que traía una hoja de olivo en el pico; y entendió Noé que las aguas se habían retirado de sobre la tierra."}
+GEN:versiculo{id:"8.22",capitulo:8,verso:22,texto:"Mientras la tierra permanezca, no cesarán la sementera y la siega, el frío y el calor, el verano y el invierno, y el día y la noche."}
+
+GEN:relacion{origen:"Dios"|destino:"Noé"|tipo:"promete"|capitulo:8}
+
+# ============================================
+# CAPÍTULO 9: EL PACTO CON NOÉ
+# ============================================
+
+$9: EL PACTO CON NOÉ
+
+GEN:resumen{capitulo:9,titulo:"El arcoíris y la bendición",esencia:"Dios establece su pacto con Noé, bendice a sus hijos, y maldice a Canaán."}
+
+GEN:evento{nombre:"Bendición",capitulo:9,dia:null,accion:"Dios bendice a Noé y sus hijos",resultado:"Fructificad y multiplicaos"}
+GEN:evento{nombre:"Pacto del arcoíris",capitulo:9,dia:null,accion:"Dios pone el arcoíris",resultado:"Señal del pacto con toda carne"}
+GEN:evento{nombre:"Maldición de Canaán",capitulo:9,dia:null,accion:"Noé maldice a Canaán",resultado:"Siervo de siervos será"}
+
+GEN:pacto{nombre:"Noé",partes:"Dios y toda carne",condicion:"No destruir toda carne",promesa:"Arcoíris como señal",capitulo:9}
+
+GEN:personaje{nombre:"Sem",edad:100,vida:600,descendencia:"Arfaxad, etc.",muerte:600}
+GEN:personaje{nombre:"Cam",edad:null,vida:null,descendencia:"Canaán, Mizraim, etc.",muerte:null}
+GEN:personaje{nombre:"Jafet",edad:null,vida:null,descendencia:"Gomer, Magog, etc.",muerte:null}
+GEN:personaje{nombre:"Canaán",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"9.6",capitulo:9,verso:6,texto:"El que derramare sangre de hombre, por el hombre su sangre será derramada; porque a imagen de Dios fue hecho el hombre."}
+GEN:versiculo{id:"9.13",capitulo:9,verso:13,texto:"Mi arco he puesto en las nubes, el cual será por señal del pacto entre mí y la tierra."}
+
+GEN:relacion{origen:"Noé"|destino:"Sem"|tipo:"bendice"|capitulo:9}
+GEN:relacion{origen:"Noé"|destino:"Cam"|tipo:"bendice"|capitulo:9}
+GEN:relacion{origen:"Noé"|destino:"Jafet"|tipo:"bendice"|capitulo:9}
+GEN:relacion{origen:"Noé"|destino:"Canaán"|tipo:"maldice"|capitulo:9}
+
+# ============================================
+# CAPÍTULO 10: LA TABLA DE LAS NACIONES
+# ============================================
+
+$10: LA TABLA DE LAS NACIONES
+
+GEN:resumen{capitulo:10,titulo:"Las generaciones de los hijos de Noé",esencia:"Genealogía de los descendientes de Sem, Cam y Jafet, de quienes proceden las naciones."}
+
+GEN:personaje{nombre:"Jafet",edad:null,vida:null,descendencia:"Gomer, Magog, Madai, Javán, Tubal, Mesec, Tiras",muerte:null}
+GEN:personaje{nombre:"Cam",edad:null,vida:null,descendencia:"Canaán, Mizraim, Fut, Cus",muerte:null}
+GEN:personaje{nombre:"Sem",edad:100,vida:600,descendencia:"Elam, Asur, Arfaxad, Lud, Aram",muerte:null}
+GEN:personaje{nombre:"Nimrod",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Canaán",edad:null,vida:null,descendencia:"Sidón, Jebuseo, Amorreo",muerte:null}
+
+GEN:relacion{origen:"Jafet"|destino:"Gomer"|tipo:"padre"|capitulo:10}
+GEN:relacion{origen:"Cam"|destino:"Canaán"|tipo:"padre"|capitulo:10}
+GEN:relacion{origen:"Sem"|destino:"Arfaxad"|tipo:"padre"|capitulo:10}
+
+# ============================================
+# CAPÍTULO 11: LA TORRE DE BABEL
+# ============================================
+
+$11: LA TORRE DE BABEL
+
+GEN:resumen{capitulo:11,titulo:"La torre y la confusión",esencia:"Los hombres construyen una torre para llegar al cielo, Dios confunde sus lenguas y los dispersa."}
+
+GEN:evento{nombre:"Construcción de Babel",capitulo:11,dia:null,accion:"Los hombres edifican una torre",resultado:"Dios confunde el lenguaje"}
+GEN:evento{nombre:"Dispersión",capitulo:11,dia:null,accion:"Dios los esparce por la tierra",resultado:"No terminan la torre"}
+
+GEN:lugar{nombre:"Babel",tipo:"ciudad",significado:"Confusión",capitulo:11}
+
+GEN:versiculo{id:"11.1",capitulo:11,verso:1,texto:"Tenía entonces toda la tierra una sola lengua y unas mismas palabras."}
+GEN:versiculo{id:"11.4",capitulo:11,verso:4,texto:"Y dijeron: Vamos, edifiquémonos una ciudad y una torre, cuyo remate llegue al cielo; y hagámonos un nombre, para que no seamos esparcidos sobre la faz de toda la tierra."}
+GEN:versiculo{id:"11.9",capitulo:11,verso:9,texto:"Por esto fue llamado el nombre de ella Babel, porque allí confundió Jehová el lenguaje de toda la tierra, y desde allí los esparció Jehová sobre la faz de toda la tierra."}
+
+# ============================================
+# GENEALOGÍA DE SEM A ABRAHAM
+# ============================================
+
+$11.1: GENEALOGÍA DE SEM A ABRAHAM
+
+GEN:personaje{nombre:"Sem",edad:100,vida:600,descendencia:"Arfaxad",muerte:600}
+GEN:personaje{nombre:"Arfaxad",edad:35,vida:438,descendencia:"Selah",muerte:438}
+GEN:personaje{nombre:"Selah",edad:30,vida:433,descendencia:"Heber",muerte:433}
+GEN:personaje{nombre:"Heber",edad:34,vida:464,descendencia:"Peleg",muerte:464}
+GEN:personaje{nombre:"Peleg",edad:30,vida:239,descendencia:"Reu",muerte:239}
+GEN:personaje{nombre:"Reu",edad:32,vida:239,descendencia:"Serug",muerte:239}
+GEN:personaje{nombre:"Serug",edad:30,vida:230,descendencia:"Nahor",muerte:230}
+GEN:personaje{nombre:"Nahor",edad:29,vida:148,descendencia:"Taré",muerte:148}
+GEN:personaje{nombre:"Taré",edad:70,vida:205,descendencia:"Abraham, Nahor, Harán",muerte:205}
+
+GEN:genealogia{padre:"Sem"|hijo:"Arfaxad"|generacion:1|edad_padre:100}
+GEN:genealogia{padre:"Arfaxad"|hijo:"Selah"|generacion:2|edad_padre:35}
+GEN:genealogia{padre:"Selah"|hijo:"Heber"|generacion:3|edad_padre:30}
+GEN:genealogia{padre:"Heber"|hijo:"Peleg"|generacion:4|edad_padre:34}
+GEN:genealogia{padre:"Peleg"|hijo:"Reu"|generacion:5|edad_padre:30}
+GEN:genealogia{padre:"Reu"|hijo:"Serug"|generacion:6|edad_padre:32}
+GEN:genealogia{padre:"Serug"|hijo:"Nahor"|generacion:7|edad_padre:30}
+GEN:genealogia{padre:"Nahor"|hijo:"Taré"|generacion:8|edad_padre:29}
+GEN:genealogia{padre:"Taré"|hijo:"Abraham"|generacion:9|edad_padre:70}
+
+# ============================================
+# CAPÍTULO 12: EL LLAMADO DE ABRAHAM
+# ============================================
+
+$12: EL LLAMADO DE ABRAHAM
+
+GEN:resumen{capitulo:12,titulo:"La promesa a Abraham",esencia:"Dios llama a Abraham, le promete una gran nación y bendición, y él obedece."}
+
+GEN:evento{nombre:"Llamado de Abraham",capitulo:12,dia:null,accion:"Dios llama a Abraham a salir de Ur",resultado:"Abraham obedece y va a Canaán"}
+GEN:evento{nombre:"Hambre en Canaán",capitulo:12,dia:null,accion:"Abraham baja a Egipto",resultado:"Faraón toma a Sara, Dios envía plagas"}
+
+GEN:personaje{nombre:"Abraham",edad:75,vida:175,descendencia:"Isaac, Ismael",muerte:175}
+GEN:personaje{nombre:"Sara",edad:65,vida:127,descendencia:"Isaac",muerte:127}
+GEN:personaje{nombre:"Lot",edad:null,vida:null,descendencia:"Moab, Amón",muerte:null}
+
+GEN:pacto{nombre:"Abraham",partes:"Dios y Abraham",condicion:"Salir de su tierra",promesa:"Tierra, descendencia y bendición",capitulo:12}
+
+GEN:versiculo{id:"12.1",capitulo:12,verso:1,texto:"Jehová había dicho a Abram: Vete de tu tierra, y de tu parentela, y de la casa de tu padre, a la tierra que te mostraré."}
+GEN:versiculo{id:"12.2",capitulo:12,verso:2,texto:"Y haré de ti una nación grande, y te bendeciré, y engrandeceré tu nombre, y serás bendición."}
+GEN:versiculo{id:"12.3",capitulo:12,verso:3,texto:"Bendeciré a los que te bendijeren, y a los que te maldijeren maldeciré; y serán benditas en ti todas las familias de la tierra."}
+GEN:versiculo{id:"12.4",capitulo:12,verso:4,texto:"Y se fue Abram, como Jehová le dijo."}
+
+GEN:relacion{origen:"Dios"|destino:"Abraham"|tipo:"llama"|capitulo:12}
+GEN:relacion{origen:"Abraham"|destino:"Sara"|tipo:"esposo"|capitulo:12}
+GEN:relacion{origen:"Abraham"|destino:"Lot"|tipo:"sobrino"|capitulo:12}
+
+# ============================================
+# CAPÍTULO 13: ABRAHAM Y LOT SE SEPARAN
+# ============================================
+
+$13: ABRAHAM Y LOT SE SEPARAN
+
+GEN:resumen{capitulo:13,titulo:"La separación",esencia:"Abraham y Lot se separan por sus riquezas; Lot escoge el valle del Jordán."}
+
+GEN:evento{nombre:"Separación",capitulo:13,dia:null,accion:"Abraham da a Lot la elección",resultado:"Lot escoge el valle del Jordán"}
+GEN:evento{nombre:"Renovación de la promesa",capitulo:13,dia:null,accion:"Dios habla a Abraham",resultado:"Promesa de tierra y descendencia"}
+
+GEN:lugar{nombre:"Bet-el",tipo:"monte",significado:"Casa de Dios",capitulo:13}
+GEN:lugar{nombre:"Ai",tipo:"ciudad",significado:"Montón de ruinas",capitulo:13}
+GEN:lugar{nombre:"Sodoma",tipo:"ciudad",significado:"Quemada",capitulo:13}
+GEN:lugar{nombre:"Gomorrah",tipo:"ciudad",significado:"Sumergida",capitulo:13}
+
+GEN:versiculo{id:"13.14",capitulo:13,verso:14,texto:"Y Jehová dijo a Abram, después que Lot se separó de él: Alza ahora tus ojos, y mira desde el lugar donde estás hacia el norte, y al sur, y al oriente, y al occidente."}
+
+# ============================================
+# CAPÍTULO 14: LA GUERRA DE LOS REYES
+# ============================================
+
+$14: LA GUERRA DE LOS REYES
+
+GEN:resumen{capitulo:14,titulo:"Abraham rescata a Lot",esencia:"Lot es capturado, Abraham lo rescata, y conoce a Melquisedec."}
+
+GEN:evento{nombre:"Guerra de los reyes",capitulo:14,dia:null,accion:"Coalición de reyes ataca Sodoma",resultado:"Lot es capturado"}
+GEN:evento{nombre:"Rescate",capitulo:14,dia:null,accion:"Abraham rescata a Lot",resultado:"Derrota a los reyes"}
+GEN:evento{nombre:"Melquisedec",capitulo:14,dia:null,accion:"Melquisedec bendice a Abraham",resultado:"Abraham da el diezmo"}
+
+GEN:personaje{nombre:"Melquisedec",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Lot",edad:null,vida:null,descendencia:"Moab, Amón",muerte:null}
+
+GEN:versiculo{id:"14.18",capitulo:14,verso:18,texto:"Entonces Melquisedec, rey de Salem, sacó pan y vino; el cual era sacerdote del Dios Altísimo."}
+
+GEN:relacion{origen:"Melquisedec"|destino:"Abraham"|tipo:"bendice"|capitulo:14}
+GEN:relacion{origen:"Abraham"|destino:"Melquisedec"|tipo:"diezma"|capitulo:14}
+GEN:relacion{origen:"Abraham"|destino:"Lot"|tipo:"rescata"|capitulo:14}
+
+# ============================================
+# CAPÍTULO 15: EL PACTO CON ABRAHAM
+# ============================================
+
+$15: EL PACTO CON ABRAHAM
+
+GEN:resumen{capitulo:15,titulo:"La confirmación del pacto",esencia:"Dios confirma el pacto con Abraham, profetiza el cautiverio en Egipto."}
+
+GEN:evento{nombre:"Visión",capitulo:15,dia:null,accion:"Dios habla a Abraham en visión",resultado:"Promesa de descendencia"}
+GEN:evento{nombre:"Pacto formal",capitulo:15,dia:null,accion:"Dios hace pasar animales cortados",resultado:"Confirmación del pacto"}
+
+GEN:pacto{nombre:"Abraham",partes:"Dios y Abraham",condicion:"Fe",promesa:"Tierra desde Nilo hasta Éufrates",capitulo:15}
+
+GEN:versiculo{id:"15.1",capitulo:15,verso:1,texto:"Después de estas cosas vino palabra de Jehová a Abram en visión, diciendo: No temas, Abram; yo soy tu escudo, y tu galardón será sobremanera grande."}
+GEN:versiculo{id:"15.5",capitulo:15,verso:5,texto:"Y lo llevó fuera, y le dijo: Mira ahora los cielos, y cuenta las estrellas, si las puedes contar. Y le dijo: Así será tu descendencia."}
+GEN:versiculo{id:"15.6",capitulo:15,verso:6,texto:"Y creyó a Jehová, y le fue contado por justicia."}
+GEN:versiculo{id:"15.13",capitulo:15,verso:13,texto:"Entonces Jehová dijo a Abram: Ten por cierto que tu descendencia será extranjera en tierra que no es suya, y los servirán, y los oprimirán cuatrocientos años."}
+
+# ============================================
+# CAPÍTULO 16: ISMAEL
+# ============================================
+
+$16: ISMAEL
+
+GEN:resumen{capitulo:16,titulo:"El nacimiento de Ismael",esencia:"Sara da a Agar a Abraham, Agar concibe, es despreciada, huye, y es enviada de vuelta."}
+
+GEN:evento{nombre:"Agar huye",capitulo:16,dia:null,accion:"Agar huye de Sara",resultado:"El ángel la encuentra"}
+GEN:evento{nombre:"Promesa sobre Ismael",capitulo:16,dia:null,accion:"El ángel promete numerosa descendencia",resultado:"Ismael nace"}
+
+GEN:personaje{nombre:"Agar",edad:null,vida:null,descendencia:"Ismael",muerte:null}
+GEN:personaje{nombre:"Ismael",edad:null,vida:137,descendencia:"12 príncipes",muerte:137}
+
+GEN:versiculo{id:"16.10",capitulo:16,verso:10,texto:"También le dijo el ángel de Jehová: Multiplicaré tanto tu descendencia, que no será contada por la multitud."}
+GEN:versiculo{id:"16.11",capitulo:16,verso:11,texto:"Y además le dijo: He aquí que has concebido, y darás a luz un hijo, y llamarás su nombre Ismael, porque Jehová ha oído tu aflicción."}
+
+GEN:relacion{origen:"Abraham"|destino:"Agar"|tipo:"esposo"|capitulo:16}
+GEN:relacion{origen:"Agar"|destino:"Ismael"|tipo:"madre"|capitulo:16}
+
+# ============================================
+# CAPÍTULO 17: LA CIRCUNCISIÓN
+# ============================================
+
+$17: LA CIRCUNCISIÓN
+
+GEN:resumen{capitulo:17,titulo:"El pacto perpetuo",esencia:"Dios establece la circuncisión como señal del pacto, cambia el nombre de Abram a Abraham."}
+
+GEN:evento{nombre:"Cambio de nombre",capitulo:17,dia:null,accion:"Dios cambia Abram a Abraham",resultado:"Padre de multitudes"}
+GEN:evento{nombre:"Circuncisión",capitulo:17,dia:null,accion:"Dios ordena la circuncisión",resultado:"Señal del pacto perpetuo"}
+GEN:evento{nombre:"Promesa de Isaac",capitulo:17,dia:null,accion:"Dios promete un hijo a Sara",resultado:"Sara será madre de naciones"}
+
+GEN:pacto{nombre:"Abraham",partes:"Dios y Abraham",condicion:"Circuncisión",promesa:"Tierra y descendencia perpetua",capitulo:17}
+
+GEN:personaje{nombre:"Abraham",edad:99,vida:175,descendencia:"Isaac, Ismael",muerte:175}
+GEN:personaje{nombre:"Sara",edad:89,vida:127,descendencia:"Isaac",muerte:127}
+
+GEN:versiculo{id:"17.1",capitulo:17,verso:1,texto:"Yo soy el Dios Todopoderoso; anda delante de mí y sé perfecto."}
+GEN:versiculo{id:"17.5",capitulo:17,verso:5,texto:"Y no se llamará más tu nombre Abram, sino que será tu nombre Abraham, porque te he puesto por padre de muchedumbre de gentes."}
+GEN:versiculo{id:"17.7",capitulo:17,verso:7,texto:"Estableceré mi pacto entre mí y ti, y tu descendencia después de ti en sus generaciones, por pacto perpetuo..."}
+GEN:versiculo{id:"17.15",capitulo:17,verso:15,texto:"A Sarai tu mujer no la llamarás Sarai, sino que Sara será su nombre."}
+
+# ============================================
+# CAPÍTULO 18: LA VISITA DE LOS ÁNGELES
+# ============================================
+
+$18: LA VISITA DE LOS ÁNGELES
+
+GEN:resumen{capitulo:18,titulo:"La visita y la intercesión",esencia:"Tres varones visitan a Abraham, le anuncian el nacimiento de Isaac, y Abraham intercede por Sodoma."}
+
+GEN:evento{nombre:"Anuncio de Isaac",capitulo:18,dia:null,accion:"Los ángeles anuncian",resultado:"Sara se ríe"}
+GEN:evento{nombre:"Intercesión",capitulo:18,dia:null,accion:"Abraham negocia por Sodoma",resultado:"Dios acepta si hay 10 justos"}
+
+GEN:versiculo{id:"18.10",capitulo:18,verso:10,texto:"Volveré ciertamente a ti según el tiempo de la vida; y he aquí que Sara tu mujer tendrá un hijo."}
+GEN:versiculo{id:"18.12",capitulo:18,verso:12,texto:"Se rió Sara para sus adentros, diciendo: ¿Después que he envejecido tendré deleite, siendo también mi señor ya viejo?"}
+GEN:versiculo{id:"18.14",capitulo:18,verso:14,texto:"¿Hay para Dios alguna cosa difícil? Al tiempo señalado volveré a ti, según el tiempo de la vida, y Sara tendrá un hijo."}
+GEN:versiculo{id:"18.32",capitulo:18,verso:32,texto:"No se enoje ahora mi Señor, y hablaré solamente una vez: ¿Quizás se hallarán allí diez? Y respondió: No la destruiré por causa de los diez."}
+
+GEN:relacion{origen:"Abraham"|destino:"Dios"|tipo:"intercede"|capitulo:18}
+
+# ============================================
+# CAPÍTULO 19: LA DESTRUCCIÓN DE SODOMA
+# ============================================
+
+$19: LA DESTRUCCIÓN DE SODOMA
+
+GEN:resumen{capitulo:19,titulo:"El juicio de Sodoma",esencia:"Dos ángeles visitan a Lot, Sodoma es destruida, la mujer de Lot se convierte en estatua de sal."}
+
+GEN:evento{nombre:"Visita a Lot",capitulo:19,dia:null,accion:"Ángeles llegan a Sodoma",resultado:"Lot los hospeda"}
+GEN:evento{nombre:"Juicio",capitulo:19,dia:null,accion:"Dios destruye Sodoma y Gomorra",resultado:"Lluvia de fuego y azufre"}
+GEN:evento{nombre:"Mujer de Lot",capitulo:19,dia:null,accion:"Mira hacia atrás",resultado:"Estatua de sal"}
+GEN:evento{nombre:"Origen de Moab y Amón",capitulo:19,dia:null,accion:"Hijas de Lot conciben",resultado:"Moab y Ben-ammí"}
+
+GEN:personaje{nombre:"Lot",edad:null,vida:null,descendencia:"Moab, Amón",muerte:null}
+GEN:personaje{nombre:"Moab",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Amón",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"19.1",capitulo:19,verso:1,texto:"Llegaron, pues, los dos ángeles a Sodoma al anochecer..."}
+GEN:versiculo{id:"19.24",capitulo:19,verso:24,texto:"Entonces Jehová hizo llover sobre Sodoma y sobre Gomorra azufre y fuego de parte de Jehová desde los cielos."}
+GEN:versiculo{id:"19.26",capitulo:19,verso:26,texto:"Entonces la mujer de Lot miró atrás, y se volvió estatua de sal."}
+
+GEN:relacion{origen:"Lot"|destino:"Moab"|tipo:"padre"|capitulo:19}
+GEN:relacion{origen:"Lot"|destino:"Amón"|tipo:"padre"|capitulo:19}
+
+# ============================================
+# CAPÍTULO 20: ABRAHAM Y ABIMELEC
+# ============================================
+
+$20: ABRAHAM Y ABIMELEC
+
+GEN:resumen{capitulo:20,titulo:"Abraham en Gerar",esencia:"Abraham miente sobre Sara, Abimelec la toma, Dios lo reprende y Abraham ora por él."}
+
+GEN:evento{nombre:"Mentira de Abraham",capitulo:20,dia:null,accion:"Abraham dice que Sara es su hermana",resultado:"Abimelec toma a Sara"}
+GEN:evento{nombre:"Reprensión divina",capitulo:20,dia:null,accion:"Dios advierte a Abimelec",resultado:"Abimelec restituye a Sara"}
+
+GEN:personaje{nombre:"Abimelec",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"20.3",capitulo:20,verso:3,texto:"Pero vino Dios a Abimelec en sueños de noche, y le dijo: He aquí, tú eres muerto a causa de la mujer que has tomado, la cual es casada con marido."}
+
+GEN:relacion{origen:"Abraham"|destino:"Abimelec"|tipo:"engaña"|capitulo:20}
+GEN:relacion{origen:"Dios"|destino:"Abimelec"|tipo:"reprende"|capitulo:20}
+
+# ============================================
+# CAPÍTULO 21: EL NACIMIENTO DE ISAAC
+# ============================================
+
+$21: EL NACIMIENTO DE ISAAC
+
+GEN:resumen{capitulo:21,titulo:"El hijo de la promesa",esencia:"Nace Isaac, Sara echa a Agar e Ismael, Dios los protege."}
+
+GEN:evento{nombre:"Nacimiento de Isaac",capitulo:21,dia:null,accion:"Sara concibe y da a luz",resultado:"Abraham tiene un hijo en su vejez"}
+GEN:evento{nombre:"Ezequia de Agar",capitulo:21,dia:null,accion:"Sara pide echar a Agar",resultado:"Dios protege a Agar e Ismael"}
+GEN:evento{nombre:"Pacto en Beerseba",capitulo:21,dia:null,accion:"Abraham hace pacto con Abimelec",resultado:"Pozo de Beerseba"}
+
+GEN:personaje{nombre:"Isaac",edad:null,vida:180,descendencia:"Jacob, Esaú",muerte:180}
+
+GEN:lugar{nombre:"Beerseba",tipo:"pozo",significado:"Pozo del juramento",capitulo:21}
+
+GEN:versiculo{id:"21.1",capitulo:21,verso:1,texto:"Jehová visitó a Sara, como había dicho, e hizo Jehová con Sara como había hablado."}
+GEN:versiculo{id:"21.2",capitulo:21,verso:2,texto:"Y concibió Sara, y dio a luz un hijo a Abraham en su vejez, en el tiempo que Dios le había dicho."}
+GEN:versiculo{id:"21.12",capitulo:21,verso:12,texto:"Pero Dios dijo a Abraham: No te parezca grave a causa del muchacho y de tu sierva; en todo lo que te dijere Sara, oye su voz, porque en Isaac te será llamada descendencia."}
+
+GEN:relacion{origen:"Abraham"|destino:"Isaac"|tipo:"padre"|capitulo:21}
+GEN:relacion{origen:"Abraham"|destino:"Abimelec"|tipo:"pacta"|capitulo:21}
+
+# ============================================
+# CAPÍTULO 22: LA PRUEBA DE ABRAHAM
+# ============================================
+
+$22: LA PRUEBA DE ABRAHAM
+
+GEN:resumen{capitulo:22,titulo:"El sacrificio de Isaac",esencia:"Dios prueba a Abraham pidiéndole sacrificar a Isaac, Abraham obedece, Dios provee un carnero."}
+
+GEN:evento{nombre:"Prueba",capitulo:22,dia:null,accion:"Dios pide a Isaac como holocausto",resultado:"Abraham obedece"}
+GEN:evento{nombre:"Provisión",capitulo:22,dia:null,accion:"Ángel detiene a Abraham",resultado:"Carnero en el monte"}
+
+GEN:lugar{nombre:"Moriah",tipo:"monte",significado:"Provisión",capitulo:22}
+
+GEN:versiculo{id:"22.1",capitulo:22,verso:1,texto:"Después de estas cosas, Dios probó a Abraham, y le dijo: Abraham. Y él respondió: Heme aquí."}
+GEN:versiculo{id:"22.2",capitulo:22,verso:2,texto:"Y dijo: Toma ahora tu hijo, tu único, Isaac, a quien amas, y vete a tierra de Moriah, y ofrécelo allí en holocausto sobre uno de los montes que yo te diré."}
+GEN:versiculo{id:"22.8",capitulo:22,verso:8,texto:"Respondió Abraham: Dios se proveerá de cordero para el holocausto, hijo mío."}
+GEN:versiculo{id:"22.12",capitulo:22,verso:12,texto:"No extiendas tu mano sobre el muchacho, ni le hagas nada; porque ya conozco que temes a Dios, y que no me rehusaste tu hijo, tu único."}
+
+GEN:relacion{origen:"Dios"|destino:"Abraham"|tipo:"prueba"|capitulo:22}
+GEN:relacion{origen:"Abraham"|destino:"Isaac"|tipo:"ofrece"|capitulo:22}
+
+# ============================================
+# CAPÍTULO 23: LA MUERTE DE SARA
+# ============================================
+
+$23: LA MUERTE DE SARA
+
+GEN:resumen{capitulo:23,titulo:"El entierro de Sara",esencia:"Sara muere en Hebrón, Abraham compra la cueva de Macpela como sepultura."}
+
+GEN:evento{nombre:"Muerte de Sara",capitulo:23,dia:null,accion:"Sara muere a los 127 años",resultado:"Abraham llora y la llora"}
+GEN:evento{nombre:"Compra de la cueva",capitulo:23,dia:null,accion:"Abraham compra la cueva de Macpela",resultado:"Primera propiedad en Canaán"}
+
+GEN:personaje{nombre:"Sara",edad:null,vida:127,descendencia:"Isaac",muerte:127}
+
+GEN:lugar{nombre:"Macpela",tipo:"cueva",significado:"Doble",capitulo:23}
+GEN:lugar{nombre:"Hebrón",tipo:"ciudad",significado:"Unión",capitulo:23}
+
+GEN:versiculo{id:"23.1",capitulo:23,verso:1,texto:"Vivió Sara ciento veintisiete años; tantos fueron los años de la vida de Sara."}
+GEN:versiculo{id:"23.2",capitulo:23,verso:2,texto:"Y murió Sara en Quiriat-arba, que es Hebrón, en la tierra de Canaán; y fue Abraham a hacer duelo por Sara, y a llorarla."}
+GEN:versiculo{id:"23.19",capitulo:23,verso:19,texto:"Después enterró Abraham a Sara su mujer en la cueva del campo de Macpela..."}
+
+# ============================================
+# CAPÍTULO 24: ISAAC Y REBECA
+# ============================================
+
+$24: ISAAC Y REBECA
+
+GEN:resumen{capitulo:24,titulo:"El amor de Isaac",esencia:"Abraham envía a su siervo a buscar esposa para Isaac, y encuentra a Rebeca."}
+
+GEN:evento{nombre:"Misión del siervo",capitulo:24,dia:null,accion:"El siervo va a Mesopotamia",resultado:"Encuentra a Rebeca"}
+GEN:evento{nombre:"Rebeca acepta",capitulo:24,dia:null,accion:"Rebeca acepta ir con el siervo",resultado:"Isaac la toma por esposa"}
+
+GEN:personaje{nombre:"Isaac",edad:40,vida:180,descendencia:"Jacob, Esaú",muerte:180}
+GEN:personaje{nombre:"Rebeca",edad:null,vida:null,descendencia:"Jacob, Esaú",muerte:null}
+
+GEN:versiculo{id:"24.1",capitulo:24,verso:1,texto:"Y Abraham era viejo, y bien avanzado en años; y Jehová había bendecido a Abraham en todo."}
+GEN:versiculo{id:"24.12",capitulo:24,verso:12,texto:"Y dijo: Oh Jehová, Dios de mi señor Abraham, dame, te ruego, buen encuentro hoy..."}
+GEN:versiculo{id:"24.67",capitulo:24,verso:67,texto:"Y la trajo Isaac a la tienda de su madre Sara, y tomó a Rebeca por mujer, y la amó; y se consoló Isaac después de la muerte de su madre."}
+
+GEN:relacion{origen:"Abraham"|destino:"Isaac"|tipo:"bendice"|capitulo:24}
+GEN:relacion{origen:"Isaac"|destino:"Rebeca"|tipo:"esposo"|capitulo:24}
+
+# ============================================
+# CAPÍTULO 25: ABRAHAM MUERE Y NACEN ESAÚ Y JACOB
+# ============================================
+
+$25: ABRAHAM MUERE Y NACEN ESAÚ Y JACOB
+
+GEN:resumen{capitulo:25,titulo:"La muerte de Abraham",esencia:"Abraham muere a los 175 años, es sepultado junto a Sara, nacen Esaú y Jacob."}
+
+GEN:evento{nombre:"Muerte de Abraham",capitulo:25,dia:null,accion:"Abraham muere a los 175 años",resultado:"Isaac e Ismael lo sepultan"}
+GEN:evento{nombre:"Nacimiento de Esaú y Jacob",capitulo:25,dia:null,accion:"Rebeca da a luz gemelos",resultado:"Esaú vende su primogenitura"}
+
+GEN:personaje{nombre:"Abraham",edad:null,vida:175,descendencia:"Isaac, Ismael",muerte:175}
+GEN:personaje{nombre:"Esaú",edad:null,vida:null,descendencia:"Edomitas",muerte:null}
+GEN:personaje{nombre:"Jacob",edad:null,vida:147,descendencia:"12 hijos",muerte:147}
+
+GEN:versiculo{id:"25.21",capitulo:25,verso:21,texto:"E Isaac oró a Jehová por su mujer, que era estéril; y Jehová le respondió, y concibió Rebeca su mujer."}
+GEN:versiculo{id:"25.23",capitulo:25,verso:23,texto:"Y Jehová le dijo: Dos naciones hay en tu seno, y dos pueblos serán divididos desde tus entrañas; el un pueblo será más fuerte que el otro pueblo, y el mayor servirá al menor."}
+GEN:versiculo{id:"25.34",capitulo:25,verso:34,texto:"Entonces Jacob dio a Esaú pan y del guisado de lentejas; y él comió y bebió, y se levantó y se fue. Así menospreció Esaú la primogenitura."}
+
+GEN:relacion{origen:"Isaac"|destino:"Jacob"|tipo:"padre"|capitulo:25}
+GEN:relacion{origen:"Isaac"|destino:"Esaú"|tipo:"padre"|capitulo:25}
+GEN:relacion{origen:"Jacob"|destino:"Esaú"|tipo:"hermano"|capitulo:25}
+GEN:relacion{origen:"Jacob"|destino:"Esaú"|tipo:"suplanta"|capitulo:25}
+
+# ============================================
+# CAPÍTULO 26: ISAAC EN GERAR
+# ============================================
+
+$26: ISAAC EN GERAR
+
+GEN:resumen{capitulo:26,titulo:"Isaac y Abimelec",esencia:"Isaac miente sobre Rebeca, cava pozos, y hace pacto con Abimelec."}
+
+GEN:evento{nombre:"Mentira de Isaac",capitulo:26,dia:null,accion:"Isaac dice que Rebeca es su hermana",resultado:"Abimelec lo reprende"}
+GEN:evento{nombre:"Pozos",capitulo:26,dia:null,accion:"Isaac cava pozos",resultado:"Esec, Sitna, Rehobot"}
+GEN:evento{nombre:"Pacto en Beerseba",capitulo:26,dia:null,accion:"Isaac hace pacto con Abimelec",resultado:"Pozo de Beerseba"}
+
+GEN:versiculo{id:"26.3",capitulo:26,verso:3,texto:"Habitó, pues, Isaac en Gerar."}
+GEN:versiculo{id:"26.24",capitulo:26,verso:24,texto:"Y se le apareció Jehová aquella noche, y le dijo: Yo soy el Dios de Abraham tu padre; no temas, porque yo estoy contigo, y te bendeciré..."}
+
+# ============================================
+# CAPÍTULO 27: LA BENDICIÓN DE JACOB
+# ============================================
+
+$27: LA BENDICIÓN DE JACOB
+
+GEN:resumen{capitulo:27,titulo:"El engaño de Jacob",esencia:"Rebeca ayuda a Jacob a engañar a Isaac para recibir la bendición de la primogenitura."}
+
+GEN:evento{nombre:"Engaño",capitulo:27,dia:null,accion:"Jacob se disfraza de Esaú",resultado:"Recibe la bendición"}
+GEN:evento{nombre:"Esaú llora",capitulo:27,dia:null,accion:"Esaú descubre el engaño",resultado:"Jura matar a Jacob"}
+
+GEN:profecia{nombre:"Bendición de Jacob",capitulo:27,destinatario:"Jacob",texto:"Dios te dé del rocío del cielo, y de las grosuras de la tierra, y abundancia de trigo y de vino."}
+GEN:profecia{nombre:"Bendición de Esaú",capitulo:27,destinatario:"Esaú",texto:"He aquí, tu habitación será en grosuras de la tierra, y del rocío de los cielos de arriba."}
+
+GEN:versiculo{id:"27.1",capitulo:27,verso:1,texto:"Y aconteció que cuando Isaac envejeció, y sus ojos se oscurecieron, llamó a Esaú su hijo mayor..."}
+GEN:versiculo{id:"27.36",capitulo:27,verso:36,texto:"Y Esaú respondió: Bien llamaron su nombre Jacob, porque ya me ha suplantado dos veces..."}
+
+GEN:relacion{origen:"Jacob"|destino:"Esaú"|tipo:"suplanta"|capitulo:27}
+GEN:relacion{origen:"Rebeca"|destino:"Jacob"|tipo:"favorece"|capitulo:27}
+
+# ============================================
+# CAPÍTULO 28: LA ESCALERA DE JACOB
+# ============================================
+
+$28: LA ESCALERA DE JACOB
+
+GEN:resumen{capitulo:28,titulo:"El sueño de Jacob",esencia:"Jacob huye a Padán-aram, sueña con una escalera, Dios le promete bendición."}
+
+GEN:evento{nombre:"Escalera",capitulo:28,dia:null,accion:"Jacob sueña con ángeles subiendo y bajando",resultado:"Dios le habla y promete"}
+GEN:evento{nombre:"Bet-el",capitulo:28,dia:null,accion:"Jacob erige una piedra",resultado:"Llamó Bet-el"}
+
+GEN:lugar{nombre:"Bet-el",tipo:"monte",significado:"Casa de Dios",capitulo:28}
+
+GEN:versiculo{id:"28.12",capitulo:28,verso:12,texto:"Y soñó: y he aquí una escalera que estaba apoyada en tierra, y su extremo tocaba en el cielo; y he aquí ángeles de Dios que subían y descendían por ella."}
+GEN:versiculo{id:"28.13",capitulo:28,verso:13,texto:"Y he aquí, Jehová estaba en lo alto de ella, y dijo: Yo soy Jehová, el Dios de Abraham tu padre, y el Dios de Isaac..."}
+GEN:versiculo{id:"28.19",capitulo:28,verso:19,texto:"Y llamó el nombre de aquel lugar Bet-el..."}
+
+GEN:relacion{origen:"Dios"|destino:"Jacob"|tipo:"promete"|capitulo:28}
+GEN:relacion{origen:"Jacob"|destino:"Dios"|tipo:"vota"|capitulo:28}
+
+# ============================================
+# CAPÍTULO 29: JACOB Y RAQUEL
+# ============================================
+
+$29: JACOB Y RAQUEL
+
+GEN:resumen{capitulo:29,titulo:"El amor de Jacob",esencia:"Jacob llega a casa de Labán, se enamora de Raquel, trabaja 7 años, pero recibe a Lea."}
+
+GEN:evento{nombre:"Encuentro con Raquel",capitulo:29,dia:null,accion:"Jacob conoce a Raquel",resultado:"Se enamora"}
+GEN:evento{nombre:"Engaño de Labán",capitulo:29,dia:null,accion:"Labán da a Lea en lugar de Raquel",resultado:"Jacob trabaja 7 años más"}
+
+GEN:personaje{nombre:"Jacob",edad:null,vida:147,descendencia:"12 hijos",muerte:147}
+GEN:personaje{nombre:"Raquel",edad:null,vida:null,descendencia:"José, Benjamín",muerte:null}
+GEN:personaje{nombre:"Lea",edad:null,vida:null,descendencia:"Rubén, Simeón, Leví, Judá, Isacar, Zabulón, Dina",muerte:null}
+GEN:personaje{nombre:"Labán",edad:null,vida:null,descendencia:"Lea, Raquel",muerte:null}
+
+GEN:versiculo{id:"29.18",capitulo:29,verso:18,texto:"Y Jacob amó a Raquel, y dijo: Te serviré siete años por Raquel tu hija menor."}
+GEN:versiculo{id:"29.20",capitulo:29,verso:20,texto:"Así sirvió Jacob por Raquel siete años; y le parecieron como pocos días, porque la amaba."}
+GEN:versiculo{id:"29.25",capitulo:29,verso:25,texto:"Y aconteció que a la mañana siguiente, he aquí que era Lea..."}
+
+GEN:relacion{origen:"Jacob"|destino:"Raquel"|tipo:"esposo"|capitulo:29}
+GEN:relacion{origen:"Jacob"|destino:"Lea"|tipo:"esposo"|capitulo:29}
+
+# ============================================
+# CAPÍTULO 30: LOS HIJOS DE JACOB
+# ============================================
+
+$30: LOS HIJOS DE JACOB
+
+GEN:resumen{capitulo:30,titulo:"La descendencia de Jacob",esencia:"Los hijos de Jacob comienzan a nacer, y Jacob negocia con Labán."}
+
+GEN:evento{nombre:"Nacimientos",capitulo:30,dia:null,accion:"Lea, Raquel, y sus siervas dan a luz",resultado:"12 hijos"}
+GEN:evento{nombre:"Negociación",capitulo:30,dia:null,accion:"Jacob negocia su salario con Labán",resultado:"Gana rebaños"}
+
+GEN:personaje{nombre:"Rubén",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Simeón",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Leví",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Judá",edad:null,vida:null,descendencia:"Fares, Zara",muerte:null}
+GEN:personaje{nombre:"Dan",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Neftalí",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Gad",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Aser",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Isacar",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Zabulón",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"José",edad:null,vida:110,descendencia:"Efraín, Manasés",muerte:110}
+GEN:personaje{nombre:"Benjamín",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Dina",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:relacion{origen:"Jacob"|destino:"Rubén"|tipo:"padre"|capitulo:30}
+GEN:relacion{origen:"Jacob"|destino:"José"|tipo:"padre"|capitulo:30}
+
+# ============================================
+# CAPÍTULO 31: JACOB HUYE DE LABÁN
+# ============================================
+
+$31: JACOB HUYE DE LABÁN
+
+GEN:resumen{capitulo:31,titulo:"La huida de Jacob",esencia:"Jacob huye secretamente de Labán, Labán lo persigue, hacen un pacto."}
+
+GEN:evento{nombre:"Huida",capitulo:31,dia:null,accion:"Jacob huye con su familia",resultado:"Labán lo persigue"}
+GEN:evento{nombre:"Pacto",capitulo:31,dia:null,accion:"Jacob y Labán pactan",resultado:"Mizpa como testimonio"}
+
+GEN:lugar{nombre:"Mizpa",tipo:"monte",significado:"Atalaya",capitulo:31}
+
+GEN:versiculo{id:"31.49",capitulo:31,verso:49,texto:"Y Mizpa, porque dijo: Atalaye Jehová entre tú y yo, cuando no nos veamos el uno al otro."}
+
+GEN:relacion{origen:"Jacob"|destino:"Labán"|tipo:"pacta"|capitulo:31}
+
+# ============================================
+# CAPÍTULO 32: JACOB SE PREPARA PARA ESAÚ
+# ============================================
+
+$32: JACOB SE PREPARA PARA ESAÚ
+
+GEN:resumen{capitulo:32,titulo:"La lucha con el ángel",esencia:"Jacob se prepara para encontrar a Esaú, y lucha con un ángel en Peniel."}
+
+GEN:evento{nombre:"Mensajeros",capitulo:32,dia:null,accion:"Jacob envía mensajeros a Esaú",resultado:"Esaú viene con 400 hombres"}
+GEN:evento{nombre:"Lucha",capitulo:32,dia:null,accion:"Jacob lucha con el ángel",resultado:"El ángel cambia su nombre a Israel"}
+
+GEN:personaje{nombre:"Jacob",edad:null,vida:147,descendencia:"12 hijos",muerte:147}
+GEN:lugar{nombre:"Peniel",tipo:"monte",significado:"Cara de Dios",capitulo:32}
+
+GEN:versiculo{id:"32.24",capitulo:32,verso:24,texto:"Así se quedó Jacob solo, y luchó con él un varón hasta que rayaba el alba."}
+GEN:versiculo{id:"32.28",capitulo:32,verso:28,texto:"Y él le dijo: No se dirá más tu nombre Jacob, sino Israel; porque has luchado con Dios y con los hombres, y has vencido."}
+GEN:versiculo{id:"32.30",capitulo:32,verso:30,texto:"Y llamó Jacob el nombre de aquel lugar Peniel; porque dijo: He visto a Dios cara a cara, y fue librada mi alma."}
+
+GEN:relacion{origen:"Jacob"|destino:"Esaú"|tipo:"hermano"|capitulo:32}
+GEN:relacion{origen:"Dios"|destino:"Jacob"|tipo:"cambia nombre"|capitulo:32}
+
+# ============================================
+# CAPÍTULO 33: JACOB Y ESAÚ SE RECONCILIAN
+# ============================================
+
+$33: JACOB Y ESAÚ SE RECONCILIAN
+
+GEN:resumen{capitulo:33,titulo:"La reconciliación",esencia:"Jacob y Esaú se encuentran y se reconcilian, Jacob llega a Siquem."}
+
+GEN:evento{nombre:"Reunión",capitulo:33,dia:null,accion:"Jacob y Esaú se encuentran",resultado:"Se besan y se reconcilian"}
+GEN:evento{nombre:"Llegada a Siquem",capitulo:33,dia:null,accion:"Jacob llega a Siquem",resultado:"Compra un campo y erige un altar"}
+
+GEN:versiculo{id:"33.4",capitulo:33,verso:4,texto:"Pero Esaú corrió a su encuentro, y le abrazó, y se echó sobre su cuello, y le besó; y lloraron."}
+
+GEN:relacion{origen:"Jacob"|destino:"Esaú"|tipo:"reconciliación"|capitulo:33}
+
+# ============================================
+# CAPÍTULO 34: DINÁ Y SIQUEM
+# ============================================
+
+$34: DINÁ Y SIQUEM
+
+GEN:resumen{capitulo:34,titulo:"La violación de Diná",esencia:"Dina es violada por Siquem, sus hermanos venganza engañosa y matanza."}
+
+GEN:evento{nombre:"Violación",capitulo:34,dia:null,accion:"Siquem viola a Dina",resultado:"Los hijos de Jacob se enojan"}
+GEN:evento{nombre:"Venganza",capitulo:34,dia:null,accion:"Los hijos de Jacob engañan a Siquem",resultado:"Matan a todos los varones"}
+
+GEN:versiculo{id:"34.1",capitulo:34,verso:1,texto:"Dina, la hija que Lea había dado a luz a Jacob, salió a ver a las hijas del país."}
+GEN:versiculo{id:"34.2",capitulo:34,verso:2,texto:"Y la vio Siquem hijo de Hamor heveo, príncipe de aquella tierra, y se la llevó, y se acostó con ella, y la deshonró."}
+GEN:versiculo{id:"34.25",capitulo:34,verso:25,texto:"Y aconteció que al tercer día, cuando estaban ellos con dolor, dos hijos de Jacob, Simeón y Leví, hermanos de Dina, tomaron cada uno su espada..."}
+
+GEN:relacion{origen:"Simeón"|destino:"Siquem"|tipo:"mata"|capitulo:34}
+GEN:relacion{origen:"Leví"|destino:"Siquem"|tipo:"mata"|capitulo:34}
+
+# ============================================
+# CAPÍTULO 35: JACOB VUELVE A BET-EL
+# ============================================
+
+$35: JACOB VUELVE A BET-EL
+
+GEN:resumen{capitulo:35,titulo:"El regreso a Bet-el",esencia:"Jacob vuelve a Bet-el, Dios renueva sus promesas, Raquel muere."}
+
+GEN:evento{nombre:"Bet-el",capitulo:35,dia:null,accion:"Jacob vuelve a Bet-el",resultado:"Dios renueva la promesa"}
+GEN:evento{nombre:"Muerte de Raquel",capitulo:35,dia:null,accion:"Raquel muere dando a luz",resultado:"Benjamín nace"}
+GEN:evento{nombre:"Muerte de Isaac",capitulo:35,dia:null,accion:"Isaac muere a los 180 años",resultado:"Esaú y Jacob lo entierran"}
+
+GEN:personaje{nombre:"Raquel",edad:null,vida:null,descendencia:"José, Benjamín",muerte:null}
+GEN:personaje{nombre:"Benjamín",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Isaac",edad:null,vida:180,descendencia:"Jacob, Esaú",muerte:180}
+
+GEN:versiculo{id:"35.1",capitulo:35,verso:1,texto:"Dijo Dios a Jacob: Levántate, sube a Bet-el, y quédate allí; y haz allí un altar al Dios que te apareció cuando huías de tu hermano Esaú."}
+GEN:versiculo{id:"35.10",capitulo:35,verso:10,texto:"Y le dijo Dios: Tu nombre es Jacob; no te llamarás más Jacob, sino Israel será tu nombre."}
+GEN:versiculo{id:"35.19",capitulo:35,verso:19,texto:"Así murió Raquel, y fue sepultada en el camino de Efrata, la cual es Belén."}
+
+GEN:relacion{origen:"Jacob"|destino:"Raquel"|tipo:"esposo"|capitulo:35}
+GEN:relacion{origen:"Jacob"|destino:"Benjamín"|tipo:"padre"|capitulo:35}
+
+# ============================================
+# CAPÍTULO 36: GENEALOGÍA DE ESAÚ
+# ============================================
+
+$36: GENEALOGÍA DE ESAÚ
+
+GEN:resumen{capitulo:36,titulo:"Los descendientes de Esaú",esencia:"Genealogía de Esaú y sus descendientes, los edomitas."}
+
+GEN:personaje{nombre:"Esaú",edad:null,vida:null,descendencia:"Elifaz, Reuel, Jeús, Jalam, Coré",muerte:null}
+GEN:personaje{nombre:"Elifaz",edad:null,vida:null,descendencia:"Temán, Omar, Zefo, Gatam, Cenaz, Amalec",muerte:null}
+GEN:personaje{nombre:"Reuel",edad:null,vida:null,descendencia:"Nahat, Zera, Sama, Mizá",muerte:null}
+
+GEN:relacion{origen:"Esaú"|destino:"Elifaz"|tipo:"padre"|capitulo:36}
+GEN:relacion{origen:"Esaú"|destino:"Reuel"|tipo:"padre"|capitulo:36}
+
+# ============================================
+# CAPÍTULO 37: JOSÉ Y SUS HERMANOS
+# ============================================
+
+$37: JOSÉ Y SUS HERMANOS
+
+GEN:resumen{capitulo:37,titulo:"El sueño y la venta",esencia:"José es el favorito de Jacob, sus hermanos lo venden como esclavo."}
+
+GEN:evento{nombre:"Sueños",capitulo:37,dia:null,accion:"José tiene sueños",resultado:"Sus hermanos lo odian"}
+GEN:evento{nombre:"Venta",capitulo:37,dia:null,accion:"Los hermanos lo venden a los ismaelitas",resultado:"José es llevado a Egipto"}
+GEN:evento{nombre:"Engaño",capitulo:37,dia:null,accion:"Los hermanos engañan a Jacob",resultado:"Jacob cree que José está muerto"}
+
+GEN:personaje{nombre:"José",edad:17,vida:110,descendencia:"Efraín, Manasés",muerte:110}
+GEN:personaje{nombre:"Jacob",edad:null,vida:147,descendencia:"12 hijos",muerte:147}
+GEN:personaje{nombre:"Rubén",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Judá",edad:null,vida:null,descendencia:"Fares, Zara",muerte:null}
+
+GEN:versiculo{id:"37.3",capitulo:37,verso:3,texto:"Y amaba Israel a José más que a todos sus hijos, porque le había tenido en su vejez; y le hizo una túnica de colores."}
+GEN:versiculo{id:"37.28",capitulo:37,verso:28,texto:"Y cuando pasaban los madianitas mercaderes, sacaron ellos a José del pozo, y llevaron a José, y lo vendieron a los ismaelitas por veinte piezas de plata."}
+GEN:versiculo{id:"37.34",capitulo:37,verso:34,texto:"Entonces Jacob rasgó sus vestidos, y se puso cilicio sobre sus lomos, y guardó luto por su hijo muchos días."}
+
+GEN:relacion{origen:"Jacob"|destino:"José"|tipo:"ama"|capitulo:37}
+GEN:relacion{origen:"Hermanos"|destino:"José"|tipo:"venden"|capitulo:37}
+
+# ============================================
+# CAPÍTULO 38: JUDÁ Y TAMAR
+# ============================================
+
+$38: JUDÁ Y TAMAR
+
+GEN:resumen{capitulo:38,titulo:"El pecado de Judá",esencia:"Tamar se hace pasar por prostituta para tener hijos de Judá."}
+
+GEN:evento{nombre:"Tamar viuda",capitulo:38,dia:null,accion:"Los hijos de Judá mueren",resultado:"Judá no da a Tamar a su hijo"}
+GEN:evento{nombre:"Engaño",capitulo:38,dia:null,accion:"Tamar se hace pasar por prostituta",resultado:"Concibe de Judá"}
+GEN:evento{nombre:"Fares y Zara",capitulo:38,dia:null,accion:"Tamar da a luz gemelos",resultado:"Fares y Zara"}
+
+GEN:personaje{nombre:"Judá",edad:null,vida:null,descendencia:"Fares, Zara",muerte:null}
+GEN:personaje{nombre:"Tamar",edad:null,vida:null,descendencia:"Fares, Zara",muerte:null}
+GEN:personaje{nombre:"Fares",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Zara",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"38.15",capitulo:38,verso:15,texto:"Y la vio Judá, y la tuvo por ramera, porque ella había cubierto su rostro."}
+GEN:versiculo{id:"38.26",capitulo:38,verso:26,texto:"Entonces Judá los reconoció, y dijo: Más justa es ella que yo..."}
+GEN:versiculo{id:"38.29",capitulo:38,verso:29,texto:"Y sucedió que cuando él retiró su mano, he aquí que salió su hermano; y dijo: ¡Qué brecha has hecho! Y llamó su nombre Fares."}
+
+GEN:relacion{origen:"Judá"|destino:"Tamar"|tipo:"esposo"|capitulo:38}
+GEN:relacion{origen:"Judá"|destino:"Fares"|tipo:"padre"|capitulo:38}
+
+# ============================================
+# CAPÍTULO 39: JOSÉ EN EGIPTO
+# ============================================
+
+$39: JOSÉ EN EGIPTO
+
+GEN:resumen{capitulo:39,titulo:"José y la mujer de Potifar",esencia:"José es esclavo en Egipto, rechaza la tentación de la mujer de Potifar, es encarcelado."}
+
+GEN:evento{nombre:"Siervo fiel",capitulo:39,dia:null,accion:"José es siervo en casa de Potifar",resultado:"Jehová bendice todo"}
+GEN:evento{nombre:"Tentación",capitulo:39,dia:null,accion:"La mujer de Potifar lo tienta",resultado:"José huye y ella lo acusa"}
+GEN:evento{nombre:"Encarcelamiento",capitulo:39,dia:null,accion:"José es puesto en la cárcel",resultado:"Dios está con él"}
+
+GEN:personaje{nombre:"José",edad:null,vida:110,descendencia:"Efraín, Manasés",muerte:110}
+GEN:personaje{nombre:"Potifar",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"39.1",capitulo:39,verso:1,texto:"Llevado, pues, José a Egipto, Potifar, oficial de Faraón, capitán de la guardia, varón egipcio, lo compró..."}
+GEN:versiculo{id:"39.9",capitulo:39,verso:9,texto:"No hay otro mayor que yo en esta casa, y ninguna cosa me ha reservado sino a ti, por cuanto tú eres su mujer; ¿cómo, pues, haría yo este gran mal, y pecaría contra Dios?"}
+GEN:versiculo{id:"39.20",capitulo:39,verso:20,texto:"Y tomó su amo a José, y lo puso en la cárcel..."}
+
+GEN:relacion{origen:"José"|destino:"Dios"|tipo:"fiel"|capitulo:39}
+
+# ============================================
+# CAPÍTULO 40: JOSÉ INTERPRETA SUEÑOS
+# ============================================
+
+$40: JOSÉ INTERPRETA SUEÑOS
+
+GEN:resumen{capitulo:40,titulo:"Sueños en la cárcel",esencia:"José interpreta los sueños del copero y del panadero."}
+
+GEN:evento{nombre:"Sueños",capitulo:40,dia:null,accion:"El copero y el panadero tienen sueños",resultado:"José los interpreta"}
+GEN:evento{nombre:"Cumplimiento",capitulo:40,dia:null,accion:"Los sueños se cumplen",resultado:"El copero es restaurado, el panadero ahorcado"}
+
+GEN:versiculo{id:"40.8",capitulo:40,verso:8,texto:"¿No son de Dios las interpretaciones? Contádmelo ahora."}
+GEN:versiculo{id:"40.23",capitulo:40,verso:23,texto:"Mas el jefe de los coperos no se acordó de José, sino que lo olvidó."}
+
+GEN:relacion{origen:"José"|destino:"Copero"|tipo:"interpreta"|capitulo:40}
+GEN:relacion{origen:"José"|destino:"Panadero"|tipo:"interpreta"|capitulo:40}
+
+# ============================================
+# CAPÍTULO 41: EL SUEÑO DE FARAÓN
+# ============================================
+
+$41: EL SUEÑO DE FARAÓN
+
+GEN:resumen{capitulo:41,titulo:"José ante Faraón",esencia:"Faraón tiene sueños, José los interpreta, es nombrado gobernador de Egipto."}
+
+GEN:evento{nombre:"Sueños de Faraón",capitulo:41,dia:null,accion:"Faraón sueña con vacas y espigas",resultado:"José interpreta"}
+GEN:evento{nombre:"Nombramiento",capitulo:41,dia:null,accion:"Faraón nombra a José gobernador",resultado:"Preparación para la hambruna"}
+GEN:evento{nombre:"Familia",capitulo:41,dia:null,accion:"José tiene hijos",resultado:"Manasés y Efraín"}
+
+GEN:personaje{nombre:"José",edad:30,vida:110,descendencia:"Efraín, Manasés",muerte:110}
+GEN:personaje{nombre:"Faraón",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"41.1",capitulo:41,verso:1,texto:"Y sucedió que al cabo de dos años tuvo Faraón un sueño..."}
+GEN:versiculo{id:"41.16",capitulo:41,verso:16,texto:"Respondió José a Faraón, diciendo: No está en mí; Dios será el que dé respuesta de paz a Faraón."}
+GEN:versiculo{id:"41.41",capitulo:41,verso:41,texto:"Y dijo Faraón a José: He aquí, yo te he puesto sobre toda la tierra de Egipto."}
+GEN:versiculo{id:"41.51",capitulo:41,verso:51,texto:"Y llamó José el nombre del primogénito Manasés; porque dijo: Dios me hizo olvidar todo mi trabajo, y toda la casa de mi padre."}
+GEN:versiculo{id:"41.52",capitulo:41,verso:52,texto:"Y al segundo llamó Efraín; porque dijo: Dios me hizo fructificar en la tierra de mi aflicción."}
+
+GEN:relacion{origen:"Dios"|destino:"José"|tipo:"revela"|capitulo:41}
+GEN:relacion{origen:"Faraón"|destino:"José"|tipo:"exalta"|capitulo:41}
+
+# ============================================
+# CAPÍTULO 42: JOSÉ Y SUS HERMANOS
+# ============================================
+
+$42: JOSÉ Y SUS HERMANOS
+
+GEN:resumen{capitulo:42,titulo:"La primera visita",esencia:"Los hermanos de José vienen a Egipto a comprar grano, José los reconoce."}
+
+GEN:evento{nombre:"Viaje",capitulo:42,dia:null,accion:"Los hermanos vienen a Egipto",resultado:"José los reconoce"}
+GEN:evento{nombre:"Prueba",capitulo:42,dia:null,accion:"José los acusa de espías",resultado:"Los pone a prueba"}
+GEN:evento{nombre:"Simeón prisionero",capitulo:42,dia:null,accion:"José retiene a Simeón",resultado:"Deben traer a Benjamín"}
+
+GEN:personaje{nombre:"Simeón",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Benjamín",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:versiculo{id:"42.8",capitulo:42,verso:8,texto:"Y José reconoció a sus hermanos, pero ellos no le reconocieron."}
+GEN:versiculo{id:"42.24",capitulo:42,verso:24,texto:"Y se volvió José de ellos, y lloró..."}
+
+GEN:relacion{origen:"José"|destino:"Hermanos"|tipo:"prueba"|capitulo:42}
+
+# ============================================
+# CAPÍTULO 43: LA SEGUNDA VISITA
+# ============================================
+
+$43: LA SEGUNDA VISITA
+
+GEN:resumen{capitulo:43,titulo:"Benjamín en Egipto",esencia:"Los hermanos vuelven con Benjamín, José los recibe y prepara un banquete."}
+
+GEN:evento{nombre:"Benjamín",capitulo:43,dia:null,accion:"Los hermanos traen a Benjamín",resultado:"José llora al verlo"}
+GEN:evento{nombre:"Banquete",capitulo:43,dia:null,accion:"José da un banquete",resultado:"Los hermanos comen y beben"}
+
+GEN:versiculo{id:"43.1",capitulo:43,verso:1,texto:"El hambre era grave en la tierra."}
+GEN:versiculo{id:"43.30",capitulo:43,verso:30,texto:"Entonces José se apresuró, porque se conmovieron sus entrañas a causa de su hermano, y buscó donde llorar; y entró en su cámara, y lloró allí."}
+
+# ============================================
+# CAPÍTULO 44: LA PRUEBA DE LA COPA
+# ============================================
+
+$44: LA PRUEBA DE LA COPA
+
+GEN:resumen{capitulo:44,titulo:"La copa de José",esencia:"José hace poner su copa en el saco de Benjamín y los acusa."}
+
+GEN:evento{nombre:"Prueba final",capitulo:44,dia:null,accion:"La copa es hallada en el saco de Benjamín",resultado:"Judá se ofrece como sustituto"}
+
+GEN:versiculo{id:"44.18",capitulo:44,verso:18,texto:"Entonces Judá se acercó a él, y dijo: Señor mío, permite tu siervo que hable una palabra a mi señor..."}
+GEN:versiculo{id:"44.33",capitulo:44,verso:33,texto:"Por tanto, te ruego que quede tu siervo en lugar del joven, por siervo de mi señor, y que el joven suba con sus hermanos."}
+
+GEN:relacion{origen:"Judá"|destino:"Benjamín"|tipo:"intercede"|capitulo:44}
+
+# ============================================
+# CAPÍTULO 45: JOSÉ SE DA A CONOCER
+# ============================================
+
+$45: JOSÉ SE DA A CONOCER
+
+GEN:resumen{capitulo:45,titulo:"La revelación",esencia:"José se revela a sus hermanos, los perdona, y los envía por Jacob."}
+
+GEN:evento{nombre:"Revelación",capitulo:45,dia:null,accion:"José se da a conocer",resultado:"Sus hermanos se aterran"}
+GEN:evento{nombre:"Perdón",capitulo:45,dia:null,accion:"José los perdona",resultado:"Los envía por Jacob"}
+
+GEN:versiculo{id:"45.1",capitulo:45,verso:1,texto:"Entonces José no pudo contenerse delante de todos los que estaban a su lado, y clamó: Haced salir a todos de mi presencia..."}
+GEN:versiculo{id:"45.3",capitulo:45,verso:3,texto:"Y dijo José a sus hermanos: Yo soy José; ¿vive aún mi padre?"}
+GEN:versiculo{id:"45.5",capitulo:45,verso:5,texto:"Ahora, pues, no os entristezcáis, ni os pese de haberme vendido acá; porque para preservación de vida me envió Dios delante de vosotros."}
+
+GEN:relacion{origen:"José"|destino:"Hermanos"|tipo:"perdona"|capitulo:45}
+
+# ============================================
+# CAPÍTULO 46: JACOB BAJA A EGIPTO
+# ============================================
+
+$46: JACOB BAJA A EGIPTO
+
+GEN:resumen{capitulo:46,titulo:"El descenso a Egipto",esencia:"Jacob y toda su familia bajan a Egipto, Dios le da una visión."}
+
+GEN:evento{nombre:"Visión",capitulo:46,dia:null,accion:"Dios habla a Jacob en Beerseba",resultado:"No temas bajar a Egipto"}
+GEN:evento{nombre:"Llegada",capitulo:46,dia:null,accion:"Jacob llega a Egipto con 70 personas",resultado:"José lo recibe"}
+
+GEN:personaje{nombre:"Jacob",edad:130,vida:147,descendencia:"12 hijos",muerte:147}
+
+GEN:versiculo{id:"46.2",capitulo:46,verso:2,texto:"Y habló Dios a Israel en visiones de noche, y dijo: Jacob, Jacob. Y él respondió: Heme aquí."}
+GEN:versiculo{id:"46.3",capitulo:46,verso:3,texto:"Y dijo: Yo soy Dios, el Dios de tu padre; no temas de descender a Egipto, porque allí te haré una gran nación."}
+GEN:versiculo{id:"46.29",capitulo:46,verso:29,texto:"José preparó su carro, y fue a recibir a Israel su padre en Gosén..."}
+
+GEN:relacion{origen:"Jacob"|destino:"Egipto"|tipo:"desciende"|capitulo:46}
+
+# ============================================
+# CAPÍTULO 47: JACOB EN EGIPTO
+# ============================================
+
+$47: JACOB EN EGIPTO
+
+GEN:resumen{capitulo:47,titulo:"La administración de José",esencia:"Jacob y su familia se establecen en Gosén, José administra el grano."}
+
+GEN:evento{nombre:"Gosén",capitulo:47,dia:null,accion:"Jacob se establece en Gosén",resultado:"La familia prospera"}
+GEN:evento{nombre:"Administración",capitulo:47,dia:null,accion:"José compra tierras para Faraón",resultado:"Egipto sobrevive la hambruna"}
+
+GEN:lugar{nombre:"Gosén",tipo:"tierra",significado:"Región de Egipto",capitulo:47}
+
+GEN:versiculo{id:"47.6",capitulo:47,verso:6,texto:"La tierra de Egipto está delante de ti; haz habitar a tu padre y a tus hermanos en lo mejor de la tierra..."}
+GEN:versiculo{id:"47.9",capitulo:47,verso:9,texto:"Y Jacob respondió a Faraón: Los días de los años de mi peregrinación son ciento treinta años..."}
+GEN:versiculo{id:"47.12",capitulo:47,verso:12,texto:"Y José sustentó a su padre y a sus hermanos, y a toda la casa de su padre, con pan..."}
+
+# ============================================
+# CAPÍTULO 48: JACOB BENDICE A EFRAÍN Y MANASÉS
+# ============================================
+
+$48: JACOB BENDICE A EFRAÍN Y MANASÉS
+
+GEN:resumen{capitulo:48,titulo:"La bendición de los hijos de José",esencia:"Jacob bendice a Efraín y Manasés, poniendo al menor sobre el mayor."}
+
+GEN:evento{nombre:"Bendición",capitulo:48,dia:null,accion:"Jacob bendice a Efraín y Manasés",resultado:"Efraín es puesto sobre Manasés"}
+
+GEN:personaje{nombre:"Efraín",edad:null,vida:null,descendencia:null,muerte:null}
+GEN:personaje{nombre:"Manasés",edad:null,vida:null,descendencia:null,muerte:null}
+
+GEN:profecia{nombre:"Bendición de Efraín",capitulo:48,destinatario:"Efraín",texto:"El ángel que me libra de todo mal, bendiga a estos jóvenes..."}
+
+GEN:versiculo{id:"48.1",capitulo:48,verso:1,texto:"Después de estas cosas, dijeron a José: He aquí, tu padre está enfermo. Y él tomó consigo a sus dos hijos, Manasés y Efraín."}
+GEN:versiculo{id:"48.14",capitulo:48,verso:14,texto:"Entonces Israel extendió su mano derecha, y la puso sobre la cabeza de Efraín, que era el menor, y su mano izquierda sobre la cabeza de Manasés..."}
+GEN:versiculo{id:"48.19",capitulo:48,verso:19,texto:"Y su padre no quiso, y dijo: Lo sé, hijo mío, lo sé; también él vendrá a ser un pueblo, y será también engrandecido; pero su hermano menor será más grande que él..."}
+
+GEN:relacion{origen:"Jacob"|destino:"Efraín"|tipo:"bendice"|capitulo:48}
+GEN:relacion{origen:"Jacob"|destino:"Manasés"|tipo:"bendice"|capitulo:48}
+
+# ============================================
+# CAPÍTULO 49: LAS BENDICIONES DE JACOB
+# ============================================
+
+$49: LAS BENDICIONES DE JACOB
+
+GEN:resumen{capitulo:49,titulo:"Las profecías de Jacob",esencia:"Jacob bendice y profetiza sobre cada uno de sus 12 hijos."}
+
+GEN:profecia{nombre:"Rubén",capitulo:49,destinatario:"Rubén",texto:"Rubén, tú eres mi primogénito, mi fortaleza, y el principio de mi vigor; excelso en dignidad, excelso en poder. Impetuoso como las aguas, no tú sobresalirás..."}
+GEN:profecia{nombre:"Simeón y Leví",capitulo:49,destinatario:"Simeón y Leví",texto:"Simeón y Leví son hermanos; armas de iniquidad son sus armas. En su secreto no entre mi alma..."}
+GEN:profecia{nombre:"Judá",capitulo:49,destinatario:"Judá",texto:"Judá, te alabarán tus hermanos; tu mano en la cerviz de tus enemigos; se inclinarán a ti los hijos de tu padre. No será quitado el cetro de Judá..."}
+GEN:profecia{nombre:"Zabulón",capitulo:49,destinatario:"Zabulón",texto:"Zabulón habitará a la orilla del mar..."}
+GEN:profecia{nombre:"Isacar",capitulo:49,destinatario:"Isacar",texto:"Isacar, asno fuerte, que se recuesta entre dos cercas..."}
+GEN:profecia{nombre:"Dan",capitulo:49,destinatario:"Dan",texto:"Dan juzgará a su pueblo, como una de las tribus de Israel..."}
+GEN:profecia{nombre:"Gad",capitulo:49,destinatario:"Gad",texto:"Gad, escuadrón lo acometerá, mas él acometerá al fin..."}
+GEN:profecia{nombre:"Aser",capitulo:49,destinatario:"Aser",texto:"El pan de Aser será substancial, y él dará delicias de rey..."}
+GEN:profecia{nombre:"Neftalí",capitulo:49,destinatario:"Neftalí",texto:"Neftalí, cierva suelta, que echa dichosos renuevos..."}
+GEN:profecia{nombre:"José",capitulo:49,destinatario:"José",texto:"Rama fructífera es José, rama fructífera junto a la fuente, sus vástagos se extienden sobre el muro..."}
+GEN:profecia{nombre:"Benjamín",capitulo:49,destinatario:"Benjamín",texto:"Benjamín, lobo rapaz; por la mañana devorará la presa, y por la tarde repartirá el botín."}
+
+GEN:versiculo{id:"49.1",capitulo:49,verso:1,texto:"Y Jacob llamó a sus hijos, y dijo: Juntaos, y os declararé lo que os ha de acontecer en los días venideros."}
+GEN:versiculo{id:"49.10",capitulo:49,verso:10,texto:"No será quitado el cetro de Judá, ni el legislador de entre sus pies, hasta que venga Siloh; y a él se congregarán los pueblos."}
+GEN:versiculo{id:"49.33",capitulo:49,verso:33,texto:"Y cuando Jacob acabó de dar mandatos a sus hijos, recogió sus pies en la cama, y expiró, y fue reunido a su pueblo."}
+
+# ============================================
+# CAPÍTULO 50: LA MUERTE DE JACOB Y JOSÉ
+# ============================================
+
+$50: LA MUERTE DE JACOB Y JOSÉ
+
+GEN:resumen{capitulo:50,titulo:"El entierro y la promesa",esencia:"Jacob muere y es llevado a Canaán, José muere a los 110 años."}
+
+GEN:evento{nombre:"Muerte de Jacob",capitulo:50,dia:null,accion:"Jacob muere a los 147 años",resultado:"José lo embalsama"}
+GEN:evento{nombre:"Entierro",capitulo:50,dia:null,accion:"José lleva a Jacob a Canaán",resultado:"Lo entierra en la cueva de Macpela"}
+GEN:evento{nombre:"Muerte de José",capitulo:50,dia:null,accion:"José muere a los 110 años",resultado:"Su cuerpo es embalsamado en Egipto"}
+
+GEN:personaje{nombre:"Jacob",edad:null,vida:147,descendencia:"12 hijos",muerte:147}
+GEN:personaje{nombre:"José",edad:null,vida:110,descendencia:"Efraín, Manasés",muerte:110}
+
+GEN:versiculo{id:"50.1",capitulo:50,verso:1,texto:"Entonces José se echó sobre el rostro de su padre, y lloró sobre él, y lo besó."}
+GEN:versiculo{id:"50.20",capitulo:50,verso:20,texto:"Vosotros pensasteis mal contra mí, pero Dios lo encaminó a bien, para hacer lo que vemos hoy, para mantener en vida a mucho pueblo."}
+GEN:versiculo{id:"50.25",capitulo:50,verso:25,texto:"Y José hizo jurar a los hijos de Israel, diciendo: Dios ciertamente os visitará, y haréis subir mis huesos de aquí."}
+GEN:versiculo{id:"50.26",capitulo:50,verso:26,texto:"Murió José a la edad de ciento diez años; y lo embalsamaron, y fue puesto en un ataúd en Egipto."}
+
+GEN:relacion{origen:"José"|destino:"Jacob"|tipo:"entierra"|capitulo:50}
+GEN:relacion{origen:"José"|destino:"Hermanos"|tipo:"consuela"|capitulo:50}
+
+# ============================================
+# FIN DEL GÉNESIS EN CORTEX
+# ============================================

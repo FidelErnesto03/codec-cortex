@@ -1,28 +1,24 @@
 ---
-# Plantilla de Manifiesto de Ciclo (CYCLE_MANIFEST_TEMPLATE.md)
-# Copiada por cycle.create() para crear CYCLE-NNN/MANIFEST.md
-# Formato HCORTEX — legible por humanos y máquinas
-
 cycle_id: "CYCLE-01"
 name: "CYCLE-01"
 project_ref: ""
-status: "open"
+status: "closed"
 governor: "alfred"
 created_at: "2026-07-17T00:28:12Z"
 updated_at: ""
-closed_at: ""
+closed_at: "2026-07-17T23:41:02Z"
 planned_start: ""
 planned_end: ""
-quality_gates@: {
-  has_clear_purpose: true,
-  has_explicit_scope: true,
-  has_measurable_objectives: true,
-  has_operational_guidelines: true,
-  has_control_points: true,
-  aligns_with_project: true,
-}
+quality_gates@: "{"
+has_clear_purpose: "true,"
+has_explicit_scope: "true,"
+has_measurable_objectives: "true,"
+has_operational_guidelines: "true,"
+has_control_points: "true,"
+aligns_with_project: "true,"
 _template_ref: "CYCLE_MANIFEST_TEMPLATE.md"
 ---
+
 
 # Manifiesto: {name}
 

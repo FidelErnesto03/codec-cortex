@@ -1,0 +1,206 @@
+{
+  "pass": 40,
+  "fail": 0,
+  "details": [
+    {
+      "file": "H001_minimal-attrs",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H002_attrs-optional",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H003_attrs-list",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H004_unicode-nfc",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H005_positional-basic",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H006_relation-basic",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H007_cuerpo-short",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H008_cuerpo-multiline",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H009_block-plantuml",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H010_block-backticks",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H011_scalar-kinds",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H012_decimal-precision",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H013_negative-numbers",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H014_escapes",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H015_microtoken-declaration",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H016_namespace",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H017_section-title",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H018_multiple-sections",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H019_idea-order",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H020_glossary-order",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H021_optional-extension",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H022_required-extension",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H023_open-attrs",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H024_optional-omitted",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H025_body-empty",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H026_body-blank-lines",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H027_block-unicode-composition",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H028_all-shapes",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H029_neutral-domain",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H030_cross-section-reference",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H031_list-mixed",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H032_quoted-positional-pipe",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H033_format-extra",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H034_multiple-namespaces",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H035_unicode-emoji",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H036_long-contract",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H037_same-name-different-section",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H038_special-body-chars",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H039_risk-objective",
+      "status": "pass",
+      "c14n": "True"
+    },
+    {
+      "file": "H040_dense-skill-excerpt",
+      "status": "pass",
+      "c14n": "True"
+    }
+  ]
+}

@@ -1,47 +1,13 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+MET:metric{type:attrs,weight:B,fields:"value:dec",focus:value,desc:"Decimal exacto"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
+<!-- table:1 -->
+<!-- MET:precise --> | 0.750 |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `MET` | `metric` | `attrs` | `B` | `value:dec` | `value` | `false` | Decimal exacto |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"precise","namespace":null,"section":"1","shape":"attrs","symbol":"MET"} -->
-### MET:precise · metric
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `value` | `0.750` |

@@ -1,1 +1,1 @@
-docs/spec
+docs/standard

@@ -1,59 +1,17 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked|done"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|metric:text?",focus:goal,desc:"Objetivo explícito"}
+RSK:risk{type:attrs,weight:H,fields:"risk:text|impact:text|status:%state",focus:risk,desc:"Riesgo explícito"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `state` | `["current","planned","blocked","done"]` |
+<!-- table:1 -->
+<!-- OBJ:goal --> | "Orden canónico." | current |
+<!-- RSK:ambiguity --> | "Orden variable." | "Hash distinto." | blocked |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `KNW` | `knowledge` | `attrs` | `B` | `topic:text\|content:text\|status:%state?\|evidence:text?` | `content` | `false` | Conocimiento verificable |
-| `—` | `OBJ` | `objective` | `attrs` | `H` | `goal:text\|status:%state\|metric:text?` | `goal` | `false` | Objetivo explícito |
-| `—` | `RSK` | `risk` | `attrs` | `H` | `risk:text\|impact:text\|status:%state` | `risk` | `false` | Riesgo explícito |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"goal","namespace":null,"section":"1","shape":"attrs","symbol":"OBJ"} -->
-### OBJ:goal · objective
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `goal` | `"Orden canónico."` |
-| 2 | `status` | `current` |
-
-<!-- cortex-entry {"name":"ambiguity","namespace":null,"section":"1","shape":"attrs","symbol":"RSK"} -->
-### RSK:ambiguity · risk
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `risk` | `"Orden variable."` |
-| 2 | `impact` | `"Hash distinto."` |
-| 3 | `status` | `blocked` |

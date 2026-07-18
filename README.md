@@ -1,49 +1,71 @@
 # CODEC-CORTEX
 
-Implementación de referencia del estándar CORTEX — un codec ideático lineal para contexto estructurado de SLM/LLM.
+**CORTEX 0.1** — Un lenguaje de máquina para modelos de lenguaje (LLM/SLM).
 
-## Estructura del repositorio
+Codec ideático reversible entre IA y humanos. La IA lee y escribe CORTEX directamente. El humano lee HCORTEX, la representación renderizada mediante 5 esquemas visuales emparejados.
 
-```
-docs/
-├── standard/       → Especificación normativa CORTEX 0.1 (spec, glossary, errors, GATE-F2, F3-CHARTER)
-├── grammar/        → Gramáticas formales ABNF + EBNF
-├── schemas/        → Schemas JSON del AST y diagnostics
-├── spec/           → Symlinks a standard/ (para validadores)
-└── review/         → Reportes de revisión, hallazgos y documentos de diseño
+## Ejemplo
 
-experiments/
-├── gate-f2-v1/     → Mini Gate F2 (BLP-003) — experimento pre-correcciones
-└── gate-f2-v2/     → Mini Gate F2 v2 (BLP-005) — experimento post-correcciones
+CORTEX es para la IA. HCORTEX es para humanos.
 
-conformance/        → Corpus de prueba (40 válidos + 57 inválidos + golden outputs)
-examples/           → Symlinks a conformance/ (para validadores)
+Así se ve un HCORTEX (humano):
 
-tools/              → Validadores (validate_phase2.py, cortex01_validator.py, compare_all.py)
-governance/         → GOVERNADANCE.md del estándar + ADRs
-profiles/           → Perfiles oficiales del estándar
-security/           → Documentación de seguridad
-tooling/            → Herramientas del ecosistema
+```markdown
+<!-- HCORTEX v=0.1 t=canonical k=corpus -->
+
+## §1: TAREAS
+
+<!-- table:1 -->
+| Aprender HCORTEX | current |
+| Escribir documentacion | planned |
+<!-- /table:1 -->
 ```
 
-## Estado del estándar
+Ese HCORTEX se compila a CORTEX (que la IA entiende):
 
-**CORTEX 0.1 — DRAFT-REAL-001** · Status: `draft-for-independent-implementation`
+```cortex
+$0
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+OBJ:task{type:attrs,weight:H,fields:"goal:text|status:%state",focus:goal,schema:table,desc:"Tarea"}
+$1
+OBJ:meta{goal:"Aprender HCORTEX",status:current}
+OBJ:gate{goal:"Escribir documentacion",status:planned}
+```
 
-| Fase | Estado | BLP |
-|---|---|---|
-| F0 — Seguridad y fork | ✅ Done | BLP-001 |
-| F1 — Constitución | ✅ Done | BLP-001 |
-| F2 — Modelo abstracto y gramática | ✅ Done | BLP-002 |
-| F2 correcciones (comillas, atom, glossary-valid) | ✅ Done | BLP-004 |
-| Mini Gate F2 (implementabilidad) | ✅ Done | BLP-003 + BLP-005 |
-| F3 — Canonicalización | ⬜ Pendiente | — |
+## Repositorio
 
-Experimentación: Rust 39/40 (97.5%), Go 33/40, Bash 30/40. 0 defectos de especificación.
+| Lenguaje | Directorio | C14N | Publicación |
+|---|---|---|---|
+| Python (oficial) | `codec_cortex/` | 40/40 | `pip install codec-cortex` |
+| Rust | `codec-cortex-rs/` | 40/40 | `cargo add codec-cortex` |
+| Go | `codec-cortex-go/` | 40/40 | GitHub Releases |
+| Node.js | `codec-cortex-node/` | 40/40 | `npm install @codec-cortex/node` |
+| Bash | `codec-cortex-bash/` | 40/40 | GitHub Releases |
 
-## Lectura recomendada
+## Documentación
 
-1. `docs/standard/CORTEX-SPEC-0.1.md` — La especificación
-2. `docs/standard/F3-CHARTER.md` — Guía para Fase 3
-3. `experiments/gate-f2-v2/README.md` — Resultados del último experimento
-4. `docs/review/GATE-F2-V2-REPORT.md` — Reporte detallado
+- [docs/parser-api.md](docs/parser-api.md) — API del parser Python (instalación, uso, ejemplos)
+- [docs/standard/CORTEX-SPEC-0.1.md](docs/standard/CORTEX-SPEC-0.1.md) — Especificación CORTEX
+- [docs/standard/hcortex-0.1.md](docs/standard/hcortex-0.1.md) — HCORTEX con 5 esquemas emparejados
+- [docs/standard/C14N-0.1.md](docs/standard/C14N-0.1.md) — Canonicalización
+- **Creación de sigilos:** [docs/authoring/custom-sigils.md](docs/authoring/custom-sigils.md)
+- **Plantillas HCORTEX:** [docs/authoring/hcortex-templates.md](docs/authoring/hcortex-templates.md)
+- **Inicio rápido:** [docs/QUICKSTART.md](docs/QUICKSTART.md)
+
+### Skill autocontenido (para LLMs)
+
+El estándar CORTEX escrito en CORTEX. Cualquier modelo lo lee como .md.
+
+[skill/codec-cortex.skill.md](skill/codec-cortex.skill.md) — pip install, parse, render, compile, canonicalize, todo en un archivo.
+
+## Validación empírica
+
+4 pruebas con ~20 ejecuciones en 6 plataformas:
+- **Comprensión:** 6/6 modelos entienden CORTEX sin parseo
+- **Durabilidad:** 4/5 modelos mantienen directrices 25+ turnos
+- **Generación:** 5/5 modelos escriben CORTEX desde cero
+- **Benchmark:** CORTEX supera a JSON/YAML/XML en multi-hop
+
+## Licencia
+
+CC0-1.0 — Dominio público.

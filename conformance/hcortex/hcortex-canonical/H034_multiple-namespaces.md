@@ -1,56 +1,17 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:namespace_agent{uri:"urn:agent",version:"0.1"}
+$0:namespace_project{uri:"urn:project",version:"0.1"}
+agent::KNW:knowledge{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Agent knowledge"}
+project::KNW:knowledge{type:attrs,weight:B,fields:"content:text",focus:content,desc:"Project knowledge"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
+<!-- table:1 -->
+<!-- agent::KNW:a --> | "Agente" |
+<!-- project::KNW:p --> | "Proyecto" |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `agent` | `urn:agent` | `0.1` |
-| `project` | `urn:project` | `0.1` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `agent` | `KNW` | `knowledge` | `attrs` | `B` | `content:text` | `content` | `false` | Agent knowledge |
-| `project` | `KNW` | `knowledge` | `attrs` | `B` | `content:text` | `content` | `false` | Project knowledge |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"a","namespace":"agent","section":"1","shape":"attrs","symbol":"KNW"} -->
-### agent::KNW:a · knowledge
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `content` | `"Agente"` |
-
-<!-- cortex-entry {"name":"p","namespace":"project","section":"1","shape":"attrs","symbol":"KNW"} -->
-### project::KNW:p · knowledge
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `content` | `"Proyecto"` |

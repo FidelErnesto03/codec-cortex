@@ -1,47 +1,13 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+LST:list{type:attrs,weight:B,fields:"items:list",focus:items,desc:"Lista mixta"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
+<!-- table:1 -->
+<!-- LST:mixed --> | ["texto humano",atom,3,1.20,false,null] |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `LST` | `list` | `attrs` | `B` | `items:list` | `items` | `false` | Lista mixta |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"mixed","namespace":null,"section":"1","shape":"attrs","symbol":"LST"} -->
-### LST:mixed · list
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `items` | `["texto humano",atom,3,1.20,false,null]` |

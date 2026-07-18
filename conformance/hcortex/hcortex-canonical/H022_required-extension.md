@@ -1,48 +1,15 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked|done"}
+$0:extension_seal{namespace:example.security,id:seal,version:1.0,required:true,config:"{\"algorithm\":\"sha256\"}"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `state` | `["current","planned","blocked","done"]` |
+<!-- table:1 -->
+<!-- KNW:extension --> | "Extensión requerida" | "Bloquea interpretación si no está soportada." |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `example.security` | `seal` | `1.0` | `true` | `{"algorithm":"sha256"}` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `KNW` | `knowledge` | `attrs` | `B` | `topic:text\|content:text\|status:%state?\|evidence:text?` | `content` | `false` | Conocimiento verificable |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"extension","namespace":null,"section":"1","shape":"attrs","symbol":"KNW"} -->
-### KNW:extension · knowledge
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `topic` | `"Extensión requerida"` |
-| 2 | `content` | `"Bloquea interpretación si no está soportada."` |

@@ -1,48 +1,13 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+TAG:tagset{type:attrs,weight:B,fields:"name:text|items:list",focus:items,desc:"Lista plana"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `—` | `[]` |
+<!-- table:1 -->
+<!-- TAG:principles --> | Principios | [portable,denso,compacto] |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `TAG` | `tagset` | `attrs` | `B` | `name:text\|items:list` | `items` | `false` | Lista plana |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"principles","namespace":null,"section":"1","shape":"attrs","symbol":"TAG"} -->
-### TAG:principles · tagset
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `name` | `Principios` |
-| 2 | `items` | `[portable,denso,compacto]` |

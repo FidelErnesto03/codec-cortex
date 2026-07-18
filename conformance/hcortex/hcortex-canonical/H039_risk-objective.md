@@ -1,59 +1,16 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked|done"}
+OBJ:objective{type:attrs,weight:H,fields:"goal:text|status:%state|metric:text?",focus:goal,desc:"Objetivo explícito"}
+RSK:risk{type:attrs,weight:H,fields:"risk:text|impact:text|status:%state",focus:risk,desc:"Riesgo explícito"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `state` | `["current","planned","blocked","done"]` |
+<!-- table:1 -->
+<!-- OBJ:gate --> | "100% roundtrip estructural." | current | "40/40" |
+<!-- RSK:view --> | "VIEW contamina el canon." | "Pérdida de reversibilidad." | blocked |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
-
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
-
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `OBJ` | `objective` | `attrs` | `H` | `goal:text\|status:%state\|metric:text?` | `goal` | `false` | Objetivo explícito |
-| `—` | `RSK` | `risk` | `attrs` | `H` | `risk:text\|impact:text\|status:%state` | `risk` | `false` | Riesgo explícito |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"gate","namespace":null,"section":"1","shape":"attrs","symbol":"OBJ"} -->
-### OBJ:gate · objective
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `goal` | `"100% roundtrip estructural."` |
-| 2 | `status` | `current` |
-| 3 | `metric` | `"40/40"` |
-
-<!-- cortex-entry {"name":"view","namespace":null,"section":"1","shape":"attrs","symbol":"RSK"} -->
-### RSK:view · risk
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `risk` | `"VIEW contamina el canon."` |
-| 2 | `impact` | `"Pérdida de reversibilidad."` |
-| 3 | `status` | `blocked` |

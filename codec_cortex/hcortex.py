@@ -622,8 +622,12 @@ def _classify_compact_value(lex: str) -> Scalar:
     """Classify a compact lexeme value into a Scalar."""
     lex = lex.strip()
     if lex.startswith('"') and lex.endswith('"'):
-        val = parse_string_literal(lex[1:-1])
-        return Scalar("string", val, emit_string_literal(val))
+        try:
+            val = parse_string_literal(lex[1:-1])
+            return Scalar("string", val, emit_string_literal(val))
+        except ParseError:
+            raw = lex[1:-1]
+            return Scalar("string", raw, emit_string_literal(raw))
     if lex.startswith("[") and lex.endswith("]"):
         inner = lex[1:-1]
         if not inner:

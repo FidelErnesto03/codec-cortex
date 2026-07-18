@@ -1,60 +1,20 @@
-<!-- hcortex {"cortex":"0.1","encoding":"UTF-8","hcortex":"0.1","mode":"canonical"} -->
-# HCORTEX · CORTEX 0.1
+<!-- HCORTEX v=0.1 t=canonical -->
 
-## Glosario
+<!-- glossary
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:enum_state{values:"current|planned|blocked|done"}
+KNW:knowledge{type:attrs,weight:B,fields:"topic:text|content:text|status:%state?|evidence:text?",focus:content,desc:"Conocimiento verificable"}
+-->
 
-### Formato
-| Clave | Valor |
-| --- | --- |
-| `cortex` | `0.1` |
-| `encoding` | `UTF-8` |
-| `language` | `es` |
+## §1: Sección 1
 
-### Enums
-| Nombre | Valores |
-| --- | --- |
-| `state` | `["current","planned","blocked","done"]` |
+<!-- table:1 -->
+<!-- KNW:same --> | Uno | "Primera sección." |
+<!-- /table:1 -->
 
-### Microtokens
-| Token | Expansión |
-| --- | --- |
-| `—` | `—` |
+## §2: Sección 2
 
-### Namespaces
-| Nombre | URI | Versión |
-| --- | --- | --- |
-| `—` | `—` | `—` |
+<!-- table:2 -->
+<!-- KNW:same --> | Dos | "Segunda sección." |
+<!-- /table:2 -->
 
-### Extensiones
-| Namespace | ID | Versión | Requerida | Config |
-| --- | --- | --- | --- | --- |
-| `—` | `—` | `—` | `—` | `—` |
-
-### Sigilos
-| Namespace | Sigilo | Nombre | Shape | Peso | Contrato | Foco | Open | Descripción |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `—` | `KNW` | `knowledge` | `attrs` | `B` | `topic:text\|content:text\|status:%state?\|evidence:text?` | `content` | `false` | Conocimiento verificable |
-
----
-
-## $1
-
-<!-- cortex-entry {"name":"same","namespace":null,"section":"1","shape":"attrs","symbol":"KNW"} -->
-### KNW:same · knowledge
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `topic` | `Uno` |
-| 2 | `content` | `"Primera sección."` |
-
----
-
-## $2
-
-<!-- cortex-entry {"name":"same","namespace":null,"section":"2","shape":"attrs","symbol":"KNW"} -->
-### KNW:same · knowledge
-
-| # | Campo | Valor |
-| --- | --- | --- |
-| 1 | `topic` | `Dos` |
-| 2 | `content` | `"Segunda sección."` |

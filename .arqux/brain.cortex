@@ -45,7 +45,7 @@ IDN:governor{level:"2", project:"CODEC-CORTEX", path:"/home/vatrox/workspace/COD
 
 $2: FOCUS
 
-FCS:current{what:"Próximo BLP o cierre de ciclo", priority:"medium", status:"current", survive:"work", updated:"2026-07-17T20:30:47Z", event:"blueprint.complete"}
+FCS:current{what:"Próximo BLP o cierre de ciclo", priority:"medium", status:"current", survive:"work", updated:"2026-07-18T00:33:18Z", event:"blueprint.complete"}
 
 $3: OBJECTIVES
 
@@ -110,6 +110,14 @@ AUD:E_0142{date:"2026-07-17T18:55:38Z", event:"E-0142", task:"-", kind:"handler_
 AUD:E_0143{date:"2026-07-17T19:28:51Z", event:"E-0143", task:"BLP-010", kind:"blueprint_lifecycle", agent:"hermes", result:"[blueprint.complete] BLP BLP-010 completed — BLP-010 ejecutado: hcortex-0.1.md redactado con 9 pilares y 7 esquemas. CORTEX-SPEC-0.1.md §1 actualizado con visión LLM. GATE-F2.md actualizado para roundtrip no parsers. F4-CHARTER.md reescrito con 9 pilares. 4 documentos fundacionales alineados con la nueva visión.", evidence:"[blueprint.complete] BLP BLP-010 completed — BLP-010 ejecutado: hcortex-0.1.md redactado con 9 pilares y 7 esquemas. CORTEX-SPEC-0.1.md §1 actualizado con visión LLM. GATE-F2.md actualizado para roundtrip no parsers. F4-CHARTER.md reescrito con 9 pilares. 4 documentos fundacionales alineados con la nueva visión."}
 AUD:E_0144{date:"2026-07-17T19:51:46Z", event:"E-0144", task:"-", kind:"handler_call", agent:"hermes", result:"[parse_blp_template] count=19 path=/home/vatrox/workspace/.arqux/templates/BLP_TEMPLATE.md", evidence:"[parse_blp_template] count=19 path=/home/vatrox/workspace/.arqux/templates/BLP_TEMPLATE.md"}
 AUD:E_0145{date:"2026-07-17T20:30:47Z", event:"E-0145", task:"BLP-011", kind:"blueprint_lifecycle", agent:"hermes", result:"[blueprint.complete] BLP BLP-011 completed — BLP-011 ejecutado: hcortex-0.1.md reescrito con 5 schemas emparejados. Corpus regenerado con formato <!-- schema:N --> ... <!-- /schema:N -->. hcortex_transformer.py implementado con render y compile bidireccional. Roundtrip: 23/40 (17 fallas del parser base). REV-PACKAGE actualizado. Formato de schemas validado.", evidence:"[blueprint.complete] BLP BLP-011 completed — BLP-011 ejecutado: hcortex-0.1.md reescrito con 5 schemas emparejados. Corpus regenerado con formato <!-- schema:N --> ... <!-- /schema:N -->. hcortex_transformer.py implementado con render y compile bidireccional. Roundtrip: 23/40 (17 fallas del parser base). REV-PACKAGE actualizado. Formato de schemas validado."}
+KNW:cycles_closed{name:"cycles_closed", value:"1", updated:"2026-07-17T23:41:02Z", topic:"metrics", content:"metric cycles_closed=1", status:"current"}
+AUD:E_0146{date:"2026-07-17T23:52:05Z", event:"E-0146", task:"-", kind:"handler_call", agent:"hermes", result:"[identity.get] agent_id=heimdall source=workspace", evidence:"[identity.get] agent_id=heimdall source=workspace"}
+AUD:E_0147{date:"2026-07-17T23:57:02Z", event:"E-0147", task:"-", kind:"handler_call", agent:"hermes", result:"[parse_blp_template] count=19 path=/home/vatrox/workspace/.arqux/templates/BLP_TEMPLATE.md", evidence:"[parse_blp_template] count=19 path=/home/vatrox/workspace/.arqux/templates/BLP_TEMPLATE.md"}
+KNW:blueprints_cancelled{name:"blueprints_cancelled", value:"1", updated:"2026-07-17T23:59:32Z", topic:"metrics", content:"metric blueprints_cancelled=1", status:"current"}
+AUD:E_0148{date:"2026-07-17T23:59:41Z", event:"E-0148", task:"-", kind:"handler_call", agent:"hermes", result:"[parse_blp_template] count=19 path=/home/vatrox/workspace/.arqux/templates/BLP_TEMPLATE.md", evidence:"[parse_blp_template] count=19 path=/home/vatrox/workspace/.arqux/templates/BLP_TEMPLATE.md"}
+AUD:E_0149{date:"2026-07-18T00:24:15Z", event:"E-0149", task:"BLP-001", kind:"blueprint_lifecycle", agent:"hermes", result:"[blueprint.complete] BLP BLP-001 completed — Parser Python: 40/40 parse F4. C14N golden: 40/40. Go parity: 40/40 HCORTEX match. Compile fix: 40/40 (antes 38/40, corregido H021/H022). API publica inalterada.", evidence:"[blueprint.complete] BLP BLP-001 completed — Parser Python: 40/40 parse F4. C14N golden: 40/40. Go parity: 40/40 HCORTEX match. Compile fix: 40/40 (antes 38/40, corregido H021/H022). API publica inalterada."}
+AUD:E_0150{date:"2026-07-18T00:33:18Z", event:"E-0150", task:"BLP-002", kind:"blueprint_lifecycle", agent:"hermes", result:"[blueprint.complete] BLP BLP-002 completed — 7 documentos creados: README.md renovado, docs/QUICKSTART.md, docs/index.md, docs/authoring/custom-sigils.md, docs/authoring/hcortex-templates.md, docs/authoring/index.md. Todos enlazados entre si. README enlaza a skill, authoring y QUICKSTART.", evidence:"[blueprint.complete] BLP BLP-002 completed — 7 documentos creados: README.md renovado, docs/QUICKSTART.md, docs/index.md, docs/authoring/custom-sigils.md, docs/authoring/hcortex-templates.md, docs/authoring/index.md. Todos enlazados entre si. README enlaza a skill, authoring y QUICKSTART."}
+AUD:E_0151{date:"2026-07-18T00:42:17Z", event:"E-0151", task:"-", kind:"handler_call", agent:"hermes", result:"[identity.get] agent_id=heimdall source=workspace", evidence:"[identity.get] agent_id=heimdall source=workspace"}
 
 $7: LESSONS
 
@@ -119,7 +127,7 @@ LNG:cep_retired{type:"process", cause:"Arquitecto decidio reemplazo total de RFC
 
 $8: ACTIVE_CONTEXT
 
-WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-011 completed and approved", blocked:"no", survive:"work", updated:"2026-07-17T20:30:47Z", event:"blueprint.complete", fcs:"CYCLE-01 obj:CYCLE-01 permanece abierto hasta completar 11 fases del plan (F0->F10); BLP-001 cierra F0/F1 tasks:BLP-001 done; F2 pendiente state:open-until-plan-complete", obj:"", tasks:"", state:"active", last_turn:"2026-07-17T00:47:56Z"}
+WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-002 completed and approved", blocked:"no", survive:"work", updated:"2026-07-18T00:33:18Z", event:"blueprint.complete", fcs:"CYCLE-01 obj:CYCLE-01 permanece abierto hasta completar 11 fases del plan (F0->F10); BLP-001 cierra F0/F1 tasks:BLP-001 done; F2 pendiente state:open-until-plan-complete", obj:"", tasks:"", state:"active", last_turn:"2026-07-17T00:47:56Z"}
 
 $9: RISKS
 
