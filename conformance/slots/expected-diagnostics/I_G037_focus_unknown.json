@@ -1,0 +1,7 @@
+{
+  "id": "I_G037_focus_unknown",
+  "source": "invalid/I_G037_focus_unknown.cortex",
+  "requiredCodes": [
+    "G037_SLOT_FOCUS_UNRESOLVED"
+  ]
+}

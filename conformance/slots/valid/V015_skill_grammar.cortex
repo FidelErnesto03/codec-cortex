@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+RUL:rule{type:attrs,encoding:slots,weight:H,slots:"1=id:text|2=rule:text|3=detail:text",focus:rule,schema:prose,desc:"Rule",open:false}
+$1: RULES
+RUL:r1{※1:gramatica,※2:"3 partes: glosario secciones ideas",※3:"cada idea en su linea"}

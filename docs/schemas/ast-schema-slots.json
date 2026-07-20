@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://codec-cortex.dev/schemas/ast-schema-0.2.json",
+  "title": "CORTEX 0.2 AST Schema",
+  "description": "AST nominal para CORTEX 0.2 con slots explícitos.",
+  "type": "object",
+  "required": ["cortex_version", "encoding", "glossary", "sections"],
+  "properties": {
+    "cortex_version": {"type": "string", "enum": ["0.1", "0.2"]},
+    "encoding": {"type": "string", "enum": ["UTF-8"]},
+    "glossary": {"$ref": "#/definitions/Glossary"},
+    "sections": {"type": "array", "items": {"$ref": "#/definitions/Section"}}
+  },
+  "definitions": {
+    "Scalar": {
+      "type": "object",
+      "required": ["kind", "value", "lexeme"],
+      "properties": {
+        "kind": {"type": "string", "enum": ["string", "atom", "integer", "decimal", "boolean", "null", "list"]},
+        "value": {},
+        "lexeme": {"type": "string"}
+      }
+    },
+    "FieldValue": {
+      "description": "Valor de un field o slot.",
+      "allOf": [{"$ref": "#/definitions/Scalar"}]
+    },
+    "ContractField": {
+      "type": "object",
+      "required": ["name", "type", "required"],
+      "properties": {
+        "name": {"type": "string"},
+        "type": {"type": "string"},
+        "required": {"type": "boolean"},
+        "position": {
+          "description": "Posición del slot (1-based). Solo para slot-contracts.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "SymbolDef": {
+      "type": "object",
+      "required": ["sigil", "label", "shape", "weight", "focus", "desc", "open", "contract", "attrs"],
+      "properties": {
+        "namespace": {"type": ["string", "null"]},
+        "sigil": {"type": "string"},
+        "label": {"type": "string"},
+        "shape": {"type": "string", "enum": ["attrs", "attrs-pos", "cuerpo", "bloque", "relacion"]},
+        "encoding": {
+          "description": "Eje de codificación. null = default 0.1 surface.",
+          "type": ["string", "null"],
+          "enum": ["slots", null]
+        },
+        "weight": {"type": "string", "enum": ["B", "M", "H"]},
+        "focus": {"type": "string"},
+        "desc": {"type": "string"},
+        "open": {"type": "boolean"},
+        "contract": {"type": "array", "items": {"$ref": "#/definitions/ContractField"}},
+        "slot_contract": {
+          "description": "Contrato de slots cuando encoding=slots. Vacío si encoding!=slots.",
+          "type": "array",
+          "items": {"$ref": "#/definitions/ContractField"}
+        },
+        "attrs": {"type": "array", "items": {"type": "array", "items": [{"type": "string"}, {"$ref": "#/definitions/Scalar"}]}},
+        "source_line": {"type": "integer"}
+      }
+    },
+    "SigilMapDecl": {
+      "type": "object",
+      "required": ["entries"],
+      "properties": {
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["sigil", "contract"],
+            "properties": {
+              "sigil": {"type": "string"},
+              "contract": {"type": "string"}
+            }
+          }
+        },
+        "source_line": {"type": "integer"}
+      }
+    },
+    "SlotPayloadEntry": {
+      "type": "object",
+      "required": ["position", "value"],
+      "properties": {
+        "position": {"type": "integer", "minimum": 1},
+        "name": {"type": ["string", "null"]},
+        "value": {"$ref": "#/definitions/Scalar"}
+      }
+    },
+    "Idea": {
+      "type": "object",
+      "required": ["section", "symbol", "name", "shape", "payload"],
+      "properties": {
+        "section": {"type": "integer"},
+        "namespace": {"type": ["string", "null"]},
+        "symbol": {"type": "string"},
+        "name": {"type": "string"},
+        "shape": {"type": "string"},
+        "payload": {
+          "type": "object",
+          "oneOf": [
+            {
+              "properties": {
+                "kind": {"const": "attrs"},
+                "pairs": {"type": "array", "items": {"type": "array", "items": [{"type": "string"}, {"$ref": "#/definitions/Scalar"}]}}
+              }
+            },
+            {
+              "properties": {
+                "kind": {"const": "slots"},
+                "slots": {"type": "array", "items": {"$ref": "#/definitions/SlotPayloadEntry"}}
+              }
+            },
+            {
+              "properties": {
+                "kind": {"const": "attrs-pos"},
+                "cells": {"type": "array", "items": {"$ref": "#/definitions/Scalar"}}
+              }
+            },
+            {
+              "properties": {
+                "kind": {"const": "relacion"},
+                "cells": {"type": "array", "items": {"$ref": "#/definitions/Scalar"}}
+              }
+            },
+            {
+              "properties": {
+                "kind": {"const": "cuerpo"},
+                "text": {"type": "string"}
+              }
+            },
+            {
+              "properties": {
+                "kind": {"const": "bloque"},
+                "text": {"type": "string"}
+              }
+            }
+          ]
+        },
+        "source_line": {"type": "integer"}
+      }
+    },
+    "Section": {
+      "type": "object",
+      "required": ["id", "ideas"],
+      "properties": {
+        "id": {"type": "integer"},
+        "title": {"type": ["string", "null"]},
+        "ideas": {"type": "array", "items": {"$ref": "#/definitions/Idea"}},
+        "capa": {"type": ["string", "null"]}
+      }
+    },
+    "FormatDecl": {
+      "type": "object",
+      "required": ["cortex", "encoding", "attrs"],
+      "properties": {
+        "cortex": {"type": "string"},
+        "encoding": {"type": "string"},
+        "attrs": {"type": "array"},
+        "source_line": {"type": "integer"}
+      }
+    },
+    "Glossary": {
+      "type": "object",
+      "properties": {
+        "format": {"$ref": "#/definitions/FormatDecl"},
+        "sigil_map": {"$ref": "#/definitions/SigilMapDecl"},
+        "meta": {"type": "array"},
+        "enums": {"type": "array"},
+        "micros": {"type": "array"},
+        "namespaces": {"type": "array"},
+        "extensions": {"type": "array"},
+        "symbols": {"type": "array", "items": {"$ref": "#/definitions/SymbolDef"}},
+        "capa": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "I_I054_out_of_order",
+  "source": "invalid/I_I054_out_of_order.cortex",
+  "requiredCodes": [
+    "I054_SLOT_OUT_OF_ORDER"
+  ]
+}

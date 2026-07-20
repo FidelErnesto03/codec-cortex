@@ -1,0 +1,7 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+$0:enum_status{values:"planned|current|done"}
+T:t{type:attrs,encoding:slots,weight:H,slots:"1=name:text|2=status:%status",focus:name,schema:table,desc:"Enum",open:false}
+$1: T
+T:x{※1:alpha,※2:current}

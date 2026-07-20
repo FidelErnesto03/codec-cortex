@@ -1,0 +1,8 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+A:a{type:attrs,encoding:slots,weight:H,slots:"1=x:text",focus:x,schema:table,desc:"A",open:false}
+B:b{type:attrs,encoding:slots,weight:H,slots:"1=y:text",focus:y,schema:table,desc:"B",open:false}
+$1: T
+A:a1{※1:alpha}
+B:b1{※1:beta}

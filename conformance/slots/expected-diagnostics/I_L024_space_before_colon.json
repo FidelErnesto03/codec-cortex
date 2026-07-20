@@ -1,0 +1,7 @@
+{
+  "id": "I_L024_space_before_colon",
+  "source": "invalid/I_L024_space_before_colon.cortex",
+  "requiredCodes": [
+    "L024_SLOT_SEPARATOR_REQUIRED"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "I_L020_bulletop",
+  "source": "invalid/I_L020_bulletop.cortex",
+  "requiredCodes": [
+    "L020_INVALID_SLOT_MARKER"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "I_I050_slot_in_glossary",
+  "source": "invalid/I_I050_slot_in_glossary.cortex",
+  "requiredCodes": [
+    "I050_SLOT_NOT_ALLOWED_IN_GLOSSARY"
+  ]
+}

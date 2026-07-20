@@ -1,0 +1,7 @@
+{
+  "id": "I_I053_missing_required",
+  "source": "invalid/I_I053_missing_required.cortex",
+  "requiredCodes": [
+    "I053_MISSING_REQUIRED_SLOT"
+  ]
+}

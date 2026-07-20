@@ -1,0 +1,432 @@
+{
+  "version": "0.2",
+  "valid": [
+    {
+      "id": "V001_minimal_slot",
+      "source": "valid/V001_minimal_slot.cortex",
+      "expectedCanonical": "expected-canonical/V001_minimal_slot.canon.txt",
+      "expectedHash": "53451083b8b7357294e8e3f2e14fd37a2a586a98878574c9c9ed11a9c9166415"
+    },
+    {
+      "id": "V002_multiple_slots",
+      "source": "valid/V002_multiple_slots.cortex",
+      "expectedCanonical": "expected-canonical/V002_multiple_slots.canon.txt",
+      "expectedHash": "835dcf0c196621298173935830f08a912c2e45f18fb0ffe8d321ddc20c54fa5c"
+    },
+    {
+      "id": "V003_optional_middle_omitted",
+      "source": "valid/V003_optional_middle_omitted.cortex",
+      "expectedCanonical": "expected-canonical/V003_optional_middle_omitted.canon.txt",
+      "expectedHash": "88a85d9f341f716a67f0b8f7c49f464a0023ac031c4056497af2c342188ca97a"
+    },
+    {
+      "id": "V004_optional_final_omitted",
+      "source": "valid/V004_optional_final_omitted.cortex",
+      "expectedCanonical": "expected-canonical/V004_optional_final_omitted.canon.txt",
+      "expectedHash": "c2264ff71077810549ccd91776501bc82ca87f6b34de67ca06b7ba1526ebc22b"
+    },
+    {
+      "id": "V005_all_scalar_kinds",
+      "source": "valid/V005_all_scalar_kinds.cortex",
+      "expectedCanonical": "expected-canonical/V005_all_scalar_kinds.canon.txt",
+      "expectedHash": "4367a026ca9e21fbd76c5116b77c23323693d4ce6299840ae907a7b57aa5c0f8"
+    },
+    {
+      "id": "V006_marker_in_string",
+      "source": "valid/V006_marker_in_string.cortex",
+      "expectedCanonical": "expected-canonical/V006_marker_in_string.canon.txt",
+      "expectedHash": "786f3c7474dcf27867b033aaadb497479ea9fd6cf01f9b88bbf6849e00d8d216"
+    },
+    {
+      "id": "V007_marker_in_cuerpo",
+      "source": "valid/V007_marker_in_cuerpo.cortex",
+      "expectedCanonical": "expected-canonical/V007_marker_in_cuerpo.canon.txt",
+      "expectedHash": "0f2c5643b479e9f63e637aa4135036dfa19d14812dfd96859bcfcc092548df55"
+    },
+    {
+      "id": "V008_marker_in_bloque",
+      "source": "valid/V008_marker_in_bloque.cortex",
+      "expectedCanonical": "expected-canonical/V008_marker_in_bloque.canon.txt",
+      "expectedHash": "371cdaf48d8f040d510fb8f4e4a0410c4d1797b5e103208887f2c983a81d735c"
+    },
+    {
+      "id": "V009_namespace",
+      "source": "valid/V009_namespace.cortex",
+      "expectedCanonical": "expected-canonical/V009_namespace.canon.txt",
+      "expectedHash": "b91fbaef12ef3476672fa7bcbb82ef6b049bb6e88ca95b94a53d0364b72a48ab"
+    },
+    {
+      "id": "V010_relation_slots",
+      "source": "valid/V010_relation_slots.cortex",
+      "expectedCanonical": "expected-canonical/V010_relation_slots.canon.txt",
+      "expectedHash": "6ec0f5bb6b57b3d5d0150e007d65037cdc0847adbbeeaaddbb403cf2dd018aae"
+    },
+    {
+      "id": "V011_attrs_pos_slots",
+      "source": "valid/V011_attrs_pos_slots.cortex",
+      "expectedCanonical": "expected-canonical/V011_attrs_pos_slots.canon.txt",
+      "expectedHash": "c52383278603ce5fb0a860bf2ca85cd4c757d7cde7eb88d7140a27587ed58ce5"
+    },
+    {
+      "id": "V012_microtoken_slot",
+      "source": "valid/V012_microtoken_slot.cortex",
+      "expectedCanonical": "expected-canonical/V012_microtoken_slot.canon.txt",
+      "expectedHash": "e4de775d94f4b4538723ed3d4e2c33616872bc8d866e0ba008ece2085802398a"
+    },
+    {
+      "id": "V013_unicode_nfc",
+      "source": "valid/V013_unicode_nfc.cortex",
+      "expectedCanonical": "expected-canonical/V013_unicode_nfc.canon.txt",
+      "expectedHash": "88f3b0e32a0446484b463cae0c2636fc345d0faf85cae498eecc73da65bce22a"
+    },
+    {
+      "id": "V014_projection_minimal",
+      "source": "valid/V014_projection_minimal.cortex",
+      "expectedCanonical": "expected-canonical/V014_projection_minimal.canon.txt",
+      "expectedHash": "bede949e2dd6037d7a18e094e1c0761692ac0a9f2ceb7fd8dc54c4e4cd00affe"
+    },
+    {
+      "id": "V015_skill_grammar",
+      "source": "valid/V015_skill_grammar.cortex",
+      "expectedCanonical": "expected-canonical/V015_skill_grammar.canon.txt",
+      "expectedHash": "720ecde49bcaf632d46bdab4b56a4be4176c6e87613012b09a0598852bb131a7"
+    },
+    {
+      "id": "V016_max_index",
+      "source": "valid/V016_max_index.cortex",
+      "expectedCanonical": "expected-canonical/V016_max_index.canon.txt",
+      "expectedHash": "0d9f4e2d5a1723a556d412050d8c73a0cd06b94206b9dbb8edf7ec59e5e13c48"
+    },
+    {
+      "id": "V017_two_sections",
+      "source": "valid/V017_two_sections.cortex",
+      "expectedCanonical": "expected-canonical/V017_two_sections.canon.txt",
+      "expectedHash": "bd9d97979c13972553c85dd4927490b8390c9a1a37f9fdb07d865da0e1085327"
+    },
+    {
+      "id": "V018_multiple_sigils",
+      "source": "valid/V018_multiple_sigils.cortex",
+      "expectedCanonical": "expected-canonical/V018_multiple_sigils.canon.txt",
+      "expectedHash": "c7d84e425050065569a9213f488e9aa39cc202a7099f063639d8df83cad43245"
+    },
+    {
+      "id": "V019_cuerpo_multiline",
+      "source": "valid/V019_cuerpo_multiline.cortex",
+      "expectedCanonical": "expected-canonical/V019_cuerpo_multiline.canon.txt",
+      "expectedHash": "44dc2df8bc3e9fabe890cc255691afd2a121897e863015cd22c1695f1a8c7f89"
+    },
+    {
+      "id": "V020_bloque_with_special",
+      "source": "valid/V020_bloque_with_special.cortex",
+      "expectedCanonical": "expected-canonical/V020_bloque_with_special.canon.txt",
+      "expectedHash": "d62afc0b7fcf06b3745556ba5921ce2392e3cbd0283310390bf926d67caba997"
+    },
+    {
+      "id": "V021_attrs_nominal_in_02",
+      "source": "valid/V021_attrs_nominal_in_02.cortex",
+      "expectedCanonical": "expected-canonical/V021_attrs_nominal_in_02.canon.txt",
+      "expectedHash": "af5871d4a38ffc3d2b210429a64911f1e73e5a09944eb6ce89c6afe9c8809601"
+    },
+    {
+      "id": "V022_enum_reference",
+      "source": "valid/V022_enum_reference.cortex",
+      "expectedCanonical": "expected-canonical/V022_enum_reference.canon.txt",
+      "expectedHash": "b31d119218b8cbb898e9e0867a29b535ee66e3e701eb90d6a74c7597c643ce79"
+    },
+    {
+      "id": "V023_namespace_qualified",
+      "source": "valid/V023_namespace_qualified.cortex",
+      "expectedCanonical": "expected-canonical/V023_namespace_qualified.canon.txt",
+      "expectedHash": "7c4087bc1bc117127d44ab9bbb9facb5db150ab0b9b632a27892ae348bd3f6b9"
+    },
+    {
+      "id": "V024_extension_decl",
+      "source": "valid/V024_extension_decl.cortex",
+      "expectedCanonical": "expected-canonical/V024_extension_decl.canon.txt",
+      "expectedHash": "4ab4a1247271abac0b412910186a008d8735f37a7567dfeb2131abfc5131f0ed"
+    },
+    {
+      "id": "V025_focus_on_attrs_pos",
+      "source": "valid/V025_focus_on_attrs_pos.cortex",
+      "expectedCanonical": "expected-canonical/V025_focus_on_attrs_pos.canon.txt",
+      "expectedHash": "19b566e2753010c0cb06f0e49d4cac7f454bcccf252f4d41f16994a1017a6037"
+    },
+    {
+      "id": "V026_decimal_precision",
+      "source": "valid/V026_decimal_precision.cortex",
+      "expectedCanonical": "expected-canonical/V026_decimal_precision.canon.txt",
+      "expectedHash": "4a4668220cc2ea8b2540960edbf14f098d349b3671bfcefd896d97bee0cfa590"
+    },
+    {
+      "id": "V027_negative_integer",
+      "source": "valid/V027_negative_integer.cortex",
+      "expectedCanonical": "expected-canonical/V027_negative_integer.canon.txt",
+      "expectedHash": "2508ba05c59a8297ee3bb19c85c694390378b42c642ee57264479e651f129e45"
+    },
+    {
+      "id": "V028_empty_list",
+      "source": "valid/V028_empty_list.cortex",
+      "expectedCanonical": "expected-canonical/V028_empty_list.canon.txt",
+      "expectedHash": "d27fb8b33271996fecf08b3aaef683fbcae32a9344969fb9a3232e84060a950b"
+    },
+    {
+      "id": "V029_nested_list",
+      "source": "valid/V029_nested_list.cortex",
+      "expectedCanonical": "expected-canonical/V029_nested_list.canon.txt",
+      "expectedHash": "cfccd78d98643612cdb0fe37d982fcc13975fa1414d58e8fd3800f4360158aa0"
+    },
+    {
+      "id": "V030_boolean_false",
+      "source": "valid/V030_boolean_false.cortex",
+      "expectedCanonical": "expected-canonical/V030_boolean_false.canon.txt",
+      "expectedHash": "ba6dd5c8225995201e772dd9bac7afef6870584ca5f6f16e9780d5b90272021e"
+    }
+  ],
+  "invalid": [
+    {
+      "id": "I_L020_bullet",
+      "source": "invalid/I_L020_bullet.cortex",
+      "requiredCodes": [
+        "L020_INVALID_SLOT_MARKER"
+      ]
+    },
+    {
+      "id": "I_L020_middot",
+      "source": "invalid/I_L020_middot.cortex",
+      "requiredCodes": [
+        "L020_INVALID_SLOT_MARKER"
+      ]
+    },
+    {
+      "id": "I_L020_bulletop",
+      "source": "invalid/I_L020_bulletop.cortex",
+      "requiredCodes": [
+        "L020_INVALID_SLOT_MARKER"
+      ]
+    },
+    {
+      "id": "I_L020_blackcircle",
+      "source": "invalid/I_L020_blackcircle.cortex",
+      "requiredCodes": [
+        "L020_INVALID_SLOT_MARKER"
+      ]
+    },
+    {
+      "id": "I_L021_space_after",
+      "source": "invalid/I_L021_space_after.cortex",
+      "requiredCodes": [
+        "L021_INVALID_SLOT_INDEX"
+      ]
+    },
+    {
+      "id": "I_L021_unicode_digit",
+      "source": "invalid/I_L021_unicode_digit.cortex",
+      "requiredCodes": [
+        "L021_INVALID_SLOT_INDEX"
+      ]
+    },
+    {
+      "id": "I_L022_zero",
+      "source": "invalid/I_L022_zero.cortex",
+      "requiredCodes": [
+        "L022_SLOT_ZERO_FORBIDDEN"
+      ]
+    },
+    {
+      "id": "I_L023_leading_zero",
+      "source": "invalid/I_L023_leading_zero.cortex",
+      "requiredCodes": [
+        "L023_SLOT_LEADING_ZERO"
+      ]
+    },
+    {
+      "id": "I_L024_space_before_colon",
+      "source": "invalid/I_L024_space_before_colon.cortex",
+      "requiredCodes": [
+        "L024_SLOT_SEPARATOR_REQUIRED"
+      ]
+    },
+    {
+      "id": "I_G030_missing_map",
+      "source": "invalid/I_G030_missing_map.cortex",
+      "requiredCodes": [
+        "G030_SIGIL_MAP_REQUIRED"
+      ]
+    },
+    {
+      "id": "I_G031_dup_map",
+      "source": "invalid/I_G031_dup_map.cortex",
+      "requiredCodes": [
+        "G031_DUPLICATE_SIGIL_MAP"
+      ]
+    },
+    {
+      "id": "I_G032_bad_marker",
+      "source": "invalid/I_G032_bad_marker.cortex",
+      "requiredCodes": [
+        "G032_INVALID_SIGIL_MAP"
+      ]
+    },
+    {
+      "id": "I_G033_no_slots",
+      "source": "invalid/I_G033_no_slots.cortex",
+      "requiredCodes": [
+        "G033_SLOT_CONTRACT_REQUIRED"
+      ]
+    },
+    {
+      "id": "I_G034_gap",
+      "source": "invalid/I_G034_gap.cortex",
+      "requiredCodes": [
+        "G034_SLOT_CONTRACT_GAP"
+      ]
+    },
+    {
+      "id": "I_G035_dup_pos",
+      "source": "invalid/I_G035_dup_pos.cortex",
+      "requiredCodes": [
+        "G035_DUPLICATE_SLOT_POSITION"
+      ]
+    },
+    {
+      "id": "I_G036_dup_name",
+      "source": "invalid/I_G036_dup_name.cortex",
+      "requiredCodes": [
+        "G036_DUPLICATE_SLOT_NAME"
+      ]
+    },
+    {
+      "id": "I_G037_focus_unknown",
+      "source": "invalid/I_G037_focus_unknown.cortex",
+      "requiredCodes": [
+        "G037_SLOT_FOCUS_UNRESOLVED"
+      ]
+    },
+    {
+      "id": "I_G038_open_slots",
+      "source": "invalid/I_G038_open_slots.cortex",
+      "requiredCodes": [
+        "G038_SLOTS_OPEN_FORBIDDEN"
+      ]
+    },
+    {
+      "id": "I_G039_cuerpo_slots",
+      "source": "invalid/I_G039_cuerpo_slots.cortex",
+      "requiredCodes": [
+        "G039_ENCODING_SHAPE_MISMATCH"
+      ]
+    },
+    {
+      "id": "I_G040_fields_slots",
+      "source": "invalid/I_G040_fields_slots.cortex",
+      "requiredCodes": [
+        "G040_CONTRACT_SURFACE_CONFLICT"
+      ]
+    },
+    {
+      "id": "I_G031_dup_map_v2",
+      "source": "invalid/I_G031_dup_map_v2.cortex",
+      "requiredCodes": [
+        "G031_DUPLICATE_SIGIL_MAP"
+      ]
+    },
+    {
+      "id": "I_I050_slot_in_glossary",
+      "source": "invalid/I_I050_slot_in_glossary.cortex",
+      "requiredCodes": [
+        "I050_SLOT_NOT_ALLOWED_IN_GLOSSARY"
+      ]
+    },
+    {
+      "id": "I_I051_dup_slot",
+      "source": "invalid/I_I051_dup_slot.cortex",
+      "requiredCodes": [
+        "I051_DUPLICATE_SLOT"
+      ]
+    },
+    {
+      "id": "I_I052_unknown_slot",
+      "source": "invalid/I_I052_unknown_slot.cortex",
+      "requiredCodes": [
+        "I052_UNKNOWN_SLOT"
+      ]
+    },
+    {
+      "id": "I_I053_missing_required",
+      "source": "invalid/I_I053_missing_required.cortex",
+      "requiredCodes": [
+        "I053_MISSING_REQUIRED_SLOT"
+      ]
+    },
+    {
+      "id": "I_I054_out_of_order",
+      "source": "invalid/I_I054_out_of_order.cortex",
+      "requiredCodes": [
+        "I054_SLOT_OUT_OF_ORDER"
+      ]
+    },
+    {
+      "id": "I_I055_named_attr",
+      "source": "invalid/I_I055_named_attr.cortex",
+      "requiredCodes": [
+        "I055_NAMED_ATTR_IN_SLOT_IDEA"
+      ]
+    },
+    {
+      "id": "I_I056_pipe",
+      "source": "invalid/I_I056_pipe.cortex",
+      "requiredCodes": [
+        "I056_PIPE_PAYLOAD_IN_SLOT_IDEA"
+      ]
+    },
+    {
+      "id": "I_I057_huge_index",
+      "source": "invalid/I_I057_huge_index.cortex",
+      "requiredCodes": [
+        "I057_SLOT_INDEX_LIMIT"
+      ]
+    },
+    {
+      "id": "I_I058_mixed_surface",
+      "source": "invalid/I_I058_mixed_surface.cortex",
+      "requiredCodes": [
+        "I058_MIXED_SURFACE_VERSION"
+      ]
+    },
+    {
+      "id": "I_P17_trailing_comma",
+      "source": "invalid/I_P17_trailing_comma.cortex",
+      "requiredCodes": [
+        "S006_INVALID_ATTRS"
+      ]
+    },
+    {
+      "id": "I_S002_dup_section",
+      "source": "invalid/I_S002_dup_section.cortex",
+      "requiredCodes": [
+        "S002_DUPLICATE_SECTION"
+      ]
+    },
+    {
+      "id": "I_S007_unclosed_body",
+      "source": "invalid/I_S007_unclosed_body.cortex",
+      "requiredCodes": [
+        "S007_UNCLOSED_BODY"
+      ]
+    },
+    {
+      "id": "I_G015_dup_symbol",
+      "source": "invalid/I_G015_dup_symbol.cortex",
+      "requiredCodes": [
+        "G015_DUPLICATE_SYMBOL"
+      ]
+    },
+    {
+      "id": "I_I006_dup_idea",
+      "source": "invalid/I_I006_dup_idea.cortex",
+      "requiredCodes": [
+        "I006_DUPLICATE_IDEA_ADDRESS"
+      ]
+    }
+  ]
+}

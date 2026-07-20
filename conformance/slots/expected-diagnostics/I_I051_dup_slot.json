@@ -1,0 +1,7 @@
+{
+  "id": "I_I051_dup_slot",
+  "source": "invalid/I_I051_dup_slot.cortex",
+  "requiredCodes": [
+    "I051_DUPLICATE_SLOT"
+  ]
+}

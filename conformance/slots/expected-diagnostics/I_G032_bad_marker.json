@@ -1,0 +1,7 @@
+{
+  "id": "I_G032_bad_marker",
+  "source": "invalid/I_G032_bad_marker.cortex",
+  "requiredCodes": [
+    "G032_INVALID_SIGIL_MAP"
+  ]
+}

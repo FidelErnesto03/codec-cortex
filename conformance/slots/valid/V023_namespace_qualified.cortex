@@ -1,0 +1,7 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+$0:namespace_ext{alias:ext,id:ext,version:1.0,required:true,desc:"ext"}
+ext::T:item{type:attrs,encoding:slots,weight:H,slots:"1=x:text",focus:x,schema:table,desc:"ext",open:false}
+$1: T
+ext::T:a{※1:hello}

@@ -1,0 +1,7 @@
+{
+  "id": "I_I006_dup_idea",
+  "source": "invalid/I_I006_dup_idea.cortex",
+  "requiredCodes": [
+    "I006_DUPLICATE_IDEA_ADDRESS"
+  ]
+}

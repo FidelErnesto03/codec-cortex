@@ -1,0 +1,7 @@
+{
+  "id": "I_I052_unknown_slot",
+  "source": "invalid/I_I052_unknown_slot.cortex",
+  "requiredCodes": [
+    "I052_UNKNOWN_SLOT"
+  ]
+}

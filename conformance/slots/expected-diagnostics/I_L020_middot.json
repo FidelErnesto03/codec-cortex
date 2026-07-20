@@ -1,0 +1,7 @@
+{
+  "id": "I_L020_middot",
+  "source": "invalid/I_L020_middot.cortex",
+  "requiredCodes": [
+    "L020_INVALID_SLOT_MARKER"
+  ]
+}

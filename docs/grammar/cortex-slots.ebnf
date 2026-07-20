@@ -1,0 +1,173 @@
+(* CORTEX 0.2 — normative surface grammar (EBNF)
+   Extiende cortex-0.1.ebnf con slots explícitos. Coexiste sin modificar 0.1.
+   Dispatch por $0:format{cortex:X}. *)
+
+document-02          = spacing, glossary-02, { section }, spacing, EOF ;
+
+glossary-02           = glossary-header, line-end,
+                        { blank-line | comment-line | glossary-declaration-02 } ;
+
+glossary-header       = "$0" | "$0:" capa ;
+
+capa                  = "KERNEL" | "CORE" | "KNOW" | "DATA" | "FLOW" | "CACHE" ;
+
+glossary-declaration-02
+                     = format-decl, line-end
+                     | sigil-map-decl, line-end
+                     | enum-decl, line-end
+                     | micro-decl, line-end
+                     | namespace-decl, line-end
+                     | extension-decl, line-end
+                     | other-meta-decl, line-end
+                     | symbol-declaration-02, line-end ;
+
+format-decl           = "$0:format", attrs-payload ;
+
+sigil-map-decl        = "$0:sigil-map", attrs-payload ;
+                     (* attrs keys: sigil names; values: string quoted slot-contract *)
+
+enum-decl             = "$0:enum_", name, attrs-payload ;
+micro-decl            = "$0:micro_", name, attrs-payload ;
+namespace-decl        = "$0:namespace_", name, attrs-payload ;
+extension-decl        = "$0:extension_", name, attrs-payload ;
+other-meta-decl       = "$0:", name, attrs-payload ;
+
+symbol-declaration-02
+                     = symbol-ref, ":", name, attrs-payload ;
+
+section               = section-header, line-end,
+                        { blank-line | comment-line | idea-02 } ;
+
+section-header        = "$", positive-integer,
+                        [ ":", horizontal-space, section-title ] ;
+
+idea-02               = braced-idea-02, line-end
+                     | pipe-idea, line-end
+                     | multiline-idea-02 ;
+
+braced-idea-02        = idea-head, attrs-payload-02 ;
+
+attrs-payload-02      = "{", [ slot-payload ], "}"
+                     | "{", [ attr-payload ], "}" ;
+
+attr-payload          = attr-pair, { ",", attr-pair } ;
+
+slot-payload          = slot-entry-idea, { ",", slot-entry-idea } ;
+
+slot-entry-idea       = slot-marker, slot-index, ":", scalar ;
+
+slot-marker           = "※" ;  (* U+203B *)
+
+slot-index            = nonzero-digit, { digit } ;  (* ASCII only, no leading zero *)
+
+multiline-idea-02     = idea-head, "{", line-end,
+                        { body-line, line-end },
+                        "}" ;
+
+pipe-idea             = idea-head, "|", pipe-cell,
+                        { "|", pipe-cell } ;
+
+idea-head             = symbol-ref, ":", name ;
+
+symbol-ref            = [ namespace, "::" ], sigil ;
+
+namespace             = lower-alpha, { lower-alpha | digit | "_" | "." | "-" } ;
+
+sigil                 = "!"
+                     | upper-alpha, { upper-alpha | digit | "_" } ;
+
+name                  = alpha | "_",
+                        { alpha | digit | "_" | "." | "-" } ;
+
+attrs-payload         = "{", [ attr-pair, { ",", attr-pair } ], "}" ;
+
+attr-pair             = key, ":", scalar ;
+
+key                   = lower-alpha | "_",
+                        { lower-alpha | digit | "_" | "-" } ;
+
+scalar                = string
+                     | decimal
+                     | integer
+                     | boolean
+                     | null
+                     | list
+                     | atom ;
+
+list                  = "[", [ scalar-no-list, { ",", scalar-no-list } ], "]" ;
+
+scalar-no-list        = string | decimal | integer | boolean | null | atom ;
+
+string                = '"', { string-char | escape }, '"' ;
+
+escape                = "\", ( '"' | "\" | "n" | "r" | "t" | "b" | "f"
+                     | "u", hex, hex, hex, hex ) ;
+
+integer               = [ "-" ], ( "0" | nonzero-digit, { digit } ) ;
+
+decimal               = [ "-" ], ( "0" | nonzero-digit, { digit } ),
+                        ".", digit, { digit } ;
+
+boolean               = "true" | "false" ;
+
+null                  = "null" ;
+
+atom                  = [ "$", positive-integer, ":" ],
+                        ( alpha | "_" ),
+                        { alpha | digit | "_" | "." | "/" | ":" | "@"
+                        | "+" | "%" | "$" | "-" } ;
+
+pipe-cell             = quoted-pipe-cell | raw-pipe-cell ;
+
+quoted-pipe-cell      = string ;
+
+raw-pipe-cell         = { pipe-char } ;
+
+pipe-char             = ? any Unicode scalar except "|", CR and LF ? ;
+
+body-line             = ? any Unicode scalar sequence except a line exactly "}" ? ;
+
+section-title         = ? any Unicode scalar sequence except CR and LF ? ;
+
+comment-line          = horizontal-space, "#",
+                        ? any Unicode scalar sequence except CR and LF ?, line-end ;
+
+blank-line            = horizontal-space, line-end ;
+
+spacing               = { blank-line | comment-line } ;
+
+line-end              = LF | EOF ;
+
+horizontal-space      = { " " | TAB } ;
+
+alpha                 = upper-alpha | lower-alpha ;
+upper-alpha           = "A" … "Z" ;
+lower-alpha           = "a" … "z" ;
+digit                 = "0" … "9" ;   (* ASCII only *)
+nonzero-digit         = "1" … "9" ;
+positive-integer      = nonzero-digit, { digit } ;
+hex                   = digit | "A" … "F" | "a" … "f" ;
+
+(* Contextual constraints, normative but not expressible in context-free EBNF:
+
+1. $0 MUST be first and unique.
+2. $0:format{cortex:0.2,encoding:UTF-8,...} MUST occur exactly once.
+3. $0:sigil-map MUST appear at most once and BEFORE any sigil with encoding:slots.
+4. Every sigil with encoding:slots MUST have an entry in $0:sigil-map.
+5. sigil-map values MUST be valid slot-contract strings (1=name:type?|2=...).
+6. slot-index MUST be ASCII nonzero-digit followed by ASCII digits only.
+7. slot-marker MUST be ※ (U+203B). Homoglyphs • · ∙ ● are forbidden.
+8. A sigilo with encoding:slots MUST NOT have fields attr.
+9. A sigilo with encoding:slots MUST NOT have type:cuerpo or type:bloque.
+10. A sigilo with encoding:slots MUST NOT have open:true.
+11. slot-payload and attr-payload are mutually exclusive in an Idea.
+12. An Idea with encoding:slots MUST use braces, NOT pipes.
+13. Slots MUST appear in ascending order, no duplicates, no gaps.
+14. Required slots MUST be present.
+15. focus MUST reference an existing required slot position.
+16. ※ MUST NOT appear in $0 (glosario).
+17. In a document declared cortex:0.1, ※ MUST NOT appear in structural position.
+18. Slot index MUST be <= 2^31-1 (I057_SLOT_INDEX_OUT_OF_RANGE).
+19. Trailing comma before } is forbidden (L025_TRAILING_COMMA).
+20. $0:format{cortex:X} selects parser version (0.1 or 0.2).
+*)

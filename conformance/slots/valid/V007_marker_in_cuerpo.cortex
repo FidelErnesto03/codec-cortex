@@ -1,0 +1,8 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+CB:body{type:cuerpo,weight:H,schema:prose,desc:"cuerpo"}
+$1: BODIES
+CB:x{
+Line with ※1: as text
+}

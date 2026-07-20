@@ -1,0 +1,7 @@
+{
+  "id": "I_L022_zero",
+  "source": "invalid/I_L022_zero.cortex",
+  "requiredCodes": [
+    "L022_SLOT_ZERO_FORBIDDEN"
+  ]
+}

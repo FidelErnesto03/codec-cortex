@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+SC:sc{type:attrs,encoding:slots,weight:H,slots:"1=s:string|2=a:atom|3=i:integer|4=d:decimal|5=b:boolean|6=n:null|7=l:list",focus:s,schema:table,desc:"Scalars",open:false}
+$1: SC
+SC:x{※1:"hi",※2:atom,※3:42,※4:3.14,※5:true,※6:null,※7:[a,b,c]}

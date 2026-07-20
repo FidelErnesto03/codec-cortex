@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+KNW:knw{type:attrs,weight:H,fields:"topic:text|content:text",focus:topic,schema:table,desc:"Knw",open:false}
+$1: T
+KNW:x{topic:"hello",content:"world"}

@@ -1,0 +1,7 @@
+{
+  "id": "I_L021_unicode_digit",
+  "source": "invalid/I_L021_unicode_digit.cortex",
+  "requiredCodes": [
+    "L021_INVALID_SLOT_INDEX"
+  ]
+}

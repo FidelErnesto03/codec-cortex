@@ -1,0 +1,7 @@
+{
+  "id": "I_I057_huge_index",
+  "source": "invalid/I_I057_huge_index.cortex",
+  "requiredCodes": [
+    "I057_SLOT_INDEX_LIMIT"
+  ]
+}

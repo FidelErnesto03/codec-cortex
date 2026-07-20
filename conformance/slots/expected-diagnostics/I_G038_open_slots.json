@@ -1,0 +1,7 @@
+{
+  "id": "I_G038_open_slots",
+  "source": "invalid/I_G038_open_slots.cortex",
+  "requiredCodes": [
+    "G038_SLOTS_OPEN_FORBIDDEN"
+  ]
+}

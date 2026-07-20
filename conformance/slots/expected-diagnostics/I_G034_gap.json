@@ -1,0 +1,7 @@
+{
+  "id": "I_G034_gap",
+  "source": "invalid/I_G034_gap.cortex",
+  "requiredCodes": [
+    "G034_SLOT_CONTRACT_GAP"
+  ]
+}

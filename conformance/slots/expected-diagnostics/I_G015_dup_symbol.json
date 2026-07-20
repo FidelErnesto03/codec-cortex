@@ -1,0 +1,7 @@
+{
+  "id": "I_G015_dup_symbol",
+  "source": "invalid/I_G015_dup_symbol.cortex",
+  "requiredCodes": [
+    "G015_DUPLICATE_SYMBOL"
+  ]
+}

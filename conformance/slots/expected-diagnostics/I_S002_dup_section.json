@@ -1,0 +1,7 @@
+{
+  "id": "I_S002_dup_section",
+  "source": "invalid/I_S002_dup_section.cortex",
+  "requiredCodes": [
+    "S002_DUPLICATE_SECTION"
+  ]
+}

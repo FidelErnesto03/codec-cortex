@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+TASK:task{type:attrs,encoding:slots,weight:H,slots:"1=id:text|2=title:text|3=priority:atom",focus:id,schema:table,desc:"Task",open:false}
+$1: TASKS
+TASK:t1{※1:"t1",※2:"First task",※3:high}

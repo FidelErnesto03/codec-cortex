@@ -1,0 +1,7 @@
+{
+  "id": "I_G035_dup_pos",
+  "source": "invalid/I_G035_dup_pos.cortex",
+  "requiredCodes": [
+    "G035_DUPLICATE_SLOT_POSITION"
+  ]
+}

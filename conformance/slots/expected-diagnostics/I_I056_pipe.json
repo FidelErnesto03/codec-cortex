@@ -1,0 +1,7 @@
+{
+  "id": "I_I056_pipe",
+  "source": "invalid/I_I056_pipe.cortex",
+  "requiredCodes": [
+    "I056_PIPE_PAYLOAD_IN_SLOT_IDEA"
+  ]
+}

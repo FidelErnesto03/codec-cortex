@@ -1,0 +1,7 @@
+{
+  "id": "I_S007_unclosed_body",
+  "source": "invalid/I_S007_unclosed_body.cortex",
+  "requiredCodes": [
+    "S007_UNCLOSED_BODY"
+  ]
+}

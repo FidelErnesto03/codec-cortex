@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:0.1,encoding:UTF-8,language:es}
+TST:t{type:attrs,weight:H,fields:"a:text",focus:a,desc:"t"}
+$1: T
+TST:x{a:hello,※1:world}

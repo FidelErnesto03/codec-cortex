@@ -1,0 +1,154 @@
+{
+  "cases": [
+    {
+      "id": "V001_minimal_slot",
+      "hcortex": "hcortex/V001_minimal_slot.hcortex.md",
+      "hash": "53451083b8b7357294e8e3f2e14fd37a2a586a98878574c9c9ed11a9c9166415"
+    },
+    {
+      "id": "V002_multiple_slots",
+      "hcortex": "hcortex/V002_multiple_slots.hcortex.md",
+      "hash": "835dcf0c196621298173935830f08a912c2e45f18fb0ffe8d321ddc20c54fa5c"
+    },
+    {
+      "id": "V003_optional_middle_omitted",
+      "hcortex": "hcortex/V003_optional_middle_omitted.hcortex.md",
+      "hash": "88a85d9f341f716a67f0b8f7c49f464a0023ac031c4056497af2c342188ca97a"
+    },
+    {
+      "id": "V004_optional_final_omitted",
+      "hcortex": "hcortex/V004_optional_final_omitted.hcortex.md",
+      "hash": "c2264ff71077810549ccd91776501bc82ca87f6b34de67ca06b7ba1526ebc22b"
+    },
+    {
+      "id": "V005_all_scalar_kinds",
+      "hcortex": "hcortex/V005_all_scalar_kinds.hcortex.md",
+      "hash": "4367a026ca9e21fbd76c5116b77c23323693d4ce6299840ae907a7b57aa5c0f8"
+    },
+    {
+      "id": "V006_marker_in_string",
+      "hcortex": "hcortex/V006_marker_in_string.hcortex.md",
+      "hash": "786f3c7474dcf27867b033aaadb497479ea9fd6cf01f9b88bbf6849e00d8d216"
+    },
+    {
+      "id": "V007_marker_in_cuerpo",
+      "hcortex": "hcortex/V007_marker_in_cuerpo.hcortex.md",
+      "hash": "0f2c5643b479e9f63e637aa4135036dfa19d14812dfd96859bcfcc092548df55"
+    },
+    {
+      "id": "V008_marker_in_bloque",
+      "hcortex": "hcortex/V008_marker_in_bloque.hcortex.md",
+      "hash": "371cdaf48d8f040d510fb8f4e4a0410c4d1797b5e103208887f2c983a81d735c"
+    },
+    {
+      "id": "V009_namespace",
+      "hcortex": "hcortex/V009_namespace.hcortex.md",
+      "hash": "b91fbaef12ef3476672fa7bcbb82ef6b049bb6e88ca95b94a53d0364b72a48ab"
+    },
+    {
+      "id": "V010_relation_slots",
+      "hcortex": "hcortex/V010_relation_slots.hcortex.md",
+      "hash": "6ec0f5bb6b57b3d5d0150e007d65037cdc0847adbbeeaaddbb403cf2dd018aae"
+    },
+    {
+      "id": "V011_attrs_pos_slots",
+      "hcortex": "hcortex/V011_attrs_pos_slots.hcortex.md",
+      "hash": "c52383278603ce5fb0a860bf2ca85cd4c757d7cde7eb88d7140a27587ed58ce5"
+    },
+    {
+      "id": "V012_microtoken_slot",
+      "hcortex": "hcortex/V012_microtoken_slot.hcortex.md",
+      "hash": "e4de775d94f4b4538723ed3d4e2c33616872bc8d866e0ba008ece2085802398a"
+    },
+    {
+      "id": "V013_unicode_nfc",
+      "hcortex": "hcortex/V013_unicode_nfc.hcortex.md",
+      "hash": "88f3b0e32a0446484b463cae0c2636fc345d0faf85cae498eecc73da65bce22a"
+    },
+    {
+      "id": "V014_projection_minimal",
+      "hcortex": "hcortex/V014_projection_minimal.hcortex.md",
+      "hash": "bede949e2dd6037d7a18e094e1c0761692ac0a9f2ceb7fd8dc54c4e4cd00affe"
+    },
+    {
+      "id": "V015_skill_grammar",
+      "hcortex": "hcortex/V015_skill_grammar.hcortex.md",
+      "hash": "720ecde49bcaf632d46bdab4b56a4be4176c6e87613012b09a0598852bb131a7"
+    },
+    {
+      "id": "V016_max_index",
+      "hcortex": "hcortex/V016_max_index.hcortex.md",
+      "hash": "0d9f4e2d5a1723a556d412050d8c73a0cd06b94206b9dbb8edf7ec59e5e13c48"
+    },
+    {
+      "id": "V017_two_sections",
+      "hcortex": "hcortex/V017_two_sections.hcortex.md",
+      "hash": "bd9d97979c13972553c85dd4927490b8390c9a1a37f9fdb07d865da0e1085327"
+    },
+    {
+      "id": "V018_multiple_sigils",
+      "hcortex": "hcortex/V018_multiple_sigils.hcortex.md",
+      "hash": "c7d84e425050065569a9213f488e9aa39cc202a7099f063639d8df83cad43245"
+    },
+    {
+      "id": "V019_cuerpo_multiline",
+      "hcortex": "hcortex/V019_cuerpo_multiline.hcortex.md",
+      "hash": "44dc2df8bc3e9fabe890cc255691afd2a121897e863015cd22c1695f1a8c7f89"
+    },
+    {
+      "id": "V020_bloque_with_special",
+      "hcortex": "hcortex/V020_bloque_with_special.hcortex.md",
+      "hash": "d62afc0b7fcf06b3745556ba5921ce2392e3cbd0283310390bf926d67caba997"
+    },
+    {
+      "id": "V021_attrs_nominal_in_02",
+      "hcortex": "hcortex/V021_attrs_nominal_in_02.hcortex.md",
+      "hash": "af5871d4a38ffc3d2b210429a64911f1e73e5a09944eb6ce89c6afe9c8809601"
+    },
+    {
+      "id": "V022_enum_reference",
+      "hcortex": "hcortex/V022_enum_reference.hcortex.md",
+      "hash": "b31d119218b8cbb898e9e0867a29b535ee66e3e701eb90d6a74c7597c643ce79"
+    },
+    {
+      "id": "V023_namespace_qualified",
+      "hcortex": "hcortex/V023_namespace_qualified.hcortex.md",
+      "hash": "7c4087bc1bc117127d44ab9bbb9facb5db150ab0b9b632a27892ae348bd3f6b9"
+    },
+    {
+      "id": "V024_extension_decl",
+      "hcortex": "hcortex/V024_extension_decl.hcortex.md",
+      "hash": "4ab4a1247271abac0b412910186a008d8735f37a7567dfeb2131abfc5131f0ed"
+    },
+    {
+      "id": "V025_focus_on_attrs_pos",
+      "hcortex": "hcortex/V025_focus_on_attrs_pos.hcortex.md",
+      "hash": "19b566e2753010c0cb06f0e49d4cac7f454bcccf252f4d41f16994a1017a6037"
+    },
+    {
+      "id": "V026_decimal_precision",
+      "hcortex": "hcortex/V026_decimal_precision.hcortex.md",
+      "hash": "4a4668220cc2ea8b2540960edbf14f098d349b3671bfcefd896d97bee0cfa590"
+    },
+    {
+      "id": "V027_negative_integer",
+      "hcortex": "hcortex/V027_negative_integer.hcortex.md",
+      "hash": "2508ba05c59a8297ee3bb19c85c694390378b42c642ee57264479e651f129e45"
+    },
+    {
+      "id": "V028_empty_list",
+      "hcortex": "hcortex/V028_empty_list.hcortex.md",
+      "hash": "d27fb8b33271996fecf08b3aaef683fbcae32a9344969fb9a3232e84060a950b"
+    },
+    {
+      "id": "V029_nested_list",
+      "hcortex": "hcortex/V029_nested_list.hcortex.md",
+      "hash": "cfccd78d98643612cdb0fe37d982fcc13975fa1414d58e8fd3800f4360158aa0"
+    },
+    {
+      "id": "V030_boolean_false",
+      "hcortex": "hcortex/V030_boolean_false.hcortex.md",
+      "hash": "ba6dd5c8225995201e772dd9bac7afef6870584ca5f6f16e9780d5b90272021e"
+    }
+  ]
+}

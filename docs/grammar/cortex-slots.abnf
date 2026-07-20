@@ -1,0 +1,116 @@
+; CORTEX 0.2 — normative lexical/surface grammar (ABNF, RFC 5234 style)
+; Extiende cortex-0.1.abnf con slots explícitos.
+; slot-marker = %xE2.80.BB (UTF-8 encoding of U+203B)
+
+cortex-document-02 = *layout glossary-section-02 *section *layout
+
+glossary-section-02 = glossary-header line-end *glossary-item-02
+glossary-header  = "$0" / "$0:" capa
+capa             = "KERNEL" / "CORE" / "KNOW" / "DATA" / "FLOW" / "CACHE"
+
+glossary-item-02 = blank-line / comment-line / (glossary-decl-02 line-end)
+glossary-decl-02 = format-decl / sigil-map-decl / enum-decl / micro-decl
+                 / namespace-decl / extension-decl / other-meta-decl
+                 / symbol-decl-02
+
+format-decl      = "$0:format" attrs-payload
+sigil-map-decl   = "$0:sigil-map" attrs-payload
+enum-decl        = "$0:enum_" name attrs-payload
+micro-decl       = "$0:micro_" name attrs-payload
+namespace-decl   = "$0:namespace_" name attrs-payload
+extension-decl   = "$0:extension_" name attrs-payload
+other-meta-decl  = "$0:" name attrs-payload
+symbol-decl-02   = symbol-ref ":" name attrs-payload
+
+section          = section-header line-end *section-item
+section-header   = "$" positive-integer [":" 1*(SP / HTAB) section-title]
+section-item     = blank-line / comment-line / idea-02
+
+idea-02          = (braced-idea-02 line-end) / (pipe-idea line-end)
+                 / multiline-idea-02
+
+braced-idea-02   = idea-head attrs-payload-02
+attrs-payload-02 = "{" [ payload-02 ] "}"
+payload-02       = slot-payload / attr-payload
+attr-payload     = attr-pair *("," attr-pair)
+slot-payload     = slot-entry-idea *("," slot-entry-idea)
+slot-entry-idea  = slot-marker slot-index ":" scalar
+
+slot-marker      = %xE2.80.BB   ; U+203B ※ as UTF-8 octets
+slot-index       = nonzero-digit *DIGIT   ; ASCII only, no leading zero
+
+multiline-idea-02 = idea-head "{" line-end *body-record "}" [line-end]
+pipe-idea        = idea-head "|" pipe-cell *("|" pipe-cell)
+idea-head        = symbol-ref ":" name
+
+symbol-ref       = [namespace "::"] sigil
+namespace        = lower-alpha *(lower-alpha / DIGIT / "_" / "." / "-")
+sigil            = "!" / (upper-alpha *15(upper-alpha / DIGIT / "_"))
+name             = (ALPHA / "_") *63(ALPHA / DIGIT / "_" / "." / "-")
+key              = (lower-alpha / "_") *63(lower-alpha / DIGIT / "_" / "-")
+
+attrs-payload    = "{" [attr-pair *("," attr-pair)] "}"
+attr-pair        = key ":" scalar
+
+scalar           = string / decimal / integer / boolean / null / list / atom
+scalar-no-list   = string / decimal / integer / boolean / null / atom
+list             = "[" [scalar-no-list *("," scalar-no-list)] "]"
+
+string           = DQUOTE *string-unit DQUOTE
+string-unit      = string-safe / escape
+string-safe      = %x20-21 / %x23-5B / %x5D-7E / UTF8-non-ascii
+escape           = "\" (DQUOTE / "\" / "n" / "r" / "t" / "b" / "f" /
+                   ("u" 4HEXDIG))
+
+integer          = ["-"] ("0" / (nonzero-digit *DIGIT))
+decimal          = ["-"] ("0" / (nonzero-digit *DIGIT)) "." 1*DIGIT
+boolean          = "true" / "false"
+null             = "null"
+
+atom             = ["$" positive-integer ":"] (ALPHA / "_")
+                   *(ALPHA / DIGIT / "_" / "." / "/" / ":" / "@" /
+                     "+" / "%" / "$" / "-")
+
+pipe-cell        = string / *pipe-safe
+pipe-safe        = %x20-7B / %x7D-7E / UTF8-non-ascii
+                 ; excludes "|" (%x7C), CR and LF
+
+body-line        = *body-char
+body-char        = HTAB / %x20-7E / UTF8-non-ascii
+                 ; a record whose complete trimmed content is "}" closes the body
+
+section-title    = 1*(HTAB / %x20-7E / UTF8-non-ascii)
+comment-line     = *WSP "#" *(HTAB / %x20-7E / UTF8-non-ascii) line-end
+blank-line       = *WSP line-end
+layout           = blank-line / comment-line
+line-end         = LF / end-of-input
+
+UTF8-non-ascii   = <a valid UTF-8 sequence encoding U+0080..U+10FFFF,
+                    excluding forbidden control characters>
+end-of-input     = <the zero-length sequence at end of input>
+
+upper-alpha      = %x41-5A
+lower-alpha      = %x61-7A
+nonzero-digit    = %x31-39
+positive-integer = nonzero-digit *DIGIT
+
+; Semantic constraints (normative, not context-free):
+; 1. $0 first and unique.
+; 2. $0:format{cortex:0.2,encoding:UTF-8} exactly once.
+; 3. $0:sigil-map at most once, before any encoding:slots sigil.
+; 4. Every encoding:slots sigil has a sigil-map entry.
+; 5. sigil-map values are valid slot-contracts: 1=name[:type][?] *(|...).
+; 6. slot-marker is ※ (E2 80 BB). • · ∙ ● forbidden (L020).
+; 7. slot-index ASCII only, no leading zero, no zero.
+; 8. encoding:slots + fields forbidden (G040).
+; 9. encoding:slots on cuerpo/bloque forbidden (G039).
+; 10. encoding:slots + open:true forbidden (G038).
+; 11. Slot idea uses braces, not pipes (I056).
+; 12. Named attr in slot idea forbidden (I055).
+; 13. Slots ascending, no duplicates, no gaps.
+; 14. Required slots present.
+; 15. focus references existing required slot.
+; 16. ※ forbidden in $0 (I050).
+; 17. ※ structural in 0.1 doc forbidden (I058).
+; 18. Slot index <= 2^31-1 (I057).
+; 19. Trailing comma forbidden (L025).

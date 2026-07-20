@@ -1,0 +1,7 @@
+{
+  "id": "I_L021_space_after",
+  "source": "invalid/I_L021_space_after.cortex",
+  "requiredCodes": [
+    "L021_INVALID_SLOT_INDEX"
+  ]
+}

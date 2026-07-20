@@ -24,105 +24,71 @@ quality_gates@: {
 _template_ref: "CYCLE_MANIFEST_TEMPLATE.md"
 ---
 
+
+
 # Manifiesto: {name}
 
 > Documento rector del ciclo. Define identidad, alcance, objetivos, directrices y puntos de control. Fuente de verdad para todos los Blueprints dentro de este ciclo.
 
 ---
 
-## §1: Propósito
+## §1:
 
-_¿Por qué existe este ciclo? ¿Qué problema aborda dentro del proyecto?_
+Este ciclo gobierna la evolución de CODEC-CORTEX hacia su release candidate: remediar brechas de cobertura y gobernar la incorporación de aportes externos al repo canónico mediante auditoría independiente previa al merge.
 
 **Relación con los objetivos del proyecto:**
-_¿A qué objetivos del proyecto (desde brain.cortex OBJ) contribuye este ciclo?_
-
-
-## §2: Alcance y Límites
+Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza coherente con el filesystem) y a la maduración del codec hacia v1.0.0-rc con evidencia reproducible.
+## §2:
 
 **Dentro del alcance de este ciclo:**
-- _Ítem 1_
-- _Ítem 2_
+- Remediación de cobertura de capas corticales en archivos del proyecto.
+- Auditoría y merge canónico del paquete externo codec-cortex-0.2-remediation.
 
 **Fuera del alcance (excluido explícitamente):**
-- _Ítem 1_
-- _Ítem 2_
+- Publicación a PyPI o cualquier canal de release.
+- Cambios a la especificación CORTEX 0.1.
+## §3:
 
-> Lo que está fuera del alcance NO debe ser abordado por ningún Blueprint de este ciclo.
+- [ ] **CYC-OBJ-1:** Todo aporte externo al repo canónico es auditado por identidad independiente (Heimdall) antes de merge — criterio: veredicto registrado como evidencia.
+- [ ] **CYC-OBJ-2:** La superficie del repositorio usa nombres canónicos sin versión embebida — criterio: cero archivos con versión en nombre/referencia tras el merge.
+- [ ] **CYC-OBJ-3:** Toda remediación incorporada queda respaldada por evidencia reproducible — criterio: suite 0.1 + conformidad + puertos verdes post-merge.
+## §4:
 
-
-## §3: Objetivos
-
-_Objetivos concretos y medibles del ciclo. Cada Blueprint debe contribuir al menos a uno._
-
-- [ ] **CYC-OBJ-1:** _Objetivo — criterio de éxito_
-- [ ] **CYC-OBJ-2:** _Objetivo — criterio de éxito_
-- [ ] **CYC-OBJ-3:** _Objetivo — criterio de éxito_
-
-
-## §4: Directrices
-
-_Directrices operacionales que rigen todos los Blueprints de este ciclo._
-
-1. _Directriz 1 — ej., "Los Blueprints de infraestructura tienen prioridad sobre los de funcionalidad"_
-2. _Directriz 2 — ej., "Todo Blueprint debe incluir un diagrama PUML en la sección de diseño"_
-3. _Directriz 3 — ej., "Ningún Blueprint se cierra sin ejecutar todas las validaciones requeridas"_
-4. _Directriz 4 — ej., "Las dependencias entre Blueprints deben resolverse antes de que el dependiente comience"_
+1. Ningún archivo, programa ni esquema declara versión como parte de su nombre, referencia o esquema de implementación. Versión canónica del proyecto: v1.0.0-rc.
+2. Ningún Blueprint se cierra sin ejecutar todas las validaciones requeridas.
+3. Los Blueprints críticos incluyen plan de reversión (restaurar desde git/backup).
+4. Las dependencias entre Blueprints se resuelven antes de que el dependiente comience.
 
 **Directrices para creación de Blueprints:**
-1. _Cada Blueprint debe referenciar el objetivo del ciclo al que contribuye_
-2. _Los Blueprints críticos deben incluir un plan de reversión_
-3. _Cada Blueprint debe estimar su impacto en los criterios de éxito del ciclo_
-
-
-## §5: Puntos de Control
-
-_Hitos, revisiones y puntos de validación. La ejecución se detiene en cada punto._
+1. Cada Blueprint referencia el objetivo del ciclo al que contribuye.
+2. Cada Blueprint estima su impacto en los criterios de éxito del ciclo.
+## §5:
 
 | ID | Tipo | Fecha Planificada | Descripción | Criterio de Aprobación |
 |---|---|---|---|---|
-| CP-01 | Revisión de Diseño | _YYYY-MM-DD_ | _Descripción_ | _¿Qué debe cumplirse?_ |
-| CP-02 | Control Intermedio | _YYYY-MM-DD_ | _Descripción_ | _¿Qué debe cumplirse?_ |
-| CP-03 | Revisión Final | _YYYY-MM-DD_ | _Descripción_ | _¿Qué debe validarse?_ |
-
-> Los puntos de control son obligatorios. El gobernador debe informar al Arquitecto al aproximarse a uno.
-
-
-## §6: Blueprints (Índice)
-
-_Índice breve de los Blueprints asignados a este ciclo. Se auto-pobla._
+| CP-01 | Control Intermedio | 2026-07-20 | Auditoría Heimdall del paquete 0.2-remediation | Veredicto emitido con evidencia reproducible |
+| CP-02 | Revisión Final | 2026-07-20 | Merge canónico por Jarvis | Nombres canónicos sin versión; suite 0.1 + conformidad + puertos verdes |
+## §6:
 
 | BLP ID | Título | Estado | Prioridad | Objetivo | Gobernador |
 |---|---|---|---|---|---|
-| _BLP-NNN_ | _Título_ | _draft/ready/..._ | _critical/high/medium/low_ | _CYC-OBJ-N_ | _agente_ |
+| (pendiente) | Se auto-poblará al crear Blueprints | - | - | - | alfred |
+## §7:
 
+**Estado actual:** active
+**Próximo punto de control:** CP-01 — 2026-07-20
+**Iniciado:** 2026-07-18 | **Fin planificado:** 2026-07-21
+## §8:
 
-## §7: Estado y Métricas
-
-**Estado actual:** draft
-**Total Blueprints:** 0 | **Draft:** 0 | **Madurando:** 0 | **Ready:** 0 | **En Progreso:** 0 | **Done:** 0
-**Progreso:** 0%
-**Próximo punto de control:** _CP-NN — Fecha_
-**Iniciado:** _YYYY-MM-DD_ | **Fin planificado:** _YYYY-MM-DD_
-
-
-## §8: Reglas del Ciclo
-
-_Reglas específicas de este ciclo._
-
-1. _Regla 1_
-2. _Regla 2_
-
-
-## §9: Contrato de Calidad
+1. Ningún merge al canónico sin veredicto de auditoría registrado como evidencia.
+2. Nombres canónicos sin versión en toda la superficie importada.
+## §9:
 
 | Compuerta | Estado |
 |---|---|
-| has_clear_purpose | ☐ |
-| has_explicit_scope | ☐ |
-| has_measurable_objectives | ☐ |
-| has_operational_guidelines | ☐ |
-| has_control_points | ☐ |
-| aligns_with_project | ☐ |
-
-> Todas las compuertas deben estar en ✅ antes de cycle.ready(). Ver blueprint-workflow skill, §4.1.
+| has_clear_purpose | ✅ |
+| has_explicit_scope | ✅ |
+| has_measurable_objectives | ✅ |
+| has_operational_guidelines | ✅ |
+| has_control_points | ✅ |
+| aligns_with_project | ✅ |

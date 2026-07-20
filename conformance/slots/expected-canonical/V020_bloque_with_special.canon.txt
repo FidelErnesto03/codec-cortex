@@ -1,0 +1,7 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+BK:code{type:bloque,weight:H,schema:diagram,desc:"bloque"}
+$1: BLOCKS
+BK:x{
+{ "key": "value" }
+}

@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+TST:t{type:attrs,encoding:slots,weight:H,slots:"1=a:text",focus:a,schema:table,desc:"t",open:false}
+$1: T
+TST:x{※1:hello}

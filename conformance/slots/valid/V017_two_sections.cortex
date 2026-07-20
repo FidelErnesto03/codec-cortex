@@ -1,0 +1,8 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+T:t{type:attrs,encoding:slots,weight:H,slots:"1=x:text",focus:x,schema:table,desc:"Test",open:false}
+$1: FIRST
+T:a{※1:alpha}
+$2: SECOND
+T:b{※1:beta}

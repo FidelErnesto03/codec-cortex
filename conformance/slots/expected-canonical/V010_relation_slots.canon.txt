@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+REL:link{type:relacion,encoding:slots,weight:H,slots:"1=source:text|2=predicate:text|3=target:text",focus:predicate,schema:table,desc:"Relation",open:false}
+$1: RELS
+REL:r1{※1:doc1,※2:cites,※3:doc2}

@@ -1,0 +1,7 @@
+{
+  "id": "I_G031_dup_map",
+  "source": "invalid/I_G031_dup_map.cortex",
+  "requiredCodes": [
+    "G031_DUPLICATE_SIGIL_MAP"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "I_I055_named_attr",
+  "source": "invalid/I_I055_named_attr.cortex",
+  "requiredCodes": [
+    "I055_NAMED_ATTR_IN_SLOT_IDEA"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "I_G033_no_slots",
+  "source": "invalid/I_G033_no_slots.cortex",
+  "requiredCodes": [
+    "G033_SLOT_CONTRACT_REQUIRED"
+  ]
+}

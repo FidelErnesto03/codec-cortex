@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+LOG:event{type:attrs-pos,encoding:slots,weight:H,slots:"1=action:text|2=user:text|3=ts:text",focus:action,schema:table,desc:"Log",open:false}
+$1: LOGS
+LOG:login{※1:login,※2:user42,※3:"2024-01-01"}

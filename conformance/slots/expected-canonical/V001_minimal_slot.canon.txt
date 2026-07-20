@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"}
+KNW:knowledge{type:attrs,encoding:slots,weight:H,slots:"1=topic:text|2=content:text?",focus:topic,schema:table,desc:"Conocimiento",open:false}
+$1: KNOW
+KNW:codec{※1:"CORTEX",※2:"Codec ideatico lineal"}

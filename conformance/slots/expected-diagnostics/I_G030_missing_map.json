@@ -1,0 +1,7 @@
+{
+  "id": "I_G030_missing_map",
+  "source": "invalid/I_G030_missing_map.cortex",
+  "requiredCodes": [
+    "G030_SIGIL_MAP_REQUIRED"
+  ]
+}

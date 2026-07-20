@@ -1,0 +1,7 @@
+{
+  "id": "I_L023_leading_zero",
+  "source": "invalid/I_L023_leading_zero.cortex",
+  "requiredCodes": [
+    "L023_SLOT_LEADING_ZERO"
+  ]
+}

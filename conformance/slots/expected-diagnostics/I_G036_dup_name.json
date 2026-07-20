@@ -1,0 +1,7 @@
+{
+  "id": "I_G036_dup_name",
+  "source": "invalid/I_G036_dup_name.cortex",
+  "requiredCodes": [
+    "G036_DUPLICATE_SLOT_NAME"
+  ]
+}

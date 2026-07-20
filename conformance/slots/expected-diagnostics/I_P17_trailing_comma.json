@@ -1,0 +1,7 @@
+{
+  "id": "I_P17_trailing_comma",
+  "source": "invalid/I_P17_trailing_comma.cortex",
+  "requiredCodes": [
+    "S006_INVALID_ATTRS"
+  ]
+}
