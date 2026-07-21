@@ -1,0 +1,104 @@
+$0:KERNEL
+$0:format{cortex:0.2,encoding:UTF-8,language:es}
+RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla normativa de CORTEX con referencia a especificacion o implementacion."}
+TXT:text{type:cuerpo,weight:M,desc:"Texto explicativo en espanol."}
+GEN:generate{type:cuerpo,weight:H,desc:"Instruccion de generacion o transformacion conforme."}
+EX:example{type:bloque,weight:M,desc:"Ejemplo verbatim de CORTEX, HCORTEX o salida de herramienta."}
+API:api{type:attrs,weight:M,fields:"name:text|signature:text|version:atom|status:atom|notes:text?",focus:name,desc:"Superficie publica verificada de codec-cortex."}
+HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:atom|scope:text",focus:operation,desc:"Operacion publica o de CLI."}
+TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text",focus:id,desc:"Evidencia ejecutable de una capacidad."}
+
+$1: VERSIONES:CORE
+TXT:dual{
+CORTEX 0.1 permanece soportado. CORTEX 0.2 extiende 0.1 con slots y coexiste mediante $0:format{cortex:X}.
+Nunca inferir version por la presencia de ※: el dispatcher lee $0:format. 0.1 usa parse_cortex_01; 0.2 usa parse_slots.
+Los cinco shapes permanecen: attrs, attrs-pos, cuerpo, bloque y relacion. No introducir un sexto shape ni semantica de gobierno en el Core.
+La especificacion 0.2 es normative-draft. Separar capacidad implementada, evidencia interna, certificacion independiente y capacidad futura.
+}
+
+$2: GLOSARIO:CORE
+RUL:format{ id:"format",rule:"Declarar una unica linea $0:format con cortex:0.1 o cortex:0.2 y encoding:UTF-8.",detail:"Ausencia = G010; version desconocida = G007." }
+RUL:declaration{ id:"declaration",rule:"Declarar cada sigilo fuera de $0 con type, weight, contrato, focus cuando aplique y desc.",detail:"attrs usa fields; attrs-pos y relacion usan pos. El contrato define orden, tipos y opcionales." }
+RUL:shape{ id:"shape",rule:"Usar la superficie correspondiente al shape declarado.",detail:"attrs usa {campo:valor}; attrs-pos y relacion usan |celda|; cuerpo y bloque usan braces." }
+RUL:scalar{ id:"scalar",rule:"Preservar scalars y lexemas significativos.",detail:"string, atom, integer, decimal, boolean, null y list. 0.750 no equivale a 0.75; bloque es verbatim." }
+
+$3: SLOTS:CORE
+TXT:rules{
+El marker 0.2 es ※ U+203B, seguido inmediatamente por indice ASCII positivo sin cero inicial y :valor. No usar •, ·, ∙ ni ●.
+Rechazar indice cero, cero inicial, digitos no ASCII, espacios estructurales, duplicados, huecos, orden descendente, atributos nombrados o pipes dentro de una Idea slot.
+Declarar $0:sigil-map antes de sigilos encoding:slots. El parser Python actual requiere conservar tambien slots:"1=nombre:tipo|2=..." en la declaracion; el corpus V001-V030 lo verifica.
+No usar encoding:slots con cuerpo, bloque, fields/pos u open:true. Un documento 0.2 puede mezclar superficie nominal y slots.
+}
+
+$4: HCORTEX:CORE
+GEN:hcortex{
+HCORTEX 0.1: envelope <!-- HCORTEX v=0.1 t=canonical -->; API render_hcortex()/compile_hcortex().
+HCORTEX 0.2: envelope <!-- HCORTEX v=0.2 t=canonical k=corpus -->; glossary oculto; schema:N; API render_hcortex_slots()/compile_hcortex_slots().
+El glossary oculto es CORTEX textual necesario para recompilar, no una copia oculta del AST. H481 rechaza cortex-ast:, base64:, shadow:, ast: e internal:.
+Attrs, attrs-pos y relacion proyectan a table; cuerpo a prose; bloque a fence. Verificar roundtrip estructural y bytes canonicos; no declarar certificacion solo por ejecutar el renderer.
+}
+
+$5: CANONICALIZACION:CORE
+RUL:c14n01{ id:"c14n01",rule:"Canonicalizar CORTEX 0.1 con C14N-0.1 y dominio CORTEX-C14N-0.1.",detail:"NFC fuera de bloque, microtokens, quoting contract-aware, orden canonico, LF final unico y sin trivia estructural." }
+RUL:c14n02{ id:"c14n02",rule:"Canonicalizar CORTEX 0.2 con C14N-0.2 y dominio CORTEX-C14N-0.2.",detail:"Slots ascendentes, cuerpo NFC, bloque verbatim y sigil-map despues de format." }
+RUL:idempotence{ id:"idempotence",rule:"Exigir canonicalize(canonicalize(x)) == canonicalize(x).",detail:"Usar canonicalize() y hash_cortex() del dispatcher; comparar AST o bytes, no apariencia." }
+
+$6: DISPATCH:FLOW
+GEN:dispatch{
+Entrada recomendada: parse_cortex(source). Luego usar canonicalize(doc) y hash_cortex(doc).
+La version selecciona parse_cortex_01 o parse_slots. En 0.1, solo ※ estructural dispara I058_MIXED_SURFACE_VERSION; ※ en string, cuerpo o bloque es contenido.
+Usar APIs 0.1 explicitas solo para compatibilidad: parse_cortex_01, canonicalize_01, render_hcortex y compile_hcortex.
+}
+HDL:public|parse_cortex|current|Dispatcher Python/Node 0.1-0.2
+HDL:canon|canonicalize|current|C14N por version
+HDL:hash|hash_cortex|current|Hash con dominio por version
+
+$7: MIGRACION:FLOW
+GEN:migrate{
+Ejecutar explicitamente inspect, plan, apply, verify y rollback mediante migrate_inspect(), migrate_plan(), migrate_apply(), migrate_verify() y migrate_rollback().
+apply verifica hash de origen, escribe atomico y produce salida completa o ninguna. verify compara AST profundo, no solo addresses. rollback no toca el origen.
+La migracion 0.1 a 0.2 no convierte attrs nominales a slots automaticamente; sin encoding:slots conserva la estructura nominal.
+}
+
+$8: API Y CLI:DATA
+API:parse{ name:"parse_cortex",signature:"parse_cortex(source) -> Document",version:python,status:current,notes:"Entrada dual recomendada." }
+API:hcortex1{ name:"render_hcortex / compile_hcortex",signature:"Document <-> HCORTEX 0.1",version:python,status:current,notes:"Compatibilidad legacy." }
+API:hcortex2{ name:"render_hcortex_slots / compile_hcortex_slots",signature:"Document <-> HCORTEX 0.2",version:python,status:current,notes:"Slots, glossary y H481." }
+API:migration{ name:"migrate_*",signature:"inspect|plan|apply|verify|rollback",version:python,status:current,notes:"Migracion 0.1 a 0.2." }
+HDL:parse|parse <file>|current|AST JSON por dispatcher
+HDL:validate|validate <file>|current|Valida CORTEX 0.1/0.2
+HDL:canonicalize|canonicalize <file>|current|Bytes canonicos
+HDL:hash|hash <file>|current|Hash canonico
+HDL:conformance|conformance [MANIFEST_DIR]|current|Corpus slots y P24
+HDL:tohcortex|to-hcortex [--embed-ast] <file>|current|Render HCORTEX 0.2
+HDL:fromhcortex|from-hcortex <file>|current|Compila HCORTEX 0.2
+HDL:migrate|migrate <cmd> <file>|current|inspect/plan/apply/verify/rollback
+RUL:embed_warning{ id:"embed-warning",rule:"No usar --embed-ast para roundtrip.",detail:"Genera cortex-ast: de provenance y compile_hcortex_slots lo rechaza con H481." }
+
+$9: VALIDACION:DATA
+TST:probes{ id:"P01-P29",command:"python scripts/ccx_probes.py",result:pass,scope:"CORTEX 0.1/0.2, slots, HCORTEX y migration" }
+TST:node{ id:"node-tests",command:"node --test codec-cortex-node/test/*.test.js",result:pass,scope:"Parity y slots 0.2" }
+TST:pytest{ id:"pytest",command:"python -m pytest -q",result:diagnostic,scope:"Collection path requires repair" }
+TXT:evidence{
+Revision verificada: P01-P29 = 29/29 y Node = 22/22. pytest global falla durante collection por una ruta de corpus inconsistente en experiments/gate-f3/rust/test_c14n.py.
+Gate F3/F4 distingue INTERNAL_PASS de certificacion independiente. No declarar Gate listo, Standard ratificado o conformidad completa sin evidencia independiente.
+}
+
+$10: OPERACION:FLOW
+GEN:operate{
+Identificar version con $0:format y conservar el origen. Validar, parsear por dispatcher, transformar, canonicalizar y comparar AST o bytes segun el objetivo.
+Preferir corpus y vectores sobre ejemplos aislados. Preservar bloque verbatim, metadatos, extensiones y orden significativo. Registrar diagnosticos y perdidas.
+}
+
+$11: REFERENCIAS:KNOW
+EX:paths{
+CORTEX 0.1: docs/standard/CORTEX-SPEC-0.1.md
+CORTEX 0.2: docs/standard/CORTEX-SPEC-SLOTS.md
+HCORTEX 0.1: docs/standard/hcortex-0.1.md
+HCORTEX 0.2: docs/standard/hcortex-slots.md
+C14N 0.1: docs/standard/C14N-0.1.md
+C14N 0.2: docs/standard/C14N-SLOTS.md
+API: codec_cortex/
+Corpus 0.2: conformance/slots/
+Probes: scripts/ccx_probes.py
+}

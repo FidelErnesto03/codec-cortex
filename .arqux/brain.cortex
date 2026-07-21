@@ -23,11 +23,11 @@ $0: GLOSSARY:KERNEL
 # BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
 #
 # Types:
-# relación = canonical type
-# bloque = canonical type
-# attrs = canonical type
 # cuerpo = canonical type
+# relación = canonical type
 # attrs-pos = canonical type
+# attrs = canonical type
+# bloque = canonical type
 #
 # Micro-glossary:
 # cur=current pln=planned fut=future blk=blocked
@@ -123,6 +123,13 @@ AUD:E_0061{date:"2026-07-20T17:47:43Z", event:"E-0061", task:"T-2.7", kind:"blue
 AUD:E_0062{date:"2026-07-20T17:48:05Z", event:"E-0062", task:"T-2.8", kind:"blueprint_lifecycle", agent:"alfred", result:"[blueprint.task] task T-2.8 marked as completed — Re-auditoría implícita via probes 29/29. Veredicto: PASA. AC-01 (roundtrip 30/30), AC-02 (migración P25-P28), AC-03 (harness P24 + fault injection), AC-04 (probes 29/29), AC-05 (CLI end-to-end: to-hcortex, from-hcortex, migrate*, conformance), AC-06 (0.1 intacto: 3 tests pass, módulos importables).", evidence:"[blueprint.task] task T-2.8 marked as completed — Re-auditoría implícita via probes 29/29. Veredicto: PASA. AC-01 (roundtrip 30/30), AC-02 (migración P25-P28), AC-03 (harness P24 + fault injection), AC-04 (probes 29/29), AC-05 (CLI end-to-end: to-hcortex, from-hcortex, migrate*, conformance), AC-06 (0.1 intacto: 3 tests pass, módulos importables)."}
 AUD:E_0063{date:"2026-07-20T17:48:06Z", event:"E-0063", task:"T-2.9", kind:"blueprint_lifecycle", agent:"alfred", result:"[blueprint.task] task T-2.9 marked as in_progress", evidence:"[blueprint.task] task T-2.9 marked as in_progress"}
 AUD:E_0064{date:"2026-07-20T17:48:19Z", event:"E-0064", task:"BLP-002", kind:"blueprint_lifecycle", agent:"alfred", result:"[blueprint.complete] BLP BLP-002 completed — Todos los frentes implementados y verificados. AC-01: roundtrip HCORTEX 30/30 + goldens. AC-02: migración transaccional P25-P28. AC-03: harness con P24 + fault injection. AC-04: probes 29/29. AC-05: CLI con to-hcortex/from-hcortex/migrate/conformance. AC-06: superficie 0.1 intacta.", evidence:"[blueprint.complete] BLP BLP-002 completed — Todos los frentes implementados y verificados. AC-01: roundtrip HCORTEX 30/30 + goldens. AC-02: migración transaccional P25-P28. AC-03: harness con P24 + fault injection. AC-04: probes 29/29. AC-05: CLI con to-hcortex/from-hcortex/migrate/conformance. AC-06: superficie 0.1 intacta."}
+AUD:E_0065{date:"2026-07-21T20:04:44Z", event:"E-0065", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX/CYCLE-03 obj=esperar direccion del Arquitecto", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX/CYCLE-03 obj=esperar direccion del Arquitecto"}
+AUD:E_0066{date:"2026-07-21T20:05:10Z", event:"E-0066", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX/CYCLE-03 obj=responder cantidad efectiva de ciclos", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX/CYCLE-03 obj=responder cantidad efectiva de ciclos"}
+AUD:E_0067{date:"2026-07-21T20:08:49Z", event:"E-0067", task:"-", kind:"handler_call", agent:"Alfred", result:"[context.full] project=CODEC-CORTEX", evidence:"[context.full] project=CODEC-CORTEX"}
+AUD:E_0068{date:"2026-07-21T20:12:57Z", event:"E-0068", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=auditoria base de skill finalizada; espe", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=auditoria base de skill finalizada; espe"}
+AUD:E_0069{date:"2026-07-21T20:24:59Z", event:"E-0069", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=skill dual 0.1/0.2 actualizada y validad", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=skill dual 0.1/0.2 actualizada y validad"}
+AUD:E_0070{date:"2026-07-21T21:25:56Z", event:"E-0070", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=commit+push solicitado sin tag", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=commit+push solicitado sin tag"}
+AUD:E_0071{date:"2026-07-22T01:06:34Z", event:"E-0071", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=commit+push solicitado sin tag", evidence:"cortex.checkpoint ok fcs=CODEC-CORTEX obj=commit+push solicitado sin tag"}
 
 $7: LESSONS:KNOW
 
@@ -130,7 +137,7 @@ LNG:___2026_07_18t14{type:"contextual", cause:"not_specified", lesson:"- [2026-0
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-002 completed and approved", blocked:"no", survive:"work", fcs:"\"BLP-002 draft poblada: abordaje de deudas slots (hcortex", obj:"\"esperando revisión/aprobación del Arquitecto para pasar a ready\"", tasks:"\"BLP-001 done; BLP-002 draft; T-001 :CAPA abierta; pendiente decisión de commit del merge\"", state:"\"idle: repo fusionado sin commitear", last_turn:"2026-07-20T17:29:39Z", updated:"2026-07-20T17:48:19Z", event:"blueprint.complete"}
+WRK:current{phase:"current", current:"blueprint.complete: BLP BLP-002 completed and approved", blocked:"no", survive:"work", fcs:"CODEC-CORTEX", obj:"commit+push solicitado sin tag", tasks:"none", state:"commit_local_push_blocked", last_turn:"2026-07-22T01:06:34Z", updated:"2026-07-20T17:48:19Z", event:"blueprint.complete"}
 
 $9: RISKS:CORE
 
