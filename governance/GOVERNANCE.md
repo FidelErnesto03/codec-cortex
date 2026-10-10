@@ -402,15 +402,28 @@ Las conversaciones informales no sustituyen el registro de decisión en ArqUX.
 
 ## 19. Licenciamiento
 
-El licenciamiento definitivo es una decisión de ratificación pendiente y debe resolverse antes de aceptar contribuciones externas sustantivas o publicar el primer draft ejecutable.
+**Ratificado.** El estándar y su implementación de referencia se publican bajo
+la **Apache License 2.0**.
 
-Recomendación para ratificación, no decisión automática:
+- código, corpus ejecutable e implementación de referencia: `Apache-2.0`;
+- especificaciones y documentación normativa: `Apache-2.0` (documento incluido
+  en el mismo archivo `LICENSE`).
 
-- especificaciones y documentación normativa: `CC BY 4.0` o licencia documental equivalente;
-- código y corpus ejecutable: `Apache-2.0`;
-- ejemplos: licencia compatible y explícita.
+**Requisito de atribución.** La redistribución debe mantener intacta la
+atribución a Fidel Ernesto Lozada A. como autor original. Este requisito es
+obligatorio por la sección 4(d) de la propia licencia y por `NOTICE`, que debe
+acompañar a toda distribución. No es una petición: es una condición de la
+licencia.
 
-La selección final debe registrarse como decisión de gobierno y verificar compatibilidad entre texto, código y contribuciones.
+**Motivo de la elección.** Se eligió `Apache-2.0` porque satisface
+simultáneamente dos restricciones: uso máximo (permite uso comercial,
+modificación y redistribución sin copyleft) y atribución obligatoria (la
+sección 4(d) obliga a conservar el aviso de autoría). `CC0-1.0` se descartó
+porque elimina toda obligación de atribución; `MPL-2.0` se descartó porque
+su copyleft a nivel de archivo restringe la composición con obras que no
+comparten licencia.
+
+Toda contribución debe declarar licencia compatible, conforme a la sección 20.
 
 ## 20. Contribuciones
 

@@ -68,4 +68,12 @@ El estándar CORTEX escrito en CORTEX. Cualquier modelo lo lee como .md.
 
 ## Licencia
 
-CC0-1.0 — Dominio público.
+**Apache License 2.0** — ver [`LICENSE`](LICENSE).
+
+Uso comercial, modificación y redistribución permitidos, sin copyleft.
+La redistribución **debe** mantener la atribución a **Fidel Ernesto Lozada A.**
+como autor original. Ese requisito es obligatorio por la sección 4(d) de la
+licencia y por [`NOTICE`](NOTICE), que debe acompañar a toda distribución.
+
+El proyecto no puede presentarse como obra propia. Los colaboradores se
+registran en [`AUTHORS.md`](AUTHORS.md).
