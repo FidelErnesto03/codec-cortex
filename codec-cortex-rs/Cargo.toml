@@ -3,6 +3,7 @@ name = "codec-cortex"
 version = "1.0.0-rc.1"
 edition = "2021"
 publish = false
+license = "Apache-2.0"
 description = "Functional Rust port of CORTEX 0.1, C14N-0.1 and HCORTEX-0.1"
 keywords = ["cortex", "codec", "canonicalization", "hcortex", "llm"]
 categories = ["parser-implementations", "encoding", "command-line-utilities"]

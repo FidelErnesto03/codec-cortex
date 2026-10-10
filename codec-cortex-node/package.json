@@ -31,13 +31,13 @@
     "llm",
     "slm"
   ],
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "files": [
     "src",
     "bin",
     "README.md",
     "LICENSE",
-    "NOTICE.md",
+    "NOTICE",
     "PARITY-REPORT.json",
     "ARTIFACT-MANIFEST.json",
     "examples"
