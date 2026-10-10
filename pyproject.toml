@@ -23,8 +23,9 @@ keywords = ["cortex", "codec", "llm", "slm", "context", "structured", "hcortex"]
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/nous/hermes-agent"
-Repository = "https://github.com/nous/hermes-agent"
+Homepage = "https://github.com/FidelErnesto03/codec-cortex"
+Repository = "https://github.com/FidelErnesto03/codec-cortex"
+Issues = "https://github.com/FidelErnesto03/codec-cortex/issues"
 
 [project.scripts]
 cortex = "codec_cortex.__main__:main"
