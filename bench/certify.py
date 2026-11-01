@@ -153,6 +153,54 @@ def d3_parity(seed: Path) -> dict:
     }
 
 
+def _run_full(cmd: list[str]) -> tuple[bool, str]:
+    try:
+        out = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180)
+    except Exception as exc:  # noqa: BLE001
+        return False, f"{type(exc).__name__}: {exc}"
+    if out.returncode != 0:
+        return False, (out.stderr or out.stdout).strip()
+    return True, out.stdout
+
+
+def d3b_hcortex_render_parity(files: list[Path]) -> dict:
+    surfaces = {
+        "python": [sys.executable, "-m", "codec_cortex", "to-hcortex"],
+        "go": ["./codec-cortex-go/bin/codec-cortex-linux-amd64", "to-hcortex"],
+        "node": ["node", "codec-cortex-node/bin/codec-cortex-node.js", "to-hcortex"],
+        "rust": ["./codec-cortex-rs/target/release/cortex", "to-hcortex"],
+    }
+    details = []
+    ok = 0
+    for f in files:
+        entry = {"file": _rel(f), "pass": False, "digests": {}}
+        digests = {}
+        errors = {}
+        for name, cmd in surfaces.items():
+            good, out = _run_full(cmd + [str(f)])
+            if good:
+                digests[name] = hashlib.sha256(out.encode("utf-8")).hexdigest()
+            else:
+                digests[name] = None
+                errors[name] = out[-200:]
+        entry["digests"] = digests
+        if errors:
+            entry["errors"] = errors
+        present = {v for v in digests.values() if v}
+        entry["pass"] = len(present) == 1 and all(digests.get(n) for n in surfaces)
+        ok += entry["pass"]
+        details.append(entry)
+    return {
+        "id": "D3b_hcortex_render_parity",
+        "pass": len(files) > 0 and ok == len(files),
+        "ok": ok,
+        "total": len(files),
+        "surfaces": sorted(surfaces),
+        "degraded": ["bash"],
+        "details": details,
+    }
+
+
 def d4_lossless(files: list[Path]) -> dict:
     parse_cortex, canonicalize, _ = _api()
     details = []
@@ -194,6 +242,7 @@ def run() -> dict:
         d2_roundtrip(corpus),
         d2b_hcortex_vectors(),
         d3_parity(SEED),
+        d3b_hcortex_render_parity(CORPUS_10 + CORPUS_02 + [SKILL]),
         d4_lossless(corpus),
         d5_tamper(SEED),
     ]
