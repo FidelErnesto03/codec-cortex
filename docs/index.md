@@ -15,6 +15,11 @@ Codec ideático reversible entre IA y humanos. Dialectos: **CORTEX 0.1** y **COR
 
 ## Especificaciones
 
+- **[CORTEX 1.0](standard/CORTEX-SPEC-1.0.md)** — canon normativo draft (unifica 0.1+0.2)
+- [Errores 1.0](standard/errors-1.0.md) — catalogo cerrado codigo-emisor-superficie
+- [Gramatica 1.0](grammar/cortex-1.0.ebnf) + [AST schema](schemas/ast-schema-1.0.json)
+- [Vectores 1.0](../conformance/1.0/) — corpus normativo
+
 - [CORTEX-SPEC-0.1.md](standard/CORTEX-SPEC-0.1.md) — Formato CORTEX 0.1 completo
 - [CORTEX-SPEC-SLOTS.md](standard/CORTEX-SPEC-SLOTS.md) — CORTEX 0.2 (SLOTS)
 - [hcortex-0.1.md](standard/hcortex-0.1.md) — HCORTEX con 5 esquemas emparejados

@@ -44,7 +44,7 @@ $2: TÍTULO[:CAPA]
 Cada sigilo usado fuera de `$0` se declara como idea dentro de `$0`:
 
 ```
-SIGIL:nombre{type:<shape>,weight:<L|M|H>,focus:<campo|"$body">,
+SIGIL:nombre{type:<shape>,weight:<B|M|H>,focus:<campo|"$body">,
              desc:"...",open:<true|false>,
              fields:"a:text|b:int|c:atom|d:atom?"      ← si type:attrs
              pos:"a:text|b:text|c:int"                ← si type:attrs-pos|relacion
@@ -52,7 +52,7 @@ SIGIL:nombre{type:<shape>,weight:<L|M|H>,focus:<campo|"$body">,
              [schema:table]}
 ```
 
-- `type` ∈ los 5 shapes (§4). `weight`: L|M|H.
+- `type` ∈ los 5 shapes (§4). `weight`: B|M|H.
 - `focus`: para `attrs`/`attrs-pos`/`relacion` debe nombrar un campo del contrato (`G025`); para `cuerpo`/`bloque` es `$body`.
 - Contrato `attrs`: `fields` requerido (`G021`). `attrs-pos`/`relacion`: `pos` requerido (`G022`); `relacion` exige ≥3 campos (`G023`).
 - `open:true` = sigilo extensible (attrs fuera de contrato permitidos).
@@ -92,7 +92,7 @@ Integrado de 0.2 como **sección normativa**, no dialecto aparte:
 ## §6 Namespaces y extensiones
 
 - `ns::SIGIL:name` calificado — `ns` debe estar declarado via `namespace_<a>` (`I001`/G0xx si no).
-- `!:` es namespace reservado interno (sistema); no redeclarable.
+- `!` es sigilo reservado interno: declaŕable en `$0` como cualquier sigilo (el corpus normativo `V024` lo ejercita); su semantica es definida por el documento, no por el runtime.
 - Extensiones nombradas via `extension_<n>`; sigilos extensión requieren `open:true` o contrato que las admita.
 
 ## §7 C14N-1.0 — canonicalización y hash
@@ -156,7 +156,7 @@ Vectores normativos: `conformance/1.0/` (heredados del corpus 0.1+0.2+hcortex va
 
 ### §11.1 Alias de lectura
 
-El dispatcher acepta `cortex:0.1` y `cortex:0.2` en lectura — un doc válido en su dialecto permanece legible. `cortex:1` no es alias: `G007`. Escritura canónica siempre `cortex:1.0`.
+El dispatcher Python (referencia) acepta `cortex:0.1`, `cortex:0.2` y `cortex:1.0`; Go, Node, Rust y Bash aceptan `{0.1, 1.0}` en su subconjunto implementado (sin eje slots — nivel Reader). `cortex:1` no es alias: `G007`. Escritura canónica siempre `cortex:1.0`.
 
 ### §11.2 Permanencia
 

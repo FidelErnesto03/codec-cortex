@@ -80,7 +80,7 @@ deriva entre corridas.
 
 ### Skill autocontenido (para LLMs)
 
-El estándar CORTEX escrito en CORTEX — cubre 0.1 y 0.2. Cualquier modelo lo lee como `.md`.
+El estándar CORTEX escrito en CORTEX — cubre 1.0 (canon), 0.1 y 0.2. Cualquier modelo lo lee como `.md`.
 
 [skill/codec-cortex.skill.md](skill/codec-cortex.skill.md) — pip install, parse, render, compile, canonicalize, todo en un archivo.
 

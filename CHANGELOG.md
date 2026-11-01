@@ -30,13 +30,13 @@ metadatos de cada superficie y en tags de git.
 - `archive/2026-11/` — archivo fechado del material deprecado (916
   archivos movidos con `git mv`): evidencia exploratoria pre-BLP-003,
   artefactos de gates F2–F4, herramientas de fase y revisión documental.
-  Congelado bajo `archive/2026-11/SHA256SUMS` (906 archivos) con índice y
+  Congelado bajo `archive/2026-11/SHA256SUMS` (915 archivos) con índice y
   reglas propias; los reportes antiguos llevan cabecera de deprecación.
 - Punteros al archivo desde `README.md` y `docs/index.md`.
 
 ### Cambiado
 
-- `tests/SHA256SUMS` regenerado sobre el corpus vivo (`conformance/` +
+- `tests/SHA256SUMS` regenerado sobre el corpus vivo `conformance` +
   `examples/`, 829 archivos) tras retirar los reportes archivados del
   sello.
 - Documentación pública renovada (commit `fcbfb97`): tabla de

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CLI entry point for CODEC-CORTEX (dual-surface: 0.1 + slots).
+CLI entry point for CODEC-CORTEX (tri-dialect: 0.1 + slots + 1.0 canon).
 
 Naming convention:
     hcortex.py       — HCORTEX 0.1 render/compile (legacy surface)
@@ -19,7 +19,7 @@ Commands:
     to-hcortex [--embed-ast] <file>
                             render CORTEX 0.2 to HCORTEX 0.2
     from-hcortex <file>     compile HCORTEX 0.2 back to CORTEX 0.2
-    migrate <cmd> <file>    migrate 0.1→0.2 (inspect|plan|apply|verify|rollback)
+    migrate <cmd> <file>    migrate 0.1→0.2, to-1.0 (inspect|plan|apply|verify|rollback)
 
 With no arguments, prints this help. The historical behavior of running
 the F3/F4 harness by default is preserved via the `harness` subcommand.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# CODEC-CORTEX Bash — CORTEX 0.1 / C14N-0.1 / HCORTEX-0.1
+# CODEC-CORTEX Bash — CORTEX 0.1/1.0 (subset) / C14N / HCORTEX
 # Bash implementation with jq for ordered AST manipulation and ICU uconv for NFC.
 
 set -o pipefail

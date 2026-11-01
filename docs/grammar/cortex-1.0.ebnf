@@ -173,7 +173,7 @@ hex                   = digit | "A" … "F" | "a" … "f" ;
 16. ※ MUST NOT appear in $0 (glosario).
 17. pipe-idea cell count MUST satisfy: required fields <= cells <= contract fields
     (I012_POSITIONAL_ARITY — strict in 1.0; the 0.1 overflow tolerance is a bug).
-18. Slot index MUST be <= 2^31-1 (I057_SLOT_INDEX_OUT_OF_RANGE).
+18. Slot index MUST be <= 1_000_000 (I057_SLOT_INDEX_LIMIT — code-imposed bound; the 2^31-1 figure from the 0.2 draft is superseded).
 19. Trailing comma before } is forbidden (L025_TRAILING_COMMA).
 20. $0:format{cortex:X} selects parser version (0.1, 0.2 or 1.0). cortex:1 is G007.
 21. One physical line per regular idea; only delimited cuerpo/bloque payloads

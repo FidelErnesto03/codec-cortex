@@ -103,6 +103,12 @@
 
 Cada pérdida emite entrada loss-report conforme a docs/schemas/loss-report.schema.json.
 
+## Códigos reservados y colisiones conocidas
+
+- `I006` colisiona en el codigo: `I006_DUPLICATE_FIELD` (attrs) e `I006_DUPLICATE_IDEA_ADDRESS` (direccion). Defecto conocido: la implementacion los distingue por contexto; una revision futura debe reasignar uno.
+- `X002_REQUIRED_EXTENSION_UNSUPPORTED`, `G026_UNKNOWN_ENUM_REFERENCE`, `I049`, `L025_TRAILING_COMMA`: citados en spec/skill pero SIN emisor — `reserved` (detectables, pendiente implementar o retirar).
+- `P17`: emisor real en slots.py (trailing comma) — fuera del esquema de familias; documentado aqui como codigo vigente.
+
 ## Códigos reservados
 
 Espacio G0xx reservado para meta-declaraciones futuras; I05x para slots; L4xx para pérdida declarada. Un código reservado sin emisor se lista aquí, nunca implícito.
