@@ -29,7 +29,7 @@ Todo documento CORTEX tiene 3 partes:
 ```cortex
 $0:KERNEL
 $0:format{cortex:1.0,encoding:UTF-8,language:es}
-TAR:task{type:attrs,fields:"desc:text|estado:%state",focus:desc,schema:table}
+TAR:task{type:attrs,weight:M,fields:"desc:text|estado:%state",focus:desc,schema:table,desc:"Tarea simple"}
 
 $1: TAREAS:DATA
 TAR:comprar{desc:"Comprar pan",estado:pendiente}
