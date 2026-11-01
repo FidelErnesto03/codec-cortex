@@ -190,6 +190,19 @@ TXT:idea{Texto libre NFC en una linea o multilinea entre braces.}
 EXM:idea{contenido verbatim inline}
 REL:idea|"origen"|"conecta"|"destino"
 }
+EX:taquigrafia_ok{
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+RUL:pipe{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla"}
+$1: REGLAS
+RUL:pipe_quoted{id:"pipe",rule:"Celda con | va quoted; sin comillas = celdas extra.",detail:"S4.2"}
+}
+EX:taquigrafia_no{
+MAL 1: desc-frase  ->  desc:"Esta regla explica que cuando una celda contiene el caracter pipe debe ir entre comillas porque de lo contrario el parser la divide"
+MAL 2: nombre-prosa ->  RUL:porque_las_celdas_con_pipe_deben_ir_entre_comillas
+MAL 3: enunciado explicativo embebido ->  rule:"Es muy importante entender que cuando escribimos una celda que contiene el caracter pipe debemos ponerla entre comillas para evitar que el parser la divida en multiples celdas, lo cual puede causar un error de aridad"
+BIEN: desc:"Regla" | nombre: pipe_quoted | rule:"Celda con | va quoted." | detalle en detail:"S4.2"
+}
 EX:migration_cmd{
 python -m codec_cortex.slotmigrate inspect old.cortex
 python -m codec_cortex.slotmigrate plan old.cortex plan.json

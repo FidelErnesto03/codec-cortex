@@ -174,6 +174,14 @@ Reglas aprendidas de violaciones reales observadas en el corpus vivo — cada un
 6. **Una línea por idea, también al serializar.** Escribir strings con newline literal sin escapar rompe la línea de la idea *y* el artefacto que la contiene — los escritores deben escapar o rechazar (`§4.2`).
 7. **`desc` es etiqueta, no frase.** En la declaración de sigilo, `desc` es obligatorio (`G020`) pero debe ser una etiqueta de 1-3 palabras: el glosario es un **sistema de tipos que clasifica**, no un índice que documenta. El significado mínimo basta para que el LLM lo interprete al usuario; la explicación extensa pertenece a la idea o a la spec.
 8. **La idea es taquigrafía.** Nombre = etiqueta, enunciado = directo, cero explicación embebida: lo extenso va en `detail` o en la spec. La compactitud es propiedad del formato, no disciplina opcional del autor — cada idea marginal compite contra markdown con sus bytes de señal, no de relleno.
+   **Enseñanza por ejemplo** — así se escribe:
+
+   ```
+   BIEN:  RUL:pipe_quoted{id:"pipe",rule:"Celda con | va quoted.",detail:"S4.2"}
+   MAL:   RUL:porque_las_celdas_con_pipe_deben_ir_entre_comillas{rule:"Es muy importante entender que cuando escribimos una celda que contiene el caracter pipe debemos ponerla entre comillas para evitar que el parser la divida en multiples celdas..."}
+   ```
+
+   El nombre es etiqueta (`pipe_quoted`, no una oración). El enunciado es la regla (una línea). La justificación va en `detail`. Un LLM que lee esto aprende la disciplina por contraste, no por definición.
 
 ## §13 Referencias normativas
 
