@@ -16,7 +16,7 @@ La implementación conserva los nombres públicos originales en `snake_case` y t
 
 ## Instalación local
 
-El paquete (`codec-cortex-node`, versión `1.0.0-rc.1`) **no está publicado en
+El paquete (`codec-cortex-node`, versión `1.0.0`) **no está publicado en
 npm** — se usa localmente:
 
 ```bash

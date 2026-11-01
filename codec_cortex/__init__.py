@@ -19,7 +19,7 @@ Public API:
 - The 0.1 parser remains accessible as parse_cortex_01.
 """
 
-__version__ = "1.0.0-rc.1"
+__version__ = "1.0.0"
 
 from .scalars import Scalar, ParseError, to_nfc, utf8_bytes, emit_string_literal, parse_string_literal
 from .parser import (

@@ -36,7 +36,7 @@ Codec ideático reversible entre IA y humanos. Dialectos: **CORTEX 0.1** y **COR
 
 | Lenguaje | Directorio | Distribución |
 |---|---|---|
-| Python (referencia) | `codec_cortex/` | PyPI `codec-cortex 1.0.0rc1` |
+| Python (referencia) | `codec_cortex/` | PyPI `codec-cortex 1.0.0` |
 | Rust | `codec-cortex-rs/` | No publicado — `cargo build --release` |
 | Go | `codec-cortex-go/` | `go get github.com/FidelErnesto03/codec-cortex/codec-cortex-go` |
 | Node.js | `codec-cortex-node/` | No publicado — `npm install ./codec-cortex-node` |

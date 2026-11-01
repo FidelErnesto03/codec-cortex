@@ -2,7 +2,7 @@
 
 Implementación Go autónoma y funcionalmente equivalente al paquete Python
 de referencia para **CORTEX 0.1**, **C14N-0.1** y **HCORTEX-0.1**.
-Versión canónica del proyecto: `1.0.0-rc.1` (por tag de git).
+Versión canónica del proyecto: `1.0.0` (por tag de git).
 
 No requiere Python en producción ni acceso a internet para compilar: la única
 dependencia externa necesaria para NFC está vendorizada.

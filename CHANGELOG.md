@@ -4,7 +4,17 @@ Todos los cambios notables del proyecto se documentan aquí. El proyecto sigue
 nombres canónicos sin versión en archivos/esquemas; la versión vive en los
 metadatos de cada superficie y en tags de git.
 
-## [Unreleased] — post-`1.0.0-rc.1` en `main`
+## [1.0.0] — 2026-11-01
+
+### Release 1.0.0 — implementación de referencia
+
+- HCORTEX 1.0: envelope `v=1.0` (v=0.2 como alias de lectura), fences opacos
+  en ideas y secciones, tablas con pipes entrecomillados.
+- Paridad byte-exacta 101/101 en c14n, render y roundtrip en Python, Go,
+  Node, Rust y Bash; D3b 101/101 con `degraded=[]`.
+- Certificado PASS: D1 141/141, D2/D2b, D3 5/5, D3b, D4 141/141, D5.
+- Instrumento atado al certificador (`certifier_sha256`) y preflight de
+  binarios para reproducibilidad desde clon limpio.
 
 ### Corregido — roundtrip HCORTEX determinista y verdadero (140/140)
 

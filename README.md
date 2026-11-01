@@ -40,7 +40,7 @@ certificado Nivel A (ver abajo): las cinco producen el mismo hash
 
 | Lenguaje | Directorio | Distribución |
 |---|---|---|
-| Python (referencia) | `codec_cortex/` | `pip install codec-cortex` (PyPI: `1.0.0rc1`) |
+| Python (referencia) | `codec_cortex/` | `pip install codec-cortex` (PyPI: `1.0.0`) |
 | Rust | `codec-cortex-rs/` | No publicado en crates.io — compilar con `cargo build --release` |
 | Go | `codec-cortex-go/` | `go get github.com/FidelErnesto03/codec-cortex/codec-cortex-go` — binarios vía `make dist` |
 | Node.js | `codec-cortex-node/` | No publicado en npm — usar local: `npm install ./codec-cortex-node` |

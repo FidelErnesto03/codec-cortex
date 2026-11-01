@@ -1,6 +1,6 @@
 # codec-cortex-bash
 
-Versión canónica del proyecto: `1.0.0-rc.1` (`CCX_VERSION` en `lib/codec-cortex.sh`).
+Versión canónica del proyecto: `1.0.0` (`CCX_VERSION` en `lib/codec-cortex.sh`).
 
 Implementación funcional en **Bash** de la referencia Python suministrada para:
 

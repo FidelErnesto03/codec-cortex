@@ -5,5 +5,5 @@
   "go": "go version go1.22.2 linux/amd64",
   "node": "v25.9.0",
   "bash": "GNU bash, versión 5.2.21(1)-release (x86_64-pc-linux-gnu)",
-  "codec_cortex": "1.0.0-rc.1"
+  "codec_cortex": "1.0.0"
 }
