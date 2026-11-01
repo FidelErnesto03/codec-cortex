@@ -285,6 +285,14 @@ AUD:E_0205{date:"2026-11-01T20:06:32Z", event:"E-0205", task:"-", kind:"checkpoi
 
 AUD:E_0206{date:"2026-11-01T20:06:42Z", event:"E-0206", task:"-", kind:"session", agent:"Alfred", result:"SES:2026-11-01T20:06:42Z agent=Alfred summary=\"Cierre de BLP-008: endurecimiento del instrumento y limpieza del registro. instrument_sha256 ahora incluye bench/certify.py (319bf6e4) y el certificado expone certifier_sha256 (a38b07cd); preflight compila Go/Rust desde copia limpia y el certificado es byte-identico (be68c3f4). BLP-007 corregida: 0 notas FAIL obsoletas y 101+70 en las secciones de paridad. Certificado PASS (D1 141/141, D2/D2b, D3 5/5, D3b 101/101 en 5 superficies, D4 141/141, D5). Auditado por Heimdall: audit.sig 1.3 SIGNED-PASS sobre commit b1ec81a, firma heimdall:2e61fe32, verificada. Deudas 1/2/3/5 cerradas; deuda 4 (checkpoint vacio) queda en ArqUX. Commits fa6002e, b1ec81a, 2ec3e49.\" blps=[-] tasks=[-] decisions=[-] gaps=[-] lng_count=0", evidence:"SES:2026-11-01T20:06:42Z agent=Alfred summary=\"Cierre de BLP-008: endurecimiento del instrumento y limpieza del registro. instrument_sha256 ahora incluye bench/certify.py (319bf6e4) y el certificado expone certifier_sha256 (a38b07cd); preflight compila Go/Rust desde copia limpia y el certificado es byte-identico (be68c3f4). BLP-007 corregida: 0 notas FAIL obsoletas y 101+70 en las secciones de paridad. Certificado PASS (D1 141/141, D2/D2b, D3 5/5, D3b 101/101 en 5 superficies, D4 141/141, D5). Auditado por Heimdall: audit.sig 1.3 SIGNED-PASS sobre commit b1ec81a, firma heimdall:2e61fe32, verificada. Deudas 1/2/3/5 cerradas; deuda 4 (checkpoint vacio) queda en ArqUX. Commits fa6002e, b1ec81a, 2ec3e49.\" blps=[-] tasks=[-] decisions=[-] gaps=[-] lng_count=0", ses_ref:"SES002"}
 
+AUD:E_0207{date:"2026-11-01T20:19:59Z", event:"E-0207", task:"-", kind:"session_handoff", agent:"Alfred", result:"[session.handoff] from=Alfred to=heimdall summary=identity switch from Alfred", evidence:"[session.handoff] from=Alfred to=heimdall summary=identity switch from Alfred", ses_ref:"SES002"}
+
+AUD:E_0208{date:"2026-11-01T20:19:59Z", event:"E-0208", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=heimdall context_updated=True", evidence:"[identity.switch] from=Alfred to=heimdall context_updated=True", ses_ref:"SES002"}
+
+AUD:E_0209{date:"2026-11-01T20:24:43Z", event:"E-0209", task:"-", kind:"session_handoff", agent:"Alfred", result:"[session.handoff] from=Alfred to=alfred summary=identity switch from Alfred", evidence:"[session.handoff] from=Alfred to=alfred summary=identity switch from Alfred", ses_ref:"SES002"}
+
+AUD:E_0210{date:"2026-11-01T20:24:43Z", event:"E-0210", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=alfred context_updated=True", evidence:"[identity.switch] from=Alfred to=alfred context_updated=True", ses_ref:"SES002"}
+
 
 $7: LESSONS:KNOW
 
