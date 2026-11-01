@@ -70,7 +70,7 @@ Declaración:
 
 ```cortex
 $0:KERNEL
-$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
 $0:enum_prioridad{values:"baja|media|alta|critica"}
 RECETA:plato{type:attrs,weight:M,fields:"nombre:text|dificultad:%prioridad|tiempo:number|calorias:number",focus:nombre,schema:table,desc:"Plato de cocina"}
 PASO:instruccion{type:attrs-pos,weight:H,fields:"orden:number|desc:text|duracion:number",pos:"0|1|2",focus:desc,schema:list,desc:"Paso de preparacion"}

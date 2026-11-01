@@ -1,5 +1,5 @@
 $0:KERNEL
-$0:format{cortex:0.2,encoding:UTF-8,language:es}
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
 RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla normativa verificada contra la implementacion de referencia codec-cortex. id es clave unica, rule enuncia la regla, detail referencia spec o modulo."}
 TXT:text{type:cuerpo,weight:M,desc:"Texto explicativo en espanol. Cuerpo libre NFC, foco es el texto completo."}
 GEN:generate{type:cuerpo,weight:H,desc:"Instruccion directa de generacion o transformacion para la IA. Pasos accionables conformes a codec-cortex."}
@@ -16,15 +16,15 @@ CORTEX 0.1 (draft) define 5 shapes fundamentales: attrs, attrs-pos, cuerpo, bloq
 HCORTEX es la proyeccion humana con esquemas visuales. HCORTEX 0.1 usa 5 schemas (prose, table, list, check, diagram) y envelope v=0.1. HCORTEX 0.2 anade envelope v=0.2, hidden glossary block y la invariante no-hidden-copy (H481).
 }
 RUL:dispatch{id:"dispatch",rule:"La unica senal de version es $0:format{cortex:X}. El dispatcher parse_cortex(source) lee esa linea y enruta a parse_cortex_01 (0.1) o parse_slots (0.2).",detail:"NUNCA inferir version por la presencia de ※. Un doc 0.1 puede contener ※ en strings/cuerpo/bloque como contenido ordinario. ※ estructural en doc 0.1 dispara I058_MIXED_SURFACE_VERSION."}
-RUL:coexistencia{id:"coexistencia",rule:"0.1 y 0.2 coexisten. Un documento se declara una sola vez con $0:format{cortex:0.1|0.2,encoding:UTF-8,...}. Version ausente = G010_FORMAT_REQUIRED; version desconocida = G007_UNSUPPORTED_VERSION.",detail:"dispatcher.py _detect_version(). Solo 0.1 y 0.2 son validos."}
+RUL:coexistencia{id:"coexistencia",rule:"0.1 y 0.2 coexisten. Un documento se declara una sola vez con $0:format{cortex:1.0,encoding:UTF-8,...} (escritura canonica) o alias de lectura cortex:0.1|0.2. Version ausente = G010_FORMAT_REQUIRED; version desconocida = G007_UNSUPPORTED_VERSION.",detail:"dispatcher.py _detect_version(). Valores validos: 0.1, 0.2, 1.0 (canon unificado). cortex:1 es G007."}
 RUL:no_inferencia{id:"no-inferencia",rule:"El transformador no interpreta el contenido ideatico. Solo aplica schemas declarados, contratos, shapes y codificaciones.",detail:"Spec 0.1 seccion 1. El AST es artefacto interno; la sintaxis no es exposicion mecanica del AST."}
 
 $2: CORTEX 0.1:CORE
 TXT:intro_01{
 CORTEX 0.1 es la superficie fundamental. Todo lo valido en 0.1 permanece valido en 0.2 salvo donde 0.2 anade reglas especificas para slots. Esta seccion cubre la estructura completa de un documento 0.1: glosario, secciones, sigilos, shapes, contratos, escalares, enum, microtokens, namespaces y extensiones.
 }
-RUL:doc_01{id:"doc-01",rule:"Un documento CORTEX 0.1 tiene: (1) $0 como primera seccion unica, (2) $0:format{cortex:0.2,encoding:UTF-8} en la siguiente linea, (3) declaracion de cada sigilo usado fuera de $0, (4) secciones $1,$2,... con Ideas.",detail:"Spec 0.1 seccion 7. $0 no reaparece (G002). Cada sigilo usado fuera de $0 debe declararse en $0 (I001 si falta)."}
-RUL:formato_01{id:"formato-01",rule:"$0:format{cortex:0.2,encoding:UTF-8,language:XX}. Atributos extra se preservan (language, etc.). Solo una declaracion format por documento. Sin $0:format el dispatcher lanza G010_FORMAT_REQUIRED. Version distinta de 0.1 o 0.2 lanza G007_UNSUPPORTED_VERSION. encoding distinto de UTF-8 lanza G011_ENCODING_REQUIRED.",detail:"Spec 0.1 seccion 9. dispatcher.py _detect_version() hace bootstrap con regex multilinea."}
+RUL:doc_01{id:"doc-01",rule:"Un documento CORTEX 0.1 tiene: (1) $0 como primera seccion unica, (2) $0:format{cortex:1.0,encoding:UTF-8} en la siguiente linea, (3) declaracion de cada sigilo usado fuera de $0, (4) secciones $1,$2,... con Ideas.",detail:"Spec 0.1 seccion 7. $0 no reaparece (G002). Cada sigilo usado fuera de $0 debe declararse en $0 (I001 si falta)."}
+RUL:formato_01{id:"formato-01",rule:"$0:format{cortex:1.0,encoding:UTF-8,language:XX}. Atributos extra se preservan (language, etc.). Solo una declaracion format por documento. Sin $0:format el dispatcher lanza G010_FORMAT_REQUIRED. Version fuera de {0.1,0.2,1.0} lanza G007_UNSUPPORTED_VERSION. encoding distinto de UTF-8 lanza G011_ENCODING_REQUIRED.",detail:"Spec 0.1 seccion 9. dispatcher.py _detect_version() hace bootstrap con regex multilinea."}
 RUL:seccion{id:"seccion",rule:"Secciones: $N: TITULO o $N: TITULO:CAPA. N entero positivo. Subsecciones $N.M validas. CAPA opcional: KERNEL|CORE|KNOW|DATA|FLOW|CACHE. El parser asigna DATA por defecto a N>=2 sin capa.",detail:"Spec 0.1 seccion 18. CAPA es metadata (Section.capa), sin semantica de runtime, eviccion o memoria. Id repetido = S002_DUPLICATE_SECTION."}
 RUL:glosario{id:"glosario",rule:"$0 contiene: (a) $0:KERNEL (o $0:NOMBRE) como encabezado, (b) $0:format{...}, (c) meta-declaraciones opcionales ($0:enum_X, $0:micro_X, $0:namespace_X, $0:extension_X), (d) declaraciones de sigilo SIGIL:nombre{...}. TODAS usan attrs {k:v} en UNA linea fisica.",detail:"Spec 0.1 seccion 3 (glossary). No hay separacion formal entre meta y sigilos en $0."}
 RUL:declaracion{id:"declaracion",rule:"Declaracion de sigilo: SIGIL:nombre{type:SHAPE,weight:B|M|H,focus:CAMPO,fields:CONTRATO|pos:CONTRATO,desc:TEXTO}. Para attrs: fields obligatorio. Para attrs-pos/relacion: pos obligatorio. Para cuerpo/bloque: focus opcional ($body por defecto). open:true permite campos extras en attrs.",detail:"Spec 0.1 seccion 11. _build_symbol_def() valida G016-G025."}
@@ -156,7 +156,7 @@ GEN:cortex_01{
 Para generar CORTEX 0.1 valido:
 
 Paso 1: $0:KERNEL en linea 1.
-Paso 2: $0:format{cortex:0.2,encoding:UTF-8,language:XX} en linea 2.
+Paso 2: $0:format{cortex:1.0,encoding:UTF-8,language:XX} en linea 2.
 Paso 3: Declare TODOS los sigilos que usara. Por cada uno:
   SIGIL:nombre{type:SHAPE,weight:B|M|H,focus:CAMPO,fields:CONTRATO|pos:CONTRATO,desc:TEXTO}
   - type: attrs|attrs-pos|cuerpo|bloque|relacion
@@ -179,7 +179,7 @@ GEN:cortex_02{
 Para generar CORTEX 0.2 con slots:
 
 Paso 1: $0:KERNEL en linea 1.
-Paso 2: $0:format{cortex:0.2,encoding:UTF-8,language:es} en linea 2.
+Paso 2: $0:format{cortex:1.0,encoding:UTF-8,language:es} en linea 2.
 Paso 3: $0:sigil-map{marker:"※",codepoint:"U+203B",base:1,syntax:"※N:valor",order:"ascending"} en linea 3. EXACTAMENTE estos 5 attrs con estos valores literales. Cualquier desviacion = G032.
 Paso 4: Declare enums, micros, namespaces, extensions opcionales.
 Paso 5: Declare sigilos. Para sigilos con slots:

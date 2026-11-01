@@ -1,5 +1,5 @@
 $0: NEXUSCORP KB:KERNEL
-$0:format{cortex:0.2,encoding:UTF-8,entity:NexusCorp,domain:infraestructura-cloud}
+$0:format{cortex:1.0,encoding:UTF-8,entity:NexusCorp,domain:infraestructura-cloud}
 EQP:member{type:attrs,weight:B,fields:"rol:text|proyectos:list|seniority:num|activo:boolean",focus:rol,desc:"Miembro del equipo"}
 PRJ:project{type:attrs,weight:B,fields:"id:text|deadline:text|presupuesto:num|prioridad:text|estado:text",focus:id,desc:"Proyecto"}
 DEP:dependency{type:attrs,weight:M,fields:"origen:text|destino:text|tipo:text|desc:text",focus:desc,desc:"Dependencia entre proyectos"}

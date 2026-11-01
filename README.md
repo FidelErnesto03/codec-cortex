@@ -25,7 +25,7 @@ Ese HCORTEX se compila a CORTEX (que la IA entiende):
 
 ```cortex
 $0:KERNEL
-$0:format{cortex:0.1,encoding:UTF-8,language:es}
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
 OBJ:task{type:attrs,weight:H,fields:"goal:text|status:%state",focus:goal,schema:table,desc:"Tarea"}
 $1:CORE
 OBJ:meta{goal:"Aprender HCORTEX",status:current}
