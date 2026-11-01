@@ -13,11 +13,11 @@ Implementación funcional en **Rust** del paquete Python suministrado para:
 
 ## Estado
 
-Versión inicial: `0.1.0`.
+Versión: `1.0.0-rc.1` (canónica del proyecto).
 
-El alcance reproduce los contratos observables del paquete Python recibido. No incorpora runtime, sesiones, learning, perfiles de agente, ArqUX, MCP ni gobierno de proyectos.
+El alcance reproduce los contratos observables del paquete Python de referencia. No incorpora runtime, sesiones, learning, perfiles de agente, ArqUX, MCP ni gobierno de proyectos.
 
-La licencia no se ha inventado ni reasignado: `publish = false` permanece activo hasta que el propietario defina la licencia del código fuente y del port.
+Licencia: **Apache-2.0** (ratificada 2026-10; ver `LICENSE` y `NOTICE` en la raíz). `publish = false` permanece activo por decisión de distribución — la superficie Rust se distribuye hoy solo como binario compilado (`cargo build --release`), no vía crates.io.
 
 ## Arquitectura
 

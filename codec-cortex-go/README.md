@@ -1,10 +1,20 @@
 # codec-cortex-go
 
 Implementación Go autónoma y funcionalmente equivalente al paquete Python
-suministrado para **CORTEX 0.1**, **C14N-0.1** y **HCORTEX-0.1**.
+de referencia para **CORTEX 0.1**, **C14N-0.1** y **HCORTEX-0.1**.
+Versión canónica del proyecto: `1.0.0-rc.1` (por tag de git).
 
 No requiere Python en producción ni acceso a internet para compilar: la única
 dependencia externa necesaria para NFC está vendorizada.
+
+## Instalación
+
+```bash
+go get github.com/FidelErnesto03/codec-cortex/codec-cortex-go
+```
+
+Binarios multiplataforma (Linux/Windows/macOS, amd64/arm64) con `make dist`;
+los artefactos quedan en `bin/` junto con `SHA256SUMS` (no versionados en git).
 
 ## Capacidades
 
@@ -119,6 +129,7 @@ El port preserva esos resultados para ser equivalente, pero los expone mediante
 
 ## Licencia
 
-El archivo Python suministrado no incluía una licencia del proyecto. Antes de
-redistribuir públicamente este port debe incorporarse la licencia que corresponda.
-Las licencias de dependencias vendorizadas sí se incluyen en `vendor/`.
+**Apache-2.0** — ratificada 2026-10 para el proyecto completo (ver `LICENSE`
+y `NOTICE` en la raíz del repositorio). La redistribución debe mantener la
+atribución al autor original. Las licencias de dependencias vendorizadas se
+incluyen en `vendor/`.

@@ -1,6 +1,6 @@
 # CODEC-CORTEX — Documentación
 
-CORTEX 0.1 es un codec ideático reversible entre IA y humanos.
+Codec ideático reversible entre IA y humanos. Dialectos: **CORTEX 0.1** y **CORTEX 0.2 (SLOTS)**.
 
 ---
 
@@ -11,13 +11,16 @@ CORTEX 0.1 es un codec ideático reversible entre IA y humanos.
 
 ### Para LLMs (skill autocontenido)
 
-- [skill/codec-cortex.skill.md](../skill/codec-cortex.skill.md) — El estándar escrito en CORTEX. Leer + responder produce CORTEX válido.
+- [skill/codec-cortex.skill.md](../skill/codec-cortex.skill.md) — El estándar escrito en CORTEX (0.1 + 0.2). Leer + responder produce CORTEX válido.
 
 ## Especificaciones
 
 - [CORTEX-SPEC-0.1.md](standard/CORTEX-SPEC-0.1.md) — Formato CORTEX 0.1 completo
+- [CORTEX-SPEC-SLOTS.md](standard/CORTEX-SPEC-SLOTS.md) — CORTEX 0.2 (SLOTS)
 - [hcortex-0.1.md](standard/hcortex-0.1.md) — HCORTEX con 5 esquemas emparejados
+- [hcortex-slots.md](standard/hcortex-slots.md) — HCORTEX 0.2
 - [C14N-0.1.md](standard/C14N-0.1.md) — Canonicalización (hash determinista)
+- [C14N-SLOTS.md](standard/C14N-SLOTS.md) — Canonicalización 0.2
 
 ## Authoring (creación de contenido)
 
@@ -26,14 +29,21 @@ CORTEX 0.1 es un codec ideático reversible entre IA y humanos.
 
 ## Implementaciones
 
-| Lenguaje | Directorio | C14N |
+| Lenguaje | Directorio | Distribución |
 |---|---|---|
-| Python | `codec_cortex/` | 40/40 |
-| Rust | `codec-cortex-rs/` | 40/40 |
-| Go | `codec-cortex-go/` | 40/40 |
-| Node.js | `codec-cortex-node/` | 40/40 |
-| Bash | `codec-cortex-bash/` | 40/40 |
+| Python (referencia) | `codec_cortex/` | PyPI `codec-cortex 1.0.0rc1` |
+| Rust | `codec-cortex-rs/` | No publicado — `cargo build --release` |
+| Go | `codec-cortex-go/` | `go get github.com/FidelErnesto03/codec-cortex/codec-cortex-go` |
+| Node.js | `codec-cortex-node/` | No publicado — `npm install ./codec-cortex-node` |
+| Bash | `codec-cortex-bash/` | Sourceable: `bin/codec-cortex` |
 
 ## Validación
 
-4 pruebas con ~20 ejecuciones en 6 plataformas. Ver [tests/](../tests/).
+Certificado Nivel A reproducible en CI y firmado por auditor independiente:
+D1 idempotencia 70/70 · D2 roundtrip HCORTEX 0.2 30/30 · D3 paridad
+cross-runtime 5/5 · D4 no-pérdida 70/70 · D5 tamper PASS · D6 contraste
+determinismo CORTEX varianza 0.
+
+Artefactos: [`bench/results/certificate.json`](../bench/results/certificate.json) ·
+[`bench/results/audit.sig`](../bench/results/audit.sig) · corpus sellado en
+[`tests/SHA256SUMS`](../tests/SHA256SUMS).
