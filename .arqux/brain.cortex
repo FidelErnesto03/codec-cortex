@@ -257,6 +257,16 @@ AUD:E_0191{date:"2026-11-01T20:00:05Z", event:"E-0191", task:"T-8.4", kind:"blue
 
 AUD:E_0192{date:"2026-11-01T20:00:11Z", event:"E-0192", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=BLP-008 T-8.1..T-8.4 completadas. instru obj=Auditoria final 1.3 de Heimdall sobre el", evidence:"cortex.checkpoint ok fcs=BLP-008 T-8.1..T-8.4 completadas. instru obj=Auditoria final 1.3 de Heimdall sobre el", ses_ref:"SES002"}
 
+AUD:E_0193{date:"2026-11-01T20:00:49Z", event:"E-0193", task:"BLP-008", kind:"blueprint_lifecycle", agent:"Alfred", result:"[blueprint.ac] AC AC-1 verified — instrument_sha256 ahora incluye bench/certify.py: paso de 4143d16c (sin certificador) a 319bf6e4. El certificado expone certifier_sha256=a38b07cd. Commit fa6002e.", evidence:"[blueprint.ac] AC AC-1 verified — instrument_sha256 ahora incluye bench/certify.py: paso de 4143d16c (sin certificador) a 319bf6e4. El certificado expone certifier_sha256=a38b07cd. Commit fa6002e."}
+
+AUD:E_0194{date:"2026-11-01T20:00:49Z", event:"E-0194", task:"BLP-008", kind:"blueprint_lifecycle", agent:"Alfred", result:"[blueprint.ac] AC AC-2 verified — Copia limpia sin codec-cortex-go/bin ni target: _ensure_surface_binaries() devolvio {'go': True, 'rust': True} y dejo ambos binarios en su lugar. Commit fa6002e.", evidence:"[blueprint.ac] AC AC-2 verified — Copia limpia sin codec-cortex-go/bin ni target: _ensure_surface_binaries() devolvio {'go': True, 'rust': True} y dejo ambos binarios en su lugar. Commit fa6002e."}
+
+AUD:E_0195{date:"2026-11-01T20:00:54Z", event:"E-0195", task:"BLP-008", kind:"blueprint_lifecycle", agent:"Alfred", result:"[blueprint.ac] AC AC-3 verified — BLP-007: grep FAIL=0; §2/§9/§11/§13/§17 dicen 101 documentos 1.0/0.2 + 70 vectores. Los unicos 141 son del certificado (141/141) y del skill como vector 141. Commit fa6002e.", evidence:"[blueprint.ac] AC AC-3 verified — BLP-007: grep FAIL=0; §2/§9/§11/§13/§17 dicen 101 documentos 1.0/0.2 + 70 vectores. Los unicos 141 son del certificado (141/141) y del skill como vector 141. Commit fa6002e."}
+
+AUD:E_0196{date:"2026-11-01T20:00:54Z", event:"E-0196", task:"BLP-008", kind:"blueprint_lifecycle", agent:"Alfred", result:"[blueprint.ac] AC AC-4 verified — Certificado re-ejecutado: PASS. instrument 319bf6e4, certifier a38b07cd, certificate.json be68c3f4. D1 141/141, D2/D2b, D3 5/5, D3b 101/101 en 5 superficies, D4 141/141, D5. Commit fa6002e.", evidence:"[blueprint.ac] AC AC-4 verified — Certificado re-ejecutado: PASS. instrument 319bf6e4, certifier a38b07cd, certificate.json be68c3f4. D1 141/141, D2/D2b, D3 5/5, D3b 101/101 en 5 superficies, D4 141/141, D5. Commit fa6002e."}
+
+AUD:E_0197{date:"2026-11-01T20:00:59Z", event:"E-0197", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=BLP-008 AC-1..AC-4 verificados. instrume obj=Firma final 1.3 de Heimdall sobre el cer", evidence:"cortex.checkpoint ok fcs=BLP-008 AC-1..AC-4 verificados. instrume obj=Firma final 1.3 de Heimdall sobre el cer", ses_ref:"SES002"}
+
 
 $7: LESSONS:KNOW
 
@@ -267,7 +277,7 @@ LNG:session_E_0100{type:"session", entry_count:99, summary:"artifact:1,blocker:1
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"BLP-008 T-8.1..T-8.4 completadas. instrument_sha256 ahora incluye bench/certify.py (instrument 319bf6e4...", blocked:"no", survive:"work", fcs:"BLP-008 T-8.1..T-8.4 completadas. instrument_sha256 ahora incluye bench/certify.py (instrument 319bf6e4...", obj:"Auditoria final 1.3 de Heimdall sobre el certificado nuevo.", tasks:"T-8.5 pendiente. audit.sig 1.2 stale por cambio de instrumento.", state:"active", last_turn:"2026-11-01T20:00:10Z", updated:"2026-11-01T20:00:10Z", event:"cortex.checkpoint"}
+WRK:current{phase:"current", current:"BLP-008 AC-1..AC-4 verificados. instrument 319bf6e4 incluye bench/certify.py; certifier a38b07cd; preflight compila Go/…", blocked:"no", survive:"work", fcs:"BLP-008 AC-1..AC-4 verificados. instrument 319bf6e4 incluye bench/certify.py; certifier a38b07cd; preflight compila Go/Rust en copia limpia ({go:true", obj:"Firma final 1.3 de Heimdall sobre el certificado endurecido.", tasks:"AC-5 y T-8.5 pendientes. audit.sig 1.2 stale por cambio de instrumento.", state:"active", last_turn:"2026-11-01T20:00:59Z", updated:"2026-11-01T20:00:59Z", event:"cortex.checkpoint"}
 
 
 $9: RISKS:CORE

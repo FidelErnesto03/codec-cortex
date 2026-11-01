@@ -8,11 +8,11 @@ $0
 # PRJ   | projection | attrs | B  | Episodic        | Per-provider projection mark
 
 $1: IDENTITY
-TLG:identity{project:"CODEC-CORTEX",ses:"SES002",opened:"2026-11-01T19:56:50Z",version:"1",revision:"3"}
+TLG:identity{project:"CODEC-CORTEX",ses:"SES002",opened:"2026-11-01T19:56:50Z",version:"1",revision:"4"}
 
 
 $2: ACTIVITIES
-ACT:session_SES002{start:"2026-11-01T19:56:50Z",end:"",state:"open",last_activity:"2026-11-01T20:00:11Z",revision:"2"}
+ACT:session_SES002{start:"2026-11-01T19:56:50Z",end:"",state:"open",last_activity:"2026-11-01T20:00:59Z",revision:"2"}
 
 
 $3: RECEIPTS
