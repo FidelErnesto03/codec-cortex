@@ -159,6 +159,12 @@ def _normalize_line_endings(s: str) -> str:
     return s.replace("\r\n", "\n").replace("\r", "\n")
 
 
+_CONTRACT_TYPES = {
+    "any", "text", "string", "atom", "int", "integer", "dec", "decimal",
+    "bool", "boolean", "null", "list",
+}
+
+
 def parse_contract_fields(s: str) -> List[ContractField]:
     """Parse a contract string like 'topic:text|content:text|status:%state?'."""
     out = []
@@ -175,7 +181,10 @@ def parse_contract_fields(s: str) -> List[ContractField]:
             name, type_ = part.split(":", 1)
         else:
             name, type_ = part, "any"
-        out.append(ContractField(name=name.strip(), type=type_.strip(), required=required))
+        t = type_.strip()
+        if not t.startswith("%") and t not in _CONTRACT_TYPES:
+            raise ParseError("I023_UNKNOWN_FIELD_TYPE", f"Unknown contract field type: {t!r}")
+        out.append(ContractField(name=name.strip(), type=t, required=required))
     return out
 
 

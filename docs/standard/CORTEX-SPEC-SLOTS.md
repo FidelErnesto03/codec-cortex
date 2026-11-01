@@ -2,7 +2,7 @@
 
 **Document ID:** `CORTEX-SPEC-0.2-001`
 **Versión del lenguaje:** `0.2`
-**Status:** `normative-draft`
+**Status:** `superseded-by-draft-1.0` (era `normative-draft`) — lectura de alias 0.2 sigue vigente; canon activo: `CORTEX-SPEC-1.0.md`
 **Idioma normativo:** español
 **Codificación:** UTF-8
 **Autoridad superior:** `CORTEX-CONSTITUTION-001`

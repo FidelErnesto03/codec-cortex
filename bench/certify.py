@@ -27,6 +27,7 @@ RESULTS = BENCH / "results"
 SEED = ROOT / "conformance/hcortex/cortex/H002_attrs-optional.cortex"
 CORPUS_01 = sorted((ROOT / "conformance/hcortex/cortex").glob("*.cortex"))
 CORPUS_02 = sorted((ROOT / "conformance/slots/valid").glob("*.cortex"))
+CORPUS_10 = sorted((ROOT / "conformance/1.0/valid").glob("*.cortex"))
 HCORTEX_02_DIR = ROOT / "conformance/slots/hcortex"
 
 
@@ -158,7 +159,7 @@ def d5_tamper(seed: Path) -> dict:
 
 def run() -> dict:
     parse_cortex, canonicalize, hash_cortex = _api()
-    corpus = CORPUS_01 + CORPUS_02
+    corpus = CORPUS_01 + CORPUS_02 + CORPUS_10
     indicators = [
         d1_idempotence(corpus),
         d2_roundtrip(CORPUS_02),

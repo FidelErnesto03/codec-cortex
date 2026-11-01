@@ -3,7 +3,7 @@
 **Document ID:** `CORTEX-SPEC-0.1-DRAFT-REAL-001`  
 **Version del lenguaje:** `0.1`  
 **Revisión documental:** `DRAFT-REAL-001`  
-**Status:** `draft-for-independent-implementation`  
+**Status:** `superseded-by-draft-1.0` (era `draft-for-independent-implementation`) — lectura de alias 0.1 sigue vigente; canon activo: `CORTEX-SPEC-1.0.md`  
 **Fase:** `2 — Modelo abstracto y gramática`  
 **Idioma normativo:** español  
 **Codificación:** UTF-8  

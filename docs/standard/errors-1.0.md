@@ -50,7 +50,8 @@
 | I006_DUPLICATE_FIELD | x | — | — | — | — |
 | I006_DUPLICATE_IDEA_ADDRESS | x | — | — | — | — |
 | I008_REQUIRED_FIELD_MISSING | x | — | — | — | — |
-| I012_POSITIONAL_ARITY | x | — | — | — | — |
+| I012_POSITIONAL_ARITY | x | x | x | x | x |
+| I023_UNKNOWN_FIELD_TYPE | x | — | — | — | — |
 | I050_SLOT_NOT_ALLOWED_IN_GLOSSARY | x | — | — | — | — |
 | I051_DUPLICATE_SLOT | x | — | — | — | — |
 | I052_UNKNOWN_SLOT | x | — | — | — | — |
