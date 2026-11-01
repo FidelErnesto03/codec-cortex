@@ -9,7 +9,7 @@ project_ref: "CODEC-CORTEX"
 status: "active"
 governor: "alfred"
 created_at: "2026-07-18T16:11:47Z"
-updated_at: "2026-11-01T19:59:15Z"
+updated_at: "2026-11-01T20:06:26Z"
 closed_at: ""
 planned_start: ""
 planned_end: ""
@@ -79,12 +79,12 @@ Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza 
 | BLP-005 | Inventario general del proyecto CODEC-CORTEX y sus programas... | in_progress | medium | — | Alfred |
 | BLP-006 | Corregir el compilador HCORTEX (contenido de fences parseado... | done | medium | — | Alfred |
 | BLP-007 | Portar HCORTEX 1.0 (slots) a las 4 superficies no-Python (Go... | done | medium | — | Alfred |
-| BLP-008 | Endurecer el instrumento del certificado (incluir bench/cert... | in_progress | medium | — | Alfred |
+| BLP-008 | Endurecer el instrumento del certificado (incluir bench/cert... | done | medium | — | Alfred |
 
 ## §7:
 
-**Total Blueprints:** 8 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 4 | **Review:** 0 | **Done:** 4 | **Cancelado:** 0 | **Bloqueado:** 0
-**Progreso:** 50%
+**Total Blueprints:** 8 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 3 | **Review:** 0 | **Done:** 5 | **Cancelado:** 0 | **Bloqueado:** 0
+**Progreso:** 62%
 **Total Tareas:** 2 | **Abiertas:** 1 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 1 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
 
 ## §8:
