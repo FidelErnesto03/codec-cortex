@@ -80,6 +80,24 @@ type ContractField struct {
 	Name     string `json:"name"`
 	Type     string `json:"type"`
 	Required bool   `json:"required"`
+	Position int    `json:"position,omitempty"`
+}
+
+type SigilMapDecl struct {
+	Marker     string `json:"marker"`
+	Codepoint  string `json:"codepoint"`
+	Base       int    `json:"base"`
+	Syntax     string `json:"syntax"`
+	Order      string `json:"order"`
+	SourceLine int    `json:"source_line"`
+}
+
+type FieldValue struct {
+	Position int    `json:"position"`
+	Name     string `json:"name"`
+	Type     string `json:"type"`
+	Required bool   `json:"required"`
+	Value    Scalar `json:"value"`
 }
 
 type SymbolDef struct {
@@ -93,6 +111,7 @@ type SymbolDef struct {
 	Open       bool            `json:"open"`
 	Contract   []ContractField `json:"contract"`
 	Attrs      []Attr          `json:"attrs"`
+	Encoding   string          `json:"encoding,omitempty"`
 	SourceLine int             `json:"source_line"`
 }
 
@@ -104,15 +123,17 @@ func (s SymbolDef) Qualified() string {
 }
 
 type Idea struct {
-	Section    int      `json:"section"`
-	Namespace  string   `json:"namespace,omitempty"`
-	Symbol     string   `json:"symbol"`
-	Name       string   `json:"name"`
-	Shape      string   `json:"shape"`
-	Attrs      []Attr   `json:"attrs,omitempty"`
-	Cells      []Scalar `json:"cells,omitempty"`
-	Body       string   `json:"body,omitempty"`
-	SourceLine int      `json:"source_line"`
+	Section    int          `json:"section"`
+	Namespace  string       `json:"namespace,omitempty"`
+	Symbol     string       `json:"symbol"`
+	Name       string       `json:"name"`
+	Shape      string       `json:"shape"`
+	Attrs      []Attr       `json:"attrs,omitempty"`
+	Cells      []Scalar     `json:"cells,omitempty"`
+	Body       string       `json:"body,omitempty"`
+	SlotValues []FieldValue `json:"slot_values,omitempty"`
+	SlotEncoded bool        `json:"slot_encoded,omitempty"`
+	SourceLine int          `json:"source_line"`
 	multiline  bool
 }
 
@@ -143,6 +164,7 @@ type Glossary struct {
 	Namespaces []NamespaceDecl `json:"namespaces"`
 	Extensions []ExtensionDecl `json:"extensions"`
 	Symbols    []SymbolDef     `json:"symbols"`
+	SigilMap   *SigilMapDecl   `json:"sigil_map,omitempty"`
 }
 
 type Document struct {

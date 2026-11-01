@@ -56,7 +56,7 @@ func run(args []string) error {
 }
 
 func printUsage(w io.Writer) {
-	fmt.Fprintln(w, `codec-cortex-go — CORTEX 0.1 / C14N-0.1 / HCORTEX-0.1
+	fmt.Fprintln(w, `codec-cortex-go — CORTEX 0.1 / 1.0 / C14N / HCORTEX
 
 Usage:
   codec-cortex parse FILE|-                 Parse CORTEX and emit JSON AST
@@ -95,7 +95,7 @@ func parseInput(args []string) (*cc.Document, error) {
 	if err != nil {
 		return nil, err
 	}
-	return cc.ParseCortex(string(b))
+	return cc.ParseAny(string(b))
 }
 
 func commandParse(args []string) error {
@@ -122,7 +122,7 @@ func commandCanonicalize(args []string) error {
 	if err != nil {
 		return err
 	}
-	out, err := cc.Canonicalize(doc)
+	out, err := cc.CanonicalizeAny(doc)
 	if err != nil {
 		return err
 	}
@@ -135,11 +135,13 @@ func commandToHCORTEX(args []string) error {
 	if err != nil {
 		return err
 	}
-	// Match the reference harness: normalize/expand before HCORTEX rendering.
-	if _, err = cc.Canonicalize(doc); err != nil {
-		return err
+	if doc.CortexVersion == "0.1" {
+		// Match the reference harness: normalize/expand before HCORTEX rendering.
+		if _, err = cc.Canonicalize(doc); err != nil {
+			return err
+		}
 	}
-	out, err := cc.RenderHCORTEX(doc)
+	out, err := cc.RenderHCORTEXAny(doc)
 	if err != nil {
 		return err
 	}
@@ -156,7 +158,7 @@ func commandFromHCORTEX(args []string) error {
 	if err != nil {
 		return err
 	}
-	doc, diags := cc.CompileHCORTEX(string(b))
+	doc, diags := cc.CompileHCORTEXAny(string(b))
 	hasError := doc == nil
 	for _, d := range diags {
 		if d.Severity == "error" {
@@ -169,7 +171,7 @@ func commandFromHCORTEX(args []string) error {
 		_ = enc.Encode(diags)
 		return errors.New("HCORTEX compilation failed")
 	}
-	out, err := cc.Canonicalize(doc)
+	out, err := cc.CanonicalizeAny(doc)
 	if err != nil {
 		return err
 	}
@@ -182,11 +184,11 @@ func commandHash(args []string) error {
 	if err != nil {
 		return err
 	}
-	canonical, err := cc.Canonicalize(doc)
+	h, err := cc.HashAny(doc)
 	if err != nil {
 		return err
 	}
-	fmt.Fprintln(os.Stdout, cc.CanonicalHash([]byte(canonical)))
+	fmt.Fprintln(os.Stdout, h)
 	return nil
 }
 
