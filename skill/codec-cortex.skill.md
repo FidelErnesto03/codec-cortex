@@ -1,5 +1,7 @@
 $0:KERNEL
 $0:format{cortex:1.0,encoding:UTF-8,language:es}
+$0:micro_c{expand:current}
+$0:micro_p{expand:python}
 RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla normativa"}
 TXT:text{type:cuerpo,weight:M,desc:"Texto explicativo"}
 PRC:proc{type:attrs-pos,weight:H,pos:"step:int|action:text|note:text?",focus:action,desc:"Paso de procedimiento"}
@@ -21,6 +23,7 @@ RUL:idea_unica{id:"idea-unica",rule:"SIGIL:nombre debe ser unico por seccion (I0
 RUL:densidad{id:"densidad",rule:"Normas en ideas tipadas (RUL/API/PRC/TST), no en prosa. cuerpo = payload; bloque = verbatim.",detail:"Spec 1.0 S12.5: parsear no basta; la forma tambien es contrato."}
 RUL:desc_label{id:"desc-label",rule:"desc es etiqueta de 1-3 palabras, no frase: el glosario clasifica, no documenta.",detail:"Spec 1.0 S12.7. G020 obliga presencia, no extension."}
 RUL:idea_compacta{id:"idea-compacta",rule:"La idea es taquigrafia: nombre etiqueta, enunciado directo, cero explicacion embebida. Lo extenso va en detail o en la spec.",detail:"Spec 1.0 S12.8. Eficiencia = tokens de senal, no de relleno."}
+RUL:micro_default{id:"micro-default",rule:"Atom repetido >=3 veces y >=6 chars se declara microtoken: $0:micro_t{expand:...} y se usa t en fuente. Expansion solo en C14N: el hash no cambia.",detail:"Spec 1.0 S12.9. Compresor de sintaxis que md no tiene."}
 RUL:declarar_lo_usado{id:"declarar-lo-usado",rule:"La version declara la gramatica del documento, no la del proyecto. Sin slots, cortex:1.0 es escritura canonica; cortex:1 no existe (G007). 0.1/0.2 son alias de lectura.",detail:"Spec 1.0 S11.1 + S12.4."}
 RUL:serializar{id:"serializar",rule:"Al escribir: string con newline va escapado (\\n) o rechazado — newline literal rompe la linea de la idea y el artefacto que la contiene.",detail:"Spec 1.0 S12.6. Observado: handoff .arqux corrupto con newline en nombre de archivo."}
 
@@ -82,14 +85,14 @@ PRC:mig_p6|6|"migrate to-1.0 <file> [out]: reescribe format a cortex:1.0, idempo
 RUL:mig_perdida{id:"mig-perdida",rule:"0.1 -> 0.2 (slots) convierte attrs/pos/relacion a slots automaticamente (sin open:true). a 1.0 solo cambia la declaracion: la union acepta la superficie completa.",detail:"slotmigrate.py _perform_migration + migrate_to_1_0."}
 
 $7: API PYTHON:DATA
-API:parse_cortex{name:"parse_cortex",signature:"parse_cortex(source: str) -> Document",version:python,status:current,notes:"Entrada dual. Lee $0:format y enruta 0.1->parser.py, 0.2/1.0->slotparser.py. BOM = U001."}
-API:parse_slots{name:"parse_slots",signature:"parse_slots(source: str, version='0.2') -> Document",version:python,status:current,notes:"Parser slots/1.0. slotparser.py."}
-API:canonicalize{name:"canonicalize",signature:"canonicalize(doc) -> str",version:python,status:current,notes:"Dispatcher por doc.cortex_version: 0.1->c14n, 0.2/1.0->slotc14n."}
-API:hash_cortex{name:"hash_cortex",signature:"hash_cortex(doc) -> str",version:python,status:current,notes:"sha256:<64hex>, dominio por version."}
-API:render_hcortex_slots{name:"render_hcortex_slots",signature:"render_hcortex_slots(doc, embed_ast=False) -> str",version:python,status:current,notes:"Render HCORTEX 0.2. embed_ast=True inyecta cortex-ast (NO para roundtrip: H481)."}
-API:compile_hcortex_slots{name:"compile_hcortex_slots",signature:"compile_hcortex_slots(text) -> (Document|None, [diags])",version:python,status:current,notes:"Compilador HCORTEX 0.2. Rechaza H481/H401/H403/H490."}
-API:migrate_to_1_0{name:"migrate_to_1_0",signature:"migrate_to_1_0(source_path, out_path=None) -> dict",version:python,status:current,notes:"Idempotente, reescribe format a 1.0 y verifica parseo. slotmigrate.py."}
-API:migrate_apply_api{name:"migrate_apply",signature:"migrate_apply(plan_path, out_path=None) -> dict",version:python,status:current,notes:"Migracion transaccional 0.1->0.2 atomica."}
+API:parse_cortex{name:"parse_cortex",signature:"parse_cortex(source: str) -> Document",version:p,status:c,notes:"Entrada dual. Lee $0:format y enruta 0.1->parser.py, 0.2/1.0->slotparser.py. BOM = U001."}
+API:parse_slots{name:"parse_slots",signature:"parse_slots(source: str, version='0.2') -> Document",version:p,status:c,notes:"Parser slots/1.0. slotparser.py."}
+API:canonicalize{name:"canonicalize",signature:"canonicalize(doc) -> str",version:p,status:c,notes:"Dispatcher por doc.cortex_version: 0.1->c14n, 0.2/1.0->slotc14n."}
+API:hash_cortex{name:"hash_cortex",signature:"hash_cortex(doc) -> str",version:p,status:c,notes:"sha256:<64hex>, dominio por version."}
+API:render_hcortex_slots{name:"render_hcortex_slots",signature:"render_hcortex_slots(doc, embed_ast=False) -> str",version:p,status:c,notes:"Render HCORTEX 0.2. embed_ast=True inyecta cortex-ast (NO para roundtrip: H481)."}
+API:compile_hcortex_slots{name:"compile_hcortex_slots",signature:"compile_hcortex_slots(text) -> (Document|None, [diags])",version:p,status:c,notes:"Compilador HCORTEX 0.2. Rechaza H481/H401/H403/H490."}
+API:migrate_to_1_0{name:"migrate_to_1_0",signature:"migrate_to_1_0(source_path, out_path=None) -> dict",version:p,status:c,notes:"Idempotente, reescribe format a 1.0 y verifica parseo. slotmigrate.py."}
+API:migrate_apply_api{name:"migrate_apply",signature:"migrate_apply(plan_path, out_path=None) -> dict",version:p,status:c,notes:"Migracion transaccional 0.1->0.2 atomica."}
 
 $8: CLI:DATA
 HDL:parse|parse <file>|current|AST JSON por dispatcher (0.1/0.2/1.0)

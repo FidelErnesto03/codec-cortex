@@ -182,6 +182,7 @@ Reglas aprendidas de violaciones reales observadas en el corpus vivo — cada un
    ```
 
    El nombre es etiqueta (`pipe_quoted`, no una oración). El enunciado es la regla (una línea). La justificación va en `detail`. Un LLM que lee esto aprende la disciplina por contraste, no por definición.
+9. **Microtokens por defecto.** Un `atom` que se repite **≥3 veces** y tiene **≥6 caracteres** se declara microtoken (`$0:micro_t{expand:...}`) y se usa en fuente como `t`. La expansión ocurre **solo en C14N** — el hash canónico no cambia, pero el documento fuente pesa menos. Es el único compresor de sintaxis que markdown no puede ofrecer, porque no tiene capa de expansión.
 
 ## §13 Referencias normativas
 
