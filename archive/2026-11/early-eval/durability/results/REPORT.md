@@ -1,3 +1,5 @@
+> **DEPRECADO — 2026-11-01.** Este reporte es evidencia exploratoria histórica (modelos sin identificar, sin repeticiones ni IC). Supersedido por el certificado Nivel A (`bench/results/certificate.json`) y el preregistro `bench/preregistration.yaml` (BLP-003). Conservado en `archive/2026-11/` solo como registro; ningún claim aquí tiene respaldo reproducible vigente.
+
 # Resultados — Prueba de Durabilidad CORTEX 0.1
 
 **Fecha:** 2026-07-17
