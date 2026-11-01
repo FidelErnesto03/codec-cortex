@@ -1,30 +1,40 @@
 {
-  "audit_sig": "1.0",
+  "audit_sig": "1.1",
   "auditor": "heimdall",
-  "role": "independent auditor (distinct from executor and governor, Art. XII)",
-  "subject": "BLP-003 Nivel A - certificate.json",
-  "audited_at": "2026-11-01T13:59:35.933833+00:00",
-  "commit": "0f21ca4f7ff61687d85bd179bd2ccb30c4442f67",
-  "remote": "github/FidelErnesto03/codec-cortex main == HEAD",
+  "role": "independent auditor (read-only, distinct from executor and governor)",
+  "subject": "CODEC-CORTEX - BLP-006 fence fix + BLP-007 Go/Node/Rust + D3b",
+  "audited_at": "2026-11-01T19:05:23.546660+00:00",
+  "commit": "4a19c311048f623c7f4264135b132434dc93579f",
   "artifacts": {
     "certificate.json": {
-      "sha256": "91eaeb3867c6b1aa75926f319c847e36238a66878e761f837c6a82af9a517ce6"
+      "sha256": "5aa7e91ef1b3a7327c06baa9655520bfb091e679d928ed8e6062c6ff6a8cbced"
     },
-    "determinism.json": {
-      "sha256": "f3648465fdc405fb94f8cff092a4edf319d86a116e72d47b1df1143eb644c486"
-    },
-    "instrument_sha256": "0d9da90df7c0ebe0b7a54673fe0a9d92716660cd576363e2b8994b7bc5036324"
+    "instrument_sha256": "4143d16c3d843efe21e9efe478f07be6a68409fea65e06129e0b77f38bead3c1",
+    "corpus_seal": {
+      "tests/SHA256SUMS": "972/972 OK"
+    }
   },
   "verifications": [
-    "corpus seal: tests/SHA256SUMS 845/845 OK",
-    "heldout seal: bench/corpus-heldout/SHA256SUMS OK",
-    "re-executed python -m bench.certify by auditor: VERDICT PASS, D3 5/5 bash/go/node/python/rust",
-    "instrument_sha256 recomputed == certificate value",
-    "PyPI wheel codec_cortex-1.0.0rc1 hash == instrument_sha256 (published package byte-identical to audited tree)",
-    "CI run github#41313736247 (cortex-certificate): green, D3 5/5 remote",
-    "D6 determinism: cortex unique=1, llm unique=5, pass=true",
-    "parser.py at HEAD (GSIG stash reverted): local == PyPI rc1"
+    "bench/certify.py re-executed by auditor in isolated copy: VERDICT PASS",
+    "D1 141/141, D2 PASS, D2b 70/70, D3 5/5, D3b 101/101 across python/go/node/rust, D4 141/141, D5 PASS",
+    "conformance 67/67; probes 29/29",
+    "go test ./... green; node --test 24/24; cargo test green",
+    "independent render parity: 101/101 identical sha256 across 4 surfaces",
+    "tests/SHA256SUMS 972/972 OK",
+    "spec 1.0 §8 envelope v=1.0; 70/70 HCORTEX 1.0 vectors; hcortex-slots superseded-by-1.0"
   ],
-  "verdict": "SIGNED-PASS",
-  "signature": "heimdall:50fb193e27bbcab318efdb505203b2d5da5b9bd48aacdb52ffa3d398c794c84e"
+  "nonconformance": [
+    "AC-4/AC-5/AC-6: Bash surface does not implement HCORTEX 1.0 slots (L005 on skill)",
+    "audit.sig 1.0 no longer matches certificate.json or instrument_sha256"
+  ],
+  "observations": [
+    "BLP-007 §3 Architect decision checkbox unchecked",
+    "BLP-007 §7.4/AC-1 wording says 141 docs; parity evidence is 101 1.0/0.2 docs + 70 vectors",
+    "BLP-007 AC-5 evidence stale vs T-7.5 (D3b extended, 4/5)",
+    "Rust lacks a vector-level test (corpus-level only)",
+    "D3b depends on prebuilt binaries in git-ignored paths"
+  ],
+  "verdict": "SIGNED-PASS-PARTIAL",
+  "scope": "verified claims only; BLP-007 remains incomplete (Bash)",
+  "signature": "heimdall:dc4ce711b50d19c517677fa27de492f1a627e9e583b2745709f31778ae46fce0"
 }
