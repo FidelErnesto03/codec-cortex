@@ -1,5 +1,12 @@
 $0: NEXUSCORP KB:KERNEL
 $0:format{cortex:0.1,encoding:UTF-8,entity:NexusCorp,domain:infraestructura-cloud}
+EQP:member{type:attrs,weight:B,fields:"rol:text|proyectos:list|seniority:num|activo:boolean",focus:rol,desc:"Miembro del equipo"}
+PRJ:project{type:attrs,weight:B,fields:"id:text|deadline:text|presupuesto:num|prioridad:text|estado:text",focus:id,desc:"Proyecto"}
+DEP:dependency{type:attrs,weight:M,fields:"origen:text|destino:text|tipo:text|desc:text",focus:desc,desc:"Dependencia entre proyectos"}
+RSK:risk{type:attrs,weight:H,fields:"desc:text|impacto:text|proyectos:list|proveedor:text|probabilidad:num",focus:desc,desc:"Riesgo"}
+DEC:decision{type:attrs,weight:M,fields:"desc:text|trimestre:text|proyectos:list|post_incidente:text",focus:desc,desc:"Decision de arquitectura"}
+INC:incident{type:attrs,weight:H,fields:"desc:text|fecha:text|severidad:text|proveedor:text|estado:text|duracion_h:num",focus:desc,desc:"Incidente"}
+PRV:provider{type:attrs,weight:B,fields:"servicio:text|costo_mensual:num|proyectos:list|sla:text",focus:servicio,desc:"Proveedor"}
 
 $1: EQUIPO (8 miembros):DATA
 EQP:Elena_Vargas{rol:"Arquitecta Cloud",proyectos:["Nebula","Horizon"],seniority:12,activo:true}
