@@ -61,23 +61,27 @@ def d1_idempotence(files: list[Path]) -> dict:
 
 def d2_roundtrip(files: list[Path]) -> dict:
     from codec_cortex.dispatcher import canonicalize, parse_cortex
+    from codec_cortex.hcortex import compile_hcortex, render_hcortex
     from codec_cortex.slothcortex import compile_hcortex_slots, render_hcortex_slots
 
-    slots02 = [f for f in files if "cortex:0.2" in f.read_text(encoding="utf-8")]
     details = []
     ok = 0
-    for f in slots02:
+    for f in files:
         entry = {"file": _rel(f), "pass": False}
         try:
-            doc = parse_cortex(f.read_text(encoding="utf-8"))
-            back, _diags = compile_hcortex_slots(render_hcortex_slots(doc))
+            text = f.read_text(encoding="utf-8")
+            doc = parse_cortex(text)
+            if "cortex:0.1" in text:
+                back, _diags = compile_hcortex(render_hcortex(doc))
+            else:
+                back, _diags = compile_hcortex_slots(render_hcortex_slots(doc))
             entry["pass"] = back is not None and canonicalize(back) == canonicalize(doc)
             ok += entry["pass"]
         except Exception as exc:  # noqa: BLE001
             entry["error"] = f"{type(exc).__name__}: {exc}"
         details.append(entry)
-    total = len(slots02)
-    return {"id": "D2_roundtrip_hcortex02", "pass": total > 0 and ok == total, "ok": ok, "total": total, "details": details}
+    total = len(files)
+    return {"id": "D2_roundtrip_hcortex_all", "pass": total > 0 and ok == total, "ok": ok, "total": total, "details": details}
 
 
 def _run(cmd: list[str]) -> tuple[bool, str]:
@@ -162,7 +166,7 @@ def run() -> dict:
     corpus = CORPUS_01 + CORPUS_02 + CORPUS_10
     indicators = [
         d1_idempotence(corpus),
-        d2_roundtrip(CORPUS_02),
+        d2_roundtrip(corpus),
         d3_parity(SEED),
         d4_lossless(corpus),
         d5_tamper(SEED),

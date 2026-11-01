@@ -5,7 +5,7 @@
     "codec_cortex": "1.0.0-rc.1",
     "python": "3.11.8"
   },
-  "instrument_sha256": "e1b8d6687cd56385ca9c5ec1842ce39f416e01a997e210f7c7443a8d54330bd0",
+  "instrument_sha256": "3642e845ad16f042c07c10a77b04ac506146eea625dfebba59f77f421d2c96d8",
   "seed": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
   "indicators": [
     {
@@ -577,11 +577,171 @@
       ]
     },
     {
-      "id": "D2_roundtrip_hcortex02",
+      "id": "D2_roundtrip_hcortex_all",
       "pass": true,
-      "ok": 30,
-      "total": 30,
+      "ok": 140,
+      "total": 140,
       "details": [
+        {
+          "file": "conformance/hcortex/cortex/H001_minimal-attrs.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H003_attrs-list.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H004_unicode-nfc.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H005_positional-basic.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H006_relation-basic.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H007_cuerpo-short.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H008_cuerpo-multiline.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H009_block-plantuml.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H010_block-backticks.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H011_scalar-kinds.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H012_decimal-precision.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H013_negative-numbers.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H014_escapes.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H015_microtoken-declaration.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H016_namespace.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H017_section-title.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H018_multiple-sections.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H019_idea-order.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H020_glossary-order.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H021_optional-extension.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H022_required-extension.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H023_open-attrs.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H024_optional-omitted.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H025_body-empty.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H026_body-blank-lines.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H027_block-unicode-composition.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H028_all-shapes.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H029_neutral-domain.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H030_cross-section-reference.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H031_list-mixed.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H032_quoted-positional-pipe.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H033_format-extra.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H034_multiple-namespaces.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H035_unicode-emoji.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H036_long-contract.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H037_same-name-different-section.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H038_special-body-chars.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H039_risk-objective.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/hcortex/cortex/H040_dense-skill-excerpt.cortex",
+          "pass": true
+        },
         {
           "file": "conformance/slots/valid/V001_minimal_slot.cortex",
           "pass": true
@@ -700,6 +860,286 @@
         },
         {
           "file": "conformance/slots/valid/V030_boolean_false.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V001_minimal_attrs.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V001_minimal_slot.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V002_attrs_optional.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V002_multiple_slots.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V003_attrs_complete.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V003_optional_middle_omitted.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V004_multiple_sigils.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V004_optional_final_omitted.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V005_all_scalar_kinds.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V005_microtoken_attrs.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V006_marker_in_string.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V006_microtoken_positional.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V007_attrs_pos_text_cells.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V007_marker_in_cuerpo.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V008_marker_in_bloque.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V008_relation.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V009_namespace.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V009_relation_selectors.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V010_cuerpo_one_line.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V010_relation_slots.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V011_attrs_pos_slots.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V011_cuerpo_multiline.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V012_bloque.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V012_microtoken_slot.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V013_block_internal_braces.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V013_unicode_nfc.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V014_lists.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V014_projection_minimal.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V015_scalar_types.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V015_skill_grammar.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V016_escaped_string.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V016_max_index.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V017_two_sections.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V017_unicode.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V018_comments.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V018_multiple_sigils.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V019_cuerpo_multiline.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V019_section_titles.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V020_bloque_with_special.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V020_namespace_metadata.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V021_attrs_nominal_in_02.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V021_qualified_sigil.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V022_enum_reference.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V022_optional_extension.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V023_namespace_qualified.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V023_open_contract.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V024_bang_sigil.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V024_extension_decl.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V025_focus_on_attrs_pos.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V025_url_quoted.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V026_decimal_precision.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V026_selector_atom.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V027_negative_integer.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V027_original_skill_style.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V028_empty_list.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V028_full_portable_glossary.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V029_body_empty_lines.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V029_nested_list.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V030_boolean_false.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V030_empty_list.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V031_negative_numbers.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V032_optional_positional_omitted.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V033_relation_optional_evidence_omitted.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V034_multiple_sections_same_name.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V035_atom_paths.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V036_all_shapes.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V037_namespace_qualified_and_local.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V038_format_extra_metadata.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V039_meta_type_decls_legacy_evolution.cortex",
+          "pass": true
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V040_dense_skill_excerpt.cortex",
           "pass": true
         }
       ]

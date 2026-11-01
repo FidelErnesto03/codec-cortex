@@ -188,7 +188,7 @@ def _render_glossary_slots(doc: Document) -> str:
         attrs_parts = []
         seen_keys = set()
         for k, v in s.attrs:
-            if k in ("contract", "pos"):
+            if k == "contract":
                 continue
             if k in seen_keys:
                 continue
@@ -320,6 +320,16 @@ def _parse_schema_ideas(body: str, sym_lookup: dict,
                 ideas.append(Idea(section=section_id, namespace=ns,
                                   symbol=sigil_short, name=name,
                                   shape="bloque", payload=("bloque", body_text)))
+            elif sym and shape in ("attrs-pos", "relacion"):
+                cells = []
+                for f in sym.contract:
+                    val = rows[0].get(f.name, "")
+                    if val == "" and not f.required:
+                        break
+                    cells.append(_make_scalar(val))
+                ideas.append(Idea(section=section_id, namespace=ns,
+                                  symbol=sigil_short, name=name,
+                                  shape=shape, payload=(shape, cells)))
             else:
                 pairs = []
                 contract_map = {}
@@ -382,12 +392,28 @@ def _parse_table_rows(text: str) -> List[dict]:
     return [result]
 
 
+def _unescape(inner: str) -> str:
+    out = []
+    i = 0
+    while i < len(inner):
+        c = inner[i]
+        if c == "\\" and i + 1 < len(inner):
+            nxt = inner[i + 1]
+            mapping = {'"': '"', "\\": "\\", "n": "\n", "t": "\t", "r": "\r"}
+            out.append(mapping.get(nxt, "\\" + nxt))
+            i += 2
+        else:
+            out.append(c)
+            i += 1
+    return "".join(out)
+
+
 def _make_scalar(lex: str) -> Scalar:
     lex = lex.strip()
     if lex == "":
         return Scalar("null", None, "null")
     if lex.startswith('"') and lex.endswith('"'):
-        inner = lex[1:-1]
+        inner = _unescape(lex[1:-1])
         return Scalar("string", inner, emit_string_literal(inner))
     if lex in ("true", "false"):
         return Scalar("boolean", lex == "true", lex)
