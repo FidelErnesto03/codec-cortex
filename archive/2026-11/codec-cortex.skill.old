@@ -1,3 +1,4 @@
+<!-- DEPRECATED 2026-11-01: superseded by skill/codec-cortex.skill.md (dialect 1.0, dense form restored). Kept as form precedent. Frozen under archive/2026-11 rules. -->
 $0:KERNEL
 $0:format{cortex:0.2,encoding:UTF-8,language:es}
 RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla normativa de CORTEX con referencia a especificacion o implementacion."}
