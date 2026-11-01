@@ -45,7 +45,7 @@ IDN:governor{level:"2", project:"CODEC-CORTEX", path:"/home/vatrox/workspace/COD
 
 $2: FOCUS:CORE
 
-FCS:current{what:"Definir BLP-007", priority:"medium", status:"current", survive:"work", updated:"2026-11-01T18:25:24Z", event:"blueprint.create", cycle:"CYCLE-03"}
+FCS:current{what:"BLP-006 cerrada tecnicamente - esperando firma de Heimdall (AC-5). BLP-007 en draft.", priority:"medium", status:"current", survive:"work", updated:"2026-11-01T18:25:24Z", event:"blueprint.audit_pending", cycle:"CYCLE-03"}
 
 
 $3: OBJECTIVES:CORE
@@ -161,6 +161,8 @@ AUD:E_0144{date:"2026-11-01T18:23:51Z", event:"E-0144", task:"-", kind:"checkpoi
 
 AUD:E_0145{date:"2026-11-01T18:26:03Z", event:"E-0145", task:"BLP-006", kind:"blueprint_lifecycle", agent:"Alfred", result:"[blueprint.ac] AC AC-4 failed — Brecha declarada por decision del Arquitecto (2026-11-01): solo Python implementa HCORTEX 0.2/slots; Go rechaza 1.0 (G007), Bash falla (L005), Node/Rust rinden HCORTEX 0.1 sin slots. El port se abre como BLP-007.", evidence:"[blueprint.ac] AC AC-4 failed — Brecha declarada por decision del Arquitecto (2026-11-01): solo Python implementa HCORTEX 0.2/slots; Go rechaza 1.0 (G007), Bash falla (L005), Node/Rust rinden HCORTEX 0.1 sin slots. El port se abre como BLP-007."}
 
+AUD:E_0146{date:"2026-11-01T18:26:20Z", event:"E-0146", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=Fix de fences commiteado (e0a65da) y gob obj=Cerrar BLP-006 (falta firma Heimdall AC-", evidence:"cortex.checkpoint ok fcs=Fix de fences commiteado (e0a65da) y gob obj=Cerrar BLP-006 (falta firma Heimdall AC-", ses_ref:"SES001"}
+
 
 $7: LESSONS:KNOW
 
@@ -171,7 +173,7 @@ LNG:session_E_0100{type:"session", entry_count:99, summary:"artifact:1,blocker:1
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"blueprint.create: BLP-007 created in CYCLE-03", blocked:"no", survive:"work", fcs:"BLP-006 T-6.2 y T-6.3 cerrados. Fence mask en ideas y secciones", obj:"Decidir alcance de T-6.4 (5 superficies) tras medir la brecha real; T-6.5 firma de Heimdall pendiente.", tasks:"T-6.4 pendiente de decision del Arquitecto. audit.sig Nivel A invalidado por cambio de instrumento. Sin commit por LIM no_auto_commit.", state:"active", last_turn:"2026-11-01T18:23:51Z", updated:"2026-11-01T18:25:24Z", event:"blueprint.create"}
+WRK:current{phase:"current", current:"Fix de fences commiteado (e0a65da) y gobernanza commiteada (77925ac). Certificado 141/141 PASS", blocked:"no", survive:"work", fcs:"Fix de fences commiteado (e0a65da) y gobernanza commiteada (77925ac). Certificado 141/141 PASS", obj:"Cerrar BLP-006 (falta firma Heimdall AC-5) y declarar BLP-007 ready para el port de HCORTEX 0.2/slots.", tasks:"BLP-006 pendiente AC-5 (no puedo firmar como Heimdall). BLP-007 pendiente declaracion ready del Arquitecto. audit.sig Nivel A invalidado por cambio de instrumento; re-auditoria pendiente.", state:"active", last_turn:"2026-11-01T18:26:20Z", updated:"2026-11-01T18:26:20Z", event:"cortex.checkpoint"}
 
 
 $9: RISKS:CORE

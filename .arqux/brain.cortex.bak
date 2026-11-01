@@ -34,29 +34,6 @@ $0
 # cur=current pln=planned fut=future blk=blocked
 # min=minimum rec=recovery wrk=work full=full
 # ok=success fail=failure part=partial
-ARQX:artifact{type:"attrs", weight:"B", fields:"value:any?", focus:"value", desc:"ArqUX artifact metadata (level, name, usage, kind)"}
-
-AUD:audit{type:"attrs", weight:"M", fields:"value:any?", focus:"value", desc:"Audit event — append-only PULSE entry"}
-
-ERR:error{type:"attrs", weight:"H", fields:"value:any?", focus:"value", desc:"Concurrency / error state entry"}
-
-FCS:focus{type:"attrs", weight:"H", fields:"value:any?", focus:"value", desc:"Active attention anchor — what the project is focused on now"}
-
-IDN:identity{type:"attrs", weight:"B", fields:"value:any?", focus:"value", desc:"Agent identity descriptor"}
-
-KNW:knowledge{type:"attrs", weight:"B", fields:"name:any?|topic:any?|content:any?|status:any?", focus:"name", desc:"Workspace-level knowledge entry"}
-
-LNG:lesson{type:"attrs", weight:"M", fields:"value:any?", focus:"value", desc:"Learned lesson — behavioral or process"}
-
-OBJ:objective{type:"attrs", weight:"H", fields:"value:any?", focus:"value", desc:"Active goal — stable project-level objective"}
-
-RSK:risk{type:"attrs", weight:"M", fields:"value:any?", focus:"value", desc:"Risk entry — description, impact, mitigation"}
-
-SES:session{type:"attrs", weight:"B", fields:"value:any?", focus:"value", desc:"Session record — agent session context"}
-
-WRK:work{type:"attrs", weight:"M", fields:"value:any?", focus:"value", desc:"Work-in-progress entry — task or activity being executed"}
-
-$0:format{cortex:"0.1", encoding:"UTF-8"}
 
 
 $1: METADATA:CORE
@@ -182,6 +159,10 @@ AUD:E_0143{date:"2026-11-01T18:23:29Z", event:"E-0143", task:"BLP-006", kind:"bl
 
 AUD:E_0144{date:"2026-11-01T18:23:51Z", event:"E-0144", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=BLP-006 T-6.2 y T-6.3 cerrados. Fence ma obj=Decidir alcance de T-6.4 (5 superficies)", evidence:"cortex.checkpoint ok fcs=BLP-006 T-6.2 y T-6.3 cerrados. Fence ma obj=Decidir alcance de T-6.4 (5 superficies)", ses_ref:"SES001"}
 
+AUD:E_0145{date:"2026-11-01T18:26:03Z", event:"E-0145", task:"BLP-006", kind:"blueprint_lifecycle", agent:"Alfred", result:"[blueprint.ac] AC AC-4 failed — Brecha declarada por decision del Arquitecto (2026-11-01): solo Python implementa HCORTEX 0.2/slots; Go rechaza 1.0 (G007), Bash falla (L005), Node/Rust rinden HCORTEX 0.1 sin slots. El port se abre como BLP-007.", evidence:"[blueprint.ac] AC AC-4 failed — Brecha declarada por decision del Arquitecto (2026-11-01): solo Python implementa HCORTEX 0.2/slots; Go rechaza 1.0 (G007), Bash falla (L005), Node/Rust rinden HCORTEX 0.1 sin slots. El port se abre como BLP-007."}
+
+AUD:E_0146{date:"2026-11-01T18:26:20Z", event:"E-0146", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=Fix de fences commiteado (e0a65da) y gob obj=Cerrar BLP-006 (falta firma Heimdall AC-", evidence:"cortex.checkpoint ok fcs=Fix de fences commiteado (e0a65da) y gob obj=Cerrar BLP-006 (falta firma Heimdall AC-", ses_ref:"SES001"}
+
 
 $7: LESSONS:KNOW
 
@@ -192,7 +173,7 @@ LNG:session_E_0100{type:"session", entry_count:99, summary:"artifact:1,blocker:1
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"blueprint.create: BLP-007 created in CYCLE-03", blocked:"no", survive:"work", fcs:"BLP-006 T-6.2 y T-6.3 cerrados. Fence mask en ideas y secciones", obj:"Decidir alcance de T-6.4 (5 superficies) tras medir la brecha real; T-6.5 firma de Heimdall pendiente.", tasks:"T-6.4 pendiente de decision del Arquitecto. audit.sig Nivel A invalidado por cambio de instrumento. Sin commit por LIM no_auto_commit.", state:"active", last_turn:"2026-11-01T18:23:51Z", updated:"2026-11-01T18:25:24Z", event:"blueprint.create"}
+WRK:current{phase:"current", current:"Fix de fences commiteado (e0a65da) y gobernanza commiteada (77925ac). Certificado 141/141 PASS", blocked:"no", survive:"work", fcs:"Fix de fences commiteado (e0a65da) y gobernanza commiteada (77925ac). Certificado 141/141 PASS", obj:"Cerrar BLP-006 (falta firma Heimdall AC-5) y declarar BLP-007 ready para el port de HCORTEX 0.2/slots.", tasks:"BLP-006 pendiente AC-5 (no puedo firmar como Heimdall). BLP-007 pendiente declaracion ready del Arquitecto. audit.sig Nivel A invalidado por cambio de instrumento; re-auditoria pendiente.", state:"active", last_turn:"2026-11-01T18:26:20Z", updated:"2026-11-01T18:26:20Z", event:"cortex.checkpoint"}
 
 
 $9: RISKS:CORE
