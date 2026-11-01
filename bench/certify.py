@@ -235,7 +235,32 @@ def d5_tamper(seed: Path) -> dict:
     }
 
 
+def _ensure_surface_binaries() -> dict:
+    """Build Go/Rust surface binaries when missing so D3/D3b reproduce from a clean clone."""
+    built = {}
+    go_bin = ROOT / "codec-cortex-go/bin/codec-cortex-linux-amd64"
+    if not go_bin.exists():
+        proc = subprocess.run(
+            ["go", "build", "-o", str(go_bin), "./cmd/codec-cortex"],
+            cwd=ROOT / "codec-cortex-go", capture_output=True, text=True, timeout=300,
+        )
+        built["go"] = proc.returncode == 0
+        if proc.returncode != 0:
+            print(f"WARN: go build failed: {proc.stderr.strip()[:200]}", file=sys.stderr)
+    rust_bin = ROOT / "codec-cortex-rs/target/release/cortex"
+    if not rust_bin.exists():
+        proc = subprocess.run(
+            ["cargo", "build", "--release"],
+            cwd=ROOT / "codec-cortex-rs", capture_output=True, text=True, timeout=600,
+        )
+        built["rust"] = proc.returncode == 0
+        if proc.returncode != 0:
+            print(f"WARN: cargo build failed: {proc.stderr.strip()[:200]}", file=sys.stderr)
+    return built
+
+
 def run() -> dict:
+    _ensure_surface_binaries()
     parse_cortex, canonicalize, hash_cortex = _api()
     corpus = CORPUS_01 + CORPUS_02 + CORPUS_10 + [SKILL]
     indicators = [
@@ -250,8 +275,10 @@ def run() -> dict:
     all_pass = all(i["pass"] for i in indicators)
     from codec_cortex import __version__ as cc_version
 
+    instrument_files = sorted((ROOT / "codec_cortex").rglob("*.py"))
+    instrument_files.append(ROOT / "bench/certify.py")
     instrument = hashlib.sha256()
-    for f in sorted((ROOT / "codec_cortex").rglob("*.py")):
+    for f in instrument_files:
         instrument.update(f.relative_to(ROOT).as_posix().encode())
         instrument.update(f.read_bytes())
 
@@ -260,6 +287,7 @@ def run() -> dict:
         "level": "A",
         "tool": {"codec_cortex": getattr(cc_version, "__str__", lambda: "?")() if not isinstance(cc_version, str) else cc_version, "python": sys.version.split()[0]},
         "instrument_sha256": instrument.hexdigest(),
+        "certifier_sha256": hashlib.sha256((ROOT / "bench/certify.py").read_bytes()).hexdigest(),
         "seed": _rel(SEED),
         "indicators": indicators,
         "verdict": "PASS" if all_pass else "FAIL",

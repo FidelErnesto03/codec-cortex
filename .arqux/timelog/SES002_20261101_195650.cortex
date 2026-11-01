@@ -1,0 +1,20 @@
+$0
+
+# -- $0: TIMLOG LOCAL GLOSSARY --
+# Sigil | Name     | Type  | Risk | Cognitive Layer | Description
+# TLG   | timelog  | attrs | B    | Episodic        | Timelog identity and metadata
+# ACT   | activity | attrs | B    | Episodic        | One activity interval
+# RCV   | receipt  | attrs | B    | Episodic        | External projection receipt
+# PRJ   | projection | attrs | B  | Episodic        | Per-provider projection mark
+
+$1: IDENTITY
+TLG:identity{project:"CODEC-CORTEX",ses:"SES002",opened:"2026-11-01T19:56:50Z",version:"1",revision:"3"}
+
+
+$2: ACTIVITIES
+ACT:session_SES002{start:"2026-11-01T19:56:50Z",end:"",state:"open",last_activity:"2026-11-01T20:00:11Z",revision:"2"}
+
+
+$3: RECEIPTS
+
+$4: PROJECTIONS
