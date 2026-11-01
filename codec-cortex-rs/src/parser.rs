@@ -253,7 +253,7 @@ fn add_meta_declaration(name: &str, attrs: Attrs, doc: &mut Document, line_no: u
         let map = attrs_map(&attrs);
         let cortex = map.get("cortex").and_then(|v| v.text_value()).unwrap_or("0.1").to_string();
         let encoding = map.get("encoding").and_then(|v| v.text_value()).unwrap_or("UTF-8").to_string();
-        if cortex != "0.1" { return Err(ParseError::at("G007_UNSUPPORTED_VERSION", format!("Unsupported cortex version: {cortex}"), line_no, 0)); }
+        if cortex != "0.1" && cortex != "1.0" { return Err(ParseError::at("G007_UNSUPPORTED_VERSION", format!("Unsupported cortex version: {cortex}"), line_no, 0)); }
         if encoding != "UTF-8" { return Err(ParseError::at("G011_ENCODING_REQUIRED", format!("Encoding must be UTF-8: {encoding}"), line_no, 0)); }
         doc.cortex_version = cortex.clone();
         doc.encoding = encoding.clone();
@@ -356,7 +356,11 @@ fn parse_idea_line(line: &str, section_id: u64, doc: &Document, line_no: usize) 
         }
         "attrs-pos" | "relacion" => {
             let Some(rest) = rest.strip_prefix('|') else { return Err(ParseError::at("I004_SHAPE_DELIMITER_MISMATCH", format!("Expected | for shape {shape}"), line_no, 0)); };
-            IdeaPayload::Positional(parse_pipe_cells(rest, line_no)?)
+            let cells = parse_pipe_cells(rest, line_no)?;
+            let required = sym.contract.iter().filter(|f| f.required).count();
+            if cells.len() < required { return Err(ParseError::at("I012_POSITIONAL_ARITY", format!("shape {shape} needs >={required} cells, got {}", cells.len()), line_no, 0)); }
+            if cells.len() > sym.contract.len() { return Err(ParseError::at("I012_POSITIONAL_ARITY", format!("shape {shape} expects <={} cells, got {}", sym.contract.len(), cells.len()), line_no, 0)); }
+            IdeaPayload::Positional(cells)
         }
         _ => return Err(ParseError::at("S999_INTERNAL_PARSE_FAILURE", format!("Cannot parse idea: {line:?}"), line_no, 0)),
     };

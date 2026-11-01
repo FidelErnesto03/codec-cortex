@@ -483,13 +483,50 @@ def _perform_migration(doc, source: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+def migrate_to_1_0(source_path: str, out_path: Optional[str] = None) -> dict:
+    """Rewrite $0:format{cortex:X} → cortex:1.0. Idempotent, no structural
+    rewrite: dialect 1.0 is the union surface, so a valid 0.1/0.2 doc is a
+    valid 1.0 doc — only the declaration and the permanence contract change."""
+    import re
+    from .dispatcher import parse_cortex
+    src = _read_source(source_path)
+    m = re.search(r'(cortex:)("([^"]*)"|([^,}\s]+))', src)
+    if not m:
+        return {"status": "error", "code": "G010_FORMAT_REQUIRED",
+                "message": "No $0:format cortex declaration found"}
+    declared = m.group(3) if m.group(3) is not None else m.group(4)
+    if declared == "1.0":
+        migrated = src
+        action = "already-1.0"
+    elif declared in ("0.1", "0.2"):
+        migrated = src[:m.start(2)] + '1.0' + src[m.end(2):]
+        action = f"rewrote cortex:{declared} → 1.0"
+    else:
+        return {"status": "error", "code": "G007_UNSUPPORTED_VERSION",
+                "message": f"Cannot migrate declared version {declared!r} to 1.0"}
+    result_path = out_path or source_path
+    if migrated != src or out_path:
+        _write_atomic(result_path, migrated)
+    # Verify the result actually parses as 1.0
+    try:
+        doc = parse_cortex(migrated)
+        ok = doc.cortex_version == "1.0"
+    except Exception as e:
+        return {"status": "error", "code": getattr(e, "code", "PARSE_ERROR"),
+                "message": f"migrated doc does not parse: {e}"}
+    return {"status": "ok" if ok else "error", "action": action,
+            "from_version": declared, "to_version": "1.0",
+            "source": source_path, "result": result_path,
+            "idempotent": migrated == src or declared != "1.0"}
+
+
 def main_cli(argv=None):
     import sys
     argv = argv if argv is not None else sys.argv[1:]
     if len(argv) < 2:
         print("Usage: python3 -m codec_cortex.slotmigrate <command> <file> [options]",
               file=sys.stderr)
-        print("Commands: inspect, plan, apply, verify, rollback", file=sys.stderr)
+        print("Commands: inspect, plan, apply, verify, rollback, to-1.0", file=sys.stderr)
         return 2
     cmd = argv[0]
     if cmd == "inspect":
@@ -507,6 +544,9 @@ def main_cli(argv=None):
         result = migrate_verify(argv[1], argv[2])
     elif cmd == "rollback":
         result = migrate_rollback(argv[1])
+    elif cmd == "to-1.0":
+        out_path = argv[2] if len(argv) > 2 else None
+        result = migrate_to_1_0(argv[1], out_path)
     else:
         print(f"Unknown command: {cmd}", file=sys.stderr)
         return 2

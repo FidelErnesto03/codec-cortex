@@ -294,11 +294,11 @@ ccx_add_meta_decl() {
     format)
       if jq -e '.glossary.format != null' "$doc" >/dev/null; then ccx_error G006_DUPLICATE_FORMAT 'Duplicate $0:format' "$line" 0; return; fi
       sv=$(ccx_attr_last "$attrs" cortex); if [[ -n $sv ]]; then value=$(ccx_scalar_text "$sv"); else value=0.1; fi
-      [[ $value == 0.1 ]] || { ccx_error G007_UNSUPPORTED_VERSION "Unsupported cortex version: $value" "$line" 0; return; }
+      [[ $value == 0.1 || $value == 1.0 ]] || { ccx_error G007_UNSUPPORTED_VERSION "Unsupported cortex version: $value" "$line" 0; return; }
       sv=$(ccx_attr_last "$attrs" encoding); if [[ -n $sv ]]; then ename=$(ccx_scalar_text "$sv"); else ename=UTF-8; fi
       [[ $ename == UTF-8 ]] || { ccx_error G011_ENCODING_REQUIRED "Encoding must be UTF-8: $ename" "$line" 0; return; }
       obj=$(jq -cn --arg c "$value" --arg e "$ename" --argjson a "$attrs" --argjson ln "$line" '{cortex:$c,encoding:$e,attrs:$a,source_line:$ln}')
-      ccx_doc_update "$doc" '.glossary.format=$x' --argjson x "$obj"
+      ccx_doc_update "$doc" '.glossary.format=$x | .cortex_version=$c' --argjson x "$obj" --arg c "$value"
       ;;
     enum_*)
       ename=${name#enum_}; sv=$(ccx_attr_last "$attrs" values)
@@ -423,6 +423,11 @@ ccx_parse_idea_line() {
     attrs-pos|relacion)
       [[ ${rest:0:1} == '|' ]] || { ccx_error I004_SHAPE_DELIMITER_MISMATCH "Expected | for shape $shape" "$line_no" 0; return; }
       cells=$(ccx_parse_pipe_cells "${rest:1}" "$line_no") || return
+      ncells=$(jq 'length' <<<"$cells")
+      nreq=$(jq '[.contract[]|select(.required==true)]|length' <<<"$sym")
+      ntotal=$(jq '.contract|length' <<<"$sym")
+      (( ncells >= nreq )) || { ccx_error I012_POSITIONAL_ARITY "shape $shape needs >=$nreq cells, got $ncells" "$line_no" 0; return; }
+      (( ncells <= ntotal )) || { ccx_error I012_POSITIONAL_ARITY "shape $shape expects <=$ntotal cells, got $ncells" "$line_no" 0; return; }
       payload=$(jq -cn --arg sh "$shape" --argjson c "$cells" '[$sh,$c]')
       jq -cn --argjson sec "$section_id" --argjson ns "$nsp" --arg s "$sigil" --arg n "$name" --arg sh "$shape" --argjson p "$payload" --argjson ln "$line_no" \
         '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:$sh,payload:$p,source_line:$ln}'

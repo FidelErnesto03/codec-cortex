@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+MET:metric{type:attrs,weight:B,fields:"name:text|delta:int|ratio:dec",focus:name,desc:"Métrica"}
+$1:DATA
+MET:change{name:"Cambio",delta:-3,ratio:-0.25}

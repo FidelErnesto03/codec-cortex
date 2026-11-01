@@ -6,7 +6,26 @@ metadatos de cada superficie y en tags de git.
 
 ## [Unreleased] — post-`1.0.0-rc.1` en `main`
 
-### Añadido
+### Añadido — BLP-004: dialecto CORTEX 1.0 (draft normativo)
+
+- `docs/standard/CORTEX-SPEC-1.0.md` — canon normativo draft que unifica
+  0.1 (superficie fundamental) + 0.2 (eje slots) bajo `cortex:1.0`, con
+  aridad posicional estricta (I012), catálogo cerrado de errores, pérdidas
+  HCORTEX declaradas (L4xx) y contrato de permanencia.
+- `docs/standard/errors-1.0.md` — mapa código↔emisor↔superficie generado
+  mecánicamente (83 códigos, 5 runtimes).
+- `docs/grammar/cortex-1.0.{ebnf,abnf}` + `docs/schemas/ast-schema-1.0.json`.
+- `conformance/1.0/` — 70 vectores válidos migrados + 2 inválidos
+  (I012 estricto, G007 `cortex:1`) con manifiesto.
+- Dispatcher Python acepta `cortex:1.0` (→ slotparser); parsers Go, Node,
+  Rust y Bash aceptan `cortex:1.0` en su subconjunto implementado y
+  registran `cortex_version`.
+- `slotmigrate to-1.0` — reescritura idempotente de la línea format con
+  reporte y verificación de parseo.
+- Aridad posicional estricta (`I012_POSITIONAL_ARITY`) implementada en las
+  5 superficies — la tolerancia de overflow de 0.1 queda corregida.
+
+### Añadido — archivado
 
 - `archive/2026-11/` — archivo fechado del material deprecado (916
   archivos movidos con `git mv`): evidencia exploratoria pre-BLP-003,

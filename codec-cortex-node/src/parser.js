@@ -396,9 +396,10 @@ function addMetaDeclaration(name, attrs, capa, doc, lineNo) {
     const encoding = attrMap.get('encoding');
     const cortexValue = cortex ? cortex.value : '0.1';
     const encodingValue = encoding ? encoding.value : 'UTF-8';
-    if (cortexValue !== '0.1') throw new ParseError('G007_UNSUPPORTED_VERSION', `Unsupported cortex version: ${cortexValue}`, lineNo);
+    if (cortexValue !== '0.1' && cortexValue !== '1.0') throw new ParseError('G007_UNSUPPORTED_VERSION', `Unsupported cortex version: ${cortexValue}`, lineNo);
     if (encodingValue !== 'UTF-8') throw new ParseError('G011_ENCODING_REQUIRED', `Encoding must be UTF-8: ${encodingValue}`, lineNo);
     doc.glossary.format = new FormatDecl({ cortex: cortexValue, encoding: encodingValue, attrs, sourceLine: lineNo });
+    doc.cortex_version = cortexValue;
     return;
   }
 
@@ -522,6 +523,9 @@ function parseIdeaLine(line, sectionId, doc, lineNo) {
   if (shape === 'attrs-pos' || shape === 'relacion') {
     if (!rest.startsWith('|')) throw new ParseError('I004_SHAPE_DELIMITER_MISMATCH', `Expected | for shape ${shape}`, lineNo);
     const cells = parsePipeCells(rest.slice(1), lineNo);
+    const required = symbol.contract.filter((f) => f.required).length;
+    if (cells.length < required) throw new ParseError('I012_POSITIONAL_ARITY', `shape ${shape} needs >=${required} cells, got ${cells.length}`, lineNo);
+    if (cells.length > symbol.contract.length) throw new ParseError('I012_POSITIONAL_ARITY', `shape ${shape} expects <=${symbol.contract.length} cells, got ${cells.length}`, lineNo);
     return new Idea({ section: sectionId, namespace, symbol: sigil, name, shape, payload: [shape, cells], sourceLine: lineNo });
   }
   throw new ParseError('S999_INTERNAL_PARSE_FAILURE', `Cannot parse idea: ${pythonRepr(line)}`, lineNo);

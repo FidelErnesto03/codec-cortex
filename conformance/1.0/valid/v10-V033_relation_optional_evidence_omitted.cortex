@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+REL:relation{type:relacion,weight:M,pos:"source:atom|predicate:atom|target:atom|evidence:text?",focus:predicate,desc:"Relación"}
+$1:DATA
+REL:codec_ast|codec|produces|AST

@@ -29,7 +29,7 @@ def _detect_version(source: str) -> str:
     if not cm:
         raise ParseError("G007_UNSUPPORTED_VERSION", "$0:format missing cortex version")
     version = cm.group(2) if cm.group(2) is not None else cm.group(3)
-    if version not in ("0.1", "0.2"):
+    if version not in ("0.1", "0.2", "1.0"):
         raise ParseError("G007_UNSUPPORTED_VERSION", f"Unsupported cortex version: {version}")
     return version
 
@@ -50,7 +50,7 @@ def parse_cortex(source: str):
         # preserved as ordinary content per P01-P03).
         check_mixed_surface_legacy(source)
         return _parse_cortex_legacy(source)
-    return parse_slots(source)
+    return parse_slots(source, version=version)
 
 
 def canonicalize(doc):

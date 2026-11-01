@@ -72,12 +72,12 @@ class GlossarySlots(Glossary):
 # Public parse_slots
 # ---------------------------------------------------------------------------
 
-def parse_slots(source: str) -> Document:
+def parse_slots(source: str, version: str = "0.2") -> Document:
     """Parse a CORTEX 0.2 source string. Does NOT touch 0.1 parser."""
     if source.startswith("\ufeff"):
         raise ParseError("U001_BOM_FORBIDDEN", "BOM forbidden")
     source = _normalize_line_endings(source)
-    return _SlotParser(source).parse()
+    return _SlotParser(source, version=version).parse()
 
 
 # ---------------------------------------------------------------------------
@@ -85,10 +85,10 @@ def parse_slots(source: str) -> Document:
 # ---------------------------------------------------------------------------
 
 class _SlotParser:
-    def __init__(self, source: str):
+    def __init__(self, source: str, version: str = "0.2"):
         self.source = source
         self.lines = source.split("\n")
-        self.doc = Document(cortex_version="0.2")
+        self.doc = Document(cortex_version=version)
         self.doc.glossary = GlossarySlots()
         self.in_glossary = False
         self.current_section: Optional[Section] = None
@@ -294,9 +294,9 @@ class _SlotParser:
             encoding = amap.get("encoding")
             cortex_val = cortex.value if cortex else "0.1"
             encoding_val = encoding.value if encoding else "UTF-8"
-            if cortex_val != "0.2":
+            if cortex_val not in ("0.2", "1.0"):
                 raise ParseError("G007_UNSUPPORTED_VERSION",
-                                 f"Declared cortex {cortex_val} != parser version 0.2", line_no)
+                                 f"Declared cortex {cortex_val} != parser version {self.doc.cortex_version}", line_no)
             if encoding_val != "UTF-8":
                 raise ParseError("G011_ENCODING_REQUIRED",
                                  f"Encoding must be UTF-8: {encoding_val}", line_no)

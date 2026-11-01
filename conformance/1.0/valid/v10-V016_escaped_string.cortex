@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+TXT:fact{type:attrs,weight:B,fields:"topic:text|content:text",focus:content,desc:"Hecho textual"}
+$1:DATA
+TXT:quotes{topic:"Escape",content:"Una cadena admite \"comillas\" y \n escapes."}

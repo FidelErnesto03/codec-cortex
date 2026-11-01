@@ -1,0 +1,7 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+CODE:code{type:bloque,weight:M,desc:"Código verbatim"}
+$1:DATA
+CODE:sample{
+function f() { return {ok: true}; }
+}

@@ -1,0 +1,359 @@
+{
+ "dialect": "1.0",
+ "vectors": [
+  {
+   "file": "valid/v10-V001_minimal_attrs.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V002_attrs_optional.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V003_attrs_complete.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V004_multiple_sigils.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V005_microtoken_attrs.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V006_microtoken_positional.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V007_attrs_pos_text_cells.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V008_relation.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V009_relation_selectors.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V010_cuerpo_one_line.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V011_cuerpo_multiline.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V012_bloque.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V013_block_internal_braces.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V014_lists.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V015_scalar_types.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V016_escaped_string.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V017_unicode.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V018_comments.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V019_section_titles.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V020_namespace_metadata.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V021_qualified_sigil.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V022_optional_extension.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V023_open_contract.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V024_bang_sigil.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V025_url_quoted.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V026_selector_atom.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V027_original_skill_style.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V028_full_portable_glossary.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V029_body_empty_lines.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V030_empty_list.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V031_negative_numbers.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V032_optional_positional_omitted.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V033_relation_optional_evidence_omitted.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V034_multiple_sections_same_name.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V035_atom_paths.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V036_all_shapes.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V037_namespace_qualified_and_local.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V038_format_extra_metadata.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V039_meta_type_decls_legacy_evolution.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V040_dense_skill_excerpt.cortex",
+   "from": "0.1",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V001_minimal_slot.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V002_multiple_slots.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V003_optional_middle_omitted.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V004_optional_final_omitted.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V005_all_scalar_kinds.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V006_marker_in_string.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V007_marker_in_cuerpo.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V008_marker_in_bloque.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V009_namespace.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V010_relation_slots.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V011_attrs_pos_slots.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V012_microtoken_slot.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V013_unicode_nfc.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V014_projection_minimal.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V015_skill_grammar.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V016_max_index.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V017_two_sections.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V018_multiple_sigils.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V019_cuerpo_multiline.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V020_bloque_with_special.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V021_attrs_nominal_in_02.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V022_enum_reference.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V023_namespace_qualified.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V024_extension_decl.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V025_focus_on_attrs_pos.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V026_decimal_precision.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V027_negative_integer.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V028_empty_list.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V029_nested_list.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  },
+  {
+   "file": "valid/v10-V030_boolean_false.cortex",
+   "from": "0.2",
+   "expect": "parse:1.0"
+  }
+ ],
+ "invalid": [
+  "I012_arity_overflow",
+  "G007_cortex_1_alias"
+ ]
+}

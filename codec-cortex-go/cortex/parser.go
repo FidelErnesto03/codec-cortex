@@ -229,13 +229,14 @@ func addMetaDeclaration(name string, attrs []Attr, capa string, doc *Document, l
 		if v, ok := attrLookup(attrs, "encoding"); ok {
 			encoding = scalarStringValue(v)
 		}
-		if cortex != "0.1" {
+		if cortex != "0.1" && cortex != "1.0" {
 			return &ParseError{Code: "G007_UNSUPPORTED_VERSION", Message: fmt.Sprintf("Unsupported cortex version: %s", cortex), Line: lineNo}
 		}
 		if encoding != "UTF-8" {
 			return &ParseError{Code: "G011_ENCODING_REQUIRED", Message: fmt.Sprintf("Encoding must be UTF-8: %s", encoding), Line: lineNo}
 		}
 		doc.Glossary.Format = &FormatDecl{Cortex: cortex, Encoding: encoding, Attrs: attrs, SourceLine: lineNo}
+		doc.CortexVersion = cortex
 		return nil
 	}
 	if strings.HasPrefix(name, "enum_") {
@@ -392,6 +393,18 @@ func parseIdeaLine(line string, sectionID int, doc *Document, lineNo int) (Idea,
 		cells, err := parsePipeCells(rest[1:], lineNo)
 		if err != nil {
 			return Idea{}, err
+		}
+		required := 0
+		for _, f := range sym.Contract {
+			if f.Required {
+				required++
+			}
+		}
+		if len(cells) < required {
+			return Idea{}, &ParseError{Code: "I012_POSITIONAL_ARITY", Message: fmt.Sprintf("shape %s needs >=%d cells, got %d", sym.Shape, required, len(cells)), Line: lineNo}
+		}
+		if len(cells) > len(sym.Contract) {
+			return Idea{}, &ParseError{Code: "I012_POSITIONAL_ARITY", Message: fmt.Sprintf("shape %s expects <=%d cells, got %d", sym.Shape, len(sym.Contract), len(cells)), Line: lineNo}
 		}
 		idea.Cells = cells
 		return idea, nil

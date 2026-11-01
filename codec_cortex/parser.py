@@ -553,6 +553,13 @@ def _parse_idea_line(line: str, section_id: int, doc: Document, line_no: int) ->
                              f"Expected | for shape {shape}", line_no)
         rest = rest[1:]
         cells = _parse_pipe_cells(rest, line_no)
+        required_count = sum(1 for f in sym.contract if f.required)
+        if len(cells) < required_count:
+            raise ParseError("I012_POSITIONAL_ARITY",
+                             f"shape {shape} needs >={required_count} cells, got {len(cells)}", line_no)
+        if len(cells) > len(sym.contract):
+            raise ParseError("I012_POSITIONAL_ARITY",
+                             f"shape {shape} expects <={len(sym.contract)} cells, got {len(cells)}", line_no)
         return Idea(section=section_id, namespace=ns, symbol=sigil, name=name,
                     shape=shape, payload=(shape, cells), source_line=line_no)
     raise ParseError("S999_INTERNAL_PARSE_FAILURE", f"Cannot parse idea: {line!r}", line_no)

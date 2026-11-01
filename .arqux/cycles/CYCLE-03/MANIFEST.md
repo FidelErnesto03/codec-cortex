@@ -9,7 +9,7 @@ project_ref: "CODEC-CORTEX"
 status: "active"
 governor: "alfred"
 created_at: "2026-07-18T16:11:47Z"
-updated_at: "2026-10-04T23:40:49Z"
+updated_at: "2026-11-01T14:55:44Z"
 closed_at: ""
 planned_start: ""
 planned_end: ""
@@ -70,16 +70,17 @@ Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza 
 | CP-02 | Revisión Final | 2026-07-20 | Merge canónico por Jarvis | Nombres canónicos sin versión; suite 0.1 + conformidad + puertos verdes |
 ## §6:
 
-| BLP ID | Título | Estado | Prioridad | Gobernador |
-|---|---|---|---|---|
-| BLP-001 | Auditar (Heimdall) el paquete codec-cortex-0.2-remediation c... | done | medium | alfred |
-| BLP-002 | Abordar las deudas detectadas por la auditoría Heimdall del ... | done | medium | alfred |
-| BLP-003 | Construir y operar un benchmark reproducible con indicadores... | in_progress | medium | alfred |
+| BLP ID | Título | Estado | Prioridad | Objetivo | Gobernador |
+|---|---|---|---|---|---|
+| BLP-001 | Auditar (Heimdall) el paquete codec-cortex-0.2-remediation c... | done | medium | — | alfred |
+| BLP-002 | Abordar las deudas detectadas por la auditoría Heimdall del ... | done | medium | — | alfred |
+| BLP-003 | Construir y operar un benchmark reproducible con indicadores... | in_progress | medium | — | alfred |
+| BLP-004 | Formar e implementar el dialecto CORTEX 1.0: canon normativo... | in_progress | medium | — | Alfred |
 
 ## §7:
 
-**Total Blueprints:** 3 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 1 | **Review:** 0 | **Done:** 2 | **Cancelado:** 0 | **Bloqueado:** 0
-**Progreso:** 67%
+**Total Blueprints:** 4 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 2 | **Review:** 0 | **Done:** 2 | **Cancelado:** 0 | **Bloqueado:** 0
+**Progreso:** 50%
 **Total Tareas:** 2 | **Abiertas:** 1 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 1 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
 
 ## §8:

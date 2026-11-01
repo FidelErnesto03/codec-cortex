@@ -1,0 +1,9 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+DIAG:diagram{type:bloque,weight:M,desc:"Contenido verbatim"}
+$1:DATA
+DIAG:flow{
+@startuml
+parser --> AST
+@enduml
+}
