@@ -12,9 +12,25 @@ const {
   c14nHash,
   runAllTests,
 } = require('../src');
+const crypto = require('node:crypto');
+const { parseV10, canonicalizeV10, renderHCORTEX10, compileHCORTEX10 } = require('../src/v10');
+
+function versionOf(source) {
+  const m = /\$0:format\{[^}]*cortex:"?([0-9.]+)"?/.exec(source);
+  return m ? m[1] : '0.1';
+}
+
+function parseAny(source) {
+  const version = versionOf(source);
+  return version === '0.1' ? parseCortex(source) : parseV10(source, version);
+}
+
+function canonicalizeAny(doc) {
+  return doc.cortex_version === '0.1' ? canonicalize(doc) : canonicalizeV10(doc);
+}
 
 function usage(stream = process.stdout) {
-  stream.write(`codec-cortex-node — CORTEX 0.1 / C14N-0.1 / HCORTEX-0.1\n\n`);
+  stream.write(`codec-cortex-node — CORTEX 0.1 / 1.0 / C14N / HCORTEX\n\n`);
   stream.write(`Uso:\n`);
   stream.write(`  codec-cortex-node parse <archivo.cortex>\n`);
   stream.write(`  codec-cortex-node canonicalize <archivo.cortex> [-o salida]\n`);
@@ -89,23 +105,34 @@ function main(argv = process.argv.slice(2)) {
   try {
     if (command === 'parse') {
       if (!args[0]) throw new Error('Falta el archivo CORTEX.');
-      const doc = parseCortex(readInput(args[0]));
+      const doc = parseAny(readInput(args[0]));
       writeOutput(`${JSON.stringify(doc, astReplacer, 2)}\n`, outputTarget(args));
       return 0;
     }
     if (command === 'canonicalize' || command === 'format') {
       if (!args[0]) throw new Error('Falta el archivo CORTEX.');
-      writeOutput(canonicalize(parseCortex(readInput(args[0]))), outputTarget(args));
+      writeOutput(canonicalizeAny(parseAny(readInput(args[0]))), outputTarget(args));
       return 0;
     }
     if (command === 'to-hcortex') {
       if (!args[0]) throw new Error('Falta el archivo CORTEX.');
-      writeOutput(renderHcortex(parseCortex(readInput(args[0]))), outputTarget(args));
+      const source = readInput(args[0]);
+      const doc = parseAny(source);
+      writeOutput(doc.cortex_version === '0.1' ? renderHcortex(doc) : renderHCORTEX10(doc), outputTarget(args));
       return 0;
     }
     if (command === 'from-hcortex') {
       if (!args[0]) throw new Error('Falta el archivo HCORTEX.');
-      const [doc, diagnostics] = compileHcortex(readInput(args[0]));
+      const text = readInput(args[0]);
+      const envelope = /<!--\s*HCORTEX\s+v=([0-9.]+)/.exec(text);
+      if (envelope && envelope[1] !== '0.1') {
+        const { doc: vdoc, diags } = compileHCORTEX10(text);
+        for (const diag of diags) process.stderr.write(`ERROR ${diag.code}: ${diag.message}\n`);
+        if (!vdoc || diags.length) return 1;
+        writeOutput(canonicalizeV10(vdoc), outputTarget(args));
+        return 0;
+      }
+      const [doc, diagnostics] = compileHcortex(text);
       for (const diag of diagnostics) process.stderr.write(`${diag.severity.toUpperCase()} ${diag.code} line ${diag.line}: ${diag.message}\n`);
       if (!doc || diagnostics.some((diag) => diag.severity === 'error')) return 1;
       writeOutput(canonicalize(doc), outputTarget(args));
@@ -113,8 +140,15 @@ function main(argv = process.argv.slice(2)) {
     }
     if (command === 'hash') {
       if (!args[0]) throw new Error('Falta el archivo CORTEX.');
-      const bytes = Buffer.from(canonicalize(parseCortex(readInput(args[0]))), 'utf8');
-      process.stdout.write(`${c14nHash(bytes)}\n`);
+      const doc = parseAny(readInput(args[0]));
+      const bytes = Buffer.from(canonicalizeAny(doc), 'utf8');
+      if (doc.cortex_version === '0.1') {
+        process.stdout.write(`${c14nHash(bytes)}\n`);
+      } else {
+        const domain = Buffer.from('CORTEX-C14N-0.2', 'utf8');
+        const digest = crypto.createHash('sha256').update(domain).update(Buffer.from([0])).update(bytes).digest('hex');
+        process.stdout.write(`sha256:${digest}\n`);
+      }
       return 0;
     }
     if (command === 'test' || command === 'conformance') return runHarness(args);
