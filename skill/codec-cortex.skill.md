@@ -105,6 +105,11 @@ RUL:err_g{id:"err-g",rule:"G001,G002,G004,G006,G007,G008,G010,G011,G012,G014,G01
 RUL:err_i{id:"err-i",rule:"I001-I016 (incluye I012_POSITIONAL_ARITY estricto en 1.0); slots: I050-I058.",detail:"parser.py / slotparser.py."}
 RUL:err_h{id:"err-h",rule:"H400-H404 doc 0.1, H410-H472 por capa, H401/H403/H481/H490 en 0.2. Perdidas: L401-L405.",detail:"slothcortex.py + spec S8.2."}
 RUL:err_recuperacion{id:"err-recuperacion",rule:"Mapeo error -> correccion: I001 declarar sigilo; G024 agregar focus; G021/G022 agregar fields/pos; I012 ajustar celdas al contrato o corregir contrato; G030 declarar sigil-map antes; I050 quitar ※ de $0; I058 migrar declaracion o quitar ※ estructural; H481 quitar cortex-ast:/base64:/shadow:.",detail:"errors-1.0.md."}
+RUL:err_fix_lexico{id:"err-fix-lexico",rule:"L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; L401-L405 perdidas declaradas -> registrar loss-report conforme a schema.",detail:"errors-1.0.md."}
+RUL:err_fix_sintaxis{id:"err-fix-sintaxis",rule:"S002 seccion duplicada -> renumerar; S005 contenido fuera de seccion -> mover bajo $N; S007 cuerpo sin cierre -> agregar } en linea propia; I004 delimitador incorrecto -> {} para attrs/cuerpo/bloque, || para attrs-pos/relacion.",detail:"errors-1.0.md."}
+RUL:err_fix_glosario{id:"err-fix-glosario",rule:"G010 falta format -> agregar linea 2; G011 encoding no UTF-8 -> corregir; G012 micro sin expand -> agregar expand; G014 enum mal formado -> values:\"a|b|c\"; G023 relacion con <3 campos -> ampliar; G026 %X no declarada -> declarar $0:enum_X; G027 tipo desconocido -> usar any|text|atom|int|dec|bool|null|list|%enum.",detail:"errors-1.0.md."}
+RUL:err_fix_idea{id:"err-fix-idea",rule:"I001 sigilo no declarado -> declarar antes de $1; I005 campo desconocido -> ajustar al contrato o open:true; I006 direccion duplicada -> renombrar nombre; I008 requerido ausente -> agregar celda/campo; I012 aridad -> ajustar celdas a [requeridos, total]; I055 attr nombrado en idea slots -> usar ※N:valor.",detail:"errors-1.0.md."}
+RUL:err_fix_hcortex{id:"err-fix-hcortex",rule:"H400/H401 envelope -> <!-- HCORTEX v=X t=canonical -->; H403 glossary ausente -> regenerar con render (no editar a mano); H481 copia oculta -> quitar cortex-ast:/base64:/shadow:; H490 BOM -> eliminar.",detail:"errors-1.0.md."}
 
 $10: GENERACION:FLOW
 PRC:gen_p1|1|"$0:KERNEL en linea 1"|"un $0 unico"
@@ -167,6 +172,21 @@ $1: KNOW
 KNW:codec{topic:※1:"CORTEX"}
 
 RESULTADO: I058_MIXED_SURFACE_VERSION. Un doc 0.1 no puede tener ※ estructural. Solucion: declarar cortex:1.0 con $0:sigil-map, o quitar el ※.
+}
+EX:cinco_formas{
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:es}
+ATR:attr{type:attrs,weight:M,fields:"name:text|value:text",focus:name,desc:"Forma 1: attrs"}
+POS:posic{type:attrs-pos,weight:M,pos:"step:int|action:text|note:text?",focus:action,desc:"Forma 2: attrs-pos"}
+TXT:body{type:cuerpo,weight:M,desc:"Forma 3: cuerpo"}
+EXM:block{type:bloque,weight:M,desc:"Forma 4: bloque"}
+REL:link{type:relacion,weight:M,pos:"source:text|predicate:text|target:text",focus:predicate,desc:"Forma 5: relacion"}
+$1: DEMO
+ATR:idea{name:"uno",value:"valor simple"}
+POS:idea|1|"hacer algo"|"nota opcional"
+TXT:idea{Texto libre NFC en una linea o multilinea entre braces.}
+EXM:idea{contenido verbatim inline}
+REL:idea|"origen"|"conecta"|"destino"
 }
 EX:migration_cmd{
 python -m codec_cortex.slotmigrate inspect old.cortex
