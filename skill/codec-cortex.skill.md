@@ -119,7 +119,7 @@ RUL:gen_errores{id:"gen-errores",rule:"Errores frecuentes en generacion: I001 (s
 $11: VALIDACION:DATA
 TST:probes{id:"P01-P29",command:"python scripts/ccx_probes.py",result:pass,scope:"0.1/0.2, slots, HCORTEX, migration, I058"}
 TST:conformance{id:"conformance",command:"python -m codec_cortex conformance",result:pass,scope:"Corpus slots manifest: 67/67"}
-TST:certificate{id:"level-A",command:"PYTHONPATH=. python bench/certify.py",result:pass,scope:"D1 70/70, D2 30/30, D3 5/5, D4 70/70, D5 pass"}
+TST:certificate{id:"level-A",command:"PYTHONPATH=. python bench/certify.py",result:pass,scope:"D1 140/140, D2 140/140, D3 5/5, D4 140/140, D5 pass"}
 TST:node{id:"node-tests",command:"node --test codec-cortex-node/test/*.test.js",result:pass,scope:"Paridad Node.js 22/22"}
 TST:vectors_1_0{id:"vectors-1.0",command:"parse corpus conformance/1.0",result:pass,scope:"70 valid + 2 invalid (I012, G007)"}
 RUL:evidencia{id:"evidencia",rule:"No declarar Gate listo, Standard ratificado ni conformidad completa sin evidencia independiente reproducible. Capacidad implementada != capacidad certificada.",detail:"audit.sig Nivel A firmado por auditor independiente."}

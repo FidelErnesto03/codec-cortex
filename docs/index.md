@@ -45,7 +45,7 @@ Codec ideático reversible entre IA y humanos. Dialectos: **CORTEX 0.1** y **COR
 ## Validación
 
 Certificado Nivel A reproducible en CI y firmado por auditor independiente:
-D1 idempotencia 70/70 · D2 roundtrip HCORTEX 0.2 30/30 · D3 paridad
+D1 idempotencia 140/140 · D2 roundtrip HCORTEX 140/140 · D3 paridad
 cross-runtime 5/5 · D4 no-pérdida 70/70 · D5 tamper PASS · D6 contraste
 determinismo CORTEX varianza 0.
 

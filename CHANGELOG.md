@@ -6,6 +6,18 @@ metadatos de cada superficie y en tags de git.
 
 ## [Unreleased] — post-`1.0.0-rc.1` en `main`
 
+### Corregido — roundtrip HCORTEX determinista y verdadero (140/140)
+
+- Glosario slots: `pos` ya no se descarta al renderizar — los sigilos
+  `attrs-pos`/`relacion` conservan su contrato (eliminaba 9 pérdidas en 1.0)
+- Compilador HCORTEX: des-escapado de strings en `_make_scalar` — elimina
+  pérdida silenciosa de `\"` y `\n` sin diagnóstico
+- Ideas `attrs-pos`/`relacion` se reconstruyen en su forma posicional
+  (antes degradaban a `attrs` nombrados); celdas opcionales omitidas ya no
+  se materializan como `null`
+- Certificado D2 extendido a las 3 superficies: **140/140 AST-exactos y
+  140/140 deterministas** (antes solo 30/30 de 0.2, ciego al 79% del corpus)
+
 ### Añadido — BLP-004: dialecto CORTEX 1.0 (draft normativo)
 
 - `docs/standard/CORTEX-SPEC-1.0.md` — canon normativo draft que unifica
