@@ -162,7 +162,18 @@ El dispatcher acepta `cortex:0.1` y `cortex:0.2` en lectura — un doc válido e
 
 Ratificado, 1.0 es inmutable. Evolución: `1.x` aditiva (sigilo/shape/contrato nuevo que nunca invalida docs existentes) o `2.0` (línea de dialecto nueva con migración). Mutación silenciosa del canon = violación del contrato.
 
-## §12 Referencias normativas
+## §12 Normas de autoría (lecciones normativas)
+
+Reglas aprendidas de violaciones reales observadas en el corpus vivo — cada una cita el código de error que la impone:
+
+1. **`|` dentro de una celda va quoted.** `HDL:migrate|a|b|"inspect|plan|apply"` — una celda con `|` interno sin comillas se lee como celdas extra y dispara `I012`. La corrección no es "más celdas", es una celda quoted.
+2. **Dirección de idea única por sección.** `SIGIL:nombre` repetido en la misma sección = `I006_DUPLICATE_IDEA_ADDRESS`. Secuencias (pasos, items) nombran cada elemento: `PRC:p1`, `PRC:p2`.
+3. **Todo sigilo se declara.** Un documento con sigilos no declarados es inválido bajo su propio parser (`I001`) — incluido el corpus de trabajo. El glosario es obligación, no decoración.
+4. **Declarar el dialecto que el documento usa.** La versión describe la gramática del documento, no la del proyecto: sin slots, `cortex:1.0` es la escritura canónica; `cortex:1` no existe (`G007`).
+5. **Densidad ideática.** El contenido normativo vive en ideas tipadas (`RUL`, `API`, `PRC`…), no en cuerpos prosa. `cuerpo` es payload semántico; `bloque` es verbatim (ejemplos, referencias). Un documento que "parsea" pero diluye sus reglas en prosa es conforme y aun así mal formado — la forma también es contrato.
+6. **Una línea por idea, también al serializar.** Escribir strings con newline literal sin escapar rompe la línea de la idea *y* el artefacto que la contiene — los escritores deben escapar o rechazar (`§4.2`).
+
+## §13 Referencias normativas
 
 - Gramática: `docs/grammar/cortex-1.0.ebnf`, `cortex-1.0.abnf`
 - Esquemas: `docs/schemas/ast-schema-1.0.json`, `diagnostic-schema.json`, `loss-report.schema.json`, `hcortex-*.schema.json`
