@@ -17,6 +17,7 @@ pub mod model;
 pub mod parser;
 pub mod scalars;
 pub mod slotparser;
+pub mod v10;
 
 pub use c14n::{canonicalize, canonicalize_in_place};
 pub use error::ParseError;
