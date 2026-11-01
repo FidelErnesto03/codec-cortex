@@ -169,6 +169,7 @@ def d3b_hcortex_render_parity(files: list[Path]) -> dict:
         "go": ["./codec-cortex-go/bin/codec-cortex-linux-amd64", "to-hcortex"],
         "node": ["node", "codec-cortex-node/bin/codec-cortex-node.js", "to-hcortex"],
         "rust": ["./codec-cortex-rs/target/release/cortex", "to-hcortex"],
+        "bash": ["bash", "codec-cortex-bash/bin/codec-cortex", "to-hcortex"],
     }
     details = []
     ok = 0
@@ -196,7 +197,7 @@ def d3b_hcortex_render_parity(files: list[Path]) -> dict:
         "ok": ok,
         "total": len(files),
         "surfaces": sorted(surfaces),
-        "degraded": ["bash"],
+        "degraded": [],
         "details": details,
     }
 

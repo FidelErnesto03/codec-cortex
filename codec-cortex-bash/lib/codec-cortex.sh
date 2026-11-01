@@ -95,7 +95,7 @@ ccx_split_top_level() {
     if ((in_str)); then
       cur+=$ch
       if ((esc)); then esc=0
-      elif [[ $ch == '\\' ]]; then esc=1
+      elif [[ $ch == '\' ]]; then esc=1
       elif [[ $ch == '"' ]]; then in_str=0
       fi
       continue
@@ -171,7 +171,7 @@ ccx_find_top_colon() {
     ch=${s:i:1}
     if ((in_str)); then
       if ((esc)); then esc=0
-      elif [[ $ch == '\\' ]]; then esc=1
+      elif [[ $ch == '\' ]]; then esc=1
       elif [[ $ch == '"' ]]; then in_str=0
       fi
     else
@@ -239,9 +239,31 @@ ccx_scalar_text() {
   esac
 }
 
+ccx_parse_slot_contract() {
+  local s=$1 line=${2:-0} part pos rest name type req out='[]'
+  while IFS= read -r part; do
+    part=$(jq -r '.' <<<"$part"); part=$(ccx_trim "$part")
+    [[ -n $part ]] || { ccx_error G008_INVALID_CONTRACT "Empty slot-contract entry in '$s'" "$line" 0; return; }
+    [[ $part == *=* ]] || { ccx_error G008_INVALID_CONTRACT "Slot entry missing '=': '$part'" "$line" 0; return; }
+    pos=${part%%=*}; rest=${part#*=}; pos=$(ccx_trim "$pos")
+    [[ $pos =~ ^[1-9][0-9]*$ ]] || { ccx_error G008_INVALID_CONTRACT "Invalid slot position '$pos'" "$line" 0; return; }
+    (( pos <= 1000000 )) || { ccx_error I057_SLOT_INDEX_LIMIT "Slot position $pos exceeds max" "$line" 0; return; }
+    req=true
+    if [[ $rest == *'?' ]]; then req=false; rest=${rest%?}; fi
+    if [[ $rest == *:* ]]; then name=${rest%%:*}; type=${rest#*:}; else name=$rest; type=any; fi
+    name=$(ccx_trim "$name"); type=$(ccx_trim "$type")
+    [[ -n $name ]] || { ccx_error G008_INVALID_CONTRACT "Empty slot name in '$part'" "$line" 0; return; }
+    out=$(jq -cn --argjson a "$out" --argjson p "$pos" --arg n "$name" --arg t "$type" --argjson r "$req" '$a+[{name:$n,type:$t,required:$r,position:$p}]')
+  done < <(ccx_split_top_level "$s" '|')
+  jq -e '([.[].position]|length) == ([.[].position]|unique|length)' <<<"$out" >/dev/null || { ccx_error G035_DUPLICATE_SLOT_POSITION 'Duplicate slot position' "$line" 0; return; }
+  jq -e '([.[].name]|length) == ([.[].name]|unique|length)' <<<"$out" >/dev/null || { ccx_error G036_DUPLICATE_SLOT_NAME 'Duplicate slot name' "$line" 0; return; }
+  jq -e '. as $a | ([$a[].position]|sort) == [range(1; ($a|length)+1)]' <<<"$out" >/dev/null || { ccx_error G034_SLOT_CONTRACT_GAP 'Slot positions not contiguous' "$line" 0; return; }
+  printf '%s\n' "$out"
+}
+
 ccx_build_symbol() {
-  local ns=$1 sigil=$2 label=$3 attrs=$4 line=${5:-0}
-  local sv shape weight desc open=false contract='[]' focus fields pos
+  local ns=$1 sigil=$2 label=$3 attrs=$4 line=${5:-0} doc=${6:-}
+  local sv shape weight desc open=false contract='[]' focus fields pos encoding='' 
   sv=$(ccx_attr_last "$attrs" type); [[ -n $sv ]] || { ccx_error G016_SYMBOL_TYPE_REQUIRED "sigil $sigil missing type" "$line" 0; return; }
   shape=$(ccx_scalar_text "$sv")
   case $shape in attrs|attrs-pos|cuerpo|bloque|relacion) ;; *) ccx_error G017_UNKNOWN_SHAPE "Unknown shape: $shape" "$line" 0; return;; esac
@@ -252,7 +274,19 @@ ccx_build_symbol() {
   desc=$(ccx_scalar_text "$sv")
   sv=$(ccx_attr_last "$attrs" open)
   if [[ -n $sv ]]; then [[ $(jq -r '.lexeme' <<<"$sv") == true ]] && open=true; fi
-  if [[ $shape == attrs ]]; then
+  sv=$(ccx_attr_last "$attrs" encoding)
+  if [[ -n $sv ]]; then
+    encoding=$(ccx_scalar_text "$sv")
+    [[ $encoding == slots ]] || { ccx_error G039_ENCODING_SHAPE_MISMATCH "Unknown encoding: $encoding" "$line" 0; return; }
+    case $shape in attrs|attrs-pos|relacion) ;; *) ccx_error G039_ENCODING_SHAPE_MISMATCH "encoding:slots not valid for shape $shape" "$line" 0; return;; esac
+    [[ -n $doc ]] && jq -e '.glossary.sigil_map != null' "$doc" >/dev/null || { ccx_error G030_SIGIL_MAP_REQUIRED "sigil $sigil uses encoding:slots but \$0:sigil-map not yet declared" "$line" 0; return; }
+  fi
+  if [[ $encoding == slots ]]; then
+    sv=$(ccx_attr_last "$attrs" slots); [[ -n $sv ]] || { ccx_error G033_SLOT_CONTRACT_REQUIRED "sigil $sigil with encoding:slots missing slots" "$line" 0; return; }
+    if [[ -n $(ccx_attr_last "$attrs" fields) || -n $(ccx_attr_last "$attrs" pos) ]]; then ccx_error G040_CONTRACT_SURFACE_CONFLICT "sigil $sigil cannot have fields/pos + slots" "$line" 0; return; fi
+    fields=$(ccx_scalar_text "$sv"); contract=$(ccx_parse_slot_contract "$fields" "$line") || return
+    [[ $open != true ]] || { ccx_error G038_SLOTS_OPEN_FORBIDDEN "sigil $sigil slots cannot be open" "$line" 0; return; }
+  elif [[ $shape == attrs ]]; then
     sv=$(ccx_attr_last "$attrs" fields); [[ -n $sv ]] || { ccx_error G021_ATTRS_CONTRACT_REQUIRED "sigil $sigil missing fields" "$line" 0; return; }
     fields=$(ccx_scalar_text "$sv"); contract=$(ccx_parse_contract "$fields") || return
   elif [[ $shape == attrs-pos || $shape == relacion ]]; then
@@ -266,18 +300,23 @@ ccx_build_symbol() {
   else
     focus=$(ccx_scalar_text "$sv")
     if [[ $shape == attrs || $shape == attrs-pos || $shape == relacion ]]; then
-      jq -e --arg f "$focus" 'any(.[];.name==$f)' <<<"$contract" >/dev/null || { ccx_error G025_UNKNOWN_FOCUS_FIELD "focus '$focus' not in contract" "$line" 0; return; }
+      if [[ $encoding == slots ]]; then
+        jq -e --arg f "$focus" 'any(.[];.name==$f)' <<<"$contract" >/dev/null || { ccx_error G037_SLOT_FOCUS_UNRESOLVED "focus '$focus' not in slot contract" "$line" 0; return; }
+        jq -e --arg f "$focus" 'any(.[];.name==$f and .required==true)' <<<"$contract" >/dev/null || { ccx_error G037_SLOT_FOCUS_UNRESOLVED "focus '$focus' must be a required slot" "$line" 0; return; }
+      else
+        jq -e --arg f "$focus" 'any(.[];.name==$f)' <<<"$contract" >/dev/null || { ccx_error G025_UNKNOWN_FOCUS_FIELD "focus '$focus' not in contract" "$line" 0; return; }
+      fi
     fi
   fi
   jq -cn --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" \
-    --arg s "$sigil" --arg l "$label" --arg sh "$shape" --arg w "$weight" --arg f "$focus" --arg d "$desc" \
+    --arg s "$sigil" --arg l "$label" --arg sh "$shape" --arg w "$weight" --arg f "$focus" --arg d "$desc" --arg e "$encoding" \
     --argjson o "$open" --argjson c "$contract" --argjson a "$attrs" --argjson ln "$line" \
-    '{namespace:$ns,sigil:$s,label:$l,shape:$sh,weight:$w,focus:$f,desc:$d,open:$o,contract:$c,attrs:$a,source_line:$ln}'
+    '{namespace:$ns,sigil:$s,label:$l,shape:$sh,weight:$w,focus:$f,desc:$d,open:$o,contract:$c,attrs:$a,encoding:($e|if .=="" then null else . end),source_line:$ln}'
 }
 
 ccx_empty_document() {
   cat <<'JSON'
-{"cortex_version":"0.1","encoding":"UTF-8","glossary":{"format":null,"capa":null,"meta":[],"enums":[],"micros":[],"namespaces":[],"extensions":[],"symbols":[]},"sections":[]}
+{"cortex_version":"0.1","encoding":"UTF-8","glossary":{"format":null,"capa":null,"meta":[],"enums":[],"micros":[],"namespaces":[],"extensions":[],"symbols":[],"sigil_map":null},"sections":[]}
 JSON
 }
 
@@ -294,11 +333,24 @@ ccx_add_meta_decl() {
     format)
       if jq -e '.glossary.format != null' "$doc" >/dev/null; then ccx_error G006_DUPLICATE_FORMAT 'Duplicate $0:format' "$line" 0; return; fi
       sv=$(ccx_attr_last "$attrs" cortex); if [[ -n $sv ]]; then value=$(ccx_scalar_text "$sv"); else value=0.1; fi
-      [[ $value == 0.1 || $value == 1.0 ]] || { ccx_error G007_UNSUPPORTED_VERSION "Unsupported cortex version: $value" "$line" 0; return; }
+      [[ $value == 0.1 || $value == 0.2 || $value == 1.0 ]] || { ccx_error G007_UNSUPPORTED_VERSION "Unsupported cortex version: $value" "$line" 0; return; }
       sv=$(ccx_attr_last "$attrs" encoding); if [[ -n $sv ]]; then ename=$(ccx_scalar_text "$sv"); else ename=UTF-8; fi
       [[ $ename == UTF-8 ]] || { ccx_error G011_ENCODING_REQUIRED "Encoding must be UTF-8: $ename" "$line" 0; return; }
       obj=$(jq -cn --arg c "$value" --arg e "$ename" --argjson a "$attrs" --argjson ln "$line" '{cortex:$c,encoding:$e,attrs:$a,source_line:$ln}')
       ccx_doc_update "$doc" '.glossary.format=$x | .cortex_version=$c' --argjson x "$obj" --arg c "$value"
+      ;;
+    sigil-map)
+      if jq -e '.glossary.sigil_map != null' "$doc" >/dev/null; then ccx_error G031_DUPLICATE_SIGIL_MAP 'More than one $0:sigil-map' "$line" 0; return; fi
+      if jq -e 'any(.glossary.symbols[]; .encoding == "slots")' "$doc" >/dev/null; then ccx_error G041_SIGIL_MAP_ORDER '$0:sigil-map must appear before any sigil with encoding:slots' "$line" 0; return; fi
+      local sm_marker='※' sm_cp='U+203B' sm_base=1 sm_syntax='※N:valor' sm_order='ascending' smv
+      smv=$(ccx_attr_last "$attrs" marker); [[ -n $smv ]] && sm_marker=$(ccx_scalar_text "$smv")
+      smv=$(ccx_attr_last "$attrs" codepoint); [[ -n $smv ]] && sm_cp=$(ccx_scalar_text "$smv")
+      smv=$(ccx_attr_last "$attrs" base); [[ -n $smv ]] && sm_base=$(ccx_scalar_text "$smv")
+      smv=$(ccx_attr_last "$attrs" syntax); [[ -n $smv ]] && sm_syntax=$(ccx_scalar_text "$smv")
+      smv=$(ccx_attr_last "$attrs" order); [[ -n $smv ]] && sm_order=$(ccx_scalar_text "$smv")
+      [[ $sm_marker == '※' && $sm_cp == U+203B && $sm_base == 1 && $sm_syntax == '※N:valor' && $sm_order == ascending ]] || { ccx_error G032_INVALID_SIGIL_MAP 'sigil-map values are not canonical' "$line" 0; return; }
+      obj=$(jq -cn --arg m "$sm_marker" --arg c "$sm_cp" --argjson b "$sm_base" --arg s "$sm_syntax" --arg o "$sm_order" --argjson ln "$line" '{marker:$m,codepoint:$c,base:$b,syntax:$s,order:$o,source_line:$ln}')
+      ccx_doc_update "$doc" '.glossary.sigil_map=$x' --argjson x "$obj"
       ;;
     enum_*)
       ename=${name#enum_}; sv=$(ccx_attr_last "$attrs" values)
@@ -349,7 +401,7 @@ ccx_parse_glossary_decl() {
   fi
   if [[ $head =~ ^([a-z][a-z0-9_.-]*::)?(!|[A-Z][A-Z0-9_]*):(.+)$ ]]; then
     ns=${BASH_REMATCH[1]%::}; sigil=${BASH_REMATCH[2]}; label=${BASH_REMATCH[3]}
-    sym=$(ccx_build_symbol "$ns" "$sigil" "$label" "$attrs" "$line_no") || return
+    sym=$(ccx_build_symbol "$ns" "$sigil" "$label" "$attrs" "$line_no" "$doc") || return
     ccx_doc_update "$doc" '.glossary.symbols += [$x]' --argjson x "$sym"
   else
     ccx_error L001_INVALID_SYMBOL "Invalid sigil declaration head: '$head'" "$line_no" 0
@@ -387,6 +439,42 @@ ccx_find_symbol() {
   jq -c --arg ns "$ns" --arg s "$sigil" '[.glossary.symbols[]|select(.sigil==$s and ((.namespace//"")==$ns))]|first // empty' "$doc"
 }
 
+ccx_parse_slot_idea() {
+  local doc=$1 section_id=$2 line_no=$3 ns=$4 sigil=$5 name=$6 rest=$7
+  local sym contract inner part after idx val scalar fvs='[]' last=0 cf req pos nsp
+  sym=$(ccx_find_symbol "$doc" "$ns" "$sigil")
+  [[ ${rest:0:1} == '{' && ${rest: -1} == '}' ]] || { ccx_error I004_SHAPE_DELIMITER_MISMATCH 'Slot-encoded Idea must be single-line braces' "$line_no" 0; return; }
+  inner=${rest:1:${#rest}-2}
+  if [[ -n $(ccx_trim "$inner") ]]; then
+    while IFS= read -r part; do
+      part=$(jq -r '.' <<<"$part"); part=$(ccx_trim "$part")
+      [[ -n $part ]] || { ccx_error S006_INVALID_ATTRS 'Empty slot entry' "$line_no" 0; return; }
+      if [[ $part == '|'* ]]; then ccx_error I056_PIPE_PAYLOAD_IN_SLOT_IDEA 'Pipe payload not allowed in slot-encoded Idea' "$line_no" 0; return; fi
+      if [[ $part =~ ^[A-Za-z_][A-Za-z0-9_]*: ]]; then ccx_error I055_NAMED_ATTR_IN_SLOT_IDEA 'Named key:value not allowed in slot-encoded Idea' "$line_no" 0; return; fi
+      [[ $part == ※* ]] || { ccx_error L020_INVALID_SLOT_MARKER "Slot marker is not ※" "$line_no" 0; return; }
+      after=${part#※}
+      [[ $after =~ ^([1-9][0-9]*):(.*)$ ]] || { ccx_error L021_INVALID_SLOT_INDEX "Invalid slot index" "$line_no" 0; return; }
+      idx=${BASH_REMATCH[1]}; val=${BASH_REMATCH[2]}
+      (( idx <= 1000000 )) || { ccx_error I057_SLOT_INDEX_LIMIT "Slot index $idx exceeds max" "$line_no" 0; return; }
+      (( idx > last )) || { ccx_error I054_SLOT_OUT_OF_ORDER "slots not in ascending order" "$line_no" 0; return; }
+      last=$idx
+      cf=$(jq -c --argjson i "$idx" '.contract[]|select(.position==$i)' <<<"$sym")
+      [[ -n $cf ]] || { ccx_error I052_UNKNOWN_SLOT "slot ※$idx not declared in contract" "$line_no" 0; return; }
+      scalar=$(ccx_parse_scalar "$val" "$line_no" 0) || return
+      fvs=$(jq -cn --argjson a "$fvs" --argjson p "$idx" --arg n "$(jq -r '.name' <<<"$cf")" --arg t "$(jq -r '.type' <<<"$cf")" --argjson r "$(jq -r '.required' <<<"$cf")" --argjson v "$scalar" '$a+[{position:$p,name:$n,type:$t,required:$r,value:$v}]')
+    done < <(ccx_split_top_level "$inner" ',')
+  fi
+  while IFS= read -r cf; do
+    req=$(jq -r '.required' <<<"$cf"); pos=$(jq -r '.position' <<<"$cf")
+    if [[ $req == true ]] && ! jq -e --argjson p "$pos" 'any(.[];.position==$p)' <<<"$fvs" >/dev/null; then
+      ccx_error I053_MISSING_REQUIRED_SLOT "missing required slot ※$pos" "$line_no" 0; return
+    fi
+  done < <(jq -c '.contract[]' <<<"$sym")
+  nsp=$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)
+  jq -cn --argjson sec "$section_id" --argjson ns "$nsp" --arg s "$sigil" --arg n "$name" --argjson f "$fvs" --argjson ln "$line_no" \
+    '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:"attrs",payload:["slots",$f],source_line:$ln}'
+}
+
 ccx_parse_idea_line() {
   local doc=$1 line_text=$2 section_id=$3 line_no=$4
   local ns sigil name rest sym shape attrs cells inner payload idea nsp
@@ -398,6 +486,10 @@ ccx_parse_idea_line() {
   fi
   sym=$(ccx_find_symbol "$doc" "$ns" "$sigil")
   [[ -n $sym ]] || { ccx_error I001_UNDECLARED_SYMBOL "Undeclared sigil: $sigil" "$line_no" 0; return; }
+  if [[ $(jq -r '.encoding // empty' <<<"$sym") == slots ]]; then
+    ccx_parse_slot_idea "$doc" "$section_id" "$line_no" "$ns" "$sigil" "$name" "$rest"
+    return
+  fi
   shape=$(jq -r '.shape' <<<"$sym")
   nsp=$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)
   case $shape in
@@ -676,9 +768,133 @@ ccx_expand_micro_scalar() {
   printf '%s\n' "$s"
 }
 
+ccx_canonicalize_ast_v10() {
+  local ast=$1 gcapa format attrs sorted entity name val lex token expand alias capa qualified ns sigil label sec title idea head sym contract focus open ftype key pair fv pos isfocus istext first cp marker
+  gcapa=$(jq -r '.glossary.capa // empty' "$ast")
+  if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; else printf '%s\n' '$0'; fi
+  format=$(jq -c '.glossary.format' "$ast")
+  [[ $format != null ]] || { ccx_error G005_FORMAT_REQUIRED 'Missing $0:format' 0 0; return; }
+  attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$format")") || return
+  sorted=$(ccx_sort_attrs_json "$attrs" 'cortex,encoding,language,type')
+  printf '%s' '$0:format'; ccx_emit_glossary_attrs "$sorted"; printf '\n'
+
+  if jq -e 'any(.glossary.symbols[]; .encoding == "slots")' "$ast" >/dev/null; then
+    if [[ $(jq -c '.glossary.sigil_map' "$ast") != null ]]; then
+      marker=$(jq -r '.marker' "$ast" --argjson dummy 0 2>/dev/null || true)
+      marker=$(jq -r '.glossary.sigil_map.marker' "$ast")
+      cp=$(jq -r '.glossary.sigil_map.codepoint' "$ast"); cp=${cp#U+}
+      while ((${#cp}<4)); do cp="0$cp"; done
+      printf '$0:sigil-map{marker:"%s",codepoint:"U+%s",base:%s,syntax:"%s",order:"%s"}\n' \
+        "$marker" "$cp" "$(jq -r '.glossary.sigil_map.base' "$ast")" \
+        "$(jq -r '.glossary.sigil_map.syntax' "$ast")" "$(jq -r '.glossary.sigil_map.order' "$ast")"
+    fi
+  fi
+
+  while IFS= read -r entity; do
+    name=$(jq -r '.name' <<<"$entity")
+    val=$(jq -r '.values|join("|")' <<<"$entity"); val=$(ccx_nfc "$val"); lex=$(ccx_emit_string_literal "$val")
+    printf '$0:enum_%s{values:%s}\n' "$name" "$lex"
+  done < <(jq -c '.glossary.enums|sort_by(.name)[]' "$ast")
+
+  while IFS= read -r entity; do
+    token=$(jq -r '.token' <<<"$entity"); expand=$(ccx_nfc "$(jq -r '.expand' <<<"$entity")")
+    if ccx_atom_regex "$expand"; then lex=$expand; else lex=$(ccx_emit_string_literal "$expand"); fi
+    printf '$0:micro_%s{expand:%s}\n' "$token" "$lex"
+  done < <(jq -c '.glossary.micros|sort_by(.token)[]' "$ast")
+
+  while IFS= read -r entity; do
+    alias=$(jq -r '.alias' <<<"$entity"); attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$entity")"); sorted=$(ccx_sort_attrs_json "$attrs" 'id,uri,version,required,desc')
+    printf '$0:namespace_%s' "$alias"; ccx_emit_glossary_attrs "$sorted"; printf '\n'
+  done < <(jq -c '.glossary.namespaces|sort_by(.alias)[]' "$ast")
+
+  while IFS= read -r entity; do
+    name=$(jq -r '.name' <<<"$entity"); attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$entity")"); sorted=$(ccx_sort_attrs_json "$attrs" 'namespace,id,version,required,desc')
+    printf '$0:extension_%s' "$name"; ccx_emit_glossary_attrs "$sorted"; printf '\n'
+  done < <(jq -c '.glossary.extensions|sort_by(.name)[]' "$ast")
+
+  while IFS= read -r entity; do
+    name=$(jq -r '.name' <<<"$entity"); attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$entity")"); sorted=$(jq -c 'sort_by(.key)' <<<"$attrs"); capa=$(jq -r '.capa // empty' <<<"$entity")
+    printf '$0:%s' "$name"; ccx_emit_glossary_attrs "$sorted"; [[ -n $capa ]] && printf ':%s' "$capa"; printf '\n'
+  done < <(jq -c '.glossary.meta|sort_by(.name)[]' "$ast")
+
+  while IFS= read -r entity; do
+    ns=$(jq -r '.namespace // ""' <<<"$entity"); sigil=$(jq -r '.sigil' <<<"$entity"); label=$(jq -r '.label' <<<"$entity")
+    attrs=$(ccx_nfc_attrs "$(jq -c '.attrs' <<<"$entity")"); sorted=$(ccx_sort_attrs_json "$attrs" 'type,encoding,weight,slots,focus,schema,desc,open,namespace,version')
+    [[ -n $ns ]] && qualified="$ns::$sigil" || qualified=$sigil
+    printf '%s:%s' "$qualified" "$label"; ccx_emit_glossary_attrs "$sorted"; printf '\n'
+  done < <(jq -c '.glossary.symbols|sort_by((.namespace//""),.sigil,.label)[]' "$ast")
+
+  while IFS= read -r sec; do
+    title=$(jq -r '.title // empty' <<<"$sec"); capa=$(jq -r '.capa // empty' <<<"$sec")
+    if [[ -n $title ]]; then title=$(ccx_nfc "$title"); title=$(ccx_trim "$title"); printf '$%s: %s' "$(jq -r '.id' <<<"$sec")" "$title"
+    else printf '$%s' "$(jq -r '.id' <<<"$sec")"; fi
+    [[ -n $capa ]] && printf ':%s' "$capa"; printf '\n'
+    while IFS= read -r idea; do
+      ns=$(jq -r '.namespace // ""' <<<"$idea"); sigil=$(jq -r '.symbol' <<<"$idea"); name=$(jq -r '.name' <<<"$idea")
+      [[ -n $ns ]] && qualified="$ns::$sigil" || qualified=$sigil
+      head="$qualified:$name"
+      sym=$(ccx_symbol_for_idea_json "$ast" "$idea")
+      case $(jq -r '.payload[0]' <<<"$idea") in
+        slots)
+          focus=$(jq -r '.focus' <<<"$sym")
+          first=1; printf '%s{' "$head"
+          while IFS= read -r fv; do
+            pos=$(jq -r '.position' <<<"$fv")
+            val=$(ccx_expand_micro_scalar "$ast" "$(jq -c '.value' <<<"$fv")") || return
+            val=$(ccx_scalar_nfc "$val") || return
+            ftype=$(jq -r --argjson p "$pos" '.contract[]|select(.position==$p)|.type' <<<"$sym")
+            isfocus=false; [[ $ftype == text && $(jq -r --arg f "$focus" '.focus==$f' <<<"$sym") == true && $(jq -r --argjson p "$pos" --arg f "$focus" '.contract[]|select(.position==$p and .name==$f)|.name' <<<"$sym") == "$focus" ]] && isfocus=true
+            istext=false; [[ $ftype == text ]] && istext=true
+            ((first)) || printf ','; first=0
+            printf '※%s:' "$pos"; ccx_emit_scalar_attrs "$val" "$isfocus" "$istext"
+          done < <(jq -c '.payload[1][]' <<<"$idea")
+          printf '}\n'
+          ;;
+        attrs)
+          contract=$(jq -c '.contract' <<<"$sym"); focus=$(jq -r '.focus' <<<"$sym"); open=$(jq -r '.open' <<<"$sym")
+          attrs=$(jq -c '.payload[1]' <<<"$idea"); first=1; printf '%s{' "$head"
+          while IFS= read -r key; do
+            pair=$(jq -c --arg k "$key" '[.[]|select(.key==$k)]|last // empty' <<<"$attrs")
+            [[ -n $pair ]] || continue
+            val=$(ccx_scalar_nfc "$(jq -c '.value' <<<"$pair")") || return
+            ftype=$(jq -r --arg k "$key" '.contract[]|select(.name==$k)|.type' <<<"$sym")
+            ((first)) || printf ','; first=0
+            printf '%s:' "$key"; ccx_emit_scalar_attrs "$val" "$([[ $key == "$focus" && $ftype == text ]] && echo true || echo false)" "$([[ $ftype == text ]] && echo true || echo false)"
+          done < <(jq -r '.contract[].name' <<<"$sym")
+          if [[ $open == true ]]; then
+            while IFS= read -r pair; do
+              key=$(jq -r '.key' <<<"$pair"); val=$(ccx_scalar_nfc "$(jq -c '.value' <<<"$pair")") || return
+              ((first)) || printf ','; first=0
+              printf '%s:' "$key"; ccx_emit_scalar_attrs "$val" false false
+            done < <(jq -c --argjson c "$contract" '[.[]|select(.key as $k|($c|any(.[];.name==$k)|not))]|sort_by(.key)[]' <<<"$attrs")
+          fi
+          printf '}\n'
+          ;;
+        attrs-pos|relacion)
+          printf '%s|' "$head"; first=1
+          while IFS= read -r cell; do
+            val=$(ccx_scalar_nfc "$cell") || return
+            ((first)) || printf '|'; first=0
+            jq -jr '.lexeme' <<<"$val"
+          done < <(jq -c '.payload[1][]' <<<"$idea")
+          printf '\n'
+          ;;
+        cuerpo)
+          text=$(jq -r '.payload[1] + "__CCX_SENTINEL__"' <<<"$idea"); text=${text%__CCX_SENTINEL__}; text=$(ccx_nfc "$text"; printf '__CCX_SENTINEL__'); text=${text%__CCX_SENTINEL__}
+          if [[ $text == *$'\n'* ]]; then printf '%s{\n%s\n}\n' "$head" "$text"; else printf '%s{%s}\n' "$head" "$text"; fi
+          ;;
+        bloque)
+          text=$(jq -r '.payload[1] + "__CCX_SENTINEL__"' <<<"$idea"); text=${text%__CCX_SENTINEL__}; printf '%s{\n%s\n}\n' "$head" "$text"
+          ;;
+      esac
+    done < <(jq -c '.ideas[]' <<<"$sec")
+  done < <(jq -c '.sections[]' "$ast")
+}
+
 ccx_canonicalize_ast() {
   local ast_file=$1 format attrs sorted entity pair name token expand lex qualified sym ns sigil label sec title idea shape head
   local out_pair='' val ftype focus key contract open field existing extras cell idx text part first
+  if [[ $(jq -r '.cortex_version' "$ast_file") != 0.1 ]]; then ccx_canonicalize_ast_v10 "$ast_file"; return; fi
   gcapa=$(jq -r '.glossary.capa // empty' "$ast_file")
   if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; else printf '%s\n' '$0'; fi
   format=$(jq -c '.glossary.format' "$ast_file")
@@ -901,8 +1117,103 @@ ccx_render_idea_hcortex() {
   esac
 }
 
+ccx_render_hcortex_ast_v10() {
+  local ast=$1 version obj ns sigil name q shape sym contract focus attrs first key pair val ftype capa title sec idea text headers row fv pos
+  version=$(jq -r '.cortex_version' "$ast")
+  [[ $version == 0.2 ]] || version=1.0
+  printf '<!-- HCORTEX v=%s t=canonical k=corpus -->\n\n' "$version"
+  printf '<!-- glossary -->\n'
+  gcapa=$(jq -r '.glossary.capa // empty' "$ast"); [[ -n $gcapa ]] && printf '$0:%s\n' "$gcapa"
+  obj=$(jq -c '.glossary.format' "$ast")
+  if [[ $obj != null ]]; then printf '%s' '$0:format'; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"; printf '\n'; fi
+  while IFS= read -r obj; do
+    printf '$0:enum_%s{values:"%s"}\n' "$(jq -r '.name' <<<"$obj")" "$(jq -r '.values|join("|")' <<<"$obj")"
+  done < <(jq -c '.glossary.enums[]' "$ast")
+  while IFS= read -r obj; do
+    text=$(jq -r '.expand' <<<"$obj")
+    if [[ $text == '"'*'"' && ${#text} -ge 2 ]]; then text=${text:1:${#text}-2}; fi
+    if [[ $text == *' '* || -z $text ]]; then printf '$0:micro_%s{expand:"%s"}\n' "$(jq -r '.token' <<<"$obj")" "$text"
+    else printf '$0:micro_%s{expand:%s}\n' "$(jq -r '.token' <<<"$obj")" "$text"; fi
+  done < <(jq -c '.glossary.micros[]' "$ast")
+  while IFS= read -r obj; do printf '$0:namespace_%s' "$(jq -r '.alias' <<<"$obj")"; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"; printf '\n'; done < <(jq -c '.glossary.namespaces[]' "$ast")
+  while IFS= read -r obj; do printf '$0:extension_%s' "$(jq -r '.name' <<<"$obj")"; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"; printf '\n'; done < <(jq -c '.glossary.extensions[]' "$ast")
+  while IFS= read -r obj; do
+    printf '$0:%s' "$(jq -r '.name' <<<"$obj")"; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"
+    capa=$(jq -r '.capa // empty' <<<"$obj"); [[ -n $capa ]] && printf ':%s' "$capa"; printf '\n'
+  done < <(jq -c '.glossary.meta[]' "$ast")
+  if jq -e 'any(.glossary.symbols[]; .encoding == "slots")' "$ast" >/dev/null && [[ $(jq -c '.glossary.sigil_map' "$ast") != null ]]; then
+    local cp; cp=$(jq -r '.glossary.sigil_map.codepoint' "$ast"); cp=${cp#U+}; while ((${#cp}<4)); do cp="0$cp"; done
+    printf '$0:sigil-map{marker:"%s",codepoint:"U+%s",base:%s,syntax:"%s",order:"%s"}\n' \
+      "$(jq -r '.glossary.sigil_map.marker' "$ast")" "$cp" "$(jq -r '.glossary.sigil_map.base' "$ast")" \
+      "$(jq -r '.glossary.sigil_map.syntax' "$ast")" "$(jq -r '.glossary.sigil_map.order' "$ast")"
+  fi
+  while IFS= read -r obj; do
+    ns=$(jq -r '.namespace // ""' <<<"$obj"); sigil=$(jq -r '.sigil' <<<"$obj"); [[ -n $ns ]] && q="$ns::$sigil" || q=$sigil
+    printf '%s:%s' "$q" "$(jq -r '.label' <<<"$obj")"
+    ccx_emit_glossary_attrs "$(jq -c '[.attrs[]|select(.key!="contract")]|reduce .[] as $x ([]; if any(.[];.key==$x.key) then . else .+[$x] end)' <<<"$obj")"
+    printf '\n'
+  done < <(jq -c '.glossary.symbols[]' "$ast")
+  printf '\n<!-- /glossary -->\n\n'
+
+  while IFS= read -r sec; do
+    title=$(jq -r '.title // empty' <<<"$sec"); [[ -n $title ]] || title="Sección $(jq -r '.id' <<<"$sec")"
+    printf '## §%s: %s\n\n' "$(jq -r '.id' <<<"$sec")" "$title"
+    capa=$(jq -r '.capa // empty' <<<"$sec"); [[ -n $capa ]] && printf '<!-- schema:%s capa:%s -->\n' "$(jq -r '.id' <<<"$sec")" "$capa" || printf '<!-- schema:%s -->\n' "$(jq -r '.id' <<<"$sec")"
+    while IFS= read -r idea; do
+      ns=$(jq -r '.namespace // ""' <<<"$idea"); sigil=$(jq -r '.symbol' <<<"$idea"); name=$(jq -r '.name' <<<"$idea")
+      [[ -n $ns ]] && q="$ns::$sigil" || q=$sigil
+      printf '### %s:%s\n' "$q" "$name"
+      sym=$(ccx_symbol_for_idea_json "$ast" "$idea")
+      case $(jq -r '.payload[0]' <<<"$idea") in
+        slots)
+          headers=$(jq -r '[.contract[].name]|join(" | ")' <<<"$sym")
+          row=''; first=1
+          while IFS= read -r key; do
+            pos=$(jq -r --arg k "$key" '.contract[]|select(.name==$k)|.position' <<<"$sym")
+            fv=$(jq -c --argjson p "$pos" '.payload[1][]|select(.position==$p)' <<<"$idea")
+            val=''; [[ -n $fv ]] && val=$(jq -r '.value.lexeme' <<<"$fv")
+            ((first)) || row+=" | "; first=0; row+="$val"
+          done < <(jq -r '.contract[].name' <<<"$sym")
+          printf '| %s |\n|%s\n| %s |\n\n' "$headers" "$(printf '%s' "$(jq -r '[.contract[]|"---"]|join("|")' <<<"$sym")")|" "$row"
+          ;;
+        attrs)
+          attrs=$(jq -c '.payload[1]' <<<"$idea")
+          if [[ $(jq -r '.encoding // empty' <<<"$sym") == slots ]]; then
+            headers=$(jq -r '[.contract[].name]|join(" | ")' <<<"$sym"); row=''; first=1
+            while IFS= read -r key; do
+              pair=$(jq -c --arg k "$key" '[.[]|select(.key==$k)]|last // empty' <<<"$attrs")
+              val=''; [[ -n $pair ]] && val=$(jq -r '.value.lexeme' <<<"$pair")
+              ((first)) || row+=" | "; first=0; row+="$val"
+            done < <(jq -r '.contract[].name' <<<"$sym")
+          else
+            headers=$(jq -r '[.[].key]|join(" | ")' <<<"$attrs"); row=$(jq -r '[.[].value.lexeme]|join(" | ")' <<<"$attrs")
+          fi
+          printf '| %s |\n|%s\n| %s |\n\n' "$headers" "$(printf '%s' "$(jq -r --arg h "$headers" '$h|split(" | ")|map("---")|join("|")' -n)")|" "$row"
+          ;;
+        attrs-pos|relacion)
+          headers=''; row=''
+          while IFS= read -r cell; do
+            idx=$(jq -r '.position // empty' <<<"$cell")
+            [[ -n $row ]] && row+=" | "; row+="$(jq -r '.lexeme' <<<"$cell")"
+          done < <(jq -c '.payload[1][]' <<<"$idea")
+          headers=$(jq -r '[.contract[range(0; (.payload[1]|length))].name]|join(" | ")' <<<"$(jq -cn --argjson s "$sym" --argjson i "$idea" '{contract:$s.contract,payload:$i.payload}')")
+          printf '| %s |\n|%s\n| %s |\n\n' "$headers" "$(printf '%s' "$(jq -r --arg h "$headers" '$h|split(" | ")|map("---")|join("|")' -n)")|" "$row"
+          ;;
+        cuerpo)
+          jq -jr '.payload[1]' <<<"$idea"; printf '\n\n'
+          ;;
+        bloque)
+          printf '```\n'; jq -jr '.payload[1]' <<<"$idea"; printf '\n```\n\n'
+          ;;
+      esac
+    done < <(jq -c '.ideas[]' <<<"$sec")
+    printf '<!-- /schema:%s -->\n\n' "$(jq -r '.id' <<<"$sec")"
+  done < <(jq -c '.sections[]' "$ast")
+}
+
 ccx_render_hcortex_ast() {
   local ast=$1 sec title schema idea
+  if [[ $(jq -r '.cortex_version' "$ast") != 0.1 ]]; then ccx_render_hcortex_ast_v10 "$ast"; return; fi
   printf '%s\n\n' '<!-- HCORTEX v=0.1 t=canonical -->'
   if jq -e '(.glossary.format!=null) or ([.glossary.enums,.glossary.micros,.glossary.namespaces,.glossary.extensions,.glossary.meta,.glossary.symbols]|map(length)|add>0)' "$ast" >/dev/null; then
     ccx_render_glossary "$ast"; printf '\n'
@@ -970,7 +1281,7 @@ ccx_split_hpipe() {
     if ((in_str)); then
       cur+=$ch
       if ((esc)); then esc=0
-      elif [[ $ch == '\\' ]]; then esc=1
+      elif [[ $ch == '\' ]]; then esc=1
       elif [[ $ch == '"' ]]; then in_str=0
       fi
     elif [[ $ch == '"' ]]; then
@@ -1036,8 +1347,172 @@ ccx_compile_idea() {
   jq -cn --argjson sec "$section_id" --argjson ns "$nsp" --arg s "$sigil" --arg n "$name" --arg sh "$shape" --argjson p "$payload" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:$sh,payload:$p,source_line:1}'
 }
 
+ccx_v10_table_rows() {
+  local text=$1 line headers='[]' data='[]' cells part sep found=0 hdr=0
+  while IFS= read -r line; do
+    line=$(ccx_trim "$line")
+    [[ -n $line ]] || continue
+    [[ $line == '|'*'|' ]] || continue
+    inner=${line:1:${#line}-2}
+    cells='[]'
+    while IFS= read -r part; do
+      part=$(jq -r '.' <<<"$part"); part=$(ccx_trim "$part")
+      cells=$(jq -cn --argjson a "$cells" --arg x "$part" '$a+[$x]')
+    done < <(ccx_split_top_level "$inner" '|')
+    if ((hdr==0)); then headers=$cells; hdr=1; continue; fi
+    sep=1
+    while IFS= read -r part; do
+      [[ -z $part || $part =~ ^[-:]+$ ]] || { sep=0; break; }
+    done < <(jq -r '.[]' <<<"$cells")
+    if ((sep)); then continue; fi
+    data=$cells; found=1; break
+  done < <(printf '%s\n' "$text")
+  ((found)) && jq -cn --argjson h "$headers" --argjson d "$data" '{headers:$h,data:$d}' || printf 'null'
+}
+
+ccx_v10_make_cell() {
+  local raw=$1 line=$2
+  if [[ $raw == '['*']' ]]; then ccx_parse_scalar "$raw" "$line" 0; return; fi
+  ccx_classify_raw_cell "$raw" "$line"
+}
+
+ccx_v10_parse_body() {
+  local doc=$1 sec_idx=$2 body=$3 line_no=$4
+  local -a lines=(); local n i j fence=0 line marker q name ns sigil rest sym shape enc table headers data pairs cells key val fv fvs first pos ftype cf text
+  mapfile -t lines <<<"$body"
+  n=${#lines[@]}
+  # markers outside fences
+  local -a mlines=() mq=() mn=()
+  fence=0
+  for ((i=0;i<n;i++)); do
+    line=${lines[i]}
+    if [[ $line == '```'* ]]; then ((fence=!fence)); continue; fi
+    if ((!fence)) && [[ $line =~ ^###\ ([!]?([a-z][a-z0-9_.-]*::)?[!A-Za-z0-9_]+):([A-Za-z0-9_-]+)[[:space:]]*$ ]]; then
+      mlines+=("$i"); mq+=("${BASH_REMATCH[1]}"); mn+=("${BASH_REMATCH[3]}")
+    fi
+  done
+  for ((j=0;j<${#mlines[@]};j++)); do
+    i=${mlines[j]}; q=${mq[j]}; name=${mn[j]}
+    local end=$n; ((j+1<${#mlines[@]})) && end=${mlines[j+1]}
+    rest=$(printf '%s\n' "${lines[@]:i+1:end-i-1}"); rest=$(ccx_trim "$rest")
+    ns=''; sigil=$q
+    if [[ $q == *::* ]]; then ns=${q%%::*}; sigil=${q#*::}; fi
+    sym=$(jq -c --arg ns "$ns" --arg s "$sigil" '[.glossary.symbols[]|select(.sigil==$s and ((.namespace//"")==$ns))]|first // ([.glossary.symbols[]|select(.sigil==$s and .namespace==null)]|first)' "$doc")
+    [[ -n $sym ]] || continue
+    shape=$(jq -r '.shape' <<<"$sym"); enc=$(jq -r '.encoding // empty' <<<"$sym")
+    table=$(ccx_v10_table_rows "$rest")
+    if [[ $table != null && $shape != cuerpo && $shape != bloque ]]; then
+      headers=$(jq -c '.headers' <<<"$table"); data=$(jq -c '.data' <<<"$table")
+      if [[ $enc == slots ]]; then
+        fvs='[]'
+        while IFS= read -r cf; do
+          key=$(jq -r '.name' <<<"$cf"); pos=$(jq -r '.position' <<<"$cf")
+          val=''
+          local hi; hi=$(jq -r --arg k "$key" '.headers|to_entries[]|select(.value==$k)|.key' <<<"$table")
+          [[ -n $hi ]] && val=$(jq -r --argjson i "$hi" '.data[$i] // ""' <<<"$table")
+          if [[ -n $val ]]; then
+            fv=$(ccx_v10_make_cell "$val" "$line_no") || return
+            fvs=$(jq -cn --argjson a "$fvs" --argjson p "$pos" --arg n "$key" --arg t "$(jq -r '.type' <<<"$cf")" --argjson r "$(jq -r '.required' <<<"$cf")" --argjson v "$fv" '$a+[{position:$p,name:$n,type:$t,required:$r,value:$v}]')
+          fi
+        done < <(jq -c '.contract[]' <<<"$sym")
+        if [[ $(jq 'length' <<<"$fvs") -gt 0 ]]; then
+          idea=$(jq -cn --argjson sec "$(jq -r '.sections[-1].id' "$doc")" --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" --arg s "$sigil" --arg n "$name" --argjson f "$fvs" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:"attrs",payload:["slots",$f]}')
+          ccx_doc_update "$doc" '.sections[-1].ideas += [$x]' --argjson x "$idea"
+        fi
+      elif [[ $shape == attrs-pos || $shape == relacion ]]; then
+        cells='[]'
+        while IFS= read -r cf; do
+          key=$(jq -r '.name' <<<"$cf"); req=$(jq -r '.required' <<<"$cf")
+          local hi; hi=$(jq -r --arg k "$key" '.headers|to_entries[]|select(.value==$k)|.key' <<<"$table")
+          val=''; [[ -n $hi ]] && val=$(jq -r --argjson i "$hi" '.data[$i] // ""' <<<"$table")
+          [[ -z $val && $req == false ]] && break
+          fv=$(ccx_v10_make_cell "$val" "$line_no") || return
+          cells=$(jq -cn --argjson a "$cells" --argjson x "$fv" '$a+[$x]')
+        done < <(jq -c '.contract[]' <<<"$sym")
+        idea=$(jq -cn --argjson sec "$(jq -r '.sections[-1].id' "$doc")" --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" --arg s "$sigil" --arg n "$name" --arg sh "$shape" --argjson c "$cells" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:$sh,payload:[$sh,$c]}')
+        ccx_doc_update "$doc" '.sections[-1].ideas += [$x]' --argjson x "$idea"
+      else
+        pairs='[]'
+        local hi hcount
+        hcount=$(jq 'length' <<<"$headers")
+        for ((hi=0;hi<hcount;hi++)); do
+          key=$(jq -r --argjson i "$hi" '.[$i]' <<<"$headers")
+          val=$(jq -r --argjson i "$hi" '.[$i] // ""' <<<"$data")
+          fv=$(ccx_v10_make_cell "$val" "$line_no") || return
+          pairs=$(jq -cn --argjson a "$pairs" --arg k "$key" --argjson v "$fv" '$a+[{key:$k,value:$v}]')
+        done
+        idea=$(jq -cn --argjson sec "$(jq -r '.sections[-1].id' "$doc")" --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" --arg s "$sigil" --arg n "$name" --argjson p "$pairs" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:"attrs",payload:["attrs",$p]}')
+        ccx_doc_update "$doc" '.sections[-1].ideas += [$x]' --argjson x "$idea"
+      fi
+    elif [[ $shape == cuerpo ]]; then
+      idea=$(jq -cn --argjson sec "$(jq -r '.sections[-1].id' "$doc")" --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" --arg s "$sigil" --arg n "$name" --arg x "$rest" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:"cuerpo",payload:["cuerpo",$x]}')
+      ccx_doc_update "$doc" '.sections[-1].ideas += [$x]' --argjson x "$idea"
+    elif [[ $shape == bloque ]]; then
+      text=$(printf '%s\n' "$rest" | sed -n '/^```/{:a;n;/^```/q;p;ba}')
+      idea=$(jq -cn --argjson sec "$(jq -r '.sections[-1].id' "$doc")" --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" --arg s "$sigil" --arg n "$name" --arg x "$text" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:"bloque",payload:["bloque",$x]}')
+      ccx_doc_update "$doc" '.sections[-1].ideas += [$x]' --argjson x "$idea"
+    else
+      idea=$(jq -cn --argjson sec "$(jq -r '.sections[-1].id' "$doc")" --argjson ns "$(if [[ -n $ns ]]; then ccx_json_string "$ns"; else printf null; fi)" --arg s "$sigil" --arg n "$name" --arg sh "$shape" '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:$sh,payload:["attrs",[]]}')
+      ccx_doc_update "$doc" '.sections[-1].ideas += [$x]' --argjson x "$idea"
+    fi
+  done
+}
+
+ccx_compile_hcortex_v10() {
+  local input=$1 output=$2 diag=$3 normalized version gl_file line_no=0
+  local -a lines=(); local n i j fence line sid title capa body
+  local re_head='^## §([0-9]+): (.*)$' re_schema='^<!-- schema:([0-9]+)( capa:([A-Z]+))? -->$' re_close='^<!-- /schema:[0-9]+ -->$'
+  ccx_tmp_init || return; printf '[]\n' >"$diag"
+  local hex; hex=$(od -An -tx1 -N3 "$input" 2>/dev/null | tr -d ' \n')
+  if [[ $hex == efbbbf ]]; then ccx_hdiag_append "$diag" H490 error 'BOM forbidden' 1; return 0; fi
+  normalized="$CCX_TMP_ROOT/v10norm.$RANDOM"; sed 's/\r$//' "$input" | tr '\r' '\n' >"$normalized"
+  if grep -Eq '<!--[[:space:]]*(cortex-ast:|base64:|payload-shadow:|shadow:|ast:|internal:)' "$normalized"; then
+    ccx_hdiag_append "$diag" H481_HIDDEN_COPY error 'HCORTEX contains hidden CORTEX/AST copy' 1; return 0
+  fi
+  version=$(grep -oE '<!-- HCORTEX v=[0-9.]+' "$normalized" | head -1 | sed 's/.*v=//')
+  if [[ -z $version ]]; then ccx_hdiag_append "$diag" H401_MISSING_ENVELOPE error 'Missing or malformed HCORTEX envelope' 1; return 0; fi
+  if [[ $version != 0.2 && $version != 1.0 ]]; then ccx_hdiag_append "$diag" H401_UNSUPPORTED_HCORTEX_VERSION error "Unsupported HCORTEX version: $version" 1; return 0; fi
+  gl_file="$CCX_TMP_ROOT/v10gl.$RANDOM"
+  awk '/^[[:space:]]*<!-- glossary -->[[:space:]]*$/ && !done {f=1;next} /^[[:space:]]*<!-- \/glossary -->[[:space:]]*$/ && f {f=0;done=1;next} f' "$normalized" >"$gl_file"
+  if [[ ! -s $gl_file ]]; then ccx_hdiag_append "$diag" H403_MISSING_GLOSSARY_BLOCK error 'Missing glossary block' 1; return 0; fi
+  ccx_parse_cortex_file "$gl_file" "$output" || return
+  ccx_doc_update "$output" '.cortex_version=$v' --arg v "$version"
+
+  mapfile -t lines <"$normalized"
+  n=${#lines[@]}; i=0; fence=0
+  while ((i<n)); do
+    line=${lines[i]}
+    if [[ $line == '```'* ]]; then ((fence=!fence)); ((i++)); continue; fi
+    if ((!fence)) && [[ $line =~ $re_head ]]; then
+      sid=${BASH_REMATCH[1]}; title=${BASH_REMATCH[2]}
+      if [[ -z $(ccx_trim "${lines[i+1]-}") ]] && [[ ${lines[i+2]-} =~ $re_schema ]]; then
+        capa=${BASH_REMATCH[3]-}
+        j=$((i+3)); local infence=0
+        while ((j<n)); do
+          if [[ ${lines[j]} == '```'* ]]; then ((infence=!infence)); fi
+          if ((!infence)) && [[ ${lines[j]} =~ $re_close ]]; then break; fi
+          ((j++))
+        done
+        if ((j<n)); then
+          local tjson='null'
+          [[ -n $capa ]] && tjson=$(jq -Rn --arg t "$title" '$t') || tjson=$(jq -Rn --arg t "$title" '$t')
+          ccx_doc_update "$output" '.sections += [{id:$id,title:($t|if .==("Sección "+($id|tostring)) then null else . end),capa:($c|if .=="" then null else . end),ideas:[]}]' --argjson id "$sid" --arg t "$title" --arg c "$capa"
+          body=$(printf '%s\n' "${lines[@]:i+3:j-i-3}")
+          ccx_v10_parse_body "$output" 0 "$body" "$((i+3))" || return
+          i=$((j+1)); continue
+        fi
+      fi
+    fi
+    ((i++))
+  done
+  return 0
+}
+
 ccx_compile_hcortex_file() {
   local input=$1 output=$2 diag=$3 normalized hex raw stripped line_no=0 in_glossary=0 found_glossary=0
+  local _envver
+  _envver=$(grep -oE '<!-- HCORTEX v=[0-9.]+' "$input" 2>/dev/null | head -1 | sed 's/.*v=//')
+  if [[ -n $_envver && $_envver != 0.1 ]]; then ccx_compile_hcortex_v10 "$input" "$output" "$diag"; return; fi
   local current_idx=-1 current_id=-1 schema='' in_schema=0 marker_q='' marker_name='' marker_body='' idea title sid
   ccx_tmp_init || return; printf '[]\n' >"$diag"; ccx_empty_document >"$output"
   hex=$(od -An -tx1 -N3 "$input" 2>/dev/null | tr -d ' \n')

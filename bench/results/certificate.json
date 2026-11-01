@@ -1486,14 +1486,13 @@
       "ok": 101,
       "total": 101,
       "surfaces": [
+        "bash",
         "go",
         "node",
         "python",
         "rust"
       ],
-      "degraded": [
-        "bash"
-      ],
+      "degraded": [],
       "details": [
         {
           "file": "conformance/1.0/valid/v10-V001_minimal_attrs.cortex",
@@ -1502,7 +1501,8 @@
             "python": "b5614cd6a110d847f715ab28754c8e05e51f0972ac97d4718314b6671b5beb57",
             "go": "b5614cd6a110d847f715ab28754c8e05e51f0972ac97d4718314b6671b5beb57",
             "node": "b5614cd6a110d847f715ab28754c8e05e51f0972ac97d4718314b6671b5beb57",
-            "rust": "b5614cd6a110d847f715ab28754c8e05e51f0972ac97d4718314b6671b5beb57"
+            "rust": "b5614cd6a110d847f715ab28754c8e05e51f0972ac97d4718314b6671b5beb57",
+            "bash": "b5614cd6a110d847f715ab28754c8e05e51f0972ac97d4718314b6671b5beb57"
           }
         },
         {
@@ -1512,7 +1512,8 @@
             "python": "9c0898101d47b83a8d791a991683320b8e4217af67b9a4d15a7630ce63ac5046",
             "go": "9c0898101d47b83a8d791a991683320b8e4217af67b9a4d15a7630ce63ac5046",
             "node": "9c0898101d47b83a8d791a991683320b8e4217af67b9a4d15a7630ce63ac5046",
-            "rust": "9c0898101d47b83a8d791a991683320b8e4217af67b9a4d15a7630ce63ac5046"
+            "rust": "9c0898101d47b83a8d791a991683320b8e4217af67b9a4d15a7630ce63ac5046",
+            "bash": "9c0898101d47b83a8d791a991683320b8e4217af67b9a4d15a7630ce63ac5046"
           }
         },
         {
@@ -1522,7 +1523,8 @@
             "python": "1e809ca0f11705fe701cf9daef016029d9355f61df087397cb695637a67781fa",
             "go": "1e809ca0f11705fe701cf9daef016029d9355f61df087397cb695637a67781fa",
             "node": "1e809ca0f11705fe701cf9daef016029d9355f61df087397cb695637a67781fa",
-            "rust": "1e809ca0f11705fe701cf9daef016029d9355f61df087397cb695637a67781fa"
+            "rust": "1e809ca0f11705fe701cf9daef016029d9355f61df087397cb695637a67781fa",
+            "bash": "1e809ca0f11705fe701cf9daef016029d9355f61df087397cb695637a67781fa"
           }
         },
         {
@@ -1532,7 +1534,8 @@
             "python": "d679b5753ff39c46776a3cdd66720aa25cfa47a637465f4680811cb82b2d7000",
             "go": "d679b5753ff39c46776a3cdd66720aa25cfa47a637465f4680811cb82b2d7000",
             "node": "d679b5753ff39c46776a3cdd66720aa25cfa47a637465f4680811cb82b2d7000",
-            "rust": "d679b5753ff39c46776a3cdd66720aa25cfa47a637465f4680811cb82b2d7000"
+            "rust": "d679b5753ff39c46776a3cdd66720aa25cfa47a637465f4680811cb82b2d7000",
+            "bash": "d679b5753ff39c46776a3cdd66720aa25cfa47a637465f4680811cb82b2d7000"
           }
         },
         {
@@ -1542,7 +1545,8 @@
             "python": "1ef8cc9a59abc736c87fbf514d06821cd4d7ed9d01321b7aaf97ef3a20c9d050",
             "go": "1ef8cc9a59abc736c87fbf514d06821cd4d7ed9d01321b7aaf97ef3a20c9d050",
             "node": "1ef8cc9a59abc736c87fbf514d06821cd4d7ed9d01321b7aaf97ef3a20c9d050",
-            "rust": "1ef8cc9a59abc736c87fbf514d06821cd4d7ed9d01321b7aaf97ef3a20c9d050"
+            "rust": "1ef8cc9a59abc736c87fbf514d06821cd4d7ed9d01321b7aaf97ef3a20c9d050",
+            "bash": "1ef8cc9a59abc736c87fbf514d06821cd4d7ed9d01321b7aaf97ef3a20c9d050"
           }
         },
         {
@@ -1552,7 +1556,8 @@
             "python": "0ed0ac757ec9dcfb353c0d1a9b949018d244c026b6d4c17acda551174377acfd",
             "go": "0ed0ac757ec9dcfb353c0d1a9b949018d244c026b6d4c17acda551174377acfd",
             "node": "0ed0ac757ec9dcfb353c0d1a9b949018d244c026b6d4c17acda551174377acfd",
-            "rust": "0ed0ac757ec9dcfb353c0d1a9b949018d244c026b6d4c17acda551174377acfd"
+            "rust": "0ed0ac757ec9dcfb353c0d1a9b949018d244c026b6d4c17acda551174377acfd",
+            "bash": "0ed0ac757ec9dcfb353c0d1a9b949018d244c026b6d4c17acda551174377acfd"
           }
         },
         {
@@ -1562,7 +1567,8 @@
             "python": "0759362e0978bf6f1f2a5239c717345cdd70a379496e1f4cb06821afce8d6101",
             "go": "0759362e0978bf6f1f2a5239c717345cdd70a379496e1f4cb06821afce8d6101",
             "node": "0759362e0978bf6f1f2a5239c717345cdd70a379496e1f4cb06821afce8d6101",
-            "rust": "0759362e0978bf6f1f2a5239c717345cdd70a379496e1f4cb06821afce8d6101"
+            "rust": "0759362e0978bf6f1f2a5239c717345cdd70a379496e1f4cb06821afce8d6101",
+            "bash": "0759362e0978bf6f1f2a5239c717345cdd70a379496e1f4cb06821afce8d6101"
           }
         },
         {
@@ -1572,7 +1578,8 @@
             "python": "a933be0c7be56c7a85e2873a4c29b56145cc6b1407bf97cfee46f7b4b3c4555c",
             "go": "a933be0c7be56c7a85e2873a4c29b56145cc6b1407bf97cfee46f7b4b3c4555c",
             "node": "a933be0c7be56c7a85e2873a4c29b56145cc6b1407bf97cfee46f7b4b3c4555c",
-            "rust": "a933be0c7be56c7a85e2873a4c29b56145cc6b1407bf97cfee46f7b4b3c4555c"
+            "rust": "a933be0c7be56c7a85e2873a4c29b56145cc6b1407bf97cfee46f7b4b3c4555c",
+            "bash": "a933be0c7be56c7a85e2873a4c29b56145cc6b1407bf97cfee46f7b4b3c4555c"
           }
         },
         {
@@ -1582,7 +1589,8 @@
             "python": "8cbabb25a37308cccf876daea95ee7aa1adff8c51f97e395a9d861eff33ff00b",
             "go": "8cbabb25a37308cccf876daea95ee7aa1adff8c51f97e395a9d861eff33ff00b",
             "node": "8cbabb25a37308cccf876daea95ee7aa1adff8c51f97e395a9d861eff33ff00b",
-            "rust": "8cbabb25a37308cccf876daea95ee7aa1adff8c51f97e395a9d861eff33ff00b"
+            "rust": "8cbabb25a37308cccf876daea95ee7aa1adff8c51f97e395a9d861eff33ff00b",
+            "bash": "8cbabb25a37308cccf876daea95ee7aa1adff8c51f97e395a9d861eff33ff00b"
           }
         },
         {
@@ -1592,7 +1600,8 @@
             "python": "2f8d9f0e7c37f123e3ef454fdb5658cb5beb90ff7522662ba0a0450375a2d607",
             "go": "2f8d9f0e7c37f123e3ef454fdb5658cb5beb90ff7522662ba0a0450375a2d607",
             "node": "2f8d9f0e7c37f123e3ef454fdb5658cb5beb90ff7522662ba0a0450375a2d607",
-            "rust": "2f8d9f0e7c37f123e3ef454fdb5658cb5beb90ff7522662ba0a0450375a2d607"
+            "rust": "2f8d9f0e7c37f123e3ef454fdb5658cb5beb90ff7522662ba0a0450375a2d607",
+            "bash": "2f8d9f0e7c37f123e3ef454fdb5658cb5beb90ff7522662ba0a0450375a2d607"
           }
         },
         {
@@ -1602,7 +1611,8 @@
             "python": "5c01276ce78b0545502cc91d3d0c026dc07e494b607bb5c87de93952d0679099",
             "go": "5c01276ce78b0545502cc91d3d0c026dc07e494b607bb5c87de93952d0679099",
             "node": "5c01276ce78b0545502cc91d3d0c026dc07e494b607bb5c87de93952d0679099",
-            "rust": "5c01276ce78b0545502cc91d3d0c026dc07e494b607bb5c87de93952d0679099"
+            "rust": "5c01276ce78b0545502cc91d3d0c026dc07e494b607bb5c87de93952d0679099",
+            "bash": "5c01276ce78b0545502cc91d3d0c026dc07e494b607bb5c87de93952d0679099"
           }
         },
         {
@@ -1612,7 +1622,8 @@
             "python": "044ce191a5580478e3ea1a27fb2765b2fdb7536f5e4388f1ade5f42c726b70f6",
             "go": "044ce191a5580478e3ea1a27fb2765b2fdb7536f5e4388f1ade5f42c726b70f6",
             "node": "044ce191a5580478e3ea1a27fb2765b2fdb7536f5e4388f1ade5f42c726b70f6",
-            "rust": "044ce191a5580478e3ea1a27fb2765b2fdb7536f5e4388f1ade5f42c726b70f6"
+            "rust": "044ce191a5580478e3ea1a27fb2765b2fdb7536f5e4388f1ade5f42c726b70f6",
+            "bash": "044ce191a5580478e3ea1a27fb2765b2fdb7536f5e4388f1ade5f42c726b70f6"
           }
         },
         {
@@ -1622,7 +1633,8 @@
             "python": "cb55300be49a86488e26165f47195a97a61f9f62b506c378299594c19931b6ea",
             "go": "cb55300be49a86488e26165f47195a97a61f9f62b506c378299594c19931b6ea",
             "node": "cb55300be49a86488e26165f47195a97a61f9f62b506c378299594c19931b6ea",
-            "rust": "cb55300be49a86488e26165f47195a97a61f9f62b506c378299594c19931b6ea"
+            "rust": "cb55300be49a86488e26165f47195a97a61f9f62b506c378299594c19931b6ea",
+            "bash": "cb55300be49a86488e26165f47195a97a61f9f62b506c378299594c19931b6ea"
           }
         },
         {
@@ -1632,7 +1644,8 @@
             "python": "251934b9299f9acf44f80d2202f14541cda1a43dc6d1ac67fd2f951af60668f1",
             "go": "251934b9299f9acf44f80d2202f14541cda1a43dc6d1ac67fd2f951af60668f1",
             "node": "251934b9299f9acf44f80d2202f14541cda1a43dc6d1ac67fd2f951af60668f1",
-            "rust": "251934b9299f9acf44f80d2202f14541cda1a43dc6d1ac67fd2f951af60668f1"
+            "rust": "251934b9299f9acf44f80d2202f14541cda1a43dc6d1ac67fd2f951af60668f1",
+            "bash": "251934b9299f9acf44f80d2202f14541cda1a43dc6d1ac67fd2f951af60668f1"
           }
         },
         {
@@ -1642,7 +1655,8 @@
             "python": "b2b2f7c6bcccc0fc4cac5412b028c9328257b6caabe328821c88eaa2948243c1",
             "go": "b2b2f7c6bcccc0fc4cac5412b028c9328257b6caabe328821c88eaa2948243c1",
             "node": "b2b2f7c6bcccc0fc4cac5412b028c9328257b6caabe328821c88eaa2948243c1",
-            "rust": "b2b2f7c6bcccc0fc4cac5412b028c9328257b6caabe328821c88eaa2948243c1"
+            "rust": "b2b2f7c6bcccc0fc4cac5412b028c9328257b6caabe328821c88eaa2948243c1",
+            "bash": "b2b2f7c6bcccc0fc4cac5412b028c9328257b6caabe328821c88eaa2948243c1"
           }
         },
         {
@@ -1652,7 +1666,8 @@
             "python": "5671d6bcb77972eaf4713629d14d0bada40ab6aa242617b60f248faccc0ca05d",
             "go": "5671d6bcb77972eaf4713629d14d0bada40ab6aa242617b60f248faccc0ca05d",
             "node": "5671d6bcb77972eaf4713629d14d0bada40ab6aa242617b60f248faccc0ca05d",
-            "rust": "5671d6bcb77972eaf4713629d14d0bada40ab6aa242617b60f248faccc0ca05d"
+            "rust": "5671d6bcb77972eaf4713629d14d0bada40ab6aa242617b60f248faccc0ca05d",
+            "bash": "5671d6bcb77972eaf4713629d14d0bada40ab6aa242617b60f248faccc0ca05d"
           }
         },
         {
@@ -1662,7 +1677,8 @@
             "python": "ba373c23b3004d9344873c9cd57a48433990e4ef4ad8cdce1daff8e6e8b82664",
             "go": "ba373c23b3004d9344873c9cd57a48433990e4ef4ad8cdce1daff8e6e8b82664",
             "node": "ba373c23b3004d9344873c9cd57a48433990e4ef4ad8cdce1daff8e6e8b82664",
-            "rust": "ba373c23b3004d9344873c9cd57a48433990e4ef4ad8cdce1daff8e6e8b82664"
+            "rust": "ba373c23b3004d9344873c9cd57a48433990e4ef4ad8cdce1daff8e6e8b82664",
+            "bash": "ba373c23b3004d9344873c9cd57a48433990e4ef4ad8cdce1daff8e6e8b82664"
           }
         },
         {
@@ -1672,7 +1688,8 @@
             "python": "62895cd7d76cab3ea80b7bcdc86ed8998fc28131ff512da4b1fddc5388c79a5b",
             "go": "62895cd7d76cab3ea80b7bcdc86ed8998fc28131ff512da4b1fddc5388c79a5b",
             "node": "62895cd7d76cab3ea80b7bcdc86ed8998fc28131ff512da4b1fddc5388c79a5b",
-            "rust": "62895cd7d76cab3ea80b7bcdc86ed8998fc28131ff512da4b1fddc5388c79a5b"
+            "rust": "62895cd7d76cab3ea80b7bcdc86ed8998fc28131ff512da4b1fddc5388c79a5b",
+            "bash": "62895cd7d76cab3ea80b7bcdc86ed8998fc28131ff512da4b1fddc5388c79a5b"
           }
         },
         {
@@ -1682,7 +1699,8 @@
             "python": "9f5876743f85107912c31d2e71d8e39cf555a5cd13e1dcb47a2594a7cee965d6",
             "go": "9f5876743f85107912c31d2e71d8e39cf555a5cd13e1dcb47a2594a7cee965d6",
             "node": "9f5876743f85107912c31d2e71d8e39cf555a5cd13e1dcb47a2594a7cee965d6",
-            "rust": "9f5876743f85107912c31d2e71d8e39cf555a5cd13e1dcb47a2594a7cee965d6"
+            "rust": "9f5876743f85107912c31d2e71d8e39cf555a5cd13e1dcb47a2594a7cee965d6",
+            "bash": "9f5876743f85107912c31d2e71d8e39cf555a5cd13e1dcb47a2594a7cee965d6"
           }
         },
         {
@@ -1692,7 +1710,8 @@
             "python": "29487a04f794568ebce8b02784a64fdae66f5b4a0551f05cbf787a39ce69ca8f",
             "go": "29487a04f794568ebce8b02784a64fdae66f5b4a0551f05cbf787a39ce69ca8f",
             "node": "29487a04f794568ebce8b02784a64fdae66f5b4a0551f05cbf787a39ce69ca8f",
-            "rust": "29487a04f794568ebce8b02784a64fdae66f5b4a0551f05cbf787a39ce69ca8f"
+            "rust": "29487a04f794568ebce8b02784a64fdae66f5b4a0551f05cbf787a39ce69ca8f",
+            "bash": "29487a04f794568ebce8b02784a64fdae66f5b4a0551f05cbf787a39ce69ca8f"
           }
         },
         {
@@ -1702,7 +1721,8 @@
             "python": "021f210a2721a27722872ca2ac7e051a2a419231510a4ad4cbe625975a2014e8",
             "go": "021f210a2721a27722872ca2ac7e051a2a419231510a4ad4cbe625975a2014e8",
             "node": "021f210a2721a27722872ca2ac7e051a2a419231510a4ad4cbe625975a2014e8",
-            "rust": "021f210a2721a27722872ca2ac7e051a2a419231510a4ad4cbe625975a2014e8"
+            "rust": "021f210a2721a27722872ca2ac7e051a2a419231510a4ad4cbe625975a2014e8",
+            "bash": "021f210a2721a27722872ca2ac7e051a2a419231510a4ad4cbe625975a2014e8"
           }
         },
         {
@@ -1712,7 +1732,8 @@
             "python": "2b48bd98fef620aeb708f0739b12b1b555ca4f21746d02c249645784b113488b",
             "go": "2b48bd98fef620aeb708f0739b12b1b555ca4f21746d02c249645784b113488b",
             "node": "2b48bd98fef620aeb708f0739b12b1b555ca4f21746d02c249645784b113488b",
-            "rust": "2b48bd98fef620aeb708f0739b12b1b555ca4f21746d02c249645784b113488b"
+            "rust": "2b48bd98fef620aeb708f0739b12b1b555ca4f21746d02c249645784b113488b",
+            "bash": "2b48bd98fef620aeb708f0739b12b1b555ca4f21746d02c249645784b113488b"
           }
         },
         {
@@ -1722,7 +1743,8 @@
             "python": "8b9503010540fbddd8fdda959087b6ed9df46ac37a581d6b68187c9a4a3efc82",
             "go": "8b9503010540fbddd8fdda959087b6ed9df46ac37a581d6b68187c9a4a3efc82",
             "node": "8b9503010540fbddd8fdda959087b6ed9df46ac37a581d6b68187c9a4a3efc82",
-            "rust": "8b9503010540fbddd8fdda959087b6ed9df46ac37a581d6b68187c9a4a3efc82"
+            "rust": "8b9503010540fbddd8fdda959087b6ed9df46ac37a581d6b68187c9a4a3efc82",
+            "bash": "8b9503010540fbddd8fdda959087b6ed9df46ac37a581d6b68187c9a4a3efc82"
           }
         },
         {
@@ -1732,7 +1754,8 @@
             "python": "fa2aba99b643ab68a8f6caebe8bfb6f7e2725feb8875e77a76c1ce85cd41d9bb",
             "go": "fa2aba99b643ab68a8f6caebe8bfb6f7e2725feb8875e77a76c1ce85cd41d9bb",
             "node": "fa2aba99b643ab68a8f6caebe8bfb6f7e2725feb8875e77a76c1ce85cd41d9bb",
-            "rust": "fa2aba99b643ab68a8f6caebe8bfb6f7e2725feb8875e77a76c1ce85cd41d9bb"
+            "rust": "fa2aba99b643ab68a8f6caebe8bfb6f7e2725feb8875e77a76c1ce85cd41d9bb",
+            "bash": "fa2aba99b643ab68a8f6caebe8bfb6f7e2725feb8875e77a76c1ce85cd41d9bb"
           }
         },
         {
@@ -1742,7 +1765,8 @@
             "python": "4196f558a8b92a647ab1b7b1b464f71f8c4d2b10fc5ddec292caa398424a8b5f",
             "go": "4196f558a8b92a647ab1b7b1b464f71f8c4d2b10fc5ddec292caa398424a8b5f",
             "node": "4196f558a8b92a647ab1b7b1b464f71f8c4d2b10fc5ddec292caa398424a8b5f",
-            "rust": "4196f558a8b92a647ab1b7b1b464f71f8c4d2b10fc5ddec292caa398424a8b5f"
+            "rust": "4196f558a8b92a647ab1b7b1b464f71f8c4d2b10fc5ddec292caa398424a8b5f",
+            "bash": "4196f558a8b92a647ab1b7b1b464f71f8c4d2b10fc5ddec292caa398424a8b5f"
           }
         },
         {
@@ -1752,7 +1776,8 @@
             "python": "ffe3a8c20eba81f51e91e689d2dd18e55eb2c494860a30f2a8549357558f47bb",
             "go": "ffe3a8c20eba81f51e91e689d2dd18e55eb2c494860a30f2a8549357558f47bb",
             "node": "ffe3a8c20eba81f51e91e689d2dd18e55eb2c494860a30f2a8549357558f47bb",
-            "rust": "ffe3a8c20eba81f51e91e689d2dd18e55eb2c494860a30f2a8549357558f47bb"
+            "rust": "ffe3a8c20eba81f51e91e689d2dd18e55eb2c494860a30f2a8549357558f47bb",
+            "bash": "ffe3a8c20eba81f51e91e689d2dd18e55eb2c494860a30f2a8549357558f47bb"
           }
         },
         {
@@ -1762,7 +1787,8 @@
             "python": "26b7f423d185fd97038ef5918a02a35bb327ead601ae6e114a2744fb6b15d77a",
             "go": "26b7f423d185fd97038ef5918a02a35bb327ead601ae6e114a2744fb6b15d77a",
             "node": "26b7f423d185fd97038ef5918a02a35bb327ead601ae6e114a2744fb6b15d77a",
-            "rust": "26b7f423d185fd97038ef5918a02a35bb327ead601ae6e114a2744fb6b15d77a"
+            "rust": "26b7f423d185fd97038ef5918a02a35bb327ead601ae6e114a2744fb6b15d77a",
+            "bash": "26b7f423d185fd97038ef5918a02a35bb327ead601ae6e114a2744fb6b15d77a"
           }
         },
         {
@@ -1772,7 +1798,8 @@
             "python": "3cf833f58758b1a36be4191151ee6edc763d304b0469ccef27509232313d603e",
             "go": "3cf833f58758b1a36be4191151ee6edc763d304b0469ccef27509232313d603e",
             "node": "3cf833f58758b1a36be4191151ee6edc763d304b0469ccef27509232313d603e",
-            "rust": "3cf833f58758b1a36be4191151ee6edc763d304b0469ccef27509232313d603e"
+            "rust": "3cf833f58758b1a36be4191151ee6edc763d304b0469ccef27509232313d603e",
+            "bash": "3cf833f58758b1a36be4191151ee6edc763d304b0469ccef27509232313d603e"
           }
         },
         {
@@ -1782,7 +1809,8 @@
             "python": "25d2571b51119b978bbeef40617858e54a99e425b085d31bcb0e48b18ebf73b2",
             "go": "25d2571b51119b978bbeef40617858e54a99e425b085d31bcb0e48b18ebf73b2",
             "node": "25d2571b51119b978bbeef40617858e54a99e425b085d31bcb0e48b18ebf73b2",
-            "rust": "25d2571b51119b978bbeef40617858e54a99e425b085d31bcb0e48b18ebf73b2"
+            "rust": "25d2571b51119b978bbeef40617858e54a99e425b085d31bcb0e48b18ebf73b2",
+            "bash": "25d2571b51119b978bbeef40617858e54a99e425b085d31bcb0e48b18ebf73b2"
           }
         },
         {
@@ -1792,7 +1820,8 @@
             "python": "0d43c0983781379eddea81454bbe91c637ee7ece30756e4c613b246427558ad7",
             "go": "0d43c0983781379eddea81454bbe91c637ee7ece30756e4c613b246427558ad7",
             "node": "0d43c0983781379eddea81454bbe91c637ee7ece30756e4c613b246427558ad7",
-            "rust": "0d43c0983781379eddea81454bbe91c637ee7ece30756e4c613b246427558ad7"
+            "rust": "0d43c0983781379eddea81454bbe91c637ee7ece30756e4c613b246427558ad7",
+            "bash": "0d43c0983781379eddea81454bbe91c637ee7ece30756e4c613b246427558ad7"
           }
         },
         {
@@ -1802,7 +1831,8 @@
             "python": "024a1d81b0cf879a9cf61f1adb1c3c9026eec6fd0c7203f00c6c7d9d315adc30",
             "go": "024a1d81b0cf879a9cf61f1adb1c3c9026eec6fd0c7203f00c6c7d9d315adc30",
             "node": "024a1d81b0cf879a9cf61f1adb1c3c9026eec6fd0c7203f00c6c7d9d315adc30",
-            "rust": "024a1d81b0cf879a9cf61f1adb1c3c9026eec6fd0c7203f00c6c7d9d315adc30"
+            "rust": "024a1d81b0cf879a9cf61f1adb1c3c9026eec6fd0c7203f00c6c7d9d315adc30",
+            "bash": "024a1d81b0cf879a9cf61f1adb1c3c9026eec6fd0c7203f00c6c7d9d315adc30"
           }
         },
         {
@@ -1812,7 +1842,8 @@
             "python": "a2514470208c8e67869a4f6e43ee35d1375b0242796b1acefc269eea97338abb",
             "go": "a2514470208c8e67869a4f6e43ee35d1375b0242796b1acefc269eea97338abb",
             "node": "a2514470208c8e67869a4f6e43ee35d1375b0242796b1acefc269eea97338abb",
-            "rust": "a2514470208c8e67869a4f6e43ee35d1375b0242796b1acefc269eea97338abb"
+            "rust": "a2514470208c8e67869a4f6e43ee35d1375b0242796b1acefc269eea97338abb",
+            "bash": "a2514470208c8e67869a4f6e43ee35d1375b0242796b1acefc269eea97338abb"
           }
         },
         {
@@ -1822,7 +1853,8 @@
             "python": "fa439fe58a84108fbe48654ab420fbb38a8c7dca6dade3b38dc3e7de1715697b",
             "go": "fa439fe58a84108fbe48654ab420fbb38a8c7dca6dade3b38dc3e7de1715697b",
             "node": "fa439fe58a84108fbe48654ab420fbb38a8c7dca6dade3b38dc3e7de1715697b",
-            "rust": "fa439fe58a84108fbe48654ab420fbb38a8c7dca6dade3b38dc3e7de1715697b"
+            "rust": "fa439fe58a84108fbe48654ab420fbb38a8c7dca6dade3b38dc3e7de1715697b",
+            "bash": "fa439fe58a84108fbe48654ab420fbb38a8c7dca6dade3b38dc3e7de1715697b"
           }
         },
         {
@@ -1832,7 +1864,8 @@
             "python": "57116619afbc34ff39d94af4f7c701cc462d01f8326b5bfac49cd40fa55b240d",
             "go": "57116619afbc34ff39d94af4f7c701cc462d01f8326b5bfac49cd40fa55b240d",
             "node": "57116619afbc34ff39d94af4f7c701cc462d01f8326b5bfac49cd40fa55b240d",
-            "rust": "57116619afbc34ff39d94af4f7c701cc462d01f8326b5bfac49cd40fa55b240d"
+            "rust": "57116619afbc34ff39d94af4f7c701cc462d01f8326b5bfac49cd40fa55b240d",
+            "bash": "57116619afbc34ff39d94af4f7c701cc462d01f8326b5bfac49cd40fa55b240d"
           }
         },
         {
@@ -1842,7 +1875,8 @@
             "python": "ae6b62c1ea3b57b6fcb640a9a8327dad5ce8d7be88dd1c2c12d14813aec774ff",
             "go": "ae6b62c1ea3b57b6fcb640a9a8327dad5ce8d7be88dd1c2c12d14813aec774ff",
             "node": "ae6b62c1ea3b57b6fcb640a9a8327dad5ce8d7be88dd1c2c12d14813aec774ff",
-            "rust": "ae6b62c1ea3b57b6fcb640a9a8327dad5ce8d7be88dd1c2c12d14813aec774ff"
+            "rust": "ae6b62c1ea3b57b6fcb640a9a8327dad5ce8d7be88dd1c2c12d14813aec774ff",
+            "bash": "ae6b62c1ea3b57b6fcb640a9a8327dad5ce8d7be88dd1c2c12d14813aec774ff"
           }
         },
         {
@@ -1852,7 +1886,8 @@
             "python": "b83bcddcea1178a293cec52ecac0b7f256badaf9af0e466a04880ba2d292b0fa",
             "go": "b83bcddcea1178a293cec52ecac0b7f256badaf9af0e466a04880ba2d292b0fa",
             "node": "b83bcddcea1178a293cec52ecac0b7f256badaf9af0e466a04880ba2d292b0fa",
-            "rust": "b83bcddcea1178a293cec52ecac0b7f256badaf9af0e466a04880ba2d292b0fa"
+            "rust": "b83bcddcea1178a293cec52ecac0b7f256badaf9af0e466a04880ba2d292b0fa",
+            "bash": "b83bcddcea1178a293cec52ecac0b7f256badaf9af0e466a04880ba2d292b0fa"
           }
         },
         {
@@ -1862,7 +1897,8 @@
             "python": "883acb6f44c17520c266e22f6a1fab656bd7c48ceeb33b90267ed73036b0304a",
             "go": "883acb6f44c17520c266e22f6a1fab656bd7c48ceeb33b90267ed73036b0304a",
             "node": "883acb6f44c17520c266e22f6a1fab656bd7c48ceeb33b90267ed73036b0304a",
-            "rust": "883acb6f44c17520c266e22f6a1fab656bd7c48ceeb33b90267ed73036b0304a"
+            "rust": "883acb6f44c17520c266e22f6a1fab656bd7c48ceeb33b90267ed73036b0304a",
+            "bash": "883acb6f44c17520c266e22f6a1fab656bd7c48ceeb33b90267ed73036b0304a"
           }
         },
         {
@@ -1872,7 +1908,8 @@
             "python": "d7bf281e1e27457d709a9bf1fdffd7654b943fbc69f7f9d2b0a6041af71f8f94",
             "go": "d7bf281e1e27457d709a9bf1fdffd7654b943fbc69f7f9d2b0a6041af71f8f94",
             "node": "d7bf281e1e27457d709a9bf1fdffd7654b943fbc69f7f9d2b0a6041af71f8f94",
-            "rust": "d7bf281e1e27457d709a9bf1fdffd7654b943fbc69f7f9d2b0a6041af71f8f94"
+            "rust": "d7bf281e1e27457d709a9bf1fdffd7654b943fbc69f7f9d2b0a6041af71f8f94",
+            "bash": "d7bf281e1e27457d709a9bf1fdffd7654b943fbc69f7f9d2b0a6041af71f8f94"
           }
         },
         {
@@ -1882,7 +1919,8 @@
             "python": "09503458ff90bd8117af2b29722d51c9d8b853c9d7b631b28dc532611855a9ed",
             "go": "09503458ff90bd8117af2b29722d51c9d8b853c9d7b631b28dc532611855a9ed",
             "node": "09503458ff90bd8117af2b29722d51c9d8b853c9d7b631b28dc532611855a9ed",
-            "rust": "09503458ff90bd8117af2b29722d51c9d8b853c9d7b631b28dc532611855a9ed"
+            "rust": "09503458ff90bd8117af2b29722d51c9d8b853c9d7b631b28dc532611855a9ed",
+            "bash": "09503458ff90bd8117af2b29722d51c9d8b853c9d7b631b28dc532611855a9ed"
           }
         },
         {
@@ -1892,7 +1930,8 @@
             "python": "454f6572b5fbf502a944a2b8bd5e081187591ea51279acde826752548d976a7d",
             "go": "454f6572b5fbf502a944a2b8bd5e081187591ea51279acde826752548d976a7d",
             "node": "454f6572b5fbf502a944a2b8bd5e081187591ea51279acde826752548d976a7d",
-            "rust": "454f6572b5fbf502a944a2b8bd5e081187591ea51279acde826752548d976a7d"
+            "rust": "454f6572b5fbf502a944a2b8bd5e081187591ea51279acde826752548d976a7d",
+            "bash": "454f6572b5fbf502a944a2b8bd5e081187591ea51279acde826752548d976a7d"
           }
         },
         {
@@ -1902,7 +1941,8 @@
             "python": "1b142c9ee44f9e34f507059c03a46eafabd8e8d3b97e97d289c15b95ba075c64",
             "go": "1b142c9ee44f9e34f507059c03a46eafabd8e8d3b97e97d289c15b95ba075c64",
             "node": "1b142c9ee44f9e34f507059c03a46eafabd8e8d3b97e97d289c15b95ba075c64",
-            "rust": "1b142c9ee44f9e34f507059c03a46eafabd8e8d3b97e97d289c15b95ba075c64"
+            "rust": "1b142c9ee44f9e34f507059c03a46eafabd8e8d3b97e97d289c15b95ba075c64",
+            "bash": "1b142c9ee44f9e34f507059c03a46eafabd8e8d3b97e97d289c15b95ba075c64"
           }
         },
         {
@@ -1912,7 +1952,8 @@
             "python": "cf765821270d52d63163a60f02f355b153cf0c6db8c78ad0a18a9418892991fe",
             "go": "cf765821270d52d63163a60f02f355b153cf0c6db8c78ad0a18a9418892991fe",
             "node": "cf765821270d52d63163a60f02f355b153cf0c6db8c78ad0a18a9418892991fe",
-            "rust": "cf765821270d52d63163a60f02f355b153cf0c6db8c78ad0a18a9418892991fe"
+            "rust": "cf765821270d52d63163a60f02f355b153cf0c6db8c78ad0a18a9418892991fe",
+            "bash": "cf765821270d52d63163a60f02f355b153cf0c6db8c78ad0a18a9418892991fe"
           }
         },
         {
@@ -1922,7 +1963,8 @@
             "python": "3e7ae4aa9d106ec457200ebe281fb5120ef43995ec39b8e6aef073ec45896036",
             "go": "3e7ae4aa9d106ec457200ebe281fb5120ef43995ec39b8e6aef073ec45896036",
             "node": "3e7ae4aa9d106ec457200ebe281fb5120ef43995ec39b8e6aef073ec45896036",
-            "rust": "3e7ae4aa9d106ec457200ebe281fb5120ef43995ec39b8e6aef073ec45896036"
+            "rust": "3e7ae4aa9d106ec457200ebe281fb5120ef43995ec39b8e6aef073ec45896036",
+            "bash": "3e7ae4aa9d106ec457200ebe281fb5120ef43995ec39b8e6aef073ec45896036"
           }
         },
         {
@@ -1932,7 +1974,8 @@
             "python": "807e59ee9d260294d5df0102fa9b0425f535da5a71778151ea857fea0a6d5cf2",
             "go": "807e59ee9d260294d5df0102fa9b0425f535da5a71778151ea857fea0a6d5cf2",
             "node": "807e59ee9d260294d5df0102fa9b0425f535da5a71778151ea857fea0a6d5cf2",
-            "rust": "807e59ee9d260294d5df0102fa9b0425f535da5a71778151ea857fea0a6d5cf2"
+            "rust": "807e59ee9d260294d5df0102fa9b0425f535da5a71778151ea857fea0a6d5cf2",
+            "bash": "807e59ee9d260294d5df0102fa9b0425f535da5a71778151ea857fea0a6d5cf2"
           }
         },
         {
@@ -1942,7 +1985,8 @@
             "python": "6a0eeb1633940552f3bab525cfd0aa65852686a2b83872523fe360d754d1e5e8",
             "go": "6a0eeb1633940552f3bab525cfd0aa65852686a2b83872523fe360d754d1e5e8",
             "node": "6a0eeb1633940552f3bab525cfd0aa65852686a2b83872523fe360d754d1e5e8",
-            "rust": "6a0eeb1633940552f3bab525cfd0aa65852686a2b83872523fe360d754d1e5e8"
+            "rust": "6a0eeb1633940552f3bab525cfd0aa65852686a2b83872523fe360d754d1e5e8",
+            "bash": "6a0eeb1633940552f3bab525cfd0aa65852686a2b83872523fe360d754d1e5e8"
           }
         },
         {
@@ -1952,7 +1996,8 @@
             "python": "1c0d5a282e1438175906e586a30b5da4be3152a2eca34efae4dd816f02fc1593",
             "go": "1c0d5a282e1438175906e586a30b5da4be3152a2eca34efae4dd816f02fc1593",
             "node": "1c0d5a282e1438175906e586a30b5da4be3152a2eca34efae4dd816f02fc1593",
-            "rust": "1c0d5a282e1438175906e586a30b5da4be3152a2eca34efae4dd816f02fc1593"
+            "rust": "1c0d5a282e1438175906e586a30b5da4be3152a2eca34efae4dd816f02fc1593",
+            "bash": "1c0d5a282e1438175906e586a30b5da4be3152a2eca34efae4dd816f02fc1593"
           }
         },
         {
@@ -1962,7 +2007,8 @@
             "python": "52dbbcb5d84c31e7358c8465d015230837b95d13073bc1d646c075de7075c957",
             "go": "52dbbcb5d84c31e7358c8465d015230837b95d13073bc1d646c075de7075c957",
             "node": "52dbbcb5d84c31e7358c8465d015230837b95d13073bc1d646c075de7075c957",
-            "rust": "52dbbcb5d84c31e7358c8465d015230837b95d13073bc1d646c075de7075c957"
+            "rust": "52dbbcb5d84c31e7358c8465d015230837b95d13073bc1d646c075de7075c957",
+            "bash": "52dbbcb5d84c31e7358c8465d015230837b95d13073bc1d646c075de7075c957"
           }
         },
         {
@@ -1972,7 +2018,8 @@
             "python": "af1a2788f21416693f29620928a89abec08b0560a2897e3a6a35cdde0d6ed3cb",
             "go": "af1a2788f21416693f29620928a89abec08b0560a2897e3a6a35cdde0d6ed3cb",
             "node": "af1a2788f21416693f29620928a89abec08b0560a2897e3a6a35cdde0d6ed3cb",
-            "rust": "af1a2788f21416693f29620928a89abec08b0560a2897e3a6a35cdde0d6ed3cb"
+            "rust": "af1a2788f21416693f29620928a89abec08b0560a2897e3a6a35cdde0d6ed3cb",
+            "bash": "af1a2788f21416693f29620928a89abec08b0560a2897e3a6a35cdde0d6ed3cb"
           }
         },
         {
@@ -1982,7 +2029,8 @@
             "python": "a3fba5a16107d3f76db5f471ed6e6f8a73abadb0cac7697487663cc875463c75",
             "go": "a3fba5a16107d3f76db5f471ed6e6f8a73abadb0cac7697487663cc875463c75",
             "node": "a3fba5a16107d3f76db5f471ed6e6f8a73abadb0cac7697487663cc875463c75",
-            "rust": "a3fba5a16107d3f76db5f471ed6e6f8a73abadb0cac7697487663cc875463c75"
+            "rust": "a3fba5a16107d3f76db5f471ed6e6f8a73abadb0cac7697487663cc875463c75",
+            "bash": "a3fba5a16107d3f76db5f471ed6e6f8a73abadb0cac7697487663cc875463c75"
           }
         },
         {
@@ -1992,7 +2040,8 @@
             "python": "810c55a77ce3854a65f465224e794e830de3dba8517da019b48ad393d7d4e904",
             "go": "810c55a77ce3854a65f465224e794e830de3dba8517da019b48ad393d7d4e904",
             "node": "810c55a77ce3854a65f465224e794e830de3dba8517da019b48ad393d7d4e904",
-            "rust": "810c55a77ce3854a65f465224e794e830de3dba8517da019b48ad393d7d4e904"
+            "rust": "810c55a77ce3854a65f465224e794e830de3dba8517da019b48ad393d7d4e904",
+            "bash": "810c55a77ce3854a65f465224e794e830de3dba8517da019b48ad393d7d4e904"
           }
         },
         {
@@ -2002,7 +2051,8 @@
             "python": "f77ee641d39192fb9121a513147e2c102dd96631a5fea20da6f4ad010025b877",
             "go": "f77ee641d39192fb9121a513147e2c102dd96631a5fea20da6f4ad010025b877",
             "node": "f77ee641d39192fb9121a513147e2c102dd96631a5fea20da6f4ad010025b877",
-            "rust": "f77ee641d39192fb9121a513147e2c102dd96631a5fea20da6f4ad010025b877"
+            "rust": "f77ee641d39192fb9121a513147e2c102dd96631a5fea20da6f4ad010025b877",
+            "bash": "f77ee641d39192fb9121a513147e2c102dd96631a5fea20da6f4ad010025b877"
           }
         },
         {
@@ -2012,7 +2062,8 @@
             "python": "108e0ef2bc77579729739e7e9c3078c3c8114f83a7119edcfd31f946585d8fa9",
             "go": "108e0ef2bc77579729739e7e9c3078c3c8114f83a7119edcfd31f946585d8fa9",
             "node": "108e0ef2bc77579729739e7e9c3078c3c8114f83a7119edcfd31f946585d8fa9",
-            "rust": "108e0ef2bc77579729739e7e9c3078c3c8114f83a7119edcfd31f946585d8fa9"
+            "rust": "108e0ef2bc77579729739e7e9c3078c3c8114f83a7119edcfd31f946585d8fa9",
+            "bash": "108e0ef2bc77579729739e7e9c3078c3c8114f83a7119edcfd31f946585d8fa9"
           }
         },
         {
@@ -2022,7 +2073,8 @@
             "python": "af9f3f10b634a246e37c64efca1ccbd3d86d19f24ab4dd978ead031aa54072c3",
             "go": "af9f3f10b634a246e37c64efca1ccbd3d86d19f24ab4dd978ead031aa54072c3",
             "node": "af9f3f10b634a246e37c64efca1ccbd3d86d19f24ab4dd978ead031aa54072c3",
-            "rust": "af9f3f10b634a246e37c64efca1ccbd3d86d19f24ab4dd978ead031aa54072c3"
+            "rust": "af9f3f10b634a246e37c64efca1ccbd3d86d19f24ab4dd978ead031aa54072c3",
+            "bash": "af9f3f10b634a246e37c64efca1ccbd3d86d19f24ab4dd978ead031aa54072c3"
           }
         },
         {
@@ -2032,7 +2084,8 @@
             "python": "efe9644ef826ec206977ac861289bf41d81b23c03468f71a703900ef2b845377",
             "go": "efe9644ef826ec206977ac861289bf41d81b23c03468f71a703900ef2b845377",
             "node": "efe9644ef826ec206977ac861289bf41d81b23c03468f71a703900ef2b845377",
-            "rust": "efe9644ef826ec206977ac861289bf41d81b23c03468f71a703900ef2b845377"
+            "rust": "efe9644ef826ec206977ac861289bf41d81b23c03468f71a703900ef2b845377",
+            "bash": "efe9644ef826ec206977ac861289bf41d81b23c03468f71a703900ef2b845377"
           }
         },
         {
@@ -2042,7 +2095,8 @@
             "python": "98cf46cdc18814bb4cadee4e12cb7d2c3b12918d9e04193566efc4f10b85e79a",
             "go": "98cf46cdc18814bb4cadee4e12cb7d2c3b12918d9e04193566efc4f10b85e79a",
             "node": "98cf46cdc18814bb4cadee4e12cb7d2c3b12918d9e04193566efc4f10b85e79a",
-            "rust": "98cf46cdc18814bb4cadee4e12cb7d2c3b12918d9e04193566efc4f10b85e79a"
+            "rust": "98cf46cdc18814bb4cadee4e12cb7d2c3b12918d9e04193566efc4f10b85e79a",
+            "bash": "98cf46cdc18814bb4cadee4e12cb7d2c3b12918d9e04193566efc4f10b85e79a"
           }
         },
         {
@@ -2052,7 +2106,8 @@
             "python": "6d809cddd710e8df1baf59eed3f79cc99d6bcca8fecd4b7a5004a960a8c41762",
             "go": "6d809cddd710e8df1baf59eed3f79cc99d6bcca8fecd4b7a5004a960a8c41762",
             "node": "6d809cddd710e8df1baf59eed3f79cc99d6bcca8fecd4b7a5004a960a8c41762",
-            "rust": "6d809cddd710e8df1baf59eed3f79cc99d6bcca8fecd4b7a5004a960a8c41762"
+            "rust": "6d809cddd710e8df1baf59eed3f79cc99d6bcca8fecd4b7a5004a960a8c41762",
+            "bash": "6d809cddd710e8df1baf59eed3f79cc99d6bcca8fecd4b7a5004a960a8c41762"
           }
         },
         {
@@ -2062,7 +2117,8 @@
             "python": "1672fe871f3b5913537882584ad31c96a96828bb9eaa15d8d9e304ed3868dc99",
             "go": "1672fe871f3b5913537882584ad31c96a96828bb9eaa15d8d9e304ed3868dc99",
             "node": "1672fe871f3b5913537882584ad31c96a96828bb9eaa15d8d9e304ed3868dc99",
-            "rust": "1672fe871f3b5913537882584ad31c96a96828bb9eaa15d8d9e304ed3868dc99"
+            "rust": "1672fe871f3b5913537882584ad31c96a96828bb9eaa15d8d9e304ed3868dc99",
+            "bash": "1672fe871f3b5913537882584ad31c96a96828bb9eaa15d8d9e304ed3868dc99"
           }
         },
         {
@@ -2072,7 +2128,8 @@
             "python": "07b2da5d879ebd4d5ca070974941f354fb44b2b9a273f6230acf7fed9cf69dff",
             "go": "07b2da5d879ebd4d5ca070974941f354fb44b2b9a273f6230acf7fed9cf69dff",
             "node": "07b2da5d879ebd4d5ca070974941f354fb44b2b9a273f6230acf7fed9cf69dff",
-            "rust": "07b2da5d879ebd4d5ca070974941f354fb44b2b9a273f6230acf7fed9cf69dff"
+            "rust": "07b2da5d879ebd4d5ca070974941f354fb44b2b9a273f6230acf7fed9cf69dff",
+            "bash": "07b2da5d879ebd4d5ca070974941f354fb44b2b9a273f6230acf7fed9cf69dff"
           }
         },
         {
@@ -2082,7 +2139,8 @@
             "python": "26f2194edfeea6cada183f18bb165543c8398f8bc793f0549c129d3a2c84cdfd",
             "go": "26f2194edfeea6cada183f18bb165543c8398f8bc793f0549c129d3a2c84cdfd",
             "node": "26f2194edfeea6cada183f18bb165543c8398f8bc793f0549c129d3a2c84cdfd",
-            "rust": "26f2194edfeea6cada183f18bb165543c8398f8bc793f0549c129d3a2c84cdfd"
+            "rust": "26f2194edfeea6cada183f18bb165543c8398f8bc793f0549c129d3a2c84cdfd",
+            "bash": "26f2194edfeea6cada183f18bb165543c8398f8bc793f0549c129d3a2c84cdfd"
           }
         },
         {
@@ -2092,7 +2150,8 @@
             "python": "acfa2a23e31402cf5a333b685aa2396a2cbfd533a1c9afc19a9997aeb947b2da",
             "go": "acfa2a23e31402cf5a333b685aa2396a2cbfd533a1c9afc19a9997aeb947b2da",
             "node": "acfa2a23e31402cf5a333b685aa2396a2cbfd533a1c9afc19a9997aeb947b2da",
-            "rust": "acfa2a23e31402cf5a333b685aa2396a2cbfd533a1c9afc19a9997aeb947b2da"
+            "rust": "acfa2a23e31402cf5a333b685aa2396a2cbfd533a1c9afc19a9997aeb947b2da",
+            "bash": "acfa2a23e31402cf5a333b685aa2396a2cbfd533a1c9afc19a9997aeb947b2da"
           }
         },
         {
@@ -2102,7 +2161,8 @@
             "python": "261c5fb6c0d4c01a7f4d4d7dc43e07b90bf792534915893842d37eb735221e20",
             "go": "261c5fb6c0d4c01a7f4d4d7dc43e07b90bf792534915893842d37eb735221e20",
             "node": "261c5fb6c0d4c01a7f4d4d7dc43e07b90bf792534915893842d37eb735221e20",
-            "rust": "261c5fb6c0d4c01a7f4d4d7dc43e07b90bf792534915893842d37eb735221e20"
+            "rust": "261c5fb6c0d4c01a7f4d4d7dc43e07b90bf792534915893842d37eb735221e20",
+            "bash": "261c5fb6c0d4c01a7f4d4d7dc43e07b90bf792534915893842d37eb735221e20"
           }
         },
         {
@@ -2112,7 +2172,8 @@
             "python": "0ff8b8e9dc89f36a8757aff3b27193855d97b1ff48a53d4d3826600da6a7f6e4",
             "go": "0ff8b8e9dc89f36a8757aff3b27193855d97b1ff48a53d4d3826600da6a7f6e4",
             "node": "0ff8b8e9dc89f36a8757aff3b27193855d97b1ff48a53d4d3826600da6a7f6e4",
-            "rust": "0ff8b8e9dc89f36a8757aff3b27193855d97b1ff48a53d4d3826600da6a7f6e4"
+            "rust": "0ff8b8e9dc89f36a8757aff3b27193855d97b1ff48a53d4d3826600da6a7f6e4",
+            "bash": "0ff8b8e9dc89f36a8757aff3b27193855d97b1ff48a53d4d3826600da6a7f6e4"
           }
         },
         {
@@ -2122,7 +2183,8 @@
             "python": "48269065c46881557904304f0284aa6342bc0175c98e360ca1228e91b5fb9386",
             "go": "48269065c46881557904304f0284aa6342bc0175c98e360ca1228e91b5fb9386",
             "node": "48269065c46881557904304f0284aa6342bc0175c98e360ca1228e91b5fb9386",
-            "rust": "48269065c46881557904304f0284aa6342bc0175c98e360ca1228e91b5fb9386"
+            "rust": "48269065c46881557904304f0284aa6342bc0175c98e360ca1228e91b5fb9386",
+            "bash": "48269065c46881557904304f0284aa6342bc0175c98e360ca1228e91b5fb9386"
           }
         },
         {
@@ -2132,7 +2194,8 @@
             "python": "2692cdcbd4058e8dcdc33071554170fdef368c0120b56a6bdea9e50aa8ace7f4",
             "go": "2692cdcbd4058e8dcdc33071554170fdef368c0120b56a6bdea9e50aa8ace7f4",
             "node": "2692cdcbd4058e8dcdc33071554170fdef368c0120b56a6bdea9e50aa8ace7f4",
-            "rust": "2692cdcbd4058e8dcdc33071554170fdef368c0120b56a6bdea9e50aa8ace7f4"
+            "rust": "2692cdcbd4058e8dcdc33071554170fdef368c0120b56a6bdea9e50aa8ace7f4",
+            "bash": "2692cdcbd4058e8dcdc33071554170fdef368c0120b56a6bdea9e50aa8ace7f4"
           }
         },
         {
@@ -2142,7 +2205,8 @@
             "python": "07ffe03733f421a95dfaa77747859525cbdc3b885244f6a15ef06a1cf109e1c9",
             "go": "07ffe03733f421a95dfaa77747859525cbdc3b885244f6a15ef06a1cf109e1c9",
             "node": "07ffe03733f421a95dfaa77747859525cbdc3b885244f6a15ef06a1cf109e1c9",
-            "rust": "07ffe03733f421a95dfaa77747859525cbdc3b885244f6a15ef06a1cf109e1c9"
+            "rust": "07ffe03733f421a95dfaa77747859525cbdc3b885244f6a15ef06a1cf109e1c9",
+            "bash": "07ffe03733f421a95dfaa77747859525cbdc3b885244f6a15ef06a1cf109e1c9"
           }
         },
         {
@@ -2152,7 +2216,8 @@
             "python": "c6e3d3159693ef6fcc3e45432273a4d5a6df0ca261b1717fc4b4c7f7281320ff",
             "go": "c6e3d3159693ef6fcc3e45432273a4d5a6df0ca261b1717fc4b4c7f7281320ff",
             "node": "c6e3d3159693ef6fcc3e45432273a4d5a6df0ca261b1717fc4b4c7f7281320ff",
-            "rust": "c6e3d3159693ef6fcc3e45432273a4d5a6df0ca261b1717fc4b4c7f7281320ff"
+            "rust": "c6e3d3159693ef6fcc3e45432273a4d5a6df0ca261b1717fc4b4c7f7281320ff",
+            "bash": "c6e3d3159693ef6fcc3e45432273a4d5a6df0ca261b1717fc4b4c7f7281320ff"
           }
         },
         {
@@ -2162,7 +2227,8 @@
             "python": "473bd8d3ba1736d7339c446558ae5687a6de556577f422da0ee376927605f9a2",
             "go": "473bd8d3ba1736d7339c446558ae5687a6de556577f422da0ee376927605f9a2",
             "node": "473bd8d3ba1736d7339c446558ae5687a6de556577f422da0ee376927605f9a2",
-            "rust": "473bd8d3ba1736d7339c446558ae5687a6de556577f422da0ee376927605f9a2"
+            "rust": "473bd8d3ba1736d7339c446558ae5687a6de556577f422da0ee376927605f9a2",
+            "bash": "473bd8d3ba1736d7339c446558ae5687a6de556577f422da0ee376927605f9a2"
           }
         },
         {
@@ -2172,7 +2238,8 @@
             "python": "2eee6447ba0754525dc50bd7740736e3d4e13c41b89e6cb9ca2528c9d98a74b1",
             "go": "2eee6447ba0754525dc50bd7740736e3d4e13c41b89e6cb9ca2528c9d98a74b1",
             "node": "2eee6447ba0754525dc50bd7740736e3d4e13c41b89e6cb9ca2528c9d98a74b1",
-            "rust": "2eee6447ba0754525dc50bd7740736e3d4e13c41b89e6cb9ca2528c9d98a74b1"
+            "rust": "2eee6447ba0754525dc50bd7740736e3d4e13c41b89e6cb9ca2528c9d98a74b1",
+            "bash": "2eee6447ba0754525dc50bd7740736e3d4e13c41b89e6cb9ca2528c9d98a74b1"
           }
         },
         {
@@ -2182,7 +2249,8 @@
             "python": "371515b9e765a74e7c07110381515b208cebfd8ff59ede18e1be125e672f1952",
             "go": "371515b9e765a74e7c07110381515b208cebfd8ff59ede18e1be125e672f1952",
             "node": "371515b9e765a74e7c07110381515b208cebfd8ff59ede18e1be125e672f1952",
-            "rust": "371515b9e765a74e7c07110381515b208cebfd8ff59ede18e1be125e672f1952"
+            "rust": "371515b9e765a74e7c07110381515b208cebfd8ff59ede18e1be125e672f1952",
+            "bash": "371515b9e765a74e7c07110381515b208cebfd8ff59ede18e1be125e672f1952"
           }
         },
         {
@@ -2192,7 +2260,8 @@
             "python": "152d119d7ef2567126f949f8e48e582673a31d006406db9e3bc0d9d9e463dbf9",
             "go": "152d119d7ef2567126f949f8e48e582673a31d006406db9e3bc0d9d9e463dbf9",
             "node": "152d119d7ef2567126f949f8e48e582673a31d006406db9e3bc0d9d9e463dbf9",
-            "rust": "152d119d7ef2567126f949f8e48e582673a31d006406db9e3bc0d9d9e463dbf9"
+            "rust": "152d119d7ef2567126f949f8e48e582673a31d006406db9e3bc0d9d9e463dbf9",
+            "bash": "152d119d7ef2567126f949f8e48e582673a31d006406db9e3bc0d9d9e463dbf9"
           }
         },
         {
@@ -2202,7 +2271,8 @@
             "python": "fa4d3aad65c3284dac368b56e0c54c62661ca542a267f6afa7d1cdb4767e3467",
             "go": "fa4d3aad65c3284dac368b56e0c54c62661ca542a267f6afa7d1cdb4767e3467",
             "node": "fa4d3aad65c3284dac368b56e0c54c62661ca542a267f6afa7d1cdb4767e3467",
-            "rust": "fa4d3aad65c3284dac368b56e0c54c62661ca542a267f6afa7d1cdb4767e3467"
+            "rust": "fa4d3aad65c3284dac368b56e0c54c62661ca542a267f6afa7d1cdb4767e3467",
+            "bash": "fa4d3aad65c3284dac368b56e0c54c62661ca542a267f6afa7d1cdb4767e3467"
           }
         },
         {
@@ -2212,7 +2282,8 @@
             "python": "9fcdcf6ebafd33376bb9380f2dc6780e9ad5cf9c02d4ec3ccf7c22f63d893eb8",
             "go": "9fcdcf6ebafd33376bb9380f2dc6780e9ad5cf9c02d4ec3ccf7c22f63d893eb8",
             "node": "9fcdcf6ebafd33376bb9380f2dc6780e9ad5cf9c02d4ec3ccf7c22f63d893eb8",
-            "rust": "9fcdcf6ebafd33376bb9380f2dc6780e9ad5cf9c02d4ec3ccf7c22f63d893eb8"
+            "rust": "9fcdcf6ebafd33376bb9380f2dc6780e9ad5cf9c02d4ec3ccf7c22f63d893eb8",
+            "bash": "9fcdcf6ebafd33376bb9380f2dc6780e9ad5cf9c02d4ec3ccf7c22f63d893eb8"
           }
         },
         {
@@ -2222,7 +2293,8 @@
             "python": "fe0ad35c75dab603659e962ad3f29eb3ef3d542fb5688bf38e5c932e9956c25b",
             "go": "fe0ad35c75dab603659e962ad3f29eb3ef3d542fb5688bf38e5c932e9956c25b",
             "node": "fe0ad35c75dab603659e962ad3f29eb3ef3d542fb5688bf38e5c932e9956c25b",
-            "rust": "fe0ad35c75dab603659e962ad3f29eb3ef3d542fb5688bf38e5c932e9956c25b"
+            "rust": "fe0ad35c75dab603659e962ad3f29eb3ef3d542fb5688bf38e5c932e9956c25b",
+            "bash": "fe0ad35c75dab603659e962ad3f29eb3ef3d542fb5688bf38e5c932e9956c25b"
           }
         },
         {
@@ -2232,7 +2304,8 @@
             "python": "e28335a7fc6c8b6d44d4189e46dd5763deed80947e81c458c064b2543cd69b78",
             "go": "e28335a7fc6c8b6d44d4189e46dd5763deed80947e81c458c064b2543cd69b78",
             "node": "e28335a7fc6c8b6d44d4189e46dd5763deed80947e81c458c064b2543cd69b78",
-            "rust": "e28335a7fc6c8b6d44d4189e46dd5763deed80947e81c458c064b2543cd69b78"
+            "rust": "e28335a7fc6c8b6d44d4189e46dd5763deed80947e81c458c064b2543cd69b78",
+            "bash": "e28335a7fc6c8b6d44d4189e46dd5763deed80947e81c458c064b2543cd69b78"
           }
         },
         {
@@ -2242,7 +2315,8 @@
             "python": "45669fcec88ef1ed58b55b7bdc00d64bb99ce4fc8e27c7b1e51a1ea9ed3e8b9c",
             "go": "45669fcec88ef1ed58b55b7bdc00d64bb99ce4fc8e27c7b1e51a1ea9ed3e8b9c",
             "node": "45669fcec88ef1ed58b55b7bdc00d64bb99ce4fc8e27c7b1e51a1ea9ed3e8b9c",
-            "rust": "45669fcec88ef1ed58b55b7bdc00d64bb99ce4fc8e27c7b1e51a1ea9ed3e8b9c"
+            "rust": "45669fcec88ef1ed58b55b7bdc00d64bb99ce4fc8e27c7b1e51a1ea9ed3e8b9c",
+            "bash": "45669fcec88ef1ed58b55b7bdc00d64bb99ce4fc8e27c7b1e51a1ea9ed3e8b9c"
           }
         },
         {
@@ -2252,7 +2326,8 @@
             "python": "97a9dc9e97bd0085a536938a0e454d918649269195c31ef601745ccc1f32c40d",
             "go": "97a9dc9e97bd0085a536938a0e454d918649269195c31ef601745ccc1f32c40d",
             "node": "97a9dc9e97bd0085a536938a0e454d918649269195c31ef601745ccc1f32c40d",
-            "rust": "97a9dc9e97bd0085a536938a0e454d918649269195c31ef601745ccc1f32c40d"
+            "rust": "97a9dc9e97bd0085a536938a0e454d918649269195c31ef601745ccc1f32c40d",
+            "bash": "97a9dc9e97bd0085a536938a0e454d918649269195c31ef601745ccc1f32c40d"
           }
         },
         {
@@ -2262,7 +2337,8 @@
             "python": "625dd71f929a87b9c41d68bdf9d13539a0606dafb278aa85a77ef305d2d8651b",
             "go": "625dd71f929a87b9c41d68bdf9d13539a0606dafb278aa85a77ef305d2d8651b",
             "node": "625dd71f929a87b9c41d68bdf9d13539a0606dafb278aa85a77ef305d2d8651b",
-            "rust": "625dd71f929a87b9c41d68bdf9d13539a0606dafb278aa85a77ef305d2d8651b"
+            "rust": "625dd71f929a87b9c41d68bdf9d13539a0606dafb278aa85a77ef305d2d8651b",
+            "bash": "625dd71f929a87b9c41d68bdf9d13539a0606dafb278aa85a77ef305d2d8651b"
           }
         },
         {
@@ -2272,7 +2348,8 @@
             "python": "ec44c2ef3bf343b07a7f6f194bcc0ed3b3914004cf12c0fe27dbe44691e8a8a6",
             "go": "ec44c2ef3bf343b07a7f6f194bcc0ed3b3914004cf12c0fe27dbe44691e8a8a6",
             "node": "ec44c2ef3bf343b07a7f6f194bcc0ed3b3914004cf12c0fe27dbe44691e8a8a6",
-            "rust": "ec44c2ef3bf343b07a7f6f194bcc0ed3b3914004cf12c0fe27dbe44691e8a8a6"
+            "rust": "ec44c2ef3bf343b07a7f6f194bcc0ed3b3914004cf12c0fe27dbe44691e8a8a6",
+            "bash": "ec44c2ef3bf343b07a7f6f194bcc0ed3b3914004cf12c0fe27dbe44691e8a8a6"
           }
         },
         {
@@ -2282,7 +2359,8 @@
             "python": "42a11d94c37e2c37cc22b852ec52dbe19b643fa31b8b12cb6accb67d46aff2b8",
             "go": "42a11d94c37e2c37cc22b852ec52dbe19b643fa31b8b12cb6accb67d46aff2b8",
             "node": "42a11d94c37e2c37cc22b852ec52dbe19b643fa31b8b12cb6accb67d46aff2b8",
-            "rust": "42a11d94c37e2c37cc22b852ec52dbe19b643fa31b8b12cb6accb67d46aff2b8"
+            "rust": "42a11d94c37e2c37cc22b852ec52dbe19b643fa31b8b12cb6accb67d46aff2b8",
+            "bash": "42a11d94c37e2c37cc22b852ec52dbe19b643fa31b8b12cb6accb67d46aff2b8"
           }
         },
         {
@@ -2292,7 +2370,8 @@
             "python": "1ce52be8ce6aff114a6754d2b45204b3c51e95b2b7ccdd296437941169845baa",
             "go": "1ce52be8ce6aff114a6754d2b45204b3c51e95b2b7ccdd296437941169845baa",
             "node": "1ce52be8ce6aff114a6754d2b45204b3c51e95b2b7ccdd296437941169845baa",
-            "rust": "1ce52be8ce6aff114a6754d2b45204b3c51e95b2b7ccdd296437941169845baa"
+            "rust": "1ce52be8ce6aff114a6754d2b45204b3c51e95b2b7ccdd296437941169845baa",
+            "bash": "1ce52be8ce6aff114a6754d2b45204b3c51e95b2b7ccdd296437941169845baa"
           }
         },
         {
@@ -2302,7 +2381,8 @@
             "python": "036404f81eee84dd8f89315f000e229a8bf0deaec9ec726256d333a98045aa71",
             "go": "036404f81eee84dd8f89315f000e229a8bf0deaec9ec726256d333a98045aa71",
             "node": "036404f81eee84dd8f89315f000e229a8bf0deaec9ec726256d333a98045aa71",
-            "rust": "036404f81eee84dd8f89315f000e229a8bf0deaec9ec726256d333a98045aa71"
+            "rust": "036404f81eee84dd8f89315f000e229a8bf0deaec9ec726256d333a98045aa71",
+            "bash": "036404f81eee84dd8f89315f000e229a8bf0deaec9ec726256d333a98045aa71"
           }
         },
         {
@@ -2312,7 +2392,8 @@
             "python": "2e86fb73250b3dee08c5d871afcc532a3c527ea88e0d7df0a084a9b0f78eeaa1",
             "go": "2e86fb73250b3dee08c5d871afcc532a3c527ea88e0d7df0a084a9b0f78eeaa1",
             "node": "2e86fb73250b3dee08c5d871afcc532a3c527ea88e0d7df0a084a9b0f78eeaa1",
-            "rust": "2e86fb73250b3dee08c5d871afcc532a3c527ea88e0d7df0a084a9b0f78eeaa1"
+            "rust": "2e86fb73250b3dee08c5d871afcc532a3c527ea88e0d7df0a084a9b0f78eeaa1",
+            "bash": "2e86fb73250b3dee08c5d871afcc532a3c527ea88e0d7df0a084a9b0f78eeaa1"
           }
         },
         {
@@ -2322,7 +2403,8 @@
             "python": "3365667358fe88f2b68bc37ecca09fa6069564a2f18031ae1a3979754518326a",
             "go": "3365667358fe88f2b68bc37ecca09fa6069564a2f18031ae1a3979754518326a",
             "node": "3365667358fe88f2b68bc37ecca09fa6069564a2f18031ae1a3979754518326a",
-            "rust": "3365667358fe88f2b68bc37ecca09fa6069564a2f18031ae1a3979754518326a"
+            "rust": "3365667358fe88f2b68bc37ecca09fa6069564a2f18031ae1a3979754518326a",
+            "bash": "3365667358fe88f2b68bc37ecca09fa6069564a2f18031ae1a3979754518326a"
           }
         },
         {
@@ -2332,7 +2414,8 @@
             "python": "bb715b300795ee1b28b50ef54842cd142629dadf5a3d765a3267f2b2bb5c9645",
             "go": "bb715b300795ee1b28b50ef54842cd142629dadf5a3d765a3267f2b2bb5c9645",
             "node": "bb715b300795ee1b28b50ef54842cd142629dadf5a3d765a3267f2b2bb5c9645",
-            "rust": "bb715b300795ee1b28b50ef54842cd142629dadf5a3d765a3267f2b2bb5c9645"
+            "rust": "bb715b300795ee1b28b50ef54842cd142629dadf5a3d765a3267f2b2bb5c9645",
+            "bash": "bb715b300795ee1b28b50ef54842cd142629dadf5a3d765a3267f2b2bb5c9645"
           }
         },
         {
@@ -2342,7 +2425,8 @@
             "python": "7589babe65427162ae5923e423cf870355b3bfaf5f62897d4e68ff50505dec89",
             "go": "7589babe65427162ae5923e423cf870355b3bfaf5f62897d4e68ff50505dec89",
             "node": "7589babe65427162ae5923e423cf870355b3bfaf5f62897d4e68ff50505dec89",
-            "rust": "7589babe65427162ae5923e423cf870355b3bfaf5f62897d4e68ff50505dec89"
+            "rust": "7589babe65427162ae5923e423cf870355b3bfaf5f62897d4e68ff50505dec89",
+            "bash": "7589babe65427162ae5923e423cf870355b3bfaf5f62897d4e68ff50505dec89"
           }
         },
         {
@@ -2352,7 +2436,8 @@
             "python": "a60bae789afcadb2cef5d99c30e63b02ed6169a2e0832e5186a80138a366d8b0",
             "go": "a60bae789afcadb2cef5d99c30e63b02ed6169a2e0832e5186a80138a366d8b0",
             "node": "a60bae789afcadb2cef5d99c30e63b02ed6169a2e0832e5186a80138a366d8b0",
-            "rust": "a60bae789afcadb2cef5d99c30e63b02ed6169a2e0832e5186a80138a366d8b0"
+            "rust": "a60bae789afcadb2cef5d99c30e63b02ed6169a2e0832e5186a80138a366d8b0",
+            "bash": "a60bae789afcadb2cef5d99c30e63b02ed6169a2e0832e5186a80138a366d8b0"
           }
         },
         {
@@ -2362,7 +2447,8 @@
             "python": "ab7c9d7771667808812731128d174a21a96518a7ab295fcba6455ec6425bfad1",
             "go": "ab7c9d7771667808812731128d174a21a96518a7ab295fcba6455ec6425bfad1",
             "node": "ab7c9d7771667808812731128d174a21a96518a7ab295fcba6455ec6425bfad1",
-            "rust": "ab7c9d7771667808812731128d174a21a96518a7ab295fcba6455ec6425bfad1"
+            "rust": "ab7c9d7771667808812731128d174a21a96518a7ab295fcba6455ec6425bfad1",
+            "bash": "ab7c9d7771667808812731128d174a21a96518a7ab295fcba6455ec6425bfad1"
           }
         },
         {
@@ -2372,7 +2458,8 @@
             "python": "aea9c3dbed574d99240fec629d6e891dbbef2e6bfc80f6a75d4c29971e56fe47",
             "go": "aea9c3dbed574d99240fec629d6e891dbbef2e6bfc80f6a75d4c29971e56fe47",
             "node": "aea9c3dbed574d99240fec629d6e891dbbef2e6bfc80f6a75d4c29971e56fe47",
-            "rust": "aea9c3dbed574d99240fec629d6e891dbbef2e6bfc80f6a75d4c29971e56fe47"
+            "rust": "aea9c3dbed574d99240fec629d6e891dbbef2e6bfc80f6a75d4c29971e56fe47",
+            "bash": "aea9c3dbed574d99240fec629d6e891dbbef2e6bfc80f6a75d4c29971e56fe47"
           }
         },
         {
@@ -2382,7 +2469,8 @@
             "python": "e9f4b327dc45e7d3a76e1525257615256cf8e873a17ce72f9dd73ab4be829022",
             "go": "e9f4b327dc45e7d3a76e1525257615256cf8e873a17ce72f9dd73ab4be829022",
             "node": "e9f4b327dc45e7d3a76e1525257615256cf8e873a17ce72f9dd73ab4be829022",
-            "rust": "e9f4b327dc45e7d3a76e1525257615256cf8e873a17ce72f9dd73ab4be829022"
+            "rust": "e9f4b327dc45e7d3a76e1525257615256cf8e873a17ce72f9dd73ab4be829022",
+            "bash": "e9f4b327dc45e7d3a76e1525257615256cf8e873a17ce72f9dd73ab4be829022"
           }
         },
         {
@@ -2392,7 +2480,8 @@
             "python": "2a1383eb7da47b32bf286409bf47d5cccc178c496e5ad705504608de3ff58000",
             "go": "2a1383eb7da47b32bf286409bf47d5cccc178c496e5ad705504608de3ff58000",
             "node": "2a1383eb7da47b32bf286409bf47d5cccc178c496e5ad705504608de3ff58000",
-            "rust": "2a1383eb7da47b32bf286409bf47d5cccc178c496e5ad705504608de3ff58000"
+            "rust": "2a1383eb7da47b32bf286409bf47d5cccc178c496e5ad705504608de3ff58000",
+            "bash": "2a1383eb7da47b32bf286409bf47d5cccc178c496e5ad705504608de3ff58000"
           }
         },
         {
@@ -2402,7 +2491,8 @@
             "python": "041b0f3b592c355f39ac35a96117d9af1fa353c0ec6cc2e62dfdcb1fd45f8de6",
             "go": "041b0f3b592c355f39ac35a96117d9af1fa353c0ec6cc2e62dfdcb1fd45f8de6",
             "node": "041b0f3b592c355f39ac35a96117d9af1fa353c0ec6cc2e62dfdcb1fd45f8de6",
-            "rust": "041b0f3b592c355f39ac35a96117d9af1fa353c0ec6cc2e62dfdcb1fd45f8de6"
+            "rust": "041b0f3b592c355f39ac35a96117d9af1fa353c0ec6cc2e62dfdcb1fd45f8de6",
+            "bash": "041b0f3b592c355f39ac35a96117d9af1fa353c0ec6cc2e62dfdcb1fd45f8de6"
           }
         },
         {
@@ -2412,7 +2502,8 @@
             "python": "00768f96cd640f39f93055834ab3d17dc75f11744226736b347ff42cb4cee932",
             "go": "00768f96cd640f39f93055834ab3d17dc75f11744226736b347ff42cb4cee932",
             "node": "00768f96cd640f39f93055834ab3d17dc75f11744226736b347ff42cb4cee932",
-            "rust": "00768f96cd640f39f93055834ab3d17dc75f11744226736b347ff42cb4cee932"
+            "rust": "00768f96cd640f39f93055834ab3d17dc75f11744226736b347ff42cb4cee932",
+            "bash": "00768f96cd640f39f93055834ab3d17dc75f11744226736b347ff42cb4cee932"
           }
         },
         {
@@ -2422,7 +2513,8 @@
             "python": "eacd2e1cb249f44de8756dc13a8fb7703c481f70ded4cf5a7f0fc5970e08a7d8",
             "go": "eacd2e1cb249f44de8756dc13a8fb7703c481f70ded4cf5a7f0fc5970e08a7d8",
             "node": "eacd2e1cb249f44de8756dc13a8fb7703c481f70ded4cf5a7f0fc5970e08a7d8",
-            "rust": "eacd2e1cb249f44de8756dc13a8fb7703c481f70ded4cf5a7f0fc5970e08a7d8"
+            "rust": "eacd2e1cb249f44de8756dc13a8fb7703c481f70ded4cf5a7f0fc5970e08a7d8",
+            "bash": "eacd2e1cb249f44de8756dc13a8fb7703c481f70ded4cf5a7f0fc5970e08a7d8"
           }
         },
         {
@@ -2432,7 +2524,8 @@
             "python": "34b791884d41ab338dca231a88814aa93e99e7655776f82abc0c540b25126af2",
             "go": "34b791884d41ab338dca231a88814aa93e99e7655776f82abc0c540b25126af2",
             "node": "34b791884d41ab338dca231a88814aa93e99e7655776f82abc0c540b25126af2",
-            "rust": "34b791884d41ab338dca231a88814aa93e99e7655776f82abc0c540b25126af2"
+            "rust": "34b791884d41ab338dca231a88814aa93e99e7655776f82abc0c540b25126af2",
+            "bash": "34b791884d41ab338dca231a88814aa93e99e7655776f82abc0c540b25126af2"
           }
         },
         {
@@ -2442,7 +2535,8 @@
             "python": "fe5ca41f466d581f3e1373dd5c180e2bca92d1d61a194aaba4077022f3f51161",
             "go": "fe5ca41f466d581f3e1373dd5c180e2bca92d1d61a194aaba4077022f3f51161",
             "node": "fe5ca41f466d581f3e1373dd5c180e2bca92d1d61a194aaba4077022f3f51161",
-            "rust": "fe5ca41f466d581f3e1373dd5c180e2bca92d1d61a194aaba4077022f3f51161"
+            "rust": "fe5ca41f466d581f3e1373dd5c180e2bca92d1d61a194aaba4077022f3f51161",
+            "bash": "fe5ca41f466d581f3e1373dd5c180e2bca92d1d61a194aaba4077022f3f51161"
           }
         },
         {
@@ -2452,7 +2546,8 @@
             "python": "c551aa310691ba27c8b37035962532e808c19526dac37942e2f677324679fb5d",
             "go": "c551aa310691ba27c8b37035962532e808c19526dac37942e2f677324679fb5d",
             "node": "c551aa310691ba27c8b37035962532e808c19526dac37942e2f677324679fb5d",
-            "rust": "c551aa310691ba27c8b37035962532e808c19526dac37942e2f677324679fb5d"
+            "rust": "c551aa310691ba27c8b37035962532e808c19526dac37942e2f677324679fb5d",
+            "bash": "c551aa310691ba27c8b37035962532e808c19526dac37942e2f677324679fb5d"
           }
         },
         {
@@ -2462,7 +2557,8 @@
             "python": "8e413e559bc2ef55849a02d207c10c1a6211db227531fb60c24d470d79444fc8",
             "go": "8e413e559bc2ef55849a02d207c10c1a6211db227531fb60c24d470d79444fc8",
             "node": "8e413e559bc2ef55849a02d207c10c1a6211db227531fb60c24d470d79444fc8",
-            "rust": "8e413e559bc2ef55849a02d207c10c1a6211db227531fb60c24d470d79444fc8"
+            "rust": "8e413e559bc2ef55849a02d207c10c1a6211db227531fb60c24d470d79444fc8",
+            "bash": "8e413e559bc2ef55849a02d207c10c1a6211db227531fb60c24d470d79444fc8"
           }
         },
         {
@@ -2472,7 +2568,8 @@
             "python": "5fb45db77c2ea232a5d813bd8c90ebf32a6e99ff4f1a4e5141e0623510edd671",
             "go": "5fb45db77c2ea232a5d813bd8c90ebf32a6e99ff4f1a4e5141e0623510edd671",
             "node": "5fb45db77c2ea232a5d813bd8c90ebf32a6e99ff4f1a4e5141e0623510edd671",
-            "rust": "5fb45db77c2ea232a5d813bd8c90ebf32a6e99ff4f1a4e5141e0623510edd671"
+            "rust": "5fb45db77c2ea232a5d813bd8c90ebf32a6e99ff4f1a4e5141e0623510edd671",
+            "bash": "5fb45db77c2ea232a5d813bd8c90ebf32a6e99ff4f1a4e5141e0623510edd671"
           }
         },
         {
@@ -2482,7 +2579,8 @@
             "python": "19fa3efd36b07a4297ac799baf774fd2741e9fe0ebeef6983a6ca48d0927cbff",
             "go": "19fa3efd36b07a4297ac799baf774fd2741e9fe0ebeef6983a6ca48d0927cbff",
             "node": "19fa3efd36b07a4297ac799baf774fd2741e9fe0ebeef6983a6ca48d0927cbff",
-            "rust": "19fa3efd36b07a4297ac799baf774fd2741e9fe0ebeef6983a6ca48d0927cbff"
+            "rust": "19fa3efd36b07a4297ac799baf774fd2741e9fe0ebeef6983a6ca48d0927cbff",
+            "bash": "19fa3efd36b07a4297ac799baf774fd2741e9fe0ebeef6983a6ca48d0927cbff"
           }
         },
         {
@@ -2492,7 +2590,8 @@
             "python": "83414e15ec68feb26f7340a5a3fbcabf8552ed85cb432c8989698238785f2d97",
             "go": "83414e15ec68feb26f7340a5a3fbcabf8552ed85cb432c8989698238785f2d97",
             "node": "83414e15ec68feb26f7340a5a3fbcabf8552ed85cb432c8989698238785f2d97",
-            "rust": "83414e15ec68feb26f7340a5a3fbcabf8552ed85cb432c8989698238785f2d97"
+            "rust": "83414e15ec68feb26f7340a5a3fbcabf8552ed85cb432c8989698238785f2d97",
+            "bash": "83414e15ec68feb26f7340a5a3fbcabf8552ed85cb432c8989698238785f2d97"
           }
         },
         {
@@ -2502,7 +2601,8 @@
             "python": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
             "go": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
             "node": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
-            "rust": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45"
+            "rust": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
+            "bash": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45"
           }
         }
       ]
