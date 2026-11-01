@@ -1,7 +1,7 @@
 # HCORTEX 0.2 — Render y compile con slots
 
 **Document ID:** `CORTEX-HCORTEX-0.2-001`
-**Status:** `normative-draft`
+**Status:** `superseded-by-1.0` (era `normative-draft`) — lectura de alias 0.2 sigue vigente; canon activo: `CORTEX-SPEC-1.0.md` §8 (HCORTEX-1.0, envelope `v=1.0`; `v=0.2` solo para documentos 0.2)
 **Authority:** `CORTEX-SPEC-0.2-001`, `C14N-0.2-001`
 
 ---

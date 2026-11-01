@@ -113,6 +113,7 @@ Función pura `canonicalize(doc) → bytes`:
 - Mismo AST → mismos bytes, en cualquier superficie (Python/Go/Node/Rust/Bash) — vector D3.
 - Sin hora, locale, RNG, ni orden de hash interno.
 - Orden: secciones por `$N` ascendente, ideas en orden documental, glosario por orden de declaración.
+- **Envelope:** un documento `cortex:1.0` emite `<!-- HCORTEX v=1.0 t=canonical k=corpus -->`. El compilador acepta `v=1.0` (canónico) y `v=0.2` (alias de lectura para documentos 0.2); `v=0.1` pertenece a HCORTEX 0.1. Un render 1.0 nunca emite `v=0.2`.
 
 ### §8.1 Clases de roundtrip
 

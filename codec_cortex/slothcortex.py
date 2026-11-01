@@ -15,7 +15,7 @@ render_hcortex_slots(doc, embed_ast=False) -> str
 compile_hcortex_slots(text) -> (Document | None, diagnostics)
     Detects hidden CORTEX/AST copies via HIDDEN_COPY_RE → H481.
 
-Envelope:  <!-- HCORTEX v=0.2 t=canonical k=corpus -->
+Envelope:  <!-- HCORTEX v=1.0 t=canonical k=corpus --> (v=0.2 for 0.2 documents)
 Glossary:  <!-- glossary -->\n...\n<!-- /glossary -->
 Sections:  ## §N: Title\n\n<!-- schema:N -->\n...\n<!-- /schema:N -->
 
@@ -46,7 +46,8 @@ _SCHEMA_CLOSE_RE = re.compile(r"^<!--\s*/schema:\d+\s*-->$")
 def render_hcortex_slots(doc: Document, embed_ast: bool = False) -> str:
     from .dispatcher import hash_cortex
     out: List[str] = []
-    out.append("<!-- HCORTEX v=0.2 t=canonical k=corpus -->")
+    version = doc.cortex_version if doc.cortex_version in ("0.2", "1.0") else "0.2"
+    out.append(f"<!-- HCORTEX v={version} t=canonical k=corpus -->")
     if embed_ast:
         h = hash_cortex(doc)
         out.append(f"<!-- cortex-ast: {h} -->")
@@ -93,7 +94,7 @@ def compile_hcortex_slots(text: str) -> Tuple[Optional[Document], List[dict]]:
         diags.append({"code": "H401_MISSING_ENVELOPE",
                       "message": "Missing or malformed HCORTEX envelope"})
         return None, diags
-    if vm.group(1) != "0.2":
+    if vm.group(1) not in ("0.2", "1.0"):
         diags.append({"code": "H401_UNSUPPORTED_HCORTEX_VERSION",
                       "message": f"Unsupported HCORTEX version: {vm.group(1)}"})
         return None, diags
@@ -113,7 +114,7 @@ def compile_hcortex_slots(text: str) -> Tuple[Optional[Document], List[dict]]:
         diags.append({"code": code, "message": f"Glossary parse failed: {e}"})
         return None, diags
 
-    doc.cortex_version = "0.2"
+    doc.cortex_version = vm.group(1)
 
     sym_lookup = {}
     for s in doc.glossary.symbols:
@@ -509,7 +510,7 @@ def run_roundtrip(valid_dir: str) -> dict:
             source = f.read()
         try:
             doc = parse_cortex(source)
-            if doc.cortex_version != "0.2":
+            if doc.cortex_version not in ("0.2", "1.0"):
                 continue
             expected_canon = canonicalize(doc)
             hc = render_hcortex_slots(doc)

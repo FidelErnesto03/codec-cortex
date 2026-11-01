@@ -85,6 +85,30 @@ def d2_roundtrip(files: list[Path]) -> dict:
     return {"id": "D2_roundtrip_hcortex_all", "pass": total > 0 and ok == total, "ok": ok, "total": total, "details": details}
 
 
+def d2b_hcortex_vectors() -> dict:
+    from codec_cortex.dispatcher import canonicalize, parse_cortex
+    from codec_cortex.slothcortex import compile_hcortex_slots
+
+    vectors = sorted((ROOT / "conformance/1.0/hcortex").glob("*.md"))
+    details = []
+    ok = 0
+    for f in vectors:
+        entry = {"file": _rel(f), "pass": False}
+        try:
+            doc, diags = compile_hcortex_slots(f.read_text(encoding="utf-8"))
+            source = ROOT / "conformance/1.0/valid" / (f.stem + ".cortex")
+            expected = parse_cortex(source.read_text(encoding="utf-8"))
+            entry["pass"] = doc is not None and not diags and canonicalize(doc) == canonicalize(expected)
+            if diags:
+                entry["diags"] = diags
+            ok += entry["pass"]
+        except Exception as exc:  # noqa: BLE001
+            entry["error"] = f"{type(exc).__name__}: {exc}"
+        details.append(entry)
+    total = len(vectors)
+    return {"id": "D2b_hcortex_vectors_1_0", "pass": total > 0 and ok == total, "ok": ok, "total": total, "details": details}
+
+
 def _run(cmd: list[str]) -> tuple[bool, str]:
     try:
         out = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=120)
@@ -168,6 +192,7 @@ def run() -> dict:
     indicators = [
         d1_idempotence(corpus),
         d2_roundtrip(corpus),
+        d2b_hcortex_vectors(),
         d3_parity(SEED),
         d4_lossless(corpus),
         d5_tamper(SEED),
