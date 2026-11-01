@@ -1,12 +1,12 @@
 $0:KERNEL
 $0:format{cortex:1.0,encoding:UTF-8,language:es}
-RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla normativa verificada contra la implementacion de referencia codec-cortex. id es clave unica, rule enuncia la regla, detail referencia spec o modulo."}
-TXT:text{type:cuerpo,weight:M,desc:"Texto explicativo breve. Cuerpo libre NFC."}
-PRC:proc{type:attrs-pos,weight:H,pos:"step:int|action:text|note:text?",focus:action,desc:"Paso de procedimiento generativo o transaccional."}
-EX:example{type:bloque,weight:M,desc:"Ejemplo verbatim de CORTEX o HCORTEX. Bloque preserva bytes exactos."}
-API:api{type:attrs,weight:M,fields:"name:text|signature:text|version:atom|status:atom|notes:text?",focus:name,desc:"Superficie publica verificada de codec-cortex (Python)."}
-HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:atom|scope:text",focus:operation,desc:"Comando CLI o handler publico de codec-cortex."}
-TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text",focus:id,desc:"Evidencia ejecutable de una capacidad."}
+RUL:rule{type:attrs,weight:H,fields:"id:text|rule:text|detail:text",focus:rule,desc:"Regla normativa"}
+TXT:text{type:cuerpo,weight:M,desc:"Texto explicativo"}
+PRC:proc{type:attrs-pos,weight:H,pos:"step:int|action:text|note:text?",focus:action,desc:"Paso de procedimiento"}
+EX:example{type:bloque,weight:M,desc:"Ejemplo verbatim"}
+API:api{type:attrs,weight:M,fields:"name:text|signature:text|version:atom|status:atom|notes:text?",focus:name,desc:"API publica Python"}
+HDL:handler{type:attrs-pos,weight:M,pos:"operation:text|status:atom|scope:text",focus:operation,desc:"Comando CLI"}
+TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text",focus:id,desc:"Evidencia ejecutable"}
 
 $1: ARQUITECTURA:CORE
 RUL:codec{id:"codec",rule:"CORTEX es un codec ideatico lineal: lenguaje de maquina para LLM. La unidad semantica es la Idea: SIGIL:nombre + payload conforme al glosario local. Un documento es $0 (glosario) + secciones $1,$2,... con Ideas.",detail:"Las herramientas (parser, c14n, HCORTEX) verifican, canonicalizan y proyectan; no interpretan contenido."}
@@ -19,6 +19,7 @@ RUL:no_inferencia{id:"no-inferencia",rule:"El transformador no interpreta el con
 RUL:pipe_quoted{id:"pipe-quoted",rule:"Celda con | interno va string quoted; sin comillas se lee como celdas extra (I012). La correccion es una celda quoted, no mas celdas.",detail:"Spec 1.0 S4.2 + S12.1. Observado: HDL:migrate con 7 celdas vs contrato de 3."}
 RUL:idea_unica{id:"idea-unica",rule:"SIGIL:nombre debe ser unico por seccion (I006_DUPLICATE_IDEA_ADDRESS). Secuencias nombran cada elemento: PRC:p1, PRC:p2.",detail:"Spec 1.0 S12.2."}
 RUL:densidad{id:"densidad",rule:"Contenido normativo en ideas tipadas (RUL, API, PRC, TST), no en cuerpos prosa. cuerpo es payload semantico; bloque es verbatim (ejemplos, referencias). Un doc que parsea pero diluye reglas en prosa es conforme y aun asi mal formado: la forma tambien es contrato.",detail:"Spec 1.0 S12.5. Leccion del propio skill."}
+RUL:desc_label{id:"desc-label",rule:"desc en la declaracion de sigilo es OBLIGATORIO (G020) pero es etiqueta de 1-3 palabras, no frase: el glosario clasifica, no documenta. El significado minimo basta para que el LLM lo interprete al usuario; la explicacion extensa va en la idea o en la spec.",detail:"Spec 1.0 S12.7. El clasificador es sistema de tipos, no indice de contenido."}
 RUL:declarar_lo_usado{id:"declarar-lo-usado",rule:"La version declara la gramatica del documento, no la del proyecto. Sin slots, cortex:1.0 es escritura canonica; cortex:1 no existe (G007). 0.1/0.2 son alias de lectura.",detail:"Spec 1.0 S11.1 + S12.4."}
 RUL:serializar{id:"serializar",rule:"Al escribir: string con newline va escapado (\\n) o rechazado — newline literal rompe la linea de la idea y el artefacto que la contiene.",detail:"Spec 1.0 S12.6. Observado: handoff .arqux corrupto con newline en nombre de archivo."}
 

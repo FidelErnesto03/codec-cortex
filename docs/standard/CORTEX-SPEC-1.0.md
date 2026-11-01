@@ -172,6 +172,7 @@ Reglas aprendidas de violaciones reales observadas en el corpus vivo — cada un
 4. **Declarar el dialecto que el documento usa.** La versión describe la gramática del documento, no la del proyecto: sin slots, `cortex:1.0` es la escritura canónica; `cortex:1` no existe (`G007`).
 5. **Densidad ideática.** El contenido normativo vive en ideas tipadas (`RUL`, `API`, `PRC`…), no en cuerpos prosa. `cuerpo` es payload semántico; `bloque` es verbatim (ejemplos, referencias). Un documento que "parsea" pero diluye sus reglas en prosa es conforme y aun así mal formado — la forma también es contrato.
 6. **Una línea por idea, también al serializar.** Escribir strings con newline literal sin escapar rompe la línea de la idea *y* el artefacto que la contiene — los escritores deben escapar o rechazar (`§4.2`).
+7. **`desc` es etiqueta, no frase.** En la declaración de sigilo, `desc` es obligatorio (`G020`) pero debe ser una etiqueta de 1-3 palabras: el glosario es un **sistema de tipos que clasifica**, no un índice que documenta. El significado mínimo basta para que el LLM lo interprete al usuario; la explicación extensa pertenece a la idea o a la spec.
 
 ## §13 Referencias normativas
 
