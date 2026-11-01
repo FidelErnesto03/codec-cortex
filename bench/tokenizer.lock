@@ -1,0 +1,8 @@
+# BLP-003 — Tokenizador neutral fijado (lock)
+# NOTA: archivo RECONSTRUIDO el 2026-10-18 (T-032/SES006) tras borrado accidental.
+# Valores documentados en bench/RESULTS-SUMMARY.md:
+#   "tokenizer.lock  # tiktoken 0.12.0 / o200k_base"
+# y en CYCLE-03/BLP-003 §:"tokenizador neutral fijado (tiktoken o200k_base) con version".
+tokenizer: tiktoken
+version: "0.12.0"
+encoding: o200k_base

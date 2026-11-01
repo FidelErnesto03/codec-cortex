@@ -1,0 +1,8 @@
+Q1: Marco_Silva (SRE Lead), unico proyecto Nebula. Deadline 2026-09-15
+Q2: R01 (Fuga de datos API Gateway, critico, Horizon/Nebula) y R04 (Zero-day motor de eventos, critico, Nebula/Phoenix)
+Q3: ComplianceAudit; decision AR02 Migracion a OAuth2 (T04, Aegis y Phoenix)
+Q4: Elena_Vargas, Lucia_Rojas, Daniel_Ortega, Aisha_Okafor, Sofia_Marquez
+Q5: R01 Fuga de datos en API Gateway, proyectos Horizon y Nebula, proveedor CloudShield
+Q6: I-004; dependencias D02 D03 D04 D07 (Aegis); mitigacion AR02
+Q7: R01 (Horizon+Nebula, CloudShield), R03 (Aegis+Nebula+Phoenix), R04 (Nebula+Phoenix, StreamCore)
+Q8: Nebula - R01 R02 R03 R04; D01 bloqueante Horizon; D02 D06; I-002 I-001 I-004; AR01 AR02 AR03 AR04

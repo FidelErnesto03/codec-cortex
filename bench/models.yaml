@@ -1,0 +1,22 @@
+# BLP-003 — Modelos a evaluar (ids EXACTOS del catalogo de cmd)
+transporte: conexion-nativa-cmd   # sub-agentes agent(model=...), sin claves
+profundidad: 1                    # los sub-agentes no lanzan sub-agentes
+
+models:
+  - id: xiaomi/mimo-v2.6-pro
+    role: modelo-2026-A
+    context: 1.05M
+    price_in_usd_1m: 0.435
+    price_out_usd_1m: 0.87
+    reasoningEffort: null         # MiMo decide su propia profundidad
+    smoke: "MIMO-SMOKE-OK (2026-10-04, 0 tools, 7.5s)"
+  - id: deepseek/deepseek-v4.1-flash
+    role: modelo-2026-B
+    context: 1M
+    price_in_usd_1m: 0.15
+    price_out_usd_1m: 0.6
+    reasoningEffort: null         # soporta off|low|high|max
+    smoke: "DS-SMOKE-OK (2026-10-04, 0 tools, 3.3s)"
+  # - id: <control-no-2026>
+  #   role: control
+  #   status: pendiente-de-acceso

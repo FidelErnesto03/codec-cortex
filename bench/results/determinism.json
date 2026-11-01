@@ -1,0 +1,32 @@
+{
+  "id": "D6_determinism_contrast",
+  "cortex": {
+    "n": 5,
+    "unique": 1,
+    "variance": 0,
+    "digests": [
+      "6f357920cb27bbe2b531ad1552149c1d961616e2f42385b7c4f5b096dc785220"
+    ]
+  },
+  "llm": {
+    "n": 5,
+    "unique": 5,
+    "variance": 4,
+    "digests": [
+      "262cdeac71845338297fe4f0223a85ecb0b1a0bdacd9fa49f58ee7b7f39942c8",
+      "5834ff243bf1228549187666729070adcb58bb1e662ce3747d9ac5991bcd8a3a",
+      "9209ebf0f0d089ab8b83054b2a7cf91e92244a1474c0873b9910379b64d40e26",
+      "c544b9aea655cb4cb2618c8b555e8c22339a6b6b95b607b0a3956e28a0bfec73",
+      "c6fef9c5ea2eeb05f57c5f7a582fa06c2b2731cb69b309666421eb7d08947e94"
+    ]
+  },
+  "pass": true,
+  "criterion": "CORTEX varianza=0 y LLM varianza>0",
+  "llm_probe": "generative_entropy (5 corridas, xiaomi/mimo-v2.6-pro, 2026-10-04)",
+  "llm_probe_echo_literal": {
+    "runs": 5,
+    "unique": 1,
+    "finding": "probe de eco literal -> varianza 0; un probe determinista NO revela no-determinismo del modelo. La diseno del probe es parte del instrumento."
+  },
+  "cortex_method": "misma entrada re-parseada y re-canonicalizada 5 veces"
+}

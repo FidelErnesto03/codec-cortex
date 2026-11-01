@@ -1,0 +1,92 @@
+NEXUSCORP — KNOWLEDGE BASE COMPLETA
+====================================
+
+EQUIPO (8 miembros)
+-------------------
+1. Elena Vargas es Arquitecta Cloud con 12 años de seniority. Trabaja en los proyectos Nebula y Horizon. Está activa.
+
+2. Marco Silva es SRE Lead con 9 años de seniority. Trabaja exclusivamente en el proyecto Nebula. Está activo.
+
+3. Lucía Rojas es Platform Engineer con 7 años de seniority. Trabaja en los proyectos Horizon y Aegis. Está activa.
+
+4. Daniel Ortega es Security Lead con 11 años de seniority. Trabaja en los proyectos Aegis y Phoenix. Está activo.
+
+5. Aisha Okafor es Data Engineer con 6 años de seniority. Trabaja en los proyectos Nebula y Phoenix. Está activa.
+
+6. Chen Wei es Network Architect con 14 años de seniority — el miembro más experimentado del equipo. Trabaja exclusivamente en Horizon. Está activo.
+
+7. Sofía Márquez es DevOps Lead con 8 años de seniority. Es la persona con mayor carga de proyectos: Nebula, Aegis y Phoenix simultáneamente. Está activa.
+
+8. Liam O'Connor es Backend Engineer con 4 años de seniority — el miembro más junior. Trabaja exclusivamente en Aegis. Está activo.
+
+PROYECTOS (5)
+-------------
+1. Nebula (T01) tiene deadline el 15 de septiembre de 2026, presupuesto de $850,000 y prioridad alta. Estado: activo.
+
+2. Horizon (T03) tiene deadline el 1 de agosto de 2026 — es el proyecto con fecha más cercana. Presupuesto de $420,000 y prioridad media. Estado: activo.
+
+3. Aegis (T07) tiene deadline el 10 de enero de 2027, presupuesto de $1,200,000 — el mayor de todos — y prioridad crítica. Estado: activo.
+
+4. Phoenix (T04) tiene deadline el 30 de octubre de 2026, presupuesto de $670,000 y prioridad alta. Estado: activo.
+
+5. Atlas (T06) tiene deadline el 30 de julio de 2026 — vence en solo 13 días desde hoy. Presupuesto de $300,000 y prioridad baja. Estado: activo.
+
+DEPENDENCIAS ENTRE PROYECTOS (7)
+---------------------------------
+D01: Horizon BLOQUEA a Nebula (dependencia bloqueante).
+D02: Nebula depende de Aegis.
+D03: Phoenix depende de Aegis.
+D04: Aegis BLOQUEA a Phoenix (dependencia bloqueante).
+D05: Atlas depende de Horizon (dependencia tipo legado).
+D06: Nebula depende de Phoenix.
+D07: Horizon BLOQUEA a Aegis (dependencia bloqueante).
+
+Nótese que existe una dependencia circular entre Aegis y Phoenix: Aegis bloquea a Phoenix (D04), pero Phoenix depende de Aegis (D03). Además, Horizon bloquea tanto a Nebula (D01) como a Aegis (D07), creando un cuello de botella crítico.
+
+RIESGOS IDENTIFICADOS (6)
+--------------------------
+R01 — CRÍTICO: Fuga de datos en el API Gateway de CloudShield. Afecta a los proyectos Horizon y Nebula. Probabilidad estimada: 35%.
+
+R02 — ALTO: Incumplimiento del deadline de Nebula (2026-09-15). Afecta exclusivamente a Nebula. Probabilidad: 60%, la más alta de todos los riesgos.
+
+R03 — ALTO: Rotación de Sofía Márquez (DevOps Lead). Afecta a tres proyectos simultáneamente: Aegis, Nebula y Phoenix. Probabilidad: 45%.
+
+R04 — CRÍTICO: Vulnerabilidad zero-day en el motor de eventos de StreamCore. Afecta a Nebula y Phoenix. Probabilidad: 20%.
+
+R05 — MEDIO: Sobrecoste del servicio DataVault (S3 Storage). Afecta exclusivamente a Aegis. Probabilidad: 55%.
+
+R06 — ALTO: Incumplimiento de requisitos de compliance (SOC2) en Phoenix, relacionado con el proveedor ComplianceAudit. Afecta a Phoenix. Probabilidad: 40%.
+
+DECISIONES DE ARQUITECTURA (5)
+-------------------------------
+AR01 (T01): Se decidió adoptar Kubernetes como plataforma de orquestación de contenedores. Aplica a Nebula, Horizon y Aegis.
+
+AR02 (T04): Se decidió migrar la autenticación de servicios a OAuth2. Esta decisión se tomó como consecuencia directa del incidente I-004 (fuga de tokens en Aegis). Aplica a Aegis y Phoenix.
+
+AR03 (T01): Se decidió implementar una arquitectura de motor de eventos desacoplado. Esta decisión se tomó tras el incidente I-002 (pérdida de eventos en Nebula). Aplica a Nebula y Phoenix.
+
+AR04 (T04): Se decidió implementar rotación automática de secretos cada 72 horas. Esta decisión es consecuencia de los riesgos R01 (fuga de datos en API Gateway) y R04 (zero-day en motor de eventos). Aplica a TODOS los proyectos: Nebula, Horizon, Aegis, Phoenix y Atlas.
+
+AR05 (T07): Se decidió implementar redundancia geográfica para DataVault. Esta decisión responde al riesgo R05 (sobrecoste). Aplica exclusivamente a Aegis.
+
+INCIDENTES RECIENTES (4)
+-------------------------
+I-001 — 15 de junio de 2026: Se detectó latencia crítica en el API Gateway de Horizon, gestionado por CloudShield. Severidad alta. El incidente fue RESUELTO tras 4.5 horas de trabajo.
+
+I-002 — 22 de junio de 2026: Se produjo pérdida de eventos en el bus de Nebula, gestionado por StreamCore. Severidad media. El incidente fue RESUELTO tras 2 horas. Como consecuencia, se tomó la decisión AR03 (motor de eventos desacoplado).
+
+I-003 — 1 de julio de 2026: Caducó un certificado TLS en Atlas, gestionado por CloudShield. Severidad baja. RESUELTO en 1 hora.
+
+I-004 — 10 de julio de 2026 (hace 7 días): Se detectó una fuga de tokens de acceso en Aegis, relacionado con ComplianceAudit. Severidad CRÍTICA. El incidente NO HA SIDO RESUELTO. Como consecuencia inmediata, se tomó la decisión AR02 (migración a OAuth2).
+
+PROVEEDORES (5)
+----------------
+CloudShield provee WAF + API Gateway por $15,000/mes con SLA 99.99%. Da servicio a los proyectos Horizon y Nebula. Fue responsable de los incidentes I-001 e I-003.
+
+StreamCore provee el Event Bus por $8,200/mes con SLA 99.95%. Da servicio a Nebula y Phoenix. Fue responsable del incidente I-002.
+
+DataVault provee almacenamiento S3 por $23,000/mes — el proveedor más caro — con SLA 99.99%. Da servicio exclusivamente a Aegis. Presenta el riesgo R05 de sobrecoste.
+
+ComplianceAudit provee servicios de compliance SOC2 por $18,000/mes con SLA 99.90%. Da servicio exclusivamente a Phoenix. Es responsable del incidente crítico I-004 (no resuelto).
+
+NetScale provee CDN + DNS por $9,500/mes con SLA 99.99%. Da servicio a tres proyectos: Nebula, Horizon y Phoenix.

@@ -1,0 +1,96 @@
+{
+  "per_question": {
+    "Q1": {
+      "q": "Q1",
+      "status": "completo",
+      "score": 1.0,
+      "must_found": [
+        "marco silva"
+      ],
+      "any_found": [
+        "sre lead"
+      ],
+      "desc": "responsable de Nebula"
+    },
+    "Q2": {
+      "q": "Q2",
+      "status": "completo",
+      "score": 1.0,
+      "must_found": [
+        "r01",
+        "r04"
+      ],
+      "any_found": [],
+      "desc": "riesgos con impacto critico (deadline mas cercano = Atlas 2026-07-30, ya vencido)"
+    },
+    "Q3": {
+      "q": "Q3",
+      "status": "completo",
+      "score": 1.0,
+      "must_found": [
+        "complianceaudit",
+        "oauth2",
+        "ar02"
+      ],
+      "any_found": [],
+      "desc": "proveedor I-004 + decision AR02"
+    },
+    "Q4": {
+      "q": "Q4",
+      "status": "completo",
+      "score": 1.0,
+      "must_found": [
+        "sofia marquez",
+        "daniel ortega"
+      ],
+      "any_found": [
+        "aisha okafor"
+      ],
+      "desc": ">1 proyecto simultaneo"
+    },
+    "Q5": {
+      "q": "Q5",
+      "status": "completo",
+      "score": 1.0,
+      "must_found": [
+        "r01"
+      ],
+      "any_found": [],
+      "desc": "riesgo critico de mayor probabilidad: R01 0.35 vs R04 0.20"
+    },
+    "Q6": {
+      "q": "Q6",
+      "status": "parcial",
+      "score": 0.667,
+      "must_found": [
+        "ar02",
+        "i 004"
+      ],
+      "any_found": [],
+      "desc": "incidente mas reciente I-004 -> AR02"
+    },
+    "Q7": {
+      "q": "Q7",
+      "status": "completo",
+      "score": 1.0,
+      "must_found": [
+        "r01",
+        "horizon",
+        "nebula",
+        "cloudshield"
+      ],
+      "any_found": [
+        "r03"
+      ],
+      "desc": "riesgo multi-proyecto"
+    },
+    "Q8": {
+      "q": "Q8",
+      "status": "requires_human",
+      "score": null,
+      "desc": "sintesis justificada (criterio cualitativo)"
+    }
+  },
+  "n_scored": 7,
+  "mean": 0.9524
+}

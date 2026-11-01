@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nexuscorp_kb>
+  <equipo>
+    <miembro id="Elena_Vargas">
+      <rol>Arquitecta Cloud</rol>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Horizon</proyecto>
+      </proyectos>
+      <seniority>12</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Marco_Silva">
+      <rol>SRE Lead</rol>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+      </proyectos>
+      <seniority>9</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Lucía_Rojas">
+      <rol>Platform Engineer</rol>
+      <proyectos>
+        <proyecto>Horizon</proyecto>
+        <proyecto>Aegis</proyecto>
+      </proyectos>
+      <seniority>7</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Daniel_Ortega">
+      <rol>Security Lead</rol>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <seniority>11</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Aisha_Okafor">
+      <rol>Data Engineer</rol>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <seniority>6</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Chen_Wei">
+      <rol>Network Architect</rol>
+      <proyectos>
+        <proyecto>Horizon</proyecto>
+      </proyectos>
+      <seniority>14</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Sofía_Márquez">
+      <rol>DevOps Lead</rol>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Aegis</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <seniority>8</seniority>
+      <activo>true</activo>
+    </miembro>
+    <miembro id="Liam_O'Connor">
+      <rol>Backend Engineer</rol>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+      </proyectos>
+      <seniority>4</seniority>
+      <activo>true</activo>
+    </miembro>
+  </equipo>
+
+  <proyectos>
+    <proyecto id="Nebula">
+      <codigo>T01</codigo>
+      <deadline>2026-09-15</deadline>
+      <presupuesto>850000</presupuesto>
+      <prioridad>alta</prioridad>
+      <estado>activo</estado>
+    </proyecto>
+    <proyecto id="Horizon">
+      <codigo>T03</codigo>
+      <deadline>2026-08-01</deadline>
+      <presupuesto>420000</presupuesto>
+      <prioridad>media</prioridad>
+      <estado>activo</estado>
+    </proyecto>
+    <proyecto id="Aegis">
+      <codigo>T07</codigo>
+      <deadline>2027-01-10</deadline>
+      <presupuesto>1200000</presupuesto>
+      <prioridad>crítica</prioridad>
+      <estado>activo</estado>
+    </proyecto>
+    <proyecto id="Phoenix">
+      <codigo>T04</codigo>
+      <deadline>2026-10-30</deadline>
+      <presupuesto>670000</presupuesto>
+      <prioridad>alta</prioridad>
+      <estado>activo</estado>
+    </proyecto>
+    <proyecto id="Atlas">
+      <codigo>T06</codigo>
+      <deadline>2026-07-30</deadline>
+      <presupuesto>300000</presupuesto>
+      <prioridad>baja</prioridad>
+      <estado>activo</estado>
+    </proyecto>
+  </proyectos>
+
+  <dependencias>
+    <dependencia id="D01">
+      <origen>Horizon</origen>
+      <destino>Nebula</destino>
+      <tipo>bloqueante</tipo>
+      <descripcion>Horizon bloquea a Nebula</descripcion>
+    </dependencia>
+    <dependencia id="D02">
+      <origen>Nebula</origen>
+      <destino>Aegis</destino>
+      <tipo>dependencia</tipo>
+      <descripcion>Nebula depende de Aegis</descripcion>
+    </dependencia>
+    <dependencia id="D03">
+      <origen>Phoenix</origen>
+      <destino>Aegis</destino>
+      <tipo>dependencia</tipo>
+      <descripcion>Phoenix depende de Aegis</descripcion>
+    </dependencia>
+    <dependencia id="D04">
+      <origen>Aegis</origen>
+      <destino>Phoenix</destino>
+      <tipo>bloqueante</tipo>
+      <descripcion>Aegis bloquea a Phoenix</descripcion>
+    </dependencia>
+    <dependencia id="D05">
+      <origen>Atlas</origen>
+      <destino>Horizon</destino>
+      <tipo>legado</tipo>
+      <descripcion>Atlas depende de Horizon (legado)</descripcion>
+    </dependencia>
+    <dependencia id="D06">
+      <origen>Nebula</origen>
+      <destino>Phoenix</destino>
+      <tipo>dependencia</tipo>
+      <descripcion>Nebula depende de Phoenix</descripcion>
+    </dependencia>
+    <dependencia id="D07">
+      <origen>Horizon</origen>
+      <destino>Aegis</destino>
+      <tipo>bloqueante</tipo>
+      <descripcion>Horizon bloquea a Aegis</descripcion>
+    </dependencia>
+  </dependencias>
+
+  <riesgos>
+    <riesgo id="R01">
+      <descripcion>Fuga de datos en API Gateway</descripcion>
+      <impacto>crítico</impacto>
+      <proyectos>
+        <proyecto>Horizon</proyecto>
+        <proyecto>Nebula</proyecto>
+      </proyectos>
+      <proveedor>CloudShield</proveedor>
+      <probabilidad>0.35</probabilidad>
+    </riesgo>
+    <riesgo id="R02">
+      <descripcion>Incumplimiento de deadline de Nebula</descripcion>
+      <impacto>alto</impacto>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+      </proyectos>
+      <proveedor xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      <probabilidad>0.60</probabilidad>
+    </riesgo>
+    <riesgo id="R03">
+      <descripcion>Rotación de Sofía Márquez</descripcion>
+      <impacto>alto</impacto>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <proveedor xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      <probabilidad>0.45</probabilidad>
+    </riesgo>
+    <riesgo id="R04">
+      <descripcion>Zero-day en motor de eventos</descripcion>
+      <impacto>crítico</impacto>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <proveedor>StreamCore</proveedor>
+      <probabilidad>0.20</probabilidad>
+    </riesgo>
+    <riesgo id="R05">
+      <descripcion>Sobrecoste de DataVault</descripcion>
+      <impacto>medio</impacto>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+      </proyectos>
+      <proveedor>DataVault</proveedor>
+      <probabilidad>0.55</probabilidad>
+    </riesgo>
+    <riesgo id="R06">
+      <descripcion>Incumplimiento de compliance en Phoenix</descripcion>
+      <impacto>alto</impacto>
+      <proyectos>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <proveedor>ComplianceAudit</proveedor>
+      <probabilidad>0.40</probabilidad>
+    </riesgo>
+  </riesgos>
+
+  <decisiones>
+    <decision id="AR01">
+      <descripcion>Adopción de Kubernetes como plataforma de orquestación</descripcion>
+      <trimestre>T01</trimestre>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Horizon</proyecto>
+        <proyecto>Aegis</proyecto>
+      </proyectos>
+      <post_incidente xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+    </decision>
+    <decision id="AR02">
+      <descripcion>Migración a OAuth2 para autenticación de servicios</descripcion>
+      <trimestre>T04</trimestre>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <post_incidente>I-004</post_incidente>
+    </decision>
+    <decision id="AR03">
+      <descripcion>Arquitectura de motor de eventos desacoplado</descripcion>
+      <trimestre>T01</trimestre>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <post_incidente>I-002</post_incidente>
+    </decision>
+    <decision id="AR04">
+      <descripcion>Rotación automática de secretos cada 72h</descripcion>
+      <trimestre>T04</trimestre>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Horizon</proyecto>
+        <proyecto>Aegis</proyecto>
+        <proyecto>Phoenix</proyecto>
+        <proyecto>Atlas</proyecto>
+      </proyectos>
+      <post_incidente>R01,R04</post_incidente>
+    </decision>
+    <decision id="AR05">
+      <descripcion>Redundancia geográfica de DataVault</descripcion>
+      <trimestre>T07</trimestre>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+      </proyectos>
+      <post_incidente>R05</post_incidente>
+    </decision>
+  </decisiones>
+
+  <incidentes>
+    <incidente id="I-001">
+      <descripcion>Latencia crítica en API Gateway de Horizon</descripcion>
+      <fecha>2026-06-15</fecha>
+      <severidad>alta</severidad>
+      <proveedor>CloudShield</proveedor>
+      <estado>resuelto</estado>
+      <duracion_horas>4.5</duracion_horas>
+    </incidente>
+    <incidente id="I-002">
+      <descripcion>Pérdida de eventos en el bus de Nebula</descripcion>
+      <fecha>2026-06-22</fecha>
+      <severidad>media</severidad>
+      <proveedor>StreamCore</proveedor>
+      <estado>resuelto</estado>
+      <duracion_horas>2.0</duracion_horas>
+    </incidente>
+    <incidente id="I-003">
+      <descripcion>Caducidad de certificado TLS en Atlas</descripcion>
+      <fecha>2026-07-01</fecha>
+      <severidad>baja</severidad>
+      <proveedor>CloudShield</proveedor>
+      <estado>resuelto</estado>
+      <duracion_horas>1.0</duracion_horas>
+    </incidente>
+    <incidente id="I-004">
+      <descripcion>Fuga de tokens de acceso en Aegis</descripcion>
+      <fecha>2026-07-10</fecha>
+      <severidad>crítica</severidad>
+      <proveedor>ComplianceAudit</proveedor>
+      <estado>no_resuelto</estado>
+      <duracion_horas xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+    </incidente>
+  </incidentes>
+
+  <proveedores>
+    <proveedor id="CloudShield">
+      <servicio>WAF + API Gateway</servicio>
+      <costo_mensual>15000</costo_mensual>
+      <proyectos>
+        <proyecto>Horizon</proyecto>
+        <proyecto>Nebula</proyecto>
+      </proyectos>
+      <sla>99.99%</sla>
+    </proveedor>
+    <proveedor id="StreamCore">
+      <servicio>Event Bus</servicio>
+      <costo_mensual>8200</costo_mensual>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <sla>99.95%</sla>
+    </proveedor>
+    <proveedor id="DataVault">
+      <servicio>S3 Storage</servicio>
+      <costo_mensual>23000</costo_mensual>
+      <proyectos>
+        <proyecto>Aegis</proyecto>
+      </proyectos>
+      <sla>99.99%</sla>
+    </proveedor>
+    <proveedor id="ComplianceAudit">
+      <servicio>SOC2 Compliance</servicio>
+      <costo_mensual>18000</costo_mensual>
+      <proyectos>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <sla>99.90%</sla>
+    </proveedor>
+    <proveedor id="NetScale">
+      <servicio>CDN + DNS</servicio>
+      <costo_mensual>9500</costo_mensual>
+      <proyectos>
+        <proyecto>Nebula</proyecto>
+        <proyecto>Horizon</proyecto>
+        <proyecto>Phoenix</proyecto>
+      </proyectos>
+      <sla>99.99%</sla>
+    </proveedor>
+  </proveedores>
+</nexuscorp_kb>

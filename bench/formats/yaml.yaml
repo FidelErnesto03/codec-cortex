@@ -1,0 +1,279 @@
+nexuscorp_kb:
+  equipo:
+    - id: Elena_Vargas
+      rol: Arquitecta Cloud
+      proyectos:
+        - Nebula
+        - Horizon
+      seniority: 12
+      activo: true
+    - id: Marco_Silva
+      rol: SRE Lead
+      proyectos:
+        - Nebula
+      seniority: 9
+      activo: true
+    - id: Lucía_Rojas
+      rol: Platform Engineer
+      proyectos:
+        - Horizon
+        - Aegis
+      seniority: 7
+      activo: true
+    - id: Daniel_Ortega
+      rol: Security Lead
+      proyectos:
+        - Aegis
+        - Phoenix
+      seniority: 11
+      activo: true
+    - id: Aisha_Okafor
+      rol: Data Engineer
+      proyectos:
+        - Nebula
+        - Phoenix
+      seniority: 6
+      activo: true
+    - id: Chen_Wei
+      rol: Network Architect
+      proyectos:
+        - Horizon
+      seniority: 14
+      activo: true
+    - id: Sofía_Márquez
+      rol: DevOps Lead
+      proyectos:
+        - Nebula
+        - Aegis
+        - Phoenix
+      seniority: 8
+      activo: true
+    - id: Liam_O'Connor
+      rol: Backend Engineer
+      proyectos:
+        - Aegis
+      seniority: 4
+      activo: true
+
+  proyectos:
+    - id: Nebula
+      codigo: T01
+      deadline: "2026-09-15"
+      presupuesto: 850000
+      prioridad: alta
+      estado: activo
+    - id: Horizon
+      codigo: T03
+      deadline: "2026-08-01"
+      presupuesto: 420000
+      prioridad: media
+      estado: activo
+    - id: Aegis
+      codigo: T07
+      deadline: "2027-01-10"
+      presupuesto: 1200000
+      prioridad: crítica
+      estado: activo
+    - id: Phoenix
+      codigo: T04
+      deadline: "2026-10-30"
+      presupuesto: 670000
+      prioridad: alta
+      estado: activo
+    - id: Atlas
+      codigo: T06
+      deadline: "2026-07-30"
+      presupuesto: 300000
+      prioridad: baja
+      estado: activo
+
+  dependencias:
+    - id: D01
+      origen: Horizon
+      destino: Nebula
+      tipo: bloqueante
+      descripcion: Horizon bloquea a Nebula
+    - id: D02
+      origen: Nebula
+      destino: Aegis
+      tipo: dependencia
+      descripcion: Nebula depende de Aegis
+    - id: D03
+      origen: Phoenix
+      destino: Aegis
+      tipo: dependencia
+      descripcion: Phoenix depende de Aegis
+    - id: D04
+      origen: Aegis
+      destino: Phoenix
+      tipo: bloqueante
+      descripcion: Aegis bloquea a Phoenix
+    - id: D05
+      origen: Atlas
+      destino: Horizon
+      tipo: legado
+      descripcion: Atlas depende de Horizon (legado)
+    - id: D06
+      origen: Nebula
+      destino: Phoenix
+      tipo: dependencia
+      descripcion: Nebula depende de Phoenix
+    - id: D07
+      origen: Horizon
+      destino: Aegis
+      tipo: bloqueante
+      descripcion: Horizon bloquea a Aegis
+
+  riesgos:
+    - id: R01
+      descripcion: Fuga de datos en API Gateway
+      impacto: crítico
+      proyectos:
+        - Horizon
+        - Nebula
+      proveedor: CloudShield
+      probabilidad: 0.35
+    - id: R02
+      descripcion: Incumplimiento de deadline de Nebula
+      impacto: alto
+      proyectos:
+        - Nebula
+      proveedor: ~
+      probabilidad: 0.60
+    - id: R03
+      descripcion: Rotación de Sofía Márquez
+      impacto: alto
+      proyectos:
+        - Aegis
+        - Nebula
+        - Phoenix
+      proveedor: ~
+      probabilidad: 0.45
+    - id: R04
+      descripcion: Zero-day en motor de eventos
+      impacto: crítico
+      proyectos:
+        - Nebula
+        - Phoenix
+      proveedor: StreamCore
+      probabilidad: 0.20
+    - id: R05
+      descripcion: Sobrecoste de DataVault
+      impacto: medio
+      proyectos:
+        - Aegis
+      proveedor: DataVault
+      probabilidad: 0.55
+    - id: R06
+      descripcion: Incumplimiento de compliance en Phoenix
+      impacto: alto
+      proyectos:
+        - Phoenix
+      proveedor: ComplianceAudit
+      probabilidad: 0.40
+
+  decisiones:
+    - id: AR01
+      descripcion: Adopción de Kubernetes como plataforma de orquestación
+      trimestre: T01
+      proyectos:
+        - Nebula
+        - Horizon
+        - Aegis
+      post_incidente: ~
+    - id: AR02
+      descripcion: Migración a OAuth2 para autenticación de servicios
+      trimestre: T04
+      proyectos:
+        - Aegis
+        - Phoenix
+      post_incidente: I-004
+    - id: AR03
+      descripcion: Arquitectura de motor de eventos desacoplado
+      trimestre: T01
+      proyectos:
+        - Nebula
+        - Phoenix
+      post_incidente: I-002
+    - id: AR04
+      descripcion: Rotación automática de secretos cada 72h
+      trimestre: T04
+      proyectos:
+        - Nebula
+        - Horizon
+        - Aegis
+        - Phoenix
+        - Atlas
+      post_incidente: R01,R04
+    - id: AR05
+      descripcion: Redundancia geográfica de DataVault
+      trimestre: T07
+      proyectos:
+        - Aegis
+      post_incidente: R05
+
+  incidentes:
+    - id: I-001
+      descripcion: Latencia crítica en API Gateway de Horizon
+      fecha: "2026-06-15"
+      severidad: alta
+      proveedor: CloudShield
+      estado: resuelto
+      duracion_horas: 4.5
+    - id: I-002
+      descripcion: Pérdida de eventos en el bus de Nebula
+      fecha: "2026-06-22"
+      severidad: media
+      proveedor: StreamCore
+      estado: resuelto
+      duracion_horas: 2.0
+    - id: I-003
+      descripcion: Caducidad de certificado TLS en Atlas
+      fecha: "2026-07-01"
+      severidad: baja
+      proveedor: CloudShield
+      estado: resuelto
+      duracion_horas: 1.0
+    - id: I-004
+      descripcion: Fuga de tokens de acceso en Aegis
+      fecha: "2026-07-10"
+      severidad: crítica
+      proveedor: ComplianceAudit
+      estado: no_resuelto
+      duracion_horas: ~
+
+  proveedores:
+    - id: CloudShield
+      servicio: WAF + API Gateway
+      costo_mensual: 15000
+      proyectos:
+        - Horizon
+        - Nebula
+      sla: "99.99%"
+    - id: StreamCore
+      servicio: Event Bus
+      costo_mensual: 8200
+      proyectos:
+        - Nebula
+        - Phoenix
+      sla: "99.95%"
+    - id: DataVault
+      servicio: S3 Storage
+      costo_mensual: 23000
+      proyectos:
+        - Aegis
+      sla: "99.99%"
+    - id: ComplianceAudit
+      servicio: SOC2 Compliance
+      costo_mensual: 18000
+      proyectos:
+        - Phoenix
+      sla: "99.90%"
+    - id: NetScale
+      servicio: CDN + DNS
+      costo_mensual: 9500
+      proyectos:
+        - Nebula
+        - Horizon
+        - Phoenix
+      sla: "99.99%"

@@ -63,7 +63,7 @@ import (
     "fmt"
     "os"
 
-    cortex "github.com/codec-cortex/codec-cortex-go/cortex"
+    cortex "github.com/FidelErnesto03/codec-cortex/codec-cortex-go/cortex"
 )
 
 func main() {

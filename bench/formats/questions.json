@@ -1,0 +1,34 @@
+[
+  {
+    "id": "Q1",
+    "question": "¿Quién es el responsable del proyecto 'Nebula' y cuál es su fecha límite?"
+  },
+  {
+    "id": "Q2",
+    "question": "¿Qué riesgos afectan al proyecto con deadline más cercano? Lista todos."
+  },
+  {
+    "id": "Q3",
+    "question": "¿Qué proveedor fue responsable del incidente I-004 y qué decisión arquitectónica se tomó como consecuencia?"
+  },
+  {
+    "id": "Q4",
+    "question": "¿Cuántos miembros del equipo trabajan en más de un proyecto simultáneamente? Nómbralos."
+  },
+  {
+    "id": "Q5",
+    "question": "¿Qué riesgo tiene el nivel de impacto más alto (crítico) y qué proyecto y proveedor están asociados a él?"
+  },
+  {
+    "id": "Q6",
+    "question": "Del incidente más reciente: ¿qué dependencia entre proyectos se vio afectada y qué decisión se tomó para mitigarlo?"
+  },
+  {
+    "id": "Q7",
+    "question": "¿Hay algún riesgo que afecte a MÚLTIPLES proyectos simultáneamente? Si es así, ¿qué proyectos y qué proveedores están en la cadena de impacto?"
+  },
+  {
+    "id": "Q8",
+    "question": "Basado en TODA la información disponible, ¿cuál es el proyecto en mayor peligro? Justifica tu respuesta citando riesgos, dependencias, incidentes y decisiones que lo afectan."
+  }
+]

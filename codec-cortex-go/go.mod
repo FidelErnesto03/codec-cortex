@@ -1,4 +1,4 @@
-module github.com/codec-cortex/codec-cortex-go
+module github.com/FidelErnesto03/codec-cortex/codec-cortex-go
 
 go 1.23.0
 

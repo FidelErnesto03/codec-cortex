@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	cc "github.com/codec-cortex/codec-cortex-go/cortex"
+	cc "github.com/FidelErnesto03/codec-cortex/codec-cortex-go/cortex"
 )
 
 const version = "0.1.0-go"

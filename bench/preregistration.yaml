@@ -1,0 +1,34 @@
+# BLP-003 — Pre-registro (sellado ANTES de ejecutar Nivel B/C)
+# Regla §7.1: estas hipotesis y umbrales NO se ajustan despues de ver resultados.
+blueprint: BLP-003
+cycle: CYCLE-03
+sealed_at: "2026-10-04"
+
+transporte: "conexion nativa cmd (sub-agentes con modelo fijado; sin claves de API)"
+
+hypotheses:
+  H1: "CORTEX iguala o supera a JSON/YAML/XML/Markdown en comprension multi-hop"
+  H2: "CORTEX reduce tokens y costo USD frente a JSON/YAML/XML"
+  H3: "CORTEX es determinista (varianza de hash = 0); un LLM no (varianza > 0)"
+  H4: "CORTEX+modelo satisface tareas content-addressed que un pipeline LLM-solo no"
+
+design:
+  R: 5                       # repeticiones minimas por celda
+  N: 8                       # 8 preguntas del benchmark NexusCorp
+  models_2026:
+    - xiaomi/mimo-v2.6-pro
+    - deepseek/deepseek-v4.1-flash
+  control: []                # modelo no-2026 (pendiente de acceso)
+  formats: [cortex, json, yaml, markdown, plaintext, xml]
+  multiplicity: holm-bonferroni
+  tokenizer_neutral: tiktoken/o200k_base
+  corpus: tests/SHA256SUMS   # sello de entradas
+
+budget:
+  max_usd: 5.0               # tope; al alcanzarlo DETENER (§16)
+
+falsation:
+  H1: "CORTEX no supera a Markdown en multi-hop"
+  H2: "sin ahorro de tokens ni de costo"
+  H3: "la varianza de hash de CORTEX > 0"
+  H4: "satisfacibilidad LLM-solo igual a CORTEX"

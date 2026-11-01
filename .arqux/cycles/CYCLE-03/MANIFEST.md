@@ -5,21 +5,21 @@
 
 cycle_id: "CYCLE-03"
 name: "Remediación BLP-003 capas corticales"
-project_ref: ""
-status: "draft"
+project_ref: "CODEC-CORTEX"
+status: "active"
 governor: "alfred"
 created_at: "2026-07-18T16:11:47Z"
-updated_at: ""
+updated_at: "2026-10-04T23:40:49Z"
 closed_at: ""
 planned_start: ""
 planned_end: ""
 quality_gates@: {
-  has_clear_purpose: false,
-  has_explicit_scope: false,
-  has_measurable_objectives: false,
-  has_operational_guidelines: false,
-  has_control_points: false,
-  aligns_with_project: false,
+  has_clear_purpose: true,
+  has_explicit_scope: true,
+  has_measurable_objectives: true,
+  has_operational_guidelines: true,
+  has_control_points: true,
+  aligns_with_project: true,
 }
 _template_ref: "CYCLE_MANIFEST_TEMPLATE.md"
 ---
@@ -70,14 +70,18 @@ Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza 
 | CP-02 | Revisión Final | 2026-07-20 | Merge canónico por Jarvis | Nombres canónicos sin versión; suite 0.1 + conformidad + puertos verdes |
 ## §6:
 
-| BLP ID | Título | Estado | Prioridad | Objetivo | Gobernador |
-|---|---|---|---|---|---|
-| (pendiente) | Se auto-poblará al crear Blueprints | - | - | - | alfred |
+| BLP ID | Título | Estado | Prioridad | Gobernador |
+|---|---|---|---|---|
+| BLP-001 | Auditar (Heimdall) el paquete codec-cortex-0.2-remediation c... | done | medium | alfred |
+| BLP-002 | Abordar las deudas detectadas por la auditoría Heimdall del ... | done | medium | alfred |
+| BLP-003 | Construir y operar un benchmark reproducible con indicadores... | in_progress | medium | alfred |
+
 ## §7:
 
-**Estado actual:** active
-**Próximo punto de control:** CP-01 — 2026-07-20
-**Iniciado:** 2026-07-18 | **Fin planificado:** 2026-07-21
+**Total Blueprints:** 3 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 1 | **Review:** 0 | **Done:** 2 | **Cancelado:** 0 | **Bloqueado:** 0
+**Progreso:** 67%
+**Total Tareas:** 2 | **Abiertas:** 1 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 1 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
+
 ## §8:
 
 1. Ningún merge al canónico sin veredicto de auditoría registrado como evidencia.

@@ -1,0 +1,76 @@
+## Formato 4: Markdown Tables
+
+### Equipo (8 miembros)
+
+| ID | Nombre | Rol | Proyectos | Seniority | Activo |
+|----|--------|-----|-----------|-----------|--------|
+| EQP-01 | Elena Vargas | Arquitecta Cloud | Nebula, Horizon | 12 | ✅ |
+| EQP-02 | Marco Silva | SRE Lead | Nebula | 9 | ✅ |
+| EQP-03 | Lucía Rojas | Platform Engineer | Horizon, Aegis | 7 | ✅ |
+| EQP-04 | Daniel Ortega | Security Lead | Aegis, Phoenix | 11 | ✅ |
+| EQP-05 | Aisha Okafor | Data Engineer | Nebula, Phoenix | 6 | ✅ |
+| EQP-06 | Chen Wei | Network Architect | Horizon | 14 | ✅ |
+| EQP-07 | Sofía Márquez | DevOps Lead | Nebula, Aegis, Phoenix | 8 | ✅ |
+| EQP-08 | Liam O'Connor | Backend Engineer | Aegis | 4 | ✅ |
+
+### Proyectos (5)
+
+| ID | Código | Nombre | Deadline | Presupuesto | Prioridad | Estado |
+|----|--------|--------|----------|-------------|-----------|--------|
+| PRJ-01 | T01 | Nebula | 2026-09-15 | $850,000 | Alta | Activo |
+| PRJ-02 | T03 | Horizon | 2026-08-01 | $420,000 | Media | Activo |
+| PRJ-03 | T07 | Aegis | 2027-01-10 | $1,200,000 | Crítica | Activo |
+| PRJ-04 | T04 | Phoenix | 2026-10-30 | $670,000 | Alta | Activo |
+| PRJ-05 | T06 | Atlas | 2026-07-30 | $300,000 | Baja | Activo |
+
+### Dependencias (7)
+
+| ID | Origen | Destino | Tipo | Descripción |
+|----|--------|---------|------|-------------|
+| D01 | Horizon | Nebula | Bloqueante | Horizon bloquea a Nebula |
+| D02 | Nebula | Aegis | Dependencia | Nebula depende de Aegis |
+| D03 | Phoenix | Aegis | Dependencia | Phoenix depende de Aegis |
+| D04 | Aegis | Phoenix | Bloqueante | Aegis bloquea a Phoenix |
+| D05 | Atlas | Horizon | Legado | Atlas depende de Horizon (legado) |
+| D06 | Nebula | Phoenix | Dependencia | Nebula depende de Phoenix |
+| D07 | Horizon | Aegis | Bloqueante | Horizon bloquea a Aegis |
+
+### Riesgos (6)
+
+| ID | Descripción | Impacto | Proyectos afectados | Proveedor | Probabilidad |
+|----|-------------|---------|---------------------|-----------|-------------|
+| R01 | Fuga de datos en API Gateway | 🔴 Crítico | Horizon, Nebula | CloudShield | 35% |
+| R02 | Incumplimiento de deadline de Nebula | 🟠 Alto | Nebula | N/A | 60% |
+| R03 | Rotación de Sofía Márquez | 🟠 Alto | Aegis, Nebula, Phoenix | N/A | 45% |
+| R04 | Zero-day en motor de eventos | 🔴 Crítico | Nebula, Phoenix | StreamCore | 20% |
+| R05 | Sobrecoste de DataVault | 🟡 Medio | Aegis | DataVault | 55% |
+| R06 | Incumplimiento de compliance en Phoenix | 🟠 Alto | Phoenix | ComplianceAudit | 40% |
+
+### Decisiones de Arquitectura (5)
+
+| ID | Descripción | Trimestre | Proyectos | Post-incidente |
+|----|-------------|-----------|-----------|----------------|
+| AR01 | Adopción de Kubernetes como plataforma de orquestación | T01 | Nebula, Horizon, Aegis | — |
+| AR02 | Migración a OAuth2 para autenticación de servicios | T04 | Aegis, Phoenix | I-004 |
+| AR03 | Arquitectura de motor de eventos desacoplado | T01 | Nebula, Phoenix | I-002 |
+| AR04 | Rotación automática de secretos cada 72h | T04 | Nebula, Horizon, Aegis, Phoenix, Atlas | R01, R04 |
+| AR05 | Redundancia geográfica de DataVault | T07 | Aegis | R05 |
+
+### Incidentes (4)
+
+| ID | Descripción | Fecha | Severidad | Proveedor | Estado | Duración (h) |
+|----|-------------|-------|-----------|-----------|--------|-------------|
+| I-001 | Latencia crítica en API Gateway de Horizon | 2026-06-15 | Alta | CloudShield | ✅ Resuelto | 4.5 |
+| I-002 | Pérdida de eventos en el bus de Nebula | 2026-06-22 | Media | StreamCore | ✅ Resuelto | 2.0 |
+| I-003 | Caducidad de certificado TLS en Atlas | 2026-07-01 | Baja | CloudShield | ✅ Resuelto | 1.0 |
+| I-004 | Fuga de tokens de acceso en Aegis | 2026-07-10 | 🔴 Crítica | ComplianceAudit | ❌ No resuelto | — |
+
+### Proveedores (5)
+
+| ID | Servicio | Costo mensual | Proyectos | SLA |
+|----|----------|---------------|-----------|-----|
+| CloudShield | WAF + API Gateway | $15,000 | Horizon, Nebula | 99.99% |
+| StreamCore | Event Bus | $8,200 | Nebula, Phoenix | 99.95% |
+| DataVault | S3 Storage | $23,000 | Aegis | 99.99% |
+| ComplianceAudit | SOC2 Compliance | $18,000 | Phoenix | 99.90% |
+| NetScale | CDN + DNS | $9,500 | Nebula, Horizon, Phoenix | 99.99% |
