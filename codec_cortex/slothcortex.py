@@ -290,7 +290,7 @@ def _parse_schema_ideas(body: str, sym_lookup: dict,
         is_slots = encoding == "slots"
 
         rows = _parse_table_rows(rest)
-        if rows:
+        if rows and not (sym and sym.shape in ("bloque", "cuerpo")):
             if is_slots and sym:
                 fvs = []
                 for f in sym.contract:
