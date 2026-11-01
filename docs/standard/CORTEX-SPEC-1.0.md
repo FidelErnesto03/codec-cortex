@@ -173,6 +173,7 @@ Reglas aprendidas de violaciones reales observadas en el corpus vivo — cada un
 5. **Densidad ideática.** El contenido normativo vive en ideas tipadas (`RUL`, `API`, `PRC`…), no en cuerpos prosa. `cuerpo` es payload semántico; `bloque` es verbatim (ejemplos, referencias). Un documento que "parsea" pero diluye sus reglas en prosa es conforme y aun así mal formado — la forma también es contrato.
 6. **Una línea por idea, también al serializar.** Escribir strings con newline literal sin escapar rompe la línea de la idea *y* el artefacto que la contiene — los escritores deben escapar o rechazar (`§4.2`).
 7. **`desc` es etiqueta, no frase.** En la declaración de sigilo, `desc` es obligatorio (`G020`) pero debe ser una etiqueta de 1-3 palabras: el glosario es un **sistema de tipos que clasifica**, no un índice que documenta. El significado mínimo basta para que el LLM lo interprete al usuario; la explicación extensa pertenece a la idea o a la spec.
+8. **La idea es taquigrafía.** Nombre = etiqueta, enunciado = directo, cero explicación embebida: lo extenso va en `detail` o en la spec. La compactitud es propiedad del formato, no disciplina opcional del autor — cada idea marginal compite contra markdown con sus bytes de señal, no de relleno.
 
 ## §13 Referencias normativas
 
