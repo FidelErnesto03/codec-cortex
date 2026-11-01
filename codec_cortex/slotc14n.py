@@ -293,9 +293,9 @@ def _idea_canonical_slots(idea: Idea, sym: SymbolDef) -> str:
     if idea.payload and idea.shape == "attrs":
         pairs = idea.payload[1]
         if sym is None:
-        from .scalars import ParseError
-        raise ParseError("I001_UNDECLARED_SYMBOL", f"Undeclared sigil in canonicalize: {idea.symbol}")
-    field_types = {f.name: f.type for f in sym.contract}
+            from .scalars import ParseError
+            raise ParseError("I001_UNDECLARED_SYMBOL", f"Undeclared sigil in canonicalize: {idea.symbol}")
+        field_types = {f.name: f.type for f in sym.contract}
         focus = sym.focus
         parts = []
         for k, v in pairs:

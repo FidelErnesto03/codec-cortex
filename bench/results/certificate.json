@@ -5,7 +5,7 @@
     "codec_cortex": "1.0.0-rc.1",
     "python": "3.11.8"
   },
-  "instrument_sha256": "3642e845ad16f042c07c10a77b04ac506146eea625dfebba59f77f421d2c96d8",
+  "instrument_sha256": "642b6bff5e729612cc717fcc31347a4eca371fc5375c3c1967c5e86204ffb7e6",
   "seed": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
   "indicators": [
     {
