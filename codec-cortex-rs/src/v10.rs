@@ -1718,3 +1718,31 @@ pub fn hash_any(doc: &mut AnyDoc) -> String {
         AnyDoc::V10(d) => crate::slotparser::hash_slots(canonicalize_v10(d).as_bytes()),
     }
 }
+
+#[cfg(test)]
+mod v10_vector_tests {
+    use super::*;
+    use std::fs;
+    use std::path::Path;
+
+    #[test]
+    fn hcortex_10_vectors_match_sources() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
+        let dir = root.join("conformance/1.0/hcortex");
+        let mut files: Vec<_> = fs::read_dir(&dir)
+            .unwrap()
+            .filter_map(|e| e.ok().map(|e| e.path()))
+            .filter(|p| p.extension().map(|x| x == "md").unwrap_or(false))
+            .collect();
+        files.sort();
+        assert!(!files.is_empty(), "no HCORTEX 1.0 vectors");
+        for f in files {
+            let text = fs::read_to_string(&f).unwrap();
+            let mut doc = compile_hcortex10(&text).unwrap();
+            let stem = f.file_stem().unwrap().to_string_lossy();
+            let source = fs::read_to_string(root.join("conformance/1.0/valid").join(format!("{stem}.cortex"))).unwrap();
+            let mut expected = parse_v10(&source, "1.0").unwrap();
+            assert_eq!(canonicalize_v10(&mut doc), canonicalize_v10(&mut expected), "{stem} vector");
+        }
+    }
+}
