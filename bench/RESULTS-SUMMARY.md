@@ -11,10 +11,10 @@
 
 | Indicador | Resultado | Artefacto |
 |---|---|---|
-| D1 idempotencia | **70/70** | `certificate.json` |
+| D1 idempotencia | **140/140** | `certificate.json` |
 | D2 roundtrip HCORTEX (0.1+0.2+1.0) | **140/140** | |
 | D3 paridad runtime | **py = node = bash** → `4ad4aec9…` | |
-| D4 no-pérdida | **70/70** | |
+| D4 no-pérdida | **140/140** | |
 | D5 sensibilidad a tamper | **PASS** | |
 | **Veredicto** | **PASS** | |
 

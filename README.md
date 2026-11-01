@@ -53,10 +53,10 @@ ningún LLM) y emite `bench/results/certificate.json`:
 
 | Indicador | Resultado |
 |---|---|
-| D1 idempotencia C14N | 70/70 |
+| D1 idempotencia C14N | 140/140 |
 | D2 roundtrip HCORTEX byte-exacto (3 superficies) | 140/140 |
 | D3 paridad cross-runtime | 5/5 (bash, go, node, python, rust) |
-| D4 no-pérdida | 70/70 |
+| D4 no-pérdida | 140/140 |
 | D5 sensibilidad a tamper | PASS |
 | D6 contraste de determinismo | CORTEX varianza 0 vs LLM varianza > 0 (R=5) |
 
