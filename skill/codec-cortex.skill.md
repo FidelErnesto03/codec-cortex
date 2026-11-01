@@ -133,7 +133,7 @@ HDL:harness|harness [C14N_DIR] [HCORTEX_DIR]|current|Legacy F3/F4 harness (0.1)
 HDL:conformance|conformance [MANIFEST_DIR]|current|Slots conformance harness (0.2)
 HDL:tohcortex|to-hcortex [--embed-ast] <file>|current|Render HCORTEX 0.2 desde CORTEX 0.2
 HDL:fromhcortex|from-hcortex <file>|current|Compila HCORTEX 0.2 a CORTEX 0.2 canonico
-HDL:migrate|migrate <cmd> <file> [args]|current|inspect|plan|apply|verify|rollback
+HDL:migrate|migrate <cmd> <file> [args]|current|"inspect|plan|apply|verify|rollback"
 RUL:embed_warning{id:"embed-warning",rule:"NO usar --embed-ast para roundtrip.",detail:"Genera <!-- cortex-ast: HASH --> de provenance. compile_hcortex_slots lo rechaza con H481_HIDDEN_COPY. Solo para verificacion unidireccional (no roundtrip)."}
 
 $9: CATALOGO DE ERRORES:DATA
