@@ -1,1 +1,0 @@
-../standard/fundamental-glossary-0.1.md

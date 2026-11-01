@@ -1,1 +1,1 @@
-../standard/errors.md
+../standard/errors-1.0.md

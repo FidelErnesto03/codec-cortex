@@ -1,0 +1,1 @@
+../standard/CORTEX-SPEC-1.0.md
