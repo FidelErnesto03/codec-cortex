@@ -28,6 +28,7 @@ SEED = ROOT / "conformance/hcortex/cortex/H002_attrs-optional.cortex"
 CORPUS_01 = sorted((ROOT / "conformance/hcortex/cortex").glob("*.cortex"))
 CORPUS_02 = sorted((ROOT / "conformance/slots/valid").glob("*.cortex"))
 CORPUS_10 = sorted((ROOT / "conformance/1.0/valid").glob("*.cortex"))
+SKILL = ROOT / "skill/codec-cortex.skill.md"
 HCORTEX_02_DIR = ROOT / "conformance/slots/hcortex"
 
 
@@ -71,7 +72,7 @@ def d2_roundtrip(files: list[Path]) -> dict:
         try:
             text = f.read_text(encoding="utf-8")
             doc = parse_cortex(text)
-            if "cortex:0.1" in text:
+            if doc.cortex_version == "0.1":
                 back, _diags = compile_hcortex(render_hcortex(doc))
             else:
                 back, _diags = compile_hcortex_slots(render_hcortex_slots(doc))
@@ -163,7 +164,7 @@ def d5_tamper(seed: Path) -> dict:
 
 def run() -> dict:
     parse_cortex, canonicalize, hash_cortex = _api()
-    corpus = CORPUS_01 + CORPUS_02 + CORPUS_10
+    corpus = CORPUS_01 + CORPUS_02 + CORPUS_10 + [SKILL]
     indicators = [
         d1_idempotence(corpus),
         d2_roundtrip(corpus),

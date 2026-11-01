@@ -38,14 +38,9 @@ GLOSSARY_RE = re.compile(r'<!--\s*glossary\s*-->\n(.*?)\n<!--\s*/glossary\s*-->'
 HIDDEN_COPY_RE = re.compile(
     r'<!--\s*(cortex-ast:|base64:|payload-shadow:|shadow:|ast:|internal:)'
 )
-SECTION_RE = re.compile(
-    r"##\s*§(\d+):\s*(.*?)\s*\n"
-    r"\n"
-    r"<!--\s*schema:\d+(?:\s+capa:(\w+))?\s*-->\s*\n"
-    r"(.*?)"
-    r"\n<!--\s*/schema:\d+\s*-->",
-    re.DOTALL,
-)
+_SECTION_HEADING_RE = re.compile(r"^##\s*§(\d+):\s*(.*?)\s*$")
+_SCHEMA_OPEN_RE = re.compile(r"^<!--\s*schema:(\d+)(?:\s+capa:(\w+))?\s*-->$")
+_SCHEMA_CLOSE_RE = re.compile(r"^<!--\s*/schema:\d+\s*-->$")
 
 
 def render_hcortex_slots(doc: Document, embed_ast: bool = False) -> str:
@@ -125,12 +120,7 @@ def compile_hcortex_slots(text: str) -> Tuple[Optional[Document], List[dict]]:
         key = (s.namespace, s.sigil)
         sym_lookup[key] = s
 
-    for m in SECTION_RE.finditer(text):
-        sec_id = int(m.group(1))
-        sec_title_raw = m.group(2).strip()
-        capa = m.group(3)
-        body = m.group(4)
-
+    for sec_id, sec_title_raw, capa, body in _iter_sections(text):
         title = None if sec_title_raw == f"Sección {sec_id}" else sec_title_raw
         section = Section(id=sec_id, title=title, ideas=[], capa=capa)
         doc.sections.append(section)
@@ -142,6 +132,29 @@ def compile_hcortex_slots(text: str) -> Tuple[Optional[Document], List[dict]]:
         section.ideas.extend(ideas)
 
     return doc, diags
+
+
+def _iter_sections(text: str):
+    """Yield (id, title, capa, body) for sections outside fenced blocks."""
+    lines = text.split("\n")
+    fenced = _fence_mask(lines)
+    i = 0
+    while i < len(lines):
+        m = None if fenced[i] else _SECTION_HEADING_RE.match(lines[i])
+        if m and i + 2 < len(lines) and lines[i + 1].strip() == "":
+            sm = _SCHEMA_OPEN_RE.match(lines[i + 2])
+            if sm:
+                j = i + 3
+                while j < len(lines):
+                    if not fenced[j] and _SCHEMA_CLOSE_RE.match(lines[j]):
+                        break
+                    j += 1
+                if j < len(lines):
+                    yield (int(m.group(1)), m.group(2).strip(),
+                           sm.group(2), "\n".join(lines[i + 3:j]))
+                    i = j + 1
+                    continue
+        i += 1
 
 
 def _render_glossary_slots(doc: Document) -> str:
@@ -265,17 +278,42 @@ def _render_scalar(v: Optional[Scalar]) -> str:
     return v.lexeme
 
 
+_IDEA_MARKER_RE = re.compile(r"^### ([!]?(?:\w+::)?[!\w]+):([\w_-]+)\s*$")
+
+
+def _fence_mask(lines: List[str]) -> List[bool]:
+    """Mark complete ``` fence spans so their content is never read as ideas."""
+    mask = [False] * len(lines)
+    i = 0
+    while i < len(lines):
+        if lines[i].lstrip().startswith("```"):
+            j = i + 1
+            while j < len(lines) and not lines[j].lstrip().startswith("```"):
+                j += 1
+            if j < len(lines):
+                for k in range(i, j + 1):
+                    mask[k] = True
+                i = j + 1
+                continue
+        i += 1
+    return mask
+
+
 def _parse_schema_ideas(body: str, sym_lookup: dict,
                         section_id: int, diags: List[dict]) -> List[Idea]:
     ideas: List[Idea] = []
-    marker_pattern = re.compile(
-        r"### ([!]?(?:\w+::)?[!\w]+):([\w_-]+)\s*\n(.*?)(?=\n### |\Z)",
-        re.DOTALL,
-    )
-    for m in marker_pattern.finditer(body):
-        qualified = m.group(1)
-        name = m.group(2)
-        rest = m.group(3).strip()
+    lines = body.split("\n")
+    fenced = _fence_mask(lines)
+    markers = []
+    for i, line in enumerate(lines):
+        if fenced[i]:
+            continue
+        m = _IDEA_MARKER_RE.match(line)
+        if m:
+            markers.append((i, m.group(1), m.group(2)))
+    for idx, (start, qualified, name) in enumerate(markers):
+        end = markers[idx + 1][0] if idx + 1 < len(markers) else len(lines)
+        rest = "\n".join(lines[start + 1:end]).strip()
 
         ns = None
         sigil_short = qualified
@@ -363,33 +401,51 @@ def _parse_schema_ideas(body: str, sym_lookup: dict,
     return ideas
 
 
+def _split_table_row(line: str) -> List[str]:
+    s = line.strip()
+    if s.startswith("|"):
+        s = s[1:]
+    if s.endswith("|"):
+        s = s[:-1]
+    cells: List[str] = []
+    buf: List[str] = []
+    in_quotes = False
+    escaped = False
+    for ch in s:
+        if escaped:
+            buf.append(ch)
+            escaped = False
+        elif ch == "\\" and in_quotes:
+            buf.append(ch)
+            escaped = True
+        elif ch == '"':
+            in_quotes = not in_quotes
+            buf.append(ch)
+        elif ch == "|" and not in_quotes:
+            cells.append("".join(buf).strip())
+            buf = []
+        else:
+            buf.append(ch)
+    cells.append("".join(buf).strip())
+    return cells
+
+
 def _parse_table_rows(text: str) -> List[dict]:
     lines = [ln.strip() for ln in text.split("\n") if ln.strip()]
-    header_idx = None
-    data_idx = None
-    for i, ln in enumerate(lines):
-        if ln.startswith("|") and ln.endswith("|"):
-            if set(ln.strip("|").replace("|", "").replace("-", "").strip()) == set():
-                continue
-            if header_idx is None:
-                header_idx = i
-            else:
-                data_idx = i
-                break
-    if header_idx is None or data_idx is None:
+    table = [ln for ln in lines if ln.startswith("|") and ln.endswith("|")]
+    if len(table) < 2:
         return []
-    if data_idx - header_idx == 1:
-        separators = [c.strip() for c in lines[data_idx].strip("|").split("|")]
-        for i in range(data_idx + 1, len(lines)):
-            if lines[i].startswith("|") and lines[i].endswith("|"):
-                data_idx = i
-                break
-    headers = [c.strip() for c in lines[header_idx].strip("|").split("|")]
-    data = [c.strip() for c in lines[data_idx].strip("|").split("|")]
-    result = {}
-    for h, d in zip(headers, data):
-        result[h] = d
-    return [result]
+    headers = _split_table_row(table[0])
+    data = None
+    for ln in table[1:]:
+        cells = _split_table_row(ln)
+        if all(c == "" or set(c) <= {"-", ":"} for c in cells):
+            continue
+        data = cells
+        break
+    if data is None:
+        return []
+    return [dict(zip(headers, data))]
 
 
 def _unescape(inner: str) -> str:

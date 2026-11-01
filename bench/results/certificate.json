@@ -5,14 +5,14 @@
     "codec_cortex": "1.0.0-rc.1",
     "python": "3.11.8"
   },
-  "instrument_sha256": "642b6bff5e729612cc717fcc31347a4eca371fc5375c3c1967c5e86204ffb7e6",
+  "instrument_sha256": "0aa13ef331e7ac7676004928d100918d94d2dc90e2a2a134f6c2cf12da49caa9",
   "seed": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
   "indicators": [
     {
       "id": "D1_idempotence",
       "pass": true,
-      "ok": 140,
-      "total": 140,
+      "ok": 141,
+      "total": 141,
       "details": [
         {
           "file": "conformance/hcortex/cortex/H001_minimal-attrs.cortex",
@@ -572,6 +572,10 @@
         },
         {
           "file": "conformance/1.0/valid/v10-V040_dense_skill_excerpt.cortex",
+          "pass": true
+        },
+        {
+          "file": "skill/codec-cortex.skill.md",
           "pass": true
         }
       ]
@@ -579,8 +583,8 @@
     {
       "id": "D2_roundtrip_hcortex_all",
       "pass": true,
-      "ok": 140,
-      "total": 140,
+      "ok": 141,
+      "total": 141,
       "details": [
         {
           "file": "conformance/hcortex/cortex/H001_minimal-attrs.cortex",
@@ -1140,6 +1144,10 @@
         },
         {
           "file": "conformance/1.0/valid/v10-V040_dense_skill_excerpt.cortex",
+          "pass": true
+        },
+        {
+          "file": "skill/codec-cortex.skill.md",
           "pass": true
         }
       ]
@@ -1187,8 +1195,8 @@
     {
       "id": "D4_lossless",
       "pass": true,
-      "ok": 140,
-      "total": 140,
+      "ok": 141,
+      "total": 141,
       "details": [
         {
           "file": "conformance/hcortex/cortex/H001_minimal-attrs.cortex",
@@ -1748,6 +1756,10 @@
         },
         {
           "file": "conformance/1.0/valid/v10-V040_dense_skill_excerpt.cortex",
+          "pass": true
+        },
+        {
+          "file": "skill/codec-cortex.skill.md",
           "pass": true
         }
       ]
