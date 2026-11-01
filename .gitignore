@@ -7,3 +7,13 @@ build/
 .env
 venv/
 .target/
+
+# ArqUX governance residue (locks, atomic backups)
+.arqux/**/*.lock
+*.cortex.lock
+*.bak
+*.bak-*
+*.bck
+
+# ArqUX governance residue (locks, atomic backups)
+*.bak.*
