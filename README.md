@@ -97,6 +97,11 @@ re-medida con rigor (pre-registro, R=5, IC, auditoría ciega) bajo
 afirmaciones con respaldo reproducible hoy son las del
 [certificado Nivel A](#nivel-a--certificado-determinista).
 
+Los reportes originales y demás material supersedido (gates F2–F4,
+herramientas de fase, revisión documental) están congelados bajo sello en
+[`archive/2026-11/`](archive/2026-11/README.md) — evidencia histórica, no
+autoridad vigente.
+
 ## Licencia
 
 **Apache License 2.0** — ver [`LICENSE`](LICENSE).

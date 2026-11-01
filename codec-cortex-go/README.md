@@ -59,7 +59,7 @@ codec-cortex to-hcortex archivo.cortex
 codec-cortex from-hcortex archivo.md
 codec-cortex hash archivo.cortex
 codec-cortex explain-loss archivo.cortex
-codec-cortex harness ./c14n-corpus ./gate-f4 --report rev-report.json
+codec-cortex harness ./archive/2026-11/experiments/gate-f4/cortex ./archive/2026-11/experiments/gate-f4/hcortex-canonical --report rev-report.json
 ```
 
 Todos los comandos de archivo aceptan `-` para stdin.

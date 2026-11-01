@@ -3,3 +3,4 @@
 /rev-report.json
 *.tmp
 .DS_Store
+codec-cortex

@@ -225,11 +225,11 @@ Paso 8: Para roundtrip, valida: canonicalize(compile_hcortex_slots(render_hcorte
 $11: VALIDACION:DATA
 TST:probes{id:"P01-P29",command:"python scripts/ccx_probes.py",result:pass,scope:"CORTEX 0.1/0.2, slots, HCORTEX 0.1/0.2, migration, mixed-version I058"}
 TST:node{id:"node-tests",command:"node --test codec-cortex-node/test/*.test.js",result:pass,scope:"Paridad Node.js con Python, slots 0.2"}
-TST:pytest{id:"pytest",command:"python -m pytest -q",result:diagnostic,scope:"Collection path requiere reparacion en experiments/gate-f3/rust/test_c14n.py; no bloquea conformidad"}
+TST:pytest{id:"pytest",command:"python -m pytest -q",result:diagnostic,scope:"Collection path requiere reparacion en archive/2026-11/experiments/gate-f3/rust/test_c14n.py; no bloquea conformidad"}
 TST:conformance{id:"conformance",command:"python -m codec_cortex conformance",result:pass,scope:"Corpus slots 0.2 con manifest.json"}
 TST:roundtrip{id:"roundtrip",command:"python -m codec_cortex.slothcortex (run_roundtrip)",result:pass,scope:"Roundtrip byte-exacto HCORTEX 0.2 <-> CORTEX 0.2 en 5 shapes"}
 TXT:evidence{
-Revision verificada: P01-P29 = 29/29, Node = 22/22, conformance slots 0.2 = pass, roundtrip HCORTEX 0.2 = pass. pytest global falla durante collection por una ruta de corpus inconsistente en experiments/gate-f3/rust/test_c14n.py; no afecta la conformidad nuclear.
+Revision verificada: P01-P29 = 29/29, Node = 22/22, conformance slots 0.2 = pass, roundtrip HCORTEX 0.2 = pass. pytest global falla durante collection por una ruta de corpus inconsistente en archive/2026-11/experiments/gate-f3/rust/test_c14n.py; no afecta la conformidad nuclear.
 Gate F3/F4 distingue INTERNAL_PASS de certificacion independiente. No declarar Gate listo, Standard ratificado o conformidad completa sin evidencia independiente. La capacidad implementada (Python, Rust, Go, Node, Bash) tiene C14N 40/40 en cada lenguaje.
 }
 

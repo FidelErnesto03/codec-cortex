@@ -107,14 +107,14 @@ echo "Tamaño: $(du -sh "$PKG" | cut -f1)"
 
 | Excluido | Razón |
 |---|---|
-| `tools/cortex01_c14n.py` | Oráculo Python interno — invalidaría la revisión |
-| `tools/hcortex_oracle.py` | Oráculo Python interno — invalidaría la revisión |
-| `tools/cortex01_validator.py` | Validador de Fase 2 |
-| `tools/validate_phase2.py` | Runner de Fase 2 |
-| `tools/validate_phase3.py` | Runner de Fase 3 — usa el oráculo |
-| `tools/validate_phase4.py` | Runner de Fase 4 — usa el oráculo |
-| `experiments/` | Todas las implementaciones previas |
-| `docs/review/` | Reportes de diseño y experimentos previos |
+| `archive/2026-11/tools-legacy/cortex01_c14n.py` | Oráculo Python interno — invalidaría la revisión |
+| `archive/2026-11/tools-legacy/hcortex_oracle.py` | Oráculo Python interno — invalidaría la revisión |
+| `archive/2026-11/tools-legacy/cortex01_validator.py` | Validador de Fase 2 |
+| `archive/2026-11/tools-legacy/validate_phase2.py` | Runner de Fase 2 |
+| `archive/2026-11/tools-legacy/validate_phase3.py` | Runner de Fase 3 — usa el oráculo |
+| `archive/2026-11/tools-legacy/validate_phase4.py` | Runner de Fase 4 — usa el oráculo |
+| `archive/2026-11/experiments/` | Todas las implementaciones previas |
+| `archive/2026-11/docs-review/` | Reportes de diseño y experimentos previos |
 | `docs/standard/F3-CHARTER.md` | Documento de guía interna |
 | `docs/standard/F4-CHARTER.md` | Documento de guía interna |
 | `conformance/c14n/corpus/reports/` | Reportes de pérdida — dependientes del oráculo |

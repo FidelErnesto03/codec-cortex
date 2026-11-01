@@ -47,3 +47,7 @@ determinismo CORTEX varianza 0.
 Artefactos: [`bench/results/certificate.json`](../bench/results/certificate.json) ·
 [`bench/results/audit.sig`](../bench/results/audit.sig) · corpus sellado en
 [`tests/SHA256SUMS`](../tests/SHA256SUMS).
+
+Material histórico supersedido (evidencia exploratoria pre-BLP-003, gates
+F2–F4, herramientas de fase): [`archive/2026-11/`](../archive/2026-11/README.md),
+congelado bajo su propio sello.

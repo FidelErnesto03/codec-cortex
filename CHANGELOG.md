@@ -4,6 +4,30 @@ Todos los cambios notables del proyecto se documentan aquí. El proyecto sigue
 nombres canónicos sin versión en archivos/esquemas; la versión vive en los
 metadatos de cada superficie y en tags de git.
 
+## [Unreleased] — post-`1.0.0-rc.1` en `main`
+
+### Añadido
+
+- `archive/2026-11/` — archivo fechado del material deprecado (916
+  archivos movidos con `git mv`): evidencia exploratoria pre-BLP-003,
+  artefactos de gates F2–F4, herramientas de fase y revisión documental.
+  Congelado bajo `archive/2026-11/SHA256SUMS` (906 archivos) con índice y
+  reglas propias; los reportes antiguos llevan cabecera de deprecación.
+- Punteros al archivo desde `README.md` y `docs/index.md`.
+
+### Cambiado
+
+- `tests/SHA256SUMS` regenerado sobre el corpus vivo (`conformance/` +
+  `examples/`, 829 archivos) tras retirar los reportes archivados del
+  sello.
+- Documentación pública renovada (commit `fcbfb97`): tabla de
+  distribución honesta (solo PyPI publicado), sección Nivel A, evidencia
+  exploratoria re-etiquetada.
+- Referencias corregidas a rutas archivadas en `codec-cortex-go/README.md`,
+  `skill/codec-cortex.skill.md` y specs en `docs/standard/`
+  (`REV-PROTOCOL`, `REV-PACKAGE-GUIDE`, `GATE-F2`, `CORTEX-SPEC-0.1`,
+  `hcortex-0.1`).
+
 ## [1.0.0-rc.1] — 2026-10-10
 
 Publicado en PyPI como `codec-cortex 1.0.0rc1` (pre-release; `latest` en PyPI

@@ -38,14 +38,14 @@ El revisor recibe ÚNICAMENTE estos archivos. Sin acceso al oráculo Python, sin
 
 ## 3. Lo que el revisor NO debe usar
 
-- ❌ El archivo `tools/cortex01_c14n.py` (oráculo Python interno)
-- ❌ El archivo `tools/hcortex_oracle.py` (oráculo Python interno)
-- ❌ El archivo `tools/cortex01_validator.py` (validador de Fase 2)
-- ❌ El archivo `tools/validate_phase2.py` (runner de Fase 2)
-- ❌ El archivo `tools/validate_phase3.py` (runner de Fase 3)
-- ❌ El archivo `tools/validate_phase4.py` (runner de Fase 4)
-- ❌ Cualquier implementación existente en `experiments/`
-- ❌ `docs/review/` — reportes de diseño y experimentos previos
+- ❌ El archivo `archive/2026-11/tools-legacy/cortex01_c14n.py` (oráculo Python interno)
+- ❌ El archivo `archive/2026-11/tools-legacy/hcortex_oracle.py` (oráculo Python interno)
+- ❌ El archivo `archive/2026-11/tools-legacy/cortex01_validator.py` (validador de Fase 2)
+- ❌ El archivo `archive/2026-11/tools-legacy/validate_phase2.py` (runner de Fase 2)
+- ❌ El archivo `archive/2026-11/tools-legacy/validate_phase3.py` (runner de Fase 3)
+- ❌ El archivo `archive/2026-11/tools-legacy/validate_phase4.py` (runner de Fase 4)
+- ❌ Cualquier implementación existente en `archive/2026-11/experiments/`
+- ❌ `archive/2026-11/docs-review/` — reportes de diseño y experimentos previos
 
 ## 4. Protocolo de revisión — Fase 3 (C14N-0.1)
 

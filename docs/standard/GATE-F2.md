@@ -8,7 +8,7 @@ Cada implementación:
 
 - usa un lenguaje o codebase independiente;
 - lee solo esta entrega y documentos superiores de Fase 1;
-- no traduce `tools/hcortex_oracle.py`;
+- no traduce `archive/2026-11/tools-legacy/hcortex_oracle.py`;
 - no inspecciona la implementación de la otra;
 - registra dudas como issues de ambigüedad.
 

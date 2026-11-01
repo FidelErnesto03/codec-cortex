@@ -85,7 +85,7 @@ F3-A es requisito previo de F3-G.
 <!-- table:13 -->
 | Tipo | Descripción | Comando | Evidencia |
 |---|---|---|---|
-| test | Roundtrip 40 casos | `python3 tools/validate.py` | PASS |
+| test | Roundtrip 30 casos | `python3 -m codec_cortex.slothcortex` | PASS |
 | lint | Sin dependencias VIEW | `grep -c view` | 0 |
 <!-- /table:13 -->
 ```

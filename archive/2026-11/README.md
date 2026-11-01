@@ -24,14 +24,11 @@ Integridad del archivo: [`SHA256SUMS`](SHA256SUMS) (sello propio de este ciclo).
 
 1. **Lectura permitida, edición prohibida** — el archivo es evidencia
    congelada; corregir un reporte histórico falsificaría la evidencia.
-2. **Nada del archivo entra al build ni a los tests** — si código vigente
-   lo referencia, es un bug.
+2. **Nada del archivo entra al build, a los tests ni a dependencias de
+   runtime del paquete.** Excepción documentada: los harness *legacy*
+   F3/F4 (`python -m codec_cortex` y `codec-cortex` Go sin subcomando)
+   usan `archive/2026-11/experiments/` como corpus por defecto (o
+   `$REV_PACKAGE`) — es su entrada canónica histórica, uso opt-in, no una
+   dependencia. El resto de referencias vivas al archivo es un bug.
 3. Próximos ciclos de archivo: `archive/YYYY-MM/` con su propio
    `SHA256SUMS` y `README.md`.
-
-## Nota
-
-El binario Go sin subcomando usa por defecto `./experiments` (o
-`$REV_PACKAGE`): ese default apuntaba al corpus de desarrollo ahora
-archivado; usar `codec-cortex harness <dir>` con rutas explícitas o el
-corpus canónico `conformance/`.

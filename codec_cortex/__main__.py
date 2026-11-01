@@ -148,7 +148,9 @@ def _cmd_harness(args):
 
     base = os.environ.get(
         "REV_PACKAGE",
-        os.path.join(os.path.dirname(__file__), "..", "experiments")
+        os.path.join(
+            os.path.dirname(__file__), "..", "archive", "2026-11", "experiments"
+        )
     )
 
     c14n_dir = args[0] if len(args) > 0 else os.path.join(base, "gate-f3", "c14n-corpus")

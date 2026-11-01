@@ -1078,7 +1078,7 @@ Dos implementadores independientes deben poder, leyendo únicamente esta entrega
 4. emitir los códigos obligatorios;
 5. no incorporar reglas específicas de sigilos de dominio.
 
-La utilidad `tools/cortex01_validator.py` es no normativa y no satisface por sí sola la independencia del gate.
+La utilidad `archive/2026-11/tools-legacy/cortex01_validator.py` es no normativa y no satisface por sí sola la independencia del gate.
 
 ## 33. Invariantes normativas resumidas
 

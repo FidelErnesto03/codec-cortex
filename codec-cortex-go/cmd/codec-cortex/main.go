@@ -69,7 +69,7 @@ Usage:
   codec-cortex harness [C14N_DIR] [HC_DIR] [--report FILE]
   codec-cortex version
 
-With no command, the program runs the F3/F4 harness using REV_PACKAGE or ./experiments.`)
+With no command, the program runs the F3/F4 harness using REV_PACKAGE or ./archive/2026-11/experiments.`)
 }
 
 func requireOneFile(args []string) (string, error) {
@@ -204,7 +204,7 @@ func commandExplainLoss(args []string) error {
 func runHarness(args []string) error {
 	base := os.Getenv("REV_PACKAGE")
 	if base == "" {
-		base = "experiments"
+		base = filepath.Join("archive", "2026-11", "experiments")
 	}
 	c14nDir := filepath.Join(base, "gate-f3", "c14n-corpus")
 	hcortexDir := filepath.Join(base, "gate-f4")
