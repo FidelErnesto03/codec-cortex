@@ -39,6 +39,32 @@ import os
 import json
 
 
+_CMD_HELP = {
+    "parse": "parse <file> — parse a CORTEX document and print its AST as JSON (dispatcher: 0.1/0.2/1.0).",
+    "validate": "validate <file> — validate a CORTEX document; exit 0 if valid, 1 on first diagnostic.",
+    "canonicalize": "canonicalize <file> — print canonical bytes of the parsed document.",
+    "hash": "hash <file> — print the canonical SHA-256 hash (sha256:<hex>).",
+    "harness": "harness [C14N_DIR] [HCORTEX_DIR] — legacy F3/F4 reviewer harness (run_all_tests).",
+    "conformance": "conformance [MANIFEST_DIR] — slots conformance harness (manifest-driven).",
+    "to-hcortex": "to-hcortex [--embed-ast] <file> — render a CORTEX document to HCORTEX.",
+    "from-hcortex": "from-hcortex <file> — compile HCORTEX back to CORTEX canonical; self-validates its output (a compile never emits unparseable source).",
+    "migrate": "migrate <cmd> <file> [args] — migrate 0.1→0.2 or to-1.0 (inspect|plan|apply|verify|rollback).",
+    "help": "help [<cmd>] — show general help or per-command help.",
+}
+
+
+def _cmd_help(args):
+    if not args:
+        print(__doc__)
+        return 0
+    cmd = args[0]
+    if cmd in _CMD_HELP:
+        print(_CMD_HELP[cmd])
+        return 0
+    print(f"help: unknown command {cmd!r}", file=sys.stderr)
+    return 2
+
+
 def main(argv=None):
     argv = argv if argv is not None else sys.argv[1:]
     if not argv:
@@ -47,7 +73,9 @@ def main(argv=None):
     cmd = argv[0]
     rest = argv[1:]
 
-    if cmd == "parse":
+    if cmd in ("help", "--help", "-h"):
+        return _cmd_help(rest)
+    elif cmd == "parse":
         return _cmd_parse(rest)
     elif cmd == "validate":
         return _cmd_validate(rest)
@@ -67,6 +95,7 @@ def main(argv=None):
         return _cmd_migrate(rest)
     else:
         print(f"Unknown command: {cmd}", file=sys.stderr)
+        print("Run 'cortex help' for usage.", file=sys.stderr)
         return 2
 
 

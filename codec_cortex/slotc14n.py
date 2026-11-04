@@ -298,7 +298,7 @@ def _idea_canonical_slots(idea: Idea, sym: SymbolDef) -> str:
         field_types = {f.name: f.type for f in sym.contract}
         focus = sym.focus
         parts = []
-        for k, v in pairs:
+        for k, v in _sort_keys_canonical(pairs, [f.name for f in sym.contract]):
             ftype = field_types.get(k, "any")
             is_text = (ftype == "text")
             is_focus_text = (k == focus and ftype == "text")

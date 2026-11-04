@@ -245,8 +245,13 @@ func ideaCanonicalV10(idea Idea, doc *Document) (string, error) {
 		for _, f := range sym.Contract {
 			fieldTypes[f.Name] = f.Type
 		}
-		parts := make([]string, 0, len(idea.Attrs))
-		for _, a := range idea.Attrs {
+		order := make([]string, 0, len(sym.Contract))
+		for _, f := range sym.Contract {
+			order = append(order, f.Name)
+		}
+		sortedAttrs := sortKeysCanonical(idea.Attrs, order)
+		parts := make([]string, 0, len(sortedAttrs))
+		for _, a := range sortedAttrs {
 			ftype := fieldTypes[a.Key]
 			if ftype == "" {
 				ftype = "any"

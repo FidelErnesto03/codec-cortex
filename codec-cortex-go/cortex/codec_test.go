@@ -105,7 +105,7 @@ func TestDiagnostics(t *testing.T) {
 
 func TestCanonicalHash(t *testing.T) {
 	got := CanonicalHash([]byte(readFixture(t, "full.canonical.cortex")))
-	const want = "sha256:6e99f262135750e7202be3ba3faf3dfda12e077735122c719b83c9f5a19a2698"
+	const want = "sha256:73cb213320a2d0de774e2c0e33714c458373e50407e0124986eac1992b09ca2e"
 	if got != want {
 		t.Fatalf("hash mismatch: got %s want %s", got, want)
 	}

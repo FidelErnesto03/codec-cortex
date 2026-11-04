@@ -1,0 +1,7 @@
+{
+  "id": "I_U003_homoglyph_name",
+  "source": "invalid/I_U003_homoglyph_name.cortex",
+  "requiredCodes": [
+    "U003_NON_ASCII_IDENTIFIER"
+  ]
+}

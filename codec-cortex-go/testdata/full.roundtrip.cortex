@@ -5,10 +5,10 @@ $0:micro_t{expand:todo}
 $0:namespace_agent{id:agent,version:1.0,required:true,desc:"Agent"}
 $0:extension_view{namespace:agent,id:view,version:1.0,required:false,desc:"View"}
 $0:meta{a:1,z:"é"}
-ACT:Acción{type:attrs,weight:H,fields:"topic:text|status:%state?|tags:list?",focus:topic,desc:"Acción",open:true}
+ACT:Accion{type:attrs,weight:H,fields:"topic:text|status:%state?|tags:list?",focus:topic,desc:"Acción",open:true}
 BLK:Bloque{type:bloque,weight:B,desc:"Bloque"}
 POS:Posicional{type:attrs-pos,weight:M,pos:"topic:text|count:integer",focus:topic,desc:"Pos"}
-REL:Relación{type:relacion,weight:H,pos:"from:atom|type:atom|to:atom",focus:type,desc:"Rel"}
+REL:Relacion{type:relacion,weight:H,pos:"from:atom|type:atom|to:atom",focus:type,desc:"Rel"}
 TXT:Texto{type:cuerpo,weight:B,desc:"Texto"}
 agent::NST:Namespaced{type:attrs,weight:M,fields:"content:text",focus:content,desc:"NS"}
 $1: Datos:DATA

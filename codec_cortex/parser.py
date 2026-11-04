@@ -12,7 +12,7 @@ from typing import Any, Optional, List, Tuple
 from .scalars import (
     Scalar, ParseError, StringCursor, parse_attrs_payload,
     parse_string_scalar, parse_scalar, emit_string_literal,
-    ATOM_RE, _INT_RE, _DEC_RE, to_nfc,
+    ATOM_RE, ATOM_BODY, _INT_RE, _DEC_RE, to_nfc, is_ascii_identifier,
 )
 
 
@@ -181,6 +181,9 @@ def parse_contract_fields(s: str) -> List[ContractField]:
             name, type_ = part.split(":", 1)
         else:
             name, type_ = part, "any"
+        if not is_ascii_identifier(name.strip()):
+            raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                             f"Non-ASCII contract field name: {name!r}")
         t = type_.strip()
         if not t.startswith("%") and t not in _CONTRACT_TYPES:
             raise ParseError("I023_UNKNOWN_FIELD_TYPE", f"Unknown contract field type: {t!r}")
@@ -203,6 +206,7 @@ def parse_cortex(source: str) -> Document:
     body_lines: List[str] = []
     body_idea: Optional[Idea] = None
     body_kind: str = ""  # cuerpo or bloque
+    seen_idea_addresses: set = set()
 
     i = 0
     n = len(lines)
@@ -332,6 +336,10 @@ def parse_cortex(source: str) -> Document:
 
         # Parse idea
         idea = _parse_idea_line(stripped, current_section.id, doc, line_no)
+        if idea.address in seen_idea_addresses:
+            raise ParseError("I002_DUPLICATE_IDEA_ADDRESS",
+                             f"Duplicate idea address {idea.address}", line_no)
+        seen_idea_addresses.add(idea.address)
         # If cuerpo/bloque and not closed on same line, enter multiline mode
         if idea.shape in ("cuerpo", "bloque") and isinstance(idea.payload, tuple) and idea.payload[0] == "_multiline_body":
             in_body = True
@@ -369,6 +377,9 @@ def _parse_glossary_declaration(line: str, doc: Document, line_no: int):
     head = head.strip()
     if head.startswith("$0:"):
         name = head[3:]
+        if not is_ascii_identifier(name):
+            raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                             f"Non-ASCII meta-declaration name: {name!r}", line_no)
         attrs = parse_attrs_payload(payload_str, line_no)
         _add_meta_declaration(name, attrs, doc, line_no, capa=capa)
     else:
@@ -379,6 +390,9 @@ def _parse_glossary_declaration(line: str, doc: Document, line_no: int):
         ns = m.group(1)
         sigil = m.group(2)
         label = m.group(3)
+        if not is_ascii_identifier(label):
+            raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                             f"Non-ASCII symbol label: {label!r}", line_no)
         attrs = parse_attrs_payload(payload_str, line_no)
         sym = _build_symbol_def(ns, sigil, label, attrs, line_no)
         doc.glossary.symbols.append(sym)
@@ -421,6 +435,10 @@ def _add_meta_declaration(name: str, attrs: List[Tuple[str, Scalar]], doc: Docum
         if values_v is None or values_v.kind != "string":
             raise ParseError("G014_INVALID_ENUM", f"enum {ename} missing values string", line_no)
         values = values_v.value.split("|")
+        for v in values:
+            if not re.fullmatch(ATOM_BODY, v):
+                raise ParseError("G014_INVALID_ENUM",
+                                 f"enum {ename} value is not a valid atom: {v!r}", line_no)
         doc.glossary.enums.append(EnumDecl(name=ename, values=values, source_line=line_no))
         return
 
@@ -514,6 +532,9 @@ def _parse_idea_line(line: str, section_id: int, doc: Document, line_no: int) ->
     ns = m.group(1)
     sigil = m.group(2)
     name = m.group(3)
+    if not is_ascii_identifier(name):
+        raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                         f"Non-ASCII idea name: {name!r}", line_no)
     rest = line[m.end():]
     # Look up sigil in glossary
     sym = None

@@ -1,0 +1,66 @@
+$0
+
+# -- $0: ARQUX GOVERNANCE GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# ARQX  | artifact  | attrs      | B | Semantic       | ArqUX artifact metadata
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+#
+# Types:
+# bloque = canonical type
+# attrs = canonical type
+# attrs-pos = canonical type
+# cuerpo = canonical type
+# relacion = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-004", usage:"state", kind:"native"}
+
+
+$1: TASK
+
+WRK:task{id:"T-004", status:"done", governor:"Alfred", assignee:"Alfred", priority:"high", complexity:"standard", cycle:"CYCLE-03", created:"2026-11-03T23:38:13Z", updated:"2026-11-03T23:43:09Z"}
+
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Implementar las 3 decisiones del Arquitecto post-revision NEX: (a) attrs en 1.0 emiten en orden de contrato (extras open ordenados UTF-8 NFC), (b) validacion de dominio enum %name en parser 1.0, (c) backport de I006 duplicados al parser 0.1. Sin commit."}
+
+
+$3: ACCEPTANCE
+
+CLAIM:ac1{criterion:"Permutacion de attrs en 1.0 produce mismo hash"}
+
+CLAIM:ac2{criterion:"Atom fuera de enum falla con diagnostico"}
+
+CLAIM:ac3{criterion:"Duplicado en 0.1 falla con I006"}
+
+CLAIM:ac4{criterion:"Corpus existente sin regresiones"}
+
+
+$4: EVIDENCE
+
+AUD:evidence{text:"3 fixes implementados y verificados: slotc14n.py (orden de contrato), slotparser.py (I010/G026 + micros), parser.py 0.1 (I002). Spec par.7.4 + errors-1.0 actualizados. 364/364 corpus, slots 67/67 PASS, roundtrip preserva hash. Issues E-0213/E-0214/E-0215 -> fixed. Deuda derivada: port a 4 superficies + vectores (issue E-0224)."}
+

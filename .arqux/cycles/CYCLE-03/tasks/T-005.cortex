@@ -1,0 +1,64 @@
+$0
+
+# -- $0: ARQUX GOVERNANCE GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# ARQX  | artifact  | attrs      | B | Semantic       | ArqUX artifact metadata
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+#
+# Types:
+# bloque = canonical type
+# attrs = canonical type
+# attrs-pos = canonical type
+# cuerpo = canonical type
+# relacion = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-005", usage:"state", kind:"native"}
+
+
+$1: TASK
+
+WRK:task{id:"T-005", status:"done", governor:"Alfred", assignee:"Alfred", priority:"high", complexity:"simple", cycle:"CYCLE-03", created:"2026-11-03T23:49:35Z", updated:"2026-11-03T23:50:02Z"}
+
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Procesar capitulo 2 de revision NEX: verificar hallazgo D2b (homoglifos en identificadores), registrar verificaciones independientes de los fixes, archivar issue y actualizar respuesta"}
+
+
+$3: ACCEPTANCE
+
+CLAIM:ac1{criterion:"Issue D2b creado con evidencia reproducible"}
+
+CLAIM:ac2{criterion:"Evidencia registrada"}
+
+CLAIM:ac3{criterion:"Respuesta actualizada"}
+
+
+$4: EVIDENCE
+
+AUD:evidence{text:"Capitulo 2 verificado: fixes confirmados independientemente por Lokky, H2 retirado por el revisor, D2b homoglifos CONFIRMADO (nombres+claves attrs unicode; render visualmente identico; detect_homoglyph solo cubre marcador). Issue alta E-0227 archivado. Respuesta actualizada con anexo cap.2. Decision de mitigacion (ASCII-estricto vs confusables) pendiente del Arquitecto; radio ASCII-estricto=0."}
+

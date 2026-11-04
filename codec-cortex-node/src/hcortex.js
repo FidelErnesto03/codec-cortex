@@ -338,7 +338,7 @@ function parseGlossaryFromBlock(glossaryBody, doc, sigilRegistry, diagnostics) {
 
 function parseSchemaContent(content, schemaName, sigilRegistry, sectionId, diagnostics) { // eslint-disable-line no-unused-vars
   const ideas = [];
-  const markerPattern = /<!-- ([!]?\w[\w:]*):([\w_-]+) -->\s*(.*?)(?=\n?<!-- [\w:]+:[\w_-]+ -->|$)/gs;
+  const markerPattern = /<!-- ([!]?\w[\w:]*):([\p{L}\p{N}_-]+) -->\s*(.*?)(?=\n?<!-- [\w:]+:[\p{L}\p{N}_-]+ -->|$)/gsu;
   for (const match of content.matchAll(markerPattern)) {
     const sigil = match[1];
     const name = match[2];

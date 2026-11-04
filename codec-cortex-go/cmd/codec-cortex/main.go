@@ -12,7 +12,7 @@ import (
 	cc "github.com/FidelErnesto03/codec-cortex/codec-cortex-go/cortex"
 )
 
-const version = "0.1.0-go"
+const version = "1.0.0-go"
 
 func main() {
 	if err := run(os.Args[1:]); err != nil {

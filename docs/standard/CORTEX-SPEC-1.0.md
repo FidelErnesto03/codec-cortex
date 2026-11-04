@@ -80,6 +80,10 @@ Para `attrs-pos` y `relacion`: `requeridos ≤ celdas ≤ len(contrato)` — `I0
 
 `SIG:name{` sola abre payload multilínea; cierra la primera línea que es exactamente `}`. Contenido interior verbatim para `bloque`, NFC para `cuerpo`. Delimitador mal formado: `I004`.
 
+### §4.4 Charset de identificadores (norma 1.0)
+
+Identificadores estructurales — nombre de idea, clave de attr, label de sigilo en `$0`, nombre de declaración `$0:x` (incl. `enum_<n>`, `micro_<t>`, `namespace_<a>`, `extension_<n>`) y nombre de campo de contrato — se restringen al **subconjunto ASCII imprimible**. Fuera de charset: `U003_NON_ASCII_IDENTIFIER`. El contenido textual (`string` quoted, `cuerpo`, `bloque`, títulos de sección) permanece Unicode libre. Motivo normativo: homoglifos en identificadores producen direcciones visualmente idénticas con identidad semántica distinta — incompatible con manifiestos verificables por humanos.
+
 ## §5 Eje de codificación slots
 
 Integrado de 0.2 como **sección normativa**, no dialecto aparte:
@@ -102,9 +106,10 @@ Función pura `canonicalize(doc) → bytes`:
 1. Orden de secciones: `$0` primero; luego `$N` ascendente (subsecciones `$N.M` ordenadas `N` luego `M` numérico).
 2. Dentro de sección: ideas en orden documental — **el orden canónico se fija aquí como orden documental** (cierra el "pendiente de Fase 3" de 0.1).
 3. Glosario serializado en orden de declaración: format, sigil-map, enums, micros, namespaces, extensions, meta, sigilos.
-4. Escalares normalizados: NFC para `cuerpo`/strings; `bloque` verbatim; atoms lowercase-preservado; números en forma canónica.
-5. Hash: `SHA-256("CORTEX\x00" + canonical_bytes)` — dominio separado de cualquier hash de contenido raw.
-6. Idempotencia obligatoria: `canonicalize(parse(canonicalize(parse(src)))) == canonicalize(parse(src))` — vector D1.
+4. En ideas `attrs`, los campos se emiten en el orden declarado en `fields`; los campos adicionales de sigilos `open:true` se emiten después del contrato, ordenados por clave UTF-8 NFC — la permutación editorial de campos no altera el canónico ni el hash.
+5. Escalares normalizados: NFC para `cuerpo`/strings; `bloque` verbatim; atoms lowercase-preservado; números en forma canónica.
+6. Hash: `SHA-256("CORTEX\x00" + canonical_bytes)` — dominio separado de cualquier hash de contenido raw.
+7. Idempotencia obligatoria: `canonicalize(parse(canonicalize(parse(src)))) == canonicalize(parse(src))` — vector D1.
 
 ## §8 HCORTEX-1.0 — proyección humana determinista
 
@@ -123,6 +128,8 @@ Función pura `canonicalize(doc) → bytes`:
 | `DECLARED-LOSS` | roundtrip diverge solo en pérdidas del catálogo §8.2, cada una reportada |
 
 Ninguna tercera clase. Un render que pierde AST sin declararlo viola **H481** (sin copia oculta — norma 1.0): ningún render válido esconde información semántica no representada.
+
+**Auto-validación del compilador (norma 1.0).** `from_hcortex` construye el AST directamente desde markdown, sin pasar por el parser de fuente; por tanto **DEBE** re-parsear la salida canónica que produciría y, si no valida, fallar con el diagnóstico del parser en vez de emitir fuente inválida. Un compilador nunca emite fuente que el propio parser rechaza — implementado en Python (`compile_hcortex_slots`); pendiente en go/node/rs/bash bajo E-0224.
 
 ### §8.2 Catálogo de pérdidas declaradas (L4xx)
 

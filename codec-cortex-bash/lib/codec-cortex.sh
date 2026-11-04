@@ -202,10 +202,23 @@ ccx_parse_attrs() {
     key=$(ccx_trim "${part:0:idx}")
     rawv=${part:idx+1}
     [[ -n $key ]] || { ccx_error "L003_INVALID_KEY" "Empty key" "$line" 1; return; }
+    ccx_is_ascii_identifier "$key" || { ccx_error "U003_NON_ASCII_IDENTIFIER" "Non-ASCII attr key: $key" "$line" 1; return; }
     scalar=$(ccx_parse_scalar "$rawv" "$line" 1) || return
     pairs=$(jq -cn --argjson a "$pairs" --arg k "$key" --argjson v "$scalar" '$a+[{key:$k,value:$v}]')
   done < <(ccx_split_top_level "$inner" ',')
   printf '%s\n' "$pairs"
+}
+
+# Structural identifiers (idea names, attr keys, symbol labels, $0 names,
+# contract fields) are printable ASCII — spec's "subconjunto ASCII".
+ccx_is_ascii_identifier() {
+  local s=$1 LC_ALL=C
+  [[ -n $s && $s =~ ^[[:print:]]+$ ]]
+}
+
+ccx_is_atom_body() {
+  local s=$1 LC_ALL=C
+  [[ $s =~ ^[_A-Za-z][_A-Za-z0-9./:@+%$-]*$ ]]
 }
 
 ccx_parse_contract() {
@@ -218,6 +231,7 @@ ccx_parse_contract() {
     if [[ $part == *'?' ]]; then req=false; part=${part%?}; fi
     if [[ $part == *:* ]]; then name=${part%%:*}; type=${part#*:}; else name=$part; type=any; fi
     name=$(ccx_trim "$name"); type=$(ccx_trim "$type")
+    ccx_is_ascii_identifier "$name" || { ccx_error "U003_NON_ASCII_IDENTIFIER" "Non-ASCII contract field name: $name" 0 0; return; }
     out=$(jq -cn --argjson a "$out" --arg n "$name" --arg t "$type" --argjson r "$req" '$a+[{name:$n,type:$t,required:$r}]')
   done < <(ccx_split_top_level "$s" '|')
   printf '%s\n' "$out"
@@ -356,6 +370,9 @@ ccx_add_meta_decl() {
       ename=${name#enum_}; sv=$(ccx_attr_last "$attrs" values)
       [[ -n $sv && $(jq -r '.kind' <<<"$sv") == string ]] || { ccx_error G014_INVALID_ENUM "enum $ename missing values string" "$line" 0; return; }
       value=$(jq -r '.value' <<<"$sv")
+      while IFS= read -r ev; do
+        ccx_is_atom_body "$ev" || { ccx_error G014_INVALID_ENUM "enum $ename value '$ev' is not a valid atom" "$line" 0; return; }
+      done < <(printf '%s\n' "$value" | tr '|' '\n')
       vals=$(jq -Rn --arg s "$value" '$s|split("|")')
       obj=$(jq -cn --arg n "$ename" --argjson v "$vals" --argjson ln "$line" '{name:$n,values:$v,source_line:$ln}')
       ccx_doc_update "$doc" '.glossary.enums += [$x]' --argjson x "$obj"
@@ -396,11 +413,13 @@ ccx_parse_glossary_decl() {
   attrs=$(ccx_parse_attrs "$payload" "$line_no") || return
   if [[ $head == '$0:'* ]]; then
     name=${head#\$0:}
+    ccx_is_ascii_identifier "$name" || { ccx_error "U003_NON_ASCII_IDENTIFIER" "Non-ASCII declaration name: \$0:$name" "$line_no" 0; return; }
     ccx_add_meta_decl "$doc" "$name" "$attrs" "$line_no" "$capa"
     return
   fi
   if [[ $head =~ ^([a-z][a-z0-9_.-]*::)?(!|[A-Z][A-Z0-9_]*):(.+)$ ]]; then
     ns=${BASH_REMATCH[1]%::}; sigil=${BASH_REMATCH[2]}; label=${BASH_REMATCH[3]}
+    ccx_is_ascii_identifier "$label" || { ccx_error "U003_NON_ASCII_IDENTIFIER" "Non-ASCII symbol label: $label" "$line_no" 0; return; }
     sym=$(ccx_build_symbol "$ns" "$sigil" "$label" "$attrs" "$line_no" "$doc") || return
     ccx_doc_update "$doc" '.glossary.symbols += [$x]' --argjson x "$sym"
   else
@@ -461,6 +480,7 @@ ccx_parse_slot_idea() {
       cf=$(jq -c --argjson i "$idx" '.contract[]|select(.position==$i)' <<<"$sym")
       [[ -n $cf ]] || { ccx_error I052_UNKNOWN_SLOT "slot ※$idx not declared in contract" "$line_no" 0; return; }
       scalar=$(ccx_parse_scalar "$val" "$line_no" 0) || return
+      ccx_check_enum_value "$doc" "$(jq -r '.name' <<<"$cf")" "$(jq -r '.type' <<<"$cf")" "$scalar" "$line_no" || return
       fvs=$(jq -cn --argjson a "$fvs" --argjson p "$idx" --arg n "$(jq -r '.name' <<<"$cf")" --arg t "$(jq -r '.type' <<<"$cf")" --argjson r "$(jq -r '.required' <<<"$cf")" --argjson v "$scalar" '$a+[{position:$p,name:$n,type:$t,required:$r,value:$v}]')
     done < <(ccx_split_top_level "$inner" ',')
   fi
@@ -477,13 +497,14 @@ ccx_parse_slot_idea() {
 
 ccx_parse_idea_line() {
   local doc=$1 line_text=$2 section_id=$3 line_no=$4
-  local ns sigil name rest sym shape attrs cells inner payload idea nsp
+  local ns sigil name rest sym shape attrs cells inner payload idea nsp fname ftype sv cidx field cell
   line_text=$(ccx_trim "$line_text")
   if [[ $line_text =~ ^([a-z][a-z0-9_.-]*::)?(!|[A-Z][A-Z0-9_]*):([^\{\|\}\[:space:]]+)(.*)$ ]]; then
     ns=${BASH_REMATCH[1]%::}; sigil=${BASH_REMATCH[2]}; name=${BASH_REMATCH[3]}; rest=${BASH_REMATCH[4]}
   else
     ccx_error S003_INVALID_IDEA_HEAD "Invalid idea head: '$line_text'" "$line_no" 0; return
   fi
+  ccx_is_ascii_identifier "$name" || { ccx_error "U003_NON_ASCII_IDENTIFIER" "Non-ASCII idea name: $name" "$line_no" 0; return; }
   sym=$(ccx_find_symbol "$doc" "$ns" "$sigil")
   [[ -n $sym ]] || { ccx_error I001_UNDECLARED_SYMBOL "Undeclared sigil: $sigil" "$line_no" 0; return; }
   if [[ $(jq -r '.encoding // empty' <<<"$sym") == slots ]]; then
@@ -498,6 +519,11 @@ ccx_parse_idea_line() {
       if [[ ${rest: -1} == '}' ]]; then
         if [[ $shape == attrs ]]; then
           attrs=$(ccx_parse_attrs "$rest" "$line_no") || return
+          while IFS= read -r field; do
+            fname=$(jq -r '.name' <<<"$field"); ftype=$(jq -r '.type' <<<"$field")
+            sv=$(jq -c --arg k "$fname" '[.[]|select(.key==$k)|.value]|last // empty' <<<"$attrs")
+            if [[ -n $sv ]]; then ccx_check_enum_value "$doc" "$fname" "$ftype" "$sv" "$line_no" || return; fi
+          done < <(jq -c '.contract[]' <<<"$sym")
           payload=$(jq -cn --argjson p "$attrs" '["attrs",$p]')
         else
           inner=${rest:1:${#rest}-2}
@@ -520,12 +546,49 @@ ccx_parse_idea_line() {
       ntotal=$(jq '.contract|length' <<<"$sym")
       (( ncells >= nreq )) || { ccx_error I012_POSITIONAL_ARITY "shape $shape needs >=$nreq cells, got $ncells" "$line_no" 0; return; }
       (( ncells <= ntotal )) || { ccx_error I012_POSITIONAL_ARITY "shape $shape expects <=$ntotal cells, got $ncells" "$line_no" 0; return; }
+      cidx=0
+      while IFS= read -r cell; do
+        ftype=$(jq -r --argjson i "$cidx" '.contract[$i].type // "any"' <<<"$sym")
+        fname=$(jq -r --argjson i "$cidx" '.contract[$i].name // ""' <<<"$sym")
+        ccx_check_enum_value "$doc" "$fname" "$ftype" "$cell" "$line_no" || return
+        ((cidx++)) || :
+      done < <(jq -c '.[]' <<<"$cells")
       payload=$(jq -cn --arg sh "$shape" --argjson c "$cells" '[$sh,$c]')
       jq -cn --argjson sec "$section_id" --argjson ns "$nsp" --arg s "$sigil" --arg n "$name" --arg sh "$shape" --argjson p "$payload" --argjson ln "$line_no" \
         '{section:$sec,namespace:$ns,symbol:$s,name:$n,shape:$sh,payload:$p,source_line:$ln}'
       ;;
     *) ccx_error S999_INTERNAL_PARSE_FAILURE "Cannot parse idea: '$line_text'" "$line_no" 0 ;;
   esac
+}
+
+ccx_check_enum_value() {
+  local doc=$1 fname=$2 ftype=$3 scalar=$4 line_no=$5 ename raw expanded
+  [[ $ftype == %* ]] || return 0
+  ename=${ftype#%}
+  [[ $(jq -r '.kind' <<<"$scalar") == atom ]] || return 0
+  jq -e --arg e "$ename" '.glossary.enums[]|select(.name==$e)' "$doc" >/dev/null \
+    || { ccx_error G026_UNKNOWN_ENUM_REFERENCE "unknown enum %$ename on field $fname" "$line_no" 0; return 1; }
+  raw=$(jq -r '.value' <<<"$scalar")
+  expanded=$(jq -rj --arg t "$raw" '[.glossary.micros[]|select(.token==$t)|.expand]|first // empty' "$doc")
+  [[ -n $expanded ]] || expanded=$raw
+  jq -e --arg e "$ename" --arg v "$expanded" '.glossary.enums[]|select(.name==$e)|.values|index($v)' "$doc" >/dev/null \
+    || { ccx_error I010_ENUM_VIOLATION "value \"$raw\" not in enum %$ename domain" "$line_no" 0; return 1; }
+}
+
+ccx_check_idea_dup() {
+  local doc=$1 idx=$2 idea=$3 line_no=$4 ver
+  if jq -e --argjson sec "$idx" --argjson idea "$idea" '
+    .sections[$sec].ideas as $ideas
+    | ($idea | "$"+(.section|tostring)+":"+(if .namespace then .namespace+"::" else "" end)+.symbol+":"+.name) as $addr
+    | any($ideas[]; ("$"+(.section|tostring)+":"+(if .namespace then .namespace+"::" else "" end)+.symbol+":"+.name) == $addr)' "$doc" >/dev/null; then
+    ver=$(jq -r '.cortex_version' "$doc")
+    if [[ $ver == 0.1 ]]; then
+      ccx_error I002_DUPLICATE_IDEA_ADDRESS "Duplicate idea address" "$line_no" 0
+    else
+      ccx_error I006_DUPLICATE_IDEA_ADDRESS "Duplicate idea address" "$line_no" 0
+    fi
+    return 1
+  fi
 }
 
 ccx_resolve_capa() {
@@ -555,6 +618,7 @@ ccx_parse_cortex_file() {
       if [[ $stripped == '}' ]]; then
         body_text=${body_text%$'\n'}
         body_idea=$(jq -c --arg sh "$body_kind" --arg x "$body_text" '.payload=[$sh,$x]' <<<"$body_idea")
+        ccx_check_idea_dup "$output" "$current_idx" "$body_idea" "$line_no" || return
         ccx_doc_update "$output" ".sections[$current_idx].ideas += [\$x]" --argjson x "$body_idea"
         in_body=0; body_kind=''; body_idea=''; body_text=''
       else
@@ -622,6 +686,7 @@ ccx_parse_cortex_file() {
     if [[ $(jq -r '.payload[0]' <<<"$idea") == _multiline_body ]]; then
       in_body=1; body_kind=$(jq -r '.shape' <<<"$idea"); body_idea=$idea; body_text=''
     else
+      ccx_check_idea_dup "$output" "$current_idx" "$idea" "$line_no" || return
       ccx_doc_update "$output" ".sections[$current_idx].ideas += [\$x]" --argjson x "$idea"
     fi
   done <"$normalized"
@@ -1387,7 +1452,7 @@ ccx_v10_parse_body() {
   for ((i=0;i<n;i++)); do
     line=${lines[i]}
     if [[ $line == '```'* ]]; then ((fence=!fence)); continue; fi
-    if ((!fence)) && [[ $line =~ ^###\ ([!]?([a-z][a-z0-9_.-]*::)?[!A-Za-z0-9_]+):([A-Za-z0-9_-]+)[[:space:]]*$ ]]; then
+    if ((!fence)) && [[ $line =~ ^###\ ([!]?([a-z][a-z0-9_.-]*::)?[!A-Za-z0-9_]+):([^[:space:]]+)[[:space:]]*$ ]]; then
       mlines+=("$i"); mq+=("${BASH_REMATCH[1]}"); mn+=("${BASH_REMATCH[3]}")
     fi
   done
@@ -1505,6 +1570,16 @@ ccx_compile_hcortex_v10() {
     fi
     ((i++))
   done
+  # Self-validation: a compiler never emits source its own parser rejects.
+  local _sv_c="$CCX_TMP_ROOT/v10sv.$RANDOM" _sv_back="$CCX_TMP_ROOT/v10svb.$RANDOM" _sv_err _sv_out
+  if ccx_canonicalize_ast "$output" >"$_sv_c" 2>/dev/null; then
+    if ! _sv_out=$(ccx_parse_cortex_file "$_sv_c" "$_sv_back" 2>&1); then
+      _sv_err=$(sed -n 's/^\([A-Z][A-Z0-9_]*\) @.*/\1/p' <<<"$_sv_out" | head -1)
+      [[ -z $_sv_err ]] && _sv_err=S999
+      ccx_hdiag_append "$diag" "$_sv_err" error "compiled output failed self-validation" 1
+      return 0
+    fi
+  fi
   return 0
 }
 
@@ -1603,9 +1678,14 @@ ccx_sha256_file() {
 }
 
 ccx_c14n_hash_file() {
-  local file=$1 tmp
-  ccx_tmp_init || return; tmp="$CCX_TMP_ROOT/hash.$RANDOM"
-  { printf '%s' 'CORTEX-C14N-0.1'; printf '\0'; cat "$file"; } >"$tmp"
+  local file=$1 tmp canon ast domain
+  ccx_tmp_init || return; tmp="$CCX_TMP_ROOT/hash.$RANDOM"; canon="$CCX_TMP_ROOT/hcanon.$RANDOM"; ast="$CCX_TMP_ROOT/hast.$RANDOM"
+  # Hash is over canonical bytes: editorial permutation must not change it.
+  ccx_parse_cortex_file "$file" "$ast" || return
+  ccx_canonicalize_ast "$ast" >"$canon" || return
+  domain='CORTEX-C14N-0.2'
+  [[ $(jq -r '.cortex_version' "$ast") == 0.1 ]] && domain='CORTEX-C14N-0.1'
+  { printf '%s' "$domain"; printf '\0'; cat "$canon"; } >"$tmp"
   printf 'sha256:%s\n' "$(ccx_sha256_file "$tmp")"
 }
 

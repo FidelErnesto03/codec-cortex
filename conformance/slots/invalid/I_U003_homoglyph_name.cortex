@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8}
+USR:u{type:attrs,weight:M,fields:"role:atom",focus:role,desc:"user"}
+$1: USERS
+USR:admin{role:owner}
+USR:аdmin{role:member}

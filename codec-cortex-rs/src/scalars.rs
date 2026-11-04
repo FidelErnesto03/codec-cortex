@@ -20,6 +20,17 @@ fn dec_re() -> &'static Regex {
 }
 
 pub(crate) fn atom_matches(s: &str) -> bool { atom_re().is_match(s) }
+
+pub(crate) fn atom_body_matches(s: &str) -> bool {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"^[_A-Za-z][_A-Za-z0-9./:@+%$-]*$").unwrap()).is_match(s)
+}
+
+// Structural identifiers (idea names, attr keys, symbol labels, $0 names,
+// contract fields) are printable ASCII — spec's "subconjunto ASCII".
+pub(crate) fn is_ascii_identifier(s: &str) -> bool {
+    !s.is_empty() && s.bytes().all(|b| (0x20..=0x7E).contains(&b))
+}
 pub(crate) fn int_matches(s: &str) -> bool { int_re().is_match(s) }
 pub(crate) fn dec_matches(s: &str) -> bool { dec_re().is_match(s) }
 
@@ -219,6 +230,7 @@ pub(crate) fn parse_attrs_payload(s: &str, start_line: usize) -> Result<Vec<(Str
         }
         let key = cur.slice(start, cur.i);
         if key.is_empty() { return Err(ParseError::at("L003_INVALID_KEY", "Empty key", cur.line, cur.col)); }
+        if !is_ascii_identifier(&key) { return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII attr key: {key}"), cur.line, cur.col)); }
         skip_inline_ws(&mut cur);
         if cur.peek() != Some(':') { return Err(ParseError::at("S006_INVALID_ATTRS", "Expected : after key", cur.line, cur.col)); }
         cur.next();

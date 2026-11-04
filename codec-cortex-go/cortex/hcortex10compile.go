@@ -13,7 +13,7 @@ var (
 	sectionHeadV10RE = regexp.MustCompile(`^##\s*§(\d+):\s*(.*?)\s*$`)
 	schemaOpenV10RE  = regexp.MustCompile(`^<!--\s*schema:(\d+)(?:\s+capa:(\w+))?\s*-->$`)
 	schemaCloseV10RE = regexp.MustCompile(`^<!--\s*/schema:\d+\s*-->$`)
-	ideaMarkerRE  = regexp.MustCompile(`^### ([!]?(?:\w+::)?[!\w]+):([\w_-]+)\s*$`)
+	ideaMarkerRE  = regexp.MustCompile(`^### ([!]?(?:\w+::)?[!\w]+):([\p{L}\p{N}_-]+)\s*$`)
 )
 
 // CompileHCORTEX10 compiles an HCORTEX 1.0/0.2 document back to the AST.
@@ -63,6 +63,19 @@ func CompileHCORTEX10(text string) (*Document, []HDiagnostic) {
 			section.Ideas = parseIdeasV10(sec.body, sec.id, symLookup)
 		}
 		doc.Sections = append(doc.Sections, section)
+	}
+	if len(diags) == 0 {
+		emitted, cerr := CanonicalizeAny(doc)
+		if cerr == nil {
+			if _, perr := ParseAny(emitted); perr != nil {
+				code := "S999"
+				if pe, ok := perr.(*ParseError); ok {
+					code = pe.Code
+				}
+				diags = append(diags, HDiagnostic{Code: code, Severity: "error", Message: "compiled output failed self-validation: " + perr.Error(), Line: 1})
+				return nil, diags
+			}
+		}
 	}
 	return doc, diags
 }

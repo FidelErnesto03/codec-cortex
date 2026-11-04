@@ -40,6 +40,9 @@ func ParseContractFields(s string) ([]ContractField, error) {
 		if idx := strings.Index(part, ":"); idx >= 0 {
 			name, typ = part[:idx], part[idx+1:]
 		}
+		if !isASCIIIdentifier(strings.TrimSpace(name)) {
+			return nil, &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII contract field name: %q", name)}
+		}
 		out = append(out, ContractField{Name: strings.TrimSpace(name), Type: strings.TrimSpace(typ), Required: required})
 	}
 	return out, nil
@@ -200,6 +203,9 @@ func parseGlossaryDeclaration(line string, doc *Document, lineNo int) error {
 		return &ParseError{Code: "L001_INVALID_SYMBOL", Message: fmt.Sprintf("Invalid sigil declaration head: %q", head), Line: lineNo}
 	}
 	ns, sigil, label := m[2], m[3], m[4]
+	if !isASCIIIdentifier(label) {
+		return &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII symbol label: %q", label), Line: lineNo}
+	}
 	sym, err := buildSymbolDef(ns, sigil, label, attrs, lineNo)
 	if err != nil {
 		return err
@@ -218,6 +224,9 @@ func scalarStringValue(s Scalar) string {
 }
 
 func addMetaDeclaration(name string, attrs []Attr, capa string, doc *Document, lineNo int) error {
+	if !isASCIIIdentifier(name) {
+		return &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII meta-declaration name: %q", name), Line: lineNo}
+	}
 	if name == "format" {
 		if doc.Glossary.Format != nil {
 			return &ParseError{Code: "G006_DUPLICATE_FORMAT", Message: "Duplicate $0:format", Line: lineNo}
@@ -244,6 +253,11 @@ func addMetaDeclaration(name string, attrs []Attr, capa string, doc *Document, l
 		v, ok := attrLookup(attrs, "values")
 		if !ok || v.Kind != ScalarString {
 			return &ParseError{Code: "G014_INVALID_ENUM", Message: fmt.Sprintf("enum %s missing values string", ename), Line: lineNo}
+		}
+		for _, ev := range strings.Split(v.Text, "|") {
+			if !atomBodyRE.MatchString(ev) {
+				return &ParseError{Code: "G014_INVALID_ENUM", Message: fmt.Sprintf("enum %s value is not a valid atom: %q", ename, ev), Line: lineNo}
+			}
 		}
 		doc.Glossary.Enums = append(doc.Glossary.Enums, EnumDecl{Name: ename, Values: strings.Split(v.Text, "|"), SourceLine: lineNo})
 		return nil
@@ -354,10 +368,23 @@ func parseIdeaLine(line string, sectionID int, doc *Document, lineNo int) (Idea,
 		return Idea{}, &ParseError{Code: "S003_INVALID_IDEA_HEAD", Message: fmt.Sprintf("Invalid idea head: %q", line), Line: lineNo}
 	}
 	ns, sigil, name := m[2], m[3], m[4]
+	if !isASCIIIdentifier(name) {
+		return Idea{}, &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII idea name: %q", name), Line: lineNo}
+	}
 	rest := line[len(m[0]):]
 	sym := doc.FindSymbol(ns, sigil)
 	if sym == nil {
 		return Idea{}, &ParseError{Code: "I001_UNDECLARED_SYMBOL", Message: fmt.Sprintf("Undeclared sigil: %s", sigil), Line: lineNo}
+	}
+	for si := range doc.Sections {
+		if doc.Sections[si].ID != sectionID {
+			continue
+		}
+		for _, i := range doc.Sections[si].Ideas {
+			if i.Namespace == ns && i.Symbol == sigil && i.Name == name {
+				return Idea{}, &ParseError{Code: "I002_DUPLICATE_IDEA_ADDRESS", Message: fmt.Sprintf("Duplicate idea address $%d:%s%s:%s", sectionID, nsPrefix(ns), sigil, name), Line: lineNo}
+			}
+		}
 	}
 	idea := Idea{Section: sectionID, Namespace: ns, Symbol: sigil, Name: name, Shape: sym.Shape, SourceLine: lineNo}
 	switch sym.Shape {

@@ -133,6 +133,7 @@ Los mensajes pueden traducirse. El código, severidad mínima y condición no de
 |---|---|---|
 | `U001_BOM_FORBIDDEN` | UTF-8 BOM presente | eliminar BOM |
 | `U002_CONTROL_CHARACTER` | control no permitido | eliminar o escapar |
+| `U003_NON_ASCII_IDENTIFIER` | identificador estructural (nombre de idea, clave de attr, label de sigilo, nombre de declaración `$0:`, nombre de campo de contrato) fuera del subconjunto ASCII imprimible | usar ASCII en identificadores; el contenido textual sigue siendo Unicode libre |
 
 ### 4.7 Glosario (glossary-valid)
 

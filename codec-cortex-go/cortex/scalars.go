@@ -9,6 +9,23 @@ import (
 	"golang.org/x/text/unicode/norm"
 )
 
+var atomBodyRE = regexp.MustCompile(`^[_A-Za-z][_A-Za-z0-9./:@+%$-]*$`)
+
+// isASCIIIdentifier reports whether s is a structural identifier: printable
+// ASCII only (spec: structural names restricted to the ASCII subset; content
+// text stays free Unicode).
+func isASCIIIdentifier(s string) bool {
+	if s == "" {
+		return false
+	}
+	for _, r := range s {
+		if r < 0x20 || r > 0x7E {
+			return false
+		}
+	}
+	return true
+}
+
 func ToNFC(s string) string     { return norm.NFC.String(s) }
 func UTF8Bytes(s string) []byte { return []byte(s) }
 
@@ -319,6 +336,9 @@ func ParseAttrsPayload(s string, startLine int) ([]Attr, error) {
 		key := string(c.runes[start:c.i])
 		if key == "" {
 			return nil, &ParseError{Code: "L003_INVALID_KEY", Message: "Empty key", Line: c.line, Col: c.col}
+		}
+		if !isASCIIIdentifier(key) {
+			return nil, &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII attr key: %q", key), Line: c.line, Col: c.col}
 		}
 		skipInlineWS(c)
 		if c.peek() != ':' {

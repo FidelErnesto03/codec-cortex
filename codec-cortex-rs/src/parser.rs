@@ -6,8 +6,8 @@ use regex::Regex;
 use crate::error::ParseError;
 use crate::model::*;
 use crate::scalars::{
-    classify_raw_cell, parse_attrs_payload, parse_string_scalar, to_nfc,
-    StringCursor,
+    atom_body_matches, classify_raw_cell, is_ascii_identifier, parse_attrs_payload,
+    parse_string_scalar, to_nfc, StringCursor,
 };
 
 fn capa_glossary_re() -> &'static Regex {
@@ -62,6 +62,9 @@ pub fn parse_contract_fields(s: &str) -> Result<Vec<ContractField>, ParseError> 
         let required = !part.ends_with('?');
         if !required { part.pop(); }
         let (name, field_type) = part.split_once(':').map(|(n, t)| (n.trim(), t.trim())).unwrap_or((part.trim(), "any"));
+        if !is_ascii_identifier(name) {
+            return Err(ParseError::new("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII contract field name: {name}")));
+        }
         out.push(ContractField { name: name.to_string(), field_type: field_type.to_string(), required });
     }
     Ok(out)
@@ -90,6 +93,10 @@ pub fn parse_cortex(source: &str) -> Result<Document, ParseError> {
                 let text = body_lines.join("\n");
                 idea.payload = if idea.shape == "cuerpo" { IdeaPayload::Body(text) } else { IdeaPayload::Block(text) };
                 let idx = current_section.ok_or_else(|| ParseError::at("S999_INTERNAL_PARSE_FAILURE", "Multiline body without section", line_no, 0))?;
+                let addr = idea.address();
+                if doc.sections[idx].ideas.iter().any(|prev| prev.address() == addr) {
+                    return Err(ParseError::at("I002_DUPLICATE_IDEA_ADDRESS", format!("Duplicate idea address {addr}"), line_no, 0));
+                }
                 doc.sections[idx].ideas.push(idea);
                 body_lines.clear();
                 i += 1;
@@ -184,6 +191,10 @@ pub fn parse_cortex(source: &str) -> Result<Document, ParseError> {
             body_idea = Some(idea);
             body_lines.clear();
         } else {
+            let addr = idea.address();
+            if doc.sections[section_idx].ideas.iter().any(|prev| prev.address() == addr) {
+                return Err(ParseError::at("I002_DUPLICATE_IDEA_ADDRESS", format!("Duplicate idea address {addr}"), line_no, 0));
+            }
             doc.sections[section_idx].ideas.push(idea);
         }
         i += 1;
@@ -230,6 +241,9 @@ fn parse_glossary_declaration(line: &str, doc: &mut Document, line_no: usize) ->
     let capa = extract_trailing_capa(line);
     let attrs = parse_attrs_payload(line[brace_idx..].trim_end(), line_no)?;
     if let Some(name) = head.strip_prefix("$0:") {
+        if !is_ascii_identifier(name) {
+            return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII declaration name: $0:{name}"), line_no, 0));
+        }
         add_meta_declaration(name, attrs, doc, line_no, capa)
     } else {
         let caps = symbol_head_re().captures(head).ok_or_else(|| ParseError::at(
@@ -237,6 +251,9 @@ fn parse_glossary_declaration(line: &str, doc: &mut Document, line_no: usize) ->
         let ns = caps.get(1).map(|m| m.as_str().to_string());
         let sigil = caps[2].to_string();
         let label = caps[3].to_string();
+        if !is_ascii_identifier(&label) {
+            return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII symbol label: {label:?}"), line_no, 0));
+        }
         let symbol = build_symbol_def(ns, sigil, label, attrs, line_no)?;
         doc.glossary.symbols.push(symbol);
         Ok(())
@@ -266,6 +283,11 @@ fn add_meta_declaration(name: &str, attrs: Attrs, doc: &mut Document, line_no: u
         let ScalarValue::String(value) = &values.value else {
             return Err(ParseError::at("G014_INVALID_ENUM", format!("enum {enum_name} missing values string"), line_no, 0));
         };
+        for ev in value.split('|') {
+            if !atom_body_matches(ev) {
+                return Err(ParseError::at("G014_INVALID_ENUM", format!("enum {enum_name} value {ev:?} is not a valid atom"), line_no, 0));
+            }
+        }
         doc.glossary.enums.push(EnumDecl { name: enum_name.to_string(), values: value.split('|').map(str::to_string).collect(), source_line: line_no });
         return Ok(());
     }
@@ -334,6 +356,9 @@ fn parse_idea_line(line: &str, section_id: u64, doc: &Document, line_no: usize) 
     let namespace = caps.get(1).map(|m| m.as_str().to_string());
     let symbol = caps[2].to_string();
     let name = caps[3].to_string();
+    if !is_ascii_identifier(&name) {
+        return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII idea name: {name:?}"), line_no, 0));
+    }
     let matched = caps.get(0).unwrap();
     let rest = &line[matched.end()..];
     let sym = doc.glossary.symbols.iter().find(|s| s.sigil == symbol && s.namespace == namespace)

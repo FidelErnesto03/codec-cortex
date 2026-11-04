@@ -11,7 +11,7 @@ ccx_require_runtime || exit $?
 
 usage() {
   cat <<'EOF'
-CODEC-CORTEX Bash 0.1.0
+CODEC-CORTEX Bash 1.0.0
 
 Usage:
   codec-cortex parse [FILE|-]

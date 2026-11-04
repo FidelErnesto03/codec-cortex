@@ -28,6 +28,7 @@
 | G023_RELATION_CONTRACT_TOO_SHORT | x | x | x | x | x |
 | G024_FOCUS_REQUIRED | x | x | x | x | x |
 | G025_UNKNOWN_FOCUS_FIELD | x | x | x | x | x |
+| G026_UNKNOWN_ENUM_REFERENCE | x | x | x | x | x |
 | G030_SIGIL_MAP_REQUIRED | x | — | — | — | — |
 | G031_DUPLICATE_SIGIL_MAP | x | — | — | — | — |
 | G032_INVALID_SIGIL_MAP | x | — | — | — | — |
@@ -47,9 +48,10 @@
 | I001_UNDECLARED_SYMBOL | x | x | x | x | x |
 | I004_SHAPE_DELIMITER_MISMATCH | x | x | x | x | x |
 | I005_UNKNOWN_FIELD | x | — | — | — | — |
-| I006_DUPLICATE_FIELD | x | — | — | — | — |
-| I006_DUPLICATE_IDEA_ADDRESS | x | — | — | — | — |
+| I006_DUPLICATE_FIELD | x | x | x | x | x |
+| I006_DUPLICATE_IDEA_ADDRESS | x | x | x | x | x |
 | I008_REQUIRED_FIELD_MISSING | x | — | — | — | — |
+| I010_ENUM_VIOLATION | x | x | x | x | x |
 | I012_POSITIONAL_ARITY | x | x | x | x | x |
 | I023_UNKNOWN_FIELD_TYPE | x | — | — | — | — |
 | I050_SLOT_NOT_ALLOWED_IN_GLOSSARY | x | — | — | — | — |
@@ -91,6 +93,7 @@
 | S007_UNCLOSED_BODY | x | — | — | — | — |
 | S999_INTERNAL_PARSE_FAILURE | x | x | x | x | x |
 | U001_BOM_FORBIDDEN | x | x | x | x | x |
+| U003_NON_ASCII_IDENTIFIER | x | x | x | x | x |
 
 ## Pérdidas declaradas HCORTEX (L4xx)
 
@@ -107,7 +110,7 @@ Cada pérdida emite entrada loss-report conforme a docs/schemas/loss-report.sche
 ## Códigos reservados y colisiones conocidas
 
 - `I006` colisiona en el codigo: `I006_DUPLICATE_FIELD` (attrs) e `I006_DUPLICATE_IDEA_ADDRESS` (direccion). Defecto conocido: la implementacion los distingue por contexto; una revision futura debe reasignar uno.
-- `X002_REQUIRED_EXTENSION_UNSUPPORTED`, `G026_UNKNOWN_ENUM_REFERENCE`, `I049`, `L025_TRAILING_COMMA`: citados en spec/skill pero SIN emisor — `reserved` (detectables, pendiente implementar o retirar).
+- `X002_REQUIRED_EXTENSION_UNSUPPORTED`, `I049`, `L025_TRAILING_COMMA`: citados en spec/skill pero SIN emisor — `reserved` (detectables, pendiente implementar o retirar).
 - `P17`: emisor real en slots.py (trailing comma) — fuera del esquema de familias; documentado aqui como codigo vigente.
 
 ## Códigos reservados

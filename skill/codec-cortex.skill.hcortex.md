@@ -1,4 +1,4 @@
-<!-- HCORTEX v=0.2 t=canonical k=corpus -->
+<!-- HCORTEX v=1.0 t=canonical k=corpus -->
 
 <!-- glossary -->
 $0:KERNEL
@@ -61,7 +61,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:idea_unica
 | id | rule | detail |
 |---|---|---|
-| "idea-unica" | "SIGIL:nombre debe ser unico por seccion (I006_DUPLICATE_IDEA_ADDRESS). Secuencias nombran cada elemento: PRC:p1, PRC:p2." | "Spec 1.0 S12.2." |
+| "idea-unica" | "SIGIL:nombre debe ser unico por seccion (I006_DUPLICATE_IDEA_ADDRESS en 1.0; I002_DUPLICATE_IDEA_ADDRESS en 0.1). Secuencias nombran cada elemento: PRC:p1, PRC:p2." | "Spec 1.0 S12.2. Duplicado es byte-exacto; homoglifos ya no pasan (U003)." |
 
 ### RUL:densidad
 | id | rule | detail |
@@ -108,6 +108,11 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 |---|---|---|
 | "formato" | "$0:format{cortex:1.0,encoding:UTF-8,language:XX}. Una sola declaracion (G006). encoding distinto de UTF-8 = G011. Atributos extra (language, etc.) se preservan." | "dispatcher.py _detect_version() hace bootstrap regex." |
 
+### RUL:charset
+| id | rule | detail |
+|---|---|---|
+| "charset" | "Identificadores estructurales = ASCII imprimible: nombre de idea, clave de attr, label de sigilo en $0, nombre de declaracion $0:x (enum_/micro_/namespace_/extension_), campo de contrato. Fuera de charset = U003_NON_ASCII_IDENTIFIER. Contenido (string quoted, cuerpo, bloque, titulos de seccion) permanece Unicode libre." | "Spec 1.0 S4.4. Anti-homoglifo: dos identificadores visualmente identicos con bytes distintos = spoofing de firma. Emitido en las 5 superficies." |
+
 ### RUL:seccion
 | id | rule | detail |
 |---|---|---|
@@ -126,7 +131,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:attrs
 | id | rule | detail |
 |---|---|---|
-| "attrs" | "attrs: campos en ORDEN del contrato. focus SIEMPRE string quoted. No-focus: quoted si tiene espacios/delimitadores, bare si atom valido." | "Spec 13.1 + C14N seccion 10." |
+| "attrs" | "attrs: campos en ORDEN del contrato (el canonico normaliza a ese orden: permutacion editorial NO altera el hash). Extras open tras el contrato, ordenados por clave UTF-8 NFC. focus SIEMPRE string quoted. No-focus: quoted si tiene espacios/delimitadores, bare si atom valido." | "Spec 13.1 + C14N seccion 10 + Spec 1.0 S7 p4." |
 
 ### RUL:pipe
 | id | rule | detail |
@@ -156,7 +161,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:enum
 | id | rule | detail |
 |---|---|---|
-| "enum" | "$0:enum_X{values:\"a|b|c\"}; referencia %X en contrato. Mal formado = G014; referencia no declarada = G026." | "Spec seccion 15." |
+| "enum" | "$0:enum_X{values:\"a|b|c\"}; referencia %X en contrato. values deben ser atoms ASCII (G014 si no); referencia no declarada = G026; atom fuera de dominio = I010_ENUM_VIOLATION (microtoken se expande antes de comparar; comparacion exacta case-sensitive)." | "Spec seccion 15 + Spec 1.0 S4.2. Emisor I010/G026 en las 5 superficies." |
 
 ### RUL:micro
 | id | rule | detail |
@@ -221,7 +226,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:slot_glossary
 | id | rule | detail |
 |---|---|---|
-| "slot-glossary" | "※ prohibido en $0 (I050). Excepcion: attr marker:\"※\" del sigil-map es string content." | "slotparser.py." |
+| "slot-glossary" | "※ prohibido en $0 (I050). En posicion de clave de attr captura U003 antes (charset — diagnostico mas temprano, mismo defecto). Excepcion: attr marker:\"※\" del sigil-map es string content." | "slotparser.py. requiredCodes del vector I_I050 acepta ambos." |
 
 ### RUL:mixed_version
 | id | rule | detail |
@@ -271,7 +276,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:hcortex_no_hidden
 | id | rule | detail |
 |---|---|---|
-| "hcortex-no-hidden" | "Rechaza payloads ocultos: <!-- cortex-ast:|base64:|shadow:|ast:|internal: = H481_HIDDEN_COPY. No usar --embed-ast para roundtrip." | "slothcortex.py HIDDEN_COPY_RE." |
+| "hcortex-no-hidden" | "Rechaza comentarios con prefijo cortex-ast:, base64:, shadow:, ast: o internal: = H481_HIDDEN_COPY. No usar --embed-ast para roundtrip." | "slothcortex.py HIDDEN_COPY_RE." |
 
 ### RUL:hcortex_schema_02
 | id | rule | detail |
@@ -296,7 +301,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:c14n01
 | id | rule | detail |
 |---|---|---|
-| "c14n01" | "C14N: NFC fuera de bloque, expansion microtokens, quoting contract-aware (focus siempre quoted), sin comentarios/blank/trailing-spaces, un LF final, sin BOM/CR. Dominio CORTEX-C14N-0.1 (0.1) / C14N-0.2 (0.2/1.0)." | "c14n.py / slotc14n.py." |
+| "c14n01" | "C14N: NFC fuera de bloque, expansion microtokens, quoting contract-aware (focus siempre quoted), sin comentarios/blank/trailing-spaces, un LF final, sin BOM/CR. Dominio CORTEX-C14N-0.1 (0.1) / CORTEX-C14N-0.2 (0.2/1.0)." | "c14n.py / slotc14n.py." |
 
 ### RUL:c14n_orden
 | id | rule | detail |
@@ -403,6 +408,11 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ## §8: CLI
 
 <!-- schema:8 capa:DATA -->
+### HDL:help
+| operation | status | scope |
+|---|---|---|
+| "help [<cmd>]" | current | "Ayuda general o por comando; --help/-h equivalentes (Python; CLI de otras superficies difiere)" |
+
 ### HDL:parse
 | operation | status | scope |
 |---|---|---|
@@ -436,7 +446,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### HDL:fromhcortex
 | operation | status | scope |
 |---|---|---|
-| "from-hcortex <file>" | current | "Compila HCORTEX 0.2" |
+| "from-hcortex <file>" | current | "Compila HCORTEX 0.2; auto-valida: si la salida canonica no parsea, falla con el diagnostico del parser (nunca emite fuente invalida)" |
 
 ### HDL:migrate
 | operation | status | scope |
@@ -452,6 +462,11 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 | id | rule | detail |
 |---|---|---|
 | "err-familias" | "Familias: L lexico, S sintaxis, G glosario, I idea, X extension, U unicode, H hcortex, L4xx perdida declarada. Catalogo cerrado 1.0: codigo con emisor en >=1 superficie o reserved." | "errors-1.0.md: mapa mecanico 83 codigos x 5 superficies." |
+
+### RUL:superficies
+| id | rule | detail |
+|---|---|---|
+| "superficies" | "Paridad alcanzada: U003, I010, G026, orden canonico de attrs e I002 emiten en las 5 superficies (verificado vector a vector, hashes identicos). HCORTEX compilers auto-validan su salida en las 5 superficies. Caveat: la suite de oraculo Rust necesita fixtures externos (/tmp/oracle)." | "E-0211/E-0212/E-0224 cerrados 2026-11-04. Escribir doc portable = ceñirse a lo declarado en spec." |
 
 ### RUL:err_g
 | id | rule | detail |
@@ -476,7 +491,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:err_fix_lexico
 | id | rule | detail |
 |---|---|---|
-| "err-fix-lexico" | "L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; L401-L405 perdidas declaradas -> registrar loss-report conforme a schema." | "errors-1.0.md." |
+| "err-fix-lexico" | "L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; U003 identificador no-ASCII -> ASCII imprimible en nombre/clave/label/declaracion (el contenido sigue Unicode); L401-L405 perdidas declaradas -> registrar loss-report conforme a schema." | "errors-1.0.md." |
 
 ### RUL:err_fix_sintaxis
 | id | rule | detail |
@@ -491,7 +506,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:err_fix_idea
 | id | rule | detail |
 |---|---|---|
-| "err-fix-idea" | "I001 sigilo no declarado -> declarar antes de $1; I005 campo desconocido -> ajustar al contrato o open:true; I006 direccion duplicada -> renombrar nombre; I008 requerido ausente -> agregar celda/campo; I012 aridad -> ajustar celdas a [requeridos, total]; I055 attr nombrado en idea slots -> usar ※N:valor." | "errors-1.0.md." |
+| "err-fix-idea" | "I001 sigilo no declarado -> declarar antes de $1; I005 campo desconocido -> ajustar al contrato o open:true; I006 direccion duplicada -> renombrar nombre; I008 requerido ausente -> agregar celda/campo; I010 valor fuera de enum -> usar valor de enum_X declarado; I012 aridad -> ajustar celdas a [requeridos, total]; I055 attr nombrado en idea slots -> usar ※N:valor." | "errors-1.0.md." |
 
 ### RUL:err_fix_hcortex
 | id | rule | detail |
@@ -556,7 +571,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### TST:conformance
 | id | command | result | scope |
 |---|---|---|---|
-| "conformance" | "python -m codec_cortex conformance" | pass | "Corpus slots manifest: 67/67" |
+| "conformance" | "python -m codec_cortex conformance" | pass | "Corpus slots manifest: 68/68 (incl. I_U003_homoglyph_name)" |
 
 ### TST:certificate
 | id | command | result | scope |
@@ -566,7 +581,22 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### TST:node
 | id | command | result | scope |
 |---|---|---|---|
-| "node-tests" | "node --test codec-cortex-node/test/*.test.js" | pass | "Paridad Node.js 22/22" |
+| "node-tests" | "node --test codec-cortex-node/test/*.test.js" | pass | "Paridad Node.js 24/24" |
+
+### TST:go
+| id | command | result | scope |
+|---|---|---|---|
+| "go-tests" | "cd codec-cortex-go && go test ./..." | pass | "Paridad Go: U003/G014/G026/I010/I002, hash, self-validation; dist 1.0.0-go en 5 plataformas" |
+
+### TST:bash
+| id | command | result | scope |
+|---|---|---|---|
+| "bash-tests" | "cd codec-cortex-bash && bash tests/self-test.sh && bash tests/self-test-slots.sh" | pass | "Paridad Bash: gate F3 40/40 + idempotencia, MANIFEST 120 entradas" |
+
+### TST:rust
+| id | command | result | scope |
+|---|---|---|---|
+| "rust-tests" | "cd codec-cortex-rs && cargo test" | pass | "Paridad Rust vectores CLI; suite v10_oracle_parity requiere fixtures /tmp/oracle (ambiental)" |
 
 ### TST:vectors_1_0
 | id | command | result | scope |

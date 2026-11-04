@@ -132,6 +132,16 @@ def compile_hcortex_slots(text: str) -> Tuple[Optional[Document], List[dict]]:
         ideas = _parse_schema_ideas(body, sym_lookup, sec_id, diags)
         section.ideas.extend(ideas)
 
+    if doc is not None and not diags:
+        try:
+            emitted = canonicalize(doc)
+            parse_cortex(emitted if isinstance(emitted, str) else emitted.decode("utf-8"))
+        except Exception as e:
+            code = getattr(e, "code", "S999")
+            diags.append({"code": code,
+                          "message": f"compiled output failed self-validation: {e}"})
+            return None, diags
+
     return doc, diags
 
 

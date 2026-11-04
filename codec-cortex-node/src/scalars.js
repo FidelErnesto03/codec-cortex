@@ -59,6 +59,18 @@ class ParseError extends Error {
 
 const ATOM_BODY_SOURCE = '[_A-Za-z][_A-Za-z0-9./:@+%$-]*';
 const ATOM_RE = new RegExp(`^(?:\\$[0-9]+:)?${ATOM_BODY_SOURCE}$`);
+const ATOM_BODY_RE = new RegExp(`^${ATOM_BODY_SOURCE}$`);
+
+// Structural identifiers (idea names, attr keys, symbol labels, $0 names,
+// contract fields) are printable ASCII — spec's "subconjunto ASCII".
+function isAsciiIdentifier(s) {
+  if (!s) return false;
+  for (const ch of s) {
+    const cp = ch.codePointAt(0);
+    if (cp < 0x20 || cp > 0x7E) return false;
+  }
+  return true;
+}
 const INT_RE = /^-?(0|[1-9][0-9]*)$/;
 const DEC_RE = /^-?(0|[1-9][0-9]*)\.[0-9]+$/;
 
@@ -306,6 +318,9 @@ function parseAttrsPayload(source, startLine = 1) {
     }
     const key = cursor.slice(keyStart, cursor.i);
     if (!key) throw new ParseError('L003_INVALID_KEY', 'Empty key', cursor.line, cursor.col);
+    if (!isAsciiIdentifier(key)) {
+      throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII attr key: ${key}`, cursor.line, cursor.col);
+    }
     skipInlineWs(cursor);
     if (cursor.peek() !== ':') {
       throw new ParseError('S006_INVALID_ATTRS', 'Expected : after key', cursor.line, cursor.col);
@@ -338,6 +353,9 @@ module.exports = {
   StringCursor,
   ATOM_BODY_SOURCE,
   ATOM_RE,
+  ATOM_BODY_RE,
+  isAsciiIdentifier,
+  is_ascii_identifier: isAsciiIdentifier,
   INT_RE,
   DEC_RE,
   _INT_RE: INT_RE,

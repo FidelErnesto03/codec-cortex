@@ -19,7 +19,7 @@ RUL:linea_idea{id:"linea-idea",rule:"Una linea fisica por idea regular. Excepcio
 RUL:arity{id:"arity-strict",rule:"attrs-pos y relacion: celdas entre requeridos y total del contrato (I012_POSITIONAL_ARITY en ambos extremos). La tolerancia 0.1 era un bug; estricto en las 5 superficies.",detail:"Spec 1.0 S4.1. parser.py, parser.go, parser.js, parser.rs, codec-cortex.sh."}
 RUL:no_inferencia{id:"no-inferencia",rule:"El transformador no interpreta el contenido ideatico. Solo aplica schemas declarados, contratos, shapes y codificaciones.",detail:"El AST es artefacto interno; la sintaxis no es exposicion mecanica del AST."}
 RUL:pipe_quoted{id:"pipe-quoted",rule:"Celda con | interno va string quoted; sin comillas se lee como celdas extra (I012). La correccion es una celda quoted, no mas celdas.",detail:"Spec 1.0 S4.2 + S12.1. Observado: HDL:migrate con 7 celdas vs contrato de 3."}
-RUL:idea_unica{id:"idea-unica",rule:"SIGIL:nombre debe ser unico por seccion (I006_DUPLICATE_IDEA_ADDRESS). Secuencias nombran cada elemento: PRC:p1, PRC:p2.",detail:"Spec 1.0 S12.2."}
+RUL:idea_unica{id:"idea-unica",rule:"SIGIL:nombre debe ser unico por seccion (I006_DUPLICATE_IDEA_ADDRESS en 1.0; I002_DUPLICATE_IDEA_ADDRESS en 0.1). Secuencias nombran cada elemento: PRC:p1, PRC:p2.",detail:"Spec 1.0 S12.2. Duplicado es byte-exacto; homoglifos ya no pasan (U003)."}
 RUL:densidad{id:"densidad",rule:"Normas en ideas tipadas (RUL/API/PRC/TST), no en prosa. cuerpo = payload; bloque = verbatim.",detail:"Spec 1.0 S12.5: parsear no basta; la forma tambien es contrato."}
 RUL:desc_label{id:"desc-label",rule:"desc es etiqueta de 1-3 palabras, no frase: el glosario clasifica, no documenta.",detail:"Spec 1.0 S12.7. G020 obliga presencia, no extension."}
 RUL:idea_compacta{id:"idea-compacta",rule:"La idea es taquigrafia: nombre etiqueta, enunciado directo, cero explicacion embebida. Lo extenso va en detail o en la spec.",detail:"Spec 1.0 S12.8. Eficiencia = tokens de senal, no de relleno."}
@@ -30,16 +30,17 @@ RUL:serializar{id:"serializar",rule:"Al escribir: string con newline va escapado
 $2: DOCUMENTO Y GLOSARIO:CORE
 RUL:doc{id:"doc",rule:"Estructura: (1) $0:KERNEL linea 1, (2) $0:format{cortex:X,encoding:UTF-8[,language]} linea 2, (3) meta opcionales ($0:sigil-map,enum_*,micro_*,namespace_*,extension_*), (4) declaracion de cada sigilo usado fuera de $0, (5) secciones $N con Ideas.",detail:"$0 no reaparece (G002). Sigilo no declarado = I001."}
 RUL:formato{id:"formato",rule:"$0:format{cortex:1.0,encoding:UTF-8,language:XX}. Una sola declaracion (G006). encoding distinto de UTF-8 = G011. Atributos extra (language, etc.) se preservan.",detail:"dispatcher.py _detect_version() hace bootstrap regex."}
+RUL:charset{id:"charset",rule:"Identificadores estructurales = ASCII imprimible: nombre de idea, clave de attr, label de sigilo en $0, nombre de declaracion $0:x (enum_/micro_/namespace_/extension_), campo de contrato. Fuera de charset = U003_NON_ASCII_IDENTIFIER. Contenido (string quoted, cuerpo, bloque, titulos de seccion) permanece Unicode libre.",detail:"Spec 1.0 S4.4. Anti-homoglifo: dos identificadores visualmente identicos con bytes distintos = spoofing de firma. Emitido en las 5 superficies."}
 RUL:seccion{id:"seccion",rule:"Secciones: $N: TITULO o $N: TITULO:CAPA. N entero positivo, subsecciones $N.M validas. CAPA opcional: KERNEL|CORE|KNOW|DATA|FLOW|CACHE (metadata, sin semantica runtime; DATA por defecto en N>=2). Id repetido = S002.",detail:"Spec seccion 18."}
 RUL:declaracion{id:"declaracion",rule:"Sigilo: SIGIL:nombre{type:SHAPE,weight:B|M|H,focus:CAMPO,fields|pos:CONTRATO,desc:TEXTO,open:B?}. attrs requiere fields (G021); attrs-pos/relacion requieren pos (G022); relacion >=3 campos (G023); cuerpo/bloque focus=$body. open:true permite extras en attrs.",detail:"_build_symbol_def() valida G016-G025."}
 RUL:shapes{id:"shapes",rule:"5 shapes: attrs={k:v} una linea; attrs-pos=|celda| una linea; cuerpo={texto} o multilinea (NFC); bloque={...} verbatim multilinea; relacion=|a|b|c| una linea. Delimitador incorrecto = I004.",detail:"Spec seccion 13."}
-RUL:attrs{id:"attrs",rule:"attrs: campos en ORDEN del contrato. focus SIEMPRE string quoted. No-focus: quoted si tiene espacios/delimitadores, bare si atom valido.",detail:"Spec 13.1 + C14N seccion 10."}
+RUL:attrs{id:"attrs",rule:"attrs: campos en ORDEN del contrato (el canonico normaliza a ese orden: permutacion editorial NO altera el hash). Extras open tras el contrato, ordenados por clave UTF-8 NFC. focus SIEMPRE string quoted. No-focus: quoted si tiene espacios/delimitadores, bare si atom valido.",detail:"Spec 13.1 + C14N seccion 10 + Spec 1.0 S7 p4."}
 RUL:pipe{id:"pipe",rule:"attrs-pos/relacion: celdas en ORDEN de pos. Opcionales solo al final. String con | va quoted. Aridad estricta: I012 si celdas fuera de [requeridos, contrato].",detail:"Spec 13.2/13.5 + S4.1."}
 RUL:cuerpo_bloque{id:"cuerpo-bloque",rule:"cuerpo/bloque multilinea: SIGIL:nombre{ abre, cierre } en linea propia. Sin cierre = S007_UNCLOSED_BODY. cuerpo=NFC, bloque=verbatim.",detail:"Spec 13.3/13.4."}
 RUL:focus{id:"focus",rule:"focus requerido en attrs/attrs-pos/relacion y debe existir en contrato: G024 si falta, G025 si no esta en fields/pos.",detail:"Spec 11.5."}
 RUL:contrato{id:"contrato",rule:"fields/pos: campo:tipo separados por |. Tipos: any text atom int dec bool null list %enum. Sufijo ? = opcional. Sin tipo = any.",detail:"Spec seccion 14. parse_contract_fields()."}
 RUL:scalares{id:"scalares",rule:"string (escapes \\n \\r \\t \\b \\f \\\" \\\\ \\uXXXX), atom (bare, sin espacios), integer, decimal (lexema exacto: 0.75 != 0.750), boolean, null, list plana. Atom invalido = L010.",detail:"Spec seccion 17."}
-RUL:enum{id:"enum",rule:"$0:enum_X{values:\"a|b|c\"}; referencia %X en contrato. Mal formado = G014; referencia no declarada = G026.",detail:"Spec seccion 15."}
+RUL:enum{id:"enum",rule:"$0:enum_X{values:\"a|b|c\"}; referencia %X en contrato. values deben ser atoms ASCII (G014 si no); referencia no declarada = G026; atom fuera de dominio = I010_ENUM_VIOLATION (microtoken se expande antes de comparar; comparacion exacta case-sensitive).",detail:"Spec seccion 15 + Spec 1.0 S4.2. Emisor I010/G026 en las 5 superficies."}
 RUL:micro{id:"micro",rule:"$0:micro_t{expand:atom}. Expansion en C14N solo; no en strings/keys/nombres/sigilos. Sin expand = G012.",detail:"Spec seccion 16."}
 RUL:ns{id:"ns",rule:"$0:namespace_a{...}; uso a::SIGIL:nombre. Namespace no declarado = error. ! es reservado interno.",detail:"Spec seccion 20."}
 RUL:ext{id:"ext",rule:"$0:extension_X{namespace,id,version,required,desc}. required:true no soportado = X002_REQUIRED_EXTENSION_UNSUPPORTED.",detail:"Spec seccion 21."}
@@ -53,7 +54,7 @@ RUL:encoding_slots{id:"encoding-slots",rule:"encoding:slots solo en attrs/attrs-
 RUL:slots_attr{id:"slots-attr",rule:"Contrato en attr slots:\"1=name:type?|2=name:type\". Posiciones desde 1 ascendentes sin huecos (G034), unicas (G035), nombres unicos (G036).",detail:"slots.py parse_slot_contract()."}
 RUL:slot_focus{id:"slot-focus",rule:"focus en sigilo slots referencia POSICION (entero) de slot requerido. Inexistente u opcional = G037.",detail:"slotparser.py."}
 RUL:slot_idea{id:"slot-idea",rule:"Idea slots: SIGIL:nombre{※1:v,※2:v}. Braces siempre, orden ascendente (I054), sin duplicados (I051), sin desconocidos (I052), requeridos presentes (I053), sin attr nombrado (I055), sin pipe (I056).",detail:"slots.py parse_slot_payload()."}
-RUL:slot_glossary{id:"slot-glossary",rule:"※ prohibido en $0 (I050). Excepcion: attr marker:\"※\" del sigil-map es string content.",detail:"slotparser.py."}
+RUL:slot_glossary{id:"slot-glossary",rule:"※ prohibido en $0 (I050). En posicion de clave de attr captura U003 antes (charset — diagnostico mas temprano, mismo defecto). Excepcion: attr marker:\"※\" del sigil-map es string content.",detail:"slotparser.py. requiredCodes del vector I_I050 acepta ambos."}
 RUL:mixed_version{id:"mixed-version",rule:"Doc declarado cortex:0.1 no puede tener ※ estructural (I058). Doc 0.2/1.0 puede mezclar sigilos con y sin encoding:slots; no es mixed-version.",detail:"slots.py check_mixed_surface_legacy()."}
 RUL:ast_nominal{id:"ast-nominal",rule:"AST nominal: attrs nominal y attrs-slots con mismo contrato logico producen ASTs y hashes distintos.",detail:"Spec 0.2 seccion 9."}
 
@@ -70,7 +71,7 @@ RUL:hcortex_roundtrip{id:"hcortex-roundtrip",rule:"0.2: canonicalize(compile(ren
 RUL:loss{id:"loss-catalog",rule:"Perdidas declaradas (cerradas): L401 fence bloque, L402 comentarios fuera de glosario, L403 whitespace intralinea, L404 CAPA ausente, L405 orden attrs open. loss-report conforme a schema.",detail:"Spec 1.0 S8.2 + errors-1.0.md."}
 
 $5: C14N Y HASH:CORE
-RUL:c14n01{id:"c14n01",rule:"C14N: NFC fuera de bloque, expansion microtokens, quoting contract-aware (focus siempre quoted), sin comentarios/blank/trailing-spaces, un LF final, sin BOM/CR. Dominio CORTEX-C14N-0.1 (0.1) / C14N-0.2 (0.2/1.0).",detail:"c14n.py / slotc14n.py."}
+RUL:c14n01{id:"c14n01",rule:"C14N: NFC fuera de bloque, expansion microtokens, quoting contract-aware (focus siempre quoted), sin comentarios/blank/trailing-spaces, un LF final, sin BOM/CR. Dominio CORTEX-C14N-0.1 (0.1) / CORTEX-C14N-0.2 (0.2/1.0).",detail:"c14n.py / slotc14n.py."}
 RUL:c14n_orden{id:"c14n-orden",rule:"Orden canonico: $0 primero; secciones $N ascendente; ideas en ORDEN DOCUMENTAL (fijado en 1.0). Glosario en orden de declaracion.",detail:"Spec 1.0 S7. Cierra el pendiente de 0.1."}
 RUL:hash{id:"hash",rule:"hash = SHA-256(dominio + 0x00 + canonical_bytes), sha256:<64hex>. Docs con mismo contenido pero distinta version producen hashes distintos (dominio difiere).",detail:"dispatcher.hash_cortex por doc.cortex_version."}
 RUL:idempotencia{id:"idempotencia",rule:"canonicalize(canonicalize(x)) == canonicalize(x). Misma version: x identico a y sii canonicalize(x)==canonicalize(y).",detail:"Vector D1 del certificado."}
@@ -95,25 +96,27 @@ API:migrate_to_1_0{name:"migrate_to_1_0",signature:"migrate_to_1_0(source_path, 
 API:migrate_apply_api{name:"migrate_apply",signature:"migrate_apply(plan_path, out_path=None) -> dict",version:p,status:c,notes:"Migracion transaccional 0.1->0.2 atomica."}
 
 $8: CLI:DATA
+HDL:help|help [<cmd>]|current|Ayuda general o por comando; --help/-h equivalentes (Python; CLI de otras superficies difiere)
 HDL:parse|parse <file>|current|AST JSON por dispatcher (0.1/0.2/1.0)
 HDL:validate|validate <file>|current|Valida doc; exit 0 si valido
 HDL:canonicalize|canonicalize <file>|current|Bytes canonicos por dispatcher
 HDL:hash|hash <file>|current|Hash canonico sha256:...
 HDL:conformance|conformance [MANIFEST_DIR]|current|Slots conformance harness (0.2)
 HDL:tohcortex|to-hcortex [--embed-ast] <file>|current|Render HCORTEX 0.2
-HDL:fromhcortex|from-hcortex <file>|current|Compila HCORTEX 0.2
+HDL:fromhcortex|from-hcortex <file>|current|Compila HCORTEX 0.2; auto-valida: si la salida canonica no parsea, falla con el diagnostico del parser (nunca emite fuente invalida)
 HDL:migrate|migrate <cmd> <file> [args]|current|"inspect|plan|apply|verify|rollback|to-1.0"
 
 $9: ERRORES:DATA
 RUL:err_familias{id:"err-familias",rule:"Familias: L lexico, S sintaxis, G glosario, I idea, X extension, U unicode, H hcortex, L4xx perdida declarada. Catalogo cerrado 1.0: codigo con emisor en >=1 superficie o reserved.",detail:"errors-1.0.md: mapa mecanico 83 codigos x 5 superficies."}
+RUL:superficies{id:"superficies",rule:"Paridad alcanzada: U003, I010, G026, orden canonico de attrs e I002 emiten en las 5 superficies (verificado vector a vector, hashes identicos). HCORTEX compilers auto-validan su salida en las 5 superficies. Caveat: la suite de oraculo Rust necesita fixtures externos (/tmp/oracle).",detail:"E-0211/E-0212/E-0224 cerrados 2026-11-04. Escribir doc portable = ceñirse a lo declarado en spec."}
 RUL:err_g{id:"err-g",rule:"G001,G002,G004,G006,G007,G008,G010,G011,G012,G014,G015,G016,G017,G018,G019,G020,G021,G022,G023,G024,G025,G026,G027; slots: G030,G031,G032,G033,G034,G035,G036,G037,G038,G039,G040,G041.",detail:"errors-1.0.md."}
 RUL:err_i{id:"err-i",rule:"I001-I016 (incluye I012_POSITIONAL_ARITY estricto en 1.0); slots: I050-I058.",detail:"parser.py / slotparser.py."}
 RUL:err_h{id:"err-h",rule:"H400-H404 doc 0.1, H410-H472 por capa, H401/H403/H481/H490 en 0.2. Perdidas: L401-L405.",detail:"slothcortex.py + spec S8.2."}
 RUL:err_recuperacion{id:"err-recuperacion",rule:"Mapeo error -> correccion: I001 declarar sigilo; G024 agregar focus; G021/G022 agregar fields/pos; I012 ajustar celdas al contrato o corregir contrato; G030 declarar sigil-map antes; I050 quitar ※ de $0; I058 migrar declaracion o quitar ※ estructural; H481 quitar cortex-ast:/base64:/shadow:.",detail:"errors-1.0.md."}
-RUL:err_fix_lexico{id:"err-fix-lexico",rule:"L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; L401-L405 perdidas declaradas -> registrar loss-report conforme a schema.",detail:"errors-1.0.md."}
+RUL:err_fix_lexico{id:"err-fix-lexico",rule:"L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; U003 identificador no-ASCII -> ASCII imprimible en nombre/clave/label/declaracion (el contenido sigue Unicode); L401-L405 perdidas declaradas -> registrar loss-report conforme a schema.",detail:"errors-1.0.md."}
 RUL:err_fix_sintaxis{id:"err-fix-sintaxis",rule:"S002 seccion duplicada -> renumerar; S005 contenido fuera de seccion -> mover bajo $N; S007 cuerpo sin cierre -> agregar } en linea propia; I004 delimitador incorrecto -> {} para attrs/cuerpo/bloque, || para attrs-pos/relacion.",detail:"errors-1.0.md."}
 RUL:err_fix_glosario{id:"err-fix-glosario",rule:"G010 falta format -> agregar linea 2; G011 encoding no UTF-8 -> corregir; G012 micro sin expand -> agregar expand; G014 enum mal formado -> values:\"a|b|c\"; G023 relacion con <3 campos -> ampliar; G026 %X no declarada -> declarar $0:enum_X; G027 tipo desconocido -> usar any|text|atom|int|dec|bool|null|list|%enum.",detail:"errors-1.0.md."}
-RUL:err_fix_idea{id:"err-fix-idea",rule:"I001 sigilo no declarado -> declarar antes de $1; I005 campo desconocido -> ajustar al contrato o open:true; I006 direccion duplicada -> renombrar nombre; I008 requerido ausente -> agregar celda/campo; I012 aridad -> ajustar celdas a [requeridos, total]; I055 attr nombrado en idea slots -> usar ※N:valor.",detail:"errors-1.0.md."}
+RUL:err_fix_idea{id:"err-fix-idea",rule:"I001 sigilo no declarado -> declarar antes de $1; I005 campo desconocido -> ajustar al contrato o open:true; I006 direccion duplicada -> renombrar nombre; I008 requerido ausente -> agregar celda/campo; I010 valor fuera de enum -> usar valor de enum_X declarado; I012 aridad -> ajustar celdas a [requeridos, total]; I055 attr nombrado en idea slots -> usar ※N:valor.",detail:"errors-1.0.md."}
 RUL:err_fix_hcortex{id:"err-fix-hcortex",rule:"H400/H401 envelope -> <!-- HCORTEX v=X t=canonical -->; H403 glossary ausente -> regenerar con render (no editar a mano); H481 copia oculta -> quitar cortex-ast:/base64:/shadow:; H490 BOM -> eliminar.",detail:"errors-1.0.md."}
 
 $10: GENERACION:FLOW
@@ -128,9 +131,12 @@ RUL:gen_errores{id:"gen-errores",rule:"Errores frecuentes en generacion: I001 (s
 
 $11: VALIDACION:DATA
 TST:probes{id:"P01-P29",command:"python scripts/ccx_probes.py",result:pass,scope:"0.1/0.2, slots, HCORTEX, migration, I058"}
-TST:conformance{id:"conformance",command:"python -m codec_cortex conformance",result:pass,scope:"Corpus slots manifest: 67/67"}
+TST:conformance{id:"conformance",command:"python -m codec_cortex conformance",result:pass,scope:"Corpus slots manifest: 68/68 (incl. I_U003_homoglyph_name)"}
 TST:certificate{id:"level-A",command:"PYTHONPATH=. python bench/certify.py",result:pass,scope:"D1 140/140, D2 140/140, D3 5/5, D4 140/140, D5 pass"}
-TST:node{id:"node-tests",command:"node --test codec-cortex-node/test/*.test.js",result:pass,scope:"Paridad Node.js 22/22"}
+TST:node{id:"node-tests",command:"node --test codec-cortex-node/test/*.test.js",result:pass,scope:"Paridad Node.js 24/24"}
+TST:go{id:"go-tests",command:"cd codec-cortex-go && go test ./...",result:pass,scope:"Paridad Go: U003/G014/G026/I010/I002, hash, self-validation; dist 1.0.0-go en 5 plataformas"}
+TST:bash{id:"bash-tests",command:"cd codec-cortex-bash && bash tests/self-test.sh && bash tests/self-test-slots.sh",result:pass,scope:"Paridad Bash: gate F3 40/40 + idempotencia, MANIFEST 120 entradas"}
+TST:rust{id:"rust-tests",command:"cd codec-cortex-rs && cargo test",result:pass,scope:"Paridad Rust vectores CLI; suite v10_oracle_parity requiere fixtures /tmp/oracle (ambiental)"}
 TST:vectors_1_0{id:"vectors-1.0",command:"parse corpus conformance/1.0",result:pass,scope:"70 valid + 2 invalid (I012, G007)"}
 RUL:evidencia{id:"evidencia",rule:"No declarar Gate listo, Standard ratificado ni conformidad completa sin evidencia independiente reproducible. Capacidad implementada != capacidad certificada.",detail:"audit.sig Nivel A firmado por auditor independiente."}
 

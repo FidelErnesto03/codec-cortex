@@ -3,8 +3,8 @@
 use crate::error::ParseError;
 use crate::model::{Attrs, Scalar, ScalarValue};
 use crate::scalars::{
-    classify_raw_cell, emit_string_literal, parse_attrs_payload, parse_scalar, skip_inline_ws,
-    to_nfc, StringCursor,
+    atom_body_matches, classify_raw_cell, emit_string_literal, is_ascii_identifier,
+    parse_attrs_payload, parse_scalar, skip_inline_ws, to_nfc, StringCursor,
 };
 use regex::Regex;
 use serde::Serialize;
@@ -318,6 +318,9 @@ impl V10Parser {
             }
         }
         if let Some(name) = head.strip_prefix("$0:") {
+            if !is_ascii_identifier(name) {
+                return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII declaration name: $0:{name}"), line_no, 0));
+            }
             return self.add_meta_declaration(name, &payload, line_no, capa);
         }
         let re = Regex::new(r"^(?:([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):(.+)$").unwrap();
@@ -327,6 +330,9 @@ impl V10Parser {
         let ns = caps.get(1).map(|m| m.as_str().to_string());
         let sigil = caps[2].to_string();
         let label = caps[3].to_string();
+        if !is_ascii_identifier(&label) {
+            return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII symbol label: {label:?}"), line_no, 0));
+        }
         let key = format!("{}\u{0}{}", ns.clone().unwrap_or_default(), sigil);
         if self.seen_symbol_keys.contains(&key) {
             return Err(ParseError::at(
@@ -406,6 +412,11 @@ impl V10Parser {
                     ScalarValue::String(s) => s.clone(),
                     _ => return Err(ParseError::at("G014_INVALID_ENUM", format!("enum {ename} missing values string"), line_no, 0)),
                 };
+                for ev in s.split('|') {
+                    if !atom_body_matches(ev) {
+                        return Err(ParseError::at("G014_INVALID_ENUM", format!("enum {ename} value {ev:?} is not a valid atom"), line_no, 0));
+                    }
+                }
                 self.doc.glossary.enums.push(crate::model::EnumDecl { name: ename, values: s.split('|').map(String::from).collect(), source_line: line_no });
             }
             _ if name.starts_with("micro_") => {
@@ -523,6 +534,9 @@ impl V10Parser {
         let ns = caps.get(1).map(|m| m.as_str().to_string());
         let sigil = caps[2].to_string();
         let name = caps[3].to_string();
+        if !is_ascii_identifier(&name) {
+            return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII idea name: {name:?}"), line_no, 0));
+        }
         let rest = line[caps.get(0).unwrap().end()..].to_string();
         let sym = self.doc.glossary.symbols.iter().find(|s| s.sigil == sigil && s.namespace == ns).cloned();
         let sym = sym.ok_or_else(|| ParseError::at("I001_UNDECLARED_SYMBOL", format!("Undeclared sigil: {sigil}"), line_no, 0))?;
@@ -539,7 +553,7 @@ impl V10Parser {
                 return Err(ParseError::at("I004_SHAPE_DELIMITER_MISMATCH", "Slot-encoded Idea must be single-line", line_no, 0));
             }
             let entries = parse_slot_payload(&rest, line_no)?;
-            let fvs = resolve_slot_entries(&entries, &sym, line_no)?;
+            let fvs = resolve_slot_entries(&entries, &sym, line_no, &self.doc.glossary)?;
             return Ok(V10Idea { section: section_id, namespace: ns, symbol: sigil, name, shape: sym.shape.clone(), payload: V10Payload::Slots(fvs) });
         }
         self.parse_idea_line_legacy(section_id, line_no, ns, sigil, name, rest, &sym)
@@ -563,7 +577,7 @@ impl V10Parser {
             if rest.ends_with('}') && !rest.contains('\n') {
                 if shape == "attrs" {
                     let pairs = parse_attrs_payload(&rest, line_no)?;
-                    validate_attrs_payload(&pairs, sym, line_no)?;
+                    validate_attrs_payload(&pairs, sym, line_no, &self.doc.glossary)?;
                     return Ok(V10Idea { section: section_id, namespace: ns, symbol: sigil, name, shape, payload: V10Payload::Attrs(pairs) });
                 }
                 let inner = rest[1..rest.len() - 1].to_string();
@@ -588,13 +602,32 @@ impl V10Parser {
             if cells.len() > sym.contract.len() {
                 return Err(ParseError::at("I012_POSITIONAL_ARITY", format!("shape {shape} expects ≤{} cells, got {}", sym.contract.len(), cells.len()), line_no, 0));
             }
+            for (ci, cell) in cells.iter().enumerate() {
+                if let Some(field) = sym.contract.get(ci) {
+                    check_enum_value(&field.name, &field.field_type, cell, &self.doc.glossary, line_no)?;
+                }
+            }
             return Ok(V10Idea { section: section_id, namespace: ns, symbol: sigil, name, shape, payload: V10Payload::Positional(cells) });
         }
         Err(ParseError::at("S999_INTERNAL_PARSE_FAILURE", format!("Cannot parse idea: {rest:?}"), line_no, 0))
     }
 }
 
-fn validate_attrs_payload(pairs: &Attrs, sym: &V10Symbol, line_no: usize) -> Result<(), ParseError> {
+fn check_enum_value(field_name: &str, field_type: &str, scalar: &Scalar, gl: &V10Glossary, line_no: usize) -> Result<(), ParseError> {
+    let Some(ename) = field_type.strip_prefix('%') else { return Ok(()) };
+    if !matches!(scalar.value, ScalarValue::Atom(_)) { return Ok(()) }
+    let decl = gl.enums.iter().find(|e| e.name == ename).ok_or_else(|| {
+        ParseError::at("G026_UNKNOWN_ENUM_REFERENCE", format!("unknown enum %{ename} on field {field_name}"), line_no, 0)
+    })?;
+    let ScalarValue::Atom(raw) = &scalar.value else { unreachable!() };
+    let expanded = gl.micros.iter().find(|m| &m.token == raw).map(|m| m.expand.as_str()).unwrap_or(raw.as_str());
+    if !decl.values.iter().any(|v| v == expanded) {
+        return Err(ParseError::at("I010_ENUM_VIOLATION", format!("value {raw:?} not in enum %{ename} domain ({})", decl.values.join(",")), line_no, 0));
+    }
+    Ok(())
+}
+
+fn validate_attrs_payload(pairs: &Attrs, sym: &V10Symbol, line_no: usize, gl: &V10Glossary) -> Result<(), ParseError> {
     let mut seen: Vec<String> = Vec::new();
     for (k, _) in pairs {
         if seen.contains(k) {
@@ -612,6 +645,11 @@ fn validate_attrs_payload(pairs: &Attrs, sym: &V10Symbol, line_no: usize) -> Res
     for f in &sym.contract {
         if f.required && !seen.contains(&f.name) {
             return Err(ParseError::at("I008_REQUIRED_FIELD_MISSING", format!("Required field {:?} missing", f.name), line_no, 0));
+        }
+    }
+    for f in &sym.contract {
+        if let Some((_, v)) = pairs.iter().find(|(k, _)| k == &f.name) {
+            check_enum_value(&f.name, &f.field_type, v, gl, line_no)?;
         }
     }
     Ok(())
@@ -650,6 +688,9 @@ fn parse_slot_contract(source: &str, line: usize) -> Result<Vec<V10ContractField
         let name = name.trim().to_string();
         if name.is_empty() {
             return Err(ParseError::at("G008_INVALID_CONTRACT", format!("Empty slot name in {part:?}"), line, 0));
+        }
+        if !is_ascii_identifier(&name) {
+            return Err(ParseError::at("U003_NON_ASCII_IDENTIFIER", format!("Non-ASCII contract field name: {name:?}"), line, 0));
         }
         out.push(V10ContractField { position, name, field_type: field_type.trim().to_string(), required });
     }
@@ -797,6 +838,7 @@ fn resolve_slot_entries(
     entries: &[(usize, Scalar)],
     sym: &V10Symbol,
     line_no: usize,
+    gl: &V10Glossary,
 ) -> Result<Vec<V10FieldValue>, ParseError> {
     let mut seen = Vec::new();
     let mut out = Vec::new();
@@ -813,6 +855,7 @@ fn resolve_slot_entries(
         let field = sym.contract.iter().find(|f| f.position == *index).ok_or_else(|| {
             ParseError::at("I052_UNKNOWN_SLOT", format!("slot ※{index} not declared in contract"), line_no, 0)
         })?;
+        check_enum_value(&field.name, &field.field_type, value, gl, line_no)?;
         out.push(V10FieldValue {
             position: *index,
             name: field.name.clone(),
@@ -1161,7 +1204,9 @@ fn idea_canonical_v10(idea: &V10Idea, doc: &V10Doc) -> String {
         }
         V10Payload::Attrs(attrs) => {
             let sym = sym.expect("undeclared symbol");
-            let parts: Vec<String> = attrs
+            let order: Vec<&str> = sym.contract.iter().map(|f| f.name.as_str()).collect();
+            let ordered = sort_keys_canonical(attrs, &order);
+            let parts: Vec<String> = ordered
                 .iter()
                 .map(|(k, v)| {
                     let ftype = sym.contract.iter().find(|f| &f.name == k).map(|f| f.field_type.as_str()).unwrap_or("any");
@@ -1416,13 +1461,20 @@ pub fn compile_hcortex10(text: &str) -> Result<V10Doc, ParseError> {
         }
         i += 1;
     }
+    // Self-validation: a compiler never emits source its own parser rejects.
+    let mut check = doc.clone();
+    let emitted = canonicalize_v10(&mut check);
+    let version = check.glossary.format.as_ref().map(|f| f.cortex.as_str()).unwrap_or("1.0");
+    parse_v10(&emitted, version).map_err(|e| {
+        ParseError::new(&e.code, format!("compiled output failed self-validation: {}", e.message))
+    })?;
     Ok(doc)
 }
 
 fn parse_ideas_v10(body: &str, section_id: u64, doc: &V10Doc) -> Result<Vec<V10Idea>, ParseError> {
     let lines: Vec<String> = body.split('\n').map(String::from).collect();
     let fenced = fence_mask(&lines);
-    let marker_re = Regex::new(r"^### ([!]?(?:\w+::)?[!\w]+):([\w_-]+)\s*$").unwrap();
+    let marker_re = Regex::new(r"^### ([!]?(?:\w+::)?[!\w]+):([\p{L}\p{N}_-]+)\s*$").unwrap();
     let mut markers: Vec<(usize, String, String)> = Vec::new();
     for (i, line) in lines.iter().enumerate() {
         if fenced[i] {

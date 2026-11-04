@@ -12,8 +12,8 @@ from typing import Any, Optional, List, Tuple
 
 from .scalars import (
     Scalar, ParseError, parse_attrs_payload, parse_string_scalar,
-    parse_scalar, emit_string_literal, ATOM_RE, _INT_RE, _DEC_RE, to_nfc,
-    StringCursor,
+    parse_scalar, emit_string_literal, ATOM_RE, ATOM_BODY, _INT_RE, _DEC_RE, to_nfc,
+    StringCursor, is_ascii_identifier,
 )
 from .slots import (
     SLOT_MARKER, HOMOGLYPHS, SLOT_INDEX_MAX,
@@ -256,6 +256,9 @@ class _SlotParser:
         head = head.strip()
         if head.startswith("$0:"):
             name = head[3:]
+            if not is_ascii_identifier(name):
+                raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                                 f"Non-ASCII meta-declaration name: {name!r}", line_no)
             self._add_meta_declaration_slots(name, payload_str, line_no, capa)
         else:
             m = re.match(r"^(?:([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):(.+)$", head)
@@ -265,6 +268,9 @@ class _SlotParser:
             ns = m.group(1)
             sigil = m.group(2)
             label = m.group(3)
+            if not is_ascii_identifier(label):
+                raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                                 f"Non-ASCII symbol label: {label!r}", line_no)
             # G015_DUPLICATE_SYMBOL
             sym_key = (ns, sigil)
             if sym_key in self.seen_symbol_keys:
@@ -341,6 +347,10 @@ class _SlotParser:
                 raise ParseError("G014_INVALID_ENUM",
                                  f"enum {ename} missing values string", line_no)
             values = values_v.value.split("|")
+            for v in values:
+                if not re.fullmatch(ATOM_BODY, v):
+                    raise ParseError("G014_INVALID_ENUM",
+                                     f"enum {ename} value is not a valid atom: {v!r}", line_no)
             self.doc.glossary.enums.append(EnumDecl(name=ename, values=values, source_line=line_no))
             return
         if name.startswith("micro_"):
@@ -482,6 +492,9 @@ class _SlotParser:
         ns = m.group(1)
         sigil = m.group(2)
         name = m.group(3)
+        if not is_ascii_identifier(name):
+            raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                             f"Non-ASCII idea name: {name!r}", line_no)
         rest = line[m.end():]
         sym = None
         for s in self.doc.glossary.symbols:
@@ -557,6 +570,9 @@ class _SlotParser:
             if len(cells) > len(sym.contract):
                 raise ParseError("I012_POSITIONAL_ARITY",
                                  f"shape {shape} expects ≤{len(sym.contract)} cells, got {len(cells)}", line_no)
+            for i, cell in enumerate(cells):
+                if sym.contract[i].type.startswith("%"):
+                    self._check_enum_value(sym.contract[i].type[1:], cell, line_no)
             return Idea(section=section_id, namespace=ns, symbol=sigil, name=name,
                         shape=shape, payload=(shape, cells), source_line=line_no)
         raise ParseError("S999_INTERNAL_PARSE_FAILURE",
@@ -582,6 +598,10 @@ class _SlotParser:
             if f.required and f.name not in pair_map:
                 raise ParseError("I008_REQUIRED_FIELD_MISSING",
                                  f"Required field {f.name!r} missing", line_no)
+        # Enum domain check (%name field types → $0:enum_<name>)
+        for f in sym.contract:
+            if f.type.startswith("%"):
+                self._check_enum_value(f.type[1:], pair_map.get(f.name), line_no)
 
     def _resolve_slot_entries(self, entries, sym: SymbolDef, line_no: int) -> List[FieldValue]:
         """Resolve (index, scalar, span) → FieldValue; validate order, duplicates, required."""
@@ -605,6 +625,8 @@ class _SlotParser:
             if cf is None:
                 raise ParseError("I052_UNKNOWN_SLOT",
                                  f"slot ※{idx} not declared in contract", line_no)
+            if cf.type.startswith("%"):
+                self._check_enum_value(cf.type[1:], scalar, line_no)
             out.append(FieldValue(position=idx, name=cf.name, type=cf.type,
                                   required=cf.required, value=scalar))
         # Required check
@@ -669,6 +691,23 @@ class _SlotParser:
             return Scalar("atom", raw, raw)
         return Scalar("string", raw, emit_string_literal(raw))
 
+    def _check_enum_value(self, ename: str, scalar, line_no: int):
+        """I010 if an atom value falls outside the declared enum domain."""
+        for e in self.doc.glossary.enums:
+            if e.name == ename:
+                if scalar is not None and scalar.kind == "atom":
+                    value = scalar.value
+                    for m in self.doc.glossary.micros:
+                        if m.token == value:
+                            value = m.expand
+                            break
+                    if value not in e.values:
+                        raise ParseError("I010_ENUM_VIOLATION",
+                                         f"atom {scalar.value!r} not in enum %{ename}", line_no)
+                return
+        raise ParseError("G026_UNKNOWN_ENUM_REFERENCE",
+                         f"contract references undeclared enum %{ename}", line_no)
+
     def _post_validate(self):
         # G030/G041 final check
         if self.seen_any_slots_sigil and not self.seen_sigil_map:
@@ -678,3 +717,11 @@ class _SlotParser:
         if self.in_body:
             raise ParseError("S007_UNCLOSED_BODY",
                              f"Unclosed {self.body_kind} body at end of document")
+        # G026: every %enum reference in a contract must resolve to $0:enum_<name>
+        enum_names = {e.name for e in self.doc.glossary.enums}
+        for sym in self.doc.glossary.symbols:
+            for f in sym.contract:
+                if f.type.startswith("%") and f.type[1:] not in enum_names:
+                    raise ParseError("G026_UNKNOWN_ENUM_REFERENCE",
+                                     f"contract of {sym.sigil} references undeclared enum %{f.type[1:]}",
+                                     sym.source_line)

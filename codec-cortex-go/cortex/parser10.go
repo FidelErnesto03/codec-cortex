@@ -225,6 +225,9 @@ func (p *v10Parser) parseGlossaryDeclaration(line string, lineNo int) error {
 		return &ParseError{Code: "L001_INVALID_SYMBOL", Message: fmt.Sprintf("Invalid sigil declaration head: %q", head), Line: lineNo}
 	}
 	ns, sigil, label := m[1], m[2], m[3]
+	if !isASCIIIdentifier(label) {
+		return &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII symbol label: %q", label), Line: lineNo}
+	}
 	key := ns + "\x00" + sigil
 	if p.seenSymbolKeys[key] {
 		return &ParseError{Code: "G015_DUPLICATE_SYMBOL", Message: fmt.Sprintf("Duplicate symbol %s%s", nsPrefix(ns), sigil), Line: lineNo}
@@ -243,6 +246,9 @@ func (p *v10Parser) parseGlossaryDeclaration(line string, lineNo int) error {
 }
 
 func (p *v10Parser) addMetaDeclaration(name, payload string, lineNo int, capa string) error {
+	if !isASCIIIdentifier(name) {
+		return &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII meta-declaration name: %q", name), Line: lineNo}
+	}
 	attrs, err := ParseAttrsPayload(payload, lineNo)
 	if err != nil {
 		return err
@@ -313,6 +319,11 @@ func (p *v10Parser) addMetaDeclaration(name, payload string, lineNo int, capa st
 		v, ok := amap["values"]
 		if !ok || v.Kind != ScalarString {
 			return &ParseError{Code: "G014_INVALID_ENUM", Message: fmt.Sprintf("enum %s missing values string", ename), Line: lineNo}
+		}
+		for _, ev := range strings.Split(v.Text, "|") {
+			if !atomBodyRE.MatchString(ev) {
+				return &ParseError{Code: "G014_INVALID_ENUM", Message: fmt.Sprintf("enum %s value is not a valid atom: %q", ename, ev), Line: lineNo}
+			}
 		}
 		p.doc.Glossary.Enums = append(p.doc.Glossary.Enums, EnumDecl{Name: ename, Values: strings.Split(v.Text, "|"), SourceLine: lineNo})
 	case strings.HasPrefix(name, "micro_"):
@@ -483,6 +494,9 @@ func (p *v10Parser) parseIdeaLine(line string, sectionID int, lineNo int) (*Idea
 	}
 	sigil := line[m[4]:m[5]]
 	name := line[m[6]:m[7]]
+	if !isASCIIIdentifier(name) {
+		return nil, &ParseError{Code: "U003_NON_ASCII_IDENTIFIER", Message: fmt.Sprintf("Non-ASCII idea name: %q", name), Line: lineNo}
+	}
 	rest := line[m[1]:]
 	var sym *SymbolDef
 	for i := range p.doc.Glossary.Symbols {
@@ -511,7 +525,7 @@ func (p *v10Parser) parseIdeaLine(line string, sectionID int, lineNo int) (*Idea
 		if err != nil {
 			return nil, err
 		}
-		fvs, err := resolveSlotEntries(entries, *sym, lineNo)
+		fvs, err := resolveSlotEntries(entries, *sym, &p.doc.Glossary, lineNo)
 		if err != nil {
 			return nil, err
 		}
@@ -533,7 +547,7 @@ func (p *v10Parser) parseIdeaLineLegacy(sectionID, lineNo int, ns, sigil, name, 
 				if err != nil {
 					return nil, err
 				}
-				if err := validateAttrsPayload(pairs, sym, lineNo); err != nil {
+				if err := validateAttrsPayload(pairs, sym, &p.doc.Glossary, lineNo); err != nil {
 					return nil, err
 				}
 				return &Idea{Section: sectionID, Namespace: ns, Symbol: sigil, Name: name, Shape: shape, Attrs: pairs, SourceLine: lineNo}, nil
@@ -569,12 +583,52 @@ func (p *v10Parser) parseIdeaLineLegacy(sectionID, lineNo int, ns, sigil, name, 
 		if len(cells) > len(sym.Contract) {
 			return nil, &ParseError{Code: "I012_POSITIONAL_ARITY", Message: fmt.Sprintf("shape %s expects ≤%d cells, got %d", shape, len(sym.Contract), len(cells)), Line: lineNo}
 		}
+		for i, c := range cells {
+			if i < len(sym.Contract) {
+				if err := checkEnumValue(sym.Contract[i], c, &p.doc.Glossary, lineNo); err != nil {
+					return nil, err
+				}
+			}
+		}
 		return &Idea{Section: sectionID, Namespace: ns, Symbol: sigil, Name: name, Shape: shape, Cells: cells, SourceLine: lineNo}, nil
 	}
 	return nil, &ParseError{Code: "S999_INTERNAL_PARSE_FAILURE", Message: fmt.Sprintf("Cannot parse idea: %q", rest), Line: lineNo}
 }
 
-func validateAttrsPayload(pairs []Attr, sym SymbolDef, lineNo int) error {
+func checkEnumValue(field ContractField, v Scalar, g *Glossary, lineNo int) error {
+	if !strings.HasPrefix(field.Type, "%") {
+		return nil
+	}
+	ename := field.Type[1:]
+	var decl *EnumDecl
+	for i := range g.Enums {
+		if g.Enums[i].Name == ename {
+			decl = &g.Enums[i]
+			break
+		}
+	}
+	if decl == nil {
+		return &ParseError{Code: "G026_UNKNOWN_ENUM_REFERENCE", Message: fmt.Sprintf("unknown enum %%%s for field %q", ename, field.Name), Line: lineNo}
+	}
+	if v.Kind != ScalarAtom {
+		return nil
+	}
+	val := v.Text
+	for _, m := range g.Micros {
+		if m.Token == val {
+			val = m.Expand
+			break
+		}
+	}
+	for _, ev := range decl.Values {
+		if ev == val {
+			return nil
+		}
+	}
+	return &ParseError{Code: "I010_ENUM_VIOLATION", Message: fmt.Sprintf("atom %q not in enum %%%s", v.Text, ename), Line: lineNo}
+}
+
+func validateAttrsPayload(pairs []Attr, sym SymbolDef, g *Glossary, lineNo int) error {
 	seen := map[string]bool{}
 	for _, a := range pairs {
 		if seen[a.Key] {
@@ -596,6 +650,15 @@ func validateAttrsPayload(pairs []Attr, sym SymbolDef, lineNo int) error {
 	for _, f := range sym.Contract {
 		if f.Required && !seen[f.Name] {
 			return &ParseError{Code: "I008_REQUIRED_FIELD_MISSING", Message: fmt.Sprintf("Required field %q missing", f.Name), Line: lineNo}
+		}
+	}
+	for _, a := range pairs {
+		for _, f := range sym.Contract {
+			if f.Name == a.Key {
+				if err := checkEnumValue(f, a.Value, g, lineNo); err != nil {
+					return err
+				}
+			}
 		}
 	}
 	return nil
@@ -779,7 +842,7 @@ func parseSlotRef(c *stringCursor) (int, error) {
 	return idx, nil
 }
 
-func resolveSlotEntries(entries []slotEntry, sym SymbolDef, lineNo int) ([]FieldValue, error) {
+func resolveSlotEntries(entries []slotEntry, sym SymbolDef, g *Glossary, lineNo int) ([]FieldValue, error) {
 	seen := map[int]bool{}
 	out := []FieldValue{}
 	last := 0
@@ -801,6 +864,9 @@ func resolveSlotEntries(entries []slotEntry, sym SymbolDef, lineNo int) ([]Field
 		}
 		if cf == nil {
 			return nil, &ParseError{Code: "I052_UNKNOWN_SLOT", Message: fmt.Sprintf("slot ※%d not declared in contract", e.index), Line: lineNo}
+		}
+		if err := checkEnumValue(*cf, e.value, g, lineNo); err != nil {
+			return nil, err
 		}
 		out = append(out, FieldValue{Position: e.index, Name: cf.Name, Type: cf.Type, Required: cf.Required, Value: e.value})
 	}

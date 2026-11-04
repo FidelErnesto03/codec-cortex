@@ -10,6 +10,8 @@ const {
   parseStringScalar,
   emitStringLiteral,
   ATOM_RE,
+  ATOM_BODY_RE,
+  isAsciiIdentifier,
   INT_RE,
   DEC_RE,
   toNfc,
@@ -185,7 +187,11 @@ function parseContractFields(source) {
       name = part;
       type = 'any';
     }
-    out.push(new ContractField({ name: name.trim(), type: type.trim(), required }));
+    const fname = name.trim();
+    if (!isAsciiIdentifier(fname)) {
+      throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII contract field name: ${fname}`);
+    }
+    out.push(new ContractField({ name: fname, type: type.trim(), required }));
   }
   return out;
 }
@@ -213,7 +219,15 @@ function parseCortex(source) {
       if (stripped === '}') {
         const text = bodyLines.join('\n');
         bodyIdea.payload = bodyKind === 'cuerpo' ? ['cuerpo', text] : ['bloque', text];
-        if (currentSection !== null) currentSection.ideas.push(bodyIdea);
+        if (currentSection !== null) {
+          const bodyAddr = `$${currentSection.id}:${bodyIdea.qualified_symbol}:${bodyIdea.name}`;
+          for (const prev of currentSection.ideas) {
+            if (`$${currentSection.id}:${prev.qualified_symbol}:${prev.name}` === bodyAddr) {
+              throw new ParseError('I002_DUPLICATE_IDEA_ADDRESS', `Duplicate idea address ${bodyAddr}`, lineNo);
+            }
+          }
+          currentSection.ideas.push(bodyIdea);
+        }
         inBody = false;
         bodyLines = [];
         bodyIdea = null;
@@ -322,6 +336,12 @@ function parseCortex(source) {
       i += 1;
       continue;
     }
+    const ideaAddr = `$${currentSection.id}:${idea.qualified_symbol}:${idea.name}`;
+    for (const prev of currentSection.ideas) {
+      if (`$${currentSection.id}:${prev.qualified_symbol}:${prev.name}` === ideaAddr) {
+        throw new ParseError('I002_DUPLICATE_IDEA_ADDRESS', `Duplicate idea address ${ideaAddr}`, lineNo);
+      }
+    }
     currentSection.ideas.push(idea);
     i += 1;
   }
@@ -378,6 +398,9 @@ function parseGlossaryDeclaration(line, doc, lineNo) {
   const namespace = match[1] ?? null;
   const sigil = match[2];
   const label = match[3];
+  if (!isAsciiIdentifier(label)) {
+    throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII symbol label: ${pythonRepr(label)}`, lineNo);
+  }
   const attrs = parseAttrsPayload(line.slice(braceIndex), lineNo);
   doc.glossary.symbols.push(buildSymbolDef(namespace, sigil, label, attrs, lineNo));
 }
@@ -389,6 +412,9 @@ function pairsToMap(pairs) {
 }
 
 function addMetaDeclaration(name, attrs, capa, doc, lineNo) {
+  if (!isAsciiIdentifier(name)) {
+    throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII declaration name: $0:${name}`, lineNo);
+  }
   if (name === 'format') {
     if (doc.glossary.format !== null) throw new ParseError('G006_DUPLICATE_FORMAT', 'Duplicate $0:format', lineNo);
     const attrMap = pairsToMap(attrs);
@@ -407,6 +433,11 @@ function addMetaDeclaration(name, attrs, capa, doc, lineNo) {
     const enumName = name.slice(5);
     const values = pairsToMap(attrs).get('values');
     if (!values || values.kind !== 'string') throw new ParseError('G014_INVALID_ENUM', `enum ${enumName} missing values string`, lineNo);
+    for (const ev of values.value.split('|')) {
+      if (!ATOM_BODY_RE.test(ev)) {
+        throw new ParseError('G014_INVALID_ENUM', `enum ${enumName} value ${pythonRepr(ev)} is not a valid atom`, lineNo);
+      }
+    }
     doc.glossary.enums.push(new EnumDecl({ name: enumName, values: values.value.split('|'), sourceLine: lineNo }));
     return;
   }
@@ -490,6 +521,9 @@ function parseIdeaLine(line, sectionId, doc, lineNo) {
   const namespace = match[1] ?? null;
   const sigil = match[2];
   const name = match[3];
+  if (!isAsciiIdentifier(name)) {
+    throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII idea name: ${pythonRepr(name)}`, lineNo);
+  }
   const rest = line.slice(match[0].length);
 
   let symbol = null;

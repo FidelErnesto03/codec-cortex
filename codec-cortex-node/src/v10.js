@@ -5,7 +5,7 @@
 const {
   Scalar, ParseError, StringCursor, toNfc, emitStringLiteral,
   parseScalar, skipInlineWs, parseStringScalar, parseAttrsPayload,
-  ATOM_RE, INT_RE, DEC_RE,
+  ATOM_RE, ATOM_BODY_RE, isAsciiIdentifier, INT_RE, DEC_RE,
 } = require('./scalars');
 
 const {
@@ -234,7 +234,11 @@ class V10Parser {
       if (cm) capa = cm[1];
     }
     if (head.startsWith('$0:')) {
-      this.addMetaDeclaration(head.slice(3), payload, lineNo, capa);
+      const declName = head.slice(3);
+      if (!isAsciiIdentifier(declName)) {
+        throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII declaration name: $0:${declName}`, lineNo);
+      }
+      this.addMetaDeclaration(declName, payload, lineNo, capa);
       return;
     }
     const m = /^(?:([a-z][a-z0-9_.-]*)::)?(!|[A-Z][A-Z0-9_]*):(.+)$/.exec(head);
@@ -242,6 +246,9 @@ class V10Parser {
     const ns = m[1] || null;
     const sigil = m[2];
     const label = m[3];
+    if (!isAsciiIdentifier(label)) {
+      throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII symbol label: "${label}"`, lineNo);
+    }
     const key = `${ns || ''}\u0000${sigil}`;
     if (this.seenSymbolKeys.has(key)) {
       throw new ParseError('G015_DUPLICATE_SYMBOL', `Duplicate symbol ${ns ? `${ns}::` : ''}${sigil}`, lineNo);
@@ -300,6 +307,11 @@ class V10Parser {
       const ename = name.slice(5);
       const v = map.get('values');
       if (!v || v.kind !== 'string') throw new ParseError('G014_INVALID_ENUM', `enum ${ename} missing values string`, lineNo);
+      for (const ev of v.value.split('|')) {
+        if (!ATOM_BODY_RE.test(ev)) {
+          throw new ParseError('G014_INVALID_ENUM', `enum ${ename} value "${ev}" is not a valid atom`, lineNo);
+        }
+      }
       this.doc.glossary.enums.push(new EnumDecl({ name: ename, values: v.value.split('|'), sourceLine: lineNo }));
       return;
     }
@@ -407,6 +419,9 @@ class V10Parser {
     const ns = m[1] || null;
     const sigil = m[2];
     const name = m[3];
+    if (!isAsciiIdentifier(name)) {
+      throw new ParseError('U003_NON_ASCII_IDENTIFIER', `Non-ASCII idea name: "${name}"`, lineNo);
+    }
     const rest = line.slice(m[0].length);
     const sym = this.doc.glossary.symbols.find((s) => s.sigil === sigil && s.namespace === ns);
     if (!sym) throw new ParseError('I001_UNDECLARED_SYMBOL', `Undeclared sigil: ${sigil}`, lineNo);
@@ -421,7 +436,7 @@ class V10Parser {
         throw new ParseError('I004_SHAPE_DELIMITER_MISMATCH', 'Slot-encoded Idea must be single-line', lineNo);
       }
       const entries = parseSlotPayload(rest, lineNo);
-      const fvs = resolveSlotEntries(entries, sym, lineNo);
+      const fvs = resolveSlotEntries(entries, sym, lineNo, this.doc.glossary);
       return new Idea({ section: sectionId, namespace: ns, symbol: sigil, name, shape: sym.shape, payload: ['slots', fvs], sourceLine: lineNo });
     }
     return this.parseIdeaLineLegacy(sectionId, lineNo, ns, sigil, name, rest, sym);
@@ -434,7 +449,7 @@ class V10Parser {
       if (rest.endsWith('}') && !rest.includes('\n')) {
         if (shape === 'attrs') {
           const pairs = parseAttrsPayload(rest, lineNo);
-          validateAttrsPayload(pairs, sym, lineNo);
+          validateAttrsPayload(pairs, sym, lineNo, this.doc.glossary);
           return new Idea({ section: sectionId, namespace: ns, symbol: sigil, name, shape, payload: ['attrs', pairs], sourceLine: lineNo });
         }
         let inner = rest.slice(1, -1);
@@ -454,13 +469,34 @@ class V10Parser {
       if (cells.length > sym.contract.length) {
         throw new ParseError('I012_POSITIONAL_ARITY', `shape ${shape} expects ≤${sym.contract.length} cells, got ${cells.length}`, lineNo);
       }
+      {
+        const micro = new Map(this.doc.glossary.micros.map((mm) => [mm.token, mm.expand]));
+        for (let ci = 0; ci < cells.length; ci += 1) {
+          const field = sym.contract[ci];
+          if (field) checkEnumValue(field, cells[ci], this.doc.glossary, micro, lineNo);
+        }
+      }
       return new Idea({ section: sectionId, namespace: ns, symbol: sigil, name, shape, payload: [shape, cells], sourceLine: lineNo });
     }
     throw new ParseError('S999_INTERNAL_PARSE_FAILURE', `Cannot parse idea: ${lineNo}`, lineNo);
   }
 }
 
-function validateAttrsPayload(pairs, sym, lineNo) {
+function checkEnumValue(field, scalar, gl, micro, lineNo) {
+  const t = String(field.type || '');
+  if (!t.startsWith('%')) return;
+  const ename = t.slice(1);
+  if (scalar.kind !== 'atom') return;
+  const decl = gl.enums.find((e) => e.name === ename);
+  if (!decl) throw new ParseError('G026_UNKNOWN_ENUM_REFERENCE', `unknown enum %${ename} on field ${field.name}`, lineNo);
+  let value = scalar.value;
+  if (micro.has(value)) value = micro.get(value);
+  if (!decl.values.includes(value)) {
+    throw new ParseError('I010_ENUM_VIOLATION', `value "${scalar.value}" not in enum %${ename} domain (${decl.values.join(',')})`, lineNo);
+  }
+}
+
+function validateAttrsPayload(pairs, sym, lineNo, gl) {
   const seen = new Set();
   for (const [k] of pairs) {
     if (seen.has(k)) throw new ParseError('I006_DUPLICATE_FIELD', `Duplicate field ${k}`, lineNo);
@@ -474,6 +510,13 @@ function validateAttrsPayload(pairs, sym, lineNo) {
   }
   for (const f of sym.contract) {
     if (f.required && !seen.has(f.name)) throw new ParseError('I008_REQUIRED_FIELD_MISSING', `Required field ${f.name} missing`, lineNo);
+  }
+  if (gl) {
+    const micro = new Map(gl.micros.map((m) => [m.token, m.expand]));
+    for (const f of sym.contract) {
+      const hit = pairs.find(([k]) => k === f.name);
+      if (hit) checkEnumValue(f, hit[1], gl, micro, lineNo);
+    }
   }
 }
 
@@ -590,8 +633,9 @@ function parseSlotRef(cur) {
   return index;
 }
 
-function resolveSlotEntries(entries, sym, lineNo) {
+function resolveSlotEntries(entries, sym, lineNo, gl) {
   const seen = new Set();
+  const micro = gl ? new Map(gl.micros.map((mm) => [mm.token, mm.expand])) : new Map();
   const out = [];
   let last = 0;
   for (const [index, value] of entries) {
@@ -601,6 +645,7 @@ function resolveSlotEntries(entries, sym, lineNo) {
     last = index;
     const field = sym.contract.find((f) => f.position === index);
     if (!field) throw new ParseError('I052_UNKNOWN_SLOT', `slot ※${index} not declared in contract`, lineNo);
+    if (gl) checkEnumValue(field, value, gl, micro, lineNo);
     out.push({ position: index, name: field.name, type: field.type, required: field.required, value });
   }
   for (const f of sym.contract) {
@@ -781,7 +826,8 @@ function ideaCanonicalV10(idea, doc) {
   if (idea.payload && idea.shape === 'attrs') {
     if (!sym) throw new ParseError('I001_UNDECLARED_SYMBOL', `Undeclared sigil in canonicalize: ${idea.symbol}`);
     const types = new Map(sym.contract.map((f) => [f.name, f.type]));
-    const parts = idea.payload[1].map(([k, v]) => {
+    const ordered = sortKeysCanonical(idea.payload[1], sym.contract.map((f) => f.name));
+    const parts = ordered.map(([k, v]) => {
       const ftype = types.get(k) || 'any';
       return `${k}:${emitScalarAttrs(v, k === sym.focus && ftype === 'text', ftype === 'text')}`;
     });
@@ -988,6 +1034,13 @@ function compileHCORTEX10(text) {
     }
     i += 1;
   }
+  // Self-validation: a compiler never emits source its own parser rejects.
+  try {
+    parseV10(canonicalizeV10(doc), doc.glossary.format ? doc.glossary.format.cortex : '1.0');
+  } catch (err) {
+    const code = err.code || 'S999';
+    return { doc: null, diags: [{ code, message: `compiled output failed self-validation: ${err.message}` }] };
+  }
   return { doc, diags };
 }
 
@@ -997,7 +1050,7 @@ function parseIdeas(body, sectionId, lookup) {
   const markers = [];
   for (let i = 0; i < lines.length; i += 1) {
     if (fenced[i]) continue;
-    const m = /^### ([!]?(?:\w+::)?[!\w]+):([\w_-]+)\s*$/.exec(lines[i]);
+    const m = /^### ([!]?(?:\w+::)?[!\w]+):([\p{L}\p{N}_-]+)\s*$/u.exec(lines[i]);
     if (m) markers.push({ line: i, qualified: m[1], name: m[2] });
   }
   const ideas = [];

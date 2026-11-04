@@ -1,0 +1,64 @@
+$0
+
+# -- $0: ARQUX GOVERNANCE GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# ARQX  | artifact  | attrs      | B | Semantic       | ArqUX artifact metadata
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+#
+# Types:
+# bloque = canonical type
+# attrs = canonical type
+# attrs-pos = canonical type
+# cuerpo = canonical type
+# relacion = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-003", usage:"state", kind:"native"}
+
+
+$1: TASK
+
+WRK:task{id:"T-003", status:"done", governor:"Alfred", assignee:"Alfred", priority:"high", complexity:"standard", cycle:"CYCLE-03", created:"2026-11-03T23:35:39Z", updated:"2026-11-03T23:36:27Z"}
+
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Procesar la revision externa NEX (Lokky 2026-11-03): verificar hallazgos H1-H6 contra el paquete, crear issues por lo confirmado, registrar decision H2, anexar sugerencias de spec a BLP-004 y producir respuesta tecnica"}
+
+
+$3: ACCEPTANCE
+
+CLAIM:ac1{criterion:"Issues creados por cada hallazgo confirmado"}
+
+CLAIM:ac2{criterion:"Evidencia de verificacion en PULSE"}
+
+CLAIM:ac3{criterion:"Respuesta tecnica escrita"}
+
+
+$4: EVIDENCE
+
+AUD:evidence{text:"5 issues creados (E-0211 Go degradado/stale, E-0212 --help+exit0, E-0213 orden attrs 1.0/I007, E-0214 enum sin validar dominio, E-0215 duplicados 0.1). Decision registrada E-0216. Anexo a BLP-004 via blueprint.update. Respuesta tecnica docs/EXTERNAL-REVIEW-NEX-RESPONSE-2026-11.md (E-0217). Loop nex-review-processing completado."}
+

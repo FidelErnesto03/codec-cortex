@@ -59,6 +59,12 @@ ATOM_BODY = r"[_A-Za-z][_A-Za-z0-9./:@+%$-]*"
 ATOM_RE = re.compile(r"^(?:\$[0-9]+:)?" + ATOM_BODY + r"$")
 
 
+def is_ascii_identifier(s: str) -> bool:
+    """Structural identifiers (idea names, attr keys, symbol labels, enum names)
+    are printable ASCII — the spec's "subconjunto ASCII" for structural names."""
+    return bool(s) and s.isascii() and s.isprintable()
+
+
 _INT_RE = re.compile(r"^-?(0|[1-9][0-9]*)$")
 _DEC_RE = re.compile(r"^-?(0|[1-9][0-9]*)\.[0-9]+$")
 
@@ -307,6 +313,9 @@ def parse_attrs_payload(s: str, start_line: int = 1) -> List[Tuple[str, Scalar]]
         key = cur.s[kstart:cur.i]
         if not key:
             raise ParseError("L003_INVALID_KEY", "Empty key", cur.line, cur.col)
+        if not is_ascii_identifier(key):
+            raise ParseError("U003_NON_ASCII_IDENTIFIER",
+                             f"Non-ASCII attr key: {key!r}", cur.line, cur.col)
         skip_inline_ws(cur)
         if cur.peek() != ":":
             raise ParseError("S006_INVALID_ATTRS", "Expected : after key", cur.line, cur.col)
