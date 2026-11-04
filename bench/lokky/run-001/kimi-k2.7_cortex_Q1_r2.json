@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q1_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q1",
+ "rep": 2,
+ "response": "El proyecto **Nebula** tiene como miembros asignados a **Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez**, y su fecha límite es el **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.9,
+ "ts": "2026-11-04T01:08:30.439177Z",
+ "ok": true
+}

@@ -3,14 +3,18 @@ transporte: conexion-nativa-cmd   # sub-agentes agent(model=...), sin claves
 profundidad: 1                    # los sub-agentes no lanzan sub-agentes
 
 models:
-  - id: xiaomi/mimo-v2.6-pro
+  # xiaomi/mimo-v2.6-pro RETIRADO del catalogo cmd (2026-11-04).
+  # Sustituto autorizado por Arquitecto: "cualquiera disponible y re-declarar".
+  - id: moonshot/kimi-k2.7
+    cli_id: kimi-k2.7
     role: modelo-2026-A
-    context: 1.05M
-    price_in_usd_1m: 0.435
-    price_out_usd_1m: 0.87
-    reasoningEffort: null         # MiMo decide su propia profundidad
-    smoke: "MIMO-SMOKE-OK (2026-10-04, 0 tools, 7.5s)"
+    context: 262K
+    price_in_usd_1m: null         # tarifa no publicada en catalogo; registrar costo real post-run
+    price_out_usd_1m: null
+    reasoningEffort: null
+    smoke: "KIMI-SMOKE-OK (2026-11-04, devin -p, 0 tools)"
   - id: deepseek/deepseek-v4.1-flash
+    cli_id: deepseek-v4-1-flash-1017-low
     role: modelo-2026-B
     context: 1M
     price_in_usd_1m: 0.15

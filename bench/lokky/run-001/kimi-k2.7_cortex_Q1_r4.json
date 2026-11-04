@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q1_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q1",
+ "rep": 4,
+ "response": "El documento no designa un responsable único de proyecto. Los miembros asignados a **Nebula** son: **Elena_Vargas, Marco_Silva, Aisha_Okafor y Sofia_Marquez**.\n\nFecha límite de Nebula: **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.5,
+ "ts": "2026-11-04T01:08:41.800794Z",
+ "ok": true
+}

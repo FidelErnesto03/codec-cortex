@@ -395,6 +395,12 @@ AUD:E_0257{date:"2026-11-04T01:02:36Z", event:"E-0257", task:"2026-11-03-u11-con
 
 AUD:E_0258{date:"2026-11-04T01:03:35Z", event:"E-0258", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", evidence:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", ses_ref:"SES003"}
 
+AUD:E_0259{date:"2026-11-04T01:05:19Z", event:"E-0259", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", evidence:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", ses_ref:"SES003"}
+
+AUD:E_0260{date:"2026-11-04T01:05:57Z", event:"E-0260", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", evidence:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", ses_ref:"SES003"}
+
+AUD:E_0261{date:"2026-11-04T01:06:39Z", event:"E-0261", task:"-", kind:"checkpoint", agent:"Alfred", result:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", evidence:"cortex.checkpoint ok fcs=Capitulo 2 NEX procesado: D2b homoglifos obj=T-005 done; backlog: E-0211 Go, E-0212 h", ses_ref:"SES003"}
+
 
 $7: LESSONS:KNOW
 
@@ -405,7 +411,7 @@ LNG:session_E_0100{type:"session", entry_count:99, summary:"artifact:1,blocker:1
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"Capitulo 2 NEX procesado: D2b homoglifos verificado -> issue E-0227 alta. Decision ASCII-vs-confusables pendiente Arqui…", blocked:"no", survive:"work", fcs:"Capitulo 2 NEX procesado: D2b homoglifos verificado -> issue E-0227 alta. Decision ASCII-vs-confusables pendiente Arquitecto", obj:"T-005 done; backlog: E-0211 Go, E-0212 help, E-0224 ports, E-0227 homoglifos", tasks:"E-0227 requiere decision de mitigacion; resto del backlog sin decision", state:"done", last_turn:"2026-11-04T01:03:35Z", updated:"2026-11-04T01:03:35Z", event:"cortex.checkpoint"}
+WRK:current{phase:"current", current:"Capitulo 2 NEX procesado: D2b homoglifos verificado -> issue E-0227 alta. Decision ASCII-vs-confusables pendiente Arqui…", blocked:"no", survive:"work", fcs:"Capitulo 2 NEX procesado: D2b homoglifos verificado -> issue E-0227 alta. Decision ASCII-vs-confusables pendiente Arquitecto", obj:"T-005 done; backlog: E-0211 Go, E-0212 help, E-0224 ports, E-0227 homoglifos", tasks:"E-0227 requiere decision de mitigacion; resto del backlog sin decision", state:"done", last_turn:"2026-11-04T01:06:39Z", updated:"2026-11-04T01:06:39Z", event:"cortex.checkpoint"}
 
 
 $9: RISKS:CORE
