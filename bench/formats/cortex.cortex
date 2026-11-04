@@ -11,11 +11,11 @@ PRV:provider{type:attrs,weight:B,fields:"servicio:text|costo_mensual:dec|proyect
 $1: EQUIPO (8 miembros):DATA
 EQP:Elena_Vargas{rol:"Arquitecta Cloud",proyectos:["Nebula","Horizon"],seniority:12,activo:true}
 EQP:Marco_Silva{rol:"SRE Lead",proyectos:["Nebula"],seniority:9,activo:true}
-EQP:Lucía_Rojas{rol:"Platform Engineer",proyectos:["Horizon","Aegis"],seniority:7,activo:true}
+EQP:Lucia_Rojas{rol:"Platform Engineer",proyectos:["Horizon","Aegis"],seniority:7,activo:true}
 EQP:Daniel_Ortega{rol:"Security Lead",proyectos:["Aegis","Phoenix"],seniority:11,activo:true}
 EQP:Aisha_Okafor{rol:"Data Engineer",proyectos:["Nebula","Phoenix"],seniority:6,activo:true}
 EQP:Chen_Wei{rol:"Network Architect",proyectos:["Horizon"],seniority:14,activo:true}
-EQP:Sofía_Márquez{rol:"DevOps Lead",proyectos:["Nebula","Aegis","Phoenix"],seniority:8,activo:true}
+EQP:Sofia_Marquez{rol:"DevOps Lead",proyectos:["Nebula","Aegis","Phoenix"],seniority:8,activo:true}
 EQP:Liam_O'Connor{rol:"Backend Engineer",proyectos:["Aegis"],seniority:4,activo:true}
 
 $2: PROYECTOS (5):DATA
