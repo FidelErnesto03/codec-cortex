@@ -1,0 +1,102 @@
+[
+ {
+  "turn": 1,
+  "op": "locate",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 2,
+  "op": "update",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 3,
+  "op": "cite",
+  "target": "EQP:Lucia_Rojas"
+ },
+ {
+  "turn": 4,
+  "op": "verify",
+  "target": "PRJ:Nebula"
+ },
+ {
+  "turn": 5,
+  "op": "locate",
+  "target": "PRJ:Nebula"
+ },
+ {
+  "turn": 6,
+  "op": "update",
+  "target": "PRJ:Nebula"
+ },
+ {
+  "turn": 7,
+  "op": "cite",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 8,
+  "op": "verify",
+  "target": "RSK:R04"
+ },
+ {
+  "turn": 9,
+  "op": "locate",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 10,
+  "op": "update",
+  "target": "RSK:R04"
+ },
+ {
+  "turn": 11,
+  "op": "cite",
+  "target": "DEC:D03"
+ },
+ {
+  "turn": 12,
+  "op": "verify",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 13,
+  "op": "locate",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 14,
+  "op": "update",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 15,
+  "op": "cite",
+  "target": "PRJ:Nebula"
+ },
+ {
+  "turn": 16,
+  "op": "verify",
+  "target": "PRJ:Nebula"
+ },
+ {
+  "turn": 17,
+  "op": "locate",
+  "target": "RSK:R04"
+ },
+ {
+  "turn": 18,
+  "op": "update",
+  "target": "RSK:R04"
+ },
+ {
+  "turn": 19,
+  "op": "cite",
+  "target": "RSK:R01"
+ },
+ {
+  "turn": 20,
+  "op": "verify",
+  "target": "RSK:R04"
+ }
+]

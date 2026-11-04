@@ -1,0 +1,10 @@
+Corpus sellado vs parser endurecido (post-U003/enum/orden)
+ok   H033_format-extra.cortex                       v0.1
+ok   H034_multiple-namespaces.cortex                v0.1
+ok   H035_unicode-emoji.cortex                      v0.1
+ok   H036_long-contract.cortex                      v0.1
+ok   H037_same-name-different-section.cortex        v0.1
+ok   H038_special-body-chars.cortex                 v0.1
+ok   H039_risk-objective.cortex                     v0.1
+ok   H040_dense-skill-excerpt.cortex                v0.1
+FAIL cortex.cortex                                  U003_NON_ASCII_IDENTIFIER @ 14:0

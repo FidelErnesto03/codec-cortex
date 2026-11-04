@@ -1,0 +1,32 @@
+{
+ "tokenizer": "tiktoken/o200k_base",
+ "formats": {
+  "cortex": {
+   "corpus_tokens": 1902,
+   "corpus_bytes": 5715
+  },
+  "json": {
+   "corpus_tokens": 2385,
+   "corpus_bytes": 8140
+  },
+  "yaml": {
+   "corpus_tokens": 1793,
+   "corpus_bytes": 6316
+  },
+  "markdown": {
+   "corpus_tokens": 1332,
+   "corpus_bytes": 4200
+  },
+  "plaintext": {
+   "corpus_tokens": 1601,
+   "corpus_bytes": 6089
+  },
+  "xml": {
+   "corpus_tokens": 3239,
+   "corpus_bytes": 10835
+  }
+ },
+ "per_cell_avg_tokens_in": 2096,
+ "avg_question_tokens": 23.8,
+ "est_total_tokens_in_480cells": 1006080
+}

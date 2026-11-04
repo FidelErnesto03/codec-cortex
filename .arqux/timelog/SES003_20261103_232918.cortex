@@ -8,11 +8,11 @@ $0
 # PRJ   | projection | attrs | B  | Episodic        | Per-provider projection mark
 
 $1: IDENTITY
-TLG:identity{project:"CODEC-CORTEX",ses:"SES003",opened:"2026-11-03T23:29:18Z",version:"1",revision:"16"}
+TLG:identity{project:"CODEC-CORTEX",ses:"SES003",opened:"2026-11-03T23:29:18Z",version:"1",revision:"17"}
 
 
 $2: ACTIVITIES
-ACT:session_SES003{start:"2026-11-03T23:29:18Z",end:"",state:"open",last_activity:"2026-11-04T00:29:47Z",revision:"2"}
+ACT:session_SES003{start:"2026-11-03T23:29:18Z",end:"",state:"open",last_activity:"2026-11-04T00:44:07Z",revision:"2"}
 
 ACT:task_T_003{start:"2026-11-03T23:35:41Z",end:"2026-11-03T23:36:27Z",state:"closed",last_activity:"2026-11-03T23:36:23Z",revision:"5"}
 
@@ -24,3 +24,9 @@ ACT:task_T_005{start:"2026-11-03T23:49:45Z",end:"2026-11-03T23:50:02Z",state:"cl
 $3: RECEIPTS
 
 $4: PROJECTIONS
+
+LOOP:blp004-canon-1.0{event:"activate", detail:"", ts:"1793753134"}
+
+LOOP:blp004-canon-1.0{event:"advance", detail:"Fase A done: AC-01/02/03/04/08 verified con evidencia. Bug colateral: __main__ guard en slotmigrate.py. Pendientes: AC-05 (script verificacion), AC-06 (T-3.2 render parity), AC-07 (loss catalog check), AC-09..12 (archivado/CI/auditor/ratificacion). Fase B = U11 contrato de firma.", ts:"1793753189"}
+
+LOOP:blp004-canon-1.0{event:"advance", detail:"Fase B done: S7.1 contrato de firma + fix dominio hash en S7.6. Siguiente: C = U6 presets (aprobado, aditivo 1.x) + nota B1 pendiente Arquitecto. D/E/F = T-3.2, T-4.x. G/H = auditor externo + ratificacion Arquitecto (no autoejecutables). Cambios sin commit: slotmigrate __main__ guard + S7 spec.", ts:"1793754156"}

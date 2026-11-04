@@ -1,0 +1,374 @@
+{
+ "design": {
+  "models": 2,
+  "formats": 2,
+  "pct": [
+   50,
+   75
+  ],
+  "R": 5,
+  "total": 40
+ },
+ "cells": [
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p50_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p50_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p50_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p50_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p50_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p75_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p75_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p75_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p75_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_markdown_p75_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p50_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p50_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p50_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p50_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p50_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p75_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p75_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p75_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p75_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_mimo-v2.6-pro_cortex_p75_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p50_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p50_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p50_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p50_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p50_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 50,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p75_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p75_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p75_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p75_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_markdown_p75_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "truncate_pct": 75,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p50_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p50_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p50_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p50_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p50_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 50,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 50%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p75_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p75_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p75_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p75_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  },
+  {
+   "cell_id": "c5_deepseek-v4.1-flash_cortex_p75_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "truncate_pct": 75,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "instruction": "Se te da un documento que llegará TRUNCADO al 75%. Primero resume/conserva lo recibido (simula compaction), luego responde: ['R01.sev', 'Nebula.owner', 'Nebula.due', 'Atlas.due', 'Lucia.role', 'D03.decision', 'R04.impacto']. Marca 'no consta' lo que no sobrevivió. El scoring compara contra GOLD."
+  }
+ ]
+}

@@ -1,0 +1,239 @@
+{
+ "model": "costo = ingesta_inicial + Σ operaciones (tokens por op)",
+ "assumptions": [
+  "md: verify/locate/cite requieren re-ingesta del doc completo (sin direcciones ni hash)",
+  "md: update re-ingiere ~1/3 (la sección)",
+  "cortex: verify=hash (~25 tok), locate/update/cite=solo la idea (~50-80 tok)",
+  "sin costo de SALIDA ni tokens de razonamiento del modelo"
+ ],
+ "results": {
+  "markdown": {
+   "doc_tokens": 1332,
+   "initial_ingest": 1332,
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "tokens": 1332
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "tokens": 444
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "tokens": 1332
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "tokens": 1332
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "tokens": 1332
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "tokens": 444
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "tokens": 1332
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "tokens": 1332
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "tokens": 1332
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "tokens": 444
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "tokens": 1332
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "tokens": 1332
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "tokens": 1332
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "tokens": 444
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "tokens": 1332
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "tokens": 1332
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "tokens": 1332
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "tokens": 444
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "tokens": 1332
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "tokens": 1332
+    }
+   ],
+   "total": 23532,
+   "total_K5": 7104,
+   "total_K20": 23532
+  },
+  "cortex": {
+   "doc_tokens": 1901,
+   "initial_ingest": 1901,
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "tokens": 43
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "tokens": 43
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "tokens": 31
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "tokens": 25
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "tokens": 34
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "tokens": 34
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "tokens": 43
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "tokens": 25
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "tokens": 43
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "tokens": 41
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "tokens": 30
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "tokens": 25
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "tokens": 43
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "tokens": 43
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "tokens": 34
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "tokens": 25
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "tokens": 41
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "tokens": 41
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "tokens": 43
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "tokens": 25
+    }
+   ],
+   "total": 2613,
+   "total_K5": 2077,
+   "total_K20": 2613
+  }
+ },
+ "verdict": {
+  "K5": {
+   "md": 7104,
+   "cortex": 2077
+  },
+  "K20": {
+   "md": 23532,
+   "cortex": 2613
+  }
+ }
+}

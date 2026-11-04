@@ -108,8 +108,18 @@ Función pura `canonicalize(doc) → bytes`:
 3. Glosario serializado en orden de declaración: format, sigil-map, enums, micros, namespaces, extensions, meta, sigilos.
 4. En ideas `attrs`, los campos se emiten en el orden declarado en `fields`; los campos adicionales de sigilos `open:true` se emiten después del contrato, ordenados por clave UTF-8 NFC — la permutación editorial de campos no altera el canónico ni el hash.
 5. Escalares normalizados: NFC para `cuerpo`/strings; `bloque` verbatim; atoms lowercase-preservado; números en forma canónica.
-6. Hash: `SHA-256("CORTEX\x00" + canonical_bytes)` — dominio separado de cualquier hash de contenido raw.
+6. Hash: `SHA-256(dominio + 0x00 + canonical_bytes)` con dominio por versión declarada: `CORTEX-C14N-0.1` para `cortex:0.1`, `CORTEX-C14N-0.2` para `cortex:0.2` y `cortex:1.0`. Dominio separado de cualquier hash de contenido raw — mismo documento con distinta versión declarada produce hashes distintos.
 7. Idempotencia obligatoria: `canonicalize(parse(canonicalize(parse(src)))) == canonicalize(parse(src))` — vector D1.
+
+### §7.1 Contrato de firma
+
+Lo que se firma con un hash `sha256:` es el **documento canónico**, no el archivo de texto. El contrato exacto:
+
+**Altera el hash** (forma parte del canónico): versión declarada en `$0:format` (vía dominio), glosario completo en orden de declaración, secciones y su título, cada idea (sigilo, nombre, payload normalizado: campos en orden de contrato, extras `open:true` ordenados por clave UTF-8 NFC, valores escalares en forma canónica, cuerpo NFC, bloque verbatim).
+
+**No altera el hash** (variación editorial tolerada): permutación de campos `attrs` respecto al orden de contrato (se normaliza), microtokens usados en fuente (se expanden en C14N), comentarios `#`, líneas en blanco, whitespace intra-línea no significativo, comillas alternativas equivalentes (`focus` siempre quoted en el canónico).
+
+**Consecuencia operativa**: verificar una firma = canonicalizar y re-hashear; comparar dos documentos = comparar hashes canónicos; un diff de firma exige diff de canónico, nunca diff de texto.
 
 ## §8 HCORTEX-1.0 — proyección humana determinista
 

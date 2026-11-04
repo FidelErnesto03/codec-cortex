@@ -553,3 +553,8 @@ def main_cli(argv=None):
     import json
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0 if result.get("status") == "ok" else 1
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main_cli())

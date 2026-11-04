@@ -1,0 +1,2954 @@
+{
+ "design": {
+  "models": 2,
+  "formats": 2,
+  "K": [
+   5,
+   20
+  ],
+  "R": 5,
+  "total": 40
+ },
+ "cells": [
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K5_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 5,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K5_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 5,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K5_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 5,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K5_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 5,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K5_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 5,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K20_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 20,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K20_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 20,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K20_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 20,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K20_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 20,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_markdown_K20_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "markdown",
+   "K": 20,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K5_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 5,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K5_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 5,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K5_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 5,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K5_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 5,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K5_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 5,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K20_r1",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 20,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K20_r2",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 20,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K20_r3",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 20,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K20_r4",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 20,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_mimo-v2.6-pro_cortex_K20_r5",
+   "model": "xiaomi/mimo-v2.6-pro",
+   "format": "cortex",
+   "K": 20,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K5_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 5,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K5_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 5,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K5_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 5,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K5_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 5,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K5_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 5,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K20_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 20,
+   "rep": 1,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K20_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 20,
+   "rep": 2,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K20_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 20,
+   "rep": 3,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K20_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 20,
+   "rep": 4,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_markdown_K20_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "markdown",
+   "K": 20,
+   "rep": 5,
+   "doc": "formats/md.txt",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K5_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 5,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K5_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 5,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K5_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 5,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K5_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 5,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K5_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 5,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K20_r1",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 20,
+   "rep": 1,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K20_r2",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 20,
+   "rep": 2,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K20_r3",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 20,
+   "rep": 3,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K20_r4",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 20,
+   "rep": 4,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  },
+  {
+   "cell_id": "c4_deepseek-v4.1-flash_cortex_K20_r5",
+   "model": "deepseek/deepseek-v4.1-flash",
+   "format": "cortex",
+   "K": 20,
+   "rep": 5,
+   "doc": "lokky/corpus-migration/cortex.cortex",
+   "turns": [
+    {
+     "turn": 1,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 2,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 3,
+     "op": "cite",
+     "target": "EQP:Lucia_Rojas"
+    },
+    {
+     "turn": 4,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 5,
+     "op": "locate",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 6,
+     "op": "update",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 7,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 8,
+     "op": "verify",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 9,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 10,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 11,
+     "op": "cite",
+     "target": "DEC:D03"
+    },
+    {
+     "turn": 12,
+     "op": "verify",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 13,
+     "op": "locate",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 14,
+     "op": "update",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 15,
+     "op": "cite",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 16,
+     "op": "verify",
+     "target": "PRJ:Nebula"
+    },
+    {
+     "turn": 17,
+     "op": "locate",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 18,
+     "op": "update",
+     "target": "RSK:R04"
+    },
+    {
+     "turn": 19,
+     "op": "cite",
+     "target": "RSK:R01"
+    },
+    {
+     "turn": 20,
+     "op": "verify",
+     "target": "RSK:R04"
+    }
+   ],
+   "instruction": "Ejecuta cada turno: verify=¿el documento cambió desde tu última lectura? (di sí/no y evidencia); locate=¿dónde está el target?; update=aplica la modificación indicada al target; cite=refiere el target textualmente. Reporta tokens consumidos por turno si tu harness lo permite."
+  }
+ ]
+}
