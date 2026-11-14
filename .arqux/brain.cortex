@@ -526,6 +526,14 @@ AUD:E_0309{date:"2026-11-14T16:31:02Z", event:"E-0309", task:"-", kind:"session_
 
 AUD:E_0310{date:"2026-11-14T16:31:02Z", event:"E-0310", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=alfred context_updated=True", evidence:"[identity.switch] from=Alfred to=alfred context_updated=True", ses_ref:"SES004"}
 
+AUD:E_0311{date:"2026-11-14T17:03:58Z", event:"E-0311", task:"-", kind:"session_handoff", agent:"Alfred", result:"[session.handoff] from=Alfred to=heimdall summary=identity switch from Alfred", evidence:"[session.handoff] from=Alfred to=heimdall summary=identity switch from Alfred", ses_ref:"SES004"}
+
+AUD:E_0312{date:"2026-11-14T17:03:58Z", event:"E-0312", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=heimdall context_updated=True", evidence:"[identity.switch] from=Alfred to=heimdall context_updated=True", ses_ref:"SES004"}
+
+AUD:E_0313{date:"2026-11-14T17:05:41Z", event:"E-0313", task:"-", kind:"session_handoff", agent:"Alfred", result:"[session.handoff] from=Alfred to=alfred summary=identity switch from Alfred", evidence:"[session.handoff] from=Alfred to=alfred summary=identity switch from Alfred", ses_ref:"SES004"}
+
+AUD:E_0314{date:"2026-11-14T17:05:41Z", event:"E-0314", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=alfred context_updated=True", evidence:"[identity.switch] from=Alfred to=alfred context_updated=True", ses_ref:"SES004"}
+
 
 $7: LESSONS:KNOW
 
