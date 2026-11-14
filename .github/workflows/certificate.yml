@@ -47,7 +47,7 @@ jobs:
       - name: Verificar sello del corpus
         run: sha256sum -c --quiet tests/SHA256SUMS
 
-      - name: Certificado Nivel A (D1-D5)
+      - name: Certificado Nivel A (D1-D6)
         run: python -m bench.certify | tee certificate.txt
 
       - name: Publicar certificate.json
