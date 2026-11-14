@@ -23,15 +23,26 @@ from .slothcortex import compile_hcortex_slots, render_hcortex_slots
 
 PRESERVED = ["blocks", "identity", "scalars", "structure"]
 
+# Coverage declaration (spec §8.2). The report models the losses of the render
+# pipeline; the compile pipeline (source -> AST) is not modelled, so a document
+# can be `reversible` for render while source content was dropped at compile
+# time without any class describing it. Declaring this explicitly makes
+# `reversible: true` honest about its scope instead of silently over-claiming.
+COVERED_OPERATIONS = ["render"]
+UNCOVERED_OPERATIONS = ["compile"]
+
 L402 = "L402_COMMENT_DROPPED"
 L403 = "L403_INTRALINE_WHITESPACE"
 L405 = "L405_OPEN_ATTR_ORDER"
+L406 = "L406_COMPILE_SIDE_DROP"
 L499 = "L499_UNCLASSIFIED_LOSS"
 
 _DETAIL = {
     L402: "comment line outside a multiline body is not represented in the AST",
     L403: "intraline whitespace is collapsed by canonicalization",
     L405: "editorial attribute order of an open sigil is not preserved",
+    L406: "an idea present in the AST is lost across the render/compile roundtrip "
+          "(its rendered header does not round-trip)",
     L499: "roundtrip diverges and no declared loss classifies the divergence",
 }
 
@@ -39,8 +50,12 @@ _ACTION = {
     L402: "declare-only",
     L403: "declare-only",
     L405: "declare-only",
+    L406: "fix-surface",
     L499: "fix-surface",
 }
+
+# Losses that make the command fail (structural divergence), mirroring L499.
+_ERROR_LOSSES = (L406, L499)
 
 
 def _finding(code: str, path: str, category: str, recoverability: str) -> Dict[str, str]:
@@ -51,8 +66,17 @@ def _finding(code: str, path: str, category: str, recoverability: str) -> Dict[s
         "detail": _DETAIL[code],
         "path": path,
         "recoverability": recoverability,
-        "severity": "error" if code == L499 else "loss",
+        "severity": "error" if code in _ERROR_LOSSES else "loss",
     }
+
+
+def _idea_keys(doc) -> set:
+    """Addresses of every idea in the AST, used to detect compile-side drops."""
+    keys = set()
+    for sec in doc.sections:
+        for idea in sec.ideas:
+            keys.add((sec.id, idea.namespace, idea.symbol, idea.name))
+    return keys
 
 
 def _sha256(text: str) -> str:
@@ -152,6 +176,7 @@ def loss_case_name(path: Optional[str]) -> str:
 
 
 def build_loss_report(source: str, case: str) -> Dict:
+    """Build the CORTEX 1.0 declared loss report for a source document (spec §8.2)."""
     doc = parse_cortex(source)
     version = getattr(getattr(doc, "glossary", None), "format", None)
     declared = getattr(version, "cortex", None) if version is not None else None
@@ -161,21 +186,31 @@ def build_loss_report(source: str, case: str) -> Dict:
     # Render and detect source-order losses before canonicalizing: C14N mutates
     # the AST in place (microtoken expansion, attribute normalization).
     attr_losses = _open_attr_order_losses(doc)
+    src_ideas = _idea_keys(doc)
     rendered = render_hcortex_slots(doc)
     canonical_source = canonicalize(doc)
     roundtrip, _diags = compile_hcortex_slots(rendered)
     if roundtrip is None:
         raise ValueError("HCORTEX roundtrip compilation failed")
+    rt_ideas = _idea_keys(roundtrip)
     canonical_roundtrip = canonicalize(roundtrip)
 
+    dropped = bool(src_ideas - rt_ideas)
     losses = _lexical_losses(source)
     losses.extend(attr_losses)
     equivalent = canonical_source == canonical_roundtrip
-    if not equivalent:
+    if dropped:
+        losses.append(_finding(L406, "$", "structure", "irrecoverable"))
+    if not equivalent and not dropped:
         losses.append(_finding(L499, "$", "structure", "irrecoverable"))
 
     return {
         "case": case,
+        "coverage": {
+            "complete": len(UNCOVERED_OPERATIONS) == 0 and equivalent,
+            "operations": list(COVERED_OPERATIONS),
+            "uncovered_operations": list(UNCOVERED_OPERATIONS),
+        },
         "losses": _dedupe(losses),
         "mode": "canonical",
         "operation": "render",
@@ -192,4 +227,5 @@ def build_loss_report(source: str, case: str) -> Dict:
 
 
 def dumps_canonical(report: Dict) -> str:
+    """Serialize a loss report to canonical JSON (sorted keys, 2-space indent)."""
     return json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"

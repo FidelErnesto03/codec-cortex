@@ -13,7 +13,7 @@ var (
 	sectionHeadV10RE = regexp.MustCompile(`^##\s*§(\d+):\s*(.*?)\s*$`)
 	schemaOpenV10RE  = regexp.MustCompile(`^<!--\s*schema:(\d+)(?:\s+capa:(\w+))?\s*-->$`)
 	schemaCloseV10RE = regexp.MustCompile(`^<!--\s*/schema:\d+\s*-->$`)
-	ideaMarkerRE  = regexp.MustCompile(`^### ([!]?(?:\w+::)?[!\w]+):([\p{L}\p{N}_-]+)\s*$`)
+	ideaMarkerRE  = regexp.MustCompile(`^### ([!]?(?:[a-z][a-z0-9_.-]*::)?[!\w]+):([^\s{}|]+)\s*$`)
 )
 
 // CompileHCORTEX10 compiles an HCORTEX 1.0/0.2 document back to the AST.

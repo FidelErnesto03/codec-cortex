@@ -100,6 +100,7 @@
 | L402_COMMENT_DROPPED | x | x | x | x | — |
 | L403_INTRALINE_WHITESPACE | x | x | x | x | — |
 | L405_OPEN_ATTR_ORDER | x | x | x | x | — |
+| L406_COMPILE_SIDE_DROP | x | x | x | x | — |
 | L499_UNCLASSIFIED_LOSS | x | x | x | x | — |
 | S002_DUPLICATE_SECTION | x | x | x | x | — |
 | S003_INVALID_IDEA_HEAD | x | x | x | x | x |
@@ -120,11 +121,26 @@ Catálogo cerrado §8.2 de la spec 1.0. Cada pérdida se emite desde el comando 
 | L402_COMMENT_DROPPED | Comentarios `#` (dentro o fuera del glosario) | loss-report (python, go, node, rust, bash) |
 | L403_INTRALINE_WHITESPACE | Whitespace intra-línea no significativo | loss-report (python, go, node, rust, bash) |
 | L405_OPEN_ATTR_ORDER | Orden editorial de attrs en sigilos `open:true` | loss-report (python, go, node, rust, bash) |
+| L406_COMPILE_SIDE_DROP | Idea del AST perdida en el roundtrip render→compile: su header renderizado (`### ns::SIGIL:name`) no vuelve a parsear, de modo que la idea desaparece sin diagnóstico (error, exit 1) | loss-report (python, go, node, rust) |
 | L499_UNCLASSIFIED_LOSS | Divergencia de roundtrip no clasificable (error, exit 1) | loss-report (python, go, node, rust, bash) |
+
+**Nota L406 (2026-11-14):** clasifica un caso antes reportado como `L499`. Disparador demostrado: un namespace con `.`/`-` (p. ej. `tenant.x::KNW:alpha`) produce un marcador `### tenant.x::KNW:alpha` que el `_IDEA_MARKER_RE` de Python/Go/Node/Rust no reconocía (`\w+::`), perdiendo la idea; Bash sí lo reconocía. **Divergencia resuelta**: el marcador HCORTEX de las cuatro superficies se alineó a la gramática CORTEX (namespace `[a-z][a-z0-9_.-]*`, nombre imprimible sin espacio/`{}`/`|`), de modo que la idea ya no se pierde y **las cinco superficies vuelven a coincidir** (verificado). L406 queda como **guardia clasificada** —sucesor específico de `L499`— para cualquier pérdida render→compile futura; hoy no tiene disparador en el corpus certificado.
 
 Cada pérdida emite entrada loss-report conforme a `docs/schemas/loss-report-1.0.schema.json`.
 
 **Retirados como pérdida (2026-11-14, §8.3 de la spec):** `L401` (marcador de fence en bloque: roundtrip intacto en las cinco superficies) y `L404` (CAPA ausente: ausencia preservada; `resolve_capa()` es derivado). Ver evidencia en la spec §8.3.
+
+## Precedencia de diagnósticos (una misma línea)
+
+Cuando una línea viola varias reglas, se emite **un solo** diagnóstico, según este orden determinista (fijado por el orden de verificación del parser):
+
+1. `S003_INVALID_IDEA_HEAD` — la línea no tiene forma de idea (se comprueba primero).
+2. `U003_NON_ASCII_IDENTIFIER` — el nombre no es ASCII imprimible (antes de resolver el sigilo).
+3. `I001_UNDECLARED_SYMBOL` — el sigilo no está declarado en el glosario.
+4. `I006_DUPLICATE_IDEA_ADDRESS` / `I004_SHAPE_DELIMITER_MISMATCH` — dirección duplicada o delimitador de forma incorrecto.
+5. `I006_DUPLICATE_FIELD` (y validación de contrato) — dentro del payload.
+
+Verificado por `tests/test_diagnostics.py` (Python) y por los portes de cada superficie.
 
 ## Códigos reservados y colisiones conocidas
 

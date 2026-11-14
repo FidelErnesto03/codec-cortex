@@ -18,15 +18,23 @@ const (
 	LossCommentDropped       = "L402_COMMENT_DROPPED"
 	LossIntralineWhitespace  = "L403_INTRALINE_WHITESPACE"
 	LossOpenAttrOrder        = "L405_OPEN_ATTR_ORDER"
+	LossCompileSideDrop      = "L406_COMPILE_SIDE_DROP"
 	LossUnclassified         = "L499_UNCLASSIFIED_LOSS"
 )
 
 var lossPreserved = []string{"blocks", "identity", "scalars", "structure"}
 
+// Coverage declaration (spec §8.2): which pipeline operations the report
+// models. The compile pipeline (source -> AST) is not modelled, so declaring
+// it explicitly keeps `reversible: true` honest about its scope.
+var lossCoveredOperations = []string{"render"}
+var lossUncoveredOperations = []string{"compile"}
+
 var lossDetail = map[string]string{
 	LossCommentDropped:      "comment line outside a multiline body is not represented in the AST",
 	LossIntralineWhitespace: "intraline whitespace is collapsed by canonicalization",
 	LossOpenAttrOrder:       "editorial attribute order of an open sigil is not preserved",
+	LossCompileSideDrop:     "an idea present in the AST is lost across the render/compile roundtrip (its rendered header does not round-trip)",
 	LossUnclassified:        "roundtrip diverges and no declared loss classifies the divergence",
 }
 
@@ -34,6 +42,7 @@ var lossAction = map[string]string{
 	LossCommentDropped:      "declare-only",
 	LossIntralineWhitespace: "declare-only",
 	LossOpenAttrOrder:       "declare-only",
+	LossCompileSideDrop:     "fix-surface",
 	LossUnclassified:        "fix-surface",
 }
 
@@ -48,10 +57,18 @@ type LossFinding struct {
 	Severity       string `json:"severity"`
 }
 
+// LossCoverage declares which pipeline operations the report models.
+type LossCoverage struct {
+	Complete            bool     `json:"complete"`
+	Operations          []string `json:"operations"`
+	UncoveredOperations []string `json:"uncovered_operations"`
+}
+
 // LossReport is the canonical loss report. Field order is alphabetical so the
 // JSON encoder emits the same key order as the reference implementation.
 type LossReport struct {
 	Case                  string        `json:"case"`
+	Coverage              LossCoverage  `json:"coverage"`
 	Losses                []LossFinding `json:"losses"`
 	Mode                  string        `json:"mode"`
 	Operation             string        `json:"operation"`
@@ -68,7 +85,7 @@ type LossReport struct {
 
 func lossFinding(code, path, category, recoverability string) LossFinding {
 	severity := "loss"
-	if code == LossUnclassified {
+	if code == LossUnclassified || code == LossCompileSideDrop {
 		severity = "error"
 	}
 	return LossFinding{
@@ -215,6 +232,18 @@ func dedupeLosses(losses []LossFinding) []LossFinding {
 	return out
 }
 
+// ideaKeys returns the address of every idea in the AST, used to detect
+// compile-side drops (ideas present in the source AST but not in the roundtrip).
+func ideaKeys(doc *Document) map[string]bool {
+	keys := map[string]bool{}
+	for _, section := range doc.Sections {
+		for _, idea := range section.Ideas {
+			keys[fmt.Sprintf("%d|%s|%s|%s", section.ID, idea.Namespace, idea.Symbol, idea.Name)] = true
+		}
+	}
+	return keys
+}
+
 // BuildLossReport produces the CORTEX 1.0 declared loss report for source.
 func BuildLossReport(source, caseName string) (*LossReport, error) {
 	doc, err := ParseAny(source)
@@ -227,6 +256,7 @@ func BuildLossReport(source, caseName string) (*LossReport, error) {
 	// Render and detect source-order losses before canonicalizing: C14N mutates
 	// the AST in place (microtoken expansion, attribute normalization).
 	attrLosses := openAttrOrderLosses(doc)
+	srcIdeas := ideaKeys(doc)
 	rendered, err := RenderHCORTEXAny(doc)
 	if err != nil {
 		return nil, err
@@ -239,20 +269,36 @@ func BuildLossReport(source, caseName string) (*LossReport, error) {
 	if roundtrip == nil {
 		return nil, fmt.Errorf("HCORTEX roundtrip compilation failed")
 	}
+	rtIdeas := ideaKeys(roundtrip)
 	canonicalRoundtrip, err := CanonicalizeAny(roundtrip)
 	if err != nil {
 		return nil, err
 	}
 
+	dropped := false
+	for key := range srcIdeas {
+		if !rtIdeas[key] {
+			dropped = true
+			break
+		}
+	}
 	losses := lexicalLosses(source)
 	losses = append(losses, attrLosses...)
 	equivalent := canonicalSource == canonicalRoundtrip
-	if !equivalent {
+	if dropped {
+		losses = append(losses, lossFinding(LossCompileSideDrop, "$", "structure", "irrecoverable"))
+	}
+	if !equivalent && !dropped {
 		losses = append(losses, lossFinding(LossUnclassified, "$", "structure", "irrecoverable"))
 	}
 
 	return &LossReport{
-		Case:                  caseName,
+		Case: caseName,
+		Coverage: LossCoverage{
+			Complete:            len(lossUncoveredOperations) == 0 && equivalent,
+			Operations:          append([]string{}, lossCoveredOperations...),
+			UncoveredOperations: append([]string{}, lossUncoveredOperations...),
+		},
 		Losses:                dedupeLosses(losses),
 		Mode:                  "canonical",
 		Operation:             "render",

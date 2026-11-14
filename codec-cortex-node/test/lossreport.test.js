@@ -24,6 +24,15 @@ for (const fixture of manifest.fixtures) {
   });
 }
 
+test('dotted namespace roundtrips without loss', () => {
+  const source = readFixture('clean.cortex')
+    .replace('KNW:knowledge', 'tenant.x::KNW:knowledge')
+    .replace('KNW:alpha', 'tenant.x::KNW:alpha');
+  const report = buildLossReport(source, 'nsdot');
+  assert.deepStrictEqual(report.losses, []);
+  assert.strictEqual(report.reversible, true);
+});
+
 test('loss-report case name strips the directory and extension', () => {
   assert.strictEqual(lossCaseName('/tmp/dir/doc.cortex'), 'doc');
   assert.strictEqual(lossCaseName('-'), 'stdin');

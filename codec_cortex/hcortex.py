@@ -48,7 +48,7 @@ SHAPE_SCHEMA = {
 # ---------------------------------------------------------------------------
 
 def render_hcortex(doc: Document) -> str:
-    """Render a Document AST to HCORTEX with paired schemas (canonical, reversible)."""
+    """Render a 0.1 Document AST to legacy HCORTEX (canonical, reversible)."""
     out: List[str] = []
 
     # 1. Header
@@ -341,7 +341,7 @@ def _validate_hcortex_envelope(text: str) -> Optional[HDiagnostic]:
 
 
 def compile_hcortex(text: str) -> Tuple[Optional[Document], List[HDiagnostic]]:
-    """Compile HCORTEX with paired schemas back to a Document AST."""
+    """Compile legacy HCORTEX (v=0.1) back to a Document; returns (doc, diagnostics)."""
     diags: List[HDiagnostic] = []
 
     # 1. UTF-8 / BOM

@@ -4,6 +4,66 @@ Todos los cambios notables del proyecto se documentan aquí. El proyecto sigue
 nombres canónicos sin versión en archivos/esquemas; la versión vive en los
 metadatos de cada superficie y en tags de git.
 
+## [Unreleased]
+
+> Cambios posteriores a `1.0.2-rc.1` se acumulan aquí hasta el release final.
+
+## [1.0.2-rc.1] — 2026-11-14
+
+> **RELEASE CANDIDATE.** Versión candidata del próximo release: commit + tag
+> `v1.0.2-rc.1` publicados en git. **No es el release final**: queda pendiente la
+> publicación a PyPI, el bump a `1.0.2` y la decisión sobre run-002. El dialecto
+> 1.0 **no cambia** (sin cambios de gramática ni de hash canónico).
+
+### Añadido
+
+- `loss-report`: campo `coverage` (`{complete, operations, uncovered_operations}`)
+  en las **cinco** superficies. `reversible: true` queda ahora acotado: declara
+  que sólo cubre `render` y que el tramo `compile` no está modelado, en lugar de
+  sobre-afirmar cobertura. Schema `loss-report-1.0.schema.json` actualizado.
+- `loss-report`: clase de pérdida `L406_COMPILE_SIDE_DROP` — guardia clasificada
+  que detecta ideas perdidas en el roundtrip render→compile (sucesora específica
+  de `L499`). Añadida al catálogo cerrado §8.2 de `docs/standard/errors-1.0.md`.
+- `docs/standard/errors-1.0.md`: sección de **precedencia determinista de
+  diagnósticos** (una misma línea) verificada por `tests/test_diagnostics.py`.
+- **API pública de dominio** (`codec_cortex/api.py`, exportada como `cc`):
+  `parse`, `validate`, `canonicalize`, `hash`, `hash_source`, `to_hcortex`,
+  `from_hcortex` y `CompileError` con `.diagnostics`. Los módulos internos
+  siguen importables; el facade es la superficie estable para código nuevo.
+- **`cc.emit()`** (`codec_cortex/emit.py`): emisión de líneas de ideas
+  válidas y escapadas — shapes `attrs`, `attrs-pos`/`relacion`, `cuerpo` y
+  `bloque`, namespaces calificados, validación de sigilos/keys/payloads.
+- **Diagnósticos enriquecidos** (`codec_cortex/diagnostics.py`): `I001` ahora
+  sugiere sigilos declarados ("Did you mean: …") y `I004` muestra la forma
+  esperada por shape. Códigos y precedencia sin cambios.
+- **CLI**: `cortex diff <a> <b>` (diff semántico sobre la forma canónica) y
+  `cortex verify <file> <expect>` (`sha256:<hex>`, hex desnudo u otro
+  `.cortex`). Todo argumento de archivo acepta `-` para leer de stdin.
+
+### Corregido
+
+- Marcador HCORTEX (Python/Go/Node/Rust): aceptaba sólo `\w+::` como namespace y
+  nombres `[\w_-]+`, por lo que un namespace con `.`/`-` (p. ej.
+  `tenant.x::KNW:alpha`) perdía la idea en el roundtrip render→compile. Ahora
+  acepta la gramática CORTEX (`namespace [a-z][a-z0-9_.-]*`, nombre imprimible
+  sin espacio/`{}`/`|`), de modo que **las cinco superficies vuelven a coincidir**
+  byte a byte. (Bash ya lo hacía.)
+
+### Interno
+
+- Fixtures `conformance/1.0/loss/expected/*.json` regenerados (incluyen `coverage`).
+- `docs/LOSS-REPORT.md` y `docs/blp009-hardening-plan.md` actualizados.
+- Binarios Go y Rust reconstruidos (gitignored).
+
+### Pendiente para el release final 1.0.2
+
+- **Bump a `1.0.2`** (hoy `1.0.2-rc.1`) y **publicación a PyPI** + tag final.
+- **Certificado re-ejecutado sobre el árbol del RC**: PASS (D1 141/141,
+  D2 141/141, D2b 70/70, D3 5/5, D3b 101/101, D4 141/141, D5, D6 75/75,
+  D7 10/10) — ver `bench/results/certificate.json`.
+- **run-002**: preregistro en borrador (`bench/prereg-run-002.draft.yaml`),
+  ejecución no autorizada.
+
 ## [1.0.1] — 2026-11-14
 
 Release de implementación. El **dialecto 1.0 no cambia**: no hay cambios de

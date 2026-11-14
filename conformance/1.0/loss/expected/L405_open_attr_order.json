@@ -1,5 +1,14 @@
 {
   "case": "L405_open_attr_order",
+  "coverage": {
+    "complete": false,
+    "operations": [
+      "render"
+    ],
+    "uncovered_operations": [
+      "compile"
+    ]
+  },
   "losses": [
     {
       "action": "declare-only",

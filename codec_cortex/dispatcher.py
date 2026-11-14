@@ -61,7 +61,7 @@ def canonicalize(doc):
 
 
 def hash_cortex(doc) -> str:
-    """Dispatch hash by doc.cortex_version."""
+    """Dispatch hash by doc.cortex_version (returns raw hex digest)."""
     if doc.cortex_version == "0.1":
         return hash_legacy(doc)
     return hash_slots(doc)

@@ -19,7 +19,7 @@ Public API:
 - The 0.1 parser remains accessible as parse_cortex_01.
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.2-rc.1"
 
 from .scalars import Scalar, ParseError, to_nfc, utf8_bytes, emit_string_literal, parse_string_literal
 from .parser import (
@@ -48,6 +48,12 @@ from .slotharness import run_slots_conformance
 from .slothcortex import render_hcortex_slots, compile_hcortex_slots, run_roundtrip
 from .slotmigrate import migrate_inspect, migrate_plan, migrate_apply, migrate_verify, migrate_rollback
 
+# Domain facade (U2/U3) + ideatic emission (U4)
+from .api import (
+    CompileError, parse, validate, hash, hash_source, to_hcortex, from_hcortex,
+)
+from .emit import emit, emit_value
+
 __all__ = [
     # 0.1 preserved
     "Scalar", "ParseError", "Document", "Glossary", "FormatDecl",
@@ -68,5 +74,8 @@ __all__ = [
     "run_slots_conformance",
     "render_hcortex_slots", "compile_hcortex_slots", "run_roundtrip",
     "migrate_inspect", "migrate_plan", "migrate_apply", "migrate_verify", "migrate_rollback",
+    # domain facade (api.py) + ideatic emission (emit.py)
+    "CompileError", "parse", "validate", "hash", "hash_source",
+    "to_hcortex", "from_hcortex", "emit", "emit_value",
     "__version__",
 ]

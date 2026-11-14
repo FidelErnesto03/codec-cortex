@@ -14,6 +14,7 @@ from .scalars import (
     parse_string_scalar, parse_scalar, emit_string_literal,
     ATOM_RE, ATOM_BODY, _INT_RE, _DEC_RE, to_nfc, is_ascii_identifier,
 )
+from .diagnostics import undeclared_sigil_message, expected_form
 
 
 # ---------------------------------------------------------------------------
@@ -544,14 +545,16 @@ def _parse_idea_line(line: str, section_id: int, doc: Document, line_no: int) ->
             sym = s
             break
     if sym is None:
-        raise ParseError("I001_UNDECLARED_SYMBOL", f"Undeclared sigil: {sigil}", line_no)
+        raise ParseError("I001_UNDECLARED_SYMBOL",
+                         undeclared_sigil_message(sigil, doc.glossary.symbols), line_no)
 
     shape = sym.shape
     if shape == "attrs" or shape == "cuerpo" or shape == "bloque":
         # Braced payload
         if not rest.startswith("{"):
             raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                             f"Expected {{ for shape {shape}", line_no)
+                             f"Expected {{ for shape {shape}. "
+                             f"Form: {expected_form(shape)}", line_no)
         # Check if it's a single-line or multiline
         if rest.endswith("}") and rest.count("\n") == 0:
             # Single line
@@ -571,14 +574,16 @@ def _parse_idea_line(line: str, section_id: int, doc: Document, line_no: int) ->
             # Multiline — body starts; mark for multiline collection
             if rest.strip() != "{":
                 raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                                 f"Expected single {{ for multiline {shape}", line_no)
+                                 f"Expected single {{ for multiline {shape}. "
+                                 f"Form: {expected_form(shape, multiline=True)}", line_no)
             return Idea(section=section_id, namespace=ns, symbol=sigil, name=name,
                         shape=shape, payload=("_multiline_body", None), source_line=line_no)
     elif shape in ("attrs-pos", "relacion"):
         # Pipe-delimited
         if not rest.startswith("|"):
             raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                             f"Expected | for shape {shape}", line_no)
+                             f"Expected | for shape {shape}. "
+                             f"Form: {expected_form(shape)}", line_no)
         rest = rest[1:]
         cells = _parse_pipe_cells(rest, line_no)
         required_count = sum(1 for f in sym.contract if f.required)

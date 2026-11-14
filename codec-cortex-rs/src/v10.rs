@@ -1475,7 +1475,7 @@ pub fn compile_hcortex10(text: &str) -> Result<V10Doc, ParseError> {
 fn parse_ideas_v10(body: &str, section_id: u64, doc: &V10Doc) -> Result<Vec<V10Idea>, ParseError> {
     let lines: Vec<String> = body.split('\n').map(String::from).collect();
     let fenced = fence_mask(&lines);
-    let marker_re = Regex::new(r"^### ([!]?(?:\w+::)?[!\w]+):([\p{L}\p{N}_-]+)\s*$").unwrap();
+    let marker_re = Regex::new(r"^### ([!]?(?:[a-z][a-z0-9_.-]*::)?[!\w]+):([^\s{}|]+)\s*$").unwrap();
     let mut markers: Vec<(usize, String, String)> = Vec::new();
     for (i, line) in lines.iter().enumerate() {
         if fenced[i] {

@@ -1,5 +1,14 @@
 {
   "case": "L402_comment",
+  "coverage": {
+    "complete": false,
+    "operations": [
+      "render"
+    ],
+    "uncovered_operations": [
+      "compile"
+    ]
+  },
   "losses": [
     {
       "action": "declare-only",

@@ -10,14 +10,22 @@ const { parseV10, canonicalizeV10, renderHCORTEX10, compileHCORTEX10 } = require
 const L402 = 'L402_COMMENT_DROPPED';
 const L403 = 'L403_INTRALINE_WHITESPACE';
 const L405 = 'L405_OPEN_ATTR_ORDER';
+const L406 = 'L406_COMPILE_SIDE_DROP';
 const L499 = 'L499_UNCLASSIFIED_LOSS';
 
 const PRESERVED = ['blocks', 'identity', 'scalars', 'structure'];
+
+// Coverage declaration (spec §8.2): which pipeline operations the report
+// models. The compile pipeline (source -> AST) is not modelled, so declaring
+// it explicitly keeps `reversible: true` honest about its scope.
+const COVERED_OPERATIONS = ['render'];
+const UNCOVERED_OPERATIONS = ['compile'];
 
 const DETAIL = {
   [L402]: 'comment line outside a multiline body is not represented in the AST',
   [L403]: 'intraline whitespace is collapsed by canonicalization',
   [L405]: 'editorial attribute order of an open sigil is not preserved',
+  [L406]: 'an idea present in the AST is lost across the render/compile roundtrip (its rendered header does not round-trip)',
   [L499]: 'roundtrip diverges and no declared loss classifies the divergence',
 };
 
@@ -25,6 +33,7 @@ const ACTION = {
   [L402]: 'declare-only',
   [L403]: 'declare-only',
   [L405]: 'declare-only',
+  [L406]: 'fix-surface',
   [L499]: 'fix-surface',
 };
 
@@ -36,8 +45,18 @@ function finding(code, p, category, recoverability) {
     detail: DETAIL[code],
     path: p,
     recoverability,
-    severity: code === L499 ? 'error' : 'loss',
+    severity: code === L499 || code === L406 ? 'error' : 'loss',
   };
+}
+
+function ideaKeys(doc) {
+  const keys = new Set();
+  for (const section of doc.sections) {
+    for (const idea of section.ideas) {
+      keys.add(`${section.id}|${idea.namespace || ''}|${idea.symbol}|${idea.name}`);
+    }
+  }
+  return keys;
 }
 
 function sha256(text) {
@@ -143,18 +162,33 @@ function buildLossReport(source, caseName) {
   // Render and detect source-order losses before canonicalizing: C14N mutates
   // the AST in place (microtoken expansion, attribute normalization).
   const attrLosses = openAttrOrderLosses(doc);
+  const srcIdeas = ideaKeys(doc);
   const rendered = renderHCORTEX10(doc);
   const canonicalSource = canonicalizeV10(doc);
   const { doc: roundtrip, diags } = compileHCORTEX10(rendered);
   if (!roundtrip || (diags && diags.length)) throw new Error('HCORTEX roundtrip compilation failed');
+  const rtIdeas = ideaKeys(roundtrip);
   const canonicalRoundtrip = canonicalizeV10(roundtrip);
 
+  let dropped = false;
+  for (const key of srcIdeas) {
+    if (!rtIdeas.has(key)) {
+      dropped = true;
+      break;
+    }
+  }
   const losses = lexicalLosses(source).concat(attrLosses);
   const equivalent = canonicalSource === canonicalRoundtrip;
-  if (!equivalent) losses.push(finding(L499, '$', 'structure', 'irrecoverable'));
+  if (dropped) losses.push(finding(L406, '$', 'structure', 'irrecoverable'));
+  if (!equivalent && !dropped) losses.push(finding(L499, '$', 'structure', 'irrecoverable'));
 
   return {
     case: caseName,
+    coverage: {
+      complete: UNCOVERED_OPERATIONS.length === 0 && equivalent,
+      operations: COVERED_OPERATIONS.slice(),
+      uncovered_operations: UNCOVERED_OPERATIONS.slice(),
+    },
     losses: dedupe(losses),
     mode: 'canonical',
     operation: 'render',

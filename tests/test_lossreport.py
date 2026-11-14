@@ -35,6 +35,23 @@ class LossReportTest(unittest.TestCase):
         self.assertTrue(report["structural_equivalence"])
         self.assertEqual(report["warnings"], [])
 
+    def test_coverage_declares_compile_gap(self):
+        report = build_loss_report(CLEAN, "clean")
+        self.assertEqual(
+            report["coverage"],
+            {"complete": False, "operations": ["render"], "uncovered_operations": ["compile"]},
+        )
+
+    def test_dotted_namespace_roundtrips(self):
+        # Regression: a namespace with '.' must survive the render/compile
+        # roundtrip (marker grammar aligned with CORTEX), emitting no loss.
+        source = CLEAN.replace("KNW:knowledge", "tenant.x::KNW:knowledge").replace(
+            "KNW:alpha", "tenant.x::KNW:alpha"
+        )
+        report = build_loss_report(source, "nsdot")
+        self.assertEqual(codes(report), [])
+        self.assertTrue(report["reversible"])
+
     def test_comment_is_declared_loss(self):
         source = CLEAN.replace("$1:KNOW", "# comentario\n$1:KNOW")
         report = build_loss_report(source, "comment")

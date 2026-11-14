@@ -8,13 +8,14 @@ NEW module: does NOT touch codec_cortex/c14n.py (0.1 preserved).
 
 import hashlib
 import re
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from .scalars import (
     Scalar, emit_string_literal, to_nfc, utf8_bytes, ATOM_RE,
 )
 from .parser import Document, Section, Idea, SymbolDef, ContractField
 from .slotparser import FieldValue, SigilMapDecl, GlossarySlots
+from .diagnostics import undeclared_sigil_message
 
 
 HASH_DOMAIN_LEGACY = b"CORTEX-C14N-0.1"
@@ -77,7 +78,7 @@ def canonicalize_slots(doc: Document) -> str:
         for idea in sec.ideas:
             key = (idea.namespace, idea.symbol)
             sym = sym_lookup.get(key) or sym_lookup.get((None, idea.symbol))
-            lines.append(_idea_canonical_slots(idea, sym))
+            lines.append(_idea_canonical_slots(idea, sym, list(sym_lookup.values())))
     return "\n".join(lines) + "\n"
 
 
@@ -267,7 +268,8 @@ def _symbol_canonical_slots(s: SymbolDef) -> str:
     return f"{qualified}:{s.label}" + _emit_glossary_attrs(sorted_attrs)
 
 
-def _idea_canonical_slots(idea: Idea, sym: SymbolDef) -> str:
+def _idea_canonical_slots(idea: Idea, sym: SymbolDef,
+                          symbols: Optional[list] = None) -> str:
     qualified = f"{idea.namespace}::{idea.symbol}" if idea.namespace else idea.symbol
     head = f"{qualified}:{idea.name}"
     if idea.payload and idea.payload[0] == "slots":
@@ -294,7 +296,8 @@ def _idea_canonical_slots(idea: Idea, sym: SymbolDef) -> str:
         pairs = idea.payload[1]
         if sym is None:
             from .scalars import ParseError
-            raise ParseError("I001_UNDECLARED_SYMBOL", f"Undeclared sigil in canonicalize: {idea.symbol}")
+            raise ParseError("I001_UNDECLARED_SYMBOL",
+                             undeclared_sigil_message(idea.symbol, symbols or []))
         field_types = {f.name: f.type for f in sym.contract}
         focus = sym.focus
         parts = []

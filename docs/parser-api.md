@@ -48,6 +48,41 @@ ContractField(name, type, required, position)
 
 ## Módulos públicos
 
+### `codec_cortex.api` — fachada de dominio (recomendado)
+
+```python
+import codec_cortex as cc
+
+doc = cc.parse(source)          # cualquier dialecto declarado (0.1, 0.2, 1.0)
+cc.validate(source)             # idem; ParseError si es inválido
+canon = cc.canonicalize(doc)    # bytes canónicos (str)
+digest = cc.hash(doc)           # "sha256:<64hex>"
+digest = cc.hash_source(source) # parse + hash en un paso
+md = cc.to_hcortex(doc)         # render HCORTEX (despacha por dialecto)
+doc2 = cc.from_hcortex(md)      # compile HCORTEX; CompileError con .diagnostics
+```
+
+`CompileError.diagnostics` es una lista de `{code, severity, message, line}`.
+Los módulos internos (`parser`, `slotparser`, `dispatcher`, …) siguen
+importables para compatibilidad; el facade es la superficie estable.
+
+### `codec_cortex.emit` — emisión de líneas de ideas
+
+```python
+import codec_cortex as cc
+
+cc.emit("KNW", "alpha", {"topic": "T", "content": 'com "comillas" y\nnewline'})
+# → KNW:alpha{topic:"T",content:"com \"comillas\" y\nnewline"}
+
+cc.emit("POS", "p1", ["a", 1], shape="attrs-pos")   # → POS:p1|"a"|1
+cc.emit("BOD", "t1", "línea 1\nlínea 2")            # cuerpo multilínea
+cc.emit("KNW", "ns1", {"k": "v"}, namespace="tenant.x")  # tenant.x::KNW:ns1{...}
+```
+
+Escapes canónicos automáticos (comillas, saltos, tabs). Valida sigilos,
+namespaces, nombres y shapes; `shape` se infiere del payload si se omite
+(`dict`→attrs, `list`→attrs-pos, `str`/`None`→cuerpo).
+
 ### `codec_cortex.dispatcher` — punto de entrada único
 
 ```python
@@ -117,6 +152,8 @@ from codec_cortex.slotharness import run_slots_conformance
 | `to-hcortex` | sí | sí | sí | sí | sí |
 | `from-hcortex` | sí | sí | sí | sí | sí |
 | `loss-report` | sí | sí | sí | sí | sí |
+| `diff` | sí | — | — | — | — |
+| `verify` | sí | — | — | — | — |
 | `migrate` | sí | — | — | — | — |
 | `conformance` | sí | sí | `test` | sí | `test` |
 | `compare` / `inspect` | — | — | — | `compare`, `inspect` | `inspect` |
@@ -130,8 +167,15 @@ python -m codec_cortex hash doc.cortex
 python -m codec_cortex to-hcortex doc.cortex > doc.md
 python -m codec_cortex from-hcortex doc.md > doc.back.cortex
 python -m codec_cortex loss-report doc.cortex
+python -m codec_cortex diff doc-a.cortex doc-b.cortex   # diff semántico (canónico)
+python -m codec_cortex verify doc.cortex sha256:<hex>   # o <hex> u otro .cortex
 python -m codec_cortex migrate to-1.0 --apply doc.cortex
 ```
+
+`diff` compara la **forma canónica** (no el texto): exit `0` si canonizan
+igual, `1` con unified diff si difieren, `2` en error de uso/parseo.
+`verify` acepta `sha256:<hex>`, hex desnudo de 64 chars, o un archivo
+`.cortex` (comparación semántica con diff en caso de mismatch).
 
 Todas las superficies aceptan `-` como entrada estándar.
 

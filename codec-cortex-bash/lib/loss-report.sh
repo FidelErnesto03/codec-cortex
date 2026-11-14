@@ -6,13 +6,14 @@ ccx_loss_detail() {
     L402_COMMENT_DROPPED) printf '%s' 'comment line outside a multiline body is not represented in the AST' ;;
     L403_INTRALINE_WHITESPACE) printf '%s' 'intraline whitespace is collapsed by canonicalization' ;;
     L405_OPEN_ATTR_ORDER) printf '%s' 'editorial attribute order of an open sigil is not preserved' ;;
+    L406_COMPILE_SIDE_DROP) printf '%s' 'an idea present in the AST is lost across the render/compile roundtrip (its rendered header does not round-trip)' ;;
     L499_UNCLASSIFIED_LOSS) printf '%s' 'roundtrip diverges and no declared loss classifies the divergence' ;;
   esac
 }
 
 ccx_loss_finding() { # code path category recoverability
   local code=$1 path=$2 category=$3 recoverability=$4 severity=loss action=declare-only detail
-  if [[ $code == L499_UNCLASSIFIED_LOSS ]]; then severity=error; action=fix-surface; fi
+  if [[ $code == L499_UNCLASSIFIED_LOSS || $code == L406_COMPILE_SIDE_DROP ]]; then severity=error; action=fix-surface; fi
   detail=$(ccx_loss_detail "$code")
   jq -cn --arg action "$action" --arg category "$category" --arg code "$code" \
     --arg detail "$detail" --arg path "$path" --arg recoverability "$recoverability" \
@@ -102,6 +103,15 @@ ccx_loss_report_file() { # input case_name -> canonical JSON on stdout
   reversible=false
   if cmp -s "$can1" "$can2"; then reversible=true; fi
 
+  # Compile-side drop: ideas present in the source AST but absent from the roundtrip.
+  dropped=false
+  if jq -e --slurpfile rt "$rt" '
+      ([ .sections[] as $s | $s.ideas[] | [$s.id, (.namespace // ""), .symbol, .name] ]) as $src
+      | ([ $rt[0].sections[] as $s | $s.ideas[] | [$s.id, (.namespace // ""), .symbol, .name] ]) as $r
+      | (($src - $r) | length) > 0' "$ast" >/dev/null 2>&1; then
+    dropped=true
+  fi
+
   src_sha=$(sha256sum "$input" | cut -d' ' -f1)
   tgt_sha=$(sha256sum "$rend" | cut -d' ' -f1)
 
@@ -109,7 +119,8 @@ ccx_loss_report_file() { # input case_name -> canonical JSON on stdout
     {
       ccx_loss_lexical "$input"
       ccx_loss_attr_order "$ast"
-      if [[ $reversible != true ]]; then printf '$\tL499_UNCLASSIFIED_LOSS\tstructure\tirrecoverable\n'; fi
+      if [[ $dropped == true ]]; then printf '$\tL406_COMPILE_SIDE_DROP\tstructure\tirrecoverable\n'; fi
+      if [[ $reversible != true && $dropped != true ]]; then printf '$\tL499_UNCLASSIFIED_LOSS\tstructure\tirrecoverable\n'; fi
     } | while IFS=$'\t' read -r path code category recoverability; do
       [[ -n $path ]] || continue
       ccx_loss_finding "$code" "$path" "$category" "$recoverability"
@@ -120,6 +131,11 @@ ccx_loss_report_file() { # input case_name -> canonical JSON on stdout
     --argjson reversible "$reversible" --arg src_sha "$src_sha" --arg tgt_sha "$tgt_sha" \
     '{
       case:$case_name,
+      coverage:{
+        complete:((["compile"] | length) == 0 and $reversible),
+        operations:["render"],
+        uncovered_operations:["compile"]
+      },
       losses:$losses,
       mode:"canonical",
       operation:"render",

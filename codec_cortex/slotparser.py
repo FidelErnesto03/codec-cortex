@@ -30,6 +30,7 @@ from .parser import (
     _normalize_line_endings, _find_matching_brace,
     _is_glossary_decl_line,
 )
+from .diagnostics import undeclared_sigil_message, expected_form
 
 
 # ContractField0 extends 0.1 ContractField with optional `position` for slot contracts.
@@ -504,7 +505,8 @@ class _SlotParser:
                 break
         if sym is None:
             raise ParseError("I001_UNDECLARED_SYMBOL",
-                             f"Undeclared sigil: {sigil}", line_no)
+                             undeclared_sigil_message(sigil, self.doc.glossary.symbols),
+                             line_no)
         # I006_DUPLICATE_IDEA_ADDRESS
         addr = f"${section_id}:{ns + '::' if ns else ''}{sigil}:{name}"
         if addr in self.seen_idea_addresses:
@@ -516,10 +518,12 @@ class _SlotParser:
         if getattr(sym, "encoding", None) == "slots":
             if not rest.startswith("{"):
                 raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                                 f"Expected {{ for slot-encoded Idea", line_no)
+                                 f"Expected {{ for slot-encoded Idea. "
+                                 f"Form: {expected_form(slots=True)}", line_no)
             if not (rest.endswith("}") and rest.count("\n") == 0):
                 raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                                 f"Slot-encoded Idea must be single-line", line_no)
+                                 f"Slot-encoded Idea must be single-line. "
+                                 f"Form: {expected_form(slots=True)}", line_no)
             entries = parse_slot_payload(rest, line_no)
             fvs = self._resolve_slot_entries(entries, sym, line_no)
             return Idea(section=section_id, namespace=ns, symbol=sigil, name=name,
@@ -533,7 +537,8 @@ class _SlotParser:
         if shape in ("attrs", "cuerpo", "bloque"):
             if not rest.startswith("{"):
                 raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                                 f"Expected {{ for shape {shape}", line_no)
+                                 f"Expected {{ for shape {shape}. "
+                                 f"Form: {expected_form(shape)}", line_no)
             if rest.endswith("}") and rest.count("\n") == 0:
                 payload_str = rest
                 if shape == "attrs":
@@ -551,13 +556,15 @@ class _SlotParser:
             else:
                 if rest.strip() != "{":
                     raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                                     f"Expected single {{ for multiline {shape}", line_no)
+                                     f"Expected single {{ for multiline {shape}. "
+                                     f"Form: {expected_form(shape, multiline=True)}", line_no)
                 return Idea(section=section_id, namespace=ns, symbol=sigil, name=name,
                             shape=shape, payload=("_multiline_body", None), source_line=line_no)
         elif shape in ("attrs-pos", "relacion"):
             if not rest.startswith("|"):
                 raise ParseError("I004_SHAPE_DELIMITER_MISMATCH",
-                                 f"Expected | for shape {shape}", line_no)
+                                 f"Expected | for shape {shape}. "
+                                 f"Form: {expected_form(shape)}", line_no)
             rest = rest[1:]
             cells = self._parse_pipe_cells(rest, line_no)
             # Arity check

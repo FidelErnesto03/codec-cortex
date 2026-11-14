@@ -27,6 +27,7 @@ señalado como incompleto.
 | `L402_COMMENT_DROPPED` | comentarios `#` | línea cuyo primer carácter no-espacio es `#`, fuera de cuerpo/bloque (también dentro del glosario) | `line:<n>` |
 | `L403_INTRALINE_WHITESPACE` | formato intra-línea | tab, espacio final o 2+ espacios consecutivos fuera de literales entrecomillados | `line:<n>` |
 | `L405_OPEN_ATTR_ORDER` | orden editorial de atributos | idea de sigilo `open:true` cuyo orden en fuente ≠ orden de contrato + extras por clave UTF-8 | `$N` |
+| `L406_COMPILE_SIDE_DROP` | idea perdida en render→compile | una idea del AST no se recupera al recompilar (su header `### ns::SIGIL:name` no vuelve a parsear) — **error**, exit 1 | `$` |
 | `L499_UNCLASSIFIED_LOSS` | divergencia sin clase | roundtrip no equivalente sin causa catalogada (**error**, exit 1) | `$` |
 
 **Retirados como pérdida** (spec §8.3, con evidencia): `L401` (marcador de fence
@@ -45,6 +46,11 @@ newline final. Las cinco superficies emiten **bytes idénticos**.
 ```json
 {
   "case": "L402_comment",
+  "coverage": {
+    "complete": false,
+    "operations": ["render"],
+    "uncovered_operations": ["compile"]
+  },
   "losses": [
     {
       "action": "declare-only",
@@ -72,7 +78,10 @@ newline final. Las cinco superficies emiten **bytes idénticos**.
 
 | Campo | Significado |
 |---|---|
-| `reversible` / `structural_equivalence` | `canonicalize(fuente) == canonicalize(roundtrip)`: el AST va y vuelve intacto |
+| `coverage.complete` | La cobertura declarada modela **todos** los tramos del pipeline. Hoy `false`: el tramo `compile` (fuente → AST) no está modelado |
+| `coverage.operations` | Tramos cuyas pérdidas sí modela el reporte (`["render"]`) |
+| `coverage.uncovered_operations` | Tramos sin clase de pérdida asociada (`["compile"]`). Declararlo evita que `reversible: true` sobre-afirme: un documento puede ser reversible en `render` aun cuando la compilación descartó contenido que ninguna clase describe |
+| `reversible` / `structural_equivalence` | `canonicalize(fuente) == canonicalize(roundtrip)`: el AST va y vuelve intacto (alcance: `render`) |
 | `losses` | pérdidas de **fuente**, ordenadas por `(path, code)` y sin duplicados |
 | `source_sha256` | hash del texto de entrada |
 | `target_sha256` | hash del HCORTEX renderizado |

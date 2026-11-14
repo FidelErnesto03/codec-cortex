@@ -5,13 +5,31 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version", "case", "operation", "source_format", "target_format",
+    "schema_version", "case", "coverage", "operation", "source_format", "target_format",
     "mode", "reversible", "structural_equivalence", "source_sha256",
     "target_sha256", "losses", "warnings", "preserved"
   ],
   "properties": {
     "schema_version": {"const": "1.0"},
     "case": {"type": "string", "minLength": 1},
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complete", "operations", "uncovered_operations"],
+      "properties": {
+        "complete": {"type": "boolean"},
+        "operations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "uncovered_operations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
+      }
+    },
     "operation": {"enum": ["render", "compile", "edit", "project"]},
     "source_format": {"type": "string", "minLength": 1},
     "target_format": {"type": "string", "minLength": 1},

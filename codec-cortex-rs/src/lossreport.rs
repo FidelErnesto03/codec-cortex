@@ -4,26 +4,34 @@ use serde_json::{json, Value};
 use unicode_normalization::UnicodeNormalization;
 
 use crate::harness::sha256_bytes;
-use crate::v10::{canonicalize_any, compile_any, parse_any, render_any, AnyDoc, V10Payload};
+use crate::v10::{canonicalize_any, compile_any, parse_any, render_any, AnyDoc, V10Doc, V10Payload};
 
 const L402: &str = "L402_COMMENT_DROPPED";
 const L403: &str = "L403_INTRALINE_WHITESPACE";
 const L405: &str = "L405_OPEN_ATTR_ORDER";
+const L406: &str = "L406_COMPILE_SIDE_DROP";
 const L499: &str = "L499_UNCLASSIFIED_LOSS";
 
 const PRESERVED: [&str; 4] = ["blocks", "identity", "scalars", "structure"];
+
+// Coverage declaration (spec §8.2): which pipeline operations the report
+// models. The compile pipeline (source -> AST) is not modelled, so declaring
+// it explicitly keeps `reversible: true` honest about its scope.
+const COVERED_OPERATIONS: [&str; 1] = ["render"];
+const UNCOVERED_OPERATIONS: [&str; 1] = ["compile"];
 
 fn detail(code: &str) -> &'static str {
     match code {
         L402 => "comment line outside a multiline body is not represented in the AST",
         L403 => "intraline whitespace is collapsed by canonicalization",
         L405 => "editorial attribute order of an open sigil is not preserved",
+        L406 => "an idea present in the AST is lost across the render/compile roundtrip (its rendered header does not round-trip)",
         _ => "roundtrip diverges and no declared loss classifies the divergence",
     }
 }
 
 fn action(code: &str) -> &'static str {
-    if code == L499 {
+    if code == L499 || code == L406 {
         "fix-surface"
     } else {
         "declare-only"
@@ -38,8 +46,31 @@ fn finding(code: &str, path: &str, category: &str, recoverability: &str) -> Valu
         "detail": detail(code),
         "path": path,
         "recoverability": recoverability,
-        "severity": if code == L499 { "error" } else { "loss" },
+        "severity": if code == L499 || code == L406 { "error" } else { "loss" },
     })
+}
+
+fn idea_keys_v10(doc: &V10Doc) -> std::collections::HashSet<String> {
+    let mut keys = std::collections::HashSet::new();
+    for section in &doc.sections {
+        for idea in &section.ideas {
+            keys.insert(format!(
+                "{}|{}|{}|{}",
+                section.id,
+                idea.namespace.clone().unwrap_or_default(),
+                idea.symbol,
+                idea.name
+            ));
+        }
+    }
+    keys
+}
+
+fn idea_keys_any(doc: &AnyDoc) -> std::collections::HashSet<String> {
+    match doc {
+        AnyDoc::V10(d) => idea_keys_v10(d),
+        AnyDoc::V01(_) => std::collections::HashSet::new(),
+    }
 }
 
 fn strip_quoted(line: &str) -> String {
@@ -178,21 +209,32 @@ pub fn build_loss_report(source: &str, case_name: &str) -> Result<Value, String>
     // Render and detect source-order losses before canonicalizing: C14N mutates
     // the AST in place (microtoken expansion, attribute normalization).
     let attr_losses = open_attr_order_losses(&v10);
+    let src_ideas = idea_keys_v10(&v10);
     let rendered = render_any(&doc);
     let canonical_source = canonicalize_any(&mut doc);
     let roundtrip = compile_any(&rendered).map_err(|e| e.to_string())?;
     let mut roundtrip_doc = roundtrip;
+    let rt_ideas = idea_keys_any(&roundtrip_doc);
     let canonical_roundtrip = canonicalize_any(&mut roundtrip_doc);
 
+    let dropped = src_ideas.iter().any(|key| !rt_ideas.contains(key));
     let mut losses = lexical_losses(source);
     losses.extend(attr_losses);
     let equivalent = canonical_source == canonical_roundtrip;
-    if !equivalent {
+    if dropped {
+        losses.push(finding(L406, "$", "structure", "irrecoverable"));
+    }
+    if !equivalent && !dropped {
         losses.push(finding(L499, "$", "structure", "irrecoverable"));
     }
 
     Ok(json!({
         "case": case_name,
+        "coverage": {
+            "complete": UNCOVERED_OPERATIONS.len() == 0 && equivalent,
+            "operations": COVERED_OPERATIONS,
+            "uncovered_operations": UNCOVERED_OPERATIONS,
+        },
         "losses": dedupe(losses),
         "mode": "canonical",
         "operation": "render",

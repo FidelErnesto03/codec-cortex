@@ -1,0 +1,131 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:en}
+$0:enum_sev{values:"blocking|high|medium|low"}
+$0:enum_phase{values:"P0|P1|P2|P3|P4|P5"}
+$0:enum_gate{values:"G1|G2|G3|G4|G5|G6|G7"}
+RUL:rule{type:attrs,weight:H,focus:rule,desc:"Normative rule",fields:"rule:text|detail:text"}
+CMD:cmd{type:attrs,weight:H,focus:command,desc:"Executable step",fields:"command:text|expect:text"}
+FIX:fix{type:attrs,weight:H,focus:issue,desc:"Gap or adjustment item; sev is blocking, high, medium or low",fields:"issue:text|action:text|accept:text|evidence:text|sev:atom"}
+GATE:gate{type:attrs,weight:H,focus:criterion,desc:"Gate",fields:"criterion:text|evidence:text"}
+MET:metric{type:attrs,weight:H,focus:definition,desc:"Metric",fields:"definition:text|unit:atom|formula:text?"}
+RSK:risk{type:attrs,weight:M,focus:threat,desc:"Threat",fields:"threat:text|control:text"}
+PRC:step{type:attrs-pos,weight:H,focus:action,desc:"Procedure step",pos:"action:text|expect:text|phase:atom"}
+ART:artifact{type:attrs,weight:M,focus:path,desc:"Artifact",fields:"path:text|content:text"}
+TMPL:template{type:bloque,weight:M,desc:"Template"}
+TXT:note{type:cuerpo,weight:M,desc:"Rationale"}
+DEC:decision{type:attrs,weight:M,focus:topic,desc:"Owner decision required",fields:"topic:text|options:text|default:text"}
+
+$1: MISSION:CORE
+TXT:mission{
+This package is the gap-closure work order for the CODEC-CORTEX 1.0.1 agent
+benchmark, run-001. An autonomous agent reads this canonical CORTEX document and
+executes every FIX item until the benchmark objective is met at 100 percent
+efficiency: every requirement of the governing spec
+(bench/agent-package/codec-cortex-agent-benchmark.cortex) is either evidenced by
+a sealed artifact or explicitly waived by the owner in writing. run-001 is a
+sealed baseline, not a failure: its deterministic phase is sound and its model
+phase produced real data, but two blocking defects confound the headline model
+claims and several spec requirements remain uncovered. The agent produces
+evidence, not opinions; every claim cites an artifact path and a sha256.
+}
+RUL:objective{rule:"Close every gap listed in GAPS so that a run-002 (or declared carryover) satisfies the spec end-state: prereg frozen, symmetric arms, dialect-consistent corpus, preregistered stats, sealed report.",detail:"100 percent efficiency means zero spec requirements unaddressed and zero confounded claims presented as final. It is a checklist target, not a promise that CORTEX wins any metric."}
+RUL:immutability{rule:"runs/run-001 is sealed and immutable. All corrections produce runs/run-002 or new sidecar artifacts; never edit a sealed file.",detail:"SHA256SUMS in run-001 verifies 1104 files. Post-seal mutation invalidates the seal and the audit trail."}
+RUL:freeze_order{rule:"Any new model call requires a NEW preregistration (prereg.yaml + sha256 in manifest.json) frozen BEFORE the first cell. A changed prompt, corpus, question, model or rubric is a new run.",detail:"Freeze order: prereg -> runs -> analysis -> report. run-001 cells may be carried into run-002 only when prompt_sha256, model, settings and input docs are byte-identical AND the carryover is declared in the run-002 prereg."}
+RUL:symmetry{rule:"Format arms must receive equal information and equal instruction budget. Format-specific tuning is allowed only when declared and applied symmetrically.",detail:"The run-001 generation defect (g02) is exactly the violation this rule forbids: the JSON arm got the task field list, the CORTEX arm did not."}
+RUL:owner_gates{rule:"The owner approves before: any paid model spend, publishing results, opening upstream PRs, destructive operations, and each DEC item in OWNER_DECISIONS.",detail:"Free-tier transport (devin -p, swe-2-flash-max) needs no spend approval; a second model or paid tier does."}
+RUL:evidence{rule:"Every claim line carries metric, estimate, CI, n, artifact path and embedded sha256. Failed hypotheses get the same prominence as confirmed ones.",detail:"A benchmark that cannot fail is marketing. Report n attempted, n completed, n failed per cell."}
+
+$2: BASELINE:DATA
+TXT:baseline{
+run-001 state (sealed, verified): 320 of 320 planned cells completed with zero
+transport failures; deterministic metrics all computed; stats.json, report.md,
+manifest.json and SHA256SUMS (1104 files, verify OK) under
+bench/agent-benchmark/runs/run-001/. Confirmed: fidelity_rate 1.000, byte
+determinism 1.000, error_code_precision 1.000 (28/28), tamper file_sha256
+1.000, loss_report 0.899 (8 legacy-0.1 docs excluded by design). Confirmatory
+family (Holm): h3 density cortex<json CONFIRMED (paired -20.41 tokens/section,
+p_holm 0.031); h4 accuracy difference NOT found (p=1.0); h5 generation validity
+FALSIFIED (cortex 0.375 vs json 0.875, p_holm 1.5e-4) BUT CONFOUNDED by g02.
+Descriptive: cortex less dense than markdown (+6.24 tok/section); canonical-hash
+tamper detection 0.686 by design; cell latency median 9.3 s, p95 57.1 s.
+Environment: Linux, Python 3.11.12 venv, codec-cortex 1.0.1 wheel, tiktoken
+0.12.0 o200k_base, model swe-2-flash-max via devin -p (no temperature/top_p
+exposed; declared limitation).
+}
+ART:run001_report{path:"bench/agent-benchmark/runs/run-001/report.md",content:"final report with claim table; section 7 lists limitations"}
+ART:run001_stats{path:"bench/agent-benchmark/runs/run-001/stats.json",content:"all metrics, CIs, paired tests, Holm corrections, per-cell counts"}
+ART:run001_seal{path:"bench/agent-benchmark/runs/run-001/SHA256SUMS",content:"1104 sealed artifacts; verify with python3 tools/seal.py verify"}
+ART:run001_cells{path:"bench/agent-benchmark/runs/run-001/cells/",content:"320 raw model responses with prompt_sha256, diagnostics, tokens, latency"}
+ART:run001_scores{path:"bench/agent-benchmark/runs/run-001/scores/",content:"320 deterministic rubric scores incl. per-attempt parser diagnostics"}
+ART:spec{path:"bench/agent-package/codec-cortex-agent-benchmark.cortex",content:"governing spec: gates G1-G5, hypotheses h1-h7, anti-patterns"}
+ART:prompts_src{path:"bench/agent-benchmark/runs/run-001/tools/prompts.py",content:"prompt construction; contains the g02 asymmetry (_JSON_OUT vs _CORTEX_OUT)"}
+ART:baseline_note{path:"bench/agent-benchmark/runs/run-001/baselines/cortex.cortex",content:"sha256 3b4026d10916edd3; CORTEX 0.1 dialect, fails 1.0 validation G042"}
+
+$3: GAPS:DATA
+FIX:g01_baseline_dialect{issue:"The cortex comprehension and generation arms used baselines/cortex.cortex, which is CORTEX 0.1 dialect ($0: NEXUSCORP KB:KERNEL) and fails codec-cortex 1.0.1 validation with G042_GLOSSARY_HEADER_INVALID. All 80 cortex-arm cells benchmark a non-1.0 document while the spec targets CODEC-CORTEX 1.0.",action:"Author runs/run-002/baselines/cortex.cortex: valid cortex:1.0, identical 40 facts as json.json, canonical serialization produced via the toolchain (never hand-rolled HCORTEX). Verify validate=valid, hash stable, and fact-parity vs the JSON twin. Declare the baseline swap in the run-002 prereg and re-run every cortex-arm cell (40 comprehension + 40 generation). Non-cortex arms keep run-001 cells only if carryover conditions hold.",accept:"codec_cortex validate exits 0 on the new baseline; a fact-parity artifact lists all 40 facts extractable from both cortex and json docs; run-002 manifest records the new baseline sha256; report labels run-001 cortex-arm results as dialect-0.1.",evidence:"deterministic/corpus_manifest.json plus run-002 manifest baseline entry and validate output",sev:blocking}
+FIX:g02_prompt_asymmetry{issue:"Generation arms had unequal specification budget: the JSON arm received the exact task field list (_JSON_OUT embeds {fields}); the CORTEX arm received a generic syntax sketch with no task fields, no valid field-type vocabulary, no enum rules and no section contract (_CORTEX_OUT). This confounds the h5 falsification (0.375 vs 0.875): the gap may measure prompt budget, not format capability.",action:"Design a symmetric contract block: both arms receive the task field names, per-field types and requiredness expressed in their own idiom (JSON keeps its field list; CORTEX gets the equivalent declaration: sigil contract with fields, valid type atoms text|atom|dec|bool|list, enum rule, mandatory $0 format line and $1 section). Measure prompt tokens with tiktoken o200k_base and keep the pair within plus or minus 10 percent. Freeze the new prompts in run-002 prereg BEFORE any cell.",accept:"A prompt-pair artifact shows both arms carry equivalent field contracts and token budgets within 10 percent; h5 is re-tested under run-002; the report states whether the run-001 falsification survives symmetry or was a prompt artifact.",evidence:"tools/prompts.py diff, prompts/ dump, stats.json generation_paired under run-002",sev:blocking}
+FIX:g03_contract_cheatsheet{issue:"No canonical CORTEX 1.0 contract reference existed for prompt injection; the model guessed sigils, shapes and field types, producing I023_UNKNOWN_FIELD_TYPE x10, G017_UNKNOWN_SHAPE x8, I008_REQUIRED_FIELD_MISSING x4, U003_NON_ASCII_IDENTIFIER x2, I001_UNDECLARED_SYMBOL x1 across the 25 invalid cortex generation cells.",action:"Produce contract-cheatsheet.cortex (or .md) generated from the parser symbol table and docs/standard/errors-1.0.md: valid sigil/shape/field-type vocabulary, enum and section rules, one minimal valid exemplar per construct. Every construct in the cheatsheet must itself validate. Use it as the cortex-arm specification block in run-002.",accept:"The cheatsheet round-trips through validate and hash; a coverage table maps each observed failure code family to the rule that now documents it; cheatsheet sha256 recorded in run-002 manifest.",evidence:"new cheatsheet artifact plus validate/hash output and coverage table",sev:high}
+FIX:g04_dialect_strata{issue:"The held-out corpus mixes dialects: H033-H040 are CORTEX 0.1 and loss_report=0.899 partly reflects the 1.0-only loss-report gate, not information loss. Metrics currently pool strata without declaring it.",action:"Port H033-H040 to cortex:1.0 where their probed feature exists in 1.0; where a probe is inherently 0.1-only, keep it and label the stratum legacy-0.1. Extend corpus_manifest.json with a dialect field per file and report every affected metric stratified by dialect in run-002.",accept:"corpus_manifest.json carries dialect per file; loss_report and fidelity report n per stratum; no metric silently pools mixed dialects.",evidence:"deterministic/corpus_manifest.json v2 and stratified stats.json",sev:high}
+FIX:g05_statistical_power{issue:"Section-paired density used n=7 units; the exact sign-flip floor is p=0.0156 and bootstrap CIs are wide. Small true effects (e.g. cortex vs plaintext -0.98 tok/section, CI includes 0) cannot be resolved.",action:"Increase paired units to at least 20 per format: split each baseline into declared subsections or add a second equivalent document, and preregister the unit definition before measuring. Alternatively add a multi-document corpus arm; do not reuse run-001 sections post-hoc.",accept:"density_paired reports n_pairs >= 20 with bootstrap CI and sign-flip or permutation p; the unit definition is frozen in run-002 prereg.",evidence:"deterministic/density_sections.json v2 and prereg.yaml section",sev:medium}
+FIX:g06_semantic_generation{issue:"generation_validity measures parse-validity only: a syntactically valid CORTEX document can still encode wrong or missing facts. Run-001 cannot distinguish format fluency from task fidelity.",action:"Add a deterministic fact-recall scorer for generation cells: extract (field, value) pairs from each generated document and compare against the task specification; report validity and semantic accuracy as separate metrics. Freeze the scorer and rubric in run-002 prereg.",accept:"score records carry semantic_recall per cell; stats.json reports generation_semantic_accuracy per arm with CI; scorer code sealed.",evidence:"tools/score_cells.py v2, scores/*_gen_*.json, stats.json",sev:medium}
+FIX:g07_q8_rubric{issue:"Q8 (open-ended synthesis) was pre-registered unscored; its 30 cells per run contribute nothing to answer_accuracy and are descriptive only.",action:"Owner decision (see OWNER_DECISIONS d1): either keep Q8 descriptive, or approve a deterministic rubric (must cite the correct at-risk project plus at least one supporting fact pattern) spot-checked by a human on 10 cells before freezing.",accept:"Decision recorded; if scored, the rubric hash and human-agreement note appear in run-002 prereg and stats.json.",evidence:"prereg.yaml addendum or explicit descriptive-only declaration",sev:medium}
+FIX:g08_model_scope{issue:"All model claims are conditional on swe-2-flash-max (operator constraint). The spec matrix asks for 2 or more declared models; single-model results cannot separate format effects from model idiosyncrasy.",action:"Owner decision (see OWNER_DECISIONS d2): authorize at least one second model from a different family as a preregistered sensitivity arm, or keep the single-model scope and state the limitation prominently (already partially done in run-001 report section 7).",accept:"Either new cells under run-002 prereg with the second model id and date recorded, or an explicit limitation line carried into run-002 report.",evidence:"manifest.json model_transport block or report limitations section",sev:medium}
+FIX:g09_tamper_channels{issue:"tamper_detection is channel-dependent: file_sha256 detects 140/140 but canonical_hash detects 96/140 (0.686) because canonical-preserving tampers (whitespace, comments) are invisible to it by design. The report states this but the metric name invites misreading.",action:"Publish a per-channel tamper table in run-002 stats: file_sha256 vs canonical_hash vs parse_rejection, each with n, estimate and CI; optionally add a canonical-form-changing tamper suite to demonstrate complementary coverage. Rename or annotate metrics so no reader conflates channels.",accept:"stats.json tamper_detection carries per-channel sub-metrics; report claim lines name the channel explicitly.",evidence:"deterministic/tamper.json v2 and stats.json",sev:low}
+FIX:g10_content_vs_syntax{issue:"Cortex is less dense than markdown by 6.24 tokens/section (paired, p=0.031); likely glossary and sigil overhead rather than content cost. No metric separates syntax cost from content cost.",action:"Add an exploratory content-only token metric (tokens after stripping declarations, sigils, keys and punctuation) clearly labeled exploratory in stats.json and report; it must not enter the confirmatory family.",accept:"stats.json contains an exploratory block with the metric definition, tokenizer and per-format estimates; report labels it exploratory.",evidence:"stats.json exploratory section",sev:low}
+FIX:g11_audit_trail{issue:"Cell JSONs store prompt_sha256 but not prompt text; prompts are regenerable via tools/prompts.py yet the verbatim prompts were never sealed, weakening third-party audit.",action:"In run-002, dump every prompt verbatim to prompts/<cell>.txt (or embed prompt_text in the cell JSON) and seal the directory; keep prompt_sha256 for integrity cross-check.",accept:"prompts/ exists with one file per cell; a spot-check artifact shows prompt_sha256 recomputation matches for 3 sampled cells; prompts/ is inside SHA256SUMS.",evidence:"prompts/ directory and spot-check output",sev:low}
+FIX:g12_document_diversity{issue:"The model phase used a single 40-fact document for all comprehension and generation cells. The spec anti-pattern no_toy_only asks for realistic, adversarial and long documents; one small doc cannot show format behavior at scale.",action:"Add to the run-002 corpus at least one long document (>=150 facts) and one adversarial document (ambiguous entity names, near-duplicate sections, conflicting-looking values) rendered in all 6 formats; run a declared question subset (not necessarily all 8) at R=5. Freeze the added questions in prereg.",accept:"corpus_manifest.json lists the new docs with size and shape metadata; cell counts match the extended matrix; failures counted normally.",evidence:"corpus_manifest.json v2, cells/, stats.json cell counts",sev:medium}
+FIX:g13_cost_actuals{issue:"The cost metric uses tiktoken estimates on raw_output; provider-reported token usage is unavailable through the devin -p transport, so prompt+completion totals (~754k tokens) are estimates.",action:"Check whether the transport exposes usage metadata (stderr, JSON envelope or session logs); if yes record actuals per cell, if no keep the estimator and state the limitation verbatim in run-002 report.",accept:"Report cost section names the estimator and its limitation, or cites provider usage artifacts per cell.",evidence:"report.md cost section or cells/ usage fields",sev:low}
+FIX:g14_claim_hashes{issue:"The spec wants every claim line to carry artifact path AND hash. run-001 report cites paths and relies on SHA256SUMS lookup; hashes are not embedded per claim.",action:"In run-002, finalize all evidence artifacts first, compute each cited artifact sha256, embed it in the claim table, then seal the run including report.md. Order matters: report is sealed last.",accept:"Every claim-table row contains sha256:<64hex> that verifies directly against the artifact file; seal verifies after report is written.",evidence:"report.md claim table and SHA256SUMS",sev:low}
+
+$4: OWNER_DECISIONS:DATA
+DEC:d1_q8{topic:"Q8 scoring for run-002",options:"(a) keep descriptive-only as run-001; (b) approve deterministic rubric + human spot-check",default:"(a) keep descriptive-only"}
+DEC:d2_second_model{topic:"Second model arm for run-002",options:"(a) authorize one more model from a different family (new prereg, extra cells); (b) keep swe-2-flash-max only",default:"(b) single model, limitation stated"}
+DEC:d3_spend{topic:"Budget for run-002",options:"free-tier only (devin -p swe-2-flash-max) vs paid tier if a second model requires it",default:"free-tier only"}
+DEC:d4_carryover{topic:"Cell carryover policy",options:"(a) reuse run-001 cells whose prompt_sha256 and inputs are byte-identical, declared in prereg; (b) re-run the full matrix fresh",default:"(a) declared carryover to save ~75 percent of calls"}
+
+$5: PROTOCOL:FLOW
+PRC:p0_intake|Read this document, run-001 report.md and stats.json; verify run-001 seal with python3 tools/seal.py verify inside runs/run-001; reproduce the deterministic-only numbers before changing anything.|"seal verify OK; deterministic metrics reproduce"|P0
+PRC:p1_decisions|Collect owner answers for d1-d4; record them in runs/run-002/decisions.yaml before freezing.|"decisions.yaml exists with 4 recorded answers"|P0
+PRC:p2_corpus|Author the cortex:1.0 baseline (g01), port or stratify held-out corpus (g04), add long and adversarial docs (g12); extend corpus_manifest.json with dialect and shape metadata.|"validate PASS on every corpus file; manifest v2 sealed"|P1
+PRC:p3_contract|Build contract-cheatsheet from parser tables and errors catalog (g03); design symmetric generation contract blocks (g02) with token-budget measurement.|"cheatsheet validates; prompt-pair budget diff <=10 percent"|P1
+PRC:p4_prereg|Write runs/run-002/prereg.yaml: hypotheses (h5 re-test is headline), carryover policy per d4, extended matrix, rubrics (incl. g06 scorer, g07 if approved), exclusions, analysis plan; sha256 into manifest.json BEFORE any cell.|"G1: prereg hash recorded; no cell exists yet"|P1
+PRC:p5_cells|Run only the cells not carried over: all cortex-arm cells under the new baseline and prompts, plus any new corpus arms and the optional second model; same runner discipline: one JSON per attempt, failures kept.|"cell counts match extended matrix; zero silent retries"|P2
+PRC:p6_score|Score with frozen rubrics incl. semantic recall; dump verbatim prompts (g11); classify every invalid generation cell by parser code.|"scores/ complete; prompts/ sealed-candidate"|P3
+PRC:p7_analysis|Compute only preregistered statistics: paired diffs, Wilson CIs, Holm over the declared family; label exploratory metrics.|"stats.json cites hypothesis id per test"|P4
+PRC:p8_report|Write report.md with per-claim embedded sha256 (g14), run-001 confounds disclosed (g01, g02), negative results at equal prominence; seal last.|"G7: seal verifies; every claim carries path plus hash"|P4
+
+$6: EVIDENCE:DATA
+ART:run002_dir{path:"bench/agent-benchmark/runs/run-002/",content:"new run directory; run-001 remains untouched"}
+ART:baseline10{path:"bench/agent-benchmark/runs/run-002/baselines/cortex.cortex",content:"valid cortex:1.0 doc, 40-fact parity with json.json"}
+ART:cheatsheet{path:"bench/agent-benchmark/runs/run-002/contract-cheatsheet.md",content:"CORTEX 1.0 contract reference generated from parser tables"}
+ART:prereg2{path:"bench/agent-benchmark/runs/run-002/prereg.yaml",content:"frozen hypotheses, matrix, carryover, rubrics, exclusions"}
+ART:manifest2{path:"bench/agent-benchmark/runs/run-002/manifest.json",content:"environment, versions, baseline and prereg sha256, model ids"}
+ART:cells2{path:"bench/agent-benchmark/runs/run-002/cells/",content:"one JSON per attempt plus verbatim prompts"}
+ART:stats2{path:"bench/agent-benchmark/runs/run-002/stats.json",content:"pre-registered stats only; h5 re-test headline; exploratory block separate"}
+ART:report2{path:"bench/agent-benchmark/runs/run-002/report.md",content:"claim table with embedded sha256 per claim"}
+ART:seal2{path:"bench/agent-benchmark/runs/run-002/SHA256SUMS",content:"seal of every run-002 artifact"}
+
+$7: GATES:CORE
+GATE:g1_freeze{criterion:"run-002 prereg.yaml sha256 recorded in manifest.json before the first new model call.",evidence:"manifest.json prereg hash plus cell timestamps"}
+GATE:g2_baseline{criterion:"cortex:1.0 baseline validates and matches the JSON twin on all 40 facts; dialect field present per corpus file.",evidence:"validate output, fact-parity artifact, corpus_manifest.json v2"}
+GATE:g3_symmetry{criterion:"generation arms carry equivalent field contracts within 10 percent prompt-token budget; cheatsheet validates.",evidence:"prompt-pair artifact, tiktoken counts, cheatsheet validate/hash"}
+GATE:g4_cells{criterion:"every planned run-002 cell accounted as completed or failed; carried-over cells hash-verified and declared.",evidence:"cell counts vs matrix; carryover manifest"}
+GATE:g5_stats{criterion:"only preregistered tests in the confirmatory family; h5 re-test reported with CI and Holm; exploratory labeled.",evidence:"stats.json hypothesis ids and corrections"}
+GATE:g6_owner{criterion:"d1-d4 answered and recorded before freeze; no spend beyond approved tier.",evidence:"decisions.yaml"}
+GATE:g7_seal{criterion:"SHA256SUMS verifies; every report claim line embeds artifact path and sha256; run-001 seal still verifies untouched.",evidence:"seal.py verify on both runs; claim table inspection"}
+
+$8: THREATS:CORE
+RSK:confounded_h5{threat:"Reporting the run-001 h5 falsification as a format property when it may measure prompt-budget asymmetry (g02).",control:"Re-test under symmetric contract injection; report both results with the confound disclosed; never merge run-001 and run-002 generation numbers."}
+RSK:dialect_claim{threat:"Claiming CODEC-CORTEX 1.0.1 results while the cortex arm document is dialect 0.1 (g01).",control:"Label run-001 cortex-arm results dialect-0.1 everywhere; only run-002 baseline-1.0 cells support 1.0 claims."}
+RSK:carryover_bias{threat:"Reusing run-001 cells selectively could bias comparisons if carryover correlates with outcomes.",control:"Carryover rule is mechanical (identical prompt_sha256 + inputs), declared in prereg, and applied to whole arms not cherry-picked cells."}
+RSK:prompt_drift{threat:"Iterating prompts until validity looks good is post-hoc tuning.",control:"Exactly one symmetric contract design is frozen in prereg; if it fails, that failure is the result; further prompt versions are new runs."}
+RSK:scorer_gaming{threat:"A semantic-recall scorer (g06) could reward verbose outputs.",control:"Scorer compares declared fact pairs only, fixed rubric, sealed code; report scorer limitations."}
+RSK:scope_creep{threat:"Adding documents, models and metrics until something looks good.",control:"Every addition is preregistered or labeled exploratory; the confirmatory family is fixed at freeze."}
+
+$9: REPORT:DATA
+RUL:run001_disclosure{rule:"The run-002 report must open with a confounds section: g01 dialect and g02 prompt asymmetry, stating exactly which run-001 claims are provisional.",detail:"Honesty about the confound is the deliverable; hiding it repeats the anti-pattern no_absolute_claims."}
+RUL:comparability{rule:"Never place run-001 and run-002 numbers in the same table without a dialect/prompt-version column.",detail:"Different baselines and prompts are different experiments."}
+RUL:completion{rule:"The objective is met when all G1-G7 gates pass or a gate failure is reported as a failed gate with evidence.",detail:"A failed gate is a valid terminal state; silent partial completion is not."}
+TMPL:claim_line{
+CLAIM <id>: <metric> = <estimate> [<ci>], n=<n>, conditions: model=<id>, corpus=<id>, prompts=<hash8>, artifact=<path>, sha256:<64hex>
+}

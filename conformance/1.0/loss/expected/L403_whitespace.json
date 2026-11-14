@@ -1,5 +1,14 @@
 {
   "case": "L403_whitespace",
+  "coverage": {
+    "complete": false,
+    "operations": [
+      "render"
+    ],
+    "uncovered_operations": [
+      "compile"
+    ]
+  },
   "losses": [
     {
       "action": "declare-only",

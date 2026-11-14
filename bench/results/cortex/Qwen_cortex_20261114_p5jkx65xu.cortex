@@ -1,0 +1,185 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:en}
+$0:enum_phase{values:"P0|P1|P2|P3|P4|P5"}
+$0:enum_sev{values:"blocking|high|medium|low"}
+RUL:rule{type:attrs,weight:H,focus:rule,desc:"Normative rule",fields:"rule:text|detail:text"}
+CMD:cmd{type:attrs,weight:H,focus:command,desc:"Executable step",fields:"command:text|expect:text"}
+FIX:fix{type:attrs,weight:H,focus:issue,desc:"Adjustment item; sev is blocking, high, medium or low",fields:"issue:text|action:text|accept:text|evidence:text|sev:atom"}
+GATE:gate{type:attrs,weight:H,focus:criterion,desc:"Gate",fields:"criterion:text|evidence:text"}
+MET:metric{type:attrs,weight:H,focus:definition,desc:"Metric",fields:"definition:text|unit:atom|formula:text?"}
+RSK:risk{type:attrs,weight:M,focus:threat,desc:"Threat",fields:"threat:text|control:text"}
+PRC:step{type:attrs-pos,weight:H,focus:action,desc:"Procedure step",pos:"action:text|expect:text|phase:atom"}
+ART:artifact{type:attrs,weight:M,focus:path,desc:"Artifact",fields:"path:text|content:text"}
+TMPL:template{type:bloque,weight:M,desc:"Template"}
+TXT:note{type:cuerpo,weight:M,desc:"Rationale"}
+$1: MISSION:CORE
+TXT:mission{
+Remediation and completion package for the CODEC-CORTEX 1.0.1 benchmark.
+An autonomous agent reads this canonical CORTEX document and executes the fixes,
+completes the untested model phases, and hardens operations until every acceptance
+criterion is met with sealed, durable, hash-traceable evidence. Author in canonical
+CORTEX; render HCORTEX only via the toolchain; never hand-write HCORTEX layout.
+}
+RUL:objective{rule:"Achieve 100% of the pre-registered acceptance criteria: all gates G1-G6 green, zero silent content loss, zero dropped failures, every claim hash-traceable, reproducible offline.",detail:"100% is a verifiable checklist target, not an absolute promise of model performance or a general claim that CORTEX is better. No claim without a metric, interval, conditions, artifact and hash."}
+RUL:autonomy{rule:"The agent may choose models, questions and corpus only during pre-registration, never after seeing results. Freeze order: prereg -> runs -> analysis -> report.",detail:"A new question or a changed expectation is a NEW run with a new preregistration; never rename or relax a hypothesis post-hoc. Exploratory metrics must be labeled exploratory."}
+RUL:owner_control{rule:"The owner approves before: any model spend (cost cap), publishing results, opening upstream PRs, and any destructive or irreversible operation.",detail:"Credentials are always owner-provided in the connection config; never embed secrets in sealed artifacts or reports; exclude secrets from the seal. The agent acts with maximum autonomy inside these gates."}
+RUL:safety{rule:"Use an allowlist of commands; isolated venv; pinned versions; no network during measurement; bounded logs; explicit loop exit conditions.",detail:"Never run an infinite unbounded console loop. Tee full logs to a rotated file; print only summaries/heartbeats to console (e.g., Jenkins)."}
+RUL:evidence{rule:"Every claim line carries metric, estimate, CI, n, artifact path and sha256. The seal must verify. Negative results get the same prominence as confirmed ones.",detail:"A benchmark that cannot fail is marketing. Report failed attempts in the denominator; never drop them silently."}
+$2: BASELINE:DATA
+TXT:baseline{
+Starting state from run 20261115T000000Z-cortex101-p1 (deterministic phase, sealed, 229 files, seal PASS).
+H1 fidelity CONFIRMED 1.000 [0.862,1.000] n=24.
+H2 determinism CONFIRMED 1.000 [0.862,1.000] n=24 R=5.
+H3 density CONFIRMED median paired diff cortex-json -20.094 [-60.091,-19.432] tokens/fact; cortex 11.945 vs json 32.084; pre-BPE proxy tokenizer.
+H4 comprehension UNTESTED. H5 generation UNTESTED (no declared model API).
+H6 error precision FALSIFIED 0.727 [0.434,0.903] n=11 (B08->G015, B09->L010, B11->S003).
+H7 tamper file-sha256 CONFIRMED 1.000; canonical-hash FALSIFIED 0.979 (94/96; formatting-only tamper invisible to AST hash by design).
+Silent-acceptance DEFECT: 3/4 non-canonical layouts accepted with 0 diagnostics and total content loss (as-received package compiled to 0/70 ideas).
+Conformance DEFECT: wheel ships no corpus; verdict error, total 0.
+prereg sha256 974bd7b13519a667a30286a72b0fb091d266772f5450d49c854594277468e6e6.
+corpus seal sha256 281cd7005951bf47f327845f2343f22985d4ef932499cf8f3c9c345063e2c724.
+report.md sha256 a1d757a14a8fc4823a930bd40b2233593014b4f9970e2255472a1d9914905c9b.
+}
+ART:baseline_run{path:"runs/20261115T000000Z-cortex101-p1",content:"manifest.json, prereg.yaml, corpus/, baselines/, metrics/, stats.json, report.md, SHA256SUMS, tools/repro_p1.py"}
+$3: FIXES_TOOLCHAIN:CORE
+FIX:f01_silent_acceptance{issue:"HCORTEX 1.0.1 compiler accepts non-canonical layouts and silently drops ALL content with zero diagnostics; loss-report still says reversible=true (as-received package -> 0/70 ideas).",action:"Implement a precompile guard validator (layout + content coverage); require a specific diagnostic for any unrecognized non-whitespace content inside schema blocks; file an upstream issue with repro vectors C01-C04. Never trust compile success alone.",accept:"silent_acceptance_rate=0 on C-vectors; coverage=1.0 or declared losses for every accepted document; upstream issue filed with sealed repro hashes.",evidence:"metrics/silent_audit.json + guard report + upstream issue link",sev:blocking}
+FIX:f02_loss_report_scope{issue:"loss-report measures only the render direction of what was parsed; it reports reversible=true even after compile-side content loss.",action:"Add compile-side coverage accounting: source ideas/facts vs compiled ideas/facts; the guard computes coverage; gate on loss-report AND coverage jointly. Upstream: loss-report should include compile losses.",accept:"coverage metric computed for every document; a clean loss-report with coverage<1.0 is treated as a defect, not a pass.",evidence:"metrics/coverage.json + guard report",sev:blocking}
+FIX:f03_conformance_packaging{issue:"python -m codec_cortex conformance returns verdict error, total 0 because the wheel ships no conformance/slots corpus.",action:"Upstream: include the conformance corpus in the wheel/sdist. Interim: build a local manifest from the sealed corpus and run the harness against it (declared deviation, not the shipped-corpus claim).",accept:"conformance runs with total>0 and zero failures on the local sealed corpus; upstream issue filed; deviation documented in report.",evidence:"metrics/conformance.txt + local manifest",sev:high}
+FIX:f04_error_precision{issue:"H6 falsified 0.727: B08 emitted G015 (expected S005), B09 emitted L010 (expected S006), B11 emitted S003 (expected L001); L010 was absent from the scanned catalog.",action:"Audit catalog completeness (document every emitted code). Then EITHER fix parser precedence upstream OR open a NEW preregistration with corrected frozen vector expectations. Never rename H6 post-hoc.",accept:"new run error_code_precision=1.0 on frozen vectors; catalog documents all emitted codes; both the original falsified result and the new result are reported.",evidence:"metrics/errors.json + new prereg.yaml + catalog audit",sev:high}
+FIX:f05_dual_hash_audit{issue:"Canonical hash is AST-level: 2/96 one-byte formatting tampers were invisible to it (by design). File-level sha256 detected 96/96.",action:"Seal FILE bytes (SHA256SUMS) as the primary audit channel; record canonical hash as secondary in the manifest; document AST-level semantics so consumers do not over-trust the canonical hash.",accept:"tamper_detection(file)=1.0; canonical-channel expectation explicitly declared in prereg; manifest carries both hashes per artifact.",evidence:"SHA256SUMS + manifest.json + report threats section",sev:medium}
+$4: FIXES_ARTIFACTS:CORE
+FIX:f06_canonical_by_render{issue:"The as-received .hcortex.md is non-canonical for 1.0.1 (bare section heads, no blank line before schema marker, vertical-cell tables, idea heads without ###).",action:"Never hand-write HCORTEX. Author canonical CORTEX and render via to-hcortex so layout is canonical by construction. Keep the as-received file only as an adversarial vector. Normalize existing sources via declared transforms T1/T2/T3/T3b.",accept:"every distributed .hcortex.md is renderer output; roundtrip equals source canonical form; as-received preserved as a labeled vector.",evidence:"corpus/index.json + metrics/fidelity.json",sev:blocking}
+FIX:f07_guard_validator{issue:"No precompile lint exists to catch layout deviations and content loss before trusting the toolchain.",action:"Implement tools/guard.py: check section layout (## section head + blank line + schema open/close), ### idea heads, single-row Markdown tables, fenced bloque bodies, no column-0 braces inside bodies, ASCII identifiers; compute idea/fact coverage source vs compiled; emit specific codes on deviation.",accept:"guard rejects C01-C04 with specific codes and passes all valid A-docs; coverage=1.0 on A; guard is a blocking gate before any compile result is trusted.",evidence:"tools/guard.py + guard report + metrics/coverage.json",sev:blocking}
+FIX:f08_sealing_protocol{issue:"Ephemeral sandbox resets destroyed run directories during execution; a sealed run must survive beyond the sandbox.",action:"Persist the run directory to owner-controlled durable storage (git commit or tar export) BEFORE publishing; seal then export; re-verify the seal on the durable copy after extract.",accept:"sealed run survives a sandbox reset; sha256sum -c passes on the durable copy; export hash recorded.",evidence:"durable run copy + seal verify log + export sha256",sev:high}
+$5: FIXES_BENCHMARK:FLOW
+FIX:f09_model_phases{issue:"H4 comprehension and H5 generation are UNTESTED; no model-facing benefit is established.",action:"Open a NEW preregistration: >=2 declared model ids and dates (include small models for long-horizon agentic use), 6 formats x 8 questions x R=5, identical prompts verbatim, fixed temperature/top_p, deterministic rubric frozen before runs, one JSON cell per attempt, no silent retries, failures counted in the denominator. If an LLM judge is used, validate it against a human sample and report agreement.",accept:"planned cells = completed + failed; H4/H5 verdicts with paired CIs and Holm correction; cost per cell recorded; raw outputs stored before scoring.",evidence:"cells/ + scores/ + stats.json + prereg.yaml",sev:high}
+FIX:f10_real_bpe{issue:"Density H3 used a pre-BPE proxy tokenizer (cl100k-pretoken-v1); real BPE merges may favor JSON.",action:"Open a NEW preregistration H3b with a real declared tokenizer (e.g., tiktoken cl100k_base and o200k_base for contrast), pre-cached for offline measurement; rerun density; report proxy and real side by side; never mutate the old run.",accept:"H3b verdict with real-BPE CIs; tokenizer id and version in manifest; both runs preserved and sealed.",evidence:"metrics/density_bpe.json + new prereg.yaml",sev:high}
+FIX:f11_stats_reporting{issue:"Ensure the analysis uses only pre-registered statistics and full reporting.",action:"Wilson intervals for rates; paired bootstrap CI of median paired difference; two-sided sign test; Holm correction over the family of p-values; effect sizes; per-repetition data (R=5 not treated as 5 independent questions); n attempted/completed/failed per cell; report follows the 10-section skeleton.",accept:"stats.json cites the hypothesis id per test; report claim table complete with path+sha256 per line.",evidence:"stats.json + report.md",sev:medium}
+FIX:f12_validity_controls{issue:"Contamination, format familiarity, prompt bias and tokenizer shift threaten validity.",action:"Use held-out and zero-shot unfamiliar corpora with provenance and dates; equal information and equal instruction budget across formats; identical prompts and fixed order plus a small prompt-robustness check; declare the tokenizer; state JSON/Markdown familiarity as a limitation, not hidden.",accept:"controls applied and documented in the threats section; asymmetry disclosed; no absolute claims.",evidence:"report.md threats section + corpus provenance",sev:medium}
+$6: FIXES_OPS:FLOW
+FIX:f13_durable_env{issue:"Sandbox ephemerality and version drift undermine reproducibility.",action:"Isolated venv; pin codec-cortex==1.0.1 and dependencies; record OS, CPU, Python, pip and package versions/hashes in manifest.json; no network during measurement; durable storage for sealed runs; single-command offline repro from the sealed corpus.",accept:"manifest complete; third party reproduces P1 offline from the sealed corpus without any model call.",evidence:"manifest.json + tools/repro_p1.py",sev:high}
+FIX:f14_bounded_logs{issue:"Agentic loops (e.g., Jenkins) can grow console logs without bound and run forever.",action:"Tee full logs to a rotated file with a max size; console prints only summaries/heartbeats; define explicit loop exit conditions and a max iteration count; never an infinite unbounded console loop.",accept:"log size bounded and rotated; loop terminates deterministically; CI console stays readable.",evidence:"CI config + log rotation policy + exit-condition spec",sev:medium}
+FIX:f15_credentials_owner{issue:"Model API authentication and secret handling.",action:"Use owner-provided credentials in the connection config; never embed secrets in sealed artifacts or reports; exclude secrets from the seal; run a secret scan before publish; owner approves a cost cap before any model spend.",accept:"no secret present in any sealed file; cost cap enforced and logged; approval recorded.",evidence:"secret scan report + approval record",sev:blocking}
+FIX:f16_economics{issue:"Quantify personal/professional ROI of the ultra-dense context pattern without overclaiming.",action:"Record MET:cost per cell; compute cost-per-fact and projected token savings for agentic loops (density ratio x token price); include a small-model long-horizon drift check; label the savings estimate exploratory until H4/H5 confirm no accuracy loss; state model, corpus, prompt and tokenizer conditions.",accept:"cost table and savings estimate with CIs and explicit conditions; no absolute claim; exploratory label until model phases confirm.",evidence:"metrics/cost.json + report economics section",sev:medium}
+$7: PROTOCOL:FLOW
+PRC:p0_setup|"Install the pinned package in an isolated venv; record manifest.json; run selfcheck and the guard."|"G1: manifest and prereg hashes recorded"|P0
+PRC:p1_freeze|"Build/normalize corpus, baselines and vectors; write prereg.yaml; seal; record hashes in manifest."|"prereg and corpus seals present in manifest"|P0
+PRC:p2_guard|"Run the guard validator on every source; compute coverage; reject silent loss before trusting compile."|"coverage=1.0 or declared losses; silent_acceptance_rate=0"|P1
+PRC:p3_deterministic|"Run fidelity, determinism R=5, density with real BPE, error precision, tamper and latency offline."|"P1 metrics for every corpus document, none missing"|P1
+PRC:p4_models|"After owner cost approval, run H4/H5 cells R=5; store raw output before scoring; count failures."|"planned = completed + failed; cells sealed"|P2
+PRC:p5_analysis|"Compute only pre-registered statistics: Wilson, paired bootstrap, sign test, Holm."|"stats.json cites the hypothesis id per test"|P4
+PRC:p6_report_seal|"Write the 10-section report and claim table with hashes; seal; export to durable storage; verify the seal."|"G5: seal verifies and every claim is traceable"|P4
+PRC:p7_upstream|"File upstream issues (silent acceptance, conformance packaging, error catalog) with sealed repro vectors; owner approves any PR."|"issues filed with hashes; no unapproved publishing"|P5
+$8: COMMANDS:CORE
+CMD:install{command:"python -m pip install codec-cortex==1.0.1",expect:"import succeeds and codec_cortex.__version__ is 1.0.1"}
+CMD:verify_hash{command:"python -m codec_cortex hash <file.cortex>",expect:"prints sha256:64hex; identical across repeated runs (canonical/AST-level hash)"}
+CMD:guard{command:"python tools/guard.py <run-dir>",expect:"coverage=1.0; silent_acceptance_rate=0; specific codes on C-vectors"}
+CMD:selfcheck{command:"python -m codec_cortex loss-report <file.cortex>",expect:"reversible true and losses empty AND guard coverage=1.0; otherwise STOP and report a defect"}
+CMD:render{command:"python -m codec_cortex to-hcortex <file.cortex>",expect:"deterministic canonical HCORTEX; same bytes on every run"}
+CMD:compile{command:"python -m codec_cortex from-hcortex <file.hcortex.md>",expect:"canonical CORTEX; roundtrip equals the source canonical form"}
+CMD:conformance_local{command:"python -m codec_cortex conformance <local-manifest-dir>",expect:"total>0 and zero failures on the local sealed corpus (declared deviation)"}
+CMD:repro{command:"python tools/repro_p1.py <run-dir>",expect:"recomputes P1 rates from the sealed corpus; no model call; no network"}
+CMD:seal_verify{command:"sha256sum -c SHA256SUMS",expect:"all files OK; 0 mismatches"}
+CMD:export{command:"tar czf run.tar.gz <run-dir> && sha256sum run.tar.gz",expect:"durable copy created; seal verifies after extract; export hash recorded"}
+$9: GATES:CORE
+GATE:g1{criterion:"Pre-registration frozen before any model call; hashes in manifest.",evidence:"prereg sha256 committed before the first cell"}
+GATE:g2{criterion:"Deterministic phase complete with results or declared defects.",evidence:"P1 metrics for every corpus document, none missing"}
+GATE:g3{criterion:"Every planned cell accounted for as completed or failed.",evidence:"counts per cell match the matrix; failures reported as failures"}
+GATE:g4{criterion:"Analysis uses only pre-registered tests and corrections.",evidence:"stats.json cites the hypothesis id per test"}
+GATE:g5{criterion:"Every claim cites artifact path and sha256; the seal verifies.",evidence:"sha256sum -c passes; claim table complete"}
+GATE:g6{criterion:"Zero silent loss; coverage=1.0 or declared; guard rejects non-canonical layout.",evidence:"guard report + metrics/coverage.json"}
+$10: METRICS:CORE
+MET:coverage{definition:"Share of source ideas/facts preserved through compile plus guard.",unit:ratio,formula:"preserved / source"}
+MET:silent_acceptance_rate{definition:"Share of non-canonical vectors accepted with zero diagnostics and content loss.",unit:ratio,formula:"silent / vectors"}
+MET:cost{definition:"Total model tokens consumed per cell including prompt and completion; basis for cost-per-fact and savings.",unit:tokens,formula:"sum(prompt, completion)"}
+TXT:metrics_ref{
+fidelity_rate, byte_determinism, token_density, answer_accuracy, generation_validity,
+error_code_precision, tamper_detection and latency are defined exactly as in the baseline
+benchmark package and are reused unchanged. New metrics here are coverage,
+silent_acceptance_rate and cost.
+}
+$11: RISKS:CORE
+RSK:silent_loss{threat:"Toolchain reports a clean self-check while truncating content.",control:"Guard plus coverage gate G6; never trust loss-report alone; require coverage=1.0 or declared losses."}
+RSK:ephemeral{threat:"Sandbox resets destroy run directories.",control:"Durable export plus seal verification; commit before publishing; record export hash."}
+RSK:cost_runaway{threat:"Model loops overspend or run forever.",control:"Owner cost cap; bounded iterations; explicit exit conditions; approval gate before spend."}
+RSK:log_flood{threat:"Infinite loop floods the CI console.",control:"Rotated file logs; console summaries only; max log size; deterministic termination."}
+RSK:secret_leak{threat:"Credentials get sealed or published.",control:"Owner-provided credentials; secret scan before publish; exclude secrets from the seal."}
+RSK:posthoc{threat:"Tuning hypotheses or vectors after seeing results.",control:"Freeze before runs; a new question is a new run; label exploratory metrics."}
+RSK:tokenizer_shift{threat:"Density conclusions shift with the tokenizer.",control:"Declare a real BPE tokenizer; report proxy vs real side by side; state conditions."}
+$12: TEMPLATES:DATA
+TMPL:guard_spec{
+"tool": "tools/guard.py",
+"checks": ["section_layout", "idea_heads", "single_row_tables", "fenced_bloque", "no_col0_braces_in_body", "ascii_identifiers", "content_coverage"],
+"inputs": "source.hcortex.md and compiled canonical CORTEX",
+"outputs": "guard_report.json with per-document codes, source_ideas, compiled_ideas, coverage",
+"pass": "coverage == 1.0 or declared losses; zero silent acceptance",
+"fail": "emit specific code and block; never silently accept"
+}
+TMPL:upstream_issue{
+"title": "<defect summary>",
+"package": "codec-cortex==1.0.1",
+"repro": "minimal vector + exact command",
+"expected": "specific diagnostic / preserved content",
+"actual": "silent loss / wrong code / missing corpus",
+"evidence": "artifact path + sha256",
+"impact": "auditability / reproducibility",
+"owner_approval": "required before filing PR"
+}
+TMPL:cell_schema{
+"run": "<run-id>",
+"cell": "<model>_<format>_<question>_r<k>",
+"model": "<declared-id>",
+"format": "cortex or json or yaml or markdown or xml or plaintext",
+"question": "Q1",
+"attempt": 1,
+"prompt_sha256": "<64 hex>",
+"raw_output": "<verbatim>",
+"valid": true,
+"diagnostics": [],
+"tokens": {"prompt": 0, "completion": 0},
+"latency_ms": 0
+}
+TMPL:acceptance_checklist{
+"g1_prereg_frozen": false,
+"g2_deterministic_complete": false,
+"g3_cells_accounted": false,
+"g4_preregistered_stats": false,
+"g5_seal_and_claims": false,
+"g6_zero_silent_loss": false,
+"coverage_eq_1": false,
+"fidelity_eq_1": false,
+"determinism_eq_1": false,
+"tamper_file_eq_1": false,
+"error_precision_eq_1_frozen": false,
+"h4_h5_verdicts_with_ci": false,
+"real_bpe_density": false,
+"durable_seal_verifies": false,
+"offline_repro_passes": false,
+"no_secrets_sealed": false,
+"cost_cap_enforced": false
+}
+TMPL:report_skeleton{
+AGENT REMEDIATION REPORT - <run-id>
+1. Setup: OS, CPU, Python, package version, tokenizer, model ids and dates.
+2. Preregistration: sha256, matrix, R, rubric, exclusion rules.
+3. Corpus and baselines: sizes, shapes, provenance, seals.
+4. Deterministic properties: fidelity, determinism, density, error precision, tamper, latency, coverage.
+5. Comprehension: accuracy per model and format, paired differences with CIs.
+6. Generation: validity per model and format, failure modes, token cost.
+7. Threats to validity: controls applied and remaining.
+8. Limitations and negative results: failed hypotheses with the same prominence.
+9. Reproduction: exact commands, including the deterministic-only rerun.
+10. Claim table: metric, estimate, CI, n, artifact path, sha256.
+}
+$13: ACCEPTANCE:CORE
+RUL:done_definition{rule:"A fix is done only when its accept criterion is met with sealed evidence and a verifying hash; otherwise its status stays open or blocked.",detail:"Track each FIX f01-f16 against the acceptance_checklist; do not mark done on opinion. Evidence must be reproducible offline."}
+TXT:hundred_percent{
+100% means the full checklist is green with sealed, durable, hash-traceable evidence:
+G1-G6 all pass; coverage=1.0; silent_acceptance_rate=0; fidelity=1.0; determinism=1.0;
+tamper_detection(file)=1.0; error_code_precision=1.0 on frozen vectors; H4/H5 completed with verdicts and CIs;
+real-BPE density reported; every claim carries path+sha256; offline repro passes; durable seal verifies;
+no secrets sealed; cost cap enforced. This is a verifiable definition of done, not a guarantee of model
+performance and not a general claim that CORTEX is better. Conditions (model, corpus, prompt, tokenizer)
+always accompany any claim.
+}
+GATE:final{criterion:"All acceptance criteria met with sealed, durable, hash-traceable evidence and owner approval to publish.",evidence:"acceptance_checklist fully true + seal verify log + offline repro log + owner approval"}

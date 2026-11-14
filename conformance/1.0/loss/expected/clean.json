@@ -1,5 +1,14 @@
 {
   "case": "clean",
+  "coverage": {
+    "complete": false,
+    "operations": [
+      "render"
+    ],
+    "uncovered_operations": [
+      "compile"
+    ]
+  },
   "losses": [],
   "mode": "canonical",
   "operation": "render",

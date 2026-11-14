@@ -20,6 +20,10 @@ Commands:
                             render CORTEX 0.2 to HCORTEX 0.2
     from-hcortex <file>     compile HCORTEX 0.2 back to CORTEX 0.2
     migrate <cmd> <file>    migrate 0.1→0.2, to-1.0 (inspect|plan|apply|verify|rollback)
+    diff <a> <b>            semantic diff: compare canonical forms, not text
+    verify <file> <expect>  verify canonical hash (sha256:<hex>|<hex>|<file>)
+
+Any <file> argument may be '-' to read the source from stdin.
 
 With no arguments, prints this help. The historical behavior of running
 the F3/F4 harness by default is preserved via the `harness` subcommand.
@@ -50,6 +54,8 @@ _CMD_HELP = {
     "from-hcortex": "from-hcortex <file> — compile HCORTEX back to CORTEX canonical; self-validates its output (a compile never emits unparseable source).",
     "migrate": "migrate <cmd> <file> [args] — migrate 0.1→0.2 or to-1.0 (inspect|plan|apply|verify|rollback).",
     "loss-report": "loss-report <file|-> — emit the CORTEX 1.0 declared loss report (canonical JSON, spec §8.2).",
+    "diff": "diff <a> <b> — semantic diff of two CORTEX sources (canonical forms, not text). Exit 0 identical, 1 different, 2 error.",
+    "verify": "verify <file> <expect> — check canonical hash. <expect>: sha256:<hex>, bare <hex>, or another CORTEX file (semantic compare + diff).",
     "help": "help [<cmd>] — show general help or per-command help.",
 }
 
@@ -96,6 +102,10 @@ def main(argv=None):
         return _cmd_migrate(rest)
     elif cmd == "loss-report":
         return _cmd_loss_report(rest)
+    elif cmd == "diff":
+        return _cmd_diff(rest)
+    elif cmd == "verify":
+        return _cmd_verify(rest)
     else:
         print(f"Unknown command: {cmd}", file=sys.stderr)
         print("Run 'cortex help' for usage.", file=sys.stderr)
@@ -103,8 +113,17 @@ def main(argv=None):
 
 
 def _read_source(path):
+    if path == "-":
+        return sys.stdin.read()
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
+
+
+def _canonical_source(path):
+    """Read, parse and canonicalize a CORTEX source ('-' = stdin)."""
+    from codec_cortex.dispatcher import parse_cortex, canonicalize
+    doc = parse_cortex(_read_source(path))
+    return canonicalize(doc)
 
 
 def _cmd_parse(args):
@@ -309,6 +328,77 @@ def _cmd_from_hcortex(args):
     except Exception as e:
         print(f"{type(e).__name__}: {e}", file=sys.stderr)
         return 1
+
+
+def _cmd_diff(args):
+    """Semantic diff: compare canonical forms of two CORTEX sources, not raw text."""
+    import difflib
+    if len(args) != 2:
+        print("Usage: diff <a> <b>", file=sys.stderr)
+        return 2
+    try:
+        canon_a = _canonical_source(args[0])
+        canon_b = _canonical_source(args[1])
+    except Exception as e:
+        print(f"{type(e).__name__}: {e}", file=sys.stderr)
+        return 2
+    if canon_a == canon_b:
+        print("identical")
+        return 0
+    diff = difflib.unified_diff(
+        canon_a.splitlines(), canon_b.splitlines(),
+        fromfile=args[0], tofile=args[1], lineterm="")
+    sys.stdout.write("\n".join(diff) + "\n")
+    return 1
+
+
+def _cmd_verify(args):
+    """Verify a source's canonical hash against an expected sha256 or file."""
+    import re
+    if len(args) != 2:
+        print("Usage: verify <file> <sha256:<hex>|<hex>|<file>>", file=sys.stderr)
+        return 2
+    try:
+        doc_hash = None
+        from codec_cortex.dispatcher import parse_cortex, hash_cortex
+        doc = parse_cortex(_read_source(args[0]))
+        digest = hash_cortex(doc)
+        doc_hash = digest if digest.startswith("sha256:") else f"sha256:{digest}"
+    except Exception as e:
+        print(f"{type(e).__name__}: {e}", file=sys.stderr)
+        return 2
+
+    expected = args[1]
+    if expected.startswith("sha256:") and re.fullmatch(r"[0-9a-fA-F]{64}", expected[7:]):
+        exp_hash = expected.lower()
+    elif re.fullmatch(r"[0-9a-fA-F]{64}", expected):
+        exp_hash = "sha256:" + expected.lower()
+    elif os.path.exists(expected):
+        # File-vs-file: semantic compare + diff on mismatch
+        try:
+            canon_a = _canonical_source(args[0])
+            canon_b = _canonical_source(expected)
+        except Exception as e:
+            print(f"{type(e).__name__}: {e}", file=sys.stderr)
+            return 2
+        if canon_a == canon_b:
+            print(f"{doc_hash} match ({expected})")
+            return 0
+        import difflib
+        diff = difflib.unified_diff(
+            canon_a.splitlines(), canon_b.splitlines(),
+            fromfile=args[0], tofile=expected, lineterm="")
+        sys.stdout.write("\n".join(diff) + "\n")
+        print(f"{doc_hash} MISMATCH ({expected})", file=sys.stderr)
+        return 1
+    else:
+        print(f"verify: cannot resolve expectation {expected!r} "
+              "(expected sha256:<hex>, <hex>, or an existing file)", file=sys.stderr)
+        return 2
+
+    ok = doc_hash.lower() == exp_hash.lower()
+    print(f"{doc_hash} {'match' if ok else 'MISMATCH'} (expected {exp_hash})")
+    return 0 if ok else 1
 
 
 def _ast_to_dict(doc):

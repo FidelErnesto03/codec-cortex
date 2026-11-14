@@ -44,6 +44,7 @@ _SCHEMA_CLOSE_RE = re.compile(r"^<!--\s*/schema:\d+\s*-->$")
 
 
 def render_hcortex_slots(doc: Document, embed_ast: bool = False) -> str:
+    """Render a 0.2/1.0 Document to HCORTEX markdown (canonical, reversible)."""
     from .dispatcher import hash_cortex
     out: List[str] = []
     version = doc.cortex_version if doc.cortex_version in ("0.2", "1.0") else "0.2"
@@ -77,6 +78,7 @@ def render_hcortex_slots(doc: Document, embed_ast: bool = False) -> str:
 
 
 def compile_hcortex_slots(text: str) -> Tuple[Optional[Document], List[dict]]:
+    """Compile HCORTEX markdown (v=0.2/1.0) to a Document; returns (doc, diagnostics)."""
     diags: List[dict] = []
 
     if text.startswith("\ufeff"):
@@ -291,7 +293,7 @@ def _render_scalar(v: Optional[Scalar]) -> str:
     return v.lexeme
 
 
-_IDEA_MARKER_RE = re.compile(r"^### ([!]?(?:\w+::)?[!\w]+):([\w_-]+)\s*$")
+_IDEA_MARKER_RE = re.compile(r"^### ([!]?(?:[a-z][a-z0-9_.-]*::)?[!\w]+):([^\s{}|]+)\s*$")
 
 
 def _fence_mask(lines: List[str]) -> List[bool]:

@@ -1,0 +1,73 @@
+# BLP-009 (T-9.3.1) — Pre-registro run-002 (BORRADOR, NO congelado)
+# -----------------------------------------------------------------------------
+# ESTADO: draft. NO ejecutar celdas con este borrador.
+# Regla: las hipotesis/umbrales NO se ajustan despues de ver resultados (sin tuning post-hoc).
+# Congelar (sealed_at) SOLO con: (a) d1-d4 confirmados, (b) aprobacion explicita del Arquitecto
+# para ejecutar celdas/gastar, (c) corpus y par de modelos declarados.
+# La ejecucion del benchmark es EXTERNA y posterior (fuera de BLP-009 en esta fase).
+#
+# Trazabilidad:
+#   fuente_hardening: Qwen_cortex_20261114_p5jkx65xu.cortex
+#     sha256: ec125b87bb6b707843246f6a65a8baa3b8fd31edc05117d3099a4488f570aa00
+#   fuente_protocolo: run-001-gap-closure.cortex
+#     sha256: fe2a83d8d6e3230eb30a7db64af28055c84bcde4f9ee67ebd4b2dc55c1083453
+#   run-001 sellado e IMMUTABLE (1104 archivos, 320/320 celdas); no se modifica.
+
+blueprint: BLP-009
+cycle: CYCLE-03
+status: draft
+sealed_at: null
+freeze_blocked_on:
+  - d1-d4 confirmados por el Arquitecto
+  - aprobacion explicita para ejecutar celdas/gastar
+  - declaracion de corpus y par de modelos
+
+# --- Decisiones del Arquitecto (2026-11-14) -----------------------------------
+decisions:
+  d1_q8_framing: "a — descriptiva"
+  d2_second_model: "a — modelo unico (aislar efecto formato/dialecto con potencia)"
+  d3_spend: "a — sin gasto (free-tier / tope 0); consumo de celdas DETENIDO"
+  d4_carryover: "a — carryover mecanico declarado y estratificado"
+
+# --- Diseno simetrico --------------------------------------------------------
+design:
+  baseline: "1.0 valido (dialecto 1.0) — corrige confound g01 (run-001 usaba 0.1)"
+  prompts: "simetricos entre brazos; contrato de tokens +-10%"
+  confound_g02: "corregir asimetria de prompt que confunde h5 en run-001"
+  strata:
+    - dialecto: ["1.0"]
+    - formato: [cortex, json, yaml, markdown, plaintext, xml]
+  repetitions_min: 5          # R
+  n_min: 20                   # potencia minima por celda
+  semantic_recall: true       # evaluacion de recall semantico (ausente en run-001)
+  counting: "planned == completed + failed (toda celda contada)"
+  models_2026:
+    - "<pendiente de declarar>"
+  tokenizer: "tiktoken/o200k_base"
+  multiplicity: holm-bonferroni
+  corpus: "<pendiente de declarar; sello SHA256>"
+
+# --- Hipotesis y falsacion (re-testeo bajo simetria) -------------------------
+hypotheses:
+  H3: "CORTEX es determinista (varianza de hash = 0)"
+  H4: "CORTEX+modelo satisface tareas content-addressed que LLM-solo no"
+  H5: "CORTEX >= formatos alternativos en comprension (re-test simetrico; run-001 fue confounded)"
+  H6: "CORTEX reduce tokens/costo (sin tuning post-hoc; run-001 dio 0.727)"
+
+falsation:
+  H5: "no supera a Markdown/alternativas bajo condiciones simetricas"
+  H6: "sin ahorro de tokens/costo"
+
+# --- Presupuesto -------------------------------------------------------------
+budget:
+  max_usd: 0.0                # d3=a: sin gasto en esta fase
+  on_reach: "DETENER (§16)"
+
+# --- Claims y sellado --------------------------------------------------------
+claim_format: "metrica, IC, n, modelo, corpus, prompt, dialecto, ruta, sha256"
+sealing:
+  immutable: true
+  artifacts:
+    - "prereg congelado (sha256)"
+    - "prompts (sha256)"
+    - "resultados por celda + celdas completadas/fallidas"

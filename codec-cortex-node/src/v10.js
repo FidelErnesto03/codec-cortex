@@ -1048,7 +1048,7 @@ function parseIdeas(body, sectionId, lookup) {
   const markers = [];
   for (let i = 0; i < lines.length; i += 1) {
     if (fenced[i]) continue;
-    const m = /^### ([!]?(?:\w+::)?[!\w]+):([\p{L}\p{N}_-]+)\s*$/u.exec(lines[i]);
+    const m = /^### ([!]?(?:[a-z][a-z0-9_.-]*::)?[!\w]+):([^\s{}|]+)\s*$/u.exec(lines[i]);
     if (m) markers.push({ line: i, qualified: m[1], name: m[2] });
   }
   const ideas = [];

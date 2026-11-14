@@ -2,10 +2,10 @@
   "blueprint": "BLP-003",
   "level": "A",
   "tool": {
-    "codec_cortex": "1.0.1",
+    "codec_cortex": "1.0.2-rc.1",
     "python": "3.12.11"
   },
-  "instrument_sha256": "767c7ed423a0fc8d33ca0523b9eebc8a1c212bd2726008bf6ab8580d2a77cde7",
+  "instrument_sha256": "3be1744ab95b735d2f8e4c2382e4d30a9e8a9371bdd733afc5361e55bf9ddb02",
   "certifier_sha256": "ecb028746474bb2ecdd4c83f0628046261eb9331d7fcc58e5d8e42e3148f6c8b",
   "seed": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
   "indicators": [
