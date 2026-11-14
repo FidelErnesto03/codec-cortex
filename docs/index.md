@@ -20,12 +20,11 @@ Codec ideático reversible entre IA y humanos. Dialectos: **CORTEX 0.1** y **COR
 - [Gramatica 1.0](grammar/cortex-1.0.ebnf) + [AST schema](schemas/ast-schema-1.0.json)
 - [Vectores 1.0](../conformance/1.0/) — corpus normativo
 
-- [CORTEX-SPEC-0.1.md](standard/CORTEX-SPEC-0.1.md) — Formato CORTEX 0.1 completo
-- [CORTEX-SPEC-SLOTS.md](standard/CORTEX-SPEC-SLOTS.md) — CORTEX 0.2 (SLOTS)
-- [hcortex-0.1.md](standard/hcortex-0.1.md) — HCORTEX con 5 esquemas emparejados
-- [hcortex-slots.md](standard/hcortex-slots.md) — HCORTEX 0.2
-- [C14N-0.1.md](standard/C14N-0.1.md) — Canonicalización (hash determinista)
-- [C14N-SLOTS.md](standard/C14N-SLOTS.md) — Canonicalización 0.2
+### Histórico (superseded 2026-11-14)
+
+Las especificaciones 0.1/0.2, HCORTEX 0.x, C14N 0.x y los glosarios previos viven
+archivadas como evidencia en [archive/2026-11/standard-0x/](../archive/2026-11/standard-0x/).
+No son autoridad normativa: el canon vigente es `standard/CORTEX-SPEC-1.0.md`.
 
 ## Authoring (creación de contenido)
 

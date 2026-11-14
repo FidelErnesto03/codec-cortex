@@ -1,3 +1,5 @@
+> **SUPERSEDED (archivado 2026-11-14)** — La referencia normativa vigente es `docs/standard/CORTEX-SPEC-1.0.md`. Documento conservado como evidencia histórica: no es autoridad normativa ni dependencia de runtime (ver `archive/2026-11/README.md`).
+
 # CORTEX Draft 0.1 — Modelo ideático y gramática
 
 **Document ID:** `CORTEX-SPEC-0.1-DRAFT-REAL-001`  

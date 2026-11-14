@@ -1,1 +1,0 @@
-../standard/hcortex-slots.md

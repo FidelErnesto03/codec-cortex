@@ -19,6 +19,8 @@ Integridad del archivo: [`SHA256SUMS`](SHA256SUMS) (sello propio de este ciclo).
 | `tools-legacy/` | `tools/` | Validadores de fase 2/3/4, `cortex_rev`, `hcortex_oracle`, `hcortex_transformer.py.legacy` — supersedidos por `conformance/`, `scripts/ccx_probes.py` y `bench/certify.py`. |
 | `docs-review/` | `docs/review/` | Reportes de gates F2/F3/F4 y notas de cierre de fase — historial de revisión fechado. |
 | `rev-report.json` | `./rev-report.json` | Artefacto generado (reporte F3/F4) de ejecución antigua. Regenerable. |
+| `standard-0x/` | `docs/standard/*` y `docs/spec/` | Especificaciones 0.1/0.2 (CORTEX, C14N, HCORTEX, glosarios, errores) superseded por `CORTEX-SPEC-1.0.md` (BLP-004 T-4.1, 2026-11-14). Cada archivo lleva cabecera `SUPERSEDED`. |
+| `docs/spec/` (retirado) | `docs/spec/` | No era un duplicado byte-exacto: era una capa de alias por symlinks a `docs/standard/`. Se retiró para que exista una sola ruta normativa; sus destinos siguen vivos en `docs/standard/`. |
 
 ## Reglas del archivo
 
@@ -32,3 +34,9 @@ Integridad del archivo: [`SHA256SUMS`](SHA256SUMS) (sello propio de este ciclo).
    dependencia. El resto de referencias vivas al archivo es un bug.
 3. Próximos ciclos de archivo: `archive/YYYY-MM/` con su propio
    `SHA256SUMS` y `README.md`.
+4. Los documentos históricos que permanecen fuera del archivo
+   (`docs/DIALECT-1.0-RELEVAMIENTO.md`, `docs/EXTERNAL-REVIEW-*`,
+   `docs/standard/REV-*`, `F3/F4-CHARTER`, `CHANGELOG.md`) conservan sus
+   enlaces originales a `docs/standard/<spec 0.x>`: son registro fechado y no
+   se reescriben. Si un enlace no resuelve, el destino real está en
+   `archive/2026-11/standard-0x/`.

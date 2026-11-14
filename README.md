@@ -68,12 +68,12 @@ deriva entre corridas.
 
 ## Documentación
 
+- **[docs/standard/CORTEX-SPEC-1.0.md](docs/standard/CORTEX-SPEC-1.0.md)** — canon normativo (referencia única)
+- [docs/standard/errors-1.0.md](docs/standard/errors-1.0.md) — catálogo de errores cerrado (código ↔ emisor ↔ superficie)
+- [docs/grammar/cortex-1.0.ebnf](docs/grammar/cortex-1.0.ebnf) + [AST schema](docs/schemas/ast-schema-1.0.json) — gramática y esquema
+- [conformance/1.0/](conformance/1.0/) — vectores normativos y corpus sellado
 - [docs/parser-api.md](docs/parser-api.md) — API del parser Python (instalación, uso, ejemplos)
-- [docs/standard/CORTEX-SPEC-0.1.md](docs/standard/CORTEX-SPEC-0.1.md) — Especificación CORTEX 0.1
-- [docs/standard/CORTEX-SPEC-SLOTS.md](docs/standard/CORTEX-SPEC-SLOTS.md) — CORTEX 0.2 (SLOTS)
-- [docs/standard/hcortex-0.1.md](docs/standard/hcortex-0.1.md) — HCORTEX 0.1 (5 esquemas emparejados)
-- [docs/standard/hcortex-slots.md](docs/standard/hcortex-slots.md) — HCORTEX 0.2
-- [docs/standard/C14N-0.1.md](docs/standard/C14N-0.1.md) — Canonicalización
+- **Histórico (superseded):** [archive/2026-11/standard-0x/](archive/2026-11/standard-0x/) — specs 0.1/0.2, HCORTEX 0.x, C14N 0.x y glosarios previos
 - **Creación de sigilos:** [docs/authoring/custom-sigils.md](docs/authoring/custom-sigils.md)
 - **Plantillas HCORTEX:** [docs/authoring/hcortex-templates.md](docs/authoring/hcortex-templates.md)
 - **Inicio rápido:** [docs/QUICKSTART.md](docs/QUICKSTART.md)

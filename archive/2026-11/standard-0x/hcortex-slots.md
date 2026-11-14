@@ -1,3 +1,5 @@
+> **SUPERSEDED (archivado 2026-11-14)** — La referencia normativa vigente es `docs/standard/CORTEX-SPEC-1.0.md`. Documento conservado como evidencia histórica: no es autoridad normativa ni dependencia de runtime (ver `archive/2026-11/README.md`).
+
 # HCORTEX 0.2 — Render y compile con slots
 
 **Document ID:** `CORTEX-HCORTEX-0.2-001`

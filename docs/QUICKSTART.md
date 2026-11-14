@@ -88,5 +88,6 @@ print(f'OK — {len(doc.sections)} secciones')
 
 - [docs/authoring/custom-sigils.md](custom-sigils.md) — Creacion avanzada de sigilos
 - [docs/authoring/hcortex-templates.md](hcortex-templates.md) — Plantillas HCORTEX
-- [docs/standard/CORTEX-SPEC-0.1.md](../standard/CORTEX-SPEC-0.1.md) — Especificacion completa
+- [docs/standard/CORTEX-SPEC-1.0.md](../standard/CORTEX-SPEC-1.0.md) — Canon normativo 1.0
+- [archive/2026-11/standard-0x/](../../archive/2026-11/standard-0x/) — Especificaciones 0.1/0.2 archivadas (superseded)
 - [skill/codec-cortex.skill.md](../../skill/codec-cortex.skill.md) — Skill autocontenido
