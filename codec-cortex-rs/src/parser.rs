@@ -121,6 +121,18 @@ pub fn parse_cortex(source: &str) -> Result<Document, ParseError> {
             continue;
         }
 
+        // Grammar: glossary header is '$0' or '$0:<CAPA>'; a title after '$0:' is invalid.
+        if stripped.starts_with("$0:")
+            && stripped.get(3..).map(|rest| rest.starts_with(char::is_whitespace)).unwrap_or(false)
+        {
+            return Err(ParseError::at(
+                "G042_GLOSSARY_HEADER_INVALID",
+                format!("Glossary header must be '$0' or '$0:<CAPA>': '{stripped}'"),
+                line_no,
+                0,
+            ));
+        }
+
         // $N:CAPA — section with capa, no title
         if let Some(caps) = capa_section_re().captures(stripped) {
             let sid: u64 = caps[1].parse().unwrap();

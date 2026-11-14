@@ -112,7 +112,7 @@ function renderGlossaryBlock(doc) {
     const qualified = symbol.namespace ? `${symbol.namespace}::${symbol.sigil}` : symbol.sigil;
     entries.push(`${qualified}:${symbol.label}{${symbol.attrs.map(([key, value]) => `${key}:${value.lexeme}`).join(',')}}`);
   }
-  if (doc.glossary.capa) entries.unshift(`$0:${doc.glossary.capa}`);
+  entries.unshift(doc.glossary.capa ? `$0:${doc.glossary.capa}` : '$0');
   if (!entries.length) return '';
   return `<!-- glossary\n${entries.join('\n')}\n-->`;
 }

@@ -274,6 +274,56 @@ def d6_loss_report_parity(files: list[Path]) -> dict:
     }
 
 
+def d7_dialect_contract() -> dict:
+    """0.1 dialect contract shared by the five surfaces.
+
+    - `$0: <title>` is outside the grammar: every surface rejects it with
+      G042_GLOSSARY_HEADER_INVALID (never silently, never with another code).
+    - A bare `$0` glossary renders as `$0` so the compiler accepts its own output.
+    """
+    surfaces = {
+        "python": [sys.executable, "-m", "codec_cortex", "canonicalize"],
+        "go": ["./codec-cortex-go/bin/codec-cortex-linux-amd64", "canonicalize"],
+        "node": ["node", "codec-cortex-node/bin/codec-cortex-node.js", "canonicalize"],
+        "rust": ["./codec-cortex-rs/target/release/cortex", "canonicalize"],
+        "bash": ["bash", "codec-cortex-bash/bin/codec-cortex", "canonicalize"],
+    }
+    render = {name: cmd[:-1] + ["to-hcortex"] for name, cmd in surfaces.items()}
+    contract_dir = ROOT / "conformance/0.1-contract"
+    title_header = contract_dir / "title_header.cortex"
+    bare_glossary = contract_dir / "bare_glossary.cortex"
+
+    details = []
+    ok = 0
+    total = 0
+    for name, cmd in surfaces.items():
+        total += 1
+        accepted, out = _run_full(cmd + [str(title_header)])
+        entry = {"check": "G042_glossary_header", "surface": name, "pass": not accepted and "G042_GLOSSARY_HEADER_INVALID" in out}
+        if not entry["pass"]:
+            entry["output"] = out[-200:]
+        ok += entry["pass"]
+        details.append(entry)
+
+    for name, cmd in render.items():
+        total += 1
+        good, out = _run_full(cmd + [str(bare_glossary)])
+        entry = {"check": "bare_glossary_render", "surface": name, "pass": good and any(line.strip() == "$0" for line in out.splitlines())}
+        if not entry["pass"]:
+            entry["output"] = out[-200:]
+        ok += entry["pass"]
+        details.append(entry)
+
+    return {
+        "id": "D7_dialect_contract",
+        "pass": ok == total,
+        "ok": ok,
+        "total": total,
+        "surfaces": sorted(surfaces),
+        "details": details,
+    }
+
+
 def d4_lossless(files: list[Path]) -> dict:
     parse_cortex, canonicalize, _ = _api()
     details = []
@@ -344,6 +394,7 @@ def run() -> dict:
         d4_lossless(corpus),
         d5_tamper(SEED),
         d6_loss_report_parity(CORPUS_10),
+        d7_dialect_contract(),
     ]
     all_pass = all(i["pass"] for i in indicators)
     from codec_cortex import __version__ as cc_version
@@ -381,7 +432,7 @@ def main() -> int:
             extra = f" ({ind['ok']}/{ind['total']})"
         elif ind["id"] == "D3_runtime_parity":
             extra = f" (ok={','.join(ind['runtimes_agreeing'])}; degraded={','.join(ind['runtimes_failed']) or '-'})"
-        elif ind["id"] in ("D4_lossless", "D6_loss_report_parity"):
+        elif ind["id"] in ("D4_lossless", "D6_loss_report_parity", "D7_dialect_contract"):
             extra = f" ({ind['ok']}/{ind['total']})"
         print(f"[{mark}] {ind['id']}{extra}")
     print(f"VERDICT: {cert['verdict']}")

@@ -256,6 +256,12 @@ function parseCortex(source) {
       continue;
     }
 
+    // Grammar: glossary header is '$0' or '$0:<CAPA>'; a title after '$0:' is invalid.
+    if (/^\$0:\s+/.test(stripped)) {
+      throw new ParseError('G042_GLOSSARY_HEADER_INVALID',
+        `Glossary header must be '$0' or '$0:<CAPA>': '${stripped}'`, lineNo);
+    }
+
     // $N:CAPA — section with capa but no title (N>=1)
     let mn = /^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$/.exec(stripped);
     if (mn) {

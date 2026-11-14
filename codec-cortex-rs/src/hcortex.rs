@@ -141,9 +141,13 @@ fn render_glossary_block(doc: &Document) -> Option<String> {
         entries.push(format!("$0:{}{{{}}}{}", item.name, render_attrs(&item.attrs), capa_suffix));
     }
     for symbol in &doc.glossary.symbols { entries.push(format!("{}:{}{{{}}}", symbol.qualified(), symbol.label, render_attrs(&symbol.attrs))); }
-    if let Some(capa) = &doc.glossary.capa {
-        entries.insert(0, format!("$0:{capa}"));
-    }
+    let header = doc
+        .glossary
+        .capa
+        .as_ref()
+        .map(|capa| format!("$0:{capa}"))
+        .unwrap_or_else(|| "$0".to_string());
+    entries.insert(0, header);
     if entries.is_empty() { None } else { Some(format!("<!-- glossary\n{}\n-->", entries.join("\n"))) }
 }
 

@@ -4,6 +4,37 @@ Todos los cambios notables del proyecto se documentan aquí. El proyecto sigue
 nombres canónicos sin versión en archivos/esquemas; la versión vive en los
 metadatos de cada superficie y en tags de git.
 
+## [Unreleased] — canon 1.0 (BLP-004, 2026-11-14)
+
+### Añadido — pérdidas declaradas verificables
+
+- `loss-report`: comando nuevo en las cinco superficies (Python, Go, Node,
+  Rust, Bash) que emite el reporte de pérdidas declaradas en JSON canónico,
+  byte-idéntico entre superficies.
+- Catálogo cerrado §8.2: `L402_COMMENT_DROPPED`, `L403_INTRALINE_WHITESPACE`,
+  `L405_OPEN_ATTR_ORDER`; `L499_UNCLASSIFIED_LOSS` como guardia de cierre.
+- Certificado: `D6_loss_report_parity` (75 documentos × 5 superficies) y
+  `D7_dialect_contract` (contrato 0.1 común a las cinco).
+
+### Cambios incompatibles (breaking, documentados)
+
+- **`$0: <título>` deja de ser válido.** La gramática 1.0 define
+  `glossary-header = "$0" | "$0:" capa`; el título se descartaba en silencio y
+  ahora se rechaza con `G042_GLOSSARY_HEADER_INVALID`. Migración: reemplazar la
+  línea por `$0` o `$0:<CAPA>`. Documentos afectados en el repo, conservados
+  intactos por ser corpus de benchmark congelado: `bench/formats/cortex.cortex`
+  y `bench/lokky/corpus-migration/cortex.cortex` (`$0: NEXUSCORP KB:KERNEL`).
+- **Glosario sin capa**: el renderer emite `$0` desnudo. Antes omitía la línea
+  y producía un HCORTEX que su propio compilador rechazaba.
+
+### Corregido
+
+- Node y Rust (dialecto 0.1): `G042` con el código correcto y `$0` desnudo en
+  el render (antes respondían `S005` y omitían la línea). Cubierto por D7.
+- `loss-report` renderiza antes de canonicalizar: C14N muta el AST (expansión
+  de microtokens, orden de atributos) y el hash de destino difería entre
+  superficies.
+
 ## [1.0.0] — 2026-11-01
 
 ### Release 1.0.0 — implementación de referencia

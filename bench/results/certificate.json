@@ -5,8 +5,8 @@
     "codec_cortex": "1.0.0",
     "python": "3.12.11"
   },
-  "instrument_sha256": "dd7831f084b91390170d7e23902d850b1b82ea61cb6708e799eab07818acb8ab",
-  "certifier_sha256": "119c18ce8e2598f7e42fae5c5cf4f0c06230e82cedf819d809a4abff9a442d95",
+  "instrument_sha256": "bda495abacd88f2153e58de23e62d38a201c5607ee470a7a37591809c42c0b70",
+  "certifier_sha256": "ecb028746474bb2ecdd4c83f0628046261eb9331d7fcc58e5d8e42e3148f6c8b",
   "seed": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
   "indicators": [
     {
@@ -4168,6 +4168,71 @@
             "rust"
           ],
           "unclassified": false
+        }
+      ]
+    },
+    {
+      "id": "D7_dialect_contract",
+      "pass": true,
+      "ok": 10,
+      "total": 10,
+      "surfaces": [
+        "bash",
+        "go",
+        "node",
+        "python",
+        "rust"
+      ],
+      "details": [
+        {
+          "check": "G042_glossary_header",
+          "surface": "python",
+          "pass": true
+        },
+        {
+          "check": "G042_glossary_header",
+          "surface": "go",
+          "pass": true
+        },
+        {
+          "check": "G042_glossary_header",
+          "surface": "node",
+          "pass": true
+        },
+        {
+          "check": "G042_glossary_header",
+          "surface": "rust",
+          "pass": true
+        },
+        {
+          "check": "G042_glossary_header",
+          "surface": "bash",
+          "pass": true
+        },
+        {
+          "check": "bare_glossary_render",
+          "surface": "python",
+          "pass": true
+        },
+        {
+          "check": "bare_glossary_render",
+          "surface": "go",
+          "pass": true
+        },
+        {
+          "check": "bare_glossary_render",
+          "surface": "node",
+          "pass": true
+        },
+        {
+          "check": "bare_glossary_render",
+          "surface": "rust",
+          "pass": true
+        },
+        {
+          "check": "bare_glossary_render",
+          "surface": "bash",
+          "pass": true
         }
       ]
     }
