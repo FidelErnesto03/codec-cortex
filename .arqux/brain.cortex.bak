@@ -518,6 +518,14 @@ AUD:E_0305{date:"2026-11-14T16:07:54Z", event:"E-0305", task:"-", kind:"session_
 
 AUD:E_0306{date:"2026-11-14T16:07:54Z", event:"E-0306", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=alfred context_updated=True", evidence:"[identity.switch] from=Alfred to=alfred context_updated=True", ses_ref:"SES004"}
 
+AUD:E_0307{date:"2026-11-14T16:29:18Z", event:"E-0307", task:"-", kind:"session_handoff", agent:"Alfred", result:"[session.handoff] from=Alfred to=heimdall summary=identity switch from Alfred", evidence:"[session.handoff] from=Alfred to=heimdall summary=identity switch from Alfred", ses_ref:"SES004"}
+
+AUD:E_0308{date:"2026-11-14T16:29:18Z", event:"E-0308", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=heimdall context_updated=True", evidence:"[identity.switch] from=Alfred to=heimdall context_updated=True", ses_ref:"SES004"}
+
+AUD:E_0309{date:"2026-11-14T16:31:02Z", event:"E-0309", task:"-", kind:"session_handoff", agent:"Alfred", result:"[session.handoff] from=Alfred to=alfred summary=identity switch from Alfred", evidence:"[session.handoff] from=Alfred to=alfred summary=identity switch from Alfred", ses_ref:"SES004"}
+
+AUD:E_0310{date:"2026-11-14T16:31:02Z", event:"E-0310", task:"-", kind:"identity_switch", agent:"Alfred", result:"[identity.switch] from=Alfred to=alfred context_updated=True", evidence:"[identity.switch] from=Alfred to=alfred context_updated=True", ses_ref:"SES004"}
+
 
 $7: LESSONS:KNOW
 
@@ -528,7 +536,7 @@ LNG:session_E_0100{type:"session", entry_count:99, summary:"artifact:1,blocker:1
 
 $8: ACTIVE_CONTEXT:CACHE
 
-WRK:current{phase:"current", current:"AC-01..AC-09 y AC-11 verificados; regresion y ergonomia ejecutadas; audit.sig 1.6 SIGNED-PASS; faltan AC-10 (push) y AC-12 (ratificacion)", blocked:"no", survive:"work", fcs:"Re-auditoria 1.6 firmada sobre 5ba2a98; certificado D1-D7 PASS y byte-identico; huecos 0.1 de Node/Rust corregidos con D7", obj:"Cerrar BLP-004: push para AC-10 y ratificacion draft-1.0 -> 1.0 del Arquitecto (AC-12)", tasks:"T-3.7..T-3.11, T-4.1, T-4.2, T-5.1 done; commits d44e961, 1569dbd, 634eaa5, ca5dbd2, 4eae129, 5ba2a98, 2d86069", state:"D6 75/75 y D7 10/10; sellos 986/986 y 928/928; ergonomia medida en 217 docs reales (L402 ubicuo, L403 sin ruido); breaking change $0 titulo documentado en CHANGELOG", last_turn:"2026-11-14T13:16:16Z", updated:"2026-11-14T14:55:49Z", event:"task.create"}
+WRK:current{phase:"current", current:"Documentacion y skill refrescados al canon 1.0; audit.sig 1.7 SIGNED-PASS-PARTIAL; faltan AC-10 (push) y AC-12 (ratificacion)", blocked:"no", survive:"work", fcs:"Docs 1.0 completas (README, index, QUICKSTART, LOSS-REPORT, MIGRATION, parser-api, authoring, 4 READMEs de superficie, skill + HCORTEX) y audit 1.7 firmada", obj:"Cerrar BLP-004: push para AC-10 y ratificacion draft-1.0 -> 1.0 (AC-12); opcional: re-ejecucion completa del certificado para pasar 1.7 a SIGNED-PASS", tasks:"commits 1b54337 (docs) y f83c566 (audit 1.7); pendiente T-4.3 remoto y T-5.2", state:"Certificado PASS D1-D7; sellos 986/986 y 928/928; skill valido y lossless; hash de Python alineado a sha256:<hex>; audit 1.7 parcial por cierre de sesion (determinacion ya demostrada 2 veces)", last_turn:"2026-11-14T13:16:16Z", updated:"2026-11-14T14:55:49Z", event:"task.create"}
 
 
 $9: RISKS:CORE
