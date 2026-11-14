@@ -26,6 +26,9 @@ metadatos de cada superficie y en tags de git.
   y `bench/lokky/corpus-migration/cortex.cortex` (`$0: NEXUSCORP KB:KERNEL`).
 - **Glosario sin capa**: el renderer emite `$0` desnudo. Antes omitía la línea
   y producía un HCORTEX que su propio compilador rechazaba.
+- **CLI `hash` de Python**: imprime `sha256:<hex>` como las otras cuatro
+  superficies (antes solo el hex). Los scripts que parseaban el hex desnudo
+  deben quitar el prefijo.
 
 ### Corregido
 
