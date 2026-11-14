@@ -38,6 +38,16 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 |---|---|---|
 | "coexistencia" | "Un documento se declara una sola vez. Version ausente = G010_FORMAT_REQUIRED; version desconocida = G007_UNSUPPORTED_VERSION." | "dispatcher.py _detect_version(). Valores validos: 0.1, 0.2, 1.0." |
 
+### RUL:glossary_header
+| id | rule | detail |
+|---|---|---|
+| "glossary-header" | "Cabecera de glosario = $0 | $0:<CAPA> (KERNEL|CORE|KNOW|DATA|FLOW|CACHE). Un titulo detras de $0: no es gramatica 1.0: G042_GLOSSARY_HEADER_INVALID en las cinco superficies; antes se descartaba en silencio." | "Spec 1.0 + grammar/cortex-1.0.ebnf glossary-header; conformance/0.1-contract." |
+
+### RUL:bare_glossary
+| id | rule | detail |
+|---|---|---|
+| "bare-glossary" | "$0 desnudo es valido y el render DEBE emitirlo cuando el glosario no declara capa; omitirlo produce un HCORTEX que el propio compilador rechaza." | "Spec 1.0 S8.3. Indicador D7_dialect_contract." |
+
 ### RUL:linea_idea
 | id | rule | detail |
 |---|---|---|
@@ -291,7 +301,12 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:loss
 | id | rule | detail |
 |---|---|---|
-| "loss-catalog" | "Perdidas declaradas (cerradas): L401 fence bloque, L402 comentarios fuera de glosario, L403 whitespace intralinea, L404 CAPA ausente, L405 orden attrs open. loss-report conforme a schema." | "Spec 1.0 S8.2 + errors-1.0.md." |
+| "loss-catalog" | "Perdidas declaradas (catalogo cerrado S8.2): L402_COMMENT_DROPPED (linea # fuera de cuerpo/bloque), L403_INTRALINE_WHITESPACE (tab, espacio final o 2+ espacios fuera de literales), L405_OPEN_ATTR_ORDER (idea de sigilo open:true con orden distinto de contrato+extras). Guardia L499_UNCLASSIFIED_LOSS: divergencia sin clase, exit 1. L401 (fence) y L404 (CAPA ausente) retirados en S8.3 con evidencia." | "Spec 1.0 S8.2-S8.3 + errors-1.0.md + docs/LOSS-REPORT.md." |
+
+### RUL:loss_uso
+| id | rule | detail |
+|---|---|---|
+| "loss-uso" | "loss-report dice la verdad documento a documento, pero NO es metrica de calidad: L402 es ubicuo en documentos de gobierno. La compuerta es D4/D6 (reversibilidad y paridad), no el conteo de L402." | "Medicion 2026-11-14 sobre 217 docs 1.0: L402 3447, L405 342, L403 1." |
 
 <!-- /schema:4 -->
 
@@ -403,6 +418,11 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 |---|---|---|---|---|
 | "migrate_apply" | "migrate_apply(plan_path, out_path=None) -> dict" | p | c | "Migracion transaccional 0.1->0.2 atomica." |
 
+### API:build_loss_report
+| name | signature | version | status | notes |
+|---|---|---|---|---|
+| "build_loss_report" | "build_loss_report(source: str, case: str) -> dict" | p | c | "Reporte de perdidas declaradas; dumps_canonical() lo serializa estable. Requiere cortex:1.0. Renderiza ANTES de canonicalizar (C14N muta el AST)." |
+
 <!-- /schema:7 -->
 
 ## §8: CLI
@@ -453,6 +473,11 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 |---|---|---|
 | "migrate <cmd> <file> [args]" | current | "inspect|plan|apply|verify|rollback|to-1.0" |
 
+### HDL:lossreport
+| operation | status | scope |
+|---|---|---|
+| "loss-report <file>" | current | "Perdidas declaradas en JSON canonico; acepta stdin con guion; exit 0 reporte, 1 L499/parse, 2 uso; byte-identico en las 5 superficies (D6)" |
+
 <!-- /schema:8 -->
 
 ## §9: ERRORES
@@ -461,17 +486,17 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:err_familias
 | id | rule | detail |
 |---|---|---|
-| "err-familias" | "Familias: L lexico, S sintaxis, G glosario, I idea, X extension, U unicode, H hcortex, L4xx perdida declarada. Catalogo cerrado 1.0: codigo con emisor en >=1 superficie o reserved." | "errors-1.0.md: mapa mecanico 83 codigos x 5 superficies." |
+| "err-familias" | "Familias: L lexico, S sintaxis, G glosario, I idea, X extension, U unicode, H hcortex, L4xx perdida declarada. Catalogo cerrado 1.0: codigo con emisor en >=1 superficie o reserved (verificable con scripts/ccx_error_catalog.py)." | "errors-1.0.md: mapa mecanico 103 codigos x 5 superficies." |
 
 ### RUL:superficies
 | id | rule | detail |
 |---|---|---|
-| "superficies" | "Paridad alcanzada: U003, I010, G026, orden canonico de attrs e I002 emiten en las 5 superficies (verificado vector a vector, hashes identicos). HCORTEX compilers auto-validan su salida en las 5 superficies. Caveat: la suite de oraculo Rust necesita fixtures externos (/tmp/oracle)." | "E-0211/E-0212/E-0224 cerrados 2026-11-04. Escribir doc portable = ceñirse a lo declarado en spec." |
+| "superficies" | "Paridad alcanzada: U003, I010, G026, G042, orden canonico de attrs e I002 emiten en las 5 superficies (verificado vector a vector, hashes identicos). HCORTEX compilers auto-validan su salida en las 5 superficies; loss-report es byte-identico (D6). Caveat: v10_oracle_parity salta si falta /tmp/oracle (fixture efimero por diseno)." | "E-0211/E-0212/E-0224 y contrato 0.1 cerrados 2026-11-14. Escribir doc portable = ceñirse a lo declarado en spec." |
 
 ### RUL:err_g
 | id | rule | detail |
 |---|---|---|
-| "err-g" | "G001,G002,G004,G006,G007,G008,G010,G011,G012,G014,G015,G016,G017,G018,G019,G020,G021,G022,G023,G024,G025,G026,G027; slots: G030,G031,G032,G033,G034,G035,G036,G037,G038,G039,G040,G041." | "errors-1.0.md." |
+| "err-g" | "G001,G002,G004,G006,G007,G008,G010,G011,G012,G014,G015,G016,G017,G018,G019,G020,G021,G022,G023,G024,G025,G026,G027,G042; slots: G030,G031,G032,G033,G034,G035,G036,G037,G038,G039,G040,G041." | "errors-1.0.md." |
 
 ### RUL:err_i
 | id | rule | detail |
@@ -481,7 +506,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:err_h
 | id | rule | detail |
 |---|---|---|
-| "err-h" | "H400-H404 doc 0.1, H410-H472 por capa, H401/H403/H481/H490 en 0.2. Perdidas: L401-L405." | "slothcortex.py + spec S8.2." |
+| "err-h" | "H400-H404 doc 0.1, H410-H472 por capa, H401/H403/H481/H490 en 0.2/1.0. Perdidas declaradas: ver RUL:loss (L402/L403/L405 + L499)." | "slothcortex.py + spec S8.2-S8.3." |
 
 ### RUL:err_recuperacion
 | id | rule | detail |
@@ -491,7 +516,7 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### RUL:err_fix_lexico
 | id | rule | detail |
 |---|---|---|
-| "err-fix-lexico" | "L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; U003 identificador no-ASCII -> ASCII imprimible en nombre/clave/label/declaracion (el contenido sigue Unicode); L401-L405 perdidas declaradas -> registrar loss-report conforme a schema." | "errors-1.0.md." |
+| "err-fix-lexico" | "L010 atom invalido -> quote el valor; L020-L024 marker/slot-index -> usar ※ U+203B y digitos 1-9 sin ceros iniciales; U003 identificador no-ASCII -> ASCII imprimible en nombre/clave/label/declaracion (el contenido sigue Unicode); G042 cabecera de glosario -> usar $0 o $0:<CAPA>; L402/L403/L405 perdidas declaradas -> declararlas con loss-report; L499 -> bug de superficie, no se arregla editando el documento." | "errors-1.0.md + docs/MIGRATION-1.0.md." |
 
 ### RUL:err_fix_sintaxis
 | id | rule | detail |
@@ -576,32 +601,42 @@ TST:test{type:attrs,weight:M,fields:"id:text|command:text|result:atom|scope:text
 ### TST:certificate
 | id | command | result | scope |
 |---|---|---|---|
-| "level-A" | "PYTHONPATH=. python bench/certify.py" | pass | "D1 140/140, D2 140/140, D3 5/5, D4 140/140, D5 pass" |
+| "level-A" | "PYTHONPATH=. python bench/certify.py" | pass | "D1 141/141, D2 141/141, D2b 70/70, D3 5/5, D3b 101/101, D4 141/141, D5 pass, D6 75/75, D7 10/10" |
 
 ### TST:node
 | id | command | result | scope |
 |---|---|---|---|
-| "node-tests" | "node --test codec-cortex-node/test/*.test.js" | pass | "Paridad Node.js 24/24" |
+| "node-tests" | "cd codec-cortex-node && node --test" | pass | "Paridad Node.js 32/32 (core, slots, 1.0, harness, loss-report)" |
 
 ### TST:go
 | id | command | result | scope |
 |---|---|---|---|
-| "go-tests" | "cd codec-cortex-go && go test ./..." | pass | "Paridad Go: U003/G014/G026/I010/I002, hash, self-validation; dist 1.0.0-go en 5 plataformas" |
+| "go-tests" | "cd codec-cortex-go && go test ./..." | pass | "Paridad Go: U003/G014/G026/I010/I002/G042, hash, self-validation, loss-report; dist 1.0.0-go en 5 plataformas" |
 
 ### TST:bash
 | id | command | result | scope |
 |---|---|---|---|
-| "bash-tests" | "cd codec-cortex-bash && bash tests/self-test.sh && bash tests/self-test-slots.sh" | pass | "Paridad Bash: gate F3 40/40 + idempotencia, MANIFEST 120 entradas" |
+| "bash-tests" | "cd codec-cortex-bash && bash tests/self-test-slots.sh && bash tests/self-test-loss-report.sh" | pass | "Slots 40/40 + loss-report 6/6 (paridad con expected y G042)" |
 
 ### TST:rust
 | id | command | result | scope |
 |---|---|---|---|
-| "rust-tests" | "cd codec-cortex-rs && cargo test" | pass | "Paridad Rust vectores CLI; suite v10_oracle_parity requiere fixtures /tmp/oracle (ambiental)" |
+| "rust-tests" | "cd codec-cortex-rs && cargo test" | pass | "19 lib + 3 + 4 + 9 + 10 verdes; v10_oracle_parity salta si falta /tmp/oracle" |
 
 ### TST:vectors_1_0
 | id | command | result | scope |
 |---|---|---|---|
-| "vectors-1.0" | "parse corpus conformance/1.0" | pass | "70 valid + 2 invalid (I012, G007)" |
+| "vectors-1.0" | "parse corpus conformance/1.0" | pass | "70 valid + invalidos (I012, G007); contrato 0.1 en conformance/0.1-contract" |
+
+### TST:catalog
+| id | command | result | scope |
+|---|---|---|---|
+| "error-catalog" | "python scripts/ccx_error_catalog.py" | pass | "Catalogo cerrado: 103 codigos = emitidos en 5 superficies union reservados" |
+
+### TST:audit
+| id | command | result | scope |
+|---|---|---|---|
+| "independent-audit" | "python bench/verify_audit.py" | pass | "audit.sig 1.6 SIGNED-PASS sobre el certificado, verificable por recomputo" |
 
 ### RUL:evidencia
 | id | rule | detail |

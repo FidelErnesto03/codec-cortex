@@ -1,10 +1,13 @@
 # codec-cortex-node
 
-Implementación **Node.js sin dependencias externas** funcionalmente equivalente a la referencia Python suministrada para:
+Implementación **Node.js sin dependencias externas**, funcionalmente equivalente
+a la referencia Python para el canon **CORTEX 1.0** (`0.1` y `0.2` legibles como
+alias):
 
-- CORTEX 0.1: modelo AST, escalares y parser.
-- C14N-0.1: canonicalización determinista e idempotente.
-- HCORTEX-0.1: render canónico y compilación inversa mediante esquemas pareados.
+- CORTEX 1.0: modelo AST, escalares, parser y eje de slots.
+- C14N-1.0: canonicalización determinista e idempotente.
+- HCORTEX-1.0: render canónico y compilación inversa mediante esquemas pareados.
+- `loss-report`: pérdidas declaradas en JSON canónico (catálogo §8.2).
 - Gates F3/F4: arnés de corpus, hashes, roundtrip y reportes de conformidad.
 
 La implementación conserva los nombres públicos originales en `snake_case` y también ofrece alias idiomáticos en `camelCase`.
@@ -37,6 +40,7 @@ codec-cortex-node canonicalize archivo.cortex -o canonical.cortex
 codec-cortex-node to-hcortex archivo.cortex -o archivo.md
 codec-cortex-node from-hcortex archivo.md -o reconstruido.cortex
 codec-cortex-node hash archivo.cortex
+codec-cortex-node loss-report archivo.cortex
 codec-cortex-node test RUTA_C14N RUTA_HCORTEX --report rev-report-node.json
 ```
 
@@ -80,17 +84,32 @@ const {
 } = require('codec-cortex-node');
 ```
 
+Superficie 1.0 y pérdidas declaradas:
+
+```js
+const { parseV10, canonicalizeV10, renderHCORTEX10, compileHCORTEX10 } = require('codec-cortex-node/src/v10');
+const { buildLossReport, dumpsCanonical, lossCaseName } = require('codec-cortex-node/src/lossreport');
+
+const report = buildLossReport(source, lossCaseName('doc.cortex'));
+process.stdout.write(dumpsCanonical(report));  // JSON canónico, bytes estables
+```
+
 ## Módulos
 
 ```text
-src/scalars.js   Scalar, ParseError, cursor, strings, listas y attrs
-src/parser.js    AST y parser CORTEX 0.1
-src/c14n.js      C14N-0.1
-src/hcortex.js   renderer y compiler HCORTEX-0.1
-src/harness.js   gates F3/F4 y reporte
-src/index.js     API pública agregada
-bin/             CLI
-examples/        caso integral y salidas golden verificadas
+src/scalars.js     Scalar, ParseError, cursor, strings, listas y attrs
+src/parser.js      AST y parser CORTEX 0.1
+src/c14n.js        C14N-0.1
+src/hcortex.js     renderer y compiler HCORTEX-0.1
+src/v10.js         parser, C14N, render y compile de 0.2/1.0 (slots)
+src/slotparser.js  parser del eje slots
+src/slotc14n.js    canonicalización de 0.2/1.0
+src/slotmigrate.js migración 0.1 → 0.2/1.0
+src/lossreport.js  pérdidas declaradas (loss-report 1.0)
+src/harness.js     gates F3/F4 y reporte
+src/index.js       API pública agregada
+bin/               CLI
+examples/          caso integral y salidas golden verificadas
 ```
 
 ## Compatibilidad observada
@@ -104,13 +123,14 @@ La validación incluida compara resultados de referencia en:
 - string, atom, integer, decimal, boolean, null y list;
 - expansión de microtokens;
 - render y compilación HCORTEX;
-- diagnósticos y códigos de error;
-- hash con dominio `CORTEX-C14N-0.1`.
+- diagnósticos y códigos de error (incluido `G042_GLOSSARY_HEADER_INVALID`);
+- hash con dominio separado por versión;
+- paridad byte-exacta de `loss-report` con las otras cuatro superficies.
 
 ## Pruebas
 
 ```bash
-npm test
+npm test          # node --test: 32/32 (core, slots, 1.0, harness, loss-report)
 npm run lint
 ```
 

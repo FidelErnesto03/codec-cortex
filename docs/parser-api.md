@@ -1,123 +1,170 @@
-# Codec-CORTEX — API del Parser Python
+# API Python y referencia de CLI
 
-Guía de uso para desarrolladores. El paquete `codec-cortex` se instala desde PyPI.
+Guía para desarrolladores: modelo de datos, módulos públicos y comandos de las
+cinco superficies. El paquete se instala desde PyPI.
 
 ---
 
 ## Instalación
 
 ```bash
-pip install codec-cortex
+pip install codec-cortex        # Python 3.10+, sin dependencias externas
 ```
 
-Requiere Python 3.10+. Sin dependencias externas.
+## Modelo de datos
+
+```python
+Document(
+    cortex_version: str,        # "0.1" | "0.2" | "1.0"
+    encoding: str,
+    glossary: Glossary,
+    sections: list[Section],
+)
+
+Glossary(
+    capa: str | None,           # KERNEL|CORE|KNOW|DATA|FLOW|CACHE o None
+    format: FormatDecl | None,  # $0:format
+    meta, enums, micros, namespaces, extensions,
+    symbols: list[SymbolDef],
+)
+
+Section(id: int, title: str | None, ideas: list[Idea], capa: str | None)
+
+Idea(
+    section: int,
+    namespace: str | None,
+    symbol: str,                # sigilo
+    name: str,
+    shape: str,                 # attrs|attrs-pos|relacion|cuerpo|bloque|slots
+    payload: tuple,             # ("attrs", [(k, Scalar)]) | (shape, [Scalar])
+                                # | (shape, str) | ("slots", [FieldValue])
+    source_line: int,
+)
+
+Scalar(kind, value, lexeme)     # kind: string|atom|integer|decimal|boolean|null|list
+SymbolDef(sigil, label, shape, weight, focus, desc, open, contract, attrs, encoding)
+ContractField(name, type, required, position)
+```
 
 ## Módulos públicos
 
-### `codec_cortex.parser` — Parseo de CORTEX
+### `codec_cortex.dispatcher` — punto de entrada único
 
 ```python
-from codec_cortex.parser import parse_cortex
+from codec_cortex import parse_cortex, canonicalize, hash_cortex
 
-doc = parse_cortex(texto_cortex)
-# doc es un objeto Document con:
-#   doc.format       → metadatos (version, encoding, language, type)
-#   doc.sections     → lista de Section
-#   doc.glossary     → glosario de sigilos declarados
-#
-# Cada Section tiene:
-#   section.title    → string (ej. "OBJETIVOS" o "")
-#   section.id      → int (1, 2, 3...)
-#   section.ideas   → lista de Idea
-#
-# Cada Idea tiene:
-#   idea.line        → str con la linea completa
-#   idea.section_id  → int
-#   idea.is_valid    → bool
+doc = parse_cortex(source)      # enruta por $0:format{cortex:X}
+canon = canonicalize(doc)       # bytes canónicos del dialecto detectado
+digest = hash_cortex(doc)       # hash canónico con dominio por versión (hex)…
+                                # …la CLI lo imprime como sha256:<64hex>
 ```
 
-Ejemplo:
+- `parse_cortex` lanza `ParseError` con `.code` (p. ej. `G042_GLOSSARY_HEADER_INVALID`).
+- La versión **se declara**, nunca se infiere por contenido.
+- `canonicalize` puede mutar el AST en memoria (expansión de microtokens,
+  normalización de atributos). Si vas a renderizar y canonicalizar el mismo
+  documento, **renderizá primero**.
+
+### `codec_cortex.parser` / `slotparser` — sintaxis
 
 ```python
-from codec_cortex.parser import parse_cortex
+from codec_cortex.parser import parse_cortex as parse_01     # superficie fundamental
+from codec_cortex.slotparser import parse_slots              # 0.2 y 1.0
 
-cortex = open("documento.cortex").read()
-doc = parse_cortex(cortex)
-
-for sec in doc.sections:
-    print(f"Seccion {sec.id}: {sec.title}")
-    for idea in sec.ideas:
-        print(f"  {idea.line[:80]}")
+doc01 = parse_01(source)
+doc10 = parse_slots(source, version="1.0")
 ```
 
-### `codec_cortex.c14n` — Canonicalización (C14N)
+### `codec_cortex.hcortex` / `slothcortex` — HCORTEX
 
 ```python
-from codec_cortex.c14n import canonicalize
+from codec_cortex.slothcortex import render_hcortex_slots, compile_hcortex_slots
 
-canon = canonicalize(doc)
-# canon es un string con la representacion canonica
-# Mismos bytes para mismo significado semantico
+hc = render_hcortex_slots(doc)                 # función pura del AST
+doc2, diags = compile_hcortex_slots(hc)        # compila y auto-valida su salida
 ```
 
-Útil para:
-- Hashing determinista de documentos CORTEX
-- Verificar identidad semantica entre dos documentos
-- Comparar implementaciones
+`compile_hcortex_slots` devuelve `(None, diags)` si el HCORTEX es inválido.
+La superficie `codec_cortex.hcortex` (`render_hcortex`, `compile_hcortex`) es la
+de HCORTEX 0.1 y se conserva como alias de lectura.
 
-### `codec_cortex.hcortex` — Render y compilación HCORTEX
+### `codec_cortex.lossreport` — pérdidas declaradas
 
 ```python
-from codec_cortex.hcortex import render_hcortex, compile_hcortex
+from codec_cortex.lossreport import build_loss_report, dumps_canonical, loss_case_name
 
-# CORTEX → HCORTEX (humano)
-hc = render_hcortex(doc)
-# hc es un string markdown con 5 esquemas emparejados:
-# <!-- table:1 --> ... <!-- /table:1 -->
-# <!-- prose:2 --> ... <!-- /prose:2 -->
-
-# HCORTEX → CORTEX (compilacion inversa)
-doc2, diagnosticos = compile_hcortex(hc_string)
-# diagnosticos es una lista de advertencias (no errores)
-# doc2 es un Document como el original
+report = build_loss_report(source, loss_case_name("doc.cortex"))
+print(dumps_canonical(report))          # JSON canónico (bytes estables)
 ```
 
-### `codec_cortex.harness` — Suite de validación
+Estructura del reporte y catálogo: [`LOSS-REPORT.md`](LOSS-REPORT.md).
+
+### `codec_cortex.harness` / `slotharness` — conformidad
 
 ```python
-from codec_cortex.harness import run_all_tests
-
-reporte = run_all_tests(c14n_dir, hcortex_dir)
-# reporte contiene resultados de F3 (C14N) y F4 (HCORTEX)
+from codec_cortex.harness import run_all_tests          # harness F3/F4 histórico
+from codec_cortex.slotharness import run_slots_conformance
 ```
 
-## Flujo de trabajo típico
+## CLI
+
+| Comando | Python | Go | Node | Rust | Bash |
+|---|---|---|---|---|---|
+| `parse` | sí | sí | sí | sí | sí |
+| `validate` | sí | sí | — | sí | sí |
+| `canonicalize` | sí | sí | sí | sí | sí |
+| `hash` | sí | sí | sí | sí | `c14n-hash` |
+| `to-hcortex` | sí | sí | sí | sí | sí |
+| `from-hcortex` | sí | sí | sí | sí | sí |
+| `loss-report` | sí | sí | sí | sí | sí |
+| `migrate` | sí | — | — | — | — |
+| `conformance` | sí | sí | `test` | sí | `test` |
+| `compare` / `inspect` | — | — | — | `compare`, `inspect` | `inspect` |
+
+Ejemplos:
+
+```bash
+python -m codec_cortex validate doc.cortex
+python -m codec_cortex canonicalize doc.cortex > doc.canon.cortex
+python -m codec_cortex hash doc.cortex
+python -m codec_cortex to-hcortex doc.cortex > doc.md
+python -m codec_cortex from-hcortex doc.md > doc.back.cortex
+python -m codec_cortex loss-report doc.cortex
+python -m codec_cortex migrate to-1.0 --apply doc.cortex
+```
+
+Todas las superficies aceptan `-` como entrada estándar.
+
+### Exit codes
+
+| Código | Significado |
+|---|---|
+| `0` | éxito |
+| `1` | documento inválido, compile fallido o `L499_UNCLASSIFIED_LOSS` |
+| `2` | uso incorrecto (Python) |
+
+> Nota de ergonomía: el exit code de uso incorrecto no está unificado entre
+> superficies (Python `2`, otras `1`). Los scripts deben tratar "no cero" como
+> fallo, no como código específico.
+
+## Flujo típico
 
 ```python
-from codec_cortex.parser import parse_cortex
-from codec_cortex.hcortex import render_hcortex, compile_hcortex
-from codec_cortex.c14n import canonicalize
+from codec_cortex import canonicalize, parse_cortex
+from codec_cortex.slothcortex import compile_hcortex_slots, render_hcortex_slots
 
-# 1. Parsear CORTEX
-doc = parse_cortex(texto_cortex)
-
-# 2. Mostrar a un humano
-hc = render_hcortex(doc)
-print(hc)  # Markdown con esquemas emparejados
-
-# 3. El humano edita el HCORTEX...
-# 4. Compilar de vuelta
-doc_vuelto, diags = compile_hcortex(hc_editado)
-
-# 5. Verificar que el significado se preservo
-hash1 = canonicalize(doc)
-hash2 = canonicalize(doc_vuelto)
-son_iguales = (hash1 == hash2)
+doc = parse_cortex(open("doc.cortex", encoding="utf-8").read())
+hc = render_hcortex_slots(doc)                 # 1. mostrar al humano
+doc_back, diags = compile_hcortex_slots(hc)    # 2. volver a máquina
+assert not diags
+assert canonicalize(doc_back) == canonicalize(doc)   # 3. el AST va y vuelve
 ```
 
 ## Referencias
 
-- [skill/codec-cortex.skill.md](../skill/codec-cortex.skill.md) — El estándar en CORTEX, autocontenido
-- [QUICKSTART.md](QUICKSTART.md) — Guía de inicio rápido
-- [authoring/custom-sigils.md](authoring/custom-sigils.md) — Crear sigilos personalizados
-- [authoring/hcortex-templates.md](authoring/hcortex-templates.md) — Plantillas HCORTEX
+| Documento | Contenido |
+|---|---|
+| [LOSS-REPORT.md](LOSS-REPORT.md) | pérdidas declaradas |
+| [MIGRATION-1.0.md](MIGRATION-1.0.md) | migración desde 0.1/0.2 |
+| [standard/CORTEX-SPEC-1.0.md](standard/CORTEX-SPEC-1.0.md) | canon normativo |
+| [../skill/codec-cortex.skill.md](../skill/codec-cortex.skill.md) | el estándar en CORTEX |

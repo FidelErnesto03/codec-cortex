@@ -161,7 +161,8 @@ def _cmd_hash(args):
     try:
         source = _read_source(args[0])
         doc = parse_cortex(source)
-        print(hash_cortex(doc))
+        digest = hash_cortex(doc)
+        print(digest if digest.startswith("sha256:") else f"sha256:{digest}")
         return 0
     except Exception as e:
         print(f"{type(e).__name__}: {e}", file=sys.stderr)

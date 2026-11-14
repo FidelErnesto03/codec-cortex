@@ -1,11 +1,13 @@
 # codec-cortex-rs
 
-Implementación funcional en **Rust** del paquete Python suministrado para:
+Implementación funcional en **Rust** del canon **CORTEX 1.0** (`0.1` y `0.2`
+legibles como alias):
 
-- parsear CORTEX 0.1;
+- parsear CORTEX 0.1/0.2/1.0, incluido el eje de slots;
 - construir un AST tipado;
-- canonicalizar mediante C14N-0.1;
-- renderizar y compilar HCORTEX 0.1;
+- canonicalizar mediante C14N con dominio por versión;
+- renderizar y compilar HCORTEX 1.0;
+- emitir el reporte de pérdidas declaradas (`loss-report`);
 - ejecutar el harness de conformidad F3/F4;
 - operar mediante una biblioteca Rust y el binario `cortex`.
 
@@ -13,7 +15,11 @@ Implementación funcional en **Rust** del paquete Python suministrado para:
 
 ## Estado
 
-Versión: `1.0.0-rc.1` (canónica del proyecto).
+Versión: `1.0.0` (canónica del proyecto; `Cargo.toml`).
+
+Paridad verificada por el certificado del proyecto: D3 (hash) y D3b (render
+HCORTEX byte-exacto) con las otras cuatro superficies, y D6 (`loss-report`
+byte-idéntico).
 
 El alcance reproduce los contratos observables del paquete Python de referencia. No incorpora runtime, sesiones, learning, perfiles de agente, ArqUX, MCP ni gobierno de proyectos.
 
@@ -26,8 +32,11 @@ src/
 ├── model.rs      AST y valores escalares tipados
 ├── scalars.rs    Unicode, strings, átomos, listas y atributos
 ├── parser.rs     CORTEX 0.1 → AST
-├── c14n.rs       AST → CORTEX canónico
-├── hcortex.rs    AST ↔ HCORTEX canónico
+├── c14n.rs       AST → CORTEX canónico (0.1)
+├── hcortex.rs    AST ↔ HCORTEX canónico (0.1)
+├── slotparser.rs detección y hash del eje slots
+├── v10.rs        parser, C14N, render y compile de 0.2/1.0
+├── lossreport.rs pérdidas declaradas (loss-report 1.0)
 ├── harness.rs    Gates F3/F4, hashes y reporte
 ├── error.rs      diagnósticos estructurados
 ├── lib.rs        API pública
@@ -63,6 +72,7 @@ cortex to-hcortex input.cortex -o input.hcortex.md
 cortex from-hcortex input.hcortex.md -o reconstructed.cortex
 cortex from-hcortex input.hcortex.md --format ast
 cortex hash input.cortex
+cortex loss-report input.cortex
 cortex compare left.cortex right.cortex
 cortex inspect input.cortex --json
 cortex conformance PATH_C14N PATH_HCORTEX -r report.json
@@ -91,6 +101,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
+Superficie 1.0 y pérdidas declaradas:
+
+```rust
+use codec_cortex::v10::{canonicalize_any, compile_any, parse_any, render_any};
+use codec_cortex::lossreport::{build_loss_report, dumps_canonical, loss_case_name};
+
+let report = build_loss_report(&source, &loss_case_name("doc.cortex"))?;
+print!("{}", dumps_canonical(&report));
+```
+
 ## Pruebas de paridad
 
 `tests/reference_parity.rs` fija como vectores dorados salidas generadas por la implementación Python:
@@ -111,13 +131,16 @@ python tools/differential.py \
   tests/fixtures/roundtrip.cortex
 ```
 
-## Limitaciones heredadas
+## Limitaciones heredadas (dialecto 0.1)
 
-La equivalencia incluye conductas defectuosas del original cuando forman parte de su salida observable. La más relevante es esta:
+En **HCORTEX 0.1**, una sección `table` con un símbolo `attrs` `open:true` pierde
+al renderizar los atributos extra no declarados en `fields`; el fixture
+`examples/full.cortex` lo fija. En **HCORTEX 1.0** esa pérdida no existe: el
+renderer degrada la sección a `prose` para preservar el payload completo, y
+`loss-report` declara cualquier orden editorial no preservado (`L405`).
 
-- En secciones HCORTEX de tipo `table`, un símbolo `attrs` con `open:true` pierde al renderizar los atributos extra no declarados en `fields`. El fixture `examples/full.cortex` fija y demuestra esa pérdida.
-
-No debe afirmarse reversibilidad total para ese subconjunto hasta corregir conjuntamente especificación, Python, Rust y corpus. Véase [`docs/KNOWN-PARITY-LIMITATIONS.md`](docs/KNOWN-PARITY-LIMITATIONS.md).
+El detalle histórico está en
+[`docs/KNOWN-PARITY-LIMITATIONS.md`](docs/KNOWN-PARITY-LIMITATIONS.md).
 
 ## Documentación
 

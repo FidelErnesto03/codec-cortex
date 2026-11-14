@@ -2,13 +2,18 @@
 
 Versión canónica del proyecto: `1.0.0` (`CCX_VERSION` en `lib/codec-cortex.sh`).
 
-Implementación funcional en **Bash** de la referencia Python suministrada para:
+Implementación funcional en **Bash** de la referencia Python para el canon
+**CORTEX 1.0** (`0.1` y `0.2` legibles como alias):
 
-- CORTEX 0.1: lexer de escalares, parser y AST.
-- C14N-0.1: canonicalización determinista e idempotente.
-- HCORTEX-0.1: render canónico y compilación inversa.
+- CORTEX 1.0: lexer de escalares, parser, AST y eje de slots.
+- C14N determinista e idempotente, con dominio separado por versión.
+- HCORTEX 1.0: render canónico y compilación inversa.
+- `loss-report`: pérdidas declaradas en JSON canónico (catálogo §8.2).
 - Harness F3/F4: golden bytes, idempotencia, roundtrip y diagnósticos.
-- SHA-256 y hash con dominio `CORTEX-C14N-0.1`.
+- SHA-256 y hash canónico.
+
+Paridad verificada por el certificado del proyecto: D3, D3b, D6 y D7 con las
+otras cuatro superficies.
 
 No invoca Python ni contiene una envoltura sobre el paquete original. La implementación es Bash orientada a archivos y usa `jq` como motor de AST JSON y `uconv` para Unicode NFC.
 
@@ -36,6 +41,7 @@ bin/codec-cortex to-hcortex document.cortex
 bin/codec-cortex from-hcortex document.hcortex.md
 bin/codec-cortex inspect document.cortex
 bin/codec-cortex c14n-hash canonical.cortex
+bin/codec-cortex loss-report document.cortex
 ```
 
 También se incluye el alias `bin/cortex`.
@@ -53,6 +59,8 @@ make test              # prueba rápida contra goldens Python
 make phase4            # gate HCORTEX completo incluido
 make phase3            # corpus C14N de 40 casos; intensivo
 make conformance       # F3 + F4
+bash tests/self-test-slots.sh          # superficie slots
+bash tests/self-test-loss-report.sh    # paridad de loss-report + G042 (6/6)
 ```
 
 El paralelismo del gate F3 se controla con:
