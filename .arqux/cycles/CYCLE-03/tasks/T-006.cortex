@@ -1,0 +1,55 @@
+$0
+
+# -- $0: ARQUX GOVERNANCE GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# ARQX  | artifact  | attrs      | B | Semantic       | ArqUX artifact metadata
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+#
+# Types:
+# bloque = canonical type
+# attrs = canonical type
+# attrs-pos = canonical type
+# cuerpo = canonical type
+# relacion = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-006", usage:"state", kind:"native"}
+
+
+$1: TASK
+
+WRK:task{id:"T-006", status:"done", governor:"Alfred", assignee:"Alfred", priority:"medium", complexity:"standard", cycle:"CYCLE-03", created:"2026-11-12T20:05:47Z", updated:"2026-11-12T20:06:49Z"}
+
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Documento de vision CORTEX-DB en docs/ de CODEC-CORTEX"}
+
+
+$3: EVIDENCE
+
+AUD:evidence{text:"docs/CORTEX-DB-VISION.md creado y verificado en disco (13 secciones, ~150 lineas). Consolida la conversacion de vision 2026-11-12 con las 8 decisiones del Arquitecto. Evidencia artifact registrada en PULSE; tarea T-006 completada. Pendiente: ratificacion del Arquitecto del documento antes de abrir la linea F1 (Spec CORTEX-DB 0.1)."}
+

@@ -1,0 +1,55 @@
+$0
+
+# -- $0: ARQUX GOVERNANCE GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# ARQX  | artifact  | attrs      | B | Semantic       | ArqUX artifact metadata
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+#
+# Types:
+# bloque = canonical type
+# attrs = canonical type
+# attrs-pos = canonical type
+# cuerpo = canonical type
+# relacion = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-008", usage:"state", kind:"native"}
+
+
+$1: TASK
+
+WRK:task{id:"T-008", status:"done", governor:"Alfred", assignee:"Alfred", priority:"medium", complexity:"standard", cycle:"CYCLE-03", created:"2026-11-12T20:27:59Z", updated:"2026-11-12T20:28:22Z"}
+
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Revision de ergonomia CORTEX-DB desde la practica del equipo agentico (Alfred, Heimdall, Jarvis, Seshat) en docs/ — que esta bien"}
+
+
+$3: EVIDENCE
+
+AUD:evidence{text:"docs/CORTEX-DB-ERGONOMICS-REVIEW-2026-11.md creado y verificado: 6 fortalezas con evidencia, 12 fricciones con procedencia (persona/issue/leccion), 3 brechas de evidencia, veredicto util/fiable/escalable y doctrina ergonomica de 10 puntos. Tarea T-008 completada."}
+

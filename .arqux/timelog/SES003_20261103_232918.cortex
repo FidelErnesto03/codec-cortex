@@ -8,11 +8,11 @@ $0
 # PRJ   | projection | attrs | B  | Episodic        | Per-provider projection mark
 
 $1: IDENTITY
-TLG:identity{project:"CODEC-CORTEX",ses:"SES003",opened:"2026-11-03T23:29:18Z",version:"1",revision:"21"}
+TLG:identity{project:"CODEC-CORTEX",ses:"SES003",opened:"2026-11-03T23:29:18Z",version:"1",revision:"32"}
 
 
 $2: ACTIVITIES
-ACT:session_SES003{start:"2026-11-03T23:29:18Z",end:"",state:"open",last_activity:"2026-11-04T01:06:39Z",revision:"2"}
+ACT:session_SES003{start:"2026-11-03T23:29:18Z",end:"2026-11-12T21:34:52Z",state:"closed",last_activity:"2026-11-12T20:28:22Z",revision:"32"}
 
 ACT:task_T_003{start:"2026-11-03T23:35:41Z",end:"2026-11-03T23:36:27Z",state:"closed",last_activity:"2026-11-03T23:36:23Z",revision:"5"}
 
@@ -20,7 +20,17 @@ ACT:task_T_004{start:"2026-11-03T23:38:16Z",end:"2026-11-03T23:43:09Z",state:"cl
 
 ACT:task_T_005{start:"2026-11-03T23:49:45Z",end:"2026-11-03T23:50:02Z",state:"closed",last_activity:"2026-11-03T23:49:45Z",revision:"10"}
 
+ACT:task_T_006{start:"2026-11-12T20:06:39Z",end:"2026-11-12T20:06:49Z",state:"closed",last_activity:"2026-11-12T20:06:39Z",revision:"25"}
+
+ACT:task_T_007{start:"2026-11-12T20:27:23Z",end:"2026-11-12T20:27:58Z",state:"closed",last_activity:"2026-11-12T20:27:23Z",revision:"28"}
+
+ACT:task_T_008{start:"2026-11-12T20:28:15Z",end:"2026-11-12T20:28:22Z",state:"closed",last_activity:"2026-11-12T20:28:15Z",revision:"30"}
+
 
 $3: RECEIPTS
 
 $4: PROJECTIONS
+
+LOOP:blp004-canon-1.0{event:"advance", detail:"AC-05/06/07 cerrados con certificado PASS (D1-D6; D6 75/75). Commits d44e961 y 1569dbd. Pendiente: archivo de specs 0.x + docs (T-4.1/T-4.2), CI remoto (T-4.3), auditoria Heimdall (T-5.1) y ratificacion (T-5.2).", ts:"1794662176"}
+
+LOOP:blp004-canon-1.0{event:"advance", detail:"Auditoria 1.5 firmada por Heimdall (SIGNED-PASS, verificable con bench/verify_audit.py) sobre el commit ca5dbd2. AC-01..AC-09 y AC-11 cerrados. Pendiente solo lo humano: push para AC-10 y ratificacion del Arquitecto para AC-12.", ts:"1794664230"}

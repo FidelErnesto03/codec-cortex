@@ -9,7 +9,7 @@ project_ref: "CODEC-CORTEX"
 status: "active"
 governor: "alfred"
 created_at: "2026-07-18T16:11:47Z"
-updated_at: "2026-11-03T23:50:02Z"
+updated_at: "2026-11-14T14:55:50Z"
 closed_at: ""
 planned_start: ""
 planned_end: ""
@@ -85,7 +85,7 @@ Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza 
 
 **Total Blueprints:** 8 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 3 | **Review:** 0 | **Done:** 5 | **Cancelado:** 0 | **Bloqueado:** 0
 **Progreso:** 62%
-**Total Tareas:** 5 | **Abiertas:** 1 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 4 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
+**Total Tareas:** 9 | **Abiertas:** 2 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 7 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
 
 ## §8:
 

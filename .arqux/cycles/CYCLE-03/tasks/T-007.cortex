@@ -1,0 +1,55 @@
+$0
+
+# -- $0: ARQUX GOVERNANCE GLOSSARY --
+# Sigil | Name | Type | Risk | Cognitive Layer | Description
+# ARQX  | artifact  | attrs      | B | Semantic       | ArqUX artifact metadata
+# IDN   | identity   | attrs      | B | Semantic       | Actor identity
+# FCS   | focus      | attrs      | H | Working        | Active attention anchor
+# OBJ   | objective  | attrs      | H | Working        | Active goal with success criterion
+# WRK   | work       | attrs      | B | Working        | Current execution state
+# SES   | session    | attrs      | M | Episodic       | Compressed I/O/R episode
+# HDL   | handler    | attrs-pos  | M | Semantic       | Handoff descriptor
+# AUD   | audit      | attrs      | M | Prefrontal     | Verification/audit record
+# LNG   | lesson     | attrs      | M | Episodic       | Learned lesson or pattern
+# STP   | step       | attrs      | M | Working        | Task procedure step
+# CNST  | constraint | attrs      | H | Prefrontal     | Hard constraint or precondition
+# CLAIM | claim      | attrs      | M | Prefrontal     | Acceptance criterion
+# BLK   | blocker    | attrs      | H | Prefrontal     | Blocking condition
+# RSK   | risk       | attrs      | M | Prefrontal     | Identified risk with mitigation
+# KNW   | knowledge  | attrs      | B | Semantic       | Stable or promoted knowledge
+# DOM   | domain     | attrs      | B | Semantic       | Project/scope descriptor
+# ERR   | error      | attrs      | M | Prefrontal     | Concurrency / state info
+# DESC  | description | cuerpo     | B | Semantic       | Structured textual description
+#
+# Types:
+# bloque = canonical type
+# attrs = canonical type
+# attrs-pos = canonical type
+# cuerpo = canonical type
+# relacion = canonical type
+#
+# Micro-glossary:
+# cur=current pln=planned fut=future blk=blocked
+# min=minimum rec=recovery wrk=work full=full
+# ok=success fail=failure part=partial
+
+
+$19: ARQUX METADATA
+
+ARQX:artifact{level:2, name:"T-007", usage:"state", kind:"native"}
+
+
+$1: TASK
+
+WRK:task{id:"T-007", status:"done", governor:"Alfred", assignee:"Alfred", priority:"medium", complexity:"standard", cycle:"CYCLE-03", created:"2026-11-12T20:27:19Z", updated:"2026-11-12T20:27:58Z"}
+
+
+$2: OBJECTIVE
+
+OBJ:objective{text:"Anexo competitivo CORTEX-DB en docs/ (lideres 2026, debilidades, diferenciadores, propiedades de fidelidad, sintesis vector-como-indice-firmado, 6 experimentos de falsificacion) + actualizacion del documento de vision pre:[autorizacion del Arquitecto 2026-11-12, investigacion de mercado realizada con fuentes 2026, tarea T-006 completada] proc:[redactar docs/CORTEX-DB-COMPETITIVE-ANNEX-2026-11.md con el analisis de mercado y las propiedades de fidelidad, actualizar docs/CORTEX-DB-VISION.md con seccion de fidelidad y referencia al anexo, registrar evidencia, completar tarea] ac:[el anexo existe y consolida lideres/debilidades/diferenciadores/experimentos E1-E6, el documento de vision referencia el anexo y declara las 3 propiedades de fidelidad, evidencia en PULSE] assignee:alfred complexity:standard priority:high"}
+
+
+$3: EVIDENCE
+
+AUD:evidence{text:"docs/CORTEX-DB-COMPETITIVE-ANNEX-2026-11.md creado (mercado 2026, líderes y debilidades, 5 diferenciadores, 3 propiedades de fidelidad, E1-E6, posicionamiento) y docs/CORTEX-DB-VISION.md actualizado (§11 + §14). Fuentes web 2026 con procedencia por cifra; fuente única marcada."}
+
