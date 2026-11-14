@@ -179,6 +179,8 @@ def _render_glossary_block(doc: Document) -> str:
 
     if doc.glossary.capa:
         entries.insert(0, f"$0:{doc.glossary.capa}")
+    else:
+        entries.insert(0, "$0")
 
     if not entries:
         return ""

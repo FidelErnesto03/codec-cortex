@@ -1,0 +1,6 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8}
+KNW:knowledge{type:attrs,weight:B,focus:content,desc:"x",fields:"topic:text|content:text"}
+# comentario libre fuera de cuerpo
+$1:KNOW
+KNW:alpha{topic:"T",content:"C"}

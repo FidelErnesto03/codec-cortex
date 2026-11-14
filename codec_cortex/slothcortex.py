@@ -173,6 +173,8 @@ def _render_glossary_slots(doc: Document) -> str:
     gl = doc.glossary
     if getattr(gl, "capa", None):
         lines.append(f"$0:{gl.capa}")
+    else:
+        lines.append("$0")
     if gl.format:
         parts = [f"{k}:{v.lexeme}" for k, v in gl.format.attrs]
         lines.append("$0:format{" + ",".join(parts) + "}")

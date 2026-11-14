@@ -1,0 +1,5 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8}
+META:metadata{type:attrs,weight:B,focus:subject,desc:"m",fields:"subject:text",open:true}
+$1:DATA
+META:item{custom:"preservado",subject:"Ejemplo",priority:high}

@@ -1,0 +1,30 @@
+{
+  "case": "L402_comment",
+  "losses": [
+    {
+      "action": "declare-only",
+      "category": "structure",
+      "code": "L402_COMMENT_DROPPED",
+      "detail": "comment line outside a multiline body is not represented in the AST",
+      "path": "line:4",
+      "recoverability": "from-source-only",
+      "severity": "loss"
+    }
+  ],
+  "mode": "canonical",
+  "operation": "render",
+  "preserved": [
+    "blocks",
+    "identity",
+    "scalars",
+    "structure"
+  ],
+  "reversible": true,
+  "schema_version": "1.0",
+  "source_format": "cortex:1.0",
+  "source_sha256": "60e363329da31680687cdfd45c493743e260f4370f545b56113739ef11f5cf39",
+  "structural_equivalence": true,
+  "target_format": "hcortex:1.0",
+  "target_sha256": "82dade9a753003bbd8a0e79ed7230dbf760dd76f8e15847535a7e6be2a5728fb",
+  "warnings": []
+}

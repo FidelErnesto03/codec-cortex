@@ -49,6 +49,7 @@ _CMD_HELP = {
     "to-hcortex": "to-hcortex [--embed-ast] <file> — render a CORTEX document to HCORTEX.",
     "from-hcortex": "from-hcortex <file> — compile HCORTEX back to CORTEX canonical; self-validates its output (a compile never emits unparseable source).",
     "migrate": "migrate <cmd> <file> [args] — migrate 0.1→0.2 or to-1.0 (inspect|plan|apply|verify|rollback).",
+    "loss-report": "loss-report <file|-> — emit the CORTEX 1.0 declared loss report (canonical JSON, spec §8.2).",
     "help": "help [<cmd>] — show general help or per-command help.",
 }
 
@@ -93,6 +94,8 @@ def main(argv=None):
         return _cmd_from_hcortex(rest)
     elif cmd == "migrate":
         return _cmd_migrate(rest)
+    elif cmd == "loss-report":
+        return _cmd_loss_report(rest)
     else:
         print(f"Unknown command: {cmd}", file=sys.stderr)
         print("Run 'cortex help' for usage.", file=sys.stderr)
@@ -264,6 +267,26 @@ def _cmd_migrate(args):
     """Migrate CORTEX 0.1 → 0.2. Subcommands: inspect, plan, apply, verify, rollback."""
     from codec_cortex.slotmigrate import main_cli
     return main_cli(args)
+
+
+def _cmd_loss_report(args):
+    """Emit the CORTEX 1.0 declared loss report (spec §8.2)."""
+    from codec_cortex.lossreport import build_loss_report, dumps_canonical, loss_case_name
+
+    if len(args) != 1:
+        print("Usage: loss-report <file|->", file=sys.stderr)
+        return 2
+    try:
+        if args[0] == "-":
+            source = sys.stdin.read()
+        else:
+            source = _read_source(args[0])
+        report = build_loss_report(source, loss_case_name(args[0]))
+        sys.stdout.write(dumps_canonical(report))
+        return 1 if any(item["severity"] == "error" for item in report["losses"]) else 0
+    except Exception as e:
+        print(f"{type(e).__name__}: {e}", file=sys.stderr)
+        return 1
 
 
 def _cmd_from_hcortex(args):

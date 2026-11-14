@@ -1,0 +1,30 @@
+{
+  "case": "L403_whitespace",
+  "losses": [
+    {
+      "action": "declare-only",
+      "category": "presentation",
+      "code": "L403_INTRALINE_WHITESPACE",
+      "detail": "intraline whitespace is collapsed by canonicalization",
+      "path": "line:5",
+      "recoverability": "from-source-only",
+      "severity": "loss"
+    }
+  ],
+  "mode": "canonical",
+  "operation": "render",
+  "preserved": [
+    "blocks",
+    "identity",
+    "scalars",
+    "structure"
+  ],
+  "reversible": true,
+  "schema_version": "1.0",
+  "source_format": "cortex:1.0",
+  "source_sha256": "06194c34b4d47d87ce49da077b57bfe5d4ac539bc5a4e5d5cb9c6f856c682ffe",
+  "structural_equivalence": true,
+  "target_format": "hcortex:1.0",
+  "target_sha256": "82dade9a753003bbd8a0e79ed7230dbf760dd76f8e15847535a7e6be2a5728fb",
+  "warnings": []
+}

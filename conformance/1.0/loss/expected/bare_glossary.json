@@ -1,0 +1,20 @@
+{
+  "case": "bare_glossary",
+  "losses": [],
+  "mode": "canonical",
+  "operation": "render",
+  "preserved": [
+    "blocks",
+    "identity",
+    "scalars",
+    "structure"
+  ],
+  "reversible": true,
+  "schema_version": "1.0",
+  "source_format": "cortex:1.0",
+  "source_sha256": "534e6edf58c32bf7e895a040d226bd92e2b680cf4b28f17e937f088f50eca993",
+  "structural_equivalence": true,
+  "target_format": "hcortex:1.0",
+  "target_sha256": "e3b7a955cc674a9d6e803f502f37bf51d99d36c480920fcabf6b93acea8cd845",
+  "warnings": []
+}

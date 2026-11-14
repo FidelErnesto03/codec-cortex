@@ -143,15 +143,28 @@ Ninguna tercera clase. Un render que pierde AST sin declararlo viola **H481** (s
 
 ### §8.2 Catálogo de pérdidas declaradas (L4xx)
 
-| Código | Pérdida | Caso |
-|---|---|---|
-| `L401` | Marcador de fence bloque | bloque ``` fence cuyo marcador no sobrevive from-hcortex |
-| `L402` | Comentarios `#` fuera de glosario | no representados en AST |
-| `L403` | Whitespace intra-línea no significativo | colapsado por normalización |
-| `L404` | CAPA ausente | sección sin capa declarada no la recupera |
-| `L405` | Orden de atributos fuera de contrato | en sigilos `open:true` |
+Una **pérdida declarada** es información presente en la fuente que no se representa en el AST y por tanto no se recupera en `canonicalize(from_hcortex(render(x)))`. El catálogo es cerrado y cada código tiene emisor obligatorio en las cinco superficies.
 
-Cada pérdida emite entrada en `loss-report` conforme a `docs/schemas/loss-report.schema.json` con `{code, line, reason}`. Lista cerrada: añadir una pérdida exige nueva versión de spec.
+| Código | Pérdida | Disparador | `path` |
+|---|---|---|---|
+| `L402_COMMENT_DROPPED` | Comentarios `#` | línea cuyo primer carácter no-espacio es `#`, fuera de cuerpo/bloque (dentro del glosario también se descarta) | `line:<n>` |
+| `L403_INTRALINE_WHITESPACE` | Whitespace intra-línea no significativo | tab, espacio final o 2+ espacios consecutivos fuera de literales entrecomillados | `line:<n>` |
+| `L405_OPEN_ATTR_ORDER` | Orden editorial de atributos | idea de sigilo `open:true` cuyo orden en fuente ≠ orden de contrato + extras por clave UTF-8 | `$N` |
+
+Invariante de cierre: **toda** divergencia de roundtrip debe pertenecer a una de estas clases. Una divergencia no clasificable emite `L499_UNCLASSIFIED_LOSS` (`severity: error`) y `loss-report` termina con código de salida 1 — "0 pérdidas sin nombre" es verificable, no aspiracional.
+
+Cada pérdida emite una entrada de `loss-report` conforme a `docs/schemas/loss-report-1.0.schema.json` (forma `finding`: `{code, severity, category, path, detail, recoverability, action}`). La lista es cerrada: añadir, retirar o redefinir una pérdida exige nueva versión de spec.
+
+### §8.3 Riesgos retirados del catálogo de pérdidas
+
+Verificación 2026-11-14 (SES004) sobre las cinco superficies: estos dos constructos se declaraban pérdidas y **no lo son**. Permanecen como riesgos documentados, sin emisor y sin entrada en `loss-report`:
+
+| Código histórico | Estado | Evidencia |
+|---|---|---|
+| `L401` marcador de fence en bloque | **retirado** | `canonicalize(compile(render(x))) == canonicalize(x)` con ` ```python ` y ` ~~~ ` dentro de un bloque, en las cinco superficies; render md5-idéntico. Reservado para el dialecto 0.1 legacy si alguna superficie lo reproduce. |
+| `L404` CAPA ausente | **retirado** | `title=None`/`capa=None` roundtriptean intactos; `resolve_capa()` es un valor derivado, no información perdida. El renderer emite `$0` desnudo cuando no hay capa, que la gramática admite. |
+
+**Constructo eliminado, no catalogado:** `$0: <texto>` no pertenece a la gramática 1.0 (`glossary-header = "$0" | "$0:" capa`). Las superficies que lo toleraban lo descartaban en silencio; desde 2026-11-14 se rechaza con `G042_GLOSSARY_HEADER_INVALID` en las cinco superficies. Un constructo fuera de gramática no es una pérdida declarada: es un error.
 
 ## §9 Catálogo de errores 1.0 (cerrado)
 
@@ -165,7 +178,7 @@ Niveles de implementación (booleanos, verificados por `bench/certify.py` + corp
 |---|---|
 | Reader | parsea corpus válido + rechaza corpus inválido con código correcto |
 | Writer | + canonicaliza idempotente (D1) + hash dominio-separado |
-| Renderer | + render HCORTEX byte-exacto vs vectores + loss-report conforme |
+| Renderer | + render HCORTEX byte-exacto vs vectores + `loss-report` conforme y byte-idéntico en las 5 superficies (D6) |
 | Migrator | + `to-1.0` idempotente con reporte |
 
 Vectores normativos: `conformance/1.0/` (heredados del corpus 0.1+0.2+hcortex validados, promovidos). Sello `tests/SHA256SUMS` cubre el corpus — cualquier mutación lo regenera.

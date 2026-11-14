@@ -97,20 +97,24 @@
 
 ## Pérdidas declaradas HCORTEX (L4xx)
 
+Catálogo cerrado §8.2 de la spec 1.0. Cada pérdida se emite desde el comando `loss-report` en las cinco superficies (Python, Go, Node, Rust, Bash) con salida byte-idéntica.
+
 | Código | Pérdida | Emisor |
 |---|---|---|
-| L401 | Marcador de fence bloque | hcortex.from_hcortex (python) — pendiente en go/node/rs/bash |
-| L402 | Comentarios fuera de glosario | hcortex.from_hcortex (python) |
-| L403 | Whitespace intra-línea | hcortex renderer |
-| L404 | CAPA ausente | hcortex.from_hcortex |
-| L405 | Orden de attrs en sigilos open | hcortex.from_hcortex |
+| L402_COMMENT_DROPPED | Comentarios `#` fuera del bloque `$0` | loss-report (python, go, node, rust, bash) |
+| L403_INTRALINE_WHITESPACE | Whitespace intra-línea no significativo | loss-report (python, go, node, rust, bash) |
+| L405_OPEN_ATTR_ORDER | Orden editorial de attrs en sigilos `open:true` | loss-report (python, go, node, rust, bash) |
+| L499_UNCLASSIFIED_LOSS | Divergencia de roundtrip no clasificable (error, exit 1) | loss-report (python, go, node, rust, bash) |
 
-Cada pérdida emite entrada loss-report conforme a docs/schemas/loss-report.schema.json.
+Cada pérdida emite entrada loss-report conforme a `docs/schemas/loss-report-1.0.schema.json`.
+
+**Retirados como pérdida (2026-11-14, §8.3 de la spec):** `L401` (marcador de fence en bloque: roundtrip intacto en las cinco superficies) y `L404` (CAPA ausente: ausencia preservada; `resolve_capa()` es derivado). Ver evidencia en la spec §8.3.
 
 ## Códigos reservados y colisiones conocidas
 
 - `I006` colisiona en el codigo: `I006_DUPLICATE_FIELD` (attrs) e `I006_DUPLICATE_IDEA_ADDRESS` (direccion). Defecto conocido: la implementacion los distingue por contexto; una revision futura debe reasignar uno.
 - `X002_REQUIRED_EXTENSION_UNSUPPORTED`, `I049`, `L025_TRAILING_COMMA`: citados en spec/skill pero SIN emisor — `reserved` (detectables, pendiente implementar o retirar).
+- `L401_FENCE_MARKER` (histórico, sin nombre de familia): `reserved` para el dialecto 0.1 legacy — retirado como pérdida 1.0 en §8.3.
 - `P17`: emisor real en slots.py (trailing comma) — fuera del esquema de familias; documentado aqui como codigo vigente.
 
 ## Códigos reservados

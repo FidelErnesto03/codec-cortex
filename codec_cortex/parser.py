@@ -259,14 +259,12 @@ def parse_cortex(source: str) -> Document:
             doc.glossary.capa = m0.group(1)
             i += 1
             continue
-        # $0: Title or $0: Title:CAPA
-        m0t = re.match(r"^\$0:\s+(.*)$", stripped)
-        if m0t and not re.match(r"^\$0:\s*(?:format|enum_|micro_|namespace_|extension_)", stripped):
-            if in_glossary:
-                raise ParseError("G002_GLOSSARY_REOPENED", "$0 reopened", line_no)
-            in_glossary = True
-            i += 1
-            continue
+        # Grammar 1.0: glossary header is '$0' or '$0:<CAPA>'. A title after
+        # '$0:' is not representable and used to be silently discarded.
+        if re.match(r"^\$0:\s", stripped):
+            raise ParseError("G042_GLOSSARY_HEADER_INVALID",
+                             f"Glossary header must be '$0' or '$0:<CAPA>': '{stripped}'",
+                             line_no)
         # $N:CAPA — section with capa but no title (N>=1)
         mn = re.match(r"^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$", stripped)
         if mn:

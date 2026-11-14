@@ -1,0 +1,20 @@
+{
+  "case": "clean",
+  "losses": [],
+  "mode": "canonical",
+  "operation": "render",
+  "preserved": [
+    "blocks",
+    "identity",
+    "scalars",
+    "structure"
+  ],
+  "reversible": true,
+  "schema_version": "1.0",
+  "source_format": "cortex:1.0",
+  "source_sha256": "ced1887246a8ba821c9f8fac478abb31aefebe3c2075c2400e3395300ae5dcb3",
+  "structural_equivalence": true,
+  "target_format": "hcortex:1.0",
+  "target_sha256": "82dade9a753003bbd8a0e79ed7230dbf760dd76f8e15847535a7e6be2a5728fb",
+  "warnings": []
+}

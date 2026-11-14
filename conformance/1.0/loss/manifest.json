@@ -1,0 +1,36 @@
+{
+  "dialect": "1.0",
+  "report_schema": "docs/schemas/loss-report-1.0.schema.json",
+  "fixtures": [
+    {
+      "id": "clean",
+      "file": "clean.cortex",
+      "expected": "expected/clean.json",
+      "codes": []
+    },
+    {
+      "id": "L402_comment",
+      "file": "L402_comment.cortex",
+      "expected": "expected/L402_comment.json",
+      "codes": ["L402_COMMENT_DROPPED"]
+    },
+    {
+      "id": "L403_whitespace",
+      "file": "L403_whitespace.cortex",
+      "expected": "expected/L403_whitespace.json",
+      "codes": ["L403_INTRALINE_WHITESPACE"]
+    },
+    {
+      "id": "L405_open_attr_order",
+      "file": "L405_open_attr_order.cortex",
+      "expected": "expected/L405_open_attr_order.json",
+      "codes": ["L405_OPEN_ATTR_ORDER"]
+    },
+    {
+      "id": "bare_glossary",
+      "file": "bare_glossary.cortex",
+      "expected": "expected/bare_glossary.json",
+      "codes": []
+    }
+  ]
+}

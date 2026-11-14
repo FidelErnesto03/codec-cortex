@@ -1,0 +1,30 @@
+{
+  "case": "L405_open_attr_order",
+  "losses": [
+    {
+      "action": "declare-only",
+      "category": "order",
+      "code": "L405_OPEN_ATTR_ORDER",
+      "detail": "editorial attribute order of an open sigil is not preserved",
+      "path": "$1",
+      "recoverability": "from-source-only",
+      "severity": "loss"
+    }
+  ],
+  "mode": "canonical",
+  "operation": "render",
+  "preserved": [
+    "blocks",
+    "identity",
+    "scalars",
+    "structure"
+  ],
+  "reversible": true,
+  "schema_version": "1.0",
+  "source_format": "cortex:1.0",
+  "source_sha256": "2dc3852c9fa9acea6c12960a51e778fec475870775193ec33e48f22adef671ad",
+  "structural_equivalence": true,
+  "target_format": "hcortex:1.0",
+  "target_sha256": "2717dfeab0a3f2c8edc22cbbfc0ea5a7f1b69225909fcce13b8f0c32204c19b5",
+  "warnings": []
+}
