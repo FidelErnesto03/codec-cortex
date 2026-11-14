@@ -203,12 +203,12 @@ impl V10Parser {
                 continue;
             }
             if is_glossary_title(&stripped) {
-                if self.in_glossary {
-                    return Err(ParseError::at("G002_GLOSSARY_REOPENED", "$0 reopened", line_no, 0));
-                }
-                self.in_glossary = true;
-                i += 1;
-                continue;
+                return Err(ParseError::at(
+                    "G042_GLOSSARY_HEADER_INVALID",
+                    format!("Glossary header must be '$0' or '$0:<CAPA>': '{stripped}'"),
+                    line_no,
+                    0,
+                ));
             }
             if let Some((sid, capa)) = section_capa(&stripped) {
                 self.start_section(sid, None, Some(capa), line_no)?;
@@ -1262,9 +1262,10 @@ pub fn render_hcortex10(doc: &V10Doc) -> String {
 fn render_glossary(doc: &V10Doc) -> String {
     let gl = &doc.glossary;
     let mut lines: Vec<String> = Vec::new();
-    if let Some(c) = &gl.capa {
-        lines.push(format!("$0:{c}"));
-    }
+    lines.push(match &gl.capa {
+        Some(c) => format!("$0:{c}"),
+        None => "$0".to_string(),
+    });
     if let Some(f) = &gl.format {
         lines.push(format!("$0:format{{{}}}", f.attrs.iter().map(|(k, v)| format!("{k}:{}", v.lexeme)).collect::<Vec<_>>().join(",")));
     }

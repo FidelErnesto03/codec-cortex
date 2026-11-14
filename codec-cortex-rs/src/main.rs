@@ -37,6 +37,8 @@ enum Command {
     },
     /// Compute ordinary SHA-256 or the domain-separated C14N hash.
     Hash { input: PathBuf, #[arg(long)] raw: bool },
+    /// Emit the CORTEX 1.0 declared loss report (canonical JSON).
+    LossReport { input: PathBuf, #[arg(short, long)] output: Option<PathBuf> },
     /// Compare two documents by canonical bytes.
     Compare { left: PathBuf, right: PathBuf, #[arg(long)] json: bool },
     /// Show a compact structural summary.
@@ -119,6 +121,18 @@ fn run(command: Command) -> Result<ExitCode, String> {
                     Ok(ExitCode::FAILURE)
                 }
             }
+        }
+        Command::LossReport { input, output } => {
+            let source = read_input(&input)?;
+            let case = codec_cortex::lossreport::loss_case_name(input.to_str().unwrap_or("-"));
+            let report = codec_cortex::lossreport::build_loss_report(&source, &case)?;
+            let text = codec_cortex::lossreport::dumps_canonical(&report);
+            write_output(output.as_deref(), text.as_bytes())?;
+            Ok(if codec_cortex::lossreport::has_errors(&report) {
+                ExitCode::FAILURE
+            } else {
+                ExitCode::SUCCESS
+            })
         }
         Command::Canonicalize { input, output } => {
             let mut doc = parse_any(&read_input(&input)?).map_err(|e| e.to_string())?;

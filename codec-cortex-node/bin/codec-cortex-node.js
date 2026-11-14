@@ -37,6 +37,7 @@ function usage(stream = process.stdout) {
   stream.write(`  codec-cortex-node to-hcortex <archivo.cortex> [-o salida.md]\n`);
   stream.write(`  codec-cortex-node from-hcortex <archivo.md> [-o salida.cortex]\n`);
   stream.write(`  codec-cortex-node hash <archivo.cortex>\n`);
+  stream.write(`  codec-cortex-node loss-report <archivo.cortex>\n`);
   stream.write(`  codec-cortex-node test <directorio-c14n> <directorio-hcortex> [--report archivo.json]\n`);
   stream.write(`  codec-cortex-node <directorio-c14n> <directorio-hcortex>\n\n`);
   stream.write(`Use '-' como archivo para leer desde stdin.\n`);
@@ -150,6 +151,13 @@ function main(argv = process.argv.slice(2)) {
         process.stdout.write(`sha256:${digest}\n`);
       }
       return 0;
+    }
+    if (command === 'loss-report') {
+      if (!args[0]) throw new Error('Falta el archivo CORTEX.');
+      const { buildLossReport, dumpsCanonical, lossCaseName } = require('../src/lossreport');
+      const report = buildLossReport(readInput(args[0]), lossCaseName(args[0]));
+      process.stdout.write(dumpsCanonical(report));
+      return report.losses.some((item) => item.severity === 'error') ? 1 : 0;
     }
     if (command === 'test' || command === 'conformance') return runHarness(args);
     if (!command.startsWith('-')) return runHarness(argv);

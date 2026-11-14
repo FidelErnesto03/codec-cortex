@@ -202,6 +202,78 @@ def d3b_hcortex_render_parity(files: list[Path]) -> dict:
     }
 
 
+def d6_loss_report_parity(files: list[Path]) -> dict:
+    """loss-report 1.0: byte-identical across surfaces and matching the vectors.
+
+    Fixtures pin the exact report (including hashes and declared codes); the
+    normative corpus must produce identical output in the five surfaces and must
+    never trigger L499_UNCLASSIFIED_LOSS.
+    """
+    surfaces = {
+        "python": [sys.executable, "-m", "codec_cortex", "loss-report"],
+        "go": ["./codec-cortex-go/bin/codec-cortex-linux-amd64", "loss-report"],
+        "node": ["node", "codec-cortex-node/bin/codec-cortex-node.js", "loss-report"],
+        "rust": ["./codec-cortex-rs/target/release/cortex", "loss-report"],
+        "bash": ["bash", "codec-cortex-bash/bin/codec-cortex", "loss-report"],
+    }
+    loss_dir = ROOT / "conformance/1.0/loss"
+    manifest = json.loads((loss_dir / "manifest.json").read_text(encoding="utf-8"))
+
+    def run_all(path: Path) -> tuple[dict, dict]:
+        outputs, errors = {}, {}
+        for name, cmd in surfaces.items():
+            good, out = _run_full(cmd + [str(path)])
+            if good:
+                outputs[name] = out
+            else:
+                errors[name] = out[-200:]
+        return outputs, errors
+
+    details = []
+    ok = 0
+    total = 0
+    for fixture in manifest["fixtures"]:
+        total += 1
+        path = loss_dir / fixture["file"]
+        expected = (loss_dir / fixture["expected"]).read_text(encoding="utf-8")
+        entry = {"fixture": fixture["id"], "kind": "vector", "pass": False}
+        outputs, errors = run_all(path)
+        entry["surfaces_run"] = sorted(outputs)
+        mismatched = [name for name, out in outputs.items() if out != expected]
+        missing = [name for name in surfaces if name not in outputs]
+        if errors:
+            entry["errors"] = errors
+        if mismatched:
+            entry["mismatched"] = mismatched
+        if missing:
+            entry["missing"] = missing
+        entry["pass"] = not mismatched and not missing
+        ok += entry["pass"]
+        details.append(entry)
+
+    for path in files:
+        total += 1
+        entry = {"file": _rel(path), "kind": "corpus", "pass": False}
+        outputs, errors = run_all(path)
+        present = set(outputs.values())
+        entry["surfaces_run"] = sorted(outputs)
+        entry["unclassified"] = any('"L499_UNCLASSIFIED_LOSS"' in out for out in outputs.values())
+        if errors:
+            entry["errors"] = errors
+        entry["pass"] = len(outputs) == len(surfaces) and len(present) == 1 and not entry["unclassified"]
+        ok += entry["pass"]
+        details.append(entry)
+
+    return {
+        "id": "D6_loss_report_parity",
+        "pass": total > 0 and ok == total,
+        "ok": ok,
+        "total": total,
+        "surfaces": sorted(surfaces),
+        "details": details,
+    }
+
+
 def d4_lossless(files: list[Path]) -> dict:
     parse_cortex, canonicalize, _ = _api()
     details = []
@@ -271,6 +343,7 @@ def run() -> dict:
         d3b_hcortex_render_parity(CORPUS_10 + CORPUS_02 + [SKILL]),
         d4_lossless(corpus),
         d5_tamper(SEED),
+        d6_loss_report_parity(CORPUS_10),
     ]
     all_pass = all(i["pass"] for i in indicators)
     from codec_cortex import __version__ as cc_version
@@ -308,7 +381,7 @@ def main() -> int:
             extra = f" ({ind['ok']}/{ind['total']})"
         elif ind["id"] == "D3_runtime_parity":
             extra = f" (ok={','.join(ind['runtimes_agreeing'])}; degraded={','.join(ind['runtimes_failed']) or '-'})"
-        elif ind["id"] == "D4_lossless":
+        elif ind["id"] in ("D4_lossless", "D6_loss_report_parity"):
             extra = f" ({ind['ok']}/{ind['total']})"
         print(f"[{mark}] {ind['id']}{extra}")
     print(f"VERDICT: {cert['verdict']}")

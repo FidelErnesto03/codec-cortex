@@ -47,6 +47,8 @@ func run(args []string) error {
 		return commandHash(args[1:])
 	case "explain-loss":
 		return commandExplainLoss(args[1:])
+	case "loss-report":
+		return commandLossReport(args[1:])
 	case "harness", "conformance":
 		return runHarness(args[1:])
 	default:
@@ -65,7 +67,8 @@ Usage:
   codec-cortex to-hcortex FILE|-            Render canonical HCORTEX representation
   codec-cortex from-hcortex FILE|-          Compile HCORTEX and emit canonical CORTEX
   codec-cortex hash FILE|-                  Emit CORTEX-C14N-0.1 domain-separated hash
-  codec-cortex explain-loss FILE|-          Report inherited HCORTEX loss risks
+  codec-cortex explain-loss FILE|-          Report inherited HCORTEX loss risks (legacy)
+  codec-cortex loss-report FILE|-           Emit the CORTEX 1.0 declared loss report (canonical JSON)
   codec-cortex harness [C14N_DIR] [HC_DIR] [--report FILE]
   codec-cortex version
 
@@ -201,6 +204,30 @@ func commandExplainLoss(args []string) error {
 	enc.SetIndent("", "  ")
 	enc.SetEscapeHTML(false)
 	return enc.Encode(cc.ExplainHCORTEXLoss(doc))
+}
+
+func commandLossReport(args []string) error {
+	path, err := requireOneFile(args)
+	if err != nil {
+		return err
+	}
+	b, err := readInput(path)
+	if err != nil {
+		return err
+	}
+	report, err := cc.BuildLossReport(string(b), cc.LossCaseName(path))
+	if err != nil {
+		return err
+	}
+	if err := cc.WriteLossReport(os.Stdout, report); err != nil {
+		return err
+	}
+	for _, item := range report.Losses {
+		if item.Severity == "error" {
+			return errors.New("unclassified loss")
+		}
+	}
+	return nil
 }
 
 func runHarness(args []string) error {

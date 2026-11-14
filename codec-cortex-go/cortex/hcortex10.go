@@ -53,6 +53,8 @@ func renderGlossaryV10(doc *Document) string {
 	gl := doc.Glossary
 	if gl.Capa != "" {
 		lines = append(lines, "$0:"+gl.Capa)
+	} else {
+		lines = append(lines, "$0")
 	}
 	if gl.Format != nil {
 		parts := make([]string, 0, len(gl.Format.Attrs))

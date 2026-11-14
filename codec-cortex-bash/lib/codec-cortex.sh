@@ -637,6 +637,11 @@ ccx_parse_cortex_file() {
       ccx_doc_update "$output" '.glossary.capa=$x' --arg x "${BASH_REMATCH[1]}"
       continue
     fi
+    # Grammar 1.0: glossary header is '$0' or '$0:<CAPA>'; a title after '$0:' is invalid.
+    if [[ $stripped == '$0:'[[:space:]]* ]]; then
+      ccx_error G042_GLOSSARY_HEADER_INVALID "Glossary header must be '\$0' or '\$0:<CAPA>': '$stripped'" "$line_no" 0
+      return
+    fi
     # $N or $N title (optionally with :CAPA) — or bare $0
     if [[ $stripped =~ ^\$([0-9]+)([[:space:]]+(.*))?$ && $stripped != '$0:'* ]]; then
       sid=${BASH_REMATCH[1]}; title_raw=${BASH_REMATCH[3]-}
@@ -1075,7 +1080,7 @@ ccx_render_glossary() {
   local ast=$1 obj attrs first k lex ns sigil q
   printf '%s\n' '<!-- glossary'
   gcapa=$(jq -r '.glossary.capa // empty' "$ast")
-  if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; fi
+  if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; else printf '%s\n' '$0'; fi
   obj=$(jq -c '.glossary.format' "$ast")
   if [[ $obj != null ]]; then
     printf '%s' '$0:format'; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"; printf '\n'
@@ -1188,7 +1193,8 @@ ccx_render_hcortex_ast_v10() {
   [[ $version == 0.2 ]] || version=1.0
   printf '<!-- HCORTEX v=%s t=canonical k=corpus -->\n\n' "$version"
   printf '<!-- glossary -->\n'
-  gcapa=$(jq -r '.glossary.capa // empty' "$ast"); [[ -n $gcapa ]] && printf '$0:%s\n' "$gcapa"
+  gcapa=$(jq -r '.glossary.capa // empty' "$ast")
+  if [[ -n $gcapa ]]; then printf '$0:%s\n' "$gcapa"; else printf '%s\n' '$0'; fi
   obj=$(jq -c '.glossary.format' "$ast")
   if [[ $obj != null ]]; then printf '%s' '$0:format'; ccx_emit_glossary_attrs "$(jq -c '.attrs' <<<"$obj")"; printf '\n'; fi
   while IFS= read -r obj; do
@@ -1797,3 +1803,6 @@ c14n_hash() { ccx_c14n_hash_file "$@"; }
 emit_string_literal() { ccx_emit_string_literal "$@"; }
 parse_string_literal() { ccx_parse_string_literal "$@"; }
 to_nfc() { ccx_nfc "$@"; }
+
+# shellcheck source=loss-report.sh
+source "$CCX_LIB_DIR/loss-report.sh"

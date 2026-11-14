@@ -94,6 +94,14 @@ func ParseCortex(source string) (*Document, error) {
 			doc.Glossary.Capa = m0[1]
 			continue
 		}
+		if strings.HasPrefix(stripped, "$0:") && len(stripped) > 3 &&
+			(stripped[3] == ' ' || stripped[3] == '\t') {
+			return nil, &ParseError{
+				Code:    "G042_GLOSSARY_HEADER_INVALID",
+				Message: fmt.Sprintf("Glossary header must be '$0' or '$0:<CAPA>': '%s'", stripped),
+				Line:    lineNo,
+			}
+		}
 		if m := sectionCapaRE.FindStringSubmatch(stripped); m != nil {
 			sid, _ := strconv.Atoi(m[1])
 			doc.Sections = append(doc.Sections, Section{ID: sid, Capa: m[2]})

@@ -79,6 +79,8 @@ func renderGlossaryBlock(doc *Document) string {
 	entries := []string{}
 	if doc.Glossary.Capa != "" {
 		entries = append(entries, "$0:"+doc.Glossary.Capa)
+	} else {
+		entries = append(entries, "$0")
 	}
 	if f := doc.Glossary.Format; f != nil {
 		parts := make([]string, len(f.Attrs))

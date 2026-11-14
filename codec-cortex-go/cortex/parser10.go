@@ -94,12 +94,12 @@ func (p *v10Parser) parse() (*Document, error) {
 			p.doc.Glossary.Capa = m[1]
 			continue
 		}
-		if regexp.MustCompile(`^\$0:\s+`).MatchString(stripped) && !regexp.MustCompile(`^\$0:\s*(?:format|enum_|micro_|namespace_|extension_|sigil-map)`).MatchString(stripped) {
-			if p.inGlossary {
-				return nil, &ParseError{Code: "G002_GLOSSARY_REOPENED", Message: "$0 reopened", Line: lineNo}
+		if regexp.MustCompile(`^\$0:\s+`).MatchString(stripped) {
+			return nil, &ParseError{
+				Code:    "G042_GLOSSARY_HEADER_INVALID",
+				Message: fmt.Sprintf("Glossary header must be '$0' or '$0:<CAPA>': '%s'", stripped),
+				Line:    lineNo,
 			}
-			p.inGlossary = true
-			continue
 		}
 		if m := v10SectionCapaRE.FindStringSubmatch(stripped); m != nil {
 			sid := atoi(m[1])

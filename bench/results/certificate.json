@@ -3,10 +3,10 @@
   "level": "A",
   "tool": {
     "codec_cortex": "1.0.0",
-    "python": "3.11.8"
+    "python": "3.12.11"
   },
-  "instrument_sha256": "095d26d54d7f5ecb4d0ba56ecf16e7308e6a55d16e34b79430b62c26faabd64f",
-  "certifier_sha256": "a38b07cd082c1f641384e8cd700bc27a5ddb5405332d380f200199ce33673131",
+  "instrument_sha256": "dd7831f084b91390170d7e23902d850b1b82ea61cb6708e799eab07818acb8ab",
+  "certifier_sha256": "119c18ce8e2598f7e42fae5c5cf4f0c06230e82cedf819d809a4abff9a442d95",
   "seed": "conformance/hcortex/cortex/H002_attrs-optional.cortex",
   "indicators": [
     {
@@ -2599,11 +2599,11 @@
           "file": "skill/codec-cortex.skill.md",
           "pass": true,
           "digests": {
-            "python": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
-            "go": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
-            "node": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
-            "rust": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45",
-            "bash": "470daf89f7da97d25d62df947cfe90c6a8af7a70c81987ea8b5e56b3b39dbf45"
+            "python": "34eaadae255c5343c8d29a7bce8bc5a49185074a573129c051b9384a712b6c93",
+            "go": "34eaadae255c5343c8d29a7bce8bc5a49185074a573129c051b9384a712b6c93",
+            "node": "34eaadae255c5343c8d29a7bce8bc5a49185074a573129c051b9384a712b6c93",
+            "rust": "34eaadae255c5343c8d29a7bce8bc5a49185074a573129c051b9384a712b6c93",
+            "bash": "34eaadae255c5343c8d29a7bce8bc5a49185074a573129c051b9384a712b6c93"
           }
         }
       ]
@@ -3185,6 +3185,991 @@
       "pass": true,
       "original": "838cfcc5811a9dd77e87d26c9602b2169aa61c1d52c90a3762aa86fa4632959c",
       "mutated": "91666c2003cf4016838fe7b155eb6f0651ceb7129d460d2c55eb8f09d863caea"
+    },
+    {
+      "id": "D6_loss_report_parity",
+      "pass": true,
+      "ok": 75,
+      "total": 75,
+      "surfaces": [
+        "bash",
+        "go",
+        "node",
+        "python",
+        "rust"
+      ],
+      "details": [
+        {
+          "fixture": "clean",
+          "kind": "vector",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ]
+        },
+        {
+          "fixture": "L402_comment",
+          "kind": "vector",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ]
+        },
+        {
+          "fixture": "L403_whitespace",
+          "kind": "vector",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ]
+        },
+        {
+          "fixture": "L405_open_attr_order",
+          "kind": "vector",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ]
+        },
+        {
+          "fixture": "bare_glossary",
+          "kind": "vector",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ]
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V001_minimal_attrs.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V001_minimal_slot.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V002_attrs_optional.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V002_multiple_slots.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V003_attrs_complete.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V003_optional_middle_omitted.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V004_multiple_sigils.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V004_optional_final_omitted.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V005_all_scalar_kinds.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V005_microtoken_attrs.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V006_marker_in_string.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V006_microtoken_positional.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V007_attrs_pos_text_cells.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V007_marker_in_cuerpo.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V008_marker_in_bloque.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V008_relation.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V009_namespace.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V009_relation_selectors.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V010_cuerpo_one_line.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V010_relation_slots.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V011_attrs_pos_slots.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V011_cuerpo_multiline.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V012_bloque.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V012_microtoken_slot.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V013_block_internal_braces.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V013_unicode_nfc.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V014_lists.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V014_projection_minimal.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V015_scalar_types.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V015_skill_grammar.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V016_escaped_string.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V016_max_index.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V017_two_sections.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V017_unicode.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V018_comments.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V018_multiple_sigils.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V019_cuerpo_multiline.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V019_section_titles.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V020_bloque_with_special.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V020_namespace_metadata.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V021_attrs_nominal_in_02.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V021_qualified_sigil.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V022_enum_reference.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V022_optional_extension.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V023_namespace_qualified.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V023_open_contract.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V024_bang_sigil.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V024_extension_decl.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V025_focus_on_attrs_pos.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V025_url_quoted.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V026_decimal_precision.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V026_selector_atom.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V027_negative_integer.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V027_original_skill_style.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V028_empty_list.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V028_full_portable_glossary.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V029_body_empty_lines.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V029_nested_list.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V030_boolean_false.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V030_empty_list.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V031_negative_numbers.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V032_optional_positional_omitted.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V033_relation_optional_evidence_omitted.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V034_multiple_sections_same_name.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V035_atom_paths.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V036_all_shapes.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V037_namespace_qualified_and_local.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V038_format_extra_metadata.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V039_meta_type_decls_legacy_evolution.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        },
+        {
+          "file": "conformance/1.0/valid/v10-V040_dense_skill_excerpt.cortex",
+          "kind": "corpus",
+          "pass": true,
+          "surfaces_run": [
+            "bash",
+            "go",
+            "node",
+            "python",
+            "rust"
+          ],
+          "unclassified": false
+        }
+      ]
     }
   ],
   "verdict": "PASS"

@@ -117,11 +117,9 @@ class V10Parser {
         i += 1;
         continue;
       }
-      if (/^\$0:\s+/.test(stripped) && !/^\$0:\s*(?:format|enum_|micro_|namespace_|extension_|sigil-map)/.test(stripped)) {
-        if (this.inGlossary) throw new ParseError('G002_GLOSSARY_REOPENED', '$0 reopened', lineNo);
-        this.inGlossary = true;
-        i += 1;
-        continue;
+      if (/^\$0:\s+/.test(stripped)) {
+        throw new ParseError('G042_GLOSSARY_HEADER_INVALID',
+          `Glossary header must be '$0' or '$0:<CAPA>': '${stripped}'`, lineNo);
       }
       m = /^\$([1-9][0-9]*):(KERNEL|CORE|KNOW|DATA|FLOW|CACHE)$/.exec(stripped);
       if (m) {
@@ -878,7 +876,7 @@ function renderHCORTEX10(doc) {
 function renderGlossary(doc) {
   const gl = doc.glossary;
   const lines = [];
-  if (gl.capa) lines.push(`$0:${gl.capa}`);
+  lines.push(gl.capa ? `$0:${gl.capa}` : '$0');
   if (gl.format) lines.push(`$0:format{${gl.format.attrs.map(([k, v]) => `${k}:${v.lexeme}`).join(',')}}`);
   for (const e of gl.enums) lines.push(`$0:enum_${e.name}{values:"${e.values.join('|')}"}`);
   for (const m of gl.micros) {

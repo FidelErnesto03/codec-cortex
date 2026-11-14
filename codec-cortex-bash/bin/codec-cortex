@@ -21,6 +21,7 @@ Usage:
   codec-cortex from-hcortex|decode [FILE|-]
   codec-cortex parse-hcortex [FILE|-]
   codec-cortex inspect [FILE|-]
+  codec-cortex loss-report [FILE|-]
   codec-cortex sha256 [FILE|-]
   codec-cortex c14n-hash [FILE|-]
   codec-cortex phase3 C14N_DIR
@@ -61,6 +62,10 @@ case $cmd in
     prepare_input "${1:--}" || exit $?; ccx_tmp_init; ast="$CCX_TMP_ROOT/ast.json"
     ccx_parse_cortex_file "$CCX_INPUT" "$ast" || exit $?
     jq '{version:.cortex_version,encoding:.encoding,glossary:{enums:(.glossary.enums|length),micros:(.glossary.micros|length),namespaces:(.glossary.namespaces|length),extensions:(.glossary.extensions|length),symbols:(.glossary.symbols|length)},sections:[.sections[]|{id,title,ideas:(.ideas|length)}],total_ideas:([.sections[].ideas[]]|length)}' "$ast" ;;
+  loss-report)
+    prepare_input "${1:--}" || exit $?; report=$(ccx_loss_report_file "$CCX_INPUT" "$(ccx_loss_case_name "${1:--}")") || exit 1
+    printf '%s\n' "$report"
+    ccx_loss_report_exit_code "$report" || exit 1 ;;
   sha256)
     prepare_input "${1:--}" || exit $?; ccx_sha256_file "$CCX_INPUT" ;;
   c14n-hash)

@@ -158,15 +158,18 @@ def build_loss_report(source: str, case: str) -> Dict:
     if declared not in (None, "1.0"):
         raise ValueError(f"loss-report requires cortex:1.0 (declared: {declared})")
 
-    canonical_source = canonicalize(doc)
+    # Render and detect source-order losses before canonicalizing: C14N mutates
+    # the AST in place (microtoken expansion, attribute normalization).
+    attr_losses = _open_attr_order_losses(doc)
     rendered = render_hcortex_slots(doc)
+    canonical_source = canonicalize(doc)
     roundtrip, _diags = compile_hcortex_slots(rendered)
     if roundtrip is None:
         raise ValueError("HCORTEX roundtrip compilation failed")
     canonical_roundtrip = canonicalize(roundtrip)
 
     losses = _lexical_losses(source)
-    losses.extend(_open_attr_order_losses(doc))
+    losses.extend(attr_losses)
     equivalent = canonical_source == canonical_roundtrip
     if not equivalent:
         losses.append(_finding(L499, "$", "structure", "irrecoverable"))

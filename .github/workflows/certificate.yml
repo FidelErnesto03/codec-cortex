@@ -28,6 +28,12 @@ jobs:
       - name: Conformance slots 0.2
         run: python -m codec_cortex conformance
 
+      - name: Catalogo de errores cerrado (AC-05)
+        run: python scripts/ccx_error_catalog.py
+
+      - name: Tests de referencia (loss-report + unidad)
+        run: python -m unittest discover -s tests -p "test_*.py"
+
       - name: Build Rust runtime (paridad D3)
         run: cargo build --release --manifest-path codec-cortex-rs/Cargo.toml
 

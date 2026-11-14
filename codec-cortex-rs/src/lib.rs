@@ -13,6 +13,7 @@ pub mod c14n;
 pub mod error;
 pub mod harness;
 pub mod hcortex;
+pub mod lossreport;
 pub mod model;
 pub mod parser;
 pub mod scalars;
