@@ -64,7 +64,7 @@ representations produced by standard serializers.
 ### CMD:install
 | command | expect |
 |---|---|
-| "python -m pip install codec-cortex==1.0.0" | "import succeeds and codec_cortex.__version__ is 1.0.0" |
+| "python -m pip install codec-cortex==1.0.1" | "import succeeds and codec_cortex.__version__ is 1.0.1" |
 
 ### CMD:verify
 | command | expect |

@@ -42,7 +42,7 @@ como alias; la escritura canónica es siempre `cortex:1.0`.
 
 | Lenguaje | Directorio | Ejecutable | Distribución |
 |---|---|---|---|
-| Python (referencia) | `codec_cortex/` | `python -m codec_cortex` | PyPI `codec-cortex 1.0.0` |
+| Python (referencia) | `codec_cortex/` | `python -m codec_cortex` | PyPI `codec-cortex 1.0.1` |
 | Go | `codec-cortex-go/` | `codec-cortex` | `go get` + `make dist` |
 | Node.js | `codec-cortex-node/` | `codec-cortex-node` | local (`npm install ./codec-cortex-node`) |
 | Rust | `codec-cortex-rs/` | `cortex` | `cargo build --release` |

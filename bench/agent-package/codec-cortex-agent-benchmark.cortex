@@ -35,7 +35,7 @@ representations produced by standard serializers.
 
 $2: PREPARATION:CORE
 RUL:environment{rule:"Python 3.10+, isolated venv, no network during measurement runs.",detail:"Record OS, CPU, Python, pip and package versions in manifest.json."}
-CMD:install{command:"python -m pip install codec-cortex==1.0.0",expect:"import succeeds and codec_cortex.__version__ is 1.0.0"}
+CMD:install{command:"python -m pip install codec-cortex==1.0.1",expect:"import succeeds and codec_cortex.__version__ is 1.0.1"}
 CMD:verify{command:"python -m codec_cortex hash <file.cortex>",expect:"prints sha256:64hex; identical across repeated runs"}
 CMD:selfcheck{command:"python -m codec_cortex loss-report <this-package.cortex>",expect:"reversible true and losses empty; otherwise STOP and report a toolchain defect"}
 CMD:render{command:"python -m codec_cortex to-hcortex <file.cortex>",expect:"deterministic HCORTEX; same bytes on every run"}

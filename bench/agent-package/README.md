@@ -24,7 +24,7 @@ modelo.
 
 1. Entregá el `.cortex` al agente como única fuente de instrucciones.
 2. El agente ejecuta el self-check del paquete (`§2 PREPARATION`): instala
-   `codec-cortex==1.0.0`, valida este archivo y exige `loss-report` con
+   `codec-cortex==1.0.1`, valida este archivo y exige `loss-report` con
    `reversible: true` y `losses: []`.
 3. Congela `prereg.yaml` **antes** de la primera llamada a un modelo (compuerta
    G1) y recién entonces corre las fases P1–P4.

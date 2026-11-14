@@ -4,7 +4,11 @@ Todos los cambios notables del proyecto se documentan aquí. El proyecto sigue
 nombres canónicos sin versión en archivos/esquemas; la versión vive en los
 metadatos de cada superficie y en tags de git.
 
-## [Unreleased] — canon 1.0 (BLP-004, 2026-11-14)
+## [1.0.1] — 2026-11-14
+
+Release de implementación. El **dialecto 1.0 no cambia**: no hay cambios de
+gramática ni de hash canónico. Cambia lo que la implementación sabe hacer y lo
+que exige.
 
 ### Añadido — pérdidas declaradas verificables
 

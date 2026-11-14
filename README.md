@@ -85,7 +85,7 @@ certificado del proyecto (D3 y D3b: hash y render byte-exactos entre todas).
 
 | Lenguaje | Directorio | Ejecutable | Distribución |
 |---|---|---|---|
-| Python (referencia) | `codec_cortex/` | `python -m codec_cortex` | PyPI `codec-cortex 1.0.0` |
+| Python (referencia) | `codec_cortex/` | `python -m codec_cortex` | PyPI `codec-cortex 1.0.1` |
 | Go | `codec-cortex-go/` | `codec-cortex` | `go get` + `make dist` |
 | Node.js | `codec-cortex-node/` | `codec-cortex-node` | local: `npm install ./codec-cortex-node` |
 | Rust | `codec-cortex-rs/` | `cortex` | `cargo build --release` (no publicado) |
