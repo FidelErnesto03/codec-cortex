@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q3_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q3",
+ "rep": 3,
+ "response": "**Proveedor:** ComplianceAudit (incidente I-004: \"Fuga de tokens de acceso en Aegis\").\n\n**Decisión arquitectónica:** AR02 — \"Migración a OAuth2 para autenticación de servicios\" (trimestre T04, proyectos Aegis y Phoenix, `post_incidente: I-004`).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:33:33.722955Z",
+ "ok": true
+}

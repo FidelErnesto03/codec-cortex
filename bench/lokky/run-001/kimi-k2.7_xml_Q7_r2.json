@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q7_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q7",
+ "rep": 2,
+ "response": "Sí.\n\n| Riesgo | Proyectos afectados | Proveedor en la cadena |\n|---|---|---|\n| R01 — Fuga de datos en API Gateway | Horizon, Nebula | CloudShield |\n| R03 — Rotación de Sofía Márquez | Aegis, Nebula, Phoenix | No especificado (nil) |\n| R04 — Zero-day en motor de eventos | Nebula, Phoenix | StreamCore |\n\nLos demás riesgos (R02, R05, R06) afectan un solo proyecto.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.1,
+ "ts": "2026-11-04T01:31:06.478046Z",
+ "ok": true
+}

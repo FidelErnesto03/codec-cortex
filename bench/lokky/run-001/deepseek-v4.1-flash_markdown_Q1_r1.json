@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q1_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 1,
+ "response": "El documento **no define un responsable único** para Nebula: no existe un campo de \"responsable\" en la tabla de proyectos. Los miembros asociados a Nebula son EQP-01 Elena Vargas, EQP-02 Marco Silva, EQP-05 Aisha Okafor y EQP-07 Sofía Márquez.\n\n**Fecha límite (PRJ-01): 2026-09-15** (prioridad Alta, presupuesto $850,000, estado Activo).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.0,
+ "ts": "2026-11-04T01:39:04.854093Z",
+ "ok": true
+}

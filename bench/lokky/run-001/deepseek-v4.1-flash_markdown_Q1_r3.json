@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q1_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 3,
+ "response": "El documento **no designa un responsable único** para Nebula. Los miembros del equipo asignados a ese proyecto son: Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.\n\n**Fecha límite (deadline): 2026-09-15** (PRJ-01, prioridad Alta, estado Activo).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:39:09.922878Z",
+ "ok": true
+}

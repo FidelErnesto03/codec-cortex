@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q1_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q1",
+ "rep": 4,
+ "response": "El documento **no indica un responsable** del proyecto Nebula (no existe un campo de \"responsable\" ni de \"owner\" para los proyectos).\n\nSolo se puede saber:\n- **Fecha límite de Nebula:** 2026-09-15 (código T01, prioridad alta, estado activo).\n- **Personas asignadas a Nebula:** Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:35:11.561754Z",
+ "ok": true
+}

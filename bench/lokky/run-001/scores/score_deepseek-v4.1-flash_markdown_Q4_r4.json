@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_markdown_Q4_r4", "model": "deepseek-v4.1-flash", "format": "markdown", "question_id": "Q4", "rep": 4, "status": "completo", "score": 1.0, "must_found": ["sofia marquez", "daniel ortega"], "any_found": ["aisha okafor"], "secs": 2.2}

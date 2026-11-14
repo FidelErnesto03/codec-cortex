@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q8_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "**Proyecto en mayor peligro: Nebula (T01).**\n\nJustificación según el documento:\n\n- **Riesgos (4, los más numerosos):** R01 fuga de datos en API Gateway (impacto **crítico**, prob. 0.35), R02 incumplimiento de deadline (alto, **0.60**, la probabilidad más alta del registro), R03 rotación de Sofía Márquez (alto, 0.45) y R04 zero-day en motor de eventos (impacto **crítico**, 0.20). Es el único proyecto con dos riesgos críticos.\n- **Dependencias:** está **bloqueado por Horizon** (D01, bloqueante), **depende de Aegis** (D02) —que a su vez está bloqueado por Horizon (D07) y arrastra el incidente crítico no resuelto I-004— y **depende de Phoenix** (D06), que está bloqueado por Aegis (D04). Es el eslabón central de la cadena Horizon → Nebula/Aegis → Phoenix.\n- **Incidentes:** sufrió I-002 (pérdida de eventos en su bus, StreamCore).\n- **Decisiones:** AR03 (motor de eventos desacoplado) es **post-incidente I-002** y AR04 (rotación de secretos) es **post-incidente R01,R04**, lo que confirma que ya materializó esos riesgos; además le aplica AR01 (Kubernetes).\n- **Contexto adicional:** deadline 2026-09-15 con prioridad alta y presupuesto de 850.000, y su proveedor CloudShield/StreamCore concentra los riesgos R01 y R04.\n\nEn comparación, Aegis tiene prioridad crítica e I-004 no resuelto, pero solo 2 riesgos (uno medio) y deadline 2027-01-10; Phoenix y Horizon tienen menor exposición agregada.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.4,
+ "ts": "2026-11-04T01:38:37.357723Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q2_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q2",
+ "rep": 1,
+ "response": "Ninguno. El proyecto con deadline más cercano es Atlas (2026-07-30), y ningún riesgo listado lo afecta.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.4,
+ "ts": "2026-11-04T01:20:46.753850Z",
+ "ok": true
+}

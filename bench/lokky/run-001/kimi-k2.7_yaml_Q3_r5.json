@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q3_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q3",
+ "rep": 5,
+ "response": "El proveedor responsable del incidente I-004 fue **ComplianceAudit**.\n\nComo consecuencia, se tomó la decisión arquitectónica **AR02: Migración a OAuth2 para autenticación de servicios**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.6,
+ "ts": "2026-11-04T01:17:12.236108Z",
+ "ok": true
+}

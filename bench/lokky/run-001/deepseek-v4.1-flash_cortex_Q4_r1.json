@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q4_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q4",
+ "rep": 1,
+ "response": "**6 miembros** trabajan en más de un proyecto:\n\n- **Elena Vargas** — Nebula, Horizon\n- **Lucia Rojas** — Horizon, Aegis\n- **Daniel Ortega** — Aegis, Phoenix\n- **Aisha Okafor** — Nebula, Phoenix\n- **Sofia Márquez** — Nebula, Aegis, Phoenix\n- **Liam O'Connor** — Aegis *(solo 1 → no aplica)*\n\nCorrección: son **5**. Liam O'Connor solo tiene Aegis.\n\n**5 miembros:**\n- Elena Vargas (Nebula, Horizon)\n- Lucia Rojas (Horizon, Aegis)\n- Daniel Ortega (Aegis, Phoenix)\n- Aisha Okafor (Nebula, Phoenix)\n- Sofia Márquez (Nebula, Aegis, Phoenix)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.8,
+ "ts": "2026-11-04T01:33:41.023158Z",
+ "ok": true
+}

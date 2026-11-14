@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q2_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "El proyecto con deadline más cercano es **Atlas** (2026-07-30, PRJ-05).\n\nNingún riesgo de la tabla de Riesgos lo menciona: R01–R06 afectan solo a Horizon, Nebula, Aegis y Phoenix. Por tanto, **no hay riesgos registrados que afecten a Atlas**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:39:22.395683Z",
+ "ok": true
+}

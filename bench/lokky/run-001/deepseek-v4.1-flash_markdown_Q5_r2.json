@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q5_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q5",
+ "rep": 2,
+ "response": "Hay **dos** riesgos con impacto 🔴 Crítico:\n\n| Riesgo | Descripción | Proyectos afectados | Proveedor |\n|---|---|---|---|\n| **R01** | Fuga de datos en API Gateway | Horizon, Nebula | CloudShield |\n| **R04** | Zero-day en motor de eventos | Nebula, Phoenix | StreamCore |\n\nSi la pregunta busca uno solo, el documento no permite desempatar: ambos son \"Crítico\" y comparten a **Nebula** como proyecto afectado; R01 se asocia a CloudShield y R04 a StreamCore.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.9,
+ "ts": "2026-11-04T01:39:55.077256Z",
+ "ok": true
+}

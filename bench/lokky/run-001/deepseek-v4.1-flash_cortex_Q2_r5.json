@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q2_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "**Atlas** (deadline 2026-07-30) es el proyecto con el deadline más cercano.\n\n**Riesgos que lo afectan: ninguno.** Ningún riesgo del documento (R01–R06) incluye a Atlas en su campo `proyectos`:\n\n- R01 → Horizon, Nebula\n- R02 → Nebula\n- R03 → Aegis, Nebula, Phoenix\n- R04 → Nebula, Phoenix\n- R05 → Aegis\n- R06 → Phoenix",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:33:26.399489Z",
+ "ok": true
+}

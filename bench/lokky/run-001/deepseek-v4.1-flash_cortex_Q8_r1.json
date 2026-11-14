@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q8_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "**Nebula (T01)** es el proyecto en mayor peligro.\n\n**Riesgos (4 de 6, la mayor concentración):**\n- R01 — Fuga de datos en API Gateway, impacto **crítico**, prob. 0.35 (Horizon, Nebula).\n- R02 — Incumplimiento de su deadline, impacto **alto**, prob. **0.60** (la más alta del documento).\n- R03 — Rotación de Sofía Márquez, alto, 0.45.\n- R04 — Zero-day en motor de eventos, **crítico**, 0.20 (Nebula, Phoenix).\n\n**Dependencias:**\n- D01: **Horizon lo bloquea** (bloqueante) y Horizon vence antes (2026-08-01).\n- D02: depende de **Aegis**, que a su vez está bloqueado por Horizon (D07).\n- D06: depende de **Phoenix**, que depende de Aegis y es bloqueado por Aegis (D04) → cadena/ciclo de bloqueo Horizon → Aegis → Phoenix → Nebula.\n\n**Incidentes:** I-002 (pérdida de eventos en el bus de Nebula, StreamCore) evidencia fragilidad ya materializada.\n\n**Decisiones:** AR03 (motor de eventos desacoplado) nace como respuesta *post-incidente* a I-002, y AR04 (rotación de secretos cada 72h) es *post-incidente* de R01 y R04: ambas decisiones confirman que sus riesgos críticos ya se consideraron materializados.\n\n**Matiz:** Aegis es el segundo candidato (prioridad crítica, I-004 fuga de tokens **no resuelta**, R05 sobrecoste 0.55 y bloqueo D07), pero su deadline (2027-01-10) le da más margen; Nebula combina más riesgos, dos críticos, la mayor probabilidad de incumplimiento y un bloqueo directo desde un proyecto con fecha más próxima.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 6.9,
+ "ts": "2026-11-04T01:34:37.471348Z",
+ "ok": true
+}

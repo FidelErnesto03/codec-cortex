@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_plaintext_Q2_r1", "model": "deepseek-v4.1-flash", "format": "plaintext", "question_id": "Q2", "rep": 1, "status": "parcial", "score": 0.5, "must_found": ["r01"], "any_found": [], "secs": 3.6}

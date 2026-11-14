@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q7_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q7",
+ "rep": 5,
+ "response": "**Sí, tres riesgos afectan a múltiples proyectos:**\n\n| Riesgo | Proyectos afectados | Proveedor |\n|--------|---------------------|-----------|\n| **R01** – Fuga de datos en API Gateway (Crítico, 35%) | Horizon, Nebula | CloudShield |\n| **R03** – Rotación de Sofía Márquez (Alto, 45%) | Aegis, Nebula, Phoenix | N/A (interno) |\n| **R04** – Zero-day en motor de eventos (Crítico, 20%) | Nebula, Phoenix | StreamCore |\n\n**Cadena de impacto:**\n- **CloudShield** → WAF + API Gateway, cubre Horizon y Nebula (ambos activos con deadlines 2026-08-01 y 2026-09-15).\n- **StreamCore** → Event Bus, cubre Nebula y Phoenix.\n- **Sofía Márquez** (DevOps Lead) es la única persona asignada a Nebula, Aegis y Phoenix a la vez → punto único de fallo humano en los tres proyectos.\n\nLos riesgos R02 (Nebula), R05 (Aegis) y R06 (Phoenix) son de un solo proyecto.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.9,
+ "ts": "2026-11-04T01:40:31.920774Z",
+ "ok": true
+}

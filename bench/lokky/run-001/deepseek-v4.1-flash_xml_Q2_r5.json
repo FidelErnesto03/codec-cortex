@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q2_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "**Proyecto con deadline más cercano: Atlas (T06, 2026-07-30).**\n\nNingún riesgo del documento incluye a Atlas en su lista de proyectos. Por tanto: **no hay riesgos registrados que afecten a Atlas**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.4,
+ "ts": "2026-11-04T01:44:02.259164Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q2_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q2",
+ "rep": 2,
+ "response": "**Proyecto con deadline más cercano:** Atlas — 2026-07-30 (código T06).\n\n**Riesgos que lo afectan:** ninguno. En `<riesgos>` no hay ningún riesgo cuyos `<proyecto>` incluya Atlas (R01–R06 cubren Horizon, Nebula, Aegis y Phoenix).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:43:54.115053Z",
+ "ok": true
+}

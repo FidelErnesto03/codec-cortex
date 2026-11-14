@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q6_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q6",
+ "rep": 2,
+ "response": "El incidente más reciente es **I-004** (*Fuga de tokens de acceso en Aegis*, 2026-07-10). Afectó la dependencia **Phoenix → Aegis** (D03: *Phoenix depende de Aegis*). La decisión de mitigación fue **AR02: Migración a OAuth2 para autenticación de servicios**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.8,
+ "ts": "2026-11-04T01:17:55.923101Z",
+ "ok": true
+}

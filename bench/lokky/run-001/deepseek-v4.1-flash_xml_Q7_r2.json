@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q7_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q7",
+ "rep": 2,
+ "response": "Sí. Los riesgos que afectan a más de un proyecto son:\n\n| Riesgo | Proyectos afectados | Proveedor |\n|---|---|---|\n| R01 – Fuga de datos en API Gateway | Horizon, Nebula | **CloudShield** |\n| R03 – Rotación de Sofía Márquez | Aegis, Nebula, Phoenix | Sin proveedor (`nil`) |\n| R04 – Zero-day en motor de eventos | Nebula, Phoenix | **StreamCore** |\n\nLos demás (R02, R05, R06) afectan a un solo proyecto.\n\n**Proveedores en la cadena de impacto multi-proyecto:** CloudShield (WAF + API Gateway, Horizon/Nebula) y StreamCore (Event Bus, Nebula/Phoenix). R03 es un riesgo de personal, no de proveedor.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.7,
+ "ts": "2026-11-04T01:44:57.067833Z",
+ "ok": true
+}

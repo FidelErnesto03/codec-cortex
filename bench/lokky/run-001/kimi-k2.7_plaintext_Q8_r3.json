@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q8_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q8",
+ "rep": 3,
+ "response": "Nebula.\n\n**Riesgos:** acumula cuatro —más que cualquier otro proyecto—: R01 (crítico, fuga de datos), R02 (alto, 60 % de incumplir deadline, la probabilidad más alta del documento), R03 (alto, rotación de Sofía) y R04 (crítico, zero-day en StreamCore).\n\n**Dependencias:** está bloqueado por Horizon (D01), depende de Aegis (D02) y también de Phoenix (D06), formando una cadena de bloqueos muy frágil.\n\n**Incidentes:** fue afectado por I-002 (pérdida de eventos en StreamCore), y sus proveedores CloudShield y StreamCore ya tienen antecedentes de fallos.\n\n**Decisiones:** requiere ejecutar AR01, AR03 y AR04 para mitigar sus problemas, lo que indica deuda técnica e implementación pendiente.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 13.6,
+ "ts": "2026-11-04T01:28:18.807953Z",
+ "ok": true
+}

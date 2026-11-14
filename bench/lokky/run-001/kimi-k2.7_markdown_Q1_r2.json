@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q1_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 2,
+ "response": "El documento no designa un único responsable explícito de Nebula, pero el primer miembro asignado al proyecto es **Elena Vargas** (Arquitecta Cloud).  \nFecha límite: **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 7.9,
+ "ts": "2026-11-04T01:20:28.810937Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q2_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q2",
+ "rep": 4,
+ "response": "**Proyecto con deadline más cercano:** Atlas (PRJ-05, 2026-07-30).\n\n**Riesgos que lo afectan:** ninguno. Ninguno de los riesgos R01–R06 lista a Atlas entre sus proyectos afectados.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.1,
+ "ts": "2026-11-04T01:39:24.490932Z",
+ "ok": true
+}

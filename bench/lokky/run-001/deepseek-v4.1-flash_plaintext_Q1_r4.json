@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q1_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q1",
+ "rep": 4,
+ "response": "El documento **no designa un responsable único** para Nebula. Los miembros que trabajan en Nebula son Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.\n\n**Fecha límite: 15 de septiembre de 2026** (presupuesto $850,000, prioridad alta).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.4,
+ "ts": "2026-11-04T01:41:39.800781Z",
+ "ok": true
+}

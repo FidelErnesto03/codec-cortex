@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q1_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q1",
+ "rep": 3,
+ "response": "El documento no designa un único responsable del proyecto Nebula. Los miembros del equipo asignados a Nebula son: Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.\n\nFecha límite (deadline) de Nebula: **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.0,
+ "ts": "2026-11-04T01:16:17.666822Z",
+ "ok": true
+}

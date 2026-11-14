@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q1_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q1",
+ "rep": 2,
+ "response": "El documento **no define un campo \"responsable\"** para los proyectos (solo `id`, `deadline`, `presupuesto`, `prioridad`, `estado`).\n\nLo que sí consta para **Nebula**:\n- **Fecha límite:** 2026-09-15\n- **Miembros del equipo asignados a Nebula:** Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez\n\nNo es posible determinar un único responsable con la información del documento.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.7,
+ "ts": "2026-11-04T01:33:06.466337Z",
+ "ok": true
+}

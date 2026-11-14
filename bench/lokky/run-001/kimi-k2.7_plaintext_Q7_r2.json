@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q7_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q7",
+ "rep": 2,
+ "response": "Sí, hay tres riesgos que afectan a múltiples proyectos simultáneamente:\n\n1. **R01** (fuga de datos en API Gateway de CloudShield) → **Horizon y Nebula**. Proveedor: **CloudShield**.\n2. **R03** (rotación de Sofía Márquez) → **Aegis, Nebula y Phoenix**. No hay proveedor en la cadena; es un riesgo de persona interna.\n3. **R04** (zero-day en motor de eventos de StreamCore) → **Nebula y Phoenix**. Proveedor: **StreamCore**.\n\nLos demás riesgos afectan solo un proyecto: R02 → Nebula; R05 → Aegis (DataVault); R06 → Phoenix (ComplianceAudit).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.5,
+ "ts": "2026-11-04T01:27:21.274131Z",
+ "ok": true
+}

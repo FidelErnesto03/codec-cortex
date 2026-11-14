@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q2_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "El proyecto con el deadline más cercano es **Atlas** (2026-07-30). Ninguno de los riesgos documentados lo incluye en sus proyectos afectados.\n\n**Respuesta:** Ninguno.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.4,
+ "ts": "2026-11-04T01:29:21.850559Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q5_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q5",
+ "rep": 1,
+ "response": "Los riesgos con impacto **crítico** son:\n\n- **R01**: *Fuga de datos en API Gateway* — asociado a los proyectos **Horizon y Nebula** y al proveedor **CloudShield**.\n- **R04**: *Zero-day en motor de eventos* — asociado a los proyectos **Nebula y Phoenix** y al proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.3,
+ "ts": "2026-11-04T01:17:32.772822Z",
+ "ok": true
+}

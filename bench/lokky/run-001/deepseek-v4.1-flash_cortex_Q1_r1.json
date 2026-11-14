@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q1_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q1",
+ "rep": 1,
+ "response": "El documento no define un campo de \"responsable\" para los proyectos. Los miembros del equipo asignados a **Nebula** son: Elena Vargas (Arquitecta Cloud), Marco Silva (SRE Lead), Aisha Okafor (Data Engineer) y Sofía Márquez (DevOps Lead).\n\nFecha límite de **Nebula** (id T01): **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 17.1,
+ "ts": "2026-11-04T01:33:03.776841Z",
+ "ok": true
+}

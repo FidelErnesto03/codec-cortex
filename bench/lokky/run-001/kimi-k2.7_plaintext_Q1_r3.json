@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q1_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q1",
+ "rep": 3,
+ "response": "El documento no designa un responsable único del proyecto Nebula. Los miembros que trabajan en Nebula son Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.\n\nFecha límite de Nebula: **15 de septiembre de 2026**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.6,
+ "ts": "2026-11-04T01:24:57.325612Z",
+ "ok": true
+}

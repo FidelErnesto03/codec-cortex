@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q2_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "El proyecto con deadline más cercano es **Atlas** (2026-07-30).\n\nNingún riesgo del documento afecta a Atlas. Todos los riesgos afectan a otros proyectos:\n\n- R01: Horizon, Nebula\n- R02: Nebula\n- R03: Aegis, Nebula, Phoenix\n- R04: Nebula, Phoenix\n- R05: Aegis\n- R06: Phoenix\n\n**Respuesta: Ninguno.**",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.4,
+ "ts": "2026-11-04T01:09:01.977541Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q3_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q3",
+ "rep": 4,
+ "response": "**Proveedor:** ComplianceAudit (incidente I-004: \"Fuga de tokens de acceso en Aegis\", severidad crítica, no resuelto).\n\n**Decisión:** AR02 — Migración a OAuth2 para autenticación de servicios (trimestre T04), marcada como post-incidente de I-004.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:44:10.792291Z",
+ "ok": true
+}

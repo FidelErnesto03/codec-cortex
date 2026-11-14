@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q1_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 2,
+ "response": "El documento no designa un responsable único del proyecto. Los miembros del equipo asignados a Nebula son Elena Vargas (EQP-01), Marco Silva (EQP-02), Aisha Okafor (EQP-05) y Sofía Márquez (EQP-07). La fecha límite de Nebula (PRJ-01) es **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.6,
+ "ts": "2026-11-04T01:39:07.459416Z",
+ "ok": true
+}

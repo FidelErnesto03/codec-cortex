@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q6_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q6",
+ "rep": 1,
+ "response": "El incidente más reciente es **I-004** (fuga de tokens de acceso en **Aegis**, 2026-07-10).\n\n- **Dependencia afectada:** la relación entre **Aegis y Phoenix** —específicamente **D04** (Aegis bloquea a Phoenix) y **D03** (Phoenix depende de Aegis).\n- **Decisión de mitigación:** **AR02**, migración a **OAuth2** para autenticación de servicios en **Aegis** y **Phoenix**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 7.0,
+ "ts": "2026-11-04T01:30:28.825872Z",
+ "ok": true
+}

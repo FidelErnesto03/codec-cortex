@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q1_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q1",
+ "rep": 5,
+ "response": "El documento **no designa un responsable único** para Nebula; solo indica los miembros que trabajan en él: Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.\n\n**Fecha límite de Nebula (T01): 15 de septiembre de 2026.**",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:41:41.999861Z",
+ "ok": true
+}

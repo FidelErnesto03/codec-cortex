@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q5_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q5",
+ "rep": 3,
+ "response": "Hay dos riesgos con impacto crítico (🔴):\n\n- **R01** — Fuga de datos en API Gateway: proyectos **Horizon y Nebula**, proveedor **CloudShield**.\n- **R04** — Zero-day en motor de eventos: proyectos **Nebula y Phoenix**, proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.9,
+ "ts": "2026-11-04T01:21:48.936540Z",
+ "ok": true
+}

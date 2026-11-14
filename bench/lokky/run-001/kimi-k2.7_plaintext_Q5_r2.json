@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q5_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q5",
+ "rep": 2,
+ "response": "Los riesgos con nivel de impacto crítico son:\n\n- **R01**: fuga de datos en el API Gateway de **CloudShield**; asociado a **Horizon** y **Nebula**.\n- **R04**: vulnerabilidad zero-day en el motor de eventos de **StreamCore**; asociado a **Nebula** y **Phoenix**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.7,
+ "ts": "2026-11-04T01:26:26.065142Z",
+ "ok": true
+}

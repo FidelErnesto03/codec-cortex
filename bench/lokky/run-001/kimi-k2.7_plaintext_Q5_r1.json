@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q5_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q5",
+ "rep": 1,
+ "response": "Los riesgos de nivel crítico son **R01** y **R04**:\n\n- **R01**: proveedor **CloudShield**, afecta a **Horizon y Nebula**.\n- **R04**: proveedor **StreamCore**, afecta a **Nebula y Phoenix**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 6.4,
+ "ts": "2026-11-04T01:26:20.337426Z",
+ "ok": true
+}

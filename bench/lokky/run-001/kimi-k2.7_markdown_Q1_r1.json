@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q1_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 1,
+ "response": "La fecha límite de **Nebula** es **2026-09-15**. El documento no designa un único responsable; el equipo asignado al proyecto es **Elena Vargas** (Arquitecta Cloud), **Marco Silva** (SRE Lead), **Aisha Okafor** (Data Engineer) y **Sofía Márquez** (DevOps Lead).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 9.0,
+ "ts": "2026-11-04T01:20:20.905847Z",
+ "ok": true
+}

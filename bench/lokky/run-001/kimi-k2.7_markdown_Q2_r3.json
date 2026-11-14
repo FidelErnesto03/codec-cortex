@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q2_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "Ninguno. Ningún riesgo del documento lista a Atlas (deadline más cercano: 2026-07-30) como proyecto afectado.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.4,
+ "ts": "2026-11-04T01:20:54.760460Z",
+ "ok": true
+}

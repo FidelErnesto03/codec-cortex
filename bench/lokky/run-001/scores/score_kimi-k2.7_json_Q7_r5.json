@@ -1,0 +1,1 @@
+{"cell_id": "kimi-k2.7_json_Q7_r5", "model": "kimi-k2.7", "format": "json", "question_id": "Q7", "rep": 5, "status": "completo", "score": 1.0, "must_found": ["r01", "horizon", "nebula", "cloudshield"], "any_found": ["r03"], "secs": 3.7}

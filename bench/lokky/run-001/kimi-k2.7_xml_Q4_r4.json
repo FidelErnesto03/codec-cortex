@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q4_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q4",
+ "rep": 4,
+ "response": "5 miembros del equipo trabajan en más de un proyecto simultáneamente: **Elena Vargas**, **Lucía Rojas**, **Daniel Ortega**, **Aisha Okafor** y **Sofía Márquez**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.0,
+ "ts": "2026-11-04T01:29:56.266707Z",
+ "ok": true
+}

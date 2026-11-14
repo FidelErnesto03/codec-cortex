@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_xml_Q6_r2", "model": "deepseek-v4.1-flash", "format": "xml", "question_id": "Q6", "rep": 2, "status": "completo", "score": 1.0, "must_found": ["ar02", "i 004", "oauth2"], "any_found": [], "secs": 2.5}

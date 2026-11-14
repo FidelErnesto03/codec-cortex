@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q5_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q5",
+ "rep": 1,
+ "response": "Hay **dos riesgos de impacto crítico**:\n\n- **R01 – Fuga de datos en API Gateway**: proyectos **Horizon y Nebula**; proveedor **CloudShield**.\n- **R04 – Zero-day en motor de eventos**: proyectos **Nebula y Phoenix**; proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.6,
+ "ts": "2026-11-04T01:35:54.193191Z",
+ "ok": true
+}

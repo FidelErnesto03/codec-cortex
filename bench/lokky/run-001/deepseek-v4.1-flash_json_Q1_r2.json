@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q1_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q1",
+ "rep": 2,
+ "response": "El documento **no indica un responsable** del proyecto Nebula (no existe campo de \"responsable\" ni \"owner\"). Los miembros del equipo asignados a Nebula son: **Elena Vargas** (Arquitecta Cloud), **Marco Silva** (SRE Lead), **Aisha Okafor** (Data Engineer) y **Sofía Márquez** (DevOps Lead).\n\n**Fecha límite (deadline): 2026-09-15** (código T01, prioridad alta).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:35:06.693495Z",
+ "ok": true
+}

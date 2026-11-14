@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q8_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "**Nebula** es el proyecto en mayor peligro.\n\n**Riesgos** (4 en total, el mayor número de todos):\n- **R01** “Fuga de datos en API Gateway” – impacto **crítico**, proveedor CloudShield, afecta a Nebula.\n- **R02** “Incumplimiento de deadline de Nebula” – impacto **alto**, probabilidad **0.60** (riesgo específico y muy probable).\n- **R03** “Rotación de Sofía Márquez” – impacto **alto**, probabilidad 0.45, afecta a Nebula.\n- **R04** “Zero-day en motor de eventos” – impacto **crítico**, proveedor StreamCore, afecta a Nebula.\n\n**Dependencias desfavorables**:\n- **D01**: Horizon **bloquea** a Nebula (tipo bloqueante).\n- **D02**: Nebula **depende** de Aegis.\n- **D06**: Nebula **depende** de Phoenix.\n\n**Incidentes**:\n- **I-002** “Pérdida de eventos en el bus de Nebula” ya ocurrió en Nebula.\n- **I-004** en Aegis (no resuelto, severidad crítica) afecta indirectamente a Nebula por la dependencia D02.\n\n**Decisiones** que confirman problemas pasados o presentes en Nebula:\n- **AR03** “Arquitectura de motor de eventos desacoplado” (post-incidente **I-002**).\n- **AR04** “Rotación automática de secretos cada 72h” (post-riesgos **R01** y **R04**).\n- **AR01** también aplica a Nebula.\n\nAegis es el segundo más comprometido por **I-004** no resuelto y su rol central, pero Nebula acumula más riesgos directos, dos de impacto crítico, un riesgo de deadline muy probable y múltiples dependencias problemáticas.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 13.4,
+ "ts": "2026-11-04T01:11:31.043470Z",
+ "ok": true
+}

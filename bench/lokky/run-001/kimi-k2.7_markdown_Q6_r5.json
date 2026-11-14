@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q6_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q6",
+ "rep": 5,
+ "response": "El incidente más reciente es **I-004: Fuga de tokens de acceso en Aegis** (2026-07-10).\n\nAfectó la dependencia **Aegis → Phoenix (D04, bloqueante)**, ya que Aegis bloquea a Phoenix; también impacta indirectamente a **Nebula y Phoenix** que dependen de Aegis (D02 y D03).\n\nLa decisión de arquitectura tomada para mitigarlo fue **AR02: Migración a OAuth2 para autenticación de servicios**, aplicable a **Aegis y Phoenix**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.9,
+ "ts": "2026-11-04T01:22:39.584988Z",
+ "ok": true
+}

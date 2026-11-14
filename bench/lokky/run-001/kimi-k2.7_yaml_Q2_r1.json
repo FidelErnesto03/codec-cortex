@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q2_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q2",
+ "rep": 1,
+ "response": "Ninguno. Ningún riesgo del documento lista al proyecto Atlas (deadline más cercano: 2026-07-30) entre los proyectos afectados.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.6,
+ "ts": "2026-11-04T01:16:34.985764Z",
+ "ok": true
+}

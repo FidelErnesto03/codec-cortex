@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q8_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "El proyecto en mayor peligro es **Nebula**.\n\n- **Riesgos**: acumula cuatro amenazas, más que cualquier otro proyecto:  \n  - **R01** (crítico, fuga de datos en API Gateway)  \n  - **R02** (alto, incumplimiento de deadline, 60 %)  \n  - **R03** (alto, rotación de Sofía Márquez)  \n  - **R04** (crítico, zero-day en motor de eventos)  \n\n- **Dependencias**: está bloqueado por **Horizon** (D01) y, a su vez, depende de **Aegis** (D02) y **Phoenix** (D06), cuyos deadlines (2027-01-10 y 2026-10-30) son posteriores al de Nebula (2026-09-15), lo que hace muy probable el incumplimiento reflejado en R02.\n\n- **Incidentes**: sufrió **I-002** (pérdida de eventos en el bus de Nebula), aunque resuelto, es señal de fragilidad en su motor de eventos.\n\n- **Decisiones**: le afectan **AR01**, **AR03** (post-incidente I-002) y **AR04**; además depende de proveedores críticos como **CloudShield** (R01) y **StreamCore** (R04, I-002).\n\nAegis también es vulnerable por **I-004** no resuelto, pero Nebula concentra mayor cantidad de riesgos críticos/alto y una red de dependencias que pone en jaque su fecha de entrega.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 22.6,
+ "ts": "2026-11-04T01:23:23.915983Z",
+ "ok": true
+}

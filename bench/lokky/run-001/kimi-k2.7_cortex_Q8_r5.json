@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q8_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q8",
+ "rep": 5,
+ "response": "**Nebula** es el proyecto en mayor peligro.\n\n**Riesgos:** acumula 4, más que cualquier otro:\n- **R01** (crítico, 0.35): fuga de datos en API Gateway.\n- **R04** (crítico, 0.20): zero-day en motor de eventos.\n- **R02** (alto, 0.60): incumplimiento de su propio deadline (2026-09-15).\n- **R03** (alto, 0.45): rotación de Sofía Márquez, quien es la única DevOps Lead asignada a Nebula.\n\n**Dependencias:** Nebula está bloqueado por Horizon (D01) y depende de Aegis (D02) y Phoenix (D06), por lo que su avance está condicionado por tres proyectos externos.\n\n**Incidentes y decisiones:** los incidentes I-001 (CloudShield, API Gateway de Horizon/Nebula) e I-002 (StreamCore, bus de Nebula) motivaron decisiones AR04 y AR03 que afectan directamente a Nebula. Además, AR04 (rotación de secretos) se tomó tras R01 y R04, ambos presentes en Nebula.\n\nComparado con Aegis —que sí tiene el incidente crítico no resuelto I-004— Nebula concentra más riesgos, dependencias bloqueantes y probabilidad de incumplimiento de fecha.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 11.4,
+ "ts": "2026-11-04T01:12:25.374923Z",
+ "ok": true
+}

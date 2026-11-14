@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q2_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "**Deadline más cercano: Atlas (T06) — 2026-07-30.**\n\nNingún riesgo del documento lista a Atlas entre sus proyectos afectados (R01–R06 solo cubren Horizon, Nebula, Aegis y Phoenix). Por tanto: **ninguno**.\n\nNota: si por \"más cercano\" se entiende el próximo deadline futuro respecto a hoy (2026-11-03), sería **Aegis** (2027-01-10), afectado por **R03** (rotación de Sofía Márquez) y **R05** (sobrecoste de DataVault).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.2,
+ "ts": "2026-11-04T01:43:57.318413Z",
+ "ok": true
+}

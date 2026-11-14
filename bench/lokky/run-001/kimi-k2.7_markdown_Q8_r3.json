@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q8_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q8",
+ "rep": 3,
+ "response": "**Aegis** es el proyecto en mayor peligro.\n\nJustificación breve:\n\n- **Incidente activo crítico no resuelto**: I-004 (fuga de tokens de acceso), del proveedor ComplianceAudit, aún está ❌ No resuelto.\n- **Nodo central de dependencias**: Aegis bloquea a Phoenix (D04), Nebula depende de Aegis (D02), Phoenix depende de Aegis (D03), y a su vez es bloqueado por Horizon (D07). Un fallo en Aegis afecta en cadena a Nebula y Phoenix.\n- **Riesgos activos**: R03 (rotación de Sofía Márquez, 45 %), quien es DevOps Lead de Aegis, Nebula y Phoenix; y R05 (sobrecoste de DataVault, 55 %).\n- **Decisiones pendientes/post-incidente**: requiere AR02 (migración a OAuth2 tras I-004) y AR05 (redundancia de DataVault por R05).\n- **Prioridad Crítica y mayor presupuesto** ($1,200,000), por lo que el impacto de un fallo es máximo.\n\nAunque Nebula acumula más riesgos directos, Aegis representa el mayor peligro porque tiene un incidente crítico abierto y es el eje de las dependencias del portafolio.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 19.8,
+ "ts": "2026-11-04T01:23:56.685739Z",
+ "ok": true
+}

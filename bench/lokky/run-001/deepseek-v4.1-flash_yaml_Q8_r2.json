@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q8_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q8",
+ "rep": 2,
+ "response": "**Nebula (T01) es el proyecto en mayor peligro.**\n\n- **Riesgos:** acumula 4 riesgos, dos de impacto crítico (R01 fuga en API Gateway, 0.35; R04 zero-day en StreamCore, 0.20) y el de mayor probabilidad de toda la KB: R02 incumplimiento de deadline, 0.60. Suma además R03 (rotación de Sofía, 0.45).\n- **Dependencias:** está bloqueado directamente por Horizon (D01, bloqueante) y depende de Aegis (D02) y de Phoenix (D06) — ambos, a su vez, bajo el bloqueo de Aegis (D04). Es el nodo con más cadenas de dependencia convergentes.\n- **Incidentes:** ya sufrió I-002 (pérdida de eventos en su bus, StreamCore), el mismo proveedor del riesgo crítico R04.\n- **Decisiones:** AR01 y AR03 son *post-incidente* de I-002, y AR04 (rotación de secretos 72h) es *post-incidente* de R01/R04, lo que confirma que sus riesgos ya se materializaron.\n- **Deadline:** 2026-09-15, ya vencido a la fecha actual (2026-11-03), con prioridad alta.\n\n**Causa raíz sistémica:** Aegis, por I-004 (fuga de tokens, crítica y **no resuelta**) y por bloquear a Phoenix (D04), que a su vez es dependencia de Nebula. Horizon también aporta el bloqueo D01. Pero el proyecto que concentra el impacto combinado es Nebula.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.6,
+ "ts": "2026-11-04T01:38:42.917423Z",
+ "ok": true
+}

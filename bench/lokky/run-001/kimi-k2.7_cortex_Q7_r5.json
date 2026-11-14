@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q7_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q7",
+ "rep": 5,
+ "response": "Sí, hay tres riesgos que afectan a múltiples proyectos:\n\n- **R01**: Fuga de datos en API Gateway → **Proyectos:** Horizon, Nebula → **Proveedor:** CloudShield\n- **R03**: Rotación de Sofía Márquez → **Proyectos:** Aegis, Nebula, Phoenix → **Proveedor:** N/A\n- **R04**: Zero-day en motor de eventos → **Proyectos:** Nebula, Phoenix → **Proveedor:** StreamCore",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.5,
+ "ts": "2026-11-04T01:11:17.615684Z",
+ "ok": true
+}

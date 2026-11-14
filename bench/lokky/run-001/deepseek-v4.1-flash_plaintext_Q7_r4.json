@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q7_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q7",
+ "rep": 4,
+ "response": "Sí, tres riesgos afectan a múltiples proyectos:\n\n- **R01 (CRÍTICO, 35%)** — Horizon y Nebula. Proveedor en la cadena: **CloudShield** (WAF + API Gateway).\n- **R04 (CRÍTICO, 20%)** — Nebula y Phoenix. Proveedor: **StreamCore** (motor de eventos).\n- **R03 (ALTO, 45%)** — Aegis, Nebula y Phoenix. Sin proveedor externo: es la rotación de **Sofía Márquez** (DevOps Lead), recurso interno compartido.\n\nEl resto (R02, R05, R06) afecta a un solo proyecto.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.7,
+ "ts": "2026-11-04T01:43:05.401044Z",
+ "ok": true
+}

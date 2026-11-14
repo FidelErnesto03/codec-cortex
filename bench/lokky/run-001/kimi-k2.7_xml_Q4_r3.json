@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q4_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q4",
+ "rep": 3,
+ "response": "6 miembros trabajan en más de un proyecto simultáneamente:\n\n1. Elena Vargas — Nebula, Horizon\n2. Lucía Rojas — Horizon, Aegis\n3. Daniel Ortega — Aegis, Phoenix\n4. Aisha Okafor — Nebula, Phoenix\n5. Sofía Márquez — Nebula, Aegis, Phoenix\n6. Chen Wei — Horizon (solo 1 proyecto) — no cuenta.\n\nCorrección: Chen Wei solo tiene Horizon, por lo tanto no entra.\n\n**Respuesta final: 5 miembros**\n\n- Elena Vargas\n- Lucía Rojas\n- Daniel Ortega\n- Aisha Okafor\n- Sofía Márquez",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.9,
+ "ts": "2026-11-04T01:29:53.251626Z",
+ "ok": true
+}

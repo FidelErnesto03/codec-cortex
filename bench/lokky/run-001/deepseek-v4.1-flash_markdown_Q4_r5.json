@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q4_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q4",
+ "rep": 5,
+ "response": "**5 miembros** trabajan en más de un proyecto:\n\n- EQP-01 — Elena Vargas (Nebula, Horizon)\n- EQP-03 — Lucía Rojas (Horizon, Aegis)\n- EQP-04 — Daniel Ortega (Aegis, Phoenix)\n- EQP-05 — Aisha Okafor (Nebula, Phoenix)\n- EQP-07 — Sofía Márquez (Nebula, Aegis, Phoenix)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.4,
+ "ts": "2026-11-04T01:39:49.741619Z",
+ "ok": true
+}

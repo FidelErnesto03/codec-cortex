@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q6_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q6",
+ "rep": 3,
+ "response": "La dependencia afectada fue **D04 (Aegis bloquea a Phoenix)**. La decisión de mitigación fue **AR02: Migración a OAuth2 para autenticación de servicios**, aplicada a Aegis y Phoenix.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 8.1,
+ "ts": "2026-11-04T01:18:03.994643Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q2_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q2",
+ "rep": 4,
+ "response": "Aegis (deadline 2027-01-10): R03 y R05.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 7.0,
+ "ts": "2026-11-04T01:16:51.287331Z",
+ "ok": true
+}

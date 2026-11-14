@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q7_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q7",
+ "rep": 3,
+ "response": "Sí. Los riesgos que afectan a varios proyectos son:\n\n- **R01** — *Fuga de datos en API Gateway*: **Horizon** y **Nebula**; proveedor **CloudShield**.\n- **R03** — *Rotación de Sofía Márquez*: **Aegis**, **Nebula** y **Phoenix**; sin proveedor asociado (`~`).\n- **R04** — *Zero-day en motor de eventos*: **Nebula** y **Phoenix**; proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:38:27.142900Z",
+ "ok": true
+}

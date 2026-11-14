@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_markdown_Q2_r3", "model": "deepseek-v4.1-flash", "format": "markdown", "question_id": "Q2", "rep": 3, "status": "parcial", "score": 0.5, "must_found": ["r01"], "any_found": [], "secs": 2.2}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q3_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q3",
+ "rep": 3,
+ "response": "**Proveedor:** ComplianceAudit (incidente I-004, fuga de tokens de acceso en Aegis).\n\n**Decisión:** AR02 — Migración a OAuth2 para autenticación de servicios (proyectos Aegis y Phoenix, trimestre T04).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:37:36.762532Z",
+ "ok": true
+}

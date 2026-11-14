@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q8_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q8",
+ "rep": 3,
+ "response": "**Nebula** es el proyecto en mayor peligro.\n\n- **Riesgos:** es el único con cuatro riesgos: R01 (fuga de datos, crítico, 0.35), R02 (incumplimiento de deadline, alto, 0.60), R03 (rotación de Sofía Márquez, alto, 0.45) y R04 (zero-day en motor de eventos, crítico, 0.20).\n- **Dependencias:** Horizon lo bloquea (D01), y además depende de Aegis (D02) y de Phoenix (D06), acumulando tres dependencias.\n- **Incidentes:** sufrió I-002 (pérdida de eventos en su bus, StreamCore).\n- **Decisiones:** le aplican AR01 (Kubernetes), AR03 (motor de eventos desacoplado, posterior a I-002) y AR04 (rotación de secretos, posterior a R01 y R04).\n\nPhoenix y Aegis también son vulnerables —Aegis tiene el incidente crítico no resuelto I-004—, pero Nebula concentra más riesgos, incluidos dos críticos, y una probabilidad explícita del 60% de incumplir su deadline.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.8,
+ "ts": "2026-11-04T01:45:25.000932Z",
+ "ok": true
+}

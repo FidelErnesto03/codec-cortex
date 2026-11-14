@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q1_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 3,
+ "response": "El documento no designa explícitamente un único responsable del proyecto Nebula. Su fecha límite (Deadline) es **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.6,
+ "ts": "2026-11-04T01:20:34.374469Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q4_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q4",
+ "rep": 3,
+ "response": "5 miembros: Elena Vargas, Lucía Rojas, Daniel Ortega, Aisha Okafor y Sofía Márquez.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.4,
+ "ts": "2026-11-04T01:37:47.813891Z",
+ "ok": true
+}

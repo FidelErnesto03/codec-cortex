@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q2_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q2",
+ "rep": 4,
+ "response": "**Proyecto con deadline más cercano:** Atlas (T06) — 2026-07-30.\n\n**Riesgos que lo afectan:** ninguno. Ningún riesgo del documento incluye a Atlas entre sus proyectos (R01–R06 cubren Horizon, Nebula, Aegis y Phoenix).\n\n*Nota: la única referencia a Atlas es la dependencia D05 (legado, Atlas depende de Horizon) y el incidente I-003 (certificado TLS, resuelto), pero no figura en `<riesgos>`.*",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:43:59.836065Z",
+ "ok": true
+}

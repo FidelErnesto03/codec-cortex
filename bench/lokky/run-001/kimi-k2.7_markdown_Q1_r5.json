@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q1_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q1",
+ "rep": 5,
+ "response": "El documento no designa un **responsable único** del proyecto Nebula. Los miembros del equipo asignados son:\n\n- Elena Vargas (Arquitecta Cloud)\n- Marco Silva (SRE Lead)\n- Aisha Okafor (Data Engineer)\n- Sofía Márquez (DevOps Lead)\n\n**Fecha límite (Deadline):** 2026-09-15.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.6,
+ "ts": "2026-11-04T01:20:43.314830Z",
+ "ok": true
+}

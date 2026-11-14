@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q4_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q4",
+ "rep": 5,
+ "response": "**5 miembros** trabajan en más de un proyecto:\n\n- **Elena Vargas** — Nebula y Horizon\n- **Lucía Rojas** — Horizon y Aegis\n- **Daniel Ortega** — Aegis y Phoenix\n- **Aisha Okafor** — Nebula y Phoenix\n- **Sofía Márquez** — Nebula, Aegis y Phoenix (3 proyectos)\n\n(Marco Silva, Chen Wei y Liam O'Connor trabajan en un solo proyecto.)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.4,
+ "ts": "2026-11-04T01:42:20.666195Z",
+ "ok": true
+}

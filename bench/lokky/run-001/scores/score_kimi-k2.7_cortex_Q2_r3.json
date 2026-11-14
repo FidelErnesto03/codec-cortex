@@ -1,0 +1,1 @@
+{"cell_id": "kimi-k2.7_cortex_Q2_r3", "model": "kimi-k2.7", "format": "cortex", "question_id": "Q2", "rep": 3, "status": "completo", "score": 1.0, "must_found": ["r01", "r04"], "any_found": [], "secs": 3.4}

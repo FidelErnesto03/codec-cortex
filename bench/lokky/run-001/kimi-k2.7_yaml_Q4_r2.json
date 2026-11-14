@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q4_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q4",
+ "rep": 2,
+ "response": "5 miembros del equipo trabajan en más de un proyecto simultáneamente:\n\n- Elena_Vargas (Nebula, Horizon)\n- Lucía_Rojas (Horizon, Aegis)\n- Daniel_Ortega (Aegis, Phoenix)\n- Aisha_Okafor (Nebula, Phoenix)\n- Sofía_Márquez (Nebula, Aegis, Phoenix)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.7,
+ "ts": "2026-11-04T01:17:19.113695Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q7_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q7",
+ "rep": 5,
+ "response": "Sí. Tres riesgos afectan a más de un proyecto:\n\n- **R01 (CRÍTICO, 35%)** — Horizon y Nebula. Proveedor: **CloudShield** (WAF + API Gateway).\n- **R03 (ALTO, 45%)** — Aegis, Nebula y Phoenix. Sin proveedor: es rotación de **Sofía Márquez** (DevOps Lead, interna).\n- **R04 (CRÍTICO, 20%)** — Nebula y Phoenix. Proveedor: **StreamCore** (motor de eventos).\n\nLos demás son de un solo proyecto: R02 (Nebula), R05 (Aegis) y R06 (Phoenix).\n\nNota: R06 afecta solo a Phoenix, pero su proveedor **ComplianceAudit** también es responsable de I-004, incidente crítico en Aegis; no es un riesgo multi-proyecto según el documento.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.9,
+ "ts": "2026-11-04T01:43:08.273929Z",
+ "ok": true
+}

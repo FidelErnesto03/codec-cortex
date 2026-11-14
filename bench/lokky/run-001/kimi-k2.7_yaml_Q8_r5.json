@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q8_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q8",
+ "rep": 5,
+ "response": "Aegis.\n\n**Justificación:**\n\n- **Incidente activo crítico no resuelto:** I-004 “Fuga de tokens de acceso en Aegis”, severidad crítica, proveedor ComplianceAudit, estado `no_resuelto`, duración `~`.\n- **Prioridad crítica** y el **presupuesto más alto** (1 200 000), por lo que su fallo tiene mayor impacto.\n- **Nodo central de dependencias:** Nebula (D02) y Phoenix (D03) dependen de Aegis; Aegis **bloquea** a Phoenix (D04); a su vez, Horizon **bloquea** a Aegis (D07). Cualquier retraso suyo cascada a Phoenix y Nebula.\n- **Riesgos activos:** R03 “Rotación de Sofía Márquez” (0.45, impacto alto) y R05 “Sobrecoste de DataVault” (0.55, impacto medio).\n- **Decisiones pendientes derivadas del incidente/riesgo:** AR02 (post I-004) y AR05 (post R05).\n\nAunque Nebula concentra más riesgos críticos/alto (R01, R02, R03, R04) y deadline vencida, depende de Aegis y Phoenix; por tanto, el peligro real más agudo y crítico recae en **Aegis**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 11.6,
+ "ts": "2026-11-04T01:20:11.872879Z",
+ "ok": true
+}

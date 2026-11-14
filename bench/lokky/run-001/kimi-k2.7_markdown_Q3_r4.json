@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q3_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q3",
+ "rep": 4,
+ "response": "ComplianceAudit. Como consecuencia se tomó la decisión AR02: migración a OAuth2 para autenticación de servicios.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.7,
+ "ts": "2026-11-04T01:21:15.568208Z",
+ "ok": true
+}

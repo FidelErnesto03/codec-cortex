@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q5_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q5",
+ "rep": 3,
+ "response": "Riesgos con impacto crítico:\n\n- **R01 - Fuga de datos en API Gateway**: asociado a los proyectos **Horizon y Nebula** y al proveedor **CloudShield**.\n- **R04 - Zero-day en motor de eventos**: asociado a los proyectos **Nebula y Phoenix** y al proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.9,
+ "ts": "2026-11-04T01:30:13.223754Z",
+ "ok": true
+}

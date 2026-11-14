@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_cortex_Q1_r2", "model": "deepseek-v4.1-flash", "format": "cortex", "question_id": "Q1", "rep": 2, "status": "parcial_any", "score": 0.75, "must_found": ["marco silva"], "any_found": [], "secs": 2.7}

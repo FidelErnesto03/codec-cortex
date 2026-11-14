@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q2_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "**Proyecto con deadline más cercano: Atlas (T06) — 2026-07-30.**\n\nRiesgos que lo afectan según el documento:\n\n- **Ninguno directamente**: ningún registro en `riesgos` incluye a Atlas en su lista de `proyectos`.\n\nIndirectamente (por la dependencia **D05: Atlas depende de Horizon (legado)**), podría verse afectado por:\n- **R01** — Fuga de datos en API Gateway (impacto crítico, prob. 0.35), que afecta a Horizon.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.6,
+ "ts": "2026-11-04T01:37:30.029183Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q6_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q6",
+ "rep": 2,
+ "response": "**Incidente más reciente:** I-004 (2026-07-10) — *Fuga de tokens de acceso en Aegis*.\n\n- **Dependencia afectada:** Aegis → Phoenix (D04, tipo *bloqueante*: \"Aegis bloquea a Phoenix\"; equivalente a D03, Phoenix depende de Aegis).\n- **Decisión de mitigación:** AR02 — *Migración a OAuth2 para autenticación de servicios* (trimestre T04, proyectos Aegis y Phoenix, marcada como post-incidente I-004).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:44:42.748825Z",
+ "ok": true
+}

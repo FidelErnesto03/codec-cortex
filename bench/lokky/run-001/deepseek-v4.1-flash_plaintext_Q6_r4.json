@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q6_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q6",
+ "rep": 4,
+ "response": "**Incidente más reciente: I-004 (10 de julio de 2026, no resuelto)** — fuga de tokens de acceso en Aegis, vinculada a ComplianceAudit.\n\n- **Dependencia afectada:** la relación **Aegis–Phoenix** (D03 Phoenix depende de Aegis / D04 Aegis bloquea a Phoenix), ya que el incidente ocurre en Aegis y la mitigación se extiende a Phoenix.\n- **Decisión tomada:** **AR02** — migrar la autenticación de servicios a **OAuth2**, adoptada como consecuencia directa de I-004; aplica a Aegis y Phoenix.\n\nNota: el documento no afirma literalmente qué dependencia se vio afectada; lo anterior se deriva de que I-004 ocurre en Aegis y AR02 cubre Aegis y Phoenix.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.9,
+ "ts": "2026-11-04T01:42:49.583985Z",
+ "ok": true
+}

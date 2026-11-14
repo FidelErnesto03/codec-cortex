@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q6_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q6",
+ "rep": 4,
+ "response": "El incidente más reciente es **I-004** (2026-07-10, fuga de tokens en **Aegis**).\n\nEl documento **no señala explícitamente** qué dependencia se afectó. La decisión de mitigación es **AR02: migración a OAuth2 para autenticación de servicios**, aplicada a **Aegis y Phoenix** tras I-004; por tanto, se relaciona con la dependencia **Aegis–Phoenix (D03/D04)**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.1,
+ "ts": "2026-11-04T01:40:12.392741Z",
+ "ok": true
+}

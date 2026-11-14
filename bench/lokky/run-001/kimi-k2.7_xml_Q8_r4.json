@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q8_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q8",
+ "rep": 4,
+ "response": "El proyecto en mayor peligro es **Nebula**.\n\n**Riesgos que lo afectan**\n- **R01**: fuga de datos en API Gateway, impacto **crítico**, probabilidad 0,35.\n- **R02**: incumplimiento del deadline de Nebula, impacto **alto**, probabilidad 0,60.\n- **R03**: rotación de Sofía Márquez, impacto **alto**, probabilidad 0,45.\n- **R04**: zero-day en motor de eventos, impacto **crítico**, probabilidad 0,20.\n\nEs el proyecto con más riesgos acumulados, incluyendo uno que predice directamente el incumplimiento de su deadline.\n\n**Dependencias que lo ponen en riesgo**\n- **D01**: Horizon **bloquea** a Nebula.\n- **D02**: Nebula **depende** de Aegis.\n- **D06**: Nebula **depende** de Phoenix.\n- Además, **D07** (Horizon bloquea a Aegis) y **D04** (Aegis bloquea a Phoenix) forman una cadena: Horizon → Aegis → Phoenix → Nebula. Como Aegis vence el **2027-01-10** y Phoenix el **2026-10-30**, Nebula no puede cumplir su deadline del **2026-09-15**.\n\n**Incidentes**\n- **I-002**: pérdida de eventos en el bus de Nebula (resuelto, pero muestra fragilidad en el motor de eventos).\n\n**Decisiones**\n- Requirió intervenciones arquitectónicas: **AR01**, **AR03** y **AR04**. Ninguna mitiga específicamente el riesgo **R02** de incumplimiento de deadline.\n\nPor su concentración de riesgos críticos/alto y una red de dependencias que hace inviable su fecha límite, **Nebula es el proyecto en mayor peligro**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 29.9,
+ "ts": "2026-11-04T01:32:34.699590Z",
+ "ok": true
+}

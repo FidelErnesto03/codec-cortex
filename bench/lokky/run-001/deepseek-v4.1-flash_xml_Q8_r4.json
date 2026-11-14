@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q8_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q8",
+ "rep": 4,
+ "response": "**Nebula (T01)** es el proyecto en mayor peligro.\n\n- **Riesgos:** concentra 4: **R01** (fuga de datos en API Gateway, impacto crítico), **R02** (incumplimiento de deadline, probabilidad 0.60), **R03** (rotación de Sofía Márquez) y **R04** (zero-day en motor de eventos, impacto crítico).\n- **Dependencias:** está bloqueado por **Horizon (D01)**, depende de **Aegis (D02)** y de **Phoenix (D06)**, dentro de una cadena con bloqueos cruzados: **D07** (Horizon bloquea Aegis) y **D04** (Aegis bloquea Phoenix).\n- **Incidentes:** ya sufrió **I-002** (pérdida de eventos en su bus, resuelto).\n- **Decisiones:** le afectan **AR01** (Kubernetes), **AR03** (motor de eventos desacoplado) y **AR04** (rotación automática de secretos).\n\nAdemás, es de prioridad **alta**, con deadline **2026-09-15** y presupuesto de **850 000**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 6.3,
+ "ts": "2026-11-04T01:45:31.279427Z",
+ "ok": true
+}

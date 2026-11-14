@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q3_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q3",
+ "rep": 2,
+ "response": "**Proveedor:** ComplianceAudit\n\n**Decisión:** AR02 — Migración a OAuth2 para autenticación de servicios (trimestre T04, proyectos Aegis y Phoenix).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:33:31.199021Z",
+ "ok": true
+}

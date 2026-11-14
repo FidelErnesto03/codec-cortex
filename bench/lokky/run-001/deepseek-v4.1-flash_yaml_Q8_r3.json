@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q8_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q8",
+ "rep": 3,
+ "response": "**Nebula (T01)** es el proyecto en mayor peligro.\n\n- **Riesgos:** es el único con 4 riesgos asociados y dos de impacto crítico — R01 fuga de datos en API Gateway (0.35) y R04 zero-day en el motor de eventos/StreamCore (0.20) — más R02 incumplimiento de deadline con la probabilidad más alta de todo el registro (0.60) y R03 rotación de Sofía Márquez (0.45). Suma de exposición ≈ 3.75, muy por encima de Phoenix (2.3), Aegis (1.45) u Horizon (1.05).\n- **Deadline:** vence el 2026-09-15, ya superado a la fecha actual (2026-11-03), lo que materializa R02.\n- **Dependencias:** está bloqueado por Horizon (D01, bloqueante) y además depende de Aegis (D02) y de Phoenix (D06), ambos con problemas propios (I-004 sin resolver y deadline vencido).\n- **Incidentes:** I-002, pérdida de eventos en su bus (StreamCore, severidad media), evidencia el riesgo R04.\n- **Decisiones:** AR03 (motor de eventos desacoplado, post-incidente I-002) y AR04 (rotación de secretos cada 72h por R01/R04) son mitigaciones que aún no eliminan la exposición; AR01 (Kubernetes) también lo involucra.\n\nPhoenix también está vencido (2026-10-30) y bloqueado por Aegis (D04), pero acumula menos riesgos y su bloqueo depende de un solo proyecto; Aegis tiene el incidente crítico no resuelto I-004, aunque su deadline es 2027-01-10. Por concentración de riesgos, deadline vencido y doble bloqueo/dependencia, **Nebula** es el más comprometido.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 6.7,
+ "ts": "2026-11-04T01:38:49.590835Z",
+ "ok": true
+}

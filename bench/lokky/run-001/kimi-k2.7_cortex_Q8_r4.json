@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q8_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q8",
+ "rep": 4,
+ "response": "**Nebula** es el proyecto en mayor peligro.\n\n**Justificación:**\n- **Riesgos:** acumula 4, más que cualquier otro proyecto: R01 (crítico, fuga de datos en API Gateway), R02 (alto, incumplimiento de deadline), R03 (alto, rotación de Sofía Márquez) y R04 (crítico, zero-day en motor de eventos).\n- **Dependencias:** es el nodo más frágil. D01 (Horizon bloquea a Nebula), D02 (Nebula depende de Aegis) y D06 (Nebula depende de Phoenix); cualquier retraso o fallo en esos tres proyectos lo afecta directamente.\n- **Incidentes:** I-002 (pérdida de eventos en el bus de Nebula) ya mostró falla en su motor de eventos, ligado al riesgo R04.\n- **Decisiones:** AR01, AR03 (post I-002) y AR04 lo afectan, evidenciando que requiere múltiples correcciones arquitectónicas.\n\nAegis también está expuesto —tiene prioridad crítica, I-004 no resuelto de severidad crítica, R05 y es bloqueado por Horizon (D07)—, pero su deadline es 2027-01-10, lejano, y concentra menos riesgos que Nebula. Nebula combina mayor cantidad de riesgos críticos/alto, dependencias triples y un incidente previo en su núcleo técnico.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 18.3,
+ "ts": "2026-11-04T01:12:13.942754Z",
+ "ok": true
+}

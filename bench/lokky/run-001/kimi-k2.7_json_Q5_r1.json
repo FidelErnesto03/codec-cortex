@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_json_Q5_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "json",
+ "question_id": "Q5",
+ "rep": 1,
+ "response": "Hay dos riesgos con impacto **crítico**:\n\n- **R01** — Fuga de datos en API Gateway: proyectos **Horizon, Nebula**; proveedor **CloudShield**.\n- **R04** — Zero-day en motor de eventos: proyectos **Nebula, Phoenix**; proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.9,
+ "ts": "2026-11-04T01:13:48.111846Z",
+ "ok": true
+}

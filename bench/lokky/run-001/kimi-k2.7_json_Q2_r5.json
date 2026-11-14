@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_json_Q2_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "json",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "El proyecto con deadline más cercano es **Atlas** (`2026-07-30`).\n\nNinguno de los riesgos del documento afecta a Atlas.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 8.0,
+ "ts": "2026-11-04T01:13:13.246475Z",
+ "ok": true
+}

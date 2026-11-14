@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q7_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q7",
+ "rep": 3,
+ "response": "Sí. Tres riesgos afectan a múltiples proyectos:\n\n| Riesgo | Proyectos | Proveedor en la cadena |\n|---|---|---|\n| **R01** (crítico, fuga de datos en API Gateway) | Horizon y Nebula | **CloudShield** (WAF + API Gateway) |\n| **R03** (alto, rotación de Sofía Márquez) | Aegis, Nebula y Phoenix | Ninguno — es interno (persona, no proveedor) |\n| **R04** (crítico, zero-day en motor de eventos) | Nebula y Phoenix | **StreamCore** (Event Bus) |\n\nLos demás son de un solo proyecto: R02 (Nebula), R05 (Aegis), R06 (Phoenix).\n\n**Proveedores en la cadena de impacto multi-proyecto: CloudShield y StreamCore.** (ComplianceAudit y DataVault no, pese a ser críticos, solo sirven a un proyecto cada uno.)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.7,
+ "ts": "2026-11-04T01:43:02.672765Z",
+ "ok": true
+}

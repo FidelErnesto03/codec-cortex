@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q2_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q2",
+ "rep": 4,
+ "response": "**Ninguno.**\n\nEl proyecto con deadline más cercano es **Atlas** (2026-07-30, código T06). Ninguno de los riesgos registrados (R01–R06) lo incluye en su campo `proyectos`: R01 → Horizon/Nebula; R02 → Nebula; R03 → Aegis/Nebula/Phoenix; R04 → Nebula/Phoenix; R05 → Aegis; R06 → Phoenix.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:35:23.184340Z",
+ "ok": true
+}

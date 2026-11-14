@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q7_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q7",
+ "rep": 2,
+ "response": "Sí, hay tres riesgos que afectan múltiples proyectos simultáneamente:\n\n- **R01** — Fuga de datos en API Gateway: impacta a **Horizon** y **Nebula**; proveedor **CloudShield**.\n- **R03** — Rotación de Sofía Márquez: impacta a **Aegis, Nebula** y **Phoenix**; sin proveedor asignado (`~`).\n- **R04** — Zero-day en motor de eventos: impacta a **Nebula** y **Phoenix**; proveedor **StreamCore**.\n\nProveedores en la cadena de impacto: **CloudShield** y **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.2,
+ "ts": "2026-11-04T01:18:22.210050Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q6_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q6",
+ "rep": 3,
+ "response": "Del incidente más reciente **I-004** (*Fuga de tokens de acceso en Aegis*, 2026-07-10):\n\n- **Dependencia afectada:** la relación **Aegis ↔ Phoenix** (`D03`: Phoenix depende de Aegis; `D04`: Aegis bloquea a Phoenix).\n- **Decisión de mitigación:** **AR02** — *Migración a OAuth2 para autenticación de servicios* (trimestre T04, proyectos Aegis y Phoenix), marcada explícitamente como `post_incidente: I-004`.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.8,
+ "ts": "2026-11-04T01:10:32.152500Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q1_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q1",
+ "rep": 3,
+ "response": "El documento **no indica un responsable único** del proyecto Nebula. En él trabajan cuatro miembros del equipo: Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.\n\nSu fecha límite es el **15 de septiembre de 2026**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.1,
+ "ts": "2026-11-04T01:41:37.434390Z",
+ "ok": true
+}

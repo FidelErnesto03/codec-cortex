@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q7_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q7",
+ "rep": 1,
+ "response": "Sí, hay tres riesgos que afectan a múltiples proyectos simultáneamente:\n\n- **R01** (Fuga de datos en API Gateway de **CloudShield**): afecta a **Horizon y Nebula**.\n- **R03** (Rotación de Sofía Márquez, DevOps Lead): afecta a **Aegis, Nebula y Phoenix**. No involucra a un proveedor externo.\n- **R04** (Vulnerabilidad zero-day en motor de eventos de **StreamCore**): afecta a **Nebula y Phoenix**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.5,
+ "ts": "2026-11-04T01:27:17.804195Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q8_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q8",
+ "rep": 3,
+ "response": "El proyecto en mayor peligro es **Nebula**.\n\n**Riesgos:** acumula cuatro, más que ningún otro proyecto:  \n- **R01** (crítico, fuga de datos en API Gateway, afecta a Horizon y Nebula).  \n- **R04** (crítico, zero-day en motor de eventos, afecta a Nebula y Phoenix).  \n- **R02** (alto, incumplimiento de deadline de Nebula, probabilidad **0.60**, la más alta del documento).  \n- **R03** (alto, rotación de Sofía Márquez, afecta a Aegis, Nebula y Phoenix).\n\n**Dependencias:** Nebula está en el centro de la cadena crítica:  \n- **D01** — Horizon lo **bloquea**.  \n- **D02** — Nebula **depende** de Aegis.  \n- **D06** — Nebula **depende** de Phoenix.  \nAdemás, Horizon (deadline 2026-08-01) vence antes que Nebula (2026-09-15), y tanto Aegis (2027-01-10) como Phoenix (2026-10-30) tienen deadlines posteriores, lo que aumenta el riesgo de retraso en cadena.\n\n**Incidentes:** **I-002** (pérdida de eventos en el bus de Nebula, proveedor StreamCore) ya ocurrió y se relaciona con el riesgo **R04** de zero-day en el mismo motor de eventos.\n\n**Decisiones:** Nebla es afectado por **AR01**, **AR03** (post-incidente I-002) y **AR04** (post-riesgos R01 y R04), lo que indica que ha sido objeto de múltiples respuestas correctivas.\n\nAegis tiene un incidente crítico no resuelto (**I-004**) y Phoenix está bloqueado por Aegis, pero Nebula concentra más riesgos, dependencias críticas y el riesgo de deadline con mayor probabilidad.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 14.3,
+ "ts": "2026-11-04T01:19:46.415933Z",
+ "ok": true
+}

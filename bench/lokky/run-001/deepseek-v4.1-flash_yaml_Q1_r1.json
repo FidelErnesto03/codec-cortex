@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q1_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q1",
+ "rep": 1,
+ "response": "El documento **no define un campo de \"responsable\"** para los proyectos. Solo indica los miembros del equipo asignados a Nebula:\n\n- Elena Vargas (Arquitecta Cloud)\n- Marco Silva (SRE Lead)\n- Aisha Okafor (Data Engineer)\n- Sofía Márquez (DevOps Lead)\n\n**Fecha límite de Nebula (T01): 2026-09-15** (prioridad alta, presupuesto 850000, estado activo).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.6,
+ "ts": "2026-11-04T01:37:07.332088Z",
+ "ok": true
+}

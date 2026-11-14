@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q2_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "El proyecto con deadline más cercano es **Horizon (T03)** — 1 de agosto de 2026.\n\nRiesgos que lo afectan: **solo R01** (CRÍTICO: fuga de datos en el API Gateway de CloudShield; afecta a Horizon y Nebula; probabilidad 35%).\n\nNingún otro riesgo (R02–R06) incluye a Horizon.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:41:51.300185Z",
+ "ok": true
+}

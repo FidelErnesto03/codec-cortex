@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q2_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "**Proyecto con deadline más cercano:** Atlas (T06) — 30 de julio de 2026.\n\n**Riesgos que lo afectan:** ninguno. Los seis riesgos (R01–R06) afectan únicamente a Horizon, Nebula, Aegis y Phoenix; Atlas no aparece en ninguno.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.4,
+ "ts": "2026-11-04T01:41:56.900899Z",
+ "ok": true
+}

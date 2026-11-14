@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q3_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q3",
+ "rep": 1,
+ "response": "**Proveedor:** ComplianceAudit.\n\n**Decisión arquitectónica:** AR02 — Migración a OAuth2 para autenticación de servicios (trimestre T04, proyectos Aegis y Phoenix).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.3,
+ "ts": "2026-11-04T01:37:32.317894Z",
+ "ok": true
+}

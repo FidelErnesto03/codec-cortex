@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q7_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q7",
+ "rep": 1,
+ "response": "Sí. Riesgos que afectan a varios proyectos:\n\n- **R01 — Fuga de datos en API Gateway**: Horizon y Nebula. Proveedor: **CloudShield**.\n- **R03 — Rotación de Sofía Márquez**: Aegis, Nebula y Phoenix. Proveedor: **N/A**.\n- **R04 — Zero-day en motor de eventos**: Nebula y Phoenix. Proveedor: **StreamCore**.\n\nCadena de impacto por proveedor: **CloudShield → Horizon, Nebula**; **StreamCore → Nebula, Phoenix**; **R03 sin proveedor → Aegis, Nebula, Phoenix**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.1,
+ "ts": "2026-11-04T01:40:17.806328Z",
+ "ok": true
+}

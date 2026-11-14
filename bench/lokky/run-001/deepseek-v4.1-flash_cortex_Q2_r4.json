@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q2_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q2",
+ "rep": 4,
+ "response": "El proyecto con deadline más cercano es **Atlas** (2026-07-30).\n\n**Ningún riesgo del documento afecta a Atlas**: los seis riesgos (R01–R06) listan solo Horizon, Nebula, Aegis y Phoenix en sus campos `proyectos`.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:33:24.113421Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_json_Q4_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "json",
+ "question_id": "Q4",
+ "rep": 4,
+ "response": "5 miembros trabajan en más de un proyecto simultáneamente:\n\n- Elena_Vargas (Nebula, Horizon)\n- Lucía_Rojas (Horizon, Aegis)\n- Daniel_Ortega (Aegis, Phoenix)\n- Aisha_Okafor (Nebula, Phoenix)\n- Sofía_Márquez (Nebula, Aegis, Phoenix)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.0,
+ "ts": "2026-11-04T01:13:40.298946Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q2_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "El proyecto con el deadline más cercano a la fecha actual (2026-11-03) es **Aegis** (`T07` → 2027-01-10).\n\nLos riesgos que lo afectan son:\n\n- **R03**: Rotación de Sofía Márquez\n- **R05**: Sobrecoste de DataVault",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.9,
+ "ts": "2026-11-04T01:09:09.354409Z",
+ "ok": true
+}

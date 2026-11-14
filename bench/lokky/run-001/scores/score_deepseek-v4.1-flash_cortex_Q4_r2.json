@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_cortex_Q4_r2", "model": "deepseek-v4.1-flash", "format": "cortex", "question_id": "Q4", "rep": 2, "status": "completo", "score": 1.0, "must_found": ["sofia marquez", "daniel ortega"], "any_found": ["aisha okafor"], "secs": 2.4}

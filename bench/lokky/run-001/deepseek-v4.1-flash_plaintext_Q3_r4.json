@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q3_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q3",
+ "rep": 4,
+ "response": "**ComplianceAudit** fue el responsable del incidente I-004 (fuga de tokens de acceso en Aegis, crítico y no resuelto).\n\nComo consecuencia se tomó **AR02 (T04): migrar la autenticación de servicios a OAuth2**, aplicable a Aegis y Phoenix.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.1,
+ "ts": "2026-11-04T01:42:05.832143Z",
+ "ok": true
+}

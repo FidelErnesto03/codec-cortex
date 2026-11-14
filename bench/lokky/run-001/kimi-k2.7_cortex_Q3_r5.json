@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q3_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q3",
+ "rep": 5,
+ "response": "ComplianceAudit; **Migración a OAuth2 para autenticación de servicios** (DEC AR02).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.4,
+ "ts": "2026-11-04T01:09:28.504223Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q7_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q7",
+ "rep": 1,
+ "response": "Sí. Los riesgos que afectan a múltiples proyectos son:\n\n- **R01 — Fuga de datos en API Gateway**: proyectos **Horizon y Nebula**; proveedor **CloudShield**.\n- **R03 — Rotación de Sofía Márquez**: proyectos **Aegis, Nebula y Phoenix**; sin proveedor asociado.\n- **R04 — Zero-day en motor de eventos**: proyectos **Nebula y Phoenix**; proveedor **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.6,
+ "ts": "2026-11-04T01:31:03.357891Z",
+ "ok": true
+}

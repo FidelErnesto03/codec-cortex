@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_markdown_Q4_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "markdown",
+ "question_id": "Q4",
+ "rep": 4,
+ "response": "5 miembros trabajan en más de un proyecto simultáneamente:\n\n1. **Elena Vargas** — Nebula, Horizon\n2. **Lucía Rojas** — Horizon, Aegis\n3. **Daniel Ortega** — Aegis, Phoenix\n4. **Aisha Okafor** — Nebula, Phoenix\n5. **Sofía Márquez** — Nebula, Aegis, Phoenix",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.0,
+ "ts": "2026-11-04T01:21:33.781356Z",
+ "ok": true
+}

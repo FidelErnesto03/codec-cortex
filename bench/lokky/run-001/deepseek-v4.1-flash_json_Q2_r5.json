@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q2_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q2",
+ "rep": 5,
+ "response": "**Proyecto con deadline más cercano:** Atlas — 2026-07-30 (código T06).\n\n**Riesgos que lo afectan: ninguno.** Ninguno de los riesgos (R01–R06) incluye a Atlas entre sus proyectos.\n\nNota: Atlas depende de Horizon (D05, tipo \"legado\"), por lo que podría verse afectado indirectamente por R01 (fuga de datos en API Gateway, Horizon/Nebula), pero el documento no lo lista como proyecto afectado.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.9,
+ "ts": "2026-11-04T01:35:26.090485Z",
+ "ok": true
+}

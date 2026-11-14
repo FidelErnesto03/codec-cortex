@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q8_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "**Nebula (PRJ-01)** es el proyecto en mayor peligro.\n\n- **Riesgos:** acumula 4: R01 crítico (fuga en API Gateway, 35%), R02 alto (incumplimiento de deadline, 60%, la probabilidad más alta), R03 alto (rotación de Sofía, 45%) y R04 crítico (zero-day, 20%). Es el único afectado por ambos riesgos críticos.\n- **Dependencias:** Horizon lo bloquea (D01); además depende de Aegis (D02) y de Phoenix (D06).\n- **Incidentes:** ya sufrió I-002 (pérdida de eventos en su bus, resuelto).\n- **Decisiones:** AR01 (Kubernetes), AR03 (motor de eventos desacoplado, posterior a I-002) y AR04 (rotación de secretos, posterior a R01/R04).\n- **Contexto:** deadline 2026-09-15, prioridad Alta y $850,000; es el plazo más cercano entre los proyectos de prioridad Alta/Crítica.\n\nAegis es el segundo foco grave: mantiene I-004 crítico **no resuelto**, pero su deadline es 2027-01-10.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 18.3,
+ "ts": "2026-11-04T01:40:50.201404Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q4_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q4",
+ "rep": 4,
+ "response": "**5 miembros** trabajan en más de un proyecto:\n\n- **Elena Vargas** (Nebula, Horizon)\n- **Lucía Rojas** (Horizon, Aegis)\n- **Daniel Ortega** (Aegis, Phoenix)\n- **Aisha Okafor** (Nebula, Phoenix)\n- **Sofía Márquez** (Nebula, Aegis, Phoenix)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:37:50.053756Z",
+ "ok": true
+}

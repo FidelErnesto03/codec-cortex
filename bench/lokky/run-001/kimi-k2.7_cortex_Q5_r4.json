@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q5_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q5",
+ "rep": 4,
+ "response": "Los riesgos con impacto crítico son:\n\n- **R01**: Fuga de datos en API Gateway — proyectos **Horizon, Nebula** — proveedor **CloudShield**\n- **R04**: Zero-day en motor de eventos — proyectos **Nebula, Phoenix** — proveedor **StreamCore**",
+ "stderr": "",
+ "rc": 0,
+ "secs": 5.6,
+ "ts": "2026-11-04T01:10:02.568949Z",
+ "ok": true
+}

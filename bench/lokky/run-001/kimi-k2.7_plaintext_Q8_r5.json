@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q8_r5",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q8",
+ "rep": 5,
+ "response": "**Nebula** es el proyecto en mayor peligro.\n\n**Justificación:**\n- **Riesgos:** Acumula 4, más que cualquier otro proyecto: R01 (crítico, fuga de datos, 35%), R02 (alto, incumplimiento deadline, **60% — la probabilidad más alta de todos los riesgos**), R03 (alto, rotación de Sofía, 45%) y R04 (crítico, zero-day, 20%).\n- **Dependencias:** Está bloqueado por Horizon (D01) y depende de Aegis (D02) y Phoenix (D06), formando un cuello de botella triple.\n- **Incidentes:** Fue afectado por I-002 (pérdida de eventos en StreamCore), lo que forzó la decisión AR03.\n- **Decisiones:** Debe ejecutar AR01 (Kubernetes), AR03 (motor de eventos desacoplado por I-002) y AR04 (rotación de secretos cada 72h por R01/R04).\n- Además, su deadline es cercano (15 de septiembre de 2026) y tiene presupuesto alto ($850,000), por lo que el impacto de fallar es grande.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 9.7,
+ "ts": "2026-11-04T01:28:43.494303Z",
+ "ok": true
+}

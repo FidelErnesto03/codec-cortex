@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_yaml_Q2_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "yaml",
+ "question_id": "Q2",
+ "rep": 2,
+ "response": "El proyecto con deadline más cercano es **Atlas** (2026-07-30, código T06).\n\n**Ningún riesgo** de la lista afecta a Atlas: R01–R06 cubren solo Horizon, Nebula, Aegis y Phoenix.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.1,
+ "ts": "2026-11-04T01:37:21.297084Z",
+ "ok": true
+}

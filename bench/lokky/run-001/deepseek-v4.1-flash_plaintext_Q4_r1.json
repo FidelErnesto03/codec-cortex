@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q4_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q4",
+ "rep": 1,
+ "response": "**5 miembros** trabajan en más de un proyecto:\n\n1. **Elena Vargas** — Nebula y Horizon\n2. **Lucía Rojas** — Horizon y Aegis\n3. **Daniel Ortega** — Aegis y Phoenix\n4. **Aisha Okafor** — Nebula y Phoenix\n5. **Sofía Márquez** — Nebula, Aegis y Phoenix (3 proyectos)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.0,
+ "ts": "2026-11-04T01:42:11.145191Z",
+ "ok": true
+}

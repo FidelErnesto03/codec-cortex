@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q7_r4",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q7",
+ "rep": 4,
+ "response": "Sí, hay tres riesgos multi-proyecto:\n\n- **R01 — Fuga de datos en API Gateway**  \n  - **Proveedor:** CloudShield  \n  - **Proyectos directos:** Horizon, Nebula  \n  - **Cadena de impacto:** Horizon bloquea a Nebula (D01) y a Aegis (D07); Aegis bloquea a Phoenix (D04); Nebula depende de Aegis (D02) y Phoenix (D06); Atlas depende de Horizon (D05).  \n  - **Proyectos en cadena:** Horizon, Nebula, Aegis, Phoenix, Atlas.\n\n- **R03 — Rotación de Sofía Márquez**  \n  - **Proveedor:** ninguno (`nil`)  \n  - **Proyectos directos:** Aegis, Nebula, Phoenix  \n  - **Cadena de impacto:** Aegis bloquea a Phoenix (D04); Nebula depende de Aegis (D02) y Phoenix (D06); Phoenix depende de Aegis (D03).  \n  - **Proyectos en cadena:** Aegis, Nebula, Phoenix.\n\n- **R04 — Zero-day en motor de eventos**  \n  - **Proveedor:** StreamCore  \n  - **Proyectos directos:** Nebula, Phoenix  \n  - **Cadena de impacto:** Phoenix depende de Aegis (D03); Nebula depende de Aegis (D02) y Phoenix (D06); Aegis bloquea a Phoenix (D04).  \n  - **Proyectos en cadena:** Nebula, Phoenix, Aegis.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 11.8,
+ "ts": "2026-11-04T01:31:22.191606Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q1_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q1",
+ "rep": 1,
+ "response": "El documento **no indica un responsable/owner único** de Nebula (no existe ese campo). Los miembros asignados a Nebula son: Elena Vargas (Arquitecta Cloud), Marco Silva (SRE Lead), Aisha Okafor (Data Engineer) y Sofía Márquez (DevOps Lead).\n\n**Fecha límite de Nebula:** 2026-09-15.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.7,
+ "ts": "2026-11-04T01:43:40.110783Z",
+ "ok": true
+}

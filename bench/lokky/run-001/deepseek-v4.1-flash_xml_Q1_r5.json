@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q1_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q1",
+ "rep": 5,
+ "response": "El documento **no define un responsable único** para Nebula (no hay campo de \"owner\"; solo varios miembros con ese proyecto: Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez).\n\n**Fecha límite:** 2026-09-15 (prioridad alta, presupuesto 850 000).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:43:49.293368Z",
+ "ok": true
+}

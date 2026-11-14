@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_json_Q4_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "json",
+ "question_id": "Q4",
+ "rep": 3,
+ "response": "5 miembros del equipo trabajan en más de un proyecto simultáneamente:\n\n- Elena_Vargas\n- Lucía_Rojas\n- Daniel_Ortega\n- Aisha_Okafor\n- Sofía_Márquez",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.3,
+ "ts": "2026-11-04T01:13:37.256993Z",
+ "ok": true
+}

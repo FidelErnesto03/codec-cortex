@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_xml_Q8_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "xml",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "El proyecto en mayor peligro es **Nebula**.\n\n**Justificación:**\n\n- **Riesgos (4, más que cualquier otro proyecto):**\n  - **R01** (crítico, probabilidad 0.35): fuga de datos en API Gateway.\n  - **R02** (alto, 0.60): incumplimiento de su propio deadline (2026-09-15), el riesgo con mayor probabilidad del documento.\n  - **R03** (alto, 0.45): rotación de Sofía Márquez, que trabaja en Nebula.\n  - **R04** (crítico, 0.20): zero-day en motor de eventos.\n\n- **Dependencias negativas:** Nebula está **bloqueado por Horizon** (D01), y **depende de Aegis** (D02) y **de Phoenix** (D06), lo que le expone a retrasos externos.\n\n- **Incidentes:** sufrió el incidente **I-002** (pérdida de eventos en el bus), aunque esté resuelto.\n\n- **Decisiones:** le afectan **AR01**, **AR03** y **AR04**, incluyendo la arquitectura de motor de eventos desacoplado como respuesta a I-002.\n\nNingún otro proyecto concentra tanta exposición simultánea a riesgos críticos, alta probabilidad de incumplimiento de plazo y dependencias bloqueantes.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 12.7,
+ "ts": "2026-11-04T01:31:39.502315Z",
+ "ok": true
+}

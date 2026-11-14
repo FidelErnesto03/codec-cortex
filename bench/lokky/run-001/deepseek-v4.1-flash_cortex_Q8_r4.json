@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q8_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q8",
+ "rep": 4,
+ "response": "**Nebula (T01)** es el proyecto en mayor peligro.\n\n- **Riesgos (4, el máximo):** R01 fuga de datos en API Gateway (crítico, 35%), R02 incumplimiento de deadline (alto, **60%**), R03 rotación de Sofía Márquez (alto, 45%) y R04 zero-day en motor de eventos (crítico, 20%) — dos de impacto crítico.\n- **Dependencias:** D01 *Horizon bloquea a Nebula* (bloqueante directo) y además depende de Aegis (D02) y Phoenix (D06), ambos con riesgos propios → cadena de exposición.\n- **Incidentes:** I-002 pérdida de eventos en el bus de Nebula (StreamCore), que motivó la decisión AR03.\n- **Decisiones:** AR01 (K8s), AR03 (motor de eventos desacoplado, post I-002) y AR04 (rotación de secretos), evidenciando remediaciones reactivas a sus fallos.\n\n**Segundo en riesgo: Aegis**, por el incidente crítico **I-004 no resuelto** (fuga de tokens) pese a ser prioridad \"crítica\"; pero su deadline (2027-01-10) le da más margen que Nebula (2026-09-15).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.2,
+ "ts": "2026-11-04T01:34:52.186278Z",
+ "ok": true
+}

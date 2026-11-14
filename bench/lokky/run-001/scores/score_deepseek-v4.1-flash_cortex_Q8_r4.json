@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_cortex_Q8_r4", "model": "deepseek-v4.1-flash", "format": "cortex", "question_id": "Q8", "rep": 4, "status": "requires_human", "score": null, "must_found": null, "any_found": null, "secs": 4.2}

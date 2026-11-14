@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_plaintext_Q2_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "plaintext",
+ "question_id": "Q2",
+ "rep": 4,
+ "response": "**Ninguno.**\n\nEl proyecto con deadline más cercano es **Atlas (T06)** — 30 de julio de 2026, a 13 días de hoy. Ninguno de los riesgos R01–R06 lo menciona: R01 y R04 afectan a Nebula/Phoenix, R02 a Nebula, R03 a Aegis/Nebula/Phoenix, R05 a Aegis y R06 a Phoenix.\n\n(Nota: AR04 sí aplica a Atlas, pero es una decisión de arquitectura, no un riesgo.)",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.2,
+ "ts": "2026-11-04T01:41:54.477744Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q2_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "El proyecto con el deadline más cercano es **Atlas** (2026-07-30, código T06).\n\n**Riesgos que lo afectan: ninguno.** No aparece listado en los `proyectos` de ningún riesgo (R01–R06).\n\nNota: Atlas sí figura en la decisión AR04 (rotación de secretos) y en el incidente I-003 (caducidad de certificado TLS), pero no hay riesgos asociados.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.2,
+ "ts": "2026-11-04T01:35:20.879249Z",
+ "ok": true
+}

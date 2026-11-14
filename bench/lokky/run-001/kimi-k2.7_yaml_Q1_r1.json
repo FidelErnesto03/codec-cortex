@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q1_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q1",
+ "rep": 1,
+ "response": "El documento no designa un único responsable del proyecto **Nebula**; los miembros asignados son **Elena Vargas**, **Marco Silva**, **Aisha Okafor** y **Sofía Márquez**. Su fecha límite es **2026-09-15**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.3,
+ "ts": "2026-11-04T01:16:04.830723Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q3_r1",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q3",
+ "rep": 1,
+ "response": "**I-004** — Fuga de tokens de acceso en Aegis: proveedor **ComplianceAudit**.\n\nConsecuencia: **AR02 — Migración a OAuth2 para autenticación de servicios** (post-incidente I-004).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.5,
+ "ts": "2026-11-04T01:39:29.383815Z",
+ "ok": true
+}

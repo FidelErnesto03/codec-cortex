@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q7_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q7",
+ "rep": 3,
+ "response": "Sí. Los riesgos que afectan a múltiples proyectos son:\n\n- **R01** — Proyectos: **Horizon y Nebula**. Proveedor: **CloudShield**.\n- **R03** — Proyectos: **Aegis, Nebula y Phoenix**. Proveedor: **N/A** (no se indica proveedor).\n- **R04** — Proyectos: **Nebula y Phoenix**. Proveedor: **StreamCore**.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.2,
+ "ts": "2026-11-04T01:40:25.442576Z",
+ "ok": true
+}

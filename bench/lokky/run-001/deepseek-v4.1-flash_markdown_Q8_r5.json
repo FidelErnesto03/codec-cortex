@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q8_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q8",
+ "rep": 5,
+ "response": "**Nebula (PRJ-01)** es el proyecto en mayor peligro.\n\n- **Riesgos:** concentra 4 riesgos: R01 crítico (35%), R04 crítico (20%), R02 alto por incumplimiento de deadline (60%, la probabilidad más alta del documento) y R03 alto por rotación de Sofía Márquez (45%).\n- **Dependencias:** está bloqueado por Horizon (D01), depende de Aegis (D02) y de Phoenix (D06), quedando expuesto a la cadena Horizon → Aegis → Phoenix.\n- **Incidentes:** sufrió I-002, pérdida de eventos en su bus (StreamCore), ya resuelto.\n- **Decisiones:** le afectan AR01 (Kubernetes), AR03 (motor de eventos desacoplado, posterior a I-002) y AR04 (rotación de secretos, posterior a R01 y R04).\n- **Plazo:** deadline 2026-09-15, con prioridad Alta.\n\nEn conjunto, Nebula acumula la mayor exposición: dos riesgos críticos, el riesgo de deadline más probable, tres dependencias condicionantes y un incidente previo directamente relacionado con su arquitectura.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 6.1,
+ "ts": "2026-11-04T01:41:30.525297Z",
+ "ok": true
+}

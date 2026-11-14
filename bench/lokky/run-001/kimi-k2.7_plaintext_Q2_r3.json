@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_plaintext_Q2_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "plaintext",
+ "question_id": "Q2",
+ "rep": 3,
+ "response": "El proyecto con deadline más cercano es **Horizon (T03)**, con fecha límite el **1 de agosto de 2026**.\n\nEl único riesgo que lo afecta es:\n\n- **R01 — CRÍTICO**: Fuga de datos en el API Gateway de CloudShield. Afecta a Horizon y Nebula. Probabilidad estimada: 35 %.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.9,
+ "ts": "2026-11-04T01:25:21.909045Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_json_Q8_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "json",
+ "question_id": "Q8",
+ "rep": 5,
+ "response": "**Aegis (T07)** es el proyecto en mayor peligro.\n\n- **Incidente abierto**: I-004 \"Fuga de tokens de acceso en Aegis\" (severidad crítica, estado `no_resuelto`, sin duración registrada) — el único incidente crítico sin resolver del documento.\n- **Dependencia bloqueante**: D07 \"Horizon bloquea a Aegis\", y Horizon ya incumplió su deadline (2026-08-01).\n- **Nodo crítico de propagación**: Nebula depende de Aegis (D02), Phoenix depende de Aegis (D03) y Aegis bloquea a Phoenix (D04) → su degradación arrastra a dos proyectos más.\n- **Riesgos**: R03 rotación de Sofía Márquez (impacto alto, prob. 0.45) y R05 sobrecoste de DataVault (prob. 0.55, la más alta del set), sobre el mayor presupuesto (1.200.000) y prioridad \"crítica\".\n- **Decisiones tardías**: AR02 (OAuth2, trimestre T04) es reactiva a I-004 y AR05 (redundancia de DataVault) está planificada para T07, coincidiendo con el deadline 2027-01-10; ambas mitigan pero no eliminan la exposición actual.\n\nSegundo en riesgo: **Nebula**, por acumular 4 riesgos (R01 y R04 críticos), R02 con prob. 0.60 de incumplir deadline y estar bloqueado por Horizon (D01).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 6.4,
+ "ts": "2026-11-04T01:37:04.704123Z",
+ "ok": true
+}

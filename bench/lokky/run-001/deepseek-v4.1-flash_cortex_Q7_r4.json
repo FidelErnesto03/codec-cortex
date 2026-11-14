@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q7_r4",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q7",
+ "rep": 4,
+ "response": "Sí. Tres riesgos afectan a múltiples proyectos:\n\n- **R01 – Fuga de datos en API Gateway** (crítico, prob. 0.35): Horizon y Nebula — proveedor **CloudShield**.\n- **R03 – Rotación de Sofía Márquez** (alto, prob. 0.45): Aegis, Nebula y Phoenix — proveedor **N/A** (riesgo interno).\n- **R04 – Zero-day en motor de eventos** (crítico, prob. 0.20): Nebula y Phoenix — proveedor **StreamCore**.\n\nCadena de impacto por proveedor: **CloudShield** (WAF + API Gateway) → Horizon, Nebula; **StreamCore** (Event Bus) → Nebula, Phoenix. El riesgo interno R03 no tiene proveedor asociado y alcanza tres proyectos (Aegis, Nebula, Phoenix).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.8,
+ "ts": "2026-11-04T01:34:27.710884Z",
+ "ok": true
+}

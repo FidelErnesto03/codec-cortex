@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_markdown_Q8_r2",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "markdown",
+ "question_id": "Q8",
+ "rep": 2,
+ "response": "**Aegis (PRJ-03)** es el proyecto en mayor peligro, por delante de Nebula.\n\n- **Incidente:** sufre **I-004**, fuga de tokens de acceso, el único incidente **crítico y no resuelto**.\n- **Riesgos:** lo afectan **R03** (rotación de Sofía Márquez, 45%) y **R05** (sobrecoste de DataVault, 55%).\n- **Dependencias:** **D07** indica que Horizon lo bloquea; **D04** que Aegis bloquea a Phoenix; y **D02/D03** que Nebula y Phoenix dependen de él. Es un cuello de botella crítico.\n- **Decisiones:** **AR02** (OAuth2 tras I-004), **AR04** (rotación de secretos) y **AR05** (redundancia de DataVault por R05) confirman que sus fallos ya exigieron cambios arquitectónicos.\n- **Criticidad:** es prioridad **Crítica** y el proyecto de mayor presupuesto (**$1,200,000**).\n\nNebula acumula más riesgos y un deadline anterior, pero Aegis combina el único incidente crítico activo con bloqueos de dependencia y máxima prioridad.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 20.2,
+ "ts": "2026-11-04T01:41:10.385174Z",
+ "ok": true
+}

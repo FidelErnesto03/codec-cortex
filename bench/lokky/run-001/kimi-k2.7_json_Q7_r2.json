@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_json_Q7_r2",
+ "model": "moonshot/kimi-k2.7",
+ "format": "json",
+ "question_id": "Q7",
+ "rep": 2,
+ "response": "Sí. Los riesgos multi-proyecto y sus cadenas de impacto son:\n\n- **R01** — Fuga de datos en API Gateway  \n  - Proyectos: Horizon, Nebula  \n  - Proveedor: CloudShield\n\n- **R03** — Rotación de Sofía Márquez  \n  - Proyectos: Aegis, Nebula, Phoenix  \n  - Proveedor: *no aplica* (null)\n\n- **R04** — Zero-day en motor de eventos  \n  - Proyectos: Nebula, Phoenix  \n  - Proveedor: StreamCore\n\nLos riesgos R02, R05 y R06 afectan solo un proyecto cada uno.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 3.0,
+ "ts": "2026-11-04T01:14:46.941404Z",
+ "ok": true
+}

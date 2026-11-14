@@ -1,0 +1,1 @@
+{"cell_id": "deepseek-v4.1-flash_json_Q3_r1", "model": "deepseek-v4.1-flash", "format": "json", "question_id": "Q3", "rep": 1, "status": "completo", "score": 1.0, "must_found": ["complianceaudit", "oauth2", "ar02"], "any_found": [], "secs": 2.8}

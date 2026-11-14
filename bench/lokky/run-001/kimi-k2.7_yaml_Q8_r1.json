@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_yaml_Q8_r1",
+ "model": "moonshot/kimi-k2.7",
+ "format": "yaml",
+ "question_id": "Q8",
+ "rep": 1,
+ "response": "El proyecto en mayor peligro es **Aegis** (T07).\n\nJustificación:\n- **Incidente crítico activo**: es el único proyecto con un incidente **no resuelto** de severidad **crítica**: **I-004** (fuga de tokens de acceso en Aegis).\n- **Prioridad y presupuesto**: es el único proyecto con prioridad **crítica** y el mayor presupuesto (1.200.000), por lo que su fallo tiene alto impacto.\n- **Riesgos**: **R03** (rotación de Sofía Márquez, impacto alto) y **R05** (sobrecoste de DataVault, impacto medio).\n- **Dependencias críticas**: está bloqueado por Horizon (**D07**), bloquea a Phoenix (**D04**) y es dependencia de Nebula (**D02**) y Phoenix (**D03**); es un nudo central cuyo retraso cascada a otros proyectos.\n- **Decisiones**: **AR02** (respuesta a I-004) y **AR05** (respuesta a R05), que evidencian que requiere correcciones arquitectónicas activas.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 39.4,
+ "ts": "2026-11-04T01:19:13.012953Z",
+ "ok": true
+}

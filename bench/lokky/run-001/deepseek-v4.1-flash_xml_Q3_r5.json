@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_xml_Q3_r5",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "xml",
+ "question_id": "Q3",
+ "rep": 5,
+ "response": "**Proveedor:** ComplianceAudit.\n\n**Decisión:** AR02 — Migración a OAuth2 para autenticación de servicios (post-incidente I-004).",
+ "stderr": "",
+ "rc": 0,
+ "secs": 1.9,
+ "ts": "2026-11-04T01:44:12.698008Z",
+ "ok": true
+}

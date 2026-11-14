@@ -1,0 +1,13 @@
+{
+ "cell_id": "deepseek-v4.1-flash_cortex_Q1_r3",
+ "model": "deepseek/deepseek-v4.1-flash",
+ "format": "cortex",
+ "question_id": "Q1",
+ "rep": 3,
+ "response": "El documento no define un campo de \"responsable\" para los proyectos (solo id, deadline, presupuesto, prioridad y estado). La fecha límite de **Nebula (T01)** es **2026-09-15**.\n\nComo referencia, los miembros del equipo asignados a Nebula son: Elena Vargas, Marco Silva, Aisha Okafor y Sofía Márquez.",
+ "stderr": "",
+ "rc": 0,
+ "secs": 2.6,
+ "ts": "2026-11-04T01:33:09.025611Z",
+ "ok": true
+}

@@ -1,0 +1,13 @@
+{
+ "cell_id": "kimi-k2.7_cortex_Q7_r3",
+ "model": "moonshot/kimi-k2.7",
+ "format": "cortex",
+ "question_id": "Q7",
+ "rep": 3,
+ "response": "Sí. Los riesgos que afectan múltiples proyectos son:\n\n- **R01** — Proyectos: **Horizon, Nebula** | Proveedor: **CloudShield**\n- **R03** — Proyectos: **Aegis, Nebula, Phoenix** | Proveedor: **N/A**\n- **R04** — Proyectos: **Nebula, Phoenix** | Proveedor: **StreamCore**",
+ "stderr": "",
+ "rc": 0,
+ "secs": 4.0,
+ "ts": "2026-11-04T01:11:10.802048Z",
+ "ok": true
+}
