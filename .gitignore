@@ -8,6 +8,13 @@ build/
 venv/
 .target/
 
+# Caches de test/lint (regenerables)
+.pytest_cache/
+.ruff_cache/
+
+# Reportes generados por los harness (regenerables con `test`)
+rev-report*.json
+
 # ArqUX governance residue (locks, atomic backups)
 .arqux/**/*.lock
 *.cortex.lock

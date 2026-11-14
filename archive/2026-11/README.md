@@ -20,6 +20,10 @@ Integridad del archivo: [`SHA256SUMS`](SHA256SUMS) (sello propio de este ciclo).
 | `docs-review/` | `docs/review/` | Reportes de gates F2/F3/F4 y notas de cierre de fase — historial de revisión fechado. |
 | `rev-report.json` | `./rev-report.json` | Artefacto generado (reporte F3/F4) de ejecución antigua. Regenerable. |
 | `standard-0x/` | `docs/standard/*` y `docs/spec/` | Especificaciones 0.1/0.2 (CORTEX, C14N, HCORTEX, glosarios, errores) superseded por `CORTEX-SPEC-1.0.md` (BLP-004 T-4.1, 2026-11-14). Cada archivo lleva cabecera `SUPERSEDED`. |
+| `examples/` (retirado) | `examples/` | No era un corpus: era una capa de alias por symlinks a `conformance/` (`valid`, `invalid`, `expected-*`, `manifest.json`). Se retiró como la de `docs/spec/`; el corpus real y sellado vive en `conformance/`. |
+| `transition/` | `docs/transition/` | Evidencia PHASE0 (manifest y reporte de ejecución) de la transición al repo limpio. Histórico de programa. |
+| `profiles-placeholder/` | `profiles/` | Placeholder de "CORTEX Profiles" que nunca se materializó. Fuera de alcance: el codec no incluye runtime de agentes ni perfiles. |
+| `cortex-db-line/` | `docs/CORTEX-DB-*.md` | Documentación v0.1 de la línea CORTEX-DB, **delegada a Proyecto_X** (decisiones E-0272/E-0273). Registro de la línea previa; no es autoridad. |
 | `docs/spec/` (retirado) | `docs/spec/` | No era un duplicado byte-exacto: era una capa de alias por symlinks a `docs/standard/`. Se retiró para que exista una sola ruta normativa; sus destinos siguen vivos en `docs/standard/`. |
 
 ## Reglas del archivo

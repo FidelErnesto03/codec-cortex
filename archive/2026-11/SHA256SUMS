@@ -1,4 +1,8 @@
 0bf17f8b40c47086a8164d00c993227d8318ce9cacde5d2b358e5a2b9926761b  ./codec-cortex.skill.old
+e509a4e40853496a2b5ab67101b4314a5a27218c742a93dd70cdc0f9dd9d0ece  ./cortex-db-line/CORTEX-DB-COMPETITIVE-ANNEX-2026-11.md
+e3f5b92746e7d8e7315d209adc91f56058db9f018fa3935e6f74f4598ff72be1  ./cortex-db-line/CORTEX-DB-ERGONOMICS-REVIEW-2026-11.md
+fb294742b4bc59a37a647abbddb0bbce46250cf6fc77b2dff45fecf3f52cd14d  ./cortex-db-line/CORTEX-DB-VISION.md
+7b47964a4c66b9263e87f9e365b53da0447ea7c1886f2e284c945e7c8ddcbc52  ./cortex-db-line/README.md
 a5d5c4004d86b7ff969600db5fd8f6d878328dd14419c14f109ee578e7e2973e  ./docs-review/review/CHARTER-AUDIT.md
 8b4067c8dc86385823f7cd31cbacc45996d485eb097896db2a22120e08e683e3  ./docs-review/review/DESIGN-DECISIONS.md
 af9844ac922b7cc946093c07cdf104750041a20375835f6f5af29f44f84105b2  ./docs-review/review/EDIT-MODEL.md
@@ -717,8 +721,6 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./experiments/
 4b3caab7a8affbfd9728fb8ddcd01515cdc32e1608499f5c3c94280f3167d759  ./experiments/gate-f3/rust/invalid/I056_bom_forbidden_diag.json
 a786cecfdd30db782e02e27a0587c2aa135b99b4bc4d2ccf35400a320958abac  ./experiments/gate-f3/rust/invalid/I057_control_character_ast.json
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./experiments/gate-f3/rust/invalid/I057_control_character_diag.json
-10c5c73ea7b11a09dc118813469d6d7bc261d60369780894735fedc3e8e2511d  ./experiments/gate-f3/rust/__pycache__/test_c14n.cpython-311-pytest-9.0.3.pyc
-77afed5b9be669209659eae9a606ec596b834eaff5b5bdbb0170849e323c27e8  ./experiments/gate-f3/rust/__pycache__/test_c14n.cpython-312-pytest-9.1.1.pyc
 02517f20767e6b2e6df3a27b2c0b56b594cf604e44ea55e44cb23a6b8681e2d2  ./experiments/gate-f3/rust/results.json
 069c10664c09c32ba942f23fdcbf78424b8f3cf7dc96355f6c184a67b347cddc  ./experiments/gate-f3/rust/run_tests.py
 9263789557134abe299c36810b2308595c57b78c304e476b9fdadde4d1a3dd0f  ./experiments/gate-f3/rust/src/canonicalize.rs
@@ -902,7 +904,8 @@ e3264bf02ec0b47b9d166b6be24567a435d69abe0042164bef649dd20c439dd9  ./experiments/
 5f87b7b107d8b97796b8958c912f670abd1e923c4f7f135041f60ffa789a255d  ./experiments/gate-f4/invalid/I416_active_html.md
 5488c0aa5a33d1e6dae22ba253f90acf11a2c273c523640fa2120d94232aaa4f  ./experiments/gate-f4/manifest.json
 54aa55bd99d3493974bb6700571a6a0787cdaaa74cce347680064b90c30634ee  ./experiments/gate-f4/roundtrip-results.json
-d4414295defa72c7954f09479353dd587ea5a49ca247ed0015af80e5bc618f5f  ./README.md
+28b00c4dd9b0a571a9f607eb44f0e6662a8252f6382b000e8f4cb3558a90162a  ./profiles-placeholder/README.md
+10e3d2e8202517ba7458cbc93be375779d4ae81cbda5b04fabb9cec20bad13f0  ./README.md
 2e4b5e39b9d9c3b47121239872f21ffd8e6f1c3bcc652837a33abc527cd4ceee  ./rev-report.json
 82f8af0bd79b4955d41650d3cb4b8b3c14a1f877510e7b95bd79691210eb8201  ./standard-0x/C14N-0.1.md
 166cded084c8be019bc203c037e22ad5c2d00ad5ec945bdb87060a91ccc559b2  ./standard-0x/C14N-SLOTS.md
@@ -922,7 +925,8 @@ d3afc48de20db6e1aec9e8b1bd86df2b663be738622acc4dbc93757904e38a0f  ./tools-legacy
 23d484d0e928f4104b1c732b145d9908b17590455cdab9ab9a56b119506c6883  ./tools-legacy/cortex_rev.py
 a2ae37ab8646b42b7fed62b16ec8465bbc45082736e484ec1be943b488fb5e12  ./tools-legacy/hcortex_oracle.py
 c4b3bbb2daaba0b46a7c7c3caa7ffb1b24edf1ffc45f07ab8b0d91b730ce03c0  ./tools-legacy/hcortex_transformer.py.legacy
-c53a1a1c2024ddcc0df2cc6cc30460836ef72405eed1cd3cf5163e7315719325  ./tools-legacy/__pycache__/cortex01_validator.cpython-312.pyc
 244513cf554c0f58d4d701ec9f4f70c98a8ec4048146228af030a2e962bf1e62  ./tools-legacy/validate_phase2.py
 02c828f59ce1fc31118d7ad55c5ab858353901592bcde71cf02d59317749f423  ./tools-legacy/validate_phase3.py
 de7867b7e6d6eb2c9b0ae06d05ae5ed0127c1e5e95220f15ae59dea3116a42e8  ./tools-legacy/validate_phase4.py
+58f012b4976120aa5f83afc675290c3a176000a20bd7c8c2fcacb6e993c2b3f1  ./transition/PHASE0_EVIDENCE_MANIFEST.md
+733533b251ac1cffe1e7bc6da4f2658a3570394cfb3ddf392eabfc28ab3565dd  ./transition/PHASE0_EXECUTION_REPORT.md
