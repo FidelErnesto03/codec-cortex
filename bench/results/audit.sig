@@ -4,40 +4,50 @@
       "archive/2026-11/SHA256SUMS": "932/932 OK"
     },
     "certificate.json": {
-      "sha256": "831b237e010dd099b5b987789f11b67a4ad2cee1fb91a74bc271bc75c7b167a1"
+      "sha256": "43230c794081d1c3530dd32ee2f42853fcca42a2a7b2246a57739ce71b208f18"
     },
     "certifier_sha256": "ecb028746474bb2ecdd4c83f0628046261eb9331d7fcc58e5d8e42e3148f6c8b",
     "corpus_seal": {
       "tests/SHA256SUMS": "985/985 OK"
     },
-    "instrument_sha256": "52a1b03cb84415ba026a54aba05d0bf014a126aa9dc06ad7888ef50d3d34f11d"
+    "instrument_sha256": "767c7ed423a0fc8d33ca0523b9eebc8a1c212bd2726008bf6ab8580d2a77cde7",
+    "package_seal": {
+      "bench/agent-package/SHA256SUMS": "3/3 OK"
+    },
+    "sdist": {
+      "file": "codec_cortex-1.0.1.tar.gz",
+      "sha256": "c9ee97e88016b1382815b762b5e54ac40445c9e12cd4ab4d640917450998220d"
+    },
+    "wheel": {
+      "file": "codec_cortex-1.0.1-py3-none-any.whl",
+      "sha256": "ace26b21cece036d1d07af49cfeac94c3550c2bdeacd51cab9db63487001a586"
+    }
   },
-  "audit_sig": "1.8",
-  "audited_at": "2026-11-14T16:30:51.308980+00:00",
+  "audit_sig": "1.9",
+  "audited_at": "2026-11-14T17:05:36.021164+00:00",
   "auditor": "heimdall",
-  "commit": "ffe0b0e5b3186666e40ec07c3523dd7e8614d98b",
+  "commit": "7c12b9256fff300b79eaae73d3ba86af0289c336",
   "nonconformance": [],
   "observations": [
-    "Two alias layers were retired: docs/spec (symlinks to docs/standard) and examples (symlinks to conformance). Removing them leaves one canonical path per artifact; the corpus seal lost its only alias entry (986 -> 985).",
-    "Removed regenerable weight: target/debug (1.5 GB), build/, tools/ (pycache of an already archived validator), egg-info and test/lint caches. target/release is kept so the certificate does not rebuild Rust on every run.",
-    "bench/lokky run-001 (476 raw outputs + scores + batch log) was unversioned evidence of BLP-003 and is now committed; the run had completed (476/476, BATCH DONE).",
-    "CORTEX-DB v0.1 documents were delegated to Proyecto_X (E-0272/E-0273) but had never been transferred; they are archived under archive/2026-11/cortex-db-line with the delegation note instead of being deleted.",
-    "profiles/ was a placeholder for an agent-runtime layer that the codec explicitly excludes; archived. docs/transition (PHASE0 evidence) archived.",
-    "Kept deliberately: docs/standard program docs (GATE-F2, F3/F4-CHARTER, REV-*, PHASE-1 index) because 8 governance files still reference them; security/ and governance/ are active policy enforced by boundary.yml.",
+    "Version 1.0.1 is a patch release: the dialect and the canonical hash do not change. It packages loss-report across the five surfaces, the closed loss catalog, G042 and the bare-$0 render, D6/D7, the documentation refresh and the hygiene pass.",
+    "Breaking changes are documented in CHANGELOG: `$0: <title>` now rejected (G042), bare `$0` emitted for cappaless glossaries, Python `hash` prints sha256:<hex>. Scripts parsing bare hex must strip the prefix.",
+    "audit.sig 1.8 no longer matches the certificate after the release bump, as expected; this signature supersedes it.",
+    "PyPI publication is delegated to the publish workflow (tag v1.0.1 or workflow_dispatch), which uses the PYPI_API_TOKEN secret. The wheel hash above identifies the locally audited artifact; CI builds its own wheel and its byte hash may differ because zip timestamps are not reproducible. Verify the published version and contents, not the byte hash.",
     "Open gates unchanged: AC-10 (green CI in the remote) and AC-12 (Architect ratification of 1.0)."
   ],
   "role": "independent auditor (read-only, distinct from executor and governor)",
-  "scope": "repository hygiene over commit ffe0b0e: no certified input changed, seals and suites verified, out-of-scope material archived",
-  "signature": "heimdall:c2508e9800aa3b0ba58e130bb9f94089aa34a5440e92744ac148106c9e0a2706",
+  "scope": "release 1.0.1: package version, wheel and sdist built from commit 7c12b92, certificate and seals verified",
+  "signature": "heimdall:44aad83495a9db120277eaf3e62dfb0f1846961b2cf02c83e8b1277f56d31e82",
   "signature_scheme": "heimdall:<sha256 of this object without the 'signature' key, serialized as UTF-8 JSON with sorted keys and 2-space indent, no trailing newline>",
-  "subject": "CODEC-CORTEX - deep repository hygiene: alias layers retired, out-of-scope material archived, artifacts removed",
+  "subject": "CODEC-CORTEX - release 1.0.1 (PyPI implementation)",
   "verdict": "SIGNED-PASS",
   "verifications": [
-    "certified inputs untouched by this pass: git diff 1b54337..HEAD over codec_cortex/, bench/certify.py, conformance/ and skill/ is empty",
-    "certificate.json is byte-identical to the artifact signed in audit 1.7 (sha256 831b237e010d); no re-execution was required because no instrument or corpus input changed",
-    "tests/SHA256SUMS 985/985 OK (the single alias-layer entry was removed with examples/) and archive/2026-11/SHA256SUMS 932/932 OK",
+    "instrument hash recomputed from the tree (codec_cortex/**/*.py + bench/certify.py) matches certificate.instrument_sha256: 767c7ed423a0fc8d",
+    "committed certificate at this commit: VERDICT PASS, D1 141/141, D2 141/141, D2b 70/70, D3 5/5 degraded=-, D3b 101/101, D4 141/141, D5 PASS, D6 75/75, D7 10/10",
+    "wheel 1.0.1 built from this commit and installed offline in a clean venv: __version__ 1.0.1, validate OK, hash sha256:89db9359..., to-hcortex OK, loss-report OK",
+    "agent package self-check with the installed wheel: reversible true, losses 0",
+    "tests/SHA256SUMS 985/985 OK; archive seal 932/932 OK; agent package seal 3/3 OK",
     "probes 29/29; unittest OK; error catalog closed; node --test green; go test green; cargo test green; bash slots + loss-report green",
-    "working tree clean after the hygiene commits (74f44b9, 949dbcd, ffe0b0e)",
-    "audit 1.7 signature still verifies (bench/verify_audit.py exit 0) before this audit was issued"
+    "no full independent re-execution in this pass: correspondence between the certificate and the tree is established by instrument-hash recomputation; determinism was demonstrated repeatedly earlier in this session"
   ]
 }
