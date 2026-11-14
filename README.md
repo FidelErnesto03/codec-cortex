@@ -138,7 +138,7 @@ sha256sum -c --quiet tests/SHA256SUMS   # sello del corpus (986 entradas)
 El certificado se ejecuta en CI
 ([`.github/workflows/certificate.yml`](.github/workflows/certificate.yml)) y está
 **firmado por un auditor independiente** en
-[`bench/results/audit.sig`](bench/results/audit.sig) (auditoría 1.6,
+[`bench/results/audit.sig`](bench/results/audit.sig) (auditoría 1.8,
 `SIGNED-PASS`). La firma es verificable por recomputo:
 
 ```bash
@@ -155,6 +155,7 @@ python bench/verify_audit.py     # exit 0 = firma y artefactos consistentes
 | [docs/LOSS-REPORT.md](docs/LOSS-REPORT.md) | pérdidas declaradas: catálogo, JSON, límites |
 | [docs/MIGRATION-1.0.md](docs/MIGRATION-1.0.md) | cambios incompatibles y recetas de migración |
 | [docs/parser-api.md](docs/parser-api.md) | API Python y referencia de CLI |
+| [bench/agent-package/](bench/agent-package/README.md) | paquete instructivo `.cortex` para que un agente autónomo benchmarkee el codec |
 | [docs/authoring/custom-sigils.md](docs/authoring/custom-sigils.md) | crear sigilos y secciones |
 | [docs/authoring/hcortex-templates.md](docs/authoring/hcortex-templates.md) | plantillas HCORTEX bidireccionales |
 | [archive/2026-11/](archive/2026-11/README.md) | material histórico congelado bajo sello |

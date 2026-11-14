@@ -1,0 +1,142 @@
+$0:KERNEL
+$0:format{cortex:1.0,encoding:UTF-8,language:en}
+$0:enum_phase{values:"P0|P1|P2|P3|P4"}
+$0:enum_gate{values:"G1|G2|G3|G4|G5"}
+$0:enum_level{values:"blocking|warning"}
+RUL:rule{type:attrs,weight:H,focus:rule,desc:"Normative rule",fields:"rule:text|detail:text"}
+CMD:cmd{type:attrs,weight:H,focus:command,desc:"Executable step",fields:"command:text|expect:text"}
+MET:metric{type:attrs,weight:H,focus:definition,desc:"Metric",fields:"definition:text|unit:atom|formula:text?"}
+HYP:hyp{type:attrs,weight:H,focus:statement,desc:"Hypothesis",fields:"statement:text|prediction:text|falsified:text"}
+GATE:gate{type:attrs,weight:H,focus:criterion,desc:"Gate",fields:"criterion:text|evidence:text"}
+ART:artifact{type:attrs,weight:M,focus:path,desc:"Artifact",fields:"path:text|content:text"}
+RSK:risk{type:attrs,weight:M,focus:threat,desc:"Threat",fields:"threat:text|control:text"}
+PRC:step{type:attrs-pos,weight:H,focus:action,desc:"Procedure step",pos:"action:text|expect:text|phase:atom"}
+TMPL:template{type:bloque,weight:M,desc:"Template"}
+TXT:note{type:cuerpo,weight:M,desc:"Rationale"}
+
+$1: MISSION:CORE
+TXT:mission{
+This package instructs an autonomous agent to benchmark CODEC-CORTEX 1.0 from its
+PyPI installation, scientifically and reproducibly. The agent must produce
+evidence, not opinions: every claim it writes must point to an artifact and a
+hash. Measure properties (fidelity, determinism, density, error precision,
+auditability) and model-facing benefits (comprehension, generation validity),
+against fair baselines (JSON, YAML, Markdown, XML, plain text).
+}
+RUL:autonomy{rule:"The agent may choose models, questions and corpus only during pre-registration, never after seeing results.",detail:"Freeze order: prereg -> runs -> analysis -> report."}
+RUL:non_goals{rule:"Do not claim CORTEX is faster, prettier or smaller in general. Claim only what a registered metric supports with its confidence interval.",detail:"Art. XVII: no claim without reproducible evidence."}
+RUL:falsifiability{rule:"Every hypothesis carries an explicit falsifier. If the falsifier occurs, report failure, never rename the hypothesis.",detail:"A benchmark that cannot fail is marketing."}
+TXT:fairness{
+Fair comparison means equal information, equal instruction budget and identical
+questions across formats. Any format-specific tuning must be declared and
+applied symmetrically. Baselines are not strawmen: use canonical, idiomatic
+representations produced by standard serializers.
+}
+
+$2: PREPARATION:CORE
+RUL:environment{rule:"Python 3.10+, isolated venv, no network during measurement runs.",detail:"Record OS, CPU, Python, pip and package versions in manifest.json."}
+CMD:install{command:"python -m pip install codec-cortex==1.0.0",expect:"import succeeds and codec_cortex.__version__ is 1.0.0"}
+CMD:verify{command:"python -m codec_cortex hash <file.cortex>",expect:"prints sha256:64hex; identical across repeated runs"}
+CMD:selfcheck{command:"python -m codec_cortex loss-report <this-package.cortex>",expect:"reversible true and losses empty; otherwise STOP and report a toolchain defect"}
+CMD:render{command:"python -m codec_cortex to-hcortex <file.cortex>",expect:"deterministic HCORTEX; same bytes on every run"}
+CMD:compile{command:"python -m codec_cortex from-hcortex <file.hcortex.md>",expect:"canonical CORTEX; roundtrip equals the source canonical form"}
+CMD:conformance{command:"python -m codec_cortex conformance",expect:"harness reports zero failures for the shipped corpus"}
+RUL:freeze{rule:"Before the first model call, write prereg.yaml and record its sha256 in manifest.json.",detail:"G1 blocks execution until the freeze hash exists."}
+
+$3: PREREGISTRATION:CORE
+HYP:h1_fidelity{statement:"Every valid 1.0 document survives CORTEX to HCORTEX to CORTEX with an equal canonical form.",prediction:"fidelity_rate = 1.0 on the declared corpus",falsified:"any divergence that no declared L4xx loss class explains"}
+HYP:h2_determinism{statement:"Canonical bytes and HCORTEX render are a pure function of the AST within and across processes.",prediction:"byte_determinism = 1.0 across 5 repetitions",falsified:"one differing byte for the same input"}
+HYP:h3_density{statement:"For structured facts, CORTEX uses fewer tokens than idiomatic JSON.",prediction:"median token_density(cortex) lower than json",falsified:"paired difference CI includes zero or favors JSON"}
+HYP:h4_comprehension{statement:"Models answer content questions about a CORTEX document at least as accurately as about its JSON twin.",prediction:"accuracy(cortex) - accuracy(json) greater or equal to 0",falsified:"paired CI entirely below zero after correction"}
+HYP:h5_generation{statement:"Models instructed to answer in CORTEX produce a higher rate of schema-valid output than when instructed to answer in JSON.",prediction:"validity(cortex) greater than validity(json)",falsified:"paired CI includes zero or favors JSON"}
+HYP:h6_errors{statement:"Invalid documents yield the specific catalog code, not a generic failure.",prediction:"error_code_precision = 1.0 on the invalid corpus",falsified:"one vector mapped to a wrong or missing code"}
+HYP:h7_audit{statement:"A third party can detect a one-byte tamper from the artifact and its hash alone.",prediction:"tamper_detection = 1.0 over sampled cases",falsified:"any undetected tamper"}
+RUL:design{rule:"Matrix: 6 formats x 2 or more declared models x 8 questions x R=5 repetitions. Fixed temperature, top_p, prompt verbatim.",detail:"Declare exact model ids and dates; a model swap is a new preregistration."}
+RUL:scoring{rule:"Score with a deterministic rubric fixed before runs. If an LLM judge is used, validate it against a human sample and report agreement.",detail:"Unvalidated judges are not evidence."}
+RUL:exclusions{rule:"Pre-register exclusion rules. Missing or failed runs count as failures; never drop them silently.",detail:"Report n attempted, n completed, n failed per cell."}
+
+$4: METRICS:CORE
+MET:fidelity_rate{definition:"Share of corpus documents whose canonical form is identical after roundtrip.",unit:ratio,formula:"pass / n"}
+MET:byte_determinism{definition:"Share of inputs with identical bytes across R repetitions.",unit:ratio,formula:"stable / n"}
+MET:token_density{definition:"Tokens needed to express one structured fact, same tokenizer for all formats.",unit:tokens_per_fact,formula:"tokens / facts"}
+MET:answer_accuracy{definition:"Share of content questions answered correctly, scoring fixed at pre-registration.",unit:ratio,formula:"correct / questions"}
+MET:generation_validity{definition:"Share of model outputs that parse and validate against the declared contract.",unit:ratio,formula:"valid / attempts"}
+MET:error_code_precision{definition:"Share of invalid vectors that produce the expected specific code.",unit:ratio,formula:"exact / vectors"}
+MET:tamper_detection{definition:"Share of tampered artifacts whose hash mismatch is detected.",unit:ratio,formula:"detected / tampered"}
+MET:latency{definition:"Wall-clock time per operation, median and p95.",unit:ms,formula:"quantile(elapsed, 0.5 and 0.95)"}
+MET:cost{definition:"Total model tokens consumed per cell including prompt and completion.",unit:tokens,formula:"sum(prompt, completion)"}
+
+$5: PROTOCOL:FLOW
+PRC:p0_setup|Create venv, install the package, record manifest.json and run the self-check commands.|"G1: manifest sha256 recorded"|P0
+PRC:p1_freeze|Build corpus and baselines, write prereg.yaml, seal both, record hashes.|"prereg and corpus hashes in manifest"|P0
+PRC:p2_deterministic|Run fidelity, determinism, density, error precision, latency and tamper checks without any LLM.|"metrics written per document"|P1
+PRC:p3_comprehension|For each model, format and question, run R=5 comprehension cells with identical prompts and settings.|"one JSON cell per attempt, no silent retries"|P2
+PRC:p4_generation|For each model and format, request a valid structured answer for 8 tasks, R=5, and validate raw output.|"raw output stored before scoring"|P3
+PRC:p5_analysis|Compute only pre-registered statistics: paired differences, Wilson intervals, Holm correction.|"stats.json with effect sizes and CIs"|P4
+PRC:p6_report|Write report.md, cite artifact and hash per claim, seal the run directory.|"G5: seal verifies, every claim traceable"|P4
+
+$6: ARTIFACTS:DATA
+ART:manifest{path:"runs/<run-id>/manifest.json",content:"environment, versions, tokenizer, model ids, corpus and prereg sha256, start time"}
+ART:prereg{path:"runs/<run-id>/prereg.yaml",content:"hypotheses, falsifiers, matrix, R, scoring rubric, exclusions, analysis plan"}
+ART:cells{path:"runs/<run-id>/cells/",content:"one JSON per attempt with prompt, raw output, parser diagnostics, tokens, latency"}
+ART:scores{path:"runs/<run-id>/scores/",content:"one JSON per scored attempt with rubric fields and rater"}
+ART:stats{path:"runs/<run-id>/stats.json",content:"per metric: n, estimate, CI, paired test, effect size, corrected p"}
+ART:report{path:"runs/<run-id>/report.md",content:"sections defined in REPORT section, claims with artifact and hash"}
+ART:seal{path:"runs/<run-id>/SHA256SUMS",content:"seal of every artifact in the run, verifiable with sha256sum -c"}
+RUL:cell_template{rule:"TMPL:cell_schema is the member list of the JSON object; wrap it in braces to form cells/<cell>.json.",detail:"Keeping the member list avoids delimiter ambiguity inside a bloque."}
+TMPL:cell_schema{
+"run": "<run-id>",
+"cell": "<model>_<format>_<question>_r<k>",
+"model": "<declared-id>",
+"format": "cortex or json or yaml or markdown or xml or plaintext",
+"question": "Q1",
+"attempt": 1,
+"prompt_sha256": "<64 hex>",
+"raw_output": "<verbatim>",
+"valid": true,
+"diagnostics": [],
+"tokens": {"prompt": 0, "completion": 0},
+"latency_ms": 0
+}
+
+$7: GATES:CORE
+GATE:g1{criterion:"Pre-registration frozen before any model call.",evidence:"prereg sha256 present in manifest and committed before first cell"}
+GATE:g2{criterion:"Deterministic phase complete with results or declared defects.",evidence:"P1 metrics for every corpus document, none missing"}
+GATE:g3{criterion:"Every planned cell accounted for as completed or failed.",evidence:"counts per cell match the matrix; failures reported as failures"}
+GATE:g4{criterion:"Analysis uses only pre-registered tests and corrections.",evidence:"stats.json cites the hypothesis id per test"}
+GATE:g5{criterion:"Every claim in the report cites artifact path and sha256.",evidence:"seal verifies and each claim line carries a path plus hash"}
+
+$8: THREATS:CORE
+RSK:contamination{threat:"Model may have memorized public CORTEX examples.",control:"Use held-out corpora and report provenance and dates; include a zero-shot unfamiliar corpus."}
+RSK:familiarity{threat:"JSON and Markdown are far more common in training data.",control:"State it as a limitation and test with equal instruction budget; do not hide the asymmetry."}
+RSK:prompt_bias{threat:"Wording and order change outcomes.",control:"Identical prompts across formats, fixed order, and a small prompt-robustness check."}
+RSK:tokenizer{threat:"Density comparisons shift with the tokenizer.",control:"Use one declared tokenizer for all formats and report it."}
+RSK:judge{threat:"An LLM judge may encode its own preferences.",control:"Validate against a human sample and report agreement; prefer deterministic rubrics."}
+RSK:cherry{threat:"Selecting repetitions or questions after seeing results.",control:"Freeze the matrix and report all attempts; no post-hoc exclusions."}
+RSK:nonindependence{threat:"Repetitions may be correlated by caching or temperature.",control:"Report per-repetition data; do not treat R=5 as 5 independent questions."}
+
+$9: REPORT:DATA
+RUL:structure{rule:"Report sections: setup, preregistration, corpus and baselines, deterministic properties, comprehension, generation, threats, limitations, reproduction.",detail:"Include the exact commands used."}
+RUL:claims{rule:"Every claim is one line with metric, estimate, CI, n, artifact path and hash.",detail:"Example: fidelity_rate 1.000 [0.994, 1.000], n=70, cells/fidelity.json, sha256:abcd..."}
+RUL:negative{rule:"Report failed hypotheses with the same prominence as confirmed ones.",detail:"A negative result is a valid deliverable."}
+RUL:repro{rule:"Provide a single command that re-runs the deterministic phase from the sealed corpus.",detail:"Third party must reproduce P1 without any model call."}
+TMPL:report_skeleton{
+AGENT BENCHMARK REPORT - <run-id>
+1. Setup: OS, CPU, Python, package version, tokenizer, model ids and dates.
+2. Preregistration: sha256, matrix, R, rubric, exclusion rules.
+3. Corpus and baselines: sizes, shapes, provenance, seals.
+4. Deterministic properties: fidelity, determinism, density, error precision, tamper, latency.
+5. Comprehension: accuracy per model and format, paired differences with CIs.
+6. Generation: validity per model and format, failure modes, token cost.
+7. Threats to validity: which controls were applied and which remain.
+8. Limitations and negative results: failed hypotheses with the same prominence.
+9. Reproduction: exact commands, including the deterministic-only rerun.
+10. Claim table: metric, estimate, CI, n, artifact path, sha256.
+}
+
+$10: ANTI_PATTERNS:CORE
+RUL:no_metrics_from_thin_air{rule:"Never invent a metric after looking at data. A new question is a new run.",detail:"Post-hoc metrics are exploratory and must be labeled as such."}
+RUL:no_dropped_failures{rule:"Never remove a failed attempt from the denominator.",detail:"Silent exclusion is the most common way to fake a benchmark."}
+RUL:no_absolute_claims{rule:"Never write CORTEX is better. Write which metric, under which conditions, with which interval.",detail:"Conditions include model, corpus, prompt and tokenizer."}
+RUL:no_toy_only{rule:"Do not benchmark only minimal documents. Include realistic, adversarial and long documents.",detail:"Declare document sizes and shapes."}
+RUL:no_publication_without_seal{rule:"Do not publish results without a verifying seal and a manifest.",detail:"G5 is blocking."}

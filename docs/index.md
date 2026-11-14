@@ -48,10 +48,16 @@ como alias; la escritura canónica es siempre `cortex:1.0`.
 | Rust | `codec-cortex-rs/` | `cortex` | `cargo build --release` |
 | Bash | `codec-cortex-bash/` | `codec-cortex` | sourceable (`jq`) |
 
+## Benchmark por agentes
+
+| Documento | Contenido |
+|---|---|
+| [../bench/agent-package/](../bench/agent-package/README.md) | paquete instructivo autocontenido en `.cortex` para medir propiedades, beneficios y posibilidades del codec con protocolo científico |
+
 ## Validación
 
 Certificado determinista reproducible en CI y firmado por auditor independiente
-([`../bench/results/audit.sig`](../bench/results/audit.sig), auditoría 1.6,
+([`../bench/results/audit.sig`](../bench/results/audit.sig), auditoría 1.8,
 `SIGNED-PASS`):
 
 | Indicador | Resultado |
