@@ -1,6 +1,6 @@
 # CORTEX 1.0 — Especificación Normativa
 
-**Estado:** draft-1.0 (pendiente de ratificación del Arquitecto)
+**Estado:** 1.0 — ratificado por el Arquitecto el 2026-11-14. Congelado: toda evolución es aditiva (1.x) o un nuevo dialecto (2.0), nunca una mutación silenciosa.
 **Reemplaza:** CORTEX-SPEC-0.1 (draft-for-independent-implementation) y CORTEX-SPEC-SLOTS (0.2) como referencia normativa única. 0.1 y 0.2 permanecen legibles como alias de lectura (§11). Los textos 0.x quedan archivados en `archive/2026-11/standard-0x/` (superseded, no normativos).
 **Canon:** este documento es el contrato del lenguaje. Si spec e implementación difieren, la discrepancia es un bug en uno de los dos — nunca una ambigüedad aceptable.
 

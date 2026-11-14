@@ -1,6 +1,6 @@
 # CORTEX 1.0 — Catálogo de Errores Cerrado
 
-**Estado:** draft-1.0 (compañero de CORTEX-SPEC-1.0 §9)
+**Estado:** 1.0 (ratificado con CORTEX-SPEC-1.0 el 2026-11-14; compañero de §9)
 **Invariante:** catálogo == emitidos ∪ reservados-declarados. Generado mecánicamente del código fuente de las 5 superficies (2026-11-01).
 
 ## Mapa código ↔ emisor ↔ superficie

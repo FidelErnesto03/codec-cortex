@@ -9,7 +9,7 @@ project_ref: "CODEC-CORTEX"
 status: "active"
 governor: "alfred"
 created_at: "2026-07-18T16:11:47Z"
-updated_at: "2026-11-14T14:55:50Z"
+updated_at: "2026-11-14T17:31:35Z"
 closed_at: ""
 planned_start: ""
 planned_end: ""
@@ -75,7 +75,7 @@ Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza 
 | BLP-001 | Auditar (Heimdall) el paquete codec-cortex-0.2-remediation c... | done | medium | — | alfred |
 | BLP-002 | Abordar las deudas detectadas por la auditoría Heimdall del ... | done | medium | — | alfred |
 | BLP-003 | Construir y operar un benchmark reproducible con indicadores... | in_progress | medium | — | alfred |
-| BLP-004 | Formar e implementar el dialecto CORTEX 1.0: canon normativo... | in_progress | medium | — | Alfred |
+| BLP-004 | Formar e implementar el dialecto CORTEX 1.0: canon normativo... | done | medium | — | Alfred |
 | BLP-005 | Inventario general del proyecto CODEC-CORTEX y sus programas... | in_progress | medium | — | Alfred |
 | BLP-006 | Corregir el compilador HCORTEX (contenido de fences parseado... | done | medium | — | Alfred |
 | BLP-007 | Portar HCORTEX 1.0 (slots) a las 4 superficies no-Python (Go... | done | medium | — | Alfred |
@@ -83,9 +83,9 @@ Contribuye a OBJ:default (cobertura de capas corticales y cerebro de gobernanza 
 
 ## §7:
 
-**Total Blueprints:** 8 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 3 | **Review:** 0 | **Done:** 5 | **Cancelado:** 0 | **Bloqueado:** 0
-**Progreso:** 62%
-**Total Tareas:** 9 | **Abiertas:** 2 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 7 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
+**Total Blueprints:** 8 | **Draft:** 0 | **Definido:** 0 | **Ready:** 0 | **En Progreso:** 2 | **Review:** 0 | **Done:** 6 | **Cancelado:** 0 | **Bloqueado:** 0
+**Progreso:** 75%
+**Total Tareas:** 8 | **Abiertas:** 1 | **Borrador:** 0 | **En Progreso:** 0 | **Completadas:** 7 | **Bloqueadas:** 0 | **Canceladas:** 0 | **Review:** 0
 
 ## §8:
 
